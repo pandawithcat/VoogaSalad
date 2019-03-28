@@ -30,6 +30,7 @@ Deliverables:
         Player FE
     Interfaces and APIs (External)
         Authoring IO/FrontEnd
+            mirror classes
         Interfaces for creating Games in Authoring
         Logic Interfaces
             .update() should be called on logic by frontend
