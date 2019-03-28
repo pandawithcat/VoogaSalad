@@ -37,23 +37,21 @@ One Game Working
         Game
             Levels
                 Maps
-                    Blocks
-                        Terrain
-                            water
-                            sand
-                            dirt
-                            rock
-                            wall
-                            trees
-                        Paths
-                            Entries
-                            Exits
-                            Lines
-                            Arcs
-                            Corners
-                        Decorations
-                Weapons
-                    * Towers
+                    Terrain
+                        water
+                        sand
+                        dirt
+                        rock
+                        wall
+                        trees
+                        Entries
+                        Exits
+                        Lines
+                        Arcs
+                        Corners
+                    Decorations
+                Weapons (move)
+                    * Towers (static)
                         Tower
                         Marksman
                     * Ground Weapons
@@ -61,9 +59,15 @@ One Game Working
                         Sticky Pads
                         Traps
                     * Vehicles
-                * Enemies
-                    * Spawn parameters
-                    * Speed
+                    *Defenders
+                 Projectiles
+                    Arrows
+                    Bombs   
+               * Characters
+                    *Enemies
+                        * Spawn parameters
+                        * Speed
+                    *Bosses
               
         *Add Towers/Obstacles
                     
