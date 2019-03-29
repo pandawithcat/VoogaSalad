@@ -1,0 +1,73 @@
+<gameConfig>
+    <projectileConfigs> <!--should be a map-->
+        <ProjectileConfig>
+            <name>Bomb</name>
+            <image>bomb.gif</image>
+            <killPower>1</killPower>
+        </ProjectileConfig>
+        <ProjectileConfig>
+            <name>Sniper Bullet</name>
+            <image>bullet.gif</image>
+            <killPower>10</killPower>
+        </ProjectileConfig>
+    </projectileConfigs>
+    <weaponConfigs> <!--should be a map-->
+        <weaponConfig>
+            <name>Sniper</name>
+            <projectile>Sniper Bullet</projectile>
+            <firingSpeed>0.2</firingSpeed>
+        </weaponConfig>
+        <weaponConfig>
+            <name>Bomb Shooter</name>
+            <projectile>Bomb</projectile>
+            <firingSpeed>0.5</firingSpeed>
+        </weaponConfig>
+    </weaponConfigs>
+    <towerConfigs> <!--should be a map-->
+        <TowerConfig>
+            <name>Bomb Tower</name>
+            <weapon>Bazooka</weapon>
+            <terrainsNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainsNotAllowedOn>
+        </TowerConfig>
+        <TowerConfig>
+            <name>Sniper Tower</name>
+            <weapon>Sniper</weapon>
+            <terrainNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainNotAllowedOn>
+        </TowerConfig>
+    </towerConfigs>
+    <terrainConfigs>
+        <TerrainConfig>
+            <name>Sand</name>
+            <image>sand.gif</image>
+        </TerrainConfig>
+        <TerrainConfig>
+            <name>Water</name>
+            <image>water.gif</image>
+        </TerrainConfig>
+    </terrainConfigs>
+    <levels> <!--an arraylist of levels-->
+        <level>
+            <levelNumber>
+                1
+            </levelNumber>
+            <map>
+                <Terrain-array>
+                    <Terrain>
+                        Sand
+                    </Terrain>
+                    <Terrain>
+                        Sand
+                    </Terrain>
+                    <Terrain>
+                        Water
+                    </Terrain>
+                    <Terrain>
+                        Sand
+                    </Terrain>
+                    <!--This should be filled with locations and terrainConfigs, but is repetitive and tedious for me
+                    to write out manually here-->
+                </Terrain-array>
+            </map>
+        </level>
+    </levels>
+</gameConfig>
