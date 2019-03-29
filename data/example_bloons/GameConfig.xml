@@ -38,11 +38,11 @@
     <terrainConfigs>
         <TerrainConfig>
             <name>Sand</name>
-            <image>sand.gif</image>
+            <image>sand.jpg</image>
         </TerrainConfig>
         <TerrainConfig>
             <name>Water</name>
-            <image>water.gif</image>
+            <image>water.jpg</image>
         </TerrainConfig>
     </terrainConfigs>
     <levels> <!--an arraylist of levels-->
