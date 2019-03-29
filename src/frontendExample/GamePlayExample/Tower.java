@@ -1,4 +1,4 @@
-package frontendExample;
+package frontendExample.GamePlayExample;
 
 public abstract class Tower {
 
