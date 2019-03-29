@@ -2,12 +2,12 @@
     <projectileConfigs> <!--should be a map-->
         <ProjectileConfig>
             <name>Bomb</name>
-            <image>bomb.gif</image>
+            <image>bomb.jpg</image>
             <killPower>1</killPower>
         </ProjectileConfig>
         <ProjectileConfig>
             <name>Sniper Bullet</name>
-            <image>bullet.gif</image>
+            <image>bullet.png</image>
             <killPower>10</killPower>
         </ProjectileConfig>
     </projectileConfigs>
