@@ -1,4 +1,4 @@
-package frontendExample;
+package frontendExample.GamePlayExample;
 
 public abstract class Balloon {
     private final int maxHits = 3;
