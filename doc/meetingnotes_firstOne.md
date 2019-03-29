@@ -36,7 +36,7 @@ One Game Working
         * define assets to create
         Game
             Levels
-                Maps
+                Map
                     Terrain
                         water
                         sand
