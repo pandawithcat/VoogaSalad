@@ -1,5 +1,6 @@
 package Main;
 
+import GUI.GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
