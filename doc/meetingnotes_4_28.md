@@ -44,8 +44,5 @@ Deliverables:
     Example Code for 5 Use Cases (using API Methods)
         May require 'mocked up' objects with no real functionality to demonstrate some points
     Design Document:
-        
-        
-    
-    Design Plan Document
+
     
