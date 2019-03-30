@@ -17,13 +17,10 @@ public abstract class Component {
 
     /**
      * Sets graphic for button.
-     *
-     * @param image graphic for button.
+     * change the magic value based on the screen size
      */
-    public Component(Image image) {
-        myImage = new ImageView(image);
-        myImage.setFitHeight(20.0);
-        myImage.setFitWidth(20.0);
+    public Component() {
+
     }
 
     /**
@@ -35,7 +32,7 @@ public abstract class Component {
      *
      * @return an EventHandler for when button is clicked.
      */
-    abstract EventHandler<?> action();
+    //abstract EventHandler<?> action();
 
     /**
      * Setter method to change the myImage displayed on the myButton. In order for myImage to be compatible with the style

@@ -12,19 +12,16 @@ public abstract class ButtonComponent extends Component{
     /**
      * Creates button instance and calls superclass to set graphic.
      *
-     * @param image graphic for button
      */
-    public ButtonComponent(Image image) {
-        super(image);
+    public ButtonComponent() {
         this.myButton = new Button();
-
         myButton.setGraphic(myImage);
-        myButton.setOnMouseClicked(action());
+        //myButton.setOnMouseClicked(action());
     }
 
-    @Override
+   /* @Override
     protected abstract EventHandler<MouseEvent> action();
-
+*/
     /**
      * Returns button object
      *

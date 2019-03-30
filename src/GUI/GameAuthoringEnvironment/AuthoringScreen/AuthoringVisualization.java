@@ -1,31 +1,48 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen;
 
+import GUI.GameAuthoringEnvironment.AuthoringComponents.NewGameButton;
+import GUI.GameAuthoringEnvironment.AuthoringComponents.SaveButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class AuthoringVisualization {
 
     private String Title = "VogaSalad";
     private Integer ScreenWIDTH = 500;
     private Integer ScreenHEIGHT = 500;
-
+    private static final int FRAMES_PER_SECOND = 1;
+    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 
     private Scene myScene;
-    private Group myRoot;
+    private BorderPane myRoot;
+    private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN);
 
     public void start (Stage stage) {
-        myScene = setUpVisualization(stage);
+        myRoot = new BorderPane();
+        setUpScene(stage, myRoot);
+        setStage(stage);
+    }
+
+    private void setStage(Stage stage){
         stage.setScene(myScene);
-
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
         //set Stage boundaries to visible bounds of the main screen
         stage.setX(primaryScreenBounds.getMinX());
         stage.setY(primaryScreenBounds.getMinY());
@@ -34,68 +51,55 @@ public class AuthoringVisualization {
         stage.setTitle(Title);
         stage.setResizable(true);
         stage.show();
+        setAnimation();
     }
 
-    private Scene setUpVisualization(Stage stage) {
-        myRoot = new Group();
-        Scene myScene = new Scene(myRoot, ScreenWIDTH, ScreenHEIGHT);
-        addMenuBar(stage);
+    private void setUpScene(Stage stage, BorderPane myRoot) {
+        myScene = new Scene(myRoot, ScreenWIDTH, ScreenHEIGHT);
+        addTopBar();
+        addNotStaticModule();
 
         //myScene.getStylesheets().add(cssfile);
 
-        return myScene;
     }
 
-    private void addMenuBar(Stage stage){
-        MenuBar menuBar = new MenuBar();
-
-        Menu FileMenu = new Menu("File");
-        FileMenu.getItems().add(new MenuItem("New"));
-        FileMenu.getItems().add(new MenuItem("Save"));
-        FileMenu.getItems().add(new MenuItem("Exit"));
-
-        menuBar.getMenus().add(FileMenu);
-        myRoot.getChildren().add(menuBar);
+    // add all the other modules that can be close
+    private void addNotStaticModule(){
 
     }
 
-    public void close(Class<?> clazz) {
-        String className = clazz.getSimpleName();
-        moduleList.remove(className);
+    // add all the buttons - ex) save, load etc
+    private void addTopBar(){
 
-        closeModule(myModuleContainer.getString(className), myModulePosition.getString(className));
+        SaveButton saveButton = new SaveButton();
+        saveButton.getButton().setLayoutX(300);
 
-        if (clazz.equals(console.getClass())) {
-            myStage.setMaxHeight(stageReducedHeight);
-        }
-        else if ((clazz.equals(palettes.getClass()) && (! moduleList.contains("CurrentState")))
-                || (clazz.equals(currentState.getClass()) && (! moduleList.contains("Palettes")))) {
-            myContainer.setLeft(null);
-            buttonHandler.setMinWidth(stageReducedWidth);
-            buttonHandler.setMaxWidth(stageReducedWidth);
-            console.getContent().setMinWidth(stageReducedWidth);
-            console.getContent().setMaxWidth(stageReducedWidth);
-            console.getToolbarPane().setMaxWidth(stageReducedWidth);
-            if (myStage.getWidth() != stageReducedWidth) {
-                myStage.setMaxWidth(stageReducedWidth);
-            }
-        }
-        else if ((!moduleList.contains("Editor") && !moduleList.contains("AvailableVars") && !moduleList.contains("UserCommands"))) {
-            myContainer.setRight(null);
-            buttonHandler.setMinWidth(stageReducedWidth);
-            buttonHandler.setMaxWidth(stageReducedWidth);
-            console.getContent().setMinWidth(stageReducedWidth);
-            console.getContent().setMaxWidth(stageReducedWidth);
-            if (myStage.getWidth() != stageReducedWidth) {
-                myStage.setMaxWidth(stageReducedWidth);
-            }
-        }
+        NewGameButton newGameButton = new NewGameButton();
+
+        myRoot.getChildren().addAll(saveButton.getButton(), newGameButton.getButton());
+
+        //myRoot.getChildren().add();
+
     }
 
+    private void setAnimation(){
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
+        var animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
+    }
 
+    private void step(){
 
+    }
 
+    private void handleKeyInput(KeyEvent e) {
+        if (keyCombinationCommandN.match(e)) {
 
+            // add shortcuts
+        }
+    }
 
 
 }

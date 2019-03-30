@@ -13,7 +13,7 @@ public abstract class Module {
     private AuthoringVisualization context;
 
 
-    public Module(int width, int height, String moduleName, AuthoringVisualization context) {
+    public Module(int width, int height, String moduleName) {
 
         this.module = new VBox();
         this.content = new Pane();
@@ -42,6 +42,5 @@ public abstract class Module {
 
     protected int getModuleHeight() { return moduleHeight; }
 
-    public void close(Class clazz) {context.close(clazz);}
 
 }
