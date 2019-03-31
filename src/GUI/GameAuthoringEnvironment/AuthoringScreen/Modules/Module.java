@@ -22,6 +22,7 @@ public abstract class Module {
         this.content = new Pane();
         this.moduleWidth = width;
         this.moduleHeight = height;
+
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
         module.setId("module");
@@ -34,11 +35,12 @@ public abstract class Module {
 
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
+        System.out.println(moduleWidth);
         toolbarPane.setPrefWidth(moduleWidth);
         toolbarPane.setMinHeight(toolbarHeight);
-        toolbarPane.setId("toolbar");
+        toolbarPane.setId(moduleName);
         Text title = new Text(moduleName);
-        title.setLayoutY(100);
+        title.setLayoutY(500);
         title.setLayoutX(100);
         title.setVisible(true);
         System.out.println("title exists");
@@ -50,6 +52,7 @@ public abstract class Module {
         toolbarPane.getChildren().addAll(title);
     }
 
+    //public abstract void setContent();
 
     public void setBackGroundColor(String style){
         module.setStyle(style);
