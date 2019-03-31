@@ -1,7 +1,6 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen;
 
-import GUI.GameAuthoringEnvironment.AuthoringComponents.NewGameButton;
-import GUI.GameAuthoringEnvironment.AuthoringComponents.SaveButton;
+import GUI.GameAuthoringEnvironment.AuthoringComponents.*;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GameOutline;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GamePropertySettings;
 import javafx.animation.KeyFrame;
@@ -26,7 +25,7 @@ import javafx.util.Duration;
 
 public class AuthoringVisualization {
 
-    private String Title = "VogaSalad";
+    private String Title = "VoogaSalad";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private double screenWidth;
@@ -47,13 +46,15 @@ public class AuthoringVisualization {
 
     private void setStage(Stage stage){
 
-        stage.setScene(myScene);
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         screenHeight = primaryScreenBounds.getHeight();
         screenWidth = primaryScreenBounds.getWidth();
         screenMinX = primaryScreenBounds.getMinX();
         screenMinY = primaryScreenBounds.getMinY();
+
+        stage.setScene(myScene);
+
         //set Stage boundaries to visible bounds of the main screen
         stage.setX(screenMinX);
         stage.setY(screenMinY);
@@ -70,7 +71,8 @@ public class AuthoringVisualization {
 
         //This is the only pane that should be fixed on the screen
         var leftGridPane = new GridPane();
-        setLeftBorderPane(leftGridPane);
+        leftGridPane.setGridLinesVisible(true);
+        setLeftGridPane(leftGridPane);
 
         var rightBorderPane = new BorderPane();
         setRightBorderPane(rightBorderPane);
@@ -79,9 +81,6 @@ public class AuthoringVisualization {
 
         myContainer.setTop(addTopBar());
         myContainer.setLeft(leftGridPane);
-        myContainer.setRight(rightBorderPane);
-        myContainer.setCenter(centerBorderPane);
-
 
         myScene = new Scene(myRoot);
 
@@ -89,9 +88,11 @@ public class AuthoringVisualization {
     }
 
 
-    private void setLeftBorderPane(GridPane leftGridPane){
-        GameOutline gameOutline = new GameOutline(500, 500, "GameOutline");
-        leftGridPane.add(gameOutline.getContent(), 100, 100);
+    private void setLeftGridPane(GridPane leftGridPane){
+
+        GameOutline gameOutline = new GameOutline(300, 1000, "GameOutline");
+        leftGridPane.getChildren().addAll(gameOutline.getContent());
+        //leftGridPane.add(gameOutline.getContent());
     }
 
     private void setRightBorderPane(BorderPane rightBorderPane){
@@ -112,24 +113,25 @@ public class AuthoringVisualization {
 
         var TopMenuBar = new HBox();
 
-        //TODO Add Buttons here and set the layout here
+        HelpButton helpButton = new HelpButton();
         SaveButton saveButton = new SaveButton();
-        saveButton.getButton().setLayoutX(300);
-        //TODO Need to find a way to remove the border
-        //saveButton.getButton().setBorder(Border);
-
+        ImageButton imageButton = new ImageButton();
+        LoadButton loadButton = new LoadButton();
+        PlayButton playButton = new PlayButton();
+        ViewButton viewButton = new ViewButton();
         NewGameButton newGameButton = new NewGameButton();
         newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
                 System.out.println("Mouse entered");
                 // TODO Make This pop up window that sets the Game Properties
                 GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight, "Game Property Settings");
-
-
             }
         });
 
-        TopMenuBar.getChildren().addAll(saveButton.getButton(), newGameButton.getButton());
+
+
+        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
+                viewButton.getButton(), helpButton.getButton());
 
         return  TopMenuBar;
     }

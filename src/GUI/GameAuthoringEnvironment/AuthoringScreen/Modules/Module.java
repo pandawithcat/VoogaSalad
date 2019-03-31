@@ -38,14 +38,16 @@ public abstract class Module {
         toolbarPane.setMinHeight(toolbarHeight);
         toolbarPane.setId("toolbar");
         Text title = new Text(moduleName);
-        title.setLayoutY(13);
-        title.setLayoutX(25);
+        title.setLayoutY(100);
+        title.setLayoutX(100);
+        title.setVisible(true);
+        System.out.println("title exists");
 
-        close = new CloseButton();
+        /*close = new CloseButton();
         close.getButton().setLayoutX(0);
         close.getButton().setLayoutY(-2);
-        System.out.println("Ran");
-        toolbarPane.getChildren().addAll(title, close.getButton());
+        System.out.println("Ran");*/
+        toolbarPane.getChildren().addAll(title);
     }
 
 
