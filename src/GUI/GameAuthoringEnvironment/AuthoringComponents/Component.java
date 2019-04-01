@@ -34,22 +34,13 @@ public abstract class Component {
      */
     //abstract EventHandler<?> action();
 
-    /**
-     * Setter method to change the myImage displayed on the myButton. In order for myImage to be compatible with the style
-     * of the preset images, it should be a .png with a transparent background.
-     *
-     * @param file myImage file to replace myButton myImage
-     */
-    public void setImage(File file, ButtonBase button) {
-        try {
-            myImage = new ImageView(new Image(new FileInputStream(file.getPath())));
-            myImage.setFitHeight(20.0);
-            myImage.setFitWidth(20.0);
+
+    public void setImage(String fileName, ButtonBase button) {
+            myImage = new ImageView(new Image(getClass().getResourceAsStream("/ButtonImages/" + fileName)));
+            //TODO magic numbers should be changed based on the screensize
+            myImage.setFitHeight(50);
+            myImage.setFitWidth(125);
             button.setGraphic(myImage);
-        } catch (FileNotFoundException e) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "File not found.", ButtonType.OK);
-            alert.showAndWait();
-        }
     }
 
 }

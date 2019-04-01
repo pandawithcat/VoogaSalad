@@ -20,12 +20,12 @@ public class GamePropertySettings {
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(moduleName);
 
-        Label GameNameLabel = new Label("Game Name");
-        TextField GameNameTf = new TextField();
+        Label gameNameLabel = new Label("Game Name");
+        TextField gameNameTf = new TextField();
         Button confirmButton1 = new Button("Confirm");
 
         Label gameTypeLabel = new Label("GameType");
-        MenuButton GameTypeMenu = new MenuButton();
+        MenuButton gameTypeMenu = new MenuButton();
 
 
         Label numberOfLevelsLabel = new Label("Number of Levels");
@@ -39,12 +39,12 @@ public class GamePropertySettings {
         createButton.setOnAction(e -> popupwindow.close());
 
 
-        VBox layout= new VBox(10);
-        layout.getChildren().addAll(createButton);
-        layout.setAlignment(Pos.BOTTOM_CENTER);
+        VBox layout= new VBox();
+        layout.getChildren().addAll(gameNameLabel, gameNameTf, confirmButton1, gameTypeLabel, gameTypeMenu, numberOfLevelsLabel, numberOfLevelTf, confirmButton2, createButton);
+        //layout.setAlignment(Pos.BOTTOM_CENTER);
 
-        Scene scene1= new Scene(layout, width/2, height/2);
-        popupwindow.setScene(scene1);
+        Scene scene= new Scene(layout, width/2, height/2);
+        popupwindow.setScene(scene);
         popupwindow.showAndWait();
     }
 

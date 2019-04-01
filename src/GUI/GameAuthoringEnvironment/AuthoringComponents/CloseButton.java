@@ -8,8 +8,7 @@ import javafx.scene.input.MouseEvent;
 public class CloseButton extends ButtonComponent{
 
     public CloseButton() {
-        Image closeImage= new Image(getClass().getResourceAsStream("/ButtonImages/Close"));
-        myButton.setGraphic(new ImageView(closeImage));
+        setImage("Close", myButton);
     }
 
 }
