@@ -1,5 +1,8 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.MapEditor;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -106,15 +109,21 @@ public class GameOutline extends Module {
     }
 
     private void createMapScreen(){
-
+        MapEditor mapEditor = new MapEditor(300, 300, "Map Editor");
+        myRoot.setCenter(mapEditor.getContent());
 
     }
 
     private void createArsenalScreen(){
+        ArsenalEditor arsenalEditor = new ArsenalEditor(300, 300, "Arsenal Editor");
+        myRoot.setRight(arsenalEditor.getContent());
 
     }
 
     private void createEnemiesScreen(){
+        EnemiesEditor enemiesEditor = new EnemiesEditor(300, 300, "Enemy Editor");
+        myRoot.setCenter(enemiesEditor.getContent());
+
 
     }
 

@@ -81,8 +81,9 @@ public class AuthoringVisualization {
 
         myContainer.setTop(addTopBar());
         myContainer.setLeft(leftGridPane);
+        myContainer.setCenter(rightBorderPane);
 
-        myScene = new Scene(myRoot);
+        myScene = new Scene(myContainer);
 
 
     }
@@ -155,7 +156,7 @@ public class AuthoringVisualization {
         }
     }
 
-    //TODO This will handle how the closing buttons work - automatic resizing of modules is necesary
+    //TODO This will handle how the closing buttons work - automatic resizing of modules is neccesary. Would be ideal if we can move this to the modules class
     public void close(){
 
     }
