@@ -89,8 +89,7 @@ public class AuthoringVisualization {
 
 
     private void setLeftGridPane(GridPane leftGridPane){
-
-        GameOutline gameOutline = new GameOutline(300, 1000, "GameOutline");
+        GameOutline gameOutline = new GameOutline(myContainer,300, 1000, "GameOutline");
         leftGridPane.getChildren().addAll(gameOutline.getContent());
     }
 

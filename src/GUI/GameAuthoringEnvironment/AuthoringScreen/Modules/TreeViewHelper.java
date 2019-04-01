@@ -1,7 +1,13 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import java.util.ArrayList;
+
+import javafx.event.EventHandler;
+import javafx.scene.Node;
+import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 public class TreeViewHelper
 {
@@ -15,6 +21,12 @@ public class TreeViewHelper
 
         TreeItem startScreen = new TreeItem("Start Screen");
         startScreen.getChildren().addAll(getStartScreenComponents());
+
+        // TODO i should be replaced with the number of levels
+        /*for (int i = 1; i < 6; i++) {
+            TreeItem<String> item = new TreeItem<> ("Level" + i);
+            rootItem.getChildren().add(item);
+        }*/
 
         TreeItem level1 = new TreeItem("Level 1");
         level1.getChildren().addAll(getLevelComponents());
@@ -37,6 +49,10 @@ public class TreeViewHelper
 
         ArrayList<TreeItem> startScreenComponents = new ArrayList<>();
 
+        TreeItem music = new TreeItem("Music");
+
+        startScreenComponents.add(music);
+
 
         return startScreenComponents;
 
@@ -50,18 +66,21 @@ public class TreeViewHelper
 
     private ArrayList<TreeItem> getLevelComponents()
     {
-        ArrayList<TreeItem> LevelComponents = new ArrayList<>();
+        ArrayList<TreeItem> levelComponents = new ArrayList<>();
 
         TreeItem map = new TreeItem("Map");
-        TreeItem turrets = new TreeItem("Turrets");
+        TreeItem turrets = new TreeItem("Arsenals");
         TreeItem enemies = new TreeItem("Enemies");
+        TreeItem music = new TreeItem("Music");
 
-        LevelComponents.add(map);
-        LevelComponents.add(turrets);
-        LevelComponents.add(enemies);
+        levelComponents.add(map);
+        levelComponents.add(turrets);
+        levelComponents.add(enemies);
+        levelComponents.add(music);
 
-        return LevelComponents;
+        return levelComponents;
     }
+
 
 
 }

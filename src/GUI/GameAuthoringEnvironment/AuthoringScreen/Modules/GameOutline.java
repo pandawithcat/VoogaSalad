@@ -1,11 +1,14 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,11 +22,13 @@ public class GameOutline extends Module {
     private TextArea editor;
     private String editorText;
     private int moduleWidth;
-    ImageView myImage;
+    private final TextArea textArea = new TextArea();
+    private ImageView myImage;
+    private BorderPane myRoot;
 
-
-    public GameOutline(int width, int height, String moduleName){
+    public GameOutline(BorderPane root, int width, int height, String moduleName){
         super(width, height, moduleName);
+        myRoot = root;
         content = getPane();
         content.setMaxSize(300, 1000);
         content.setMinSize(300, 1000);
@@ -41,13 +46,14 @@ public class GameOutline extends Module {
         myImage.setFitHeight(50);
         myImage.setFitWidth(50);
 
+        //TODO helper should be changed so that it takes in a int parameter(number of levels) and produces same number of level treeitems.
         TreeViewHelper helper = new TreeViewHelper();
         ArrayList<TreeItem> levels = helper.getLevels();
 
         // Create the TreeView
         TreeView treeView = new TreeView();
         // Create the Root TreeItem
-        TreeItem rootItem = new TreeItem("Game title", myImage);
+        TreeItem rootItem = new TreeItem("Game title");
         // Add children to the root
         rootItem.getChildren().addAll(levels);
         // Set the Root Node
@@ -57,22 +63,62 @@ public class GameOutline extends Module {
         treeView.setMinHeight(1000);
         treeView.setMaxHeight(1000);
 
+        treeView.setCellFactory(tree -> {
+
+            TreeCell<String> cell = new TreeCell<>() {
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty) ;
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        if(super.getTreeItem().getValue().equals("Game title")){
+                            setGraphic(myImage);
+                        }
+                        setText(item);
+                    }
+                }
+            };
+
+            cell.setOnMouseClicked(event -> {
+                if (! cell.isEmpty()) {
+                    if(cell.getTreeItem().getValue().equals("Map")){
+                        System.out.println("map screen created");
+                        createMapScreen();
+                    }
+                    if(cell.getTreeItem().getValue().equals("Arsenals")){
+                        System.out.println("Turret screen created");
+                        createArsenalScreen();
+                    }
+                    if(cell.getTreeItem().getValue().equals("Enemies")){
+                        System.out.println("Enemies screen created");
+                        createEnemiesScreen();
+                    }
+
+                }
+            });
+            return cell ;
+        });
+
+
         content.getChildren().addAll(treeView);
     }
 
-/*
-        //TODO inbox should be changed to game title and based on the info of the game, treeview should be made
-        TreeItem<String> rootItem = new TreeItem<> ("Game Title", myImage);
-        rootItem.setExpanded(true);
-        // TODO i should be replaced with the number of levels
-        for (int i = 1; i < 6; i++) {
-            TreeItem<String> item = new TreeItem<> ("Level" + i);
-            rootItem.getChildren().add(item);
-        }
+    private void createMapScreen(){
 
-        TreeView<String> tree = new TreeView<>(rootItem);
-        content.getChildren().addAll(tree);
-    }*/
+
+    }
+
+    private void createArsenalScreen(){
+
+    }
+
+    private void createEnemiesScreen(){
+
+    }
+
+
 
 
 }
