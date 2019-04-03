@@ -1,3 +1,4 @@
+/*
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
@@ -8,3 +9,4 @@ public class EnemiesEditor extends Module {
         super(width, height, moduleName);
     }
 }
+*/
