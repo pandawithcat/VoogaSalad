@@ -34,11 +34,11 @@ public class AuthoringVisualization {
     private double screenMinY;
 
     private Scene myScene;
-    private BorderPane myContainer;
+    private Group myContainer;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
 
     public void start (Stage stage) {
-        var root = new BorderPane();
+        var root = new Group();
         setScene(stage, root);
         root.setOnKeyPressed(event -> handleKeyInput(event));
         setStage(stage);
@@ -66,22 +66,23 @@ public class AuthoringVisualization {
         setAnimation();
     }
 
-    private void setScene(Stage stage, BorderPane myRoot) {
+    private void setScene(Stage stage, Group myRoot) {
         myContainer = myRoot;
 
         //This is the only pane that should be fixed on the screen
-        var leftGridPane = new GridPane();
-        leftGridPane.setGridLinesVisible(true);
+        var leftGridPane = new Group();
+        leftGridPane.setLayoutY(63);
+        //leftGridPane.setGridLinesVisible(true);
         setLeftGridPane(leftGridPane);
 
-        var rightBorderPane = new BorderPane();
-        setRightBorderPane(rightBorderPane);
-        var centerBorderPane = new BorderPane();
-        setCenterBorderPane(centerBorderPane);
+/*
+        myContainer.setRight(null);
+        myContainer.setBottom(null);
 
         myContainer.setTop(addTopBar());
-        myContainer.setLeft(leftGridPane);
-        myContainer.setCenter(rightBorderPane);
+        myContainer.setLeft(leftGridPane);*/
+
+        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
 
         myScene = new Scene(myContainer);
 
@@ -89,18 +90,11 @@ public class AuthoringVisualization {
     }
 
 
-    private void setLeftGridPane(GridPane leftGridPane){
-        GameOutline gameOutline = new GameOutline(myContainer,300, 1000, "GameOutline");
-        leftGridPane.getChildren().addAll(gameOutline.getContent());
+    private void setLeftGridPane(Group leftGridPane){
+        GameOutline gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
+        leftGridPane.getChildren().addAll(gameOutline.getVBox());
     }
 
-    private void setRightBorderPane(BorderPane rightBorderPane){
-
-    }
-
-    private void setCenterBorderPane(BorderPane centerBorderPane){
-
-    }
 
     // add all the other modules that can be close
     private void addNotStaticModule(){
