@@ -1,14 +1,14 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -27,17 +27,94 @@ public class ArsenalEditor extends Module {
     private ObservableList<Arsenal> arsenalList = FXCollections.observableArrayList();
     private ListView<Arsenal> sourceView = new ListView<>();
     private ListView<Arsenal> targetView = new ListView<>();
+    //TODO change the logging area to where user can change the property of each arsenal
     private TextArea loggingArea = new TextArea("");
     private static final DataFormat Arsenal_LIST = new DataFormat("Arsenal List");
+    private final BooleanProperty dragModeActiveProperty =
+            new SimpleBooleanProperty(this, "dragModeActive", true);
+    private VBox myVBox;
 
     public ArsenalEditor(Group myRoot, int width, int height, String moduleName) {
         super(myRoot, width, height, moduleName, true);
         setLayout(600, 600);
         setContentColor(Color.LIGHTBLUE);
+        myVBox = getVBox();
         setContent();
+        addSaveButton();
+        addMakeNewArsenalButton();
+        //makeDraggable(myVBox);
     }
 
-    //TODO put Arsenal as an argument
+    //TODO MAKE NEW ARSENAL BUTTON
+    private void addMakeNewArsenalButton(){
+        Button createArsenal = new Button("Create Arsenal");
+
+
+    }
+
+
+    /*private void makeDraggable(Node wrapGroup) {
+        DragContext dragContext = new DragContext();
+        wrapGroup.addEventFilter(
+                MouseEvent.ANY,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // disable mouse events for all children
+                            mouseEvent.consume();
+                        }
+                    }
+                });
+
+        wrapGroup.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // remember initial mouse cursor coordinates
+                            // and node position
+                            dragContext.mouseAnchorX = mouseEvent.getX();
+                            dragContext.mouseAnchorY = mouseEvent.getY();
+                            dragContext.initialTranslateX =
+                                    myVBox.getTranslateX();
+                            dragContext.initialTranslateY =
+                                    myVBox.getTranslateY();
+                        }
+                    }
+                });
+
+        wrapGroup.addEventFilter(
+                MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // shift node from its initial position by delta
+                            // calculated from mouse cursor movement
+                            myVBox.setTranslateX(
+                                    dragContext.initialTranslateX
+                                            + mouseEvent.getX()
+                                            - dragContext.mouseAnchorX);
+                            myVBox.setTranslateY(
+                                    dragContext.initialTranslateY
+                                            + mouseEvent.getY()
+                                            - dragContext.mouseAnchorY);
+                        }
+                    }
+                });
+
+    }*/
+
+
+    private void addSaveButton(){
+        Button submitButton = new Button("Submit");
+        submitButton.setLayoutX(100);
+        submitButton.setLayoutY(100);
+        getContent().getChildren().add(submitButton);
+    }
+
     public void addArsenals(Arsenal arsenal) {
         arsenalList.addAll(arsenal);
     }
