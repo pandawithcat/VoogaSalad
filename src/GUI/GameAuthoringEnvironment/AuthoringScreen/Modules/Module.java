@@ -2,10 +2,12 @@ package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import GUI.GameAuthoringEnvironment.AuthoringComponents.CloseButton;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
+import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public abstract class Module {
@@ -14,43 +16,61 @@ public abstract class Module {
     private Pane content, toolbarPane;
     private int moduleWidth;
     private int moduleHeight;
-    private CloseButton close;
-    private final double toolbarHeight = 20.0;
+    private final double toolbarHeight = 5.0;
+    private Group myRoot;
+    private boolean resizable = false;
 
-    public Module(int width, int height, String moduleName) {
+    public Module(Group root, int width, int height, String moduleName, boolean toolBarExist) {
 
-        this.module = new VBox();
-        this.content = new Pane();
-        this.moduleWidth = width;
-        this.moduleHeight = height;
+        module = new VBox();
+        content = new Pane();
+        myRoot = root;
+        moduleWidth = width;
+        moduleHeight = height;
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
         module.setId("module");
-        addToolbar(moduleName);
         content.prefHeightProperty().bind(module.heightProperty());
         content.prefWidthProperty().bind(module.widthProperty());
-        module.getChildren().addAll(content, toolbarPane);
+
+
+        if(toolBarExist){
+        addToolbar(moduleName);
+        module.getChildren().addAll(toolbarPane, content);
+        } else{
+            module.getChildren().addAll(content);
+        }
+
+        setDragAndDrop(resizable);
+        myRoot.getChildren().add(module);
+    }
+
+
+    private void setDragAndDrop(boolean yes){
+        if(yes){
+
+        }
     }
 
 
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
-        System.out.println(moduleWidth);
+        //TODO Make toolbar white
+        //toolbarPane.setStyle();
         toolbarPane.setPrefWidth(moduleWidth);
-        toolbarPane.setMinHeight(toolbarHeight);
-        toolbarPane.setId(moduleName);
-        Text title = new Text(moduleName);
-        title.setLayoutY(500);
-        title.setLayoutX(100);
-        title.setVisible(true);
-        System.out.println("title exists");
+        toolbarPane.setMaxHeight(toolbarHeight);
+        //toolbarPane.setId(moduleName);
 
-        /*close = new CloseButton();
+        Text title = new Text(moduleName);
+        title.setLayoutX(moduleWidth/3);
+        title.setVisible(true);
+        /*Font myFont = new Font ("Courier New", 10);
+        title.setFont(myFont);*/
+        CloseButton close = new CloseButton();
         close.getButton().setLayoutX(0);
-        close.getButton().setLayoutY(-2);
-        System.out.println("Ran");*/
-        toolbarPane.getChildren().addAll(title);
+        close.getButton().setLayoutY(-20);
+        toolbarPane.getChildren().addAll(title, close.getButton());
     }
 
     //public abstract void setContent();
@@ -86,7 +106,7 @@ public abstract class Module {
         return hex2;
     }
 
-    public void setColor(Paint color) {
+    public void setContentColor(Paint color) {
         String hexColor = colorToHex(color);
         content.setStyle("-fx-background-color: #" + hexColor);
     }
@@ -95,11 +115,11 @@ public abstract class Module {
         module.setStyle(style);
     }
 
-    public VBox getContent() {
+    public VBox getVBox() {
         return module;
     }
 
-    protected Pane getPane() {
+    protected Pane getContent() {
         return content;
     }
 
@@ -108,6 +128,11 @@ public abstract class Module {
     }
 
     protected int getModuleHeight() { return moduleHeight; }
+
+    public void setLayout(int xCor, int yCor){
+        module.setLayoutX(xCor);
+        module.setLayoutY(yCor);
+    }
 
 
 }
