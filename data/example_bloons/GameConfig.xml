@@ -6,23 +6,23 @@
             <killPower>1</killPower>
         </ProjectileConfig>
         <ProjectileConfig>
-             <name>Sniper Bullet</name>
+            <name>Sniper Bullet</name>
             <image>bullet.png</image>
             <killPower>10</killPower>
         </ProjectileConfig>
     </projectileConfigs>
-    <shooterConfigs> <!--should be a map-->
-        <shooterConfig>
+    <weaponConfigs> <!--should be a map-->
+        <weaponConfig>
             <name>Sniper</name>
             <projectile>Sniper Bullet</projectile>
             <firingSpeed>0.2</firingSpeed>
-        </shooterConfig>
-        <shooterConfig>
+        </weaponConfig>
+        <weaponConfig>
             <name>Bomb Shooter</name>
             <projectile>Bomb</projectile>
             <firingSpeed>0.5</firingSpeed>
-        </shooterConfig>
-    </shooterConfigs>
+        </weaponConfig>
+    </weaponConfigs>
     <towerConfigs> <!--should be a map-->
         <TowerConfig>
             <name>Bomb Tower</name>
