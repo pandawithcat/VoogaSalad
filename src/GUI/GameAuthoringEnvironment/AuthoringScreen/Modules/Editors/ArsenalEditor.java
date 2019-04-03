@@ -7,7 +7,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -48,7 +47,6 @@ public class ArsenalEditor extends Module {
     //TODO MAKE NEW ARSENAL BUTTON
     private void addMakeNewArsenalButton(){
         Button createArsenal = new Button("Create Arsenal");
-
 
     }
 
@@ -107,9 +105,19 @@ public class ArsenalEditor extends Module {
 
     }*/
 
-
+    //TODO make this into a separate class
     private void addSaveButton(){
         Button submitButton = new Button("Submit");
+        submitButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+                //TODO Export the list of arsenals
+                targetView.getItems();
+            }
+        });
+
+
         submitButton.setLayoutX(100);
         submitButton.setLayoutY(100);
         getContent().getChildren().add(submitButton);
@@ -132,6 +140,7 @@ public class ArsenalEditor extends Module {
 
     }*/
 
+    //TODO Instead of the loggging area, make a pop up screen for setting properties for the objects
     public void setContent() {
         Label sourceListLbl = new Label("Available Towers: ");
         Label targetListLbl = new Label("Selected Towers: ");
@@ -170,6 +179,7 @@ public class ArsenalEditor extends Module {
 
     }
 
+    //TODO This can be refactord to a separate class
     private void setDragAndDrop() {
 
         sourceView.setOnDragDetected(new EventHandler<MouseEvent>() {
