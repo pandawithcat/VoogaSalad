@@ -15,12 +15,5 @@ public class MobileWeaponConfig extends WeaponConfig implements MobileBehavior {
         myMotionType = type;
     }
 
-//    @Override
-//    public void setImage(String imageFile, int width, int height) {
-//        this.imageFile = imageFile;
-//        this.width = width;
-//        this.height = height;
-//
-//    }
 
 }
