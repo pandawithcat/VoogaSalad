@@ -1,3 +1,5 @@
+import weaponsConfigPackage.WeaponConfig;
+
 public class MobileWeaponConfig extends WeaponConfig implements MobileBehavior {
     private double myVelocity;
     private Motion myMotionType;
