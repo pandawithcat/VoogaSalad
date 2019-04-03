@@ -1,3 +1,5 @@
+package weaponsConfigPackage;
+
 import java.util.List;
 import java.util.function.Consumer;
 
