@@ -1,12 +1,11 @@
-package weaponsConfigPackage;
+package Configs.weaponsConfigPackage;
 
-import java.util.List;
-import java.util.function.Consumer;
+import java.util.Map;
 
 public class WeaponConfig {
 
 
-    List<Behavior> behaviors;
+    Map<String,Behavior> myBehaviors;
     private boolean isPathPlaceable;
     private double myHealth;
 
@@ -18,7 +17,8 @@ public class WeaponConfig {
         myHealth = health;
     }
 
-    public void changeHealth(Consumer<Double> healthChangeMode) {
-        healthChangeMode.accept(myHealth);
+    public void addBehavior(String behaviorName, Behavior behavior) {
+        myBehaviors.put(behaviorName, behavior);
     }
+
 }
