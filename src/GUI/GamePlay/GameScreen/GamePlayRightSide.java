@@ -1,11 +1,11 @@
 package GUI.GamePlay.GameScreen;
 
 import javafx.scene.layout.VBox;
+import java.awt.*;
 
 public class GamePlayRightSide extends VBox {
 
     public GamePlayArsenal myGameArsenal;
-    public GamePlayButton play;
 
     public double rightSideWidth;
     private double rightSideHeight;
@@ -18,8 +18,13 @@ public class GamePlayRightSide extends VBox {
         setPrefWidth(rightSideWidth);
         setPrefHeight(height);
         myGameArsenal = new GamePlayArsenal(rightSideWidth, rightSideHeight);
-        play = new GamePlayButton();
-        this.getChildren().addAll(myGameArsenal,play);
+        this.getChildren().addAll(myGameArsenal, play);
+    }
+
+    private Button createPlayButton(){
+        Button play = new Button();
+        play.setOnAction(e -> System.out.println("method to play"));
+        return play;
     }
 
 }

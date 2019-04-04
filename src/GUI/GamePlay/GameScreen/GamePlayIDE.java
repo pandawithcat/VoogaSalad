@@ -11,14 +11,11 @@ public class GamePlayIDE extends HBox {
     private double screenMinY;
 
     public GamePlayIDE(){
+        setPrefWidth(screenWidth);
+        setPrefHeight(screenHeight);
         myGameLeft = new GamePlayLeftSide();
         myGameRight = new GamePlayRightSide();
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
-
-    public getScreenWidth(){
-        retur
-    }
-
 
 }
