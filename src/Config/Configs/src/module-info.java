@@ -1,0 +1,3 @@
+module Configs {
+    exports Configs;
+}

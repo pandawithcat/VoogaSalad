@@ -1,4 +1,3 @@
 module AuthoringView {
-    requires AuthoringModel;
-
+    requires Configs;
 }

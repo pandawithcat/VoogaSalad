@@ -1,4 +1,4 @@
-package BackendExternalAPI;
+package Configs;
 
 import Configs.Config;
 import Configs.LevelConfig;
