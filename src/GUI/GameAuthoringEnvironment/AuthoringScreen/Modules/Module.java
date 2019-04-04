@@ -27,6 +27,7 @@ public abstract class Module {
         myRoot = root;
         moduleWidth = width;
         moduleHeight = height;
+        //module.setStyle("-fx-border-color: black;");
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
