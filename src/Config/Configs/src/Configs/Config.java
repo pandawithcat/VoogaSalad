@@ -1,3 +1,5 @@
+package Configs;
+
 public abstract class Config {
     private String myName;
 

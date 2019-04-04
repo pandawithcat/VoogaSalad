@@ -1,3 +1,0 @@
-module AuthoringController {
-    exports APIs;
-}

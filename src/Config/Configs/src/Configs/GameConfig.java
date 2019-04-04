@@ -1,3 +1,8 @@
+package Configs;
+
+import Configs.Config;
+import Configs.LevelConfig;
+
 import java.util.List;
 
 public class GameConfig extends Config {
@@ -16,6 +21,15 @@ public class GameConfig extends Config {
     public void setMyGridSize(int size) {
         myGridSize = size;
     }
+
+    //TODO
+    public void serialize() {
+
+    }
+
+
+
+
 
 
 }
