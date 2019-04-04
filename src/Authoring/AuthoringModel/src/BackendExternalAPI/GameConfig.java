@@ -23,6 +23,13 @@ public class GameConfig extends Config implements IAuthoringModel {
         myGridSize = size;
     }
 
+    //TODO
+    public void serialize() {
+
+    }
+
+
+
 
 
 
