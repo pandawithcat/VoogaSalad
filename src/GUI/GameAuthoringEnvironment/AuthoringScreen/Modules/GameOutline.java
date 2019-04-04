@@ -2,6 +2,8 @@ package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 //import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
 //import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.MapEditor;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -87,19 +89,18 @@ public class GameOutline extends Module {
                     }
                 }
             };
-
             cell.setOnMouseClicked(event -> {
                 if (! cell.isEmpty()) {
                     if(cell.getTreeItem().getValue().equals("Map")){
-                        System.out.println("map screen created");
+                        //System.out.println("map screen created");
                         createMapScreen();
                     }
                     if(cell.getTreeItem().getValue().equals("Arsenals")){
-                        System.out.println("Arsenal screen created");
-                        //createArsenalScreen();
+                        //System.out.println("Arsenal screen created");
+                        createArsenalScreen();
                     }
                     if(cell.getTreeItem().getValue().equals("Enemies")){
-                        System.out.println("Enemies screen created");
+                        //System.out.println("Enemies screen created");
                         createEnemiesScreen();
                     }
 
@@ -115,31 +116,17 @@ public class GameOutline extends Module {
     private void createMapScreen(){
         MapEditor mapEditor = new MapEditor(myRoot,300, 300, "Map Editor");
         myRoot.getChildren().add(mapEditor.getVBox());
-        mapEditor.getContent().setLayoutX(1000);
+    }
 
-        //myRoot.setCenter(mapEditor.getVBox());
-
-
+    private void createArsenalScreen(){
+        ArsenalEditor arsenalEditor = new ArsenalEditor(myRoot, 500, 500, "Arsenal Editor");
+        myRoot.getChildren().add(arsenalEditor.getVBox());
 
     }
 
-   /* private void createArsenalScreen(){
-        ArsenalEditor arsenalEditor = new ArsenalEditor(300, 300, "Arsenal Editor");
-
-        arsenalEditor.getVBox().setLayoutX(500);
-        arsenalEditor.getVBox().setLayoutY(500);
-        System.out.println(arsenalEditor.getVBox().getLayoutX());
-        System.out.println(myRoot.getChildren().retainAll(arsenalEditor.getVBox()));
-        //myRoot.getChildren.(arsenalEditor.getVBox());
-
-    }*/
-
     private void createEnemiesScreen(){
-        //EnemiesEditor enemiesEditor = new EnemiesEditor(300, 300, "Enemy Editor");
-        //System.out.println("hahaha" + enemiesEditor.getModuleHeight());
-        //enemiesEditor.getVBox().setAlignment(Pos.BOTTOM_RIGHT);
-        //myRoot.setCenter(enemiesEditor.getVBox());
-
+        EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "Enemy Editor");
+        myRoot.getChildren().add(enemiesEditor.getVBox());
 
     }
 

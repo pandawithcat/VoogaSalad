@@ -1,12 +1,11 @@
 package BackendExternalAPI;
 
-import APIs.IAuthoringModel;
 import Configs.Config;
 import Configs.LevelConfig;
 
 import java.util.List;
 
-public class GameConfig extends Config implements IAuthoringModel {
+public class GameConfig extends Config {
     private List<LevelConfig> myLevelList;
     private double myUserLives;
     private double myGridSize;
@@ -22,4 +21,15 @@ public class GameConfig extends Config implements IAuthoringModel {
     public void setMyGridSize(int size) {
         myGridSize = size;
     }
+
+    //TODO
+    public void serialize() {
+
+    }
+
+
+
+
+
+
 }
