@@ -1,4 +1,7 @@
 package Configs.weaponsConfigPackage;
 
-public interface IWeaponBehavior {
+import Configs.Behavior;
+
+public interface IWeaponBehavior extends Behavior {
+    void registerBehavior(WeaponConfig weaponConfig);
 }

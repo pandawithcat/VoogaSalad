@@ -6,5 +6,4 @@ public abstract class Config {
     protected void setName(String name) {
         this.myName = name;
     }
-
 }

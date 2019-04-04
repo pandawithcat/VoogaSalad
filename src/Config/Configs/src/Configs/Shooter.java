@@ -1,4 +1,4 @@
 package Configs;
 
-public interface Shooter {
+public class Shooter {
 }

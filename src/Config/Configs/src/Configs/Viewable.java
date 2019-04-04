@@ -1,5 +1,7 @@
 package Configs;
 
+import java.util.List;
+
 public interface Viewable {
-    void setImage(String imageFile, int width, int height);
+    List<View> getViews();
 }
