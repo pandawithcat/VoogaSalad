@@ -1,7 +1,7 @@
-package Configs.projectileConfigPackage;
+package Configs.ProjectileConfig;
 
 public enum ProjectileOptions {
     BULLET(),
     BOMB(),
-    LASER(),
+    HOMING()
 }

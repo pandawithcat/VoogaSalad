@@ -1,14 +1,13 @@
 package Configs;
 
-import Configs.Config;
-import Configs.LevelConfig;
-
 import java.util.List;
 
-public class GameConfig extends Config {
+public class GameConfig {
+    private String name;
     private List<LevelConfig> myLevelList;
     private double myUserLives;
     private double myGridSize;
+
 
     public void setLevelList(List<LevelConfig> levelList) {
         myLevelList = levelList;
@@ -26,10 +25,4 @@ public class GameConfig extends Config {
     public void serialize() {
 
     }
-
-
-
-
-
-
 }

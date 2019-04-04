@@ -1,6 +1,4 @@
-package Configs.projectileConfigPackage;
-
-import Configs.FireConfig;
+package Configs.ProjectileConfig;
 
 public class ProjectileConfig {
     ProjectileOptions projectileType;
