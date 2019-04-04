@@ -9,4 +9,8 @@ public class WeaponConfig {
     public void setMyBehaviors(List<Behavior> behavior) {
         myBehaviors = behavior;
     }
+
+    public List<Behavior> getMyBehaviors() {
+        return myBehaviors;
+    }
 }
