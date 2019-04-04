@@ -1,8 +1,9 @@
 package Configs.weaponsConfigPackage;
 
-public class HealthExpirable implements IWeaponBehavior {
-    int amountofHealth;
-    public HealthExpirable(int amountofHealth){
-        this.amountofHealth = amountofHealth;
+public class HealthExpirable extends WeaponBehavior{
+    int amountOfHealth;
+    public HealthExpirable(Weapon weapon, int amountOfHealth){
+        super(weapon);
+        this.amountOfHealth = amountOfHealth;
     }
 }

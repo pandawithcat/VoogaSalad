@@ -2,9 +2,10 @@ package Configs.weaponsConfigPackage;
 
 import Configs.Shooter;
 
-public class Shootable implements IWeaponBehavior {
+public class Shootable extends WeaponBehavior{
     Shooter myShooter;
-    Shootable(Shooter shooter){
+    Shootable(Weapon weapon, Shooter shooter){
+        super(weapon);
         myShooter = shooter;
     }
 }

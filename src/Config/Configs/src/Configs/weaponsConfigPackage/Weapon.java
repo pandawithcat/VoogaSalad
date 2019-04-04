@@ -1,19 +1,18 @@
 package Configs.weaponsConfigPackage;
 
+import Configs.Behavior;
+
 import java.util.List;
 
 
 public class Weapon {
-    List<IWeaponBehavior> myBehaviors;
+    List<Behavior<Weapon>> myBehaviors;
 
-    public void setMyBehaviors(List<IWeaponBehavior> behavior) {
+    public void setMyBehaviors(List<Behavior<Weapon>> behavior) {
         myBehaviors = behavior;
-        for (IWeaponBehavior eachBehavior:myBehaviors){
-            eachBehavior.registerBehavior(this);
-        }
     }
 
-    public List<IWeaponBehavior> getMyBehaviors() {
+    public List<Behavior<Weapon>> getMyBehaviors() {
         return myBehaviors;
     }
 }
