@@ -120,6 +120,8 @@ public abstract class Module {
         return module;
     }
 
+    public Pane getToolbarPane(){return toolbarPane;}
+
     protected Pane getContent() {
         return content;
     }

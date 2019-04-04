@@ -7,12 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,28 +33,31 @@ public class ArsenalEditor extends Module {
     private final BooleanProperty dragModeActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
     private VBox myVBox;
+    private Pane myToolBar;
 
     public ArsenalEditor(Group myRoot, int width, int height, String moduleName) {
         super(myRoot, width, height, moduleName, true);
         setLayout(600, 600);
         setContentColor(Color.LIGHTBLUE);
         myVBox = getVBox();
+        myToolBar = getToolbarPane();
         setContent();
         addSaveButton();
         addMakeNewArsenalButton();
-        //makeDraggable(myVBox);
+        makeDraggable(myToolBar);
     }
 
     //TODO MAKE NEW ARSENAL BUTTON
     private void addMakeNewArsenalButton(){
         Button createArsenal = new Button("Create Arsenal");
 
+
     }
 
 
-    /*private void makeDraggable(Node wrapGroup) {
+    private void makeDraggable(Node topBar) {
         DragContext dragContext = new DragContext();
-        wrapGroup.addEventFilter(
+        topBar.addEventFilter(
                 MouseEvent.ANY,
                 new EventHandler<MouseEvent>() {
                     @Override
@@ -65,7 +69,7 @@ public class ArsenalEditor extends Module {
                     }
                 });
 
-        wrapGroup.addEventFilter(
+        topBar.addEventFilter(
                 MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override
@@ -83,7 +87,7 @@ public class ArsenalEditor extends Module {
                     }
                 });
 
-        wrapGroup.addEventFilter(
+        topBar.addEventFilter(
                 MouseEvent.MOUSE_DRAGGED,
                 new EventHandler<MouseEvent>() {
                     @Override
@@ -103,7 +107,7 @@ public class ArsenalEditor extends Module {
                     }
                 });
 
-    }*/
+    }
 
     //TODO make this into a separate class
     private void addSaveButton(){
@@ -199,8 +203,7 @@ public class ArsenalEditor extends Module {
         sourceView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 writelog("sourceview dragdone");
-                dragDropped(event, targetView);
-                dragDone(event, sourceView);
+                dragDone(event, targetView, sourceView);
             }
         });
 
@@ -222,8 +225,7 @@ public class ArsenalEditor extends Module {
         targetView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 writelog("Event on Target: drag done");
-                dragDropped(event, sourceView);
-                dragDone(event, targetView);
+                dragDone(event,sourceView, targetView);
             }
         });
     }
@@ -266,7 +268,7 @@ public class ArsenalEditor extends Module {
     }
 
     @SuppressWarnings("unchecked")
-    private void dragDropped(DragEvent event, ListView<Arsenal> listView) {
+    private void dragDone(DragEvent event, ListView<Arsenal> source, ListView<Arsenal> target) {
 
         // Transfer the data to the target
         Dragboard dragboard = event.getDragboard();
@@ -274,23 +276,19 @@ public class ArsenalEditor extends Module {
 
         if (dragboard.hasContent(Arsenal_LIST)) {
             ArrayList<Arsenal> list = (ArrayList<Arsenal>) dragboard.getContent(Arsenal_LIST);
-            listView.getItems().addAll(list);
+            source.getItems().addAll(list);
 
             // Data transfer is successful
             dragCompleted = true;
         }
 
         // Data transfer is not successful
-        event.setDropCompleted(dragCompleted);
-        event.consume();
-    }
-
-    private void dragDone(DragEvent event, ListView<Arsenal> listView) {
+        //event.setDropCompleted(dragCompleted);
 
         TransferMode tm = event.getTransferMode();
 
         if (tm == TransferMode.MOVE) {
-            removeSelectedArsenals(listView);
+            removeSelectedArsenals(target);
         }
 
         event.consume();
