@@ -1,5 +1,7 @@
-package Configs;
+package Configs.Wave;
 
+import Configs.IWaveBehavior;
+import Configs.Wave.Wave;
 
 import java.util.List;
 
