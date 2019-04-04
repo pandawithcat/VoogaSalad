@@ -2,10 +2,12 @@ package Configs.LevelPackage;
 
 import Configs.*;
 import Configs.EnemyPackage.Enemy;
+import Configs.Wave.WaveSpawner;
 import Configs.weaponsConfigPackage.Weapon;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
+import java.util.Map;
 
 public class Level implements Configurable, Viewable, EventHandlable, Updatable {
     List<Behavior<Level>> levelBehaviors;
@@ -21,6 +23,10 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
 
     }
 
+    @Override
+    public Map<String, Class> getAttributes() {
+        return null;
+    }
 
     @Override
     public void handleEvent(Event e) {
