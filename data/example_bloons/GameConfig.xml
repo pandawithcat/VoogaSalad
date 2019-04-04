@@ -1,15 +1,15 @@
 <gameConfig>
     <projectileConfigs> <!--should be a map-->
-        <ProjectileConfig>
+        <projectileConfigPackage.ProjectileConfig>
             <name>Bomb</name>
             <image>bomb.jpg</image>
             <killPower>1</killPower>
-        </ProjectileConfig>
-        <ProjectileConfig>
+        </projectileConfigPackage.ProjectileConfig>
+        <projectileConfigPackage.ProjectileConfig>
              <name>Sniper Bullet</name>
             <image>bullet.png</image>
             <killPower>10</killPower>
-        </ProjectileConfig>
+        </projectileConfigPackage.ProjectileConfig>
     </projectileConfigs>
     <shooterConfigs> <!--should be a map-->
         <shooterConfig>
