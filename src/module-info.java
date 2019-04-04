@@ -8,5 +8,4 @@ module Visualization{
     requires javafx.web;
 
     exports Main;
-
 }

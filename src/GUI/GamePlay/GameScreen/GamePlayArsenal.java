@@ -3,14 +3,15 @@ package GUI.GamePlay.GameScreen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-import javax.swing.text.html.ListView;
-
 public class GamePlayArsenal extends ListView {
+
+    public static final int textPadding = 15;
 
     public GamePlayArsenal(double width, double height, int padding, String itemList){
         ObservableList<String> items = FXCollections.observableArrayList(itemList);
