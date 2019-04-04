@@ -4,13 +4,13 @@ import java.util.List;
 
 
 public class WeaponConfig {
-    List<Behavior> myBehaviors;
+    List<IWeaponBehavior> myBehaviors;
 
-    public void setMyBehaviors(List<Behavior> behavior) {
+    public void setMyBehaviors(List<IWeaponBehavior> behavior) {
         myBehaviors = behavior;
     }
 
-    public List<Behavior> getMyBehaviors() {
+    public List<IWeaponBehavior> getMyBehaviors() {
         return myBehaviors;
     }
 }

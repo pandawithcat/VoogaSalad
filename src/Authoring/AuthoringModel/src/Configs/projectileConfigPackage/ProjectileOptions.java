@@ -1,6 +1,7 @@
 package Configs.projectileConfigPackage;
 
 public enum ProjectileOptions {
-    Bullet(),
-    Bomb()
+    BULLET(),
+    BOMB(),
+    LASER(),
 }

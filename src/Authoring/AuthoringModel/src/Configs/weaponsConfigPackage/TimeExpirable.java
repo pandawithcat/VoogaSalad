@@ -1,5 +1,5 @@
 package Configs.weaponsConfigPackage;
 
-public class TimeExpirable implements Behavior {
+public class TimeExpirable implements IWeaponBehavior {
     public TimeExpirable(){}
 }

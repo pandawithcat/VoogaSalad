@@ -1,4 +1,4 @@
 package Configs.weaponsConfigPackage;
 
-public interface Behavior {
+public interface IWeaponBehavior {
 }
