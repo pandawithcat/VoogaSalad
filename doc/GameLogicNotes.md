@@ -1,3 +1,32 @@
+Work Allocation II indicates sprint II Work
+
+Christina & Kunal: 
+Work to create supply approriaate interfaces to author game
+Work on creating/instantiating ___Instance objects on the logic 
+Loading XML into authoring environment
+Creating game XML using XStream
+
+Loading and Saving XML onto player side
+
+Brian: XML -> Game Object Conversion
+
+Game Object -> Game Instance
+
+Interface between Game Model and Game View (passing of viewables)
+
+II: User authentication in top level game logic so view can handle viewing
+
+Sachal:
+
+II: Querying database with user info to get user info
+
+Rishi:
+
+
+
+
+
+
 Things to do before we can do this:
 
 Define behavior and interface of all the different INSTANCE types of objects that we’ll be working with (weapons, tiles, projectiles)
@@ -32,8 +61,10 @@ Build Phase{
 	Allow for setup();
 	Mouse event handler()
 		On drag and drop, add elements (weapons most probably) to the map();
-			Also update player wallet based on price of different objects, etc;
-	Have play button available to move from build phase into run phase();
+		    validate whether the location of the drop is valid();
+		        if so place and update player wallet()
+		        if not, tell user was invalid
+	 e from build phase into run phase();
 }
 
 
