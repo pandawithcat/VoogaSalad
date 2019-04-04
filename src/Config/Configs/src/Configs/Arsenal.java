@@ -1,24 +1,22 @@
 package Configs;
 
-import Configs.weaponsConfigPackage.WeaponConfig;
+import Configs.weaponsConfigPackage.Weapon;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal {
-    List<WeaponConfig> allWeaponOptions;
-    List<WeaponConfig> unlockedWeapons;
+    List<Weapon> allWeaponOptions;
+    List<Weapon> unlockedWeapons;
 
 
-    public List<WeaponConfig> getAllWeaponOptions() {
+    public List<Weapon> getAllWeaponOptions() {
         return Collections.unmodifiableList(allWeaponOptions);
     }
 
-    public List<WeaponConfig> getUnlockedWeapons() {
+    public List<Weapon> getUnlockedWeapons() {
         return Collections.unmodifiableList(unlockedWeapons);
     }
 
@@ -26,7 +24,7 @@ public class Arsenal {
         //make a weapon unlocked
     }
 
-    public WeaponConfig generateNewWeapon(String name){
+    public Weapon generateNewWeapon(String name){
         return null; //weaponOptions.get(name).copy();
     }
 }

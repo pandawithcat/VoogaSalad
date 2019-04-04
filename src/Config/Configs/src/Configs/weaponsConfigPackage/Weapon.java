@@ -3,7 +3,7 @@ package Configs.weaponsConfigPackage;
 import java.util.List;
 
 
-public class WeaponConfig {
+public class Weapon {
     List<IWeaponBehavior> myBehaviors;
 
     public void setMyBehaviors(List<IWeaponBehavior> behavior) {

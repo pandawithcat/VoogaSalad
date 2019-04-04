@@ -1,11 +1,12 @@
 package Configs;
 
-import Configs.weaponsConfigPackage.WeaponConfig;
+import Configs.EnemyPackage.Enemy;
+import Configs.weaponsConfigPackage.Weapon;
 
 import java.util.List;
 
 public class Cell {
-    WeaponConfig myWeapon;
+    Weapon myWeapon;
     Terrain myTerrain;
     List<Enemy> myEnemies;
 }
