@@ -1,4 +1,7 @@
 package GUI.GamePlay.GameScreen;
 
-public class GamePlayButton {
+import java.awt.*;
+
+public class GamePlayButton extends Button {
+
 }

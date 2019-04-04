@@ -7,8 +7,17 @@ public class GamePlayRightSide extends VBox {
     public GamePlayArsenal myGameArsenal;
     public GamePlayButton play;
 
-    public GamePlayRightSide(){
-        myGameArsenal = new GamePlayArsenal();
+    public double rightSideWidth;
+    private double rightSideHeight;
+    private double screenMinX;
+    private double screenMinY;
+
+    public GamePlayRightSide(double width, double height){
+        rightSideWidth = width / 4;
+        rightSideHeight = height;
+        setPrefWidth(rightSideWidth);
+        setPrefHeight(height);
+        myGameArsenal = new GamePlayArsenal(rightSideWidth, rightSideHeight);
         play = new GamePlayButton();
         this.getChildren().addAll(myGameArsenal,play);
     }
