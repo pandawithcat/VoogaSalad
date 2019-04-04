@@ -1,11 +1,15 @@
-package Configs;
+package Configs.GamePackage;
 
+import Configs.EventHandlable;
 import Configs.LevelPackage.Level;
+import Configs.Updatable;
+import Configs.View;
+import Configs.Viewable;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
 
-public class Game implements Updatable, EventHandlable, Viewable{
+public class Game implements Updatable, EventHandlable, Viewable {
 
     List<Level> levelList;
     GameOptions gameType;

@@ -1,4 +1,4 @@
 package Configs;
 
-public interface Behavior {
+public interface Behavior<T> {
 }
