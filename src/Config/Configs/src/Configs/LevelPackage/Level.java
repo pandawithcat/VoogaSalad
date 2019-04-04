@@ -8,7 +8,7 @@ import org.w3c.dom.events.Event;
 import java.util.List;
 
 public class Level implements Configurable, Viewable, EventHandlable, Updatable {
-    List<LevelBehavior> levelBehaviors;
+    List<Behavior<Level>> levelBehaviors;
     List<Weapon> activeWeapons;
     List<Enemy> activeEnemies;
     WaveSpawner myWaveSpawner;

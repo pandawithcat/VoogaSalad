@@ -1,20 +1,18 @@
 package Configs.EnemyPackage;
 
+import Configs.Behavior;
 import Configs.weaponsConfigPackage.IWeaponBehavior;
 
 import java.util.List;
 
 public class Enemy {
-    List<IEnemyBehavior> myBehaviors;
+    List<Behavior<Enemy>> myBehaviors;
 
-    public void setMyBehaviors(List<IEnemyBehavior> behavior) {
+    public void setMyBehaviors(List<Behavior<Enemy>> behavior) {
         myBehaviors = behavior;
-        for (IEnemyBehavior eachBehavior:myBehaviors){
-            eachBehavior.registerBehavior(this);
-        }
     }
 
-    public List<IEnemyBehavior> getMyBehaviors() {
+    public List<Behavior<Enemy>> getMyBehaviors() {
         return myBehaviors;
     }
 }
