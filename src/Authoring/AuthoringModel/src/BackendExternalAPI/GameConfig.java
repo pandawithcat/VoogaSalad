@@ -22,8 +22,4 @@ public class GameConfig extends Config implements IAuthoringModel {
     public void setMyGridSize(int size) {
         myGridSize = size;
     }
-
-
-
-
 }

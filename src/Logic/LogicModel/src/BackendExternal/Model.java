@@ -7,4 +7,9 @@ public class Model implements IModel {
     public Model(IView myView) {
 
     }
+
+    @Override
+    public void register(IView view) {
+
+    }
 }

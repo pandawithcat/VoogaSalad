@@ -6,7 +6,7 @@ import java.util.List;
 public class WeaponConfig {
     List<Behavior> myBehaviors;
 
-    public void addBehavior(String behaviorName, Behavior behavior) {
-        myBehaviors.add(behavior);
+    public void setMyBehaviors(List<Behavior> behavior) {
+        myBehaviors = behavior;
     }
 }
