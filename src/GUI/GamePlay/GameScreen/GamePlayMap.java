@@ -1,4 +1,4 @@
 package GUI.GamePlay.GameScreen;
 
-public class GameMap {
+public class GamePlayMap {
 }

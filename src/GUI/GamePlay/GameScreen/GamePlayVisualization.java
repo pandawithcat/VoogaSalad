@@ -20,6 +20,9 @@ public class GamePlayVisualization {
         Stage primaryStage = stage;
         var root = new Group();
         var startScreen = new Scene(root, screenWidth, screenHeight);
+        //TODO:should this be global below?
+        GamePlayIDE myGameIDE = new GamePlayIDE();
+        root.getChildren().add(myGameIDE);
         primaryStage.setScene(startScreen);
         primaryStage.setTitle(Title);
         primaryStage.show();

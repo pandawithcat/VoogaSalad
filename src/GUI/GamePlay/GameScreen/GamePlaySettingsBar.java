@@ -1,4 +1,4 @@
 package GUI.GamePlay.GameScreen;
 
-public class GameSettingsBar {
+public class GamePlaySettingsBar {
 }
