@@ -1,3 +1,0 @@
-module Configs {
-    exports Configs;
-}
