@@ -1,6 +1,6 @@
 package Configs;
 
-import Configs.weaponsConfigPackage.Weapon;
+import Configs.WeaponsConfig.Weapon;
 
 import java.util.Collections;
 import java.util.List;

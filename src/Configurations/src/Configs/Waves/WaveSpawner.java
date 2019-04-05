@@ -1,16 +1,13 @@
 package Configs.Waves;
 
-import Configs.IWaveBehavior;
+import Configs.Behavior;
 
 import java.util.List;
 
 public class WaveSpawner {
     List<Wave> myWaves;
-    List<IWaveBehavior> myWaveBehaviors;
-    public void setMyBehaviors(List<IWaveBehavior> behavior) {
+    List<Behavior<Wave>> myWaveBehaviors;
+    public void setMyBehaviors(List<Behavior<Wave>> behavior) {
         myWaveBehaviors = behavior;
-        for (IWaveBehavior eachBehavior:myWaveBehaviors){
-            eachBehavior.registerBehavior(this);
-        }
     }
 }

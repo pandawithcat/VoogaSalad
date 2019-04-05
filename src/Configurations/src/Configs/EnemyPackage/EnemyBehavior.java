@@ -2,7 +2,7 @@ package Configs.EnemyPackage;
 
 import Configs.Behavior;
 
-public class EnemyBehavior implements Behavior<Enemy>{
+public abstract class EnemyBehavior implements Behavior<Enemy>{
     Enemy myEnemy;
     EnemyBehavior(Enemy enemy){
         myEnemy = enemy;
