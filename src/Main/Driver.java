@@ -10,6 +10,7 @@ public class Driver extends Application {
     /*
     Starts the Application
      */
+
     public void start (Stage stage) {
         VogaSalad.start(stage);
         stage.show();
