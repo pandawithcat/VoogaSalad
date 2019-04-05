@@ -1,7 +1,9 @@
 package GUI.GameAuthoringEnvironment.AuthoringConfig;
 
 
-public class Enemy {
+import java.io.Serializable;
+
+public class Enemy  implements Serializable {
     private String name;
 
     public Enemy(String name)

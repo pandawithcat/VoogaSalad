@@ -43,7 +43,7 @@ public class ArsenalEditor extends Module {
         myVBox = getVBox();
         myToolBar = getToolbarPane();
         setContent();
-        addSaveButton();
+        //addSaveButton();
         addMakeNewArsenalButton();
         makeDraggable(myToolBar);
     }

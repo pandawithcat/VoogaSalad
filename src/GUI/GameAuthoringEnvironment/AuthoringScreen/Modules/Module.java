@@ -31,7 +31,7 @@ public abstract class Module {
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
-        module.setId("module");
+        //module.setId("module");
         content.prefHeightProperty().bind(module.heightProperty());
         content.prefWidthProperty().bind(module.widthProperty());
 
@@ -44,7 +44,6 @@ public abstract class Module {
         }
 
         setResizable(resizable);
-        myRoot.getChildren().add(module);
     }
 
     //TODO implement to make screen resizable

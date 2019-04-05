@@ -3,10 +3,13 @@ package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.MapEditor;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
@@ -80,23 +83,28 @@ public class GameOutline extends Module {
     }
 
     private void controlTreeCellMouseClick(TreeCell<String> cell) {
-        cell.setOnMouseClicked(event -> {
-            if (! cell.isEmpty()) {
-                if(cell.getTreeItem().getValue().equals("Map")){
-                    //System.out.println("map screen created");
-                    createMapScreen();
-                }
-                if(cell.getTreeItem().getValue().equals("Arsenals")){
-                    //System.out.println("Arsenal screen created");
-                    createArsenalScreen();
-                }
-                if(cell.getTreeItem().getValue().equals("Enemies")){
-                    //System.out.println("Enemies screen created");
-                    createEnemiesScreen();
-                }
 
+        cell.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                    System.out.println("Double clicked");
+                        if (cell.getTreeItem().getValue().equals("Map")) {
+                            //System.out.println("map screen created");
+                            createMapScreen();
+                        }
+                        if (cell.getTreeItem().getValue().equals("Arsenals")) {
+                            //System.out.println("Arsenal screen created");
+                            createArsenalScreen();
+                        }
+                        if (cell.getTreeItem().getValue().equals("Enemies")) {
+                            //System.out.println("Enemies screen created");
+                            createEnemiesScreen();
+                        }
+
+                }
             }
         });
+
     }
 
     private void createMapScreen(){
@@ -106,6 +114,7 @@ public class GameOutline extends Module {
 
     private void createArsenalScreen(){
         ArsenalEditor arsenalEditor = new ArsenalEditor(myRoot, 500, 500, "Arsenal Editor");
+        System.out.println(myRoot.getChildren());
         myRoot.getChildren().add(arsenalEditor.getVBox());
 
     }

@@ -1,7 +1,9 @@
 package GUI.GameAuthoringEnvironment.AuthoringConfig;
 
 
-public class Arsenal {
+import java.io.Serializable;
+
+public class Arsenal  implements Serializable {
 
     private String name;
 
