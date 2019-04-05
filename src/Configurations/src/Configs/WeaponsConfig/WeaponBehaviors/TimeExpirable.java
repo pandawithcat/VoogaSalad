@@ -1,4 +1,6 @@
-package Configs.WeaponsConfig;
+package Configs.WeaponsConfig.WeaponBehaviors;
+
+import Configs.WeaponsConfig.Weapon;
 
 public class TimeExpirable extends WeaponBehavior{
     double timeAlive;

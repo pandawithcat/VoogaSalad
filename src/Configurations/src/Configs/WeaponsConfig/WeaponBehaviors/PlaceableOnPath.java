@@ -1,4 +1,4 @@
-package Configs.WeaponsConfig;
+package Configs.WeaponsConfig.WeaponBehaviors;
 
 import java.util.Optional;
 

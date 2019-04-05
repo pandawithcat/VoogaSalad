@@ -1,5 +1,7 @@
-package Configs.WeaponsConfig;
+package Configs.WeaponsConfig.WeaponBehaviors;
 
+
+import Configs.WeaponsConfig.Weapon;
 
 import java.awt.*;
 import java.util.ArrayList;

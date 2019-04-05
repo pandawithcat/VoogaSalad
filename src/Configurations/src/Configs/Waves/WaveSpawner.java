@@ -1,6 +1,6 @@
 package Configs.Waves;
 
-import Configs.Behavior;
+import Configs.Behaviors.Behavior;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package Configs.LevelPackage;
 
-import Configs.Behavior;
+import Configs.Behaviors.Behavior;
 
 public interface LevelBehavior extends Behavior {
 }

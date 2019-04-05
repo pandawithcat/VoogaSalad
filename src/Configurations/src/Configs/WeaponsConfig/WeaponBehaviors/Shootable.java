@@ -1,6 +1,7 @@
-package Configs.WeaponsConfig;
+package Configs.WeaponsConfig.WeaponBehaviors;
 
 import Configs.Shooter;
+import Configs.WeaponsConfig.Weapon;
 
 public class Shootable extends WeaponBehavior{
     Shooter myShooter;
