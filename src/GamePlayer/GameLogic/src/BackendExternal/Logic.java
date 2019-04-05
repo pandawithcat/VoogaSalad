@@ -1,11 +1,18 @@
 package BackendExternal;
 
-import Data.UserAuthenticator;
-import Data.UserData;
+import Data.GameInfo;
+import Data.GameLibrary;
 
-import java.io.FileNotFoundException;
 import java.util.EventObject;
 import java.util.List;
+
+/**
+ * Project 4: VoogaSalad
+ * Duke CompSci 308 Spring 2019 - Duvall
+ * Date Created: 4/4/2019
+ * Date Last Modified: 4/4/2019
+ * @author Brian Jordan
+ */
 
 public class Logic {
 //     TODO: Second Sprint
@@ -13,9 +20,11 @@ public class Logic {
 //     private myUserGameData;
 
 //    private Game myGame;
+    private GameLibrary myGameLibrary;
 
     public Logic() {
 //        myUserAuthenticator = new UserAuthenticator();
+        myGameLibrary = new GameLibrary();
 
     }
 
@@ -24,8 +33,7 @@ public class Logic {
     // No Input
     // Return: List of GameInfo objects
     public List<GameInfo> getGameOptions(){
-
-
+        return myGameLibrary.getImmutableGameList();
     }
 
 //    TODO: Implement User Authentification in Second Sprint
