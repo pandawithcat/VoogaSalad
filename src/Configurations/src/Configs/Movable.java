@@ -1,5 +1,7 @@
 package Configs;
 
+import Configs.Behaviors.Behavior;
+
 public class Movable implements Behavior {
 
     public enum Motion{

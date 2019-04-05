@@ -1,6 +1,7 @@
 package Configs.LevelPackage;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.Enemy;
 import Configs.WeaponsConfig.Weapon;
 import Configs.Waves.WaveSpawner;
