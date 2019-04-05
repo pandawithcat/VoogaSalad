@@ -32,7 +32,6 @@ public class AuthoringVisualization {
     private double screenHeight;
     private double screenMinX;
     private double screenMinY;
-
     private Scene myScene;
     private Group myContainer;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);

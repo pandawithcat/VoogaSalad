@@ -11,8 +11,9 @@ import javafx.scene.text.Text;
 
 public class TreeViewHelper
 {
-    public TreeViewHelper() {
-
+    private int myNumberOfLevels;
+    public TreeViewHelper(int numberOfLevels) {
+        myNumberOfLevels = numberOfLevels;
     }
 
     public ArrayList<TreeItem> getLevels()
@@ -21,25 +22,17 @@ public class TreeViewHelper
 
         TreeItem startScreen = new TreeItem("Start Screen");
         startScreen.getChildren().addAll(getStartScreenComponents());
+        levels.add(startScreen);
 
-        // TODO i should be replaced with the number of levels
-        /*for (int i = 1; i < 6; i++) {
-            TreeItem<String> item = new TreeItem<> ("Level" + i);
-            rootItem.getChildren().add(item);
-        }*/
-
-        TreeItem level1 = new TreeItem("Level 1");
-        level1.getChildren().addAll(getLevelComponents());
-
-        TreeItem level2 = new TreeItem("Level 2");
-        level2.getChildren().addAll(getLevelComponents());
+        for(int i = 1; i <= myNumberOfLevels; i++){
+            TreeItem myLevel = new TreeItem("Level " + i);
+            myLevel.getChildren().addAll(getLevelComponents());
+            levels.add(myLevel);
+        }
 
         TreeItem endScreen = new TreeItem("EndScreen");
         endScreen.getChildren().addAll(getEndScreenComponents());
 
-        levels.add(startScreen);
-        levels.add(level1);
-        levels.add(level2);
         levels.add(endScreen);
 
         return levels;

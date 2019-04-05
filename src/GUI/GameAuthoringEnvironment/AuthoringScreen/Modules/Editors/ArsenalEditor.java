@@ -1,19 +1,19 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextArea;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,17 +27,106 @@ public class ArsenalEditor extends Module {
     private ObservableList<Arsenal> arsenalList = FXCollections.observableArrayList();
     private ListView<Arsenal> sourceView = new ListView<>();
     private ListView<Arsenal> targetView = new ListView<>();
+    //TODO change the logging area to where user can change the property of each arsenal
     private TextArea loggingArea = new TextArea("");
     private static final DataFormat Arsenal_LIST = new DataFormat("Arsenal List");
+    private final BooleanProperty dragModeActiveProperty =
+            new SimpleBooleanProperty(this, "dragModeActive", true);
+    private VBox myVBox;
+    private Pane myToolBar;
 
     public ArsenalEditor(Group myRoot, int width, int height, String moduleName) {
         super(myRoot, width, height, moduleName, true);
         setLayout(600, 600);
         setContentColor(Color.LIGHTBLUE);
+        myVBox = getVBox();
+        myToolBar = getToolbarPane();
         setContent();
+        addSaveButton();
+        addMakeNewArsenalButton();
+        makeDraggable(myToolBar);
     }
 
-    //TODO put Arsenal as an argument
+    //TODO MAKE NEW ARSENAL BUTTON
+    private void addMakeNewArsenalButton(){
+        Button createArsenal = new Button("Create Arsenal");
+
+
+    }
+
+
+    private void makeDraggable(Node topBar) {
+        DragContext dragContext = new DragContext();
+        topBar.addEventFilter(
+                MouseEvent.ANY,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // disable mouse events for all children
+                            mouseEvent.consume();
+                        }
+                    }
+                });
+
+        topBar.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // remember initial mouse cursor coordinates
+                            // and node position
+                            dragContext.mouseAnchorX = mouseEvent.getX();
+                            dragContext.mouseAnchorY = mouseEvent.getY();
+                            dragContext.initialTranslateX =
+                                    myVBox.getTranslateX();
+                            dragContext.initialTranslateY =
+                                    myVBox.getTranslateY();
+                        }
+                    }
+                });
+
+        topBar.addEventFilter(
+                MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                        if (dragModeActiveProperty.get()) {
+                            // shift node from its initial position by delta
+                            // calculated from mouse cursor movement
+                            myVBox.setTranslateX(
+                                    dragContext.initialTranslateX
+                                            + mouseEvent.getX()
+                                            - dragContext.mouseAnchorX);
+                            myVBox.setTranslateY(
+                                    dragContext.initialTranslateY
+                                            + mouseEvent.getY()
+                                            - dragContext.mouseAnchorY);
+                        }
+                    }
+                });
+
+    }
+
+    //TODO make this into a separate class
+    private void addSaveButton(){
+        Button submitButton = new Button("Submit");
+        submitButton.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+                //TODO Export the list of arsenals
+                targetView.getItems();
+            }
+        });
+
+
+        submitButton.setLayoutX(100);
+        submitButton.setLayoutY(100);
+        getContent().getChildren().add(submitButton);
+    }
+
     public void addArsenals(Arsenal arsenal) {
         arsenalList.addAll(arsenal);
     }
@@ -55,6 +144,7 @@ public class ArsenalEditor extends Module {
 
     }*/
 
+    //TODO Instead of the loggging area, make a pop up screen for setting properties for the objects
     public void setContent() {
         Label sourceListLbl = new Label("Available Towers: ");
         Label targetListLbl = new Label("Selected Towers: ");
@@ -93,6 +183,7 @@ public class ArsenalEditor extends Module {
 
     }
 
+    //TODO This can be refactord to a separate class
     private void setDragAndDrop() {
 
         sourceView.setOnDragDetected(new EventHandler<MouseEvent>() {
@@ -112,8 +203,7 @@ public class ArsenalEditor extends Module {
         sourceView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 writelog("sourceview dragdone");
-                dragDropped(event, targetView);
-                dragDone(event, sourceView);
+                dragDone(event, targetView, sourceView);
             }
         });
 
@@ -135,8 +225,7 @@ public class ArsenalEditor extends Module {
         targetView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 writelog("Event on Target: drag done");
-                dragDropped(event, sourceView);
-                dragDone(event, targetView);
+                dragDone(event,sourceView, targetView);
             }
         });
     }
@@ -179,7 +268,7 @@ public class ArsenalEditor extends Module {
     }
 
     @SuppressWarnings("unchecked")
-    private void dragDropped(DragEvent event, ListView<Arsenal> listView) {
+    private void dragDone(DragEvent event, ListView<Arsenal> source, ListView<Arsenal> target) {
 
         // Transfer the data to the target
         Dragboard dragboard = event.getDragboard();
@@ -187,23 +276,19 @@ public class ArsenalEditor extends Module {
 
         if (dragboard.hasContent(Arsenal_LIST)) {
             ArrayList<Arsenal> list = (ArrayList<Arsenal>) dragboard.getContent(Arsenal_LIST);
-            listView.getItems().addAll(list);
+            source.getItems().addAll(list);
 
             // Data transfer is successful
             dragCompleted = true;
         }
 
         // Data transfer is not successful
-        event.setDropCompleted(dragCompleted);
-        event.consume();
-    }
-
-    private void dragDone(DragEvent event, ListView<Arsenal> listView) {
+        //event.setDropCompleted(dragCompleted);
 
         TransferMode tm = event.getTransferMode();
 
         if (tm == TransferMode.MOVE) {
-            removeSelectedArsenals(listView);
+            removeSelectedArsenals(target);
         }
 
         event.consume();

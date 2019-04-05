@@ -27,6 +27,7 @@ public abstract class Module {
         myRoot = root;
         moduleWidth = width;
         moduleHeight = height;
+        //module.setStyle("-fx-border-color: black;");
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
@@ -42,17 +43,18 @@ public abstract class Module {
             module.getChildren().addAll(content);
         }
 
-        setDragAndDrop(resizable);
+        setResizable(resizable);
         myRoot.getChildren().add(module);
     }
 
+    //TODO implement to make screen resizable
+    private void setResizable(boolean isResizable){
 
-    private void setDragAndDrop(boolean yes){
-        if(yes){
-
-        }
     }
 
+
+
+    public abstract void setContent();
 
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
@@ -118,6 +120,8 @@ public abstract class Module {
     public VBox getVBox() {
         return module;
     }
+
+    public Pane getToolbarPane(){return toolbarPane;}
 
     protected Pane getContent() {
         return content;

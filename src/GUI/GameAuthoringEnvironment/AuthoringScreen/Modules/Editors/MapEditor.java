@@ -13,4 +13,8 @@ public class MapEditor extends Module {
         setContentColor(Color.LIGHTBLUE);
     }
 
+    public void setContent(){
+
+    }
+
 }
