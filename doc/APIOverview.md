@@ -30,7 +30,7 @@ class Grid implements Accessor{
 
 APIs in the authoring environment should all be getters and setters calling classes from the Game engine. 
 
-## Logic
+## GamePlayer
 `boolean isValidPosition(Weapon weapon, int xPos, int yPos)`
 `WeaponStatus getWeaponStatus(Weapon weapon)`
 `User getUser(String username)`
@@ -41,7 +41,7 @@ purchases
 ## Interfaces
 
 ## Game Player Visualization/IO
-Game State from the Logic (GameState Object)
+Game State from the GamePlayer (GameState Object)
 Lists of Weapons, 
 
 

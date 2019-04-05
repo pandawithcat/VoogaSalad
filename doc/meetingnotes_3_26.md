@@ -11,7 +11,7 @@ Shared Language:
     Contains the objects that can be used
        Authoring environments should communicate with interfaces
        These interfaces should be implemented in logic, which is then utilized by the player to run the game
-    Game Logic: Interaction between objects
+    Game GamePlayer: Interaction between objects
        
        
   Runthrough:

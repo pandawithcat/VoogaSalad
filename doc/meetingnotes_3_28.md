@@ -19,20 +19,20 @@ Use Cases:
 Deliverables:
     UML Diagrams
         Authoring
-        Logic
+        GamePlayer
         Player
     WireFrames:
         Authoring
         Playing
     Use Cases
         Authoring FE 6-8
-        Logic 8
+        GamePlayer 8
         Player FE
     Interfaces and APIs (External)
         Authoring IO/FrontEnd
             mirror classes
         Interfaces for creating Games in Authoring
-        Logic Interfaces
+        GamePlayer Interfaces
             .update() should be called on logic by frontend
             This should give the Gameplayer a map and a list of pictures/positions
             ID-Image pairing so the frontend can determine how things move 
