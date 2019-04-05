@@ -1,5 +1,5 @@
 module Configurations {
     requires java.desktop;
-//    requires javafx.graphics;
+    requires javafx.graphics;
     exports Configs;
 }
