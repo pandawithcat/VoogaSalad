@@ -3,7 +3,8 @@ package GUI.GamePlay.GameScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class AvailableGamesDisplay extends Application {
+public class Main extends Application {
+
     private Stage stage;
     @Override
     public void start(Stage primaryStage) {
@@ -12,7 +13,5 @@ public class AvailableGamesDisplay extends Application {
         stage = loadingSplashScreen.getStage();
         stage.show();
     }
-    public Stage getStage(){
-        return stage;
-    }
+
 }
