@@ -1,7 +1,4 @@
-package GUI.GameAuthoringEnvironment.AuthoringComponents;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+package GameAuthoringEnvironment.AuthoringComponents;
 
 public class NewGameButton extends ButtonComponent {
 

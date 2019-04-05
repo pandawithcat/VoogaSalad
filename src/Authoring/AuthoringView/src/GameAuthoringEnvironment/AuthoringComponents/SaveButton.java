@@ -1,9 +1,4 @@
-package GUI.GameAuthoringEnvironment.AuthoringComponents;
-
-import javafx.event.EventHandler;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+package GameAuthoringEnvironment.AuthoringComponents;
 
 public class SaveButton extends ButtonComponent{
 

@@ -1,24 +1,16 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen;
+package GameAuthoringEnvironment.AuthoringScreen;
 
-import GUI.GameAuthoringEnvironment.AuthoringComponents.*;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GameOutline;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GamePropertySettings;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;

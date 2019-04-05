@@ -1,15 +1,8 @@
-package GUI.GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents;
 
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBase;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public abstract class Component {
 

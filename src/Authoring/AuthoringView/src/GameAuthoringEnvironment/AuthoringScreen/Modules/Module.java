@@ -1,13 +1,10 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import GUI.GameAuthoringEnvironment.AuthoringComponents.CloseButton;
-import GUI.GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public abstract class Module {

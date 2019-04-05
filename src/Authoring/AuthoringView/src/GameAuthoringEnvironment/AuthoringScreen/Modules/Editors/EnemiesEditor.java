@@ -1,6 +1,5 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

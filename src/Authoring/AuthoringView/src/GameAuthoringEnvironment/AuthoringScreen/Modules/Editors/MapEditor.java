@@ -1,9 +1,7 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class MapEditor extends Module {
 

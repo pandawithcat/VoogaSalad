@@ -1,4 +1,4 @@
-package GUI.GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents;
 
 public class LoadButton extends ButtonComponent {
 

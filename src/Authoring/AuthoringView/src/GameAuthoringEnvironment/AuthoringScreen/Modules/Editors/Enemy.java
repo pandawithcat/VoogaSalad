@@ -1,14 +1,13 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
 import java.io.Serializable;
 
-public class Arsenal implements Serializable  {
-
+public class Enemy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name = "";
 
-    public Arsenal(String name)
+    public Enemy(String name)
     {
         this.name = name;
     }
@@ -28,4 +27,5 @@ public class Arsenal implements Serializable  {
     {
         return name;
     }
+
 }

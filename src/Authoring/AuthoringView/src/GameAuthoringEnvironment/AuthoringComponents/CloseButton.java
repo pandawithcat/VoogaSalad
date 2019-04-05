@@ -1,10 +1,8 @@
-package GUI.GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class CloseButton extends ButtonComponent{
 

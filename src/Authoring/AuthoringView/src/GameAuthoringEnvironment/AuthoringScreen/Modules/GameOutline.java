@@ -1,4 +1,4 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 
 public class GameOutline extends Module {

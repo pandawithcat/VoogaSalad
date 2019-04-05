@@ -1,13 +1,8 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.Modules;
+
+import javafx.scene.control.TreeItem;
 
 import java.util.ArrayList;
-
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.TreeCell;
-import javafx.scene.control.TreeItem;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 public class TreeViewHelper
 {
