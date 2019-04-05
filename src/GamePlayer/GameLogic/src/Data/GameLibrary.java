@@ -1,7 +1,14 @@
 package Data;
 
+import BackendExternal.GameInfo;
 import Configs.GamePackage.Game;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 /**
@@ -18,22 +25,22 @@ public class GameLibrary {
     private final String GAME_INFO_FILE = "GameInfo";
     private final String REGEX = ",";
 
-    private ResourceBundle myGameStrings;
     private List<GameInfo> myGames;
-    private Map<String,String> myXMLFiles;
+    private Map<String,String> myXMLFileNames;
+
 
     public GameLibrary(){
-        myGameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
         myGames = new ArrayList<>();
-        myXMLFiles = new HashMap<>();
+        myXMLFileNames = new HashMap<>();
         populateLibrary();
     }
 
     private void populateLibrary(){
-        for (String s : myGameStrings.keySet()){
-            String[] gameDetails = myGameStrings.getString(s).split(REGEX);
+        ResourceBundle gameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
+        for (String s : gameStrings.keySet()){
+            String[] gameDetails = gameStrings.getString(s).split(REGEX);
             GameInfo newGameInfo = new GameInfo(s, gameDetails[0]);
-            myXMLFiles.put(s,gameDetails[1]);
+            myXMLFileNames.put(s,gameDetails[1]);
             myGames.add(newGameInfo);
         }
     }
@@ -43,8 +50,10 @@ public class GameLibrary {
     }
 
     public Game getGame(GameInfo chosenGameInfo){
-        String gameXMLFile = myXMLFiles.get(chosenGameInfo.getGameTitle());
-
-        return myXMLFiles;
+        XStream serializer = new XStream(new DomDriver());
+        String gameXMLFileName = myXMLFileNames.get(chosenGameInfo.getGameTitle());
+        File xmlFile = new File(gameXMLFileName);
+        return (Game)serializer.fromXML(xmlFile);
     }
+
 }

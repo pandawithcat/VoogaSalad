@@ -1,4 +1,4 @@
-package Data;
+package BackendExternal;
 
 public class GameInfo {
 

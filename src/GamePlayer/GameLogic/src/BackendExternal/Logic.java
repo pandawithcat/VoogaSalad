@@ -1,6 +1,6 @@
 package BackendExternal;
 
-import Data.GameInfo;
+import Configs.GamePackage.Game;
 import Data.GameLibrary;
 
 import java.util.EventObject;
@@ -19,7 +19,7 @@ public class Logic {
 //     private UserAuthenticator myUserAuthenticator;
 //     private myUserGameData;
 
-//    private Game myGame;
+    private Game myGame;
     private GameLibrary myGameLibrary;
 
     public Logic() {
@@ -44,16 +44,16 @@ public class Logic {
     // First Sprint Version
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
-    // Return: String game description to display in the splash screen
-    public String createGameInstance(GameInfo selectedGame) {
-        Game myGame =
+    // No Return Value
+    public void createGameInstance(GameInfo selectedGame) {
+        myGame = myGameLibrary.getGame(selectedGame);
     }
 
     // TODO: Not completely necessary
     // This method would return the game objects description string to display in a Splash Screen
-    public String getGameDescription(){
-
-    }
+//    public String getGameDescription(){
+//
+//    }
 
 
     // View calls this when the user presses play or level is over
