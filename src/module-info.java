@@ -8,4 +8,5 @@ module Visualization{
     requires javafx.web;
 
     exports Main;
+    exports GUI.GamePlay.GameScreen;
 }

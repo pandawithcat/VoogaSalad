@@ -8,9 +8,9 @@ public class GamePlayRightSide extends VBox {
     public GamePlayButton play;
 
     public GamePlayRightSide(){
-        myGameArsenal = new GamePlayArsenal();
-        play = new GamePlayButton();
-        this.getChildren().addAll(myGameArsenal,play);
+//        myGameArsenal = new GamePlayArsenal();
+//        play = new GamePlayButton();
+//        this.getChildren().addAll(myGameArsenal,play);
     }
 
 }
