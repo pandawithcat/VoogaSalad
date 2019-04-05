@@ -9,17 +9,18 @@ public class GamePlayRightSide extends VBox {
     public GamePlayArsenal myGameArsenal;
     public double rightSideWidth;
     private double rightSideHeight;
-    private static final int padding = 15;
+    private static final int padding = 10;
     private double screenMinX;
     private double screenMinY;
 
     public GamePlayRightSide(double width, double height){
-        rightSideWidth = width / 4;
-        rightSideHeight = height;
-        setPrefWidth(rightSideWidth);
-        setPrefHeight(rightSideHeight);
-        myGameArsenal = new GamePlayArsenal(rightSideWidth, rightSideHeight * 9 / 10);
-        this.getChildren().addAll(myGameArsenal, createPlayButton(rightSideWidth, rightSideHeight));
+        setPrefWidth(width);
+        setPrefHeight(height);
+        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10);
+        this.getChildren().addAll(myGameArsenal, createPlayButton(width, height));
+        setPadding(new Insets(padding,padding,padding,padding));
+        setSpacing(padding);
+
     }
 
     private Button createPlayButton(double width, double height){
