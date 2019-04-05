@@ -9,5 +9,7 @@ public class GamePlayLeftSide extends VBox {
     public GamePlayLeftSide(double width, double height){
         setPrefWidth(width * 3/ 4);
         setPrefHeight(height);
+        myMap = new GamePlayMap(width,height);
+        mySettings = new GamePlaySettingsBar(width,height);
     }
 }

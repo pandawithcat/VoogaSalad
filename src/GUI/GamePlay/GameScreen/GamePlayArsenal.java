@@ -1,15 +1,8 @@
 package GUI.GamePlay.GameScreen;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.Color;
+import javafx.scene.control.TreeView;
 
-public class GamePlayArsenal extends ListView {
+public class GamePlayArsenal extends TreeView {
 
     public static final int textPadding = 15;
 
