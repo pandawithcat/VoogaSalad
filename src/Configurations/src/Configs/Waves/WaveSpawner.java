@@ -1,4 +1,4 @@
-package Configs.Wave;
+package Configs.Waves;
 
 import Configs.Behavior;
 
