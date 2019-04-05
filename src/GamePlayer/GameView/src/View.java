@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 import BackendExternal.Logic;
 
@@ -28,4 +29,13 @@ public class View {
     void getNewChanges(){
 
     }
+=======
+import BackendExternal.Model;
+
+public class View {
+    public View() {
+        Model myModel = new Model();
+    }
+
+>>>>>>> 2b6ba8513fec16bdcdce8c7b6958e12d37477f82
 }
