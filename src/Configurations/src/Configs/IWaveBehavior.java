@@ -1,5 +1,5 @@
 package Configs;
-import Configs.Wave.WaveSpawner;
+import Configs.Waves.WaveSpawner;
 
 public interface IWaveBehavior extends Behavior{
     void registerBehavior(WaveSpawner waveSpawner);

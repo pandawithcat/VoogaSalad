@@ -1,3 +1,0 @@
-module LogicView {
-    requires LogicModel;
-}

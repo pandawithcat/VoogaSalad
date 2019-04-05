@@ -1,5 +1,7 @@
 package Configs.WeaponsConfig;
 
+import Configs.Behavior;
+
 public abstract class WeaponBehavior implements Behavior<Weapon> {
     Weapon myWeapon;
     WeaponBehavior(Weapon weapon){

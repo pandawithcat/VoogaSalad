@@ -3,7 +3,7 @@ package Configs.LevelPackage;
 import Configs.*;
 import Configs.EnemyPackage.Enemy;
 import Configs.WeaponsConfig.Weapon;
-import Configs.Wave.WaveSpawner;
+import Configs.Waves.WaveSpawner;
 import org.w3c.dom.events.Event;
 
 import java.util.List;

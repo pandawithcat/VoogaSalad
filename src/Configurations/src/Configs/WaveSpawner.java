@@ -9,7 +9,7 @@ public class WaveSpawner {
     public void setMyBehaviors(List<IWaveBehavior> behavior) {
         myWaveBehaviors = behavior;
         for (IWaveBehavior eachBehavior:myWaveBehaviors){
-            eachBehavior.registerBehavior(this);
+//            eachBehavior.registerBehavior(this);
         }
     }
 }
