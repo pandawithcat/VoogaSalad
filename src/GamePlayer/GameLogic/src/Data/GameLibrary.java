@@ -1,5 +1,7 @@
 package Data;
 
+import Configs.GamePackage.Game;
+
 import java.util.*;
 
 /**
