@@ -1,5 +1,6 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
 import GUI.GameAuthoringEnvironment.AuthoringConfig.Enemy;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.collections.FXCollections;
@@ -42,6 +43,10 @@ public class EnemiesEditor extends Module {
         getContent().getChildren().add(submitButton);
     }
 
+
+    public ListView<Enemy> getSourceView() {
+        return sourceView;
+    }
 
     //TODO put Enemy as an argument
     public void addEnemies(Enemy Enemy) {

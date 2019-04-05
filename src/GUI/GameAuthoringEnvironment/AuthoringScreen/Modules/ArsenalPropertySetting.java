@@ -58,7 +58,7 @@ public class ArsenalPropertySetting {
     }
 
     private void handleSaveArsenalProperty(ActionEvent event) {
-        Arsenal newArsenal = new Arsenal(nameLabel.getText());
+        Arsenal newArsenal = new Arsenal(nameTf.getText());
         myArsenalEditor.addArsenals(newArsenal);
         myArsenalEditor.getSourceView().getItems().add(newArsenal);
         popupwindow.close();

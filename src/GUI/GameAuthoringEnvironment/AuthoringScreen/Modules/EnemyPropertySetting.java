@@ -1,7 +1,10 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Enemy;
 import GUI.GameAuthoringEnvironment.AuthoringConfig.Game;
 import GUI.GameAuthoringEnvironment.AuthoringController;
+import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -21,12 +24,21 @@ public class EnemyPropertySetting{
 
     private Stage popupwindow;
     private MenuButton gameTypeMenu;
+    private Label healthLabel, nameLabel;
+    private TextField nameTf, healthTf;
+    private EnemiesEditor myEnemiesEditor;
 
-    public EnemyPropertySetting(double width, double height, String moduleName) {
+    public EnemyPropertySetting(double width, double height, EnemiesEditor enemiesEditor) {
         popupwindow = new Stage();
-
+        myEnemiesEditor = enemiesEditor;
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle(moduleName);
+        popupwindow.setTitle("Enemy Property Setting");
+
+        nameLabel = new Label("Arsenal Name");
+        nameTf = new TextField();
+
+        healthLabel = new Label("Arsenal Price");
+        healthTf = new TextField();
 
         MenuButton projectile = new MenuButton("Choose Enemy");
         MenuButton projectileSpeed = new MenuButton("Choose Enemy Speed");
@@ -45,6 +57,10 @@ public class EnemyPropertySetting{
     }
 
     private void handleSaveArsenalProperty(ActionEvent event) {
+        Enemy newEnemy = new Enemy(nameTf.getText());
+        myEnemiesEditor.addEnemies(newEnemy);
+        myEnemiesEditor.getSourceView().getItems().add(newEnemy);
+        popupwindow.close();
 
     }
 
