@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 public class CloseButton extends ButtonComponent{
 
     public CloseButton() {
-        setImage("close", myButton);
+        setImage("Close", myButton);
     }
 
     @Override
