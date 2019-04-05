@@ -116,7 +116,7 @@ public class AuthoringVisualization {
             public void handle(MouseEvent me) {
                 System.out.println("Mouse entered");
                 // TODO Make This pop up window that sets the Game Properties
-                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight, "Game Property Settings");
+                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
             }
         });
 

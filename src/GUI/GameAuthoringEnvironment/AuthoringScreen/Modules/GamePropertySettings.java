@@ -22,12 +22,12 @@ public class GamePropertySettings {
     private TextField gameNameTf, screenSizeTf, numberOfLivesTf, numberOfLevelTf;
     private MenuButton gameTypeMenu;
 
-    public GamePropertySettings(double width, double height, String moduleName){
+    public GamePropertySettings(double width, double height){
 
         popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle(moduleName);
+        popupwindow.setTitle("Game Property Setting");
 
         gameNameLabel = new Label("Game Name");
         gameNameTf = new TextField();
