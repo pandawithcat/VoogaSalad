@@ -12,5 +12,6 @@ public class View {
         myImageView.setY(y);
         myImageView.setFitWidth(width);
         myImageView.setFitWidth(height);
+        myImageView.getFitWidth();
     }
 }

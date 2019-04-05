@@ -2,6 +2,7 @@ package Configs.Wave;
 
 import Configs.Behavior;
 
+//ideas for wave behavior - every enemy in a wave is stronger and colored different, every
 public abstract class WaveBehavior implements Behavior<Wave> {
     Wave myWave;
     public WaveBehavior(Wave wave){
