@@ -10,7 +10,7 @@ Intrateam communication, product management
 
 #### Secondary Responsibility
     
-Contributor to Logic and Interface team
+Contributor to GamePlayer and Interface team
 
 #### First Sprint Work Plan
 
@@ -27,7 +27,7 @@ Contributor to Game Player UI/IO visualization system
 
 #### Secondary Responsibility
 
-Creating ties between Logic and Player
+Creating ties between GamePlayer and Player
 
 #### First Sprint Work Plan
 
@@ -46,7 +46,7 @@ Module Lead, Game Player UI/IO
 
 #### Secondary Responsibility
 
-Creating ties to Logic for the Player
+Creating ties to GamePlayer for the Player
 
 #### First Sprint Work Plan
 
@@ -63,7 +63,7 @@ Creating UML for this module
 
 #### Primary Responsibility:
 
-Contributor to Logic/Interfaces Team
+Contributor to GamePlayer/Interfaces Team
 
 #### Secondary Responsibility:
 
@@ -148,15 +148,15 @@ Implementing a feature using other modules' APIs (Example Code)
 
 #### Primary Responsibility
 
-Contributor to Logic/Interfaces group
+Contributor to GamePlayer/Interfaces group
 
 #### Secondary Responsibility
 
-Working on communication between Game Player and Logic at gametime
+Working on communication between Game Player and GamePlayer at gametime
 
 #### First Sprint Work Plan
 
-Plan: Enumerating use cases for Logic (15 total)
+Plan: Enumerating use cases for GamePlayer (15 total)
 
 Create and validate methods needed of other modules to achieve desired feature set (Assist with APIs)
 
@@ -167,11 +167,11 @@ Create and validate methods needed of other modules to achieve desired feature s
 
 #### Primary Responsibility
 
-Contributor to Logic/Interfaces group
+Contributor to GamePlayer/Interfaces group
 
 #### Secondary Responsibility
 
-Working on communication between Authoring Environment and Logic/Interface group
+Working on communication between Authoring Environment and GamePlayer/Interface group
 
 #### First Sprint Work Plan
 
