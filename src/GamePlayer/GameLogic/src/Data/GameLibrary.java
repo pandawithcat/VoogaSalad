@@ -19,7 +19,7 @@ public class GameLibrary {
     private ResourceBundle myGameStrings;
     private List<GameInfo> myGames;
     private Map<String,String> myXMLFiles;
-
+    
     public GameLibrary(){
         myGameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
         myGames = new ArrayList<>();
@@ -40,7 +40,9 @@ public class GameLibrary {
         return Collections.unmodifiableList(myGames);
     }
 
-    public Map<String,String> getMyXMLFiles(){
+    public Game getGame(GameInfo chosenGameInfo){
+        String gameXMLFile = myXMLFiles.get(chosenGameInfo.getGameTitle());
+
         return myXMLFiles;
     }
 }

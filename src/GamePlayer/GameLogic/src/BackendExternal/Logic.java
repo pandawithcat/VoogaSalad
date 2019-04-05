@@ -46,6 +46,12 @@ public class Logic {
     // Input: Selected GameInfo Object
     // Return: String game description to display in the splash screen
     public String createGameInstance(GameInfo selectedGame) {
+        Game myGame =
+    }
+
+    // TODO: Not completely necessary
+    // This method would return the game objects description string to display in a Splash Screen
+    public String getGameDescription(){
 
     }
 
