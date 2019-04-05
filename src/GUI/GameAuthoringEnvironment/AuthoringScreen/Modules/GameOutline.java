@@ -27,7 +27,6 @@ public class GameOutline extends Module {
         moduleWidth = getModuleWidth();
         setContent();
 
-
     }
 
 

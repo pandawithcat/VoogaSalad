@@ -1,11 +1,8 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GUI.GameAuthoringEnvironment.AuthoringConfig;
 
-import java.io.Serializable;
 
-public class Enemy implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    private String name = "";
+public class Enemy {
+    private String name;
 
     public Enemy(String name)
     {

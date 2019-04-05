@@ -1,12 +1,9 @@
-package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GUI.GameAuthoringEnvironment.AuthoringConfig;
 
-import java.io.Serializable;
 
-public class Arsenal implements Serializable  {
+public class Arsenal {
 
-    private static final long serialVersionUID = 1L;
-
-    private String name = "";
+    private String name;
 
     public Arsenal(String name)
     {

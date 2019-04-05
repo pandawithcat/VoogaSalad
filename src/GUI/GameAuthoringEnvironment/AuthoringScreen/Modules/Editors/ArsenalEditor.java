@@ -1,5 +1,6 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

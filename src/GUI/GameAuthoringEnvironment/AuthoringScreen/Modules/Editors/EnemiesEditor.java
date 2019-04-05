@@ -1,5 +1,6 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Enemy;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
