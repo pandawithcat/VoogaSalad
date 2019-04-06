@@ -1,6 +1,7 @@
 package Configs.WeaponsConfig.WeaponBehaviors;
 
 
+import Configs.View;
 import Configs.WeaponsConfig.Weapon;
 
 import java.awt.*;
@@ -15,5 +16,15 @@ public class Movable extends WeaponBehavior{
         super(weapon);
         this.movingPattern = movingPattern;
         this.movingSpeed = movingSpeed;
+    }
+
+    @Override
+    public void update(long ms) {
+
+    }
+
+    @Override
+    public List<View> getViews() {
+        return null;
     }
 }

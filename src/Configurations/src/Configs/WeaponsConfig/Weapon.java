@@ -9,6 +9,7 @@ import Configs.View;
 import Configs.Viewable;
 import Configs.WeaponsConfig.WeaponBehaviors.WeaponBehavior;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,5 +45,7 @@ public class Weapon implements Behaves<WeaponBehavior>, Configurable, Viewable {
     @Override
     public String toFrontendString() {
         return "Weapon";
+
+
     }
 }

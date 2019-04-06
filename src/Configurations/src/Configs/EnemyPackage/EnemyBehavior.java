@@ -3,6 +3,7 @@ package Configs.EnemyPackage;
 import Configs.Behaviors.Behavior;
 
 public abstract class EnemyBehavior implements Behavior<Enemy>{
+    @Configure
     Enemy myEnemy;
     EnemyBehavior(Enemy enemy){
         myEnemy = enemy;

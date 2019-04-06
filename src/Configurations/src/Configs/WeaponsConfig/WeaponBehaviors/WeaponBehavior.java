@@ -4,6 +4,7 @@ import Configs.Behaviors.Behavior;
 import Configs.WeaponsConfig.Weapon;
 
 public abstract class WeaponBehavior implements Behavior<Weapon> {
+    @Configure
     Weapon myWeapon;
     WeaponBehavior(Weapon weapon){
         myWeapon = weapon;
