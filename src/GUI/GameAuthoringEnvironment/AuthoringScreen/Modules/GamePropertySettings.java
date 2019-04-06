@@ -54,7 +54,7 @@ public class GamePropertySettings {
 
         VBox layout= new VBox();
         layout.getChildren().addAll(gameNameLabel, gameNameTf, gameTypeLabel, gameTypeMenu,numberOfLivesLabel, numberOfLivesTf,
-                createButton, screenSizeLabel, screenSizeTf, numberOfLevelsLabel, numberOfLevelTf);
+                screenSizeLabel, screenSizeTf, numberOfLevelsLabel, numberOfLevelTf, createButton);
         //layout.setAlignment(Pos.BOTTOM_CENTER);
 
         initiate(width, height, popupwindow, layout);

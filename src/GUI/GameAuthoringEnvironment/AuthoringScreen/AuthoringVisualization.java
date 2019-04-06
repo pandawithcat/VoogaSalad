@@ -99,6 +99,7 @@ public class AuthoringVisualization {
             public void handle(MouseEvent me) {
                 System.out.println("Mouse entered");
                 // TODO Make This pop up window that sets the Game Properties
+                // TODO Alert buttonn if game was not created
                 GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
                 gameOutline.setContent(gamePropertySettings.getMyGame().getMyNumberOfLevels());
             }
