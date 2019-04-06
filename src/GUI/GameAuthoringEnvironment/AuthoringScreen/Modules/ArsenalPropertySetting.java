@@ -1,23 +1,16 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
-import GUI.GameAuthoringEnvironment.AuthoringConfig.Game;
-import GUI.GameAuthoringEnvironment.AuthoringController;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.awt.event.TextEvent;
 
 
 public class ArsenalPropertySetting {

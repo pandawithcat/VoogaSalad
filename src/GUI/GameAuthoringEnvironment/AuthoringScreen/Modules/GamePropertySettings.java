@@ -1,16 +1,12 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules;
 
 import GUI.GameAuthoringEnvironment.AuthoringConfig.Game;
-import GUI.GameAuthoringEnvironment.AuthoringController;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -21,6 +17,7 @@ public class GamePropertySettings {
     private Label gameNameLabel, gameTypeLabel, screenSizeLabel, numberOfLivesLabel, numberOfLevelsLabel;
     private TextField gameNameTf, screenSizeTf, numberOfLivesTf, numberOfLevelTf;
     private MenuButton gameTypeMenu;
+    private Game myGame;
 
     public GamePropertySettings(double width, double height){
 
@@ -63,12 +60,14 @@ public class GamePropertySettings {
         initiate(width, height, popupwindow, layout);
     }
 
+
     private void handleCreateGameButton(ActionEvent event){
-        Game myGame = new Game(gameNameTf.getText(), gameTypeMenu.getText(), numberOfLivesTf.getText(), numberOfLevelTf.getText());
-        AuthoringController controller = new AuthoringController(myGame);
-
+        myGame = new Game(gameNameTf.getText(), gameTypeMenu.getText(), numberOfLivesTf.getText(), numberOfLevelTf.getText());
         popupwindow.close();
+    }
 
+    public Game getMyGame(){
+        return myGame;
     }
 
     private void initiate(double width, double height, Stage popupwindow, VBox layout) {

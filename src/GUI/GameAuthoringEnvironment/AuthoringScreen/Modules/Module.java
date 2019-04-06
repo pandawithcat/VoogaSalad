@@ -52,9 +52,6 @@ public abstract class Module {
     }
 
 
-
-    public abstract void setContent();
-
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
         //TODO Make toolbar white

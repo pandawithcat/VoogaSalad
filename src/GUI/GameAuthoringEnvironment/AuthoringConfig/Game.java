@@ -1,6 +1,7 @@
 package GUI.GameAuthoringEnvironment.AuthoringConfig;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Game implements Serializable {
 
@@ -8,11 +9,13 @@ public class Game implements Serializable {
     private String myMode;
     private int myNumberOfLevels;
     private int myScreenSize;
+    private Level[] myLevelList;
 
 
     public Game(String name, String gameMode, String levels, String screenSize)
     {
         myNumberOfLevels = Integer.parseInt(levels);
+        myLevelList = new Level[myNumberOfLevels];
         myName = name;
         myMode = gameMode;
         myScreenSize = Integer.parseInt(screenSize);
@@ -21,6 +24,10 @@ public class Game implements Serializable {
 
     public int getMyNumberOfLevels(){
         return myNumberOfLevels;
+    }
+
+    public Level[] getMyLevelList(){
+        return myLevelList;
     }
 
     public String getMyMode(){
