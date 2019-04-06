@@ -1,19 +1,20 @@
 package Configs;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.Predicate;
 
 public class Configuration {
-    private Map<String, Class> myAttributeTypes;
+    private Map<String,Type> myAttributeTypes;
     private Map<String,Object> myAttributes;
+    private boolean isComplete = false;
+    Class myConfigurableClass;
 
-    /**
-     * call in constructor of each configurable
-     * @param attributeTypes
-     */
-    public Configuration(Map<String,Class> attributeTypes) {
-        myAttributeTypes = attributeTypes;
+    //TODO: check one key at a time
+
+    public Configuration(Configurable configurable) {
+        myConfigurableClass = configurable.getClass();
     }
 
     private void validateAttributes(Map<String,Object> attributeInputs) {
@@ -29,15 +30,24 @@ public class Configuration {
         }
     }
 
-    private boolean validateSufficientAttributes(Set<String> inputKeySet) {
-        return inputKeySet.containsAll(myAttributeTypes.keySet())&&inputKeySet.size()==myAttributeTypes.keySet().size();
-    }
-
     public void setAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
         myAttributes = attributes;
     }
 
+    public Map<String, Class>  getAttributes(){
+        Map<String, Class> attributes = new HashMap<>();
+        for (Field field: myConfigurableClass.getDeclaredFields()){
+            if (field.isAnnotationPresent(Configurable.Configure.class)){
+                attributes.put(field.getName(), field.getType());
+            }
+        }
+        return attributes;
+    };
 
-
+//    public void cast(Map<String,Object> attributes) {
+//        for(String key : attributes.keySet()) {
+//            myAttributeTypes.get(key).cast(attributes.get(key));
+//        }
+//    }
 }

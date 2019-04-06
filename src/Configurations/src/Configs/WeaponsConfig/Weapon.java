@@ -2,18 +2,47 @@ package Configs.WeaponsConfig;
 
 import Configs.Behaviors.Behaves;
 import Configs.Behaviors.Behavior;
+import Configs.Behaviors.BehaviorManager;
+import Configs.Configurable;
+import Configs.Configuration;
+import Configs.View;
+import Configs.Viewable;
+import Configs.WeaponsConfig.WeaponBehaviors.WeaponBehavior;
 
 import java.util.List;
 
 
-public class Weapon implements Behaves {
-    List<Behavior<Weapon>> myBehaviors;
+public class Weapon implements Behaves<WeaponBehavior>, Configurable, Viewable {
+    Configuration myConfiguration;
+    @Configure
+    private String name;
+    @Configure
+    private Behavior[] behaviors;
+    @Configure
+    private View myView;
 
-//    public void setMyBehaviors(List<Behavior<Weapon>> behavior) {
-//        myBehaviors = behavior;
-//    }
-//
-//    public List<Behavior<Weapon>> getMyBehaviors() {
-//        return myBehaviors;
-//    }
+    public Weapon() {
+        myConfiguration=new Configuration(this);
+    }
+
+
+    @Override
+    public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
+    }
+
+    @Override
+    public BehaviorManager getBehaviorManager() {
+        return null;
+    }
+
+    @Override
+    public String toFrontendString() {
+        return "Weapon";
+    }
 }
