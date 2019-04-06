@@ -34,6 +34,7 @@ public class AuthoringVisualization {
     private double screenMinY;
     private Scene myScene;
     private Group myContainer;
+    private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
 
     public void start (Stage stage) {
@@ -62,7 +63,7 @@ public class AuthoringVisualization {
         stage.setTitle(Title);
         stage.setResizable(true);
         stage.show();
-        setAnimation();
+        //setAnimation();
     }
 
     private void setScene(Stage stage, Group myRoot) {
@@ -71,33 +72,15 @@ public class AuthoringVisualization {
         //This is the only pane that should be fixed on the screen
         var leftGridPane = new Group();
         leftGridPane.setLayoutY(63);
-        //leftGridPane.setGridLinesVisible(true);
         setLeftGridPane(leftGridPane);
-
-/*
-        myContainer.setRight(null);
-        myContainer.setBottom(null);
-
-        myContainer.setTop(addTopBar());
-        myContainer.setLeft(leftGridPane);*/
-
         myContainer.getChildren().addAll(addTopBar(), leftGridPane);
-
         myScene = new Scene(myContainer);
-
-
     }
 
 
     private void setLeftGridPane(Group leftGridPane){
-        GameOutline gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
+        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
         leftGridPane.getChildren().addAll(gameOutline.getVBox());
-    }
-
-
-    // add all the other modules that can be close
-    private void addNotStaticModule(){
-
     }
 
     // add all the buttons - ex) save, load etc
@@ -116,11 +99,10 @@ public class AuthoringVisualization {
             public void handle(MouseEvent me) {
                 System.out.println("Mouse entered");
                 // TODO Make This pop up window that sets the Game Properties
-                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight, "Game Property Settings");
+                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
+                gameOutline.setContent(gamePropertySettings.getMyGame().getMyNumberOfLevels());
             }
         });
-
-
 
         TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
                 viewButton.getButton(), helpButton.getButton());
@@ -128,18 +110,6 @@ public class AuthoringVisualization {
         return  TopMenuBar;
     }
 
-
-    private void setAnimation(){
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
-        var animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
-    private void step(){
-
-    }
 
     private void handleKeyInput(KeyEvent e) {
         if (keyCombinationCommandN.match(e)) {
