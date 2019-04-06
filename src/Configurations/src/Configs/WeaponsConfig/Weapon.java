@@ -21,6 +21,10 @@ public class Weapon implements Behaves<Behavior<Weapon>> {
         myBehaviors.add(behavior);
     }
 
+    public void createBehavior(){
+
+    }
+
     @Override
     public List<Behavior<Weapon>> getMyBehaviors() {
         return myBehaviors;

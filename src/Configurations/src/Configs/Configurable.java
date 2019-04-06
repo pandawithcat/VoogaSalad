@@ -10,7 +10,7 @@ import java.util.Map;
 
 public interface Configurable {
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface Configure{}
+    @interface Configure{}
 
     default Map<String, Type>  getAttributes(Class clazz){//potentially use object here and getclass? idk
         Map<String, Type> attributes = new HashMap<>();
