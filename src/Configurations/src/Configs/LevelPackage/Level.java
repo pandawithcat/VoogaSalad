@@ -25,11 +25,6 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
     }
 
     @Override
-    public Map<String, Class> getAttributes() {
-        return null;
-    }
-
-    @Override
     public void handleEvent(Event e) {
 
     }
