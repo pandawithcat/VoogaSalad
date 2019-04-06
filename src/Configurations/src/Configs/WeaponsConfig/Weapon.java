@@ -1,19 +1,15 @@
 package Configs.WeaponsConfig;
 
-import Configs.Behaviors.Behaves;
+import Configs.*;
 import Configs.Behaviors.Behavior;
 import Configs.Behaviors.BehaviorManager;
-import Configs.Configurable;
-import Configs.Configuration;
-import Configs.View;
-import Configs.Viewable;
 import Configs.WeaponsConfig.WeaponBehaviors.WeaponBehavior;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
-public class Weapon implements Behaves<WeaponBehavior>, Configurable, Viewable {
+public class Weapon implements  Configurable, Viewable, Updatable {
     Configuration myConfiguration;
     @Configure
     private String name;
@@ -38,14 +34,12 @@ public class Weapon implements Behaves<WeaponBehavior>, Configurable, Viewable {
     }
 
     @Override
-    public BehaviorManager getBehaviorManager() {
-        return null;
-    }
-
-    @Override
-    public String toFrontendString() {
-        return "Weapon";
-
-
+    public void update(long ms) {
+        Map<String, Object> myAttributes = myConfiguration.getDefinedAttributes();
+        for (Object o :((Map) myAttributes).values()) {
+            if (o instanceof Updatable) {
+                ((Updatable) o).update(ms);
+            }
+        }
     }
 }

@@ -8,7 +8,6 @@ import Configs.Waves.WaveSpawner;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
-import java.util.Map;
 
 public class Level implements Configurable, Viewable, EventHandlable, Updatable {
     List<Behavior<Level>> levelBehaviors;

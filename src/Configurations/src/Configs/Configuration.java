@@ -1,38 +1,53 @@
 package Configs;
 
+import Configs.Behaviors.Behavior;
+import Configs.Behaviors.BehaviorManager;
+
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Configuration {
-    private Map<String,Type> myAttributeTypes;
+    private Map<String,Class> myAttributeTypes;
     private Map<String,Object> myAttributes;
     private boolean isComplete = false;
     Class myConfigurableClass;
-
-    //TODO: check one key at a time
 
     public Configuration(Configurable configurable) {
         myConfigurableClass = configurable.getClass();
     }
 
+    private boolean isAttributesComplete(Map<String,Object> attributeInputs) {
+        return attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) && attributeInputs.size()==myAttributeTypes.size();
+    }
+
     private void validateAttributes(Map<String,Object> attributeInputs) {
-        if(!(attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) &&attributeInputs.size()==myAttributeTypes.size())) {
+        if(!isAttributesComplete(attributeInputs)) {
             throw new IllegalArgumentException();
         }
-        myAttributes.keySet().stream().forEach(key -> validateType(key));
+        myAttributes.keySet().stream().forEach(key -> validateType(key,attributeInputs.get(key)));
     }
 
-    private void validateType(String attributeInput) {
-        if (attributeInput.getClass()!=myAttributeTypes.get(attributeInput)) {
+    private void validateType(String attributeInput, Object value) {
+        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
             throw new IllegalArgumentException();
         }
     }
 
-    public void setAttributes(Map<String,Object> attributes) {
+    public void setOneAttribute(String name, Object value) {
+        validateType(name,value);
+        myAttributes.put(name,value);
+        if(isAttributesComplete(myAttributes)) isComplete = true;
+    }
+
+    public void setAllAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
+        for (String key:attributes.keySet()) {
+            if(attributes.get(key) instanceof Behavior[]) {
+                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
+            }
+        }
         myAttributes = attributes;
+        isComplete = true;
     }
 
     public Map<String, Class>  getAttributes(){
@@ -42,8 +57,18 @@ public class Configuration {
                 attributes.put(field.getName(), field.getType());
             }
         }
-        return attributes;
+        return Collections.unmodifiableMap(attributes);
     };
+
+    public boolean isConfigurationComplete() {
+        return isComplete;
+    }
+
+    public Map<String,Object> getDefinedAttributes() {
+        return Collections.unmodifiableMap(myAttributes);
+    }
+
+
 
 //    public void cast(Map<String,Object> attributes) {
 //        for(String key : attributes.keySet()) {

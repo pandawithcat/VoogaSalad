@@ -11,7 +11,6 @@ public class BehaviorManager<T extends Behavior> implements Updatable, Viewable 
 
     List<T> myBehaviors;
 
-    public BehaviorManager() {}
 
     public BehaviorManager(List<T> behaviors) {
         myBehaviors = behaviors;
