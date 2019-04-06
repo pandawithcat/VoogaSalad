@@ -6,6 +6,8 @@ module Visualization{
     requires java.xml;
     requires java.desktop;
     requires javafx.web;
+    requires java.logging;
+    //requires javafx.swing;
 
     exports Main;
 }
