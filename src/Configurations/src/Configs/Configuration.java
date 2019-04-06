@@ -2,7 +2,6 @@ package Configs;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class Configuration {
     private Map<String, Class> myAttributeTypes;
@@ -29,13 +28,16 @@ public class Configuration {
         }
     }
 
-    private boolean validateSufficientAttributes(Set<String> inputKeySet) {
-        return inputKeySet.containsAll(myAttributeTypes.keySet())&&inputKeySet.size()==myAttributeTypes.keySet().size();
-    }
-
     public void setAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
         myAttributes = attributes;
+    }
+
+    public void cast(Map<String,Object> attributes) {
+        for(String key : attributes.keySet()) {
+            myAttributeTypes.get(key).cast(attributes.get(key));
+        }
+
     }
 
 

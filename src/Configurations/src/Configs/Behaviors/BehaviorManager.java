@@ -32,4 +32,6 @@ public class BehaviorManager<T extends Behavior> implements Updatable, Viewable 
         myBehaviors.stream().forEach(behavior -> viewList.addAll(behavior.getViews()));
         return viewList;
     }
+
+
 }
