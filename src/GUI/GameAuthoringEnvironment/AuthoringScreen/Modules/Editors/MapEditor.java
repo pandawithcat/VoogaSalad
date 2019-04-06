@@ -42,13 +42,14 @@ public class MapEditor extends Module {
 
         tileView.setPrefSize(tileViewWidth, tileViewHeight);
         GridPane pane = new GridPane();
-        pane.setHgap(200);
-        pane.setVgap(20);
+        pane.setHgap(350);
+        pane.setVgap(10);
 
         // Add the Labels and Views to the Pane
         pane.add(messageLbl, 0, 0, 3, 1);
         pane.addRow(1, mapLbl, tileListLbl);
         pane.addRow(2, map, tileView);
+
         VBox root = new VBox();
         // Add the Pane and The LoggingArea to the VBox
         root.getChildren().addAll(pane);
