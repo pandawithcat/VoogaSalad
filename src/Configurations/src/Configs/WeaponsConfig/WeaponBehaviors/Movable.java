@@ -1,6 +1,7 @@
 package Configs.WeaponsConfig.WeaponBehaviors;
 
 
+import Configs.Configuration;
 import Configs.View;
 import Configs.WeaponsConfig.Weapon;
 
@@ -9,18 +10,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movable extends WeaponBehavior{
-    double movingSpeed;
+    @Configure
+    private double movingSpeed;
+    @Configure
     List<Point> movingPattern = new ArrayList<>();
 
-    public Movable(Weapon weapon, List<Point> movingPattern, double movingSpeed){
+    Configuration myConfiguration;
+
+    public Movable(Weapon weapon){
         super(weapon);
-        this.movingPattern = movingPattern;
-        this.movingSpeed = movingSpeed;
+        myConfiguration = new Configuration(this);
     }
 
     @Override
     public void update(long ms) {
 
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Configs.WeaponsConfig.WeaponBehaviors;
 
+import Configs.Configuration;
 import Configs.View;
 import Configs.WeaponsConfig.Weapon;
 
@@ -21,6 +22,11 @@ public class AmmoExpirable extends WeaponBehavior {
 
     @Override
     public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
         return null;
     }
 }
