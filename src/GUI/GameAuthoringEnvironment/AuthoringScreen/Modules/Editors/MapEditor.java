@@ -1,5 +1,6 @@
 package GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
 
+import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
 import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -55,19 +56,19 @@ public class MapEditor extends Module {
 
     }
 
-    private void makeDraggable(Node top){
-        DragContext dragContext = new DragContext();
-        top.addEventFilter(
-                MouseEvent.ANY,
-                new EventHandler<Event>() {
-                    @Override
-                    public void handle(final MouseEvent mouseEvent) {
-                        if(dragActiveProperty.get()){
-                            mouseEvent.consume();
-                        }
-                    }
-                }
-        );
-    }
+//    private void makeDraggable(Node top){
+//        DragContext dragContext = new DragContext();
+//        top.addEventFilter(
+//                MouseEvent.ANY,
+//                new EventHandler<Event>() {
+//                    @Override
+//                    public void handle(final MouseEvent mouseEvent) {
+//                        if(dragActiveProperty.get()){
+//                            mouseEvent.consume();
+//                        }
+//                    }
+//                }
+//        );
+//    }
 
 }
