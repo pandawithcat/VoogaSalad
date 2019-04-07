@@ -70,7 +70,7 @@
 							"top": 120,
 							"width": 144,
 							"height": 38,
-							"text": "Logic"
+							"text": "GamePlayer"
 						},
 						{
 							"_type": "UMLClassView",
@@ -4859,7 +4859,7 @@
 											"top": 1246,
 											"width": 119.9326171875,
 											"height": 13,
-											"text": "ProjectileConfig"
+											"text": "projectileConfigPackage.ProjectileConfig"
 										},
 										{
 											"_type": "LabelView",
@@ -10361,7 +10361,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "WeaponConfig"
+					"name": "weaponsConfigPackage.WeaponConfig"
 				},
 				{
 					"_type": "UMLInterface",
@@ -11261,7 +11261,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ProjectileConfig"
+					"name": "projectileConfigPackage.ProjectileConfig"
 				},
 				{
 					"_type": "UMLClass",
@@ -11969,7 +11969,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "ProjectileConfig",
+					"name": "projectileConfigPackage.ProjectileConfig",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",

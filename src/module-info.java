@@ -7,6 +7,6 @@ module Visualization{
     requires java.desktop;
     requires javafx.web;
 
-    exports Main;
-    exports GUI.GamePlay.GameScreen;
+
+    exports src;
 }
