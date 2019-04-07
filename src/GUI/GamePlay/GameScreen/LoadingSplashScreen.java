@@ -114,9 +114,7 @@ public class LoadingSplashScreen extends Application{
         root.getChildren().add(button);
     }
     private void availableGames(){
-        AvailableGamesDisplay availableGamesDisplay = new AvailableGamesDisplay();
-        availableGamesDisplay.start(new Stage());
-        stage.close();
+
     }
     private Path generatePath(int x, int y)
     {
@@ -136,4 +134,5 @@ public class LoadingSplashScreen extends Application{
         pathTransition.setAutoReverse(true);
         return pathTransition;
     }
+    public static void main(String [] args){launch(args);}
 }
