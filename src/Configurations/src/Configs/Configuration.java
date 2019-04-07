@@ -2,6 +2,8 @@ package Configs;
 
 import Configs.Behaviors.Behavior;
 import Configs.Behaviors.BehaviorManager;
+import Configs.Waves.Wave;
+import Configs.Waves.WaveSpawner;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -44,6 +46,9 @@ public class Configuration {
         for (String key:attributes.keySet()) {
             if(attributes.get(key) instanceof Behavior[]) {
                 attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
+            }
+            if(attributes.get(key) instanceof Wave[]) {
+                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
             }
         }
         myAttributes = attributes;

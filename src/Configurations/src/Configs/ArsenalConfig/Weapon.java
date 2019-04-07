@@ -1,9 +1,7 @@
-package Configs.WeaponsConfig;
+package Configs.ArsenalConfig;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.Behaviors.BehaviorManager;
-import Configs.WeaponsConfig.WeaponBehaviors.WeaponBehavior;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +12,7 @@ public class Weapon implements  Configurable, Viewable, Updatable {
     @Configure
     private String name;
     @Configure
-    private Behavior[] behaviors;
+    private Behavior<Weapon>[] behaviors;
     @Configure
     private View myView;
 
