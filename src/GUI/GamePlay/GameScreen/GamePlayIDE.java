@@ -11,11 +11,11 @@ public class GamePlayIDE extends HBox {
     private double screenMinX;
     private double screenMinY;
 
-    public GamePlayIDE(double width, double height){
+    public GamePlayIDE(double width, double height, Logic gameLogic){
         setPrefWidth(width);
         setPrefHeight(height);
-        myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height);
+        myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, gameLogic);
+        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, gameLogic);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
 

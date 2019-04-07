@@ -8,8 +8,10 @@ import javafx.scene.layout.VBox;
 import java.util.ArrayList;
 
 public class GamePlayArsenal extends VBox {
+    private Logic myGameLogic;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight){
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic gameLogic){
+        myGameLogic = gameLogic;
         ArrayList<TreeItem> arsenal = getArsenal();
         TreeView arsenalView = new TreeView();
         TreeItem rootItem = new TreeItem("Arsenal");
@@ -21,7 +23,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     public ArrayList<TreeItem> getArsenal(){
-        ArrayList<TreeItem> myArsenal = new ArrayList<TreeItem>();
+        ArrayList<TreeItem> myArsenal = myGameLogic.getArsenal();
         //TODO: Iterate through a list of things users can implement
         TreeItem myWeapons = new TreeItem("Weapons");
         myWeapons.getChildren().addAll(getWeapons());

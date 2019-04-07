@@ -13,10 +13,10 @@ public class GamePlayRightSide extends VBox {
     private double screenMinX;
     private double screenMinY;
 
-    public GamePlayRightSide(double width, double height){
+    public GamePlayRightSide(double width, double height, Logic gameLogic){
         setPrefWidth(width);
         setPrefHeight(height);
-        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10);
+        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10, gameLogic);
         this.getChildren().addAll(myGameArsenal, createPlayButton(width, height));
         setPadding(new Insets(padding,padding,padding,padding));
         setSpacing(padding);

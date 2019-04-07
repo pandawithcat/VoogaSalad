@@ -31,7 +31,7 @@ public class GamePlayVisualization extends Application {
             var root = new Group();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             //TODO:should this be global below?
-            GamePlayIDE myGameIDE = new GamePlayIDE(screenWidth, screenHeight);
+            GamePlayIDE myGameIDE = new GamePlayIDE(screenWidth, screenHeight, Logic gameLogic);
             myGameIDE.setPadding(new Insets(padding,padding,padding,padding));
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
