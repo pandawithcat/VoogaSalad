@@ -1,10 +1,7 @@
 package Configs.ProjectileConfig;
 
+import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.Configurable;
-import Configs.Updatable;
-import Configs.View;
-import Configs.Viewable;
 import Configs.WeaponsConfig.Weapon;
 
 import java.util.List;
@@ -14,9 +11,11 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
     ProjectileOptions projectileType;
     @Configure
     List<Behavior<ProjectileConfig>> myBehaviors;
-//    public ProjectileConfig(){
-//         ProjectileOptions.values() how to get all options of the enum
-//    }
+
+    Configuration myConfiguration;
+    public ProjectileConfig(){
+        myConfiguration = new Configuration(this);
+    }
 
     @Override
     public void update(long ms) {
@@ -26,5 +25,10 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
     @Override
     public List<View> getViews() {
         return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 }
