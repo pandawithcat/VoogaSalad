@@ -59,9 +59,9 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-    public List<Viewable> getLevelStaticView(){
-
-    }
+//    public List<Viewable> getLevelStaticView(){
+//
+//    }
 
     // View calls this when there is an event in the frontend that needs to be resolved in backend
     // Input: Event
@@ -80,9 +80,9 @@ public class Logic {
     // View calls to get the Viewable instances of dynamic items in the game loop
     // No input
     // Return: List of Viewable instances of dynamic level items
-    public List<Viewable> getViewUpdates(){
-
-    }
+//    public List<Viewable> getViewUpdates(){
+//
+//    }
 
     // View calls this in game Loop to check if the level has ended
     // No input
