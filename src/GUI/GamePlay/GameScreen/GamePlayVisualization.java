@@ -12,7 +12,7 @@ public class GamePlayVisualization extends Application {
     private String Title = "VoogaSalad Game";
     private static final int FRAMES_PER_SECOND = 1;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    private static final Paint backgroundColor = Color.AQUA;
+    private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = 1000;
     private double screenHeight = 600;
     private static final int padding = 15;
