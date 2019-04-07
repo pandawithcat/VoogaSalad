@@ -31,9 +31,4 @@ public class TimeExpirable extends WeaponBehavior{
     public List<View> getViews() {
         return null;
     }
-
-    @Override
-    public Configuration getConfiguration() {
-        return null;
-    }
 }
