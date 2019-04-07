@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AmmoExpirable extends WeaponBehavior {
     @Configure
-    private int numberOfEnemiesPossibleToKill;
+    int numberOfEnemiesPossibleToKill;
 
     public AmmoExpirable(Weapon weapon){
         super(weapon);

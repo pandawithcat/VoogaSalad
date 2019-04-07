@@ -10,8 +10,12 @@ import java.util.Optional;
 public class PlaceableOnPath extends WeaponBehavior {
     @Configure
     int rangeOnPath;
+
+    Configuration myConfiguration;
+
     public PlaceableOnPath(Weapon weapon, Optional<Integer> rangeOnPath){
         super(weapon);
+        myConfiguration = new Configuration(this);
         this.rangeOnPath = rangeOnPath.get();
     }
 
@@ -21,12 +25,12 @@ public class PlaceableOnPath extends WeaponBehavior {
     }
 
     @Override
-    public List<View> getViews() {
-        return null;
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 
     @Override
-    public Configuration getConfiguration() {
+    public List<View> getViews() {
         return null;
     }
 }

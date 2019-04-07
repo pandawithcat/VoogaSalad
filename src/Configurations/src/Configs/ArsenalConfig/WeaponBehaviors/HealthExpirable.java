@@ -9,8 +9,12 @@ import java.util.List;
 public class HealthExpirable extends WeaponBehavior{
     @Configure
     int amountOfHealth;
+
+    Configuration myConfiguration;
+
     public HealthExpirable(Weapon weapon){
         super(weapon);
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -19,12 +23,12 @@ public class HealthExpirable extends WeaponBehavior{
     }
 
     @Override
-    public List<View> getViews() {
-        return null;
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 
     @Override
-    public Configuration getConfiguration() {
+    public List<View> getViews() {
         return null;
     }
 }
