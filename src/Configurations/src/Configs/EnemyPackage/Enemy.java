@@ -1,16 +1,19 @@
 package Configs.EnemyPackage;
 
+import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.Configurable;
-import Configs.Updatable;
-import Configs.View;
-import Configs.Viewable;
+import Configs.Waves.Wave;
 
 import java.util.List;
 
 public class Enemy implements Configurable, Viewable, Updatable {
+    private Wave myWave;
     @Configure
     List<Behavior<Enemy>> myBehaviors;
+
+    public Enemy(Wave wave) {
+        myWave = wave;
+    }
 
     public void setMyBehaviors(List<Behavior<Enemy>> behavior) {
         myBehaviors = behavior;
@@ -27,6 +30,11 @@ public class Enemy implements Configurable, Viewable, Updatable {
 
     @Override
     public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
         return null;
     }
 }

@@ -1,21 +1,15 @@
 package Configs.Waves;
 
+import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.Configurable;
-import Configs.Updatable;
-import Configs.View;
-import Configs.Viewable;
 
 import java.util.List;
 
-public class WaveSpawner implements Viewable, Configurable, Updatable {
-    @Configure
+public class WaveSpawner implements Viewable, Updatable {
     List<Wave> myWaves;
-    @Configure
-    List<Behavior<Wave>> myWaveBehaviors;
 
-    public void setMyBehaviors(List<Behavior<Wave>> behavior) {
-        myWaveBehaviors = behavior;
+    public WaveSpawner(List<Wave> waves) {
+        myWaves = waves;
     }
 
     @Override
@@ -27,4 +21,5 @@ public class WaveSpawner implements Viewable, Configurable, Updatable {
     public void update(long ms) {
 
     }
+
 }

@@ -1,7 +1,7 @@
-package Configs;
+package Configs.MapPackage;
 
 import Configs.EnemyPackage.Enemy;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 import java.util.List;
 

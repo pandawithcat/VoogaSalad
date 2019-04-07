@@ -1,22 +1,20 @@
-package Configs.WeaponsConfig.WeaponBehaviors;
+package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
-import Configs.Shooter;
 import Configs.View;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 import java.util.List;
 
-public class Shootable extends WeaponBehavior{
+public class HealthExpirable extends WeaponBehavior{
     @Configure
-    Shooter myShooter;
+    int amountOfHealth;
 
     Configuration myConfiguration;
 
-    Shootable(Weapon weapon, Shooter shooter){
+    public HealthExpirable(Weapon weapon){
         super(weapon);
         myConfiguration = new Configuration(this);
-        myShooter = shooter;
     }
 
     @Override

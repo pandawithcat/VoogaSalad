@@ -1,25 +1,21 @@
-package Configs.WeaponsConfig.WeaponBehaviors;
+package Configs.ArsenalConfig.WeaponBehaviors;
 
 
 import Configs.Configuration;
 import Configs.View;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Movable extends WeaponBehavior{
     @Configure
     private double movingSpeed;
     @Configure
-    List<Point> movingPattern = new ArrayList<>();
-
-    Configuration myConfiguration;
+    private List<Point> movingPattern;
 
     public Movable(Weapon weapon){
         super(weapon);
-        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -28,12 +24,12 @@ public class Movable extends WeaponBehavior{
     }
 
     @Override
-    public Configuration getConfiguration() {
-        return myConfiguration;
+    public List<View> getViews() {
+        return null;
     }
 
     @Override
-    public List<View> getViews() {
+    public Configuration getConfiguration() {
         return null;
     }
 }

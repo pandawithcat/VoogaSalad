@@ -1,7 +1,7 @@
-package Configs.WeaponsConfig.WeaponBehaviors;
+package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Behaviors.Behavior;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 public abstract class WeaponBehavior implements Behavior<Weapon> {
     @Configure
@@ -14,7 +14,5 @@ public abstract class WeaponBehavior implements Behavior<Weapon> {
         return myWeapon;
     }
 
-//    public void setMyWeapon(Weapon myWeapon) {
-//        this.myWeapon = myWeapon;
-//    }
+
 }
