@@ -1,3 +1,6 @@
+package GUI.GamePlay.GameScreen;
+
+
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
@@ -31,7 +34,6 @@ public class LoadingSplashScreen extends Application{
     private Rectangle rect;
     private Text text;
     private Stage stage;
-    private MediaPlayer mediaPlayer;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -54,12 +56,15 @@ public class LoadingSplashScreen extends Application{
         text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
         root.getChildren().add(text);
     }
+    public Stage getStage(){
+        return stage;
+    }
 
     private MediaView createWelcomeMusic(){
         Media sound = new Media(new File(WELCOME_MUSIC).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setAutoPlay(true);
-        MediaView mediaView = new MediaView(mediaPlayer);
+        MediaPlayer player = new MediaPlayer(sound);
+        player.setAutoPlay(true);
+        MediaView mediaView = new MediaView(player);
         return mediaView;
     }
 
@@ -85,8 +90,8 @@ public class LoadingSplashScreen extends Application{
     private void transitionToLogIn(Button button){
         root.getChildren().remove(button);
 
-        ScaleTransition st = new ScaleTransition(Duration.millis(1000), rect);
-        ScaleTransition txt = new ScaleTransition(Duration.millis(1000), text);
+        ScaleTransition st = new ScaleTransition(Duration.millis(2000), rect);
+        ScaleTransition txt = new ScaleTransition(Duration.millis(2000), text);
         txt.setByX(-0.5f);
         txt.setByY(-0.5f);
         txt.setCycleCount(1);
@@ -109,13 +114,7 @@ public class LoadingSplashScreen extends Application{
         root.getChildren().add(button);
     }
     private void availableGames(){
-        mediaPlayer.stop();
-        this.stage.close();
-//        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
-//        gamePlayVisualization.start(new Stage());
 
-        GameSelection gameSelection = new GameSelection();
-        gameSelection.start(new Stage());
     }
     private Path generatePath(int x, int y)
     {
@@ -128,12 +127,12 @@ public class LoadingSplashScreen extends Application{
     private PathTransition generatePathTransition(Path path, Node node)
     {
         PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.seconds(0.2));
+        pathTransition.setDuration(Duration.seconds(1.0));
         pathTransition.setPath(path);
         pathTransition.setCycleCount(1);
         pathTransition.setNode(node);
+        pathTransition.setAutoReverse(true);
         return pathTransition;
     }
-    public static void main(String [] args){
-        Application.launch(args);}
+    public static void main(String [] args){launch(args);}
 }

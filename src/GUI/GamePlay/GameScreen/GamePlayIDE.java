@@ -1,3 +1,5 @@
+package GUI.GamePlay.GameScreen;
+
 import javafx.scene.layout.HBox;
 
 public class GamePlayIDE extends HBox {
@@ -5,6 +7,7 @@ public class GamePlayIDE extends HBox {
     public static final double RIGHT_RATIO = 0.25;
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
+    private Logic gameLogic;
 
     private double screenMinX;
     private double screenMinY;

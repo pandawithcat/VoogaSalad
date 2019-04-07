@@ -1,3 +1,5 @@
+package GUI.GamePlay.GameScreen;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -14,8 +16,13 @@ public class GamePlayVisualization extends Application {
     private double screenWidth = 1000;
     private double screenHeight = 600;
     private static final int padding = 15;
+    private Logic myLogic;
     private double screenMinX;
     private double screenMinY;
+
+    public GamePlayVisualization(Logic gameLogic){
+        myLogic = gameLogic;
+    }
 
     @Override
     public void start(Stage stage){
@@ -38,7 +45,7 @@ public class GamePlayVisualization extends Application {
 
 
     public static void main (String[] args) {
-        Application.launch(args);
+        launch(args);
     }
 
 }
