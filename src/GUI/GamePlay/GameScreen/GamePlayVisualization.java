@@ -43,6 +43,10 @@ public class GamePlayVisualization extends Application {
         }
     }
 
+    public Logic getGameLogic(){
+        return myLogic;
+    }
+
 
     public static void main (String[] args) {
         launch(args);
