@@ -1,4 +1,3 @@
 module AuthoringModel {
-    requires AuthoringController;
-    exports BackendExternalAPI;
+    requires java.desktop;
 }

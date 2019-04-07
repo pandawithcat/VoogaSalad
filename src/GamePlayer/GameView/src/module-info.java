@@ -1,0 +1,3 @@
+module GameView {
+    requires GameLogic;
+}
