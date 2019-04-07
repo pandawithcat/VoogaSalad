@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.main;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;

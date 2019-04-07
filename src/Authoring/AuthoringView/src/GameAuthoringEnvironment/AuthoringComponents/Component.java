@@ -4,6 +4,9 @@ import javafx.scene.control.ButtonBase;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
+import java.net.URISyntaxException;
+
 public abstract class Component {
 
     ImageView myImage;
@@ -29,7 +32,15 @@ public abstract class Component {
 
 
     public void setImage(String fileName, ButtonBase button) {
-            myImage = new ImageView(new Image(getClass().getResourceAsStream("/ButtonImages/" + fileName)));
+            var url = this.getClass().getClassLoader().getResource("ButtonImages");
+            try {
+                File folder = new File(url.toURI());
+                Image test = new Image(folder.toURI()+ fileName);
+                System.out.println(test.isError());
+                myImage = new ImageView(test);
+                } catch (URISyntaxException e) {
+                e.printStackTrace();
+                }
             //TODO magic numbers should be changed based on the screensize
             myImage.setFitHeight(50);
             myImage.setFitWidth(125);

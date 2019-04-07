@@ -1,5 +1,6 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
+import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -13,13 +14,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 
 //TODO This can depends on the arsenal interface(backend). This class assumes that arsenal class has following methods
 //
-public class ArsenalEditor extends Module {
+public class ArsenalEditor extends Screen {
 
     private final int sourceViewWidth = 200;
     private final int sourceViewHeight = 200;
@@ -28,30 +28,41 @@ public class ArsenalEditor extends Module {
     private ListView<Arsenal> sourceView = new ListView<>();
     private ListView<Arsenal> targetView = new ListView<>();
     //TODO change the logging area to where user can change the property of each arsenal
+    private VBox propertySettingBox = new VBox();
     private TextArea loggingArea = new TextArea("");
     private static final DataFormat Arsenal_LIST = new DataFormat("Arsenal List");
     private final BooleanProperty dragModeActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
     private VBox myVBox;
     private Pane myToolBar;
+    private ArsenalEditor myArsenalEditor;
 
     public ArsenalEditor(Group myRoot, int width, int height, String moduleName) {
         super(myRoot, width, height, moduleName, true);
+        myArsenalEditor = this;
         setLayout(600, 600);
         setContentColor(Color.LIGHTBLUE);
         myVBox = getVBox();
         myToolBar = getToolbarPane();
         setContent();
-        addSaveButton();
-        addMakeNewArsenalButton();
         makeDraggable(myToolBar);
     }
 
     //TODO MAKE NEW ARSENAL BUTTON
     private void addMakeNewArsenalButton(){
         Button createArsenal = new Button("Create Arsenal");
+        createArsenal.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent t) {
+                //TODO Make New Arsenal - For second sprint
+                ArsenalPropertySetting arsenalPropertySetting = new ArsenalPropertySetting(1000, 1000, myArsenalEditor);
 
 
+            }
+        });
+
+        myVBox.getChildren().addAll(createArsenal);
     }
 
 
@@ -146,13 +157,13 @@ public class ArsenalEditor extends Module {
 
     //TODO Instead of the loggging area, make a pop up screen for setting properties for the objects
     public void setContent() {
-        Label sourceListLbl = new Label("Available Towers: ");
+        Label sourceListLbl = new Label("Available Default Towers: ");
         Label targetListLbl = new Label("Selected Towers: ");
         Label messageLbl = new Label("Select arsenals from the given list, drag and drop them to another list");
 
         sourceView.setPrefSize(sourceViewWidth, sourceViewHeight);
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
-        loggingArea.setMaxSize(sourceViewWidth * 2 + viewGap, sourceViewHeight);
+        addMakeNewArsenalButton();
 
         //examples
         Arsenal iceTower = new Arsenal("iceTower");
@@ -177,10 +188,17 @@ public class ArsenalEditor extends Module {
 
         setDragAndDrop();
         VBox root = new VBox();
-        // Add the Pane and The LoggingArea to the VBox
-        root.getChildren().addAll(pane, loggingArea);
+        root.getChildren().addAll(pane);
         getContent().getChildren().add(root);
 
+    }
+
+    public ListView<Arsenal> getTargetView(){
+        return targetView;
+    }
+
+    public ListView<Arsenal> getSourceView() {
+        return sourceView;
     }
 
     //TODO This can be refactord to a separate class
@@ -188,21 +206,18 @@ public class ArsenalEditor extends Module {
 
         sourceView.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                writelog("sourceview dragdetected");
                 dragDetected(event, sourceView);
             }
         });
 
         sourceView.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                writelog("sourceview draggedover");
                 dragOver(event, sourceView);
             }
         });
 
         sourceView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                writelog("sourceview dragdone");
                 dragDone(event, targetView, sourceView);
             }
         });
@@ -210,21 +225,18 @@ public class ArsenalEditor extends Module {
         // Add mouse event handlers for the target
         targetView.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                writelog("targetview dragdetected");
                 dragDetected(event, targetView);
             }
         });
 
         targetView.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                writelog("targetview draggedover");
                 dragOver(event, targetView);
             }
         });
 
         targetView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                writelog("Event on Target: drag done");
                 dragDone(event,sourceView, targetView);
             }
         });
@@ -245,7 +257,6 @@ public class ArsenalEditor extends Module {
 
         // Put the the selected items to the dragboard
         ArrayList<Arsenal> selectedItems = getSelectedArsenal(listView);
-        writelog(selectedItems.toString());
 
         ClipboardContent content = new ClipboardContent();
         content.put(Arsenal_LIST, selectedItems);
@@ -278,12 +289,7 @@ public class ArsenalEditor extends Module {
             ArrayList<Arsenal> list = (ArrayList<Arsenal>) dragboard.getContent(Arsenal_LIST);
             source.getItems().addAll(list);
 
-            // Data transfer is successful
-            dragCompleted = true;
         }
-
-        // Data transfer is not successful
-        //event.setDropCompleted(dragCompleted);
 
         TransferMode tm = event.getTransferMode();
 
@@ -316,10 +322,11 @@ public class ArsenalEditor extends Module {
         listView.getItems().removeAll(selectedList);
     }
 
-    // Helper Method for Logging
+    /*// Helper Method for Logging
     private void writelog(String text) {
         this.loggingArea.appendText(text + "\n");
-    }
+    }*/
+
 
 
 }
