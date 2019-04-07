@@ -1,5 +1,3 @@
-package GUI.GamePlay.GameScreen;
-
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;

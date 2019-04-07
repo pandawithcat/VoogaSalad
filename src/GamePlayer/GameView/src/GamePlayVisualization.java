@@ -1,5 +1,3 @@
-package GUI.GamePlay.GameScreen;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -40,7 +38,7 @@ public class GamePlayVisualization extends Application {
 
 
     public static void main (String[] args) {
-        launch(args);
+        Application.launch(args);
     }
 
 }
