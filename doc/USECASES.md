@@ -82,7 +82,7 @@ Christina's use cases (6):
 
 * **Add a new weapon type:** You should be able to add a new weapon type in the frontend of the authoring environment, which will change the speed of shooting a projectile and the direction of shooting the projectile (homing, radial, line). This weapon type is then selectable as an option for each tower within the authoring environment. Some initial options can be defined within a properties file.
 
-* **Add a new projectile type:** You should be able to add a new projectile type in the frontend of the authoring environment, which will create a new ProjectileConfig object that defines the image, projectile type (bomb or bullet), and kill power.
+* **Add a new projectile type:** You should be able to add a new projectile type in the frontend of the authoring environment, which will create a new projectileConfigPackage.ProjectileConfig object that defines the image, projectile type (bomb or bullet), and kill power.
 
 * **Add number of lives:** User can put in number of lives the player will begin with. Involves simply setting an integer for lives that will be given to the back end to determine number of lives instance variable for game object.
 

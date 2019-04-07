@@ -125,7 +125,7 @@ public class GameOutline extends Module {
     }
 
     private void createEnemiesScreen(){
-        EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "Enemy Editor");
+        EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "EnemyPackage Editor");
         myRoot.getChildren().add(enemiesEditor.getVBox());
 
     }

@@ -2,21 +2,19 @@ package BackendExternal;
 
 public class GameInfo {
 
-    String getGameTitle();
+        private String myGameTitle;
+        private String myGameThumbnail;
 
-    String getGameThumbnail();
+        public GameInfo(String title, String thumbnail){
+            myGameTitle = title;
+            myGameThumbnail = thumbnail;
+        }
 
-    String getGameDescription();
+        public String getGameTitle(){
+            return myGameTitle;
+        }
 
-    private String myGameTitle;
-    private String myGameThumbnail;
-
-    public GameInfo(String title, String thumbnail){
-        myGameTitle = title;
-        myGameThumbnail = thumbnail;
-    }
-
-
-
-
+        public String getMyGameThumbnail(){
+            return myGameThumbnail;
+        }
 }

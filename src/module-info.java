@@ -7,5 +7,5 @@ module Visualization{
     requires java.desktop;
     requires javafx.web;
 
-    exports Main;
+    exports src;
 }
