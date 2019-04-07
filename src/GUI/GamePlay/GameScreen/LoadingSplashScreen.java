@@ -34,7 +34,6 @@ public class LoadingSplashScreen extends Application{
     private Rectangle rect;
     private Text text;
     private Stage stage;
-
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -60,6 +59,7 @@ public class LoadingSplashScreen extends Application{
     public Stage getStage(){
         return stage;
     }
+
     private MediaView createWelcomeMusic(){
         Media sound = new Media(new File(WELCOME_MUSIC).toURI().toString());
         MediaPlayer player = new MediaPlayer(sound);
@@ -114,6 +114,9 @@ public class LoadingSplashScreen extends Application{
         root.getChildren().add(button);
     }
     private void availableGames(){
+        AvailableGamesDisplay availableGamesDisplay = new AvailableGamesDisplay();
+        availableGamesDisplay.start(new Stage());
+        stage.close();
     }
     private Path generatePath(int x, int y)
     {

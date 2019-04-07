@@ -9,10 +9,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
-public class LogIn extends Application {
-
-    @Override
-    public void start(Stage primaryStage) {
-    }
+public class LogIn{
     
 }
