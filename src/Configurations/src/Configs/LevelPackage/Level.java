@@ -1,27 +1,38 @@
 package Configs.LevelPackage;
 
 import Configs.*;
+import Configs.ArsenalConfig.Arsenal;
 import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.Enemy;
-import Configs.WeaponsConfig.Weapon;
-import Configs.Waves.WaveSpawner;
+import Configs.GamePackage.Game;
+import Configs.MapPackage.MapConfig;
+import Configs.Waves.Wave;
+import Configs.ArsenalConfig.Weapon;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
-import java.util.Map;
 
 public class Level implements Configurable, Viewable, EventHandlable, Updatable {
-    List<Behavior<Level>> levelBehaviors;
-    List<Weapon> activeWeapons;
-    List<Enemy> activeEnemies;
-    WaveSpawner myWaveSpawner;
-    Arsenal myArsenal;
-    int gridSizeX;
-    int gridSizeY;
-    Cell[][] myGrid;
+    private List<Weapon> activeWeapons;
+    private List<Enemy> activeEnemies;
+    private Game myGame;
 
-    public Level(){
+    @Configure
+    private Wave[] myWaves;
+    @Configure
+    private Arsenal myArsenal;
+    @Configure
+    private int gridSizeX;
+    @Configure
+    private int gridSizeY;
+    @Configure
+    private MapConfig myMap;
+    @Configure
+    private Behavior<Level>[] levelBehaviors;
 
+
+    public Level(Game game){
+        myGame = game;
     }
 
     @Override
@@ -36,6 +47,11 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
 
     @Override
     public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
         return null;
     }
 }

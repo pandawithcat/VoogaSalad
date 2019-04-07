@@ -1,17 +1,16 @@
-package Configs.WeaponsConfig.WeaponBehaviors;
+package Configs.ArsenalConfig.WeaponBehaviors;
 
-import Configs.Shooter;
+import Configs.Configuration;
 import Configs.View;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 import java.util.List;
 
 public class Shootable extends WeaponBehavior{
     @Configure
     Shooter myShooter;
-    Shootable(Weapon weapon, Shooter shooter){
+    Shootable(Weapon weapon){
         super(weapon);
-        myShooter = shooter;
     }
 
     @Override
@@ -21,6 +20,11 @@ public class Shootable extends WeaponBehavior{
 
     @Override
     public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
         return null;
     }
 }

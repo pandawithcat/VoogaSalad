@@ -1,6 +1,7 @@
-package Configs.EnemyPackage;
+package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Behaviors.Behavior;
+import Configs.EnemyPackage.Enemy;
 
 public abstract class EnemyBehavior implements Behavior<Enemy>{
     @Configure

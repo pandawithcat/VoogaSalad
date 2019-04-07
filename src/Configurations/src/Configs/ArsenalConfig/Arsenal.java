@@ -1,19 +1,29 @@
-package Configs;
+package Configs.ArsenalConfig;
 
-import Configs.WeaponsConfig.Weapon;
+import Configs.Configurable;
+import Configs.LevelPackage.Level;
+import Configs.ArsenalConfig.Weapon;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal {
-    List<Weapon> allWeaponOptions;
-    List<Weapon> unlockedWeapons;
+    @Configurable.Configure
+    private Weapon[] allWeaponOptions;
+    private List<Weapon> unlockedWeapons;
+    private Level myLevel;
+
+    public Arsenal(Level level) {
+        myLevel = level;
+    }
 
 
     public List<Weapon> getAllWeaponOptions() {
-        return Collections.unmodifiableList(allWeaponOptions);
+        return Collections.unmodifiableList(new ArrayList<>(Arrays.asList(allWeaponOptions)));
     }
 
     public List<Weapon> getUnlockedWeapons() {

@@ -1,7 +1,8 @@
-package Configs.WeaponsConfig.WeaponBehaviors;
+package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.Configuration;
 import Configs.View;
-import Configs.WeaponsConfig.Weapon;
+import Configs.ArsenalConfig.Weapon;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,11 @@ public class PlaceableOnPath extends WeaponBehavior {
 
     @Override
     public List<View> getViews() {
+        return null;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
         return null;
     }
 }
