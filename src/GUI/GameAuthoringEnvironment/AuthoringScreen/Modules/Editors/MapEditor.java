@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -78,6 +79,7 @@ public class MapEditor extends Module {
 
     public void initTileView(){
         tileView.setPrefSize(tileViewWidth, tileViewHeight);
+        tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");
         tileView.getItems().add(2,"Dirt");
