@@ -8,4 +8,12 @@ public abstract class LevelBehavior implements Behavior<Level> {
     public LevelBehavior(Level level) {
         myLevel = level;
     }
+
+    public Level getMyLevel() {
+        return myLevel;
+    }
+
+    public void setMyLevel(Level myLevel) {
+        this.myLevel = myLevel;
+    }
 }
