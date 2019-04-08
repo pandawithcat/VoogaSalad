@@ -2,7 +2,6 @@ package Configs.ArsenalConfig;
 
 import Configs.Configurable;
 import Configs.LevelPackage.Level;
-import Configs.ArsenalConfig.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +13,7 @@ import java.util.List;
 public class Arsenal {
     @Configurable.Configure
     private Weapon[] allWeaponOptions;
-    private List<Weapon> unlockedWeapons;
+    private Weapon[] unlockedWeapons;
     private Level myLevel;
 
     public Arsenal(Level level) {

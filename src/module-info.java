@@ -1,4 +1,4 @@
-module Visualization{
+module voogasalad_nomergeconflicts{
     requires javafx.base;
     requires javafx.controls;
     requires javafx.graphics;
@@ -7,5 +7,4 @@ module Visualization{
     requires java.desktop;
     requires javafx.web;
 
-    exports src;
 }
