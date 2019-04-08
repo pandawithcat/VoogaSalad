@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen.main;
 
+
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
