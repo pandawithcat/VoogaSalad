@@ -14,11 +14,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Modules/Editors/ArsenalEditor.java
-import GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
-
-=======
->>>>>>> 672c41ec1ecdda850e97c54c2aa13f3230c75ac9:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/Editors/ArsenalEditor.java
 import java.util.ArrayList;
 import java.util.List;
 

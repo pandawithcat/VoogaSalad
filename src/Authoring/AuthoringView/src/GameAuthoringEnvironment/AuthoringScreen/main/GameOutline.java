@@ -1,14 +1,9 @@
 package GameAuthoringEnvironment.AuthoringScreen.main;
 
-<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Modules/GameOutline.java
-import GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
-import GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
-import GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.MapEditor;
-=======
+
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
 import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
->>>>>>> 672c41ec1ecdda850e97c54c2aa13f3230c75ac9:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/GameOutline.java
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

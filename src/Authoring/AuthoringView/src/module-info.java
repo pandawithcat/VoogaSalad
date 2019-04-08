@@ -7,8 +7,6 @@ module AuthoringView {
     requires java.desktop;
     requires javafx.web;
     requires Configurations;
-    requires javafx.graphics;
-    requires javafx.controls;
 
     exports GameAuthoringEnvironment.AuthoringComponents;
     exports GameAuthoringEnvironment.AuthoringScreen;

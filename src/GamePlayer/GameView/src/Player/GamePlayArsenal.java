@@ -1,4 +1,4 @@
-package GUI.GamePlay.GameScreen;
+package Player;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.TreeItem;
@@ -6,13 +6,10 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GamePlayArsenal extends VBox {
-    private Logic myGameLogic;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic gameLogic){
-        myGameLogic = gameLogic;
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight){
         ArrayList<TreeItem> arsenal = getArsenal();
         TreeView arsenalView = new TreeView();
         TreeItem rootItem = new TreeItem("Arsenal");
@@ -24,10 +21,10 @@ public class GamePlayArsenal extends VBox {
     }
 
     public ArrayList<TreeItem> getArsenal(){
-        ArrayList<TreeItem> myArsenal = myGameLogic.getArsenal();
+        ArrayList<TreeItem> myArsenal = new ArrayList<TreeItem>();
         //TODO: Iterate through a list of things users can implement
         TreeItem myWeapons = new TreeItem("Weapons");
-        myWeapons.getChildren().addAll(getWeapons(myGameLogic.getArsenal().getAllWeapons));
+        myWeapons.getChildren().addAll(getWeapons());
         TreeItem myObstacles = new TreeItem("Obstacles");
         myObstacles.getChildren().addAll(getObstacles());
         myArsenal.add(myWeapons);
@@ -35,15 +32,9 @@ public class GamePlayArsenal extends VBox {
         return myArsenal;
     }
 
-    private ArrayList<TreeItem> getWeapons(List weapon){
+    private ArrayList<TreeItem> getWeapons(){
         ArrayList<TreeItem> weapons = new ArrayList<TreeItem>();
-
-        //TODO: make sure the loops works
-        for (int i = 0; i < weapon.size(); i++){
-            TreeItem tower = new TreeItem(weapon.get(i));
-            weapons.add(tower);
-        }
-
+        //TODO: also should iterate through list
         TreeItem tower1 = new TreeItem("gang");
         TreeItem tower2 = new TreeItem("boom");
         TreeItem tower3 = new TreeItem("pop");

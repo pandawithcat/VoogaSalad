@@ -10,7 +10,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 
 import java.util.ArrayList;
 import java.util.List;
