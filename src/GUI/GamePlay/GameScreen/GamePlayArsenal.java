@@ -6,6 +6,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GamePlayArsenal extends VBox {
     private Logic myGameLogic;
@@ -26,7 +27,7 @@ public class GamePlayArsenal extends VBox {
         ArrayList<TreeItem> myArsenal = myGameLogic.getArsenal();
         //TODO: Iterate through a list of things users can implement
         TreeItem myWeapons = new TreeItem("Weapons");
-        myWeapons.getChildren().addAll(getWeapons());
+        myWeapons.getChildren().addAll(getWeapons(myGameLogic.getArsenal().getAllWeapons));
         TreeItem myObstacles = new TreeItem("Obstacles");
         myObstacles.getChildren().addAll(getObstacles());
         myArsenal.add(myWeapons);
@@ -34,9 +35,15 @@ public class GamePlayArsenal extends VBox {
         return myArsenal;
     }
 
-    private ArrayList<TreeItem> getWeapons(){
+    private ArrayList<TreeItem> getWeapons(List weapon){
         ArrayList<TreeItem> weapons = new ArrayList<TreeItem>();
-        //TODO: also should iterate through list
+
+        //TODO: make sure the loops works
+        for (int i = 0; i < weapon.size(); i++){
+            TreeItem tower = new TreeItem(weapon.get(i));
+            weapons.add(tower);
+        }
+
         TreeItem tower1 = new TreeItem("gang");
         TreeItem tower2 = new TreeItem("boom");
         TreeItem tower3 = new TreeItem("pop");
