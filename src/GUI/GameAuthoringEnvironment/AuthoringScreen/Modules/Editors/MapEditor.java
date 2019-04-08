@@ -10,6 +10,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -21,7 +22,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 public class MapEditor extends Module {
-    private final String currentTile = "GRASS";
+    private String currentTile = "Grass";
     private final int tileViewWidth = 150;
     private final int tileViewHeight = 400;
     private final int viewGap = 10;
@@ -30,6 +31,7 @@ public class MapEditor extends Module {
     private GridPane pane;
     private VBox myVBox;
     private Pane myToolBar;
+
     private final BooleanProperty dragActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
 
@@ -46,7 +48,7 @@ public class MapEditor extends Module {
     public void setContent(){
         Label mapLbl = new Label("Map");
         Label tileListLbl = new Label("Tiles");
-        Label messageLbl = new Label("Select tiles from the given list, drag and drop them to the map");
+        Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         initMap();
         initTileView();
         pane = new GridPane();
@@ -58,6 +60,7 @@ public class MapEditor extends Module {
         pane.add(messageLbl, 0, 0, 3, 1);
         pane.addRow(1, mapLbl, tileListLbl);
         pane.addRow(2, map, tileView);
+        addSubmit();
         //pane.add(tileView,2,1);
 
         VBox root = new VBox();
@@ -69,12 +72,16 @@ public class MapEditor extends Module {
 
     public void initMap(){
         map=new GridPane();
+        TileBuilder tBuild = new TileBuilder();
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
-                map.add(new GrassTile(r*1,c*1,20,20),r*1,c*1);
+
+                map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
+                //map.add(new GrassTile(r*1,c*1,20,20),r*1,c*1);
             }
 
         }
+        addGridEvent();
     }
 
     public void initTileView(){
@@ -83,6 +90,12 @@ public class MapEditor extends Module {
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");
         tileView.getItems().add(2,"Dirt");
+        tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                currentTile=tileView.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
     private void makeDraggable(Node top){
@@ -135,6 +148,38 @@ public class MapEditor extends Module {
                         }
                     }
                 });
+    }
+
+    private void addSubmit(){
+        Button subButton = new Button("Submit");
+        subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+
+            }
+        });
+        pane.addRow(3,subButton);
+
+    }
+
+    private void addGridEvent(){
+        map.getChildren().forEach(item-> {
+            item.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("HELLO");
+                    Node source = (Node) mouseEvent.getSource();
+                    Integer col = map.getColumnIndex(source);
+                    Integer row = map.getRowIndex(source);
+//                    System.out.println(col);
+//                    System.out.println(row);
+                    TileBuilder tb = new TileBuilder();
+                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
+                    //SquareCell=tb.getTile(currentTile,row,col,20,20)
+
+                }
+            });
+        });
     }
 
 }
