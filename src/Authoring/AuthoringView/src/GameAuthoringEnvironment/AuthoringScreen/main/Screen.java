@@ -1,13 +1,13 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.main;
 
-import GUI.GameAuthoringEnvironment.AuthoringComponents.CloseButton;
+import GameAuthoringEnvironment.AuthoringComponents.CloseButton;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-public abstract class Module {
+public abstract class Screen {
 
     private final VBox module;
     private Pane content, toolbarPane;
@@ -17,7 +17,7 @@ public abstract class Module {
     private Group myRoot;
     private boolean resizable = false;
 
-    public Module(Group root, int width, int height, String moduleName, boolean toolBarExist) {
+    public Screen(Group root, int width, int height, String moduleName, boolean toolBarExist) {
 
         module = new VBox();
         content = new Pane();
@@ -41,7 +41,6 @@ public abstract class Module {
         }
 
         setResizable(resizable);
-        myRoot.getChildren().add(module);
     }
 
     //TODO implement to make screen resizable
