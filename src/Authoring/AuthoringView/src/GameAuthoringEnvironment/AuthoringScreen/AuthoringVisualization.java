@@ -1,7 +1,8 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GameOutline;
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.GamePropertySettings;
+import GameAuthoringEnvironment.AuthoringComponents.*;
+import GameAuthoringEnvironment.AuthoringScreen.Modules.GameOutline;
+import GameAuthoringEnvironment.AuthoringScreen.Modules.GamePropertySettings;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
