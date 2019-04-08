@@ -74,7 +74,6 @@ public class Logic {
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
     public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
-
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -88,7 +87,7 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
-
+        return true;
     }
 
     // View calls to move a dynamic object that has already been instantiated
