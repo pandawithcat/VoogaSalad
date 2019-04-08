@@ -30,8 +30,6 @@ public class GameOutline extends Screen {
         content.setMinSize(300, 1000);
         moduleWidth = getModuleWidth();
         setContent();
-
-
     }
 
 
@@ -41,10 +39,7 @@ public class GameOutline extends Screen {
         var url = this.getClass().getClassLoader().getResource("ButtonImages");
         try {
             File folder = new File(url.toURI());
-            System.out.println(folder.exists());
-            System.out.println(folder.toURI()+"Folder");
             Image test = new Image(folder.toURI()+"Folder");
-            System.out.println(test.isError());
             myImage = new ImageView(test);
         } catch (URISyntaxException e) {
             e.printStackTrace();
