@@ -1,8 +1,8 @@
-package Main;
-
-import GUI.GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
+import GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
+import static javafx.application.Application.launch;
 
 public class Driver extends Application {
 
