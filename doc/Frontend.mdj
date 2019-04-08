@@ -1675,7 +1675,7 @@
 											"top": 567,
 											"width": 29.3896484375,
 											"height": 13,
-											"text": "View"
+											"text": "Player.View"
 										},
 										{
 											"_type": "LabelView",
@@ -11929,7 +11929,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "View",
+					"name": "Player.View",
 					"ownedElements": [
 						{
 							"_type": "UMLInterfaceRealization",
