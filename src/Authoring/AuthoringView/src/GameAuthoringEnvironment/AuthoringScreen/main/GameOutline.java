@@ -14,6 +14,8 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 
+//TODO Change all magic values
+
 public class GameOutline extends Screen {
 
     private Pane content;
