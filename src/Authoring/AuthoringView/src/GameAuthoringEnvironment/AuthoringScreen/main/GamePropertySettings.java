@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen.main;
 
+import Configs.GamePackage.Game;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,12 +16,12 @@ public class GamePropertySettings {
     private Stage popupwindow;
 
 
-    public GamePropertySettings(double width, double height, String moduleName){
+    public GamePropertySettings(double width, double height){
 
         popupwindow = new Stage();
 
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle(moduleName);
+        popupwindow.setTitle("Game Property Settings");
 
         Label gameNameLabel = new Label("Game Name");
         TextField gameNameTf = new TextField();
@@ -49,26 +50,20 @@ public class GamePropertySettings {
 
 
         VBox layout= new VBox();
-        layout.getChildren().addAll(gameNameLabel, gameNameTf, gameTypeLabel, gameTypeMenu, numberOfLevelsLabel, numberOfLevelTf,
-                createButton, screenSizeLabel, screenSizeTf, numberOfLevelsLabel, numberOfLevelTf);
+        layout.getChildren().addAll(gameNameLabel, gameNameTf, gameTypeLabel, gameTypeMenu,
+                screenSizeLabel, screenSizeTf, numberOfLevelsLabel, numberOfLevelTf, createButton);
         //layout.setAlignment(Pos.BOTTOM_CENTER);
 
-        initiate(width, height, popupwindow, layout);
-    }
-
-    private void handleCreateGameButton(ActionEvent event){
-
-
-
-
-        popupwindow.close();
-
-    }
-
-    private void initiate(double width, double height, Stage popupwindow, VBox layout) {
         Scene scene= new Scene(layout, width/2, height/2);
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
+    }
+
+    private void handleCreateGameButton(ActionEvent event){
+        Game myGame = new Game();
+
+        popupwindow.close();
+
     }
 
 

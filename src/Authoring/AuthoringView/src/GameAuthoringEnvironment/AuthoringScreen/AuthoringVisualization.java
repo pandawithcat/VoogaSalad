@@ -64,16 +64,8 @@ public class AuthoringVisualization {
         //This is the only pane that should be fixed on the screen
         var leftGridPane = new Group();
         leftGridPane.setLayoutY(63);
-        //leftGridPane.setGridLinesVisible(true);
+
         setLeftGridPane(leftGridPane);
-
-/*
-        myContainer.setRight(null);
-        myContainer.setBottom(null);
-
-        myContainer.setTop(addTopBar());
-        myContainer.setLeft(leftGridPane);*/
-
         myContainer.getChildren().addAll(addTopBar(), leftGridPane);
 
         myScene = new Scene(myContainer);
@@ -107,9 +99,7 @@ public class AuthoringVisualization {
         NewGameButton newGameButton = new NewGameButton();
         newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
-                System.out.println("Mouse entered");
-                // TODO Make This pop up window that sets the Game Properties
-                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight, "Game Property Settings");
+                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
             }
         });
 
