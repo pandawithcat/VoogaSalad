@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.Logic;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
@@ -16,9 +17,13 @@ public class GamePlayVisualization extends Application {
     private double screenWidth = 1000;
     private double screenHeight = 600;
     private static final int padding = 15;
+    private Logic myLogic;
     private double screenMinX;
     private double screenMinY;
 
+    public GamePlayVisualization(Logic logic){
+        myLogic = logic;
+    }
     @Override
     public void start(Stage stage){
         try {
@@ -26,7 +31,7 @@ public class GamePlayVisualization extends Application {
             var root = new Group();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             //TODO:should this be global below?
-            GamePlayIDE myGameIDE = new GamePlayIDE(screenWidth, screenHeight);
+            GamePlayIDE myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
             myGameIDE.setPadding(new Insets(padding,padding,padding,padding));
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
