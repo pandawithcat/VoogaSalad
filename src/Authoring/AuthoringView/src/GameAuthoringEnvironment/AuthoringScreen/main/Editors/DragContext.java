@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
 public class DragContext {
     public double mouseAnchorX;

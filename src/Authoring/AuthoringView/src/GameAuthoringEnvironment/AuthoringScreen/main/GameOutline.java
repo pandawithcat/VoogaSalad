@@ -1,17 +1,20 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules;
+package GameAuthoringEnvironment.AuthoringScreen.main;
 
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.ArsenalEditor;
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.EnemiesEditor;
-import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Editors.MapEditor;
+import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
+import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
+import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
-public class GameOutline extends Module {
+public class GameOutline extends Screen {
 
     private Pane content;
     private int moduleWidth;
@@ -35,7 +38,18 @@ public class GameOutline extends Module {
 
     public void setContent() {
 
-        myImage = new ImageView(new Image(getClass().getResourceAsStream("/ButtonImages/Folder")));
+        var url = this.getClass().getClassLoader().getResource("ButtonImages");
+        try {
+            File folder = new File(url.toURI());
+            System.out.println(folder.exists());
+            System.out.println(folder.toURI()+"Folder");
+            Image test = new Image(folder.toURI()+"Folder");
+            System.out.println(test.isError());
+            myImage = new ImageView(test);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
         //TODO magic numbers should be changed based on the screensize
         myImage.setFitHeight(50);
         myImage.setFitWidth(50);
@@ -82,24 +96,30 @@ public class GameOutline extends Module {
     }
 
     private void controlTreeCellMouseClick(TreeCell<String> cell) {
-        cell.setOnMouseClicked(event -> {
-            if (! cell.isEmpty()) {
-                if(cell.getTreeItem().getValue().equals("Map")){
-                    //System.out.println("map screen created");
-                    createMapScreen();
-                }
-                if(cell.getTreeItem().getValue().equals("Arsenals")){
-                    //System.out.println("Arsenal screen created");
-                    createArsenalScreen();
-                }
-                if(cell.getTreeItem().getValue().equals("Enemies")){
-                    //System.out.println("Enemies screen created");
-                    createEnemiesScreen();
-                }
 
+        cell.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                if (mouseEvent.getClickCount() == 2) {
+                    //TODO Can change this to reflection
+                    if (cell.getTreeItem().getValue().equals("Map")) {
+                        //System.out.println("map screen created");
+                        createMapScreen();
+                    }
+                    if (cell.getTreeItem().getValue().equals("Arsenals")) {
+                        //System.out.println("Arsenal screen created");
+                        createArsenalScreen();
+                    }
+                    if (cell.getTreeItem().getValue().equals("Enemies")) {
+                        //System.out.println("Enemies screen created");
+                        createEnemiesScreen();
+                    }
+
+                }
             }
         });
+
     }
+
 
     private void createMapScreen(){
         MapEditor mapEditor = new MapEditor(myRoot,300, 300, "Map Editor");
