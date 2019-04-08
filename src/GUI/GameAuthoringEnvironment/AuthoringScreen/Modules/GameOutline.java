@@ -110,7 +110,7 @@ public class GameOutline extends Module {
     }
 
     private void createMapScreen(){
-        MapEditor mapEditor = new MapEditor(myRoot,500, 500, "Map Editor");
+        MapEditor mapEditor = new MapEditor(myRoot,650, 550, "Map Editor");
         myRoot.getChildren().add(mapEditor.getVBox());
     }
 
