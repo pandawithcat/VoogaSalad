@@ -7,7 +7,8 @@ import java.nio.file.Path;
 //import java.awt.*;
 
 public class View implements Configurable {
-    TransferImageView myImageView;
+    private TransferImageView myImageView;
+    private Configuration myConfiguration;
 
     //xtream ommitted
     @Configure
@@ -18,7 +19,9 @@ public class View implements Configurable {
     private double height;
 
 
+
     public View(Configurable configurableParent) {
+        myConfiguration = new Configuration(configurableParent);
 
     }
 
@@ -41,5 +44,6 @@ public class View implements Configurable {
     public void updatePosition(int gridXPos, int gridYPos) {
 
     }
+
 
 }

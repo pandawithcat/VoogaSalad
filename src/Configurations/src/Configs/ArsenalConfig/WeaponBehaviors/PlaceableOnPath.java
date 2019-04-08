@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
+import Configs.ImmutableImageView;
 import Configs.View;
 import Configs.ArsenalConfig.Weapon;
 
@@ -10,8 +11,12 @@ import java.util.Optional;
 public class PlaceableOnPath extends WeaponBehavior {
     @Configure
     int rangeOnPath;
+
+    Configuration myConfiguration;
+
     public PlaceableOnPath(Weapon weapon, Optional<Integer> rangeOnPath){
         super(weapon);
+        myConfiguration = new Configuration(this);
         this.rangeOnPath = rangeOnPath.get();
     }
 
@@ -21,12 +26,17 @@ public class PlaceableOnPath extends WeaponBehavior {
     }
 
     @Override
-    public List<View> getViews() {
+    public Configuration getConfiguration() {
+        return myConfiguration;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeAdded() {
         return null;
     }
 
     @Override
-    public Configuration getConfiguration() {
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 }

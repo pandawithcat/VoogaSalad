@@ -3,7 +3,6 @@ package Configs.ArsenalConfig;
 import Configs.*;
 import Configs.Behaviors.Behavior;
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -14,21 +13,30 @@ public class Weapon implements  Configurable, Viewable, Updatable {
     @Configure
     private Behavior<Weapon>[] behaviors;
     @Configure
-    private View myView;
+    private View view;
+
+    //because the user needs to configure this part and this is the only way to pass in that information
+    @Configure
+    private boolean unlocked;
 
     public Weapon() {
         myConfiguration=new Configuration(this);
     }
 
 
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
+
 
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    public String getName() {
+        return (String) myConfiguration.getDefinedAttributes().get(name.toString());
+    }
+
+    public TransferImageView getImageView() {
+        return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
     }
 
     @Override
@@ -40,4 +48,6 @@ public class Weapon implements  Configurable, Viewable, Updatable {
             }
         }
     }
+
+
 }

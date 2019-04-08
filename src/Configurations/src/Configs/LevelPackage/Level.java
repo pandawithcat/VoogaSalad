@@ -46,7 +46,12 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 

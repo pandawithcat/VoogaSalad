@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AmmoExpirable extends WeaponBehavior {
     @Configure
-    private int numberOfEnemiesPossibleToKill;
+    int numberOfEnemiesPossibleToKill;
 
     public AmmoExpirable(Weapon weapon){
         super(weapon);
@@ -20,7 +20,12 @@ public class AmmoExpirable extends WeaponBehavior {
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 

@@ -62,6 +62,7 @@ public class Configuration {
                 attributes.put(field.getName(), field.getType());
             }
         }
+        myAttributeTypes = attributes;
         return Collections.unmodifiableMap(attributes);
     };
 
@@ -69,7 +70,8 @@ public class Configuration {
         return isComplete;
     }
 
-    public Map<String,Object> getDefinedAttributes() {
+    public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
+        if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
 

@@ -9,8 +9,6 @@ import java.util.List;
 public class Projectile implements Viewable, Configurable, Updatable {
     private Shooter myShooter;
     @Configure
-    ProjectileOptions projectileType;
-    @Configure
     List<Behavior<Projectile>> myBehaviors;
 //    public Projectile(){
 //         ProjectileOptions.values() how to get all options of the enum
@@ -26,7 +24,12 @@ public class Projectile implements Viewable, Configurable, Updatable {
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 
