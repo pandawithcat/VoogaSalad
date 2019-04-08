@@ -12,7 +12,7 @@ Brian: XML -> Game Object Conversion
 
 Game Object -> Game Instance
 
-Interface between Game Model and Game View (passing of viewables)
+Interface between Game Model and Game Player.View (passing of viewables)
 
 II: User authentication in top level game logic so view can handle viewing
 

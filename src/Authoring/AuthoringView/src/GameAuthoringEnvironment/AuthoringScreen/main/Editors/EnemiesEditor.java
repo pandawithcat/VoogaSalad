@@ -1,5 +1,6 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
+import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -14,7 +15,8 @@ import GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnemiesEditor extends Module {
+
+public class EnemiesEditor extends Screen {
 
     private final int sourceViewWidth = 200;
     private final int sourceViewHeight = 200;
@@ -41,6 +43,10 @@ public class EnemiesEditor extends Module {
         getContent().getChildren().add(submitButton);
     }
 
+
+    public ListView<Enemy> getSourceView() {
+        return sourceView;
+    }
 
     //TODO put Enemy as an argument
     public void addEnemies(Enemy Enemy) {

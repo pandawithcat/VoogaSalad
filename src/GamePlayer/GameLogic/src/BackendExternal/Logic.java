@@ -1,6 +1,7 @@
 package BackendExternal;
 
 import Configs.GamePackage.Game;
+import Configs.ImmutableImageView;
 import Data.GameLibrary;
 
 import java.util.EventObject;
@@ -59,14 +60,20 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-//    public List<Viewable> getLevelStaticView(){
-//
-//    }
+    public List<ImmutableImageView> getLevelTerrain(){
 
-    // View calls this when there is an event in the frontend that needs to be resolved in backend
-    // Input: Event
-    // No return
-    public void handleEvent(EventObject event){
+    }
+
+    // View call this when the user presses play or a level is over
+    // Return: ID and image file of available weapons
+    public List<WeaponInfo> getArsenal(){
+
+    }
+
+    // View calls this when a weapon is placed onto the map
+    // Input: WeaponInfo Object
+    // Return: ImageView corresponding to the weapon
+    public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
 
     }
 
@@ -77,10 +84,18 @@ public class Logic {
 
     }
 
-    // View calls to get the Viewable instances of dynamic items in the game loop
-    // No input
-    // Return: List of Viewable instances of dynamic level items
-//    public List<Viewable> getViewUpdates(){
+    // View calls to check if a location is valid to place a weapon
+    // Input: WeaponInfo object, x and y coordinate
+    // Return: boolean
+    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
+
+    }
+
+    // View calls to move a dynamic object that has already been instantiated
+    // Input: WeaponInfo object, x and y coordinate
+    // No return
+    // TODO: Second Sprint move objects mid level
+//    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
 //
 //    }
 

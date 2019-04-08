@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.Modules.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
 import java.io.Serializable;
 
