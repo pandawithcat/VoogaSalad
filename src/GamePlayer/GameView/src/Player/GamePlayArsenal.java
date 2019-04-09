@@ -2,9 +2,7 @@ package Player;
 
 import BackendExternal.Logic;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -35,9 +33,9 @@ public class GamePlayArsenal extends VBox {
         isWeapon = true;
         myLogic = logic;
 //        myArsenal = myLogic.getArsenal();
-        TreeView arsenalView = new TreeView();
-        TreeItem rootItem = new TreeItem("Arsenal");
-
+        ScrollPane arsenalView = new ScrollPane();
+        arsenalView.setContent(new Label("hey"));
+        //TODO: implement the hover shit when we set content
 //        rootItem.getChildren().addAll(myArsenal);
 //        arsenalView.setRoot(rootItem);
         arsenalView.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
