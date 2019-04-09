@@ -16,18 +16,31 @@ public class WeaponConfig implements  Configurable, Viewable {
     @Configure
     private View view;
 
+
     //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;
 
+    private Arsenal arsenal;
+    private int weaponId;
+
     public WeaponConfig(Arsenal arsenal) {
         myConfiguration=new Configuration(this);
+        this.arsenal = arsenal;
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
         this.name = weaponConfig.getName();
         this.behaviors = weaponConfig.getBehaviors();
         this.view = weaponConfig.getView();
+    }
+
+    public void setWeaponId(int weaponId) {
+        this.weaponId = weaponId;
+    }
+
+    public int getWeaponId() {
+        return weaponId;
     }
 
     @Override
@@ -52,7 +65,7 @@ public class WeaponConfig implements  Configurable, Viewable {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
     }
 
-
-
-
+    public Arsenal getArsenal() {
+        return arsenal;
+    }
 }

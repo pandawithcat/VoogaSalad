@@ -1,5 +1,6 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import ActiveConfigs.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
 
@@ -8,6 +9,7 @@ public class Shootable extends WeaponBehavior{
     Shooter myShooter;
 
     Configuration myConfiguration;
+    private WeaponConfig weaponConfig;
 
     Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -22,5 +24,9 @@ public class Shootable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    public WeaponConfig getWeaponConfig() {
+        return weaponConfig;
     }
 }

@@ -25,11 +25,15 @@ public class ShooterConfig implements Configurable{
         projectileConfig = shooterConfig.getProjectileConfig();
     }
 
-    private ProjectileConfig getProjectileConfig() {
+    public Shootable getMyShootable() {
+        return myShootable;
+    }
+
+    public ProjectileConfig getProjectileConfig() {
         return projectileConfig;
     }
 
-    private double getRateOfFire() {
+    public double getRateOfFire() {
         return rateOfFire;
     }
 

@@ -8,10 +8,12 @@ import Configs.LevelPackage.Level;
 import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ActiveLevel extends Level implements Updatable, MapFeaturable {
-    private List<ActiveWeapon> activeWeapons;
+    private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
@@ -24,7 +26,7 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
-        activeWeapons = new ArrayList<>();
+        activeWeapons = new HashMap<>();
 //        setMyGame(game);
         myMapFeature = mapFeature;
     }
@@ -54,6 +56,10 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         return viewsToBeRemoved;
     }
 
+    public ActiveWeapon getActiveWeapon(int id) {
+        return activeWeapons.get(id);
+    }
+
     public List<ImmutableImageView> getViewsToBeAdded() {
         return viewsToBeAdded;
     }
@@ -79,6 +85,6 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     }
 
     public void addToActiveWeapon(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.add(new ActiveWeapon(weapon,mapFeature));
+        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature));
     }
 }

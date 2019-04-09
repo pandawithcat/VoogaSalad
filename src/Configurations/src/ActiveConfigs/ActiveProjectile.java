@@ -7,7 +7,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     private MapFeature myMapFeature;
 
 
-    public ActiveProjectile(ProjectileConfig projectileConfig, MapFeature mapFeature){
+    public ActiveProjectile(ProjectileConfig projectileConfig, MapFeature mapFeature, double finalPixelX, double finalPixelY){
 
         super(projectileConfig);
         myMapFeature = mapFeature;

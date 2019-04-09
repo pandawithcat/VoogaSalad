@@ -55,6 +55,9 @@ public class View implements Configurable {
     public double getHeight() {
         return height;
     }
+    public String getImage() {
+        return imagePath.toString();
+    }
 
 
 

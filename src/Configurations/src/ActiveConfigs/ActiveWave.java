@@ -41,10 +41,9 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
                 int direction = getMyLevel().getMyMap().getEnemyEnteringDirection();
                 EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
 
-                MapFeature newMapFeature = new MapFeature(x, y,direction);
+                MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView());
                 getMyLevel().getParent().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);
 
-                newMapFeature.setImageView(enemyConfig.getView().getHeight(), enemyConfig.getView().getWidth());
                 getMyLevel().getParent().getActiveLevel().addViewToBeAdded(newMapFeature.getImageView());
                 currentEnemyIndex++;
             }

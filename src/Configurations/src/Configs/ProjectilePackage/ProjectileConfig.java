@@ -6,13 +6,19 @@ import Configs.ShooterConfig.ShooterConfig;
 
 import java.util.List;
 
-public class ProjectileConfig implements Configurable {
+public class ProjectileConfig implements Configurable, Viewable {
     private ShooterConfig myShooter;
 
     Configuration myConfiguration;
-
     @Configure
-    private List<Behavior<ProjectileConfig>> myBehaviors;
+    private View view;
+    @Configure
+    private double velocity;
+
+    //TODO: after first sprint implement behaviors
+//    @Configure
+//    private List<Behavior<ProjectileConfig>> myBehaviors;
+
 //    public ProjectileConfig(){
 //         ProjectileOptions.values() how to get all options of the enum
 //    }
@@ -23,13 +29,18 @@ public class ProjectileConfig implements Configurable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
-        myBehaviors = projectileConfig.getMyBehaviors();
+//        myBehaviors = projectileConfig.getMyBehaviors();
         myShooter = projectileConfig.getMyShooter();
     }
 
-    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
-        return myBehaviors;
+    @Override
+    public View getView() {
+        return view;
     }
+
+//    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
+//        return myBehaviors;
+//    }
 
     private ShooterConfig getMyShooter() {
         return myShooter;
