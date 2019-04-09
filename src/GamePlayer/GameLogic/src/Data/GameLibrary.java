@@ -19,7 +19,7 @@ import java.util.*;
 public class GameLibrary {
 
     private final String GAME_INFO_FILE = "GameInfo";
-    private final String REGEX = ",";
+    private final String REGEX = "~";
     private final String FILE_PATH = "resources/GameXMLs/";
 
     private List<GameInfo> myGames;
