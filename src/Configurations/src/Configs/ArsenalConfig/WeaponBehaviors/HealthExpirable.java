@@ -1,8 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.util.List;
 
@@ -12,8 +11,8 @@ public class HealthExpirable extends WeaponBehavior{
 
     Configuration myConfiguration;
 
-    public HealthExpirable(Weapon weapon){
-        super(weapon);
+    public HealthExpirable(WeaponConfig weaponConfig){
+        super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 
@@ -28,7 +27,12 @@ public class HealthExpirable extends WeaponBehavior{
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 }

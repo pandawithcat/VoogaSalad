@@ -1,6 +1,5 @@
 package Configs.ProjectilePackage.ProjectileBehaviors;
 
-import Configs.ArsenalConfig.Weapon;
 import Configs.ProjectilePackage.Projectile;
 
 public abstract class ProjectileBehavior {

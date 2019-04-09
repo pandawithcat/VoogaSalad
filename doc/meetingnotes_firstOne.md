@@ -22,7 +22,7 @@ Player
 * Heads up display with lives, enemies, level, money, time, score
 * Ability to see leaderboards
 * Load and save instances
-* Mouse over to see tower/weapon status
+* Mouse over to see tower/weaponConfig status
 * Store to buy global power ups
 
 One Game Working

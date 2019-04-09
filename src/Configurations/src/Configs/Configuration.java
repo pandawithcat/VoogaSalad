@@ -1,7 +1,7 @@
 package Configs;
 
 import Configs.Behaviors.Behavior;
-import Configs.Behaviors.BehaviorManager;
+//import Configs.Behaviors.BehaviorManager;
 import Configs.Waves.Wave;
 import Configs.Waves.WaveSpawner;
 
@@ -12,9 +12,11 @@ public class Configuration {
     private Map<String,Class> myAttributeTypes;
     private Map<String,Object> myAttributes;
     private boolean isComplete = false;
-    Class myConfigurableClass;
+    private Configurable myConfigurable;
+    private Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
+        myConfigurable = configurable;
         myConfigurableClass = configurable.getClass();
     }
 
@@ -38,21 +40,27 @@ public class Configuration {
     public void setOneAttribute(String name, Object value) {
         validateType(name,value);
         myAttributes.put(name,value);
-        if(isAttributesComplete(myAttributes)) isComplete = true;
+        if(isAttributesComplete(myAttributes)) {
+            isComplete = true;
+        }
     }
 
     public void setAllAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
         for (String key:attributes.keySet()) {
-            if(attributes.get(key) instanceof Behavior[]) {
-                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
-            }
+//            if(attributes.get(key) instanceof Behavior[]) {
+//                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
+//            }
             if(attributes.get(key) instanceof Wave[]) {
                 attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
             }
         }
         myAttributes = attributes;
         isComplete = true;
+    }
+
+    private void setAttributesInConfigurable(){
+
     }
 
     public Map<String, Class>  getAttributes(){
@@ -62,6 +70,7 @@ public class Configuration {
                 attributes.put(field.getName(), field.getType());
             }
         }
+        myAttributeTypes = attributes;
         return Collections.unmodifiableMap(attributes);
     };
 
@@ -69,9 +78,11 @@ public class Configuration {
         return isComplete;
     }
 
-    public Map<String,Object> getDefinedAttributes() {
+    public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
+        if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
+
 
 
 
