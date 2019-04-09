@@ -42,29 +42,29 @@ public class TerrainTile extends ImageView {
 
 
 
-//    public void changeImage(String type){
-//        if(type.equals("Grass")){
-//            changeToGrass();
-//        }
-//        else if(type.equals("Water")){
-//            changeToWater();
-//        }
-//        else if(type.equals("Dirt")){
-//            changeToDirt();
-//        }
-//
-//    }
-//
-//    public void changeToGrass(){
-//        this.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
-//    }
-//
-//    public void changeToWater(){
-//        this.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
-//
-//    }
-//    public void changeToDirt(){
-//        this.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
-//    }
+    public void changeImage(String type){
+        if(type.equals("Grass")){
+            changeToGrass();
+        }
+        else if(type.equals("Water")){
+            changeToWater();
+        }
+        else if(type.equals("Dirt")){
+            changeToDirt();
+        }
+
+    }
+
+    public void changeToGrass(){
+        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
+    }
+
+    public void changeToWater(){
+        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
+
+    }
+    public void changeToDirt(){
+        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
+    }
 
 }

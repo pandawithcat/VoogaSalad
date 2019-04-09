@@ -181,7 +181,7 @@ public class MapEditor extends Screen {
         });
     }
     public void updateCell(MouseEvent mouseEvent){
-        System.out.println("HELLO");
+        //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
 
         Integer col = map.getColumnIndex(source);
@@ -191,28 +191,11 @@ public class MapEditor extends Screen {
         System.out.println(row);
         TileBuilder tb = new TileBuilder();
         //SquareCell sq = tb.getTile(currentTile,row,col,20,20);
-//        source.changeImage(currentTile);
-
-
-
-        //IMPLEMENTATION 1: THIS DOES NOT CHANGE THE IMAGE PROPERLY BUT THE MOUSE CLICKS ARE DETECTED PROPERLY
-        //source.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage)));
+        source.changeImage(currentTile);
 
 
 
 
-        //IMPLEMENTATION 2: THIS CHANGES THE IMAGE PROPERLY ONCE BUT AFTER ONE CHANGES THE FIRST IMAGE, SUBSEQUENT CLICKS
-        //ARE NOT DETECTED ANYMORE BECAUSE NEW TERRAINTILE ADDED TO MAP DOES NOT HAVE LISTENER
-
-        //Image newIm = source.getNewImage(currentTile);
-        //map.add(new TerrainTile(row,col,newIm),col,row);
-
-        /*******
-         * ignore below
-         */
-        //map.add(new TerrainTile(row,col,new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage))),col,row);
-//                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
-        //map.getChildren().remove(source);
 
 
     }
