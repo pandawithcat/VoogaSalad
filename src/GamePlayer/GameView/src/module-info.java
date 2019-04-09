@@ -7,7 +7,7 @@ module GameView {
     requires java.desktop;
     requires javafx.web;
     requires GameLogic;
-    requires Configurations;
+    requires Configs;
 
     exports Player;
 }
