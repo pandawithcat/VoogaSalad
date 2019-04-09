@@ -3,6 +3,7 @@ package Configs.ArsenalConfig;
 import Configs.*;
 import Configs.Behaviors.Behavior;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -37,6 +38,16 @@ public class Weapon implements  Configurable, Viewable, Updatable {
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
+        return null;
     }
 
     @Override

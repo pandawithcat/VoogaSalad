@@ -1,5 +1,6 @@
 package Configs;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,7 +11,7 @@ public class View implements Configurable {
     private TransferImageView myImageView;
     private Configuration myConfiguration;
 
-    //xtream ommitted
+    @XStreamOmitField
     @Configure
     private Path imageName;
     @Configure
