@@ -32,7 +32,7 @@ Maybe Focus Areas:
 
 -move enemies along their path based on AI
 
--implement towers shooting one type of projectile (arrow) in either radial or straight
+-implement towers shooting one type of projectileConfig (arrow) in either radial or straight
 
 -implement spikes that reduce HP of people that walk over them
 

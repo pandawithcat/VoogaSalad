@@ -1,18 +1,18 @@
 package Configs.ProjectilePackage.ProjectileBehaviors;
 
-import Configs.ProjectilePackage.Projectile;
+import Configs.ProjectilePackage.ProjectileConfig;
 
 public abstract class ProjectileBehavior {
-    Projectile myProjectile;
-    ProjectileBehavior(Projectile projectile){
-        myProjectile = projectile;
+    ProjectileConfig myProjectileConfig;
+    ProjectileBehavior(ProjectileConfig projectileConfig){
+        myProjectileConfig = projectileConfig;
     }
 
-    public Projectile getMyProjectile() {
-        return myProjectile;
+    public ProjectileConfig getMyProjectileConfig() {
+        return myProjectileConfig;
     }
 
-    public void setMyProjectile(Projectile myProjectile) {
-        this.myProjectile = myProjectile;
+    public void setMyProjectileConfig(ProjectileConfig myProjectileConfig) {
+        this.myProjectileConfig = myProjectileConfig;
     }
 }

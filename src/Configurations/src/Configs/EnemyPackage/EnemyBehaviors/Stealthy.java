@@ -4,14 +4,13 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Configuration;
 import Configs.EnemyPackage.Enemy;
-import Configs.ProjectilePackage.Projectile;
-import Configs.View;
+import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.util.List;
 
 public class Stealthy extends EnemyBehavior{
     @Configure
-    Projectile[] projectilesThatCanAttackMe;
+    ProjectileConfig[] projectilesThatCanAttackMe;
 
     Stealthy(Enemy enemy){
         super(enemy);

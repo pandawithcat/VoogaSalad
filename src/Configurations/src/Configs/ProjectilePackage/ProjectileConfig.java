@@ -1,19 +1,21 @@
-package Configs.Waves;
+package Configs.ProjectilePackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.LevelPackage.Level;
+import Configs.ArsenalConfig.WeaponBehaviors.Shooter;
 
 import java.util.List;
 
-//holds the enemies
-public class Wave implements Updatable, Viewable, Configurable {
-    private Level myLevel;
+public class ProjectileConfig implements Viewable, Configurable, Updatable {
+    private Shooter myShooter;
     @Configure
-    Behavior<Wave>[] myWaveBehaviors;
+    List<Behavior<ProjectileConfig>> myBehaviors;
+//    public ProjectileConfig(){
+//         ProjectileOptions.values() how to get all options of the enum
+//    }
 
-    public Wave(Level level) {
-        myLevel = level;
+    public ProjectileConfig(Shooter shooter) {
+        myShooter = shooter;
     }
 
     @Override

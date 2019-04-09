@@ -1,15 +1,14 @@
 package Configs.Waves;
 
 import Configs.*;
-import Configs.Behaviors.Behavior;
 
 import java.util.List;
 
 public class WaveSpawner implements Viewable, Updatable {
-    List<Wave> myWaves;
+    List<WaveConfig> myWaveConfigs;
 
-    public WaveSpawner(List<Wave> waves) {
-        myWaves = waves;
+    public WaveSpawner(List<WaveConfig> waveConfigs) {
+        myWaveConfigs = waveConfigs;
     }
 
     @Override

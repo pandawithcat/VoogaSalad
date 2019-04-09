@@ -13,7 +13,8 @@ public class View implements Configurable {
 
     @XStreamOmitField
     @Configure
-    private Path imageName;
+    private Path imagePath;
+    private String imageName;
     @Configure
     private double width;
     @Configure

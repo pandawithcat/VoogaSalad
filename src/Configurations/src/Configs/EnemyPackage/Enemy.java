@@ -2,17 +2,17 @@ package Configs.EnemyPackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.Waves.Wave;
+import Configs.Waves.WaveConfig;
 
 import java.util.List;
 
 public class Enemy implements Configurable, Viewable, Updatable {
-    private Wave myWave;
+    private WaveConfig myWaveConfig;
     @Configure
     List<Behavior<Enemy>> myBehaviors;
 
-    public Enemy(Wave wave) {
-        myWave = wave;
+    public Enemy(WaveConfig waveConfig) {
+        myWaveConfig = waveConfig;
     }
 
     public void setMyBehaviors(List<Behavior<Enemy>> behavior) {

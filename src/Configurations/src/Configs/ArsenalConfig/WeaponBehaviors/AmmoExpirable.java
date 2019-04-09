@@ -18,15 +18,7 @@ public class AmmoExpirable extends WeaponBehavior {
 
     }
 
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
 
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
-    }
 
     @Override
     public Configuration getConfiguration() {
