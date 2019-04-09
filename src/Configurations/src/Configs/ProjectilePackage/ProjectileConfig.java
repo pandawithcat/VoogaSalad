@@ -2,7 +2,6 @@ package Configs.ProjectilePackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.ArsenalConfig.WeaponBehaviors.Shooter;
 
 import java.util.List;
 
