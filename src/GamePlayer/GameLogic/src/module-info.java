@@ -3,5 +3,6 @@ module GameLogic {
 
     requires Configurations;
     requires xstream;
+    requires Configs;
 
 }
