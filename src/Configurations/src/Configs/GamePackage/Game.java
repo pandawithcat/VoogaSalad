@@ -40,16 +40,6 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     }
 
     @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
-    }
-
-    @Override
     public Configuration getConfiguration() {
         return myConfiguration;
     }

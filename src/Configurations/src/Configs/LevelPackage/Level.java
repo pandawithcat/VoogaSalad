@@ -2,22 +2,17 @@ package Configs.LevelPackage;
 
 import Configs.*;
 import Configs.ArsenalConfig.Arsenal;
-import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.Enemy;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
-import Configs.Waves.Wave;
-import org.w3c.dom.events.Event;
-
-import java.util.List;
+import Configs.Waves.WaveConfig;
 
 public class Level implements Configurable{
 
     private Game myGame;
 
     @Configure
-    private Wave[] myWaves;
+    private WaveConfig[] myWaveConfigs;
     @Configure
     private Arsenal myArsenal;
     @Configure
@@ -35,7 +30,7 @@ public class Level implements Configurable{
     }
 
     public Level(Level level){
-        myWaves = level.getMyWaves();
+        myWaveConfigs = level.getMyWaveConfigs();
         myArsenal = level.getMyArsenal();
         gridSizeX = level.getGridSizeX();
         gridSizeY = level.getGridSizeY();
@@ -67,8 +62,8 @@ public class Level implements Configurable{
         return myMap;
     }
 
-    private Wave[] getMyWaves() {
-        return myWaves;
+    private WaveConfig[] getMyWaveConfigs() {
+        return myWaveConfigs;
     }
 
     @Override

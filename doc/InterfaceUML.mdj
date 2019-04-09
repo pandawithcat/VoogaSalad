@@ -4931,7 +4931,7 @@
 											"top": 1269,
 											"width": 119.9326171875,
 											"height": 13,
-											"text": "-Projectile projectile",
+											"text": "-Projectile projectileConfig",
 											"horizontalAlignment": 0
 										}
 									],
@@ -12007,7 +12007,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFpxqok9uCHNkw="
 							},
-							"name": "Projectile projectile",
+							"name": "Projectile projectileConfig",
 							"visibility": "private"
 						}
 					]

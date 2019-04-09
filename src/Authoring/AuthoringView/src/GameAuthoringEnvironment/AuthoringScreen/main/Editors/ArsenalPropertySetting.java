@@ -44,9 +44,9 @@ public class ArsenalPropertySetting {
         priceLabel = new Label("Arsenal Price");
         priceTf = new TextField();
 
-        projectile = new MenuButton("Choose Projectile");
-        projectileSpeed = new MenuButton("Choose Projectile Speed");
-        power = new MenuButton("Choose Projectile Power");
+        projectile = new MenuButton("Choose ProjectileConfig");
+        projectileSpeed = new MenuButton("Choose ProjectileConfig Speed");
+        power = new MenuButton("Choose ProjectileConfig Power");
 
         Button saveButton = new Button("Save properties");
 

@@ -9,5 +9,5 @@ import Configs.Viewable;
  * @param <T>
  */
 
-public interface Behavior<T> extends Updatable, Configurable, Viewable {
+public interface Behavior<T> extends Updatable, Configurable {
 }

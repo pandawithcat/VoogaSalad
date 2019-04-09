@@ -79,7 +79,7 @@ Game Run Phase{
 	Check if any enemies are dead, remove from screen if so();
 	Update all active projectiles and weapons to see if they’re hitting any enemies or walls();
 		If hitting something, update that something, update score();
-		Otherwise update position of that projectile based on how it’s supposed to move();
+		Otherwise update position of that projectileConfig based on how it’s supposed to move();
 	Check all weapons to see if it’s the right time to shoot, if so, shoot and create new projectiles/etc();
 		make sure to update ammo, health, etc of the weaponConfig itself();
 	Render new state

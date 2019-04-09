@@ -6,31 +6,25 @@ import Configs.ArsenalConfig.WeaponBehaviors.Shooter;
 
 import java.util.List;
 
-public class Projectile implements Viewable, Configurable, Updatable {
+public class ProjectileConfig implements Viewable, Configurable, Updatable {
     private Shooter myShooter;
     @Configure
-    List<Behavior<Projectile>> myBehaviors;
-//    public Projectile(){
+    List<Behavior<ProjectileConfig>> myBehaviors;
+//    public ProjectileConfig(){
 //         ProjectileOptions.values() how to get all options of the enum
 //    }
 
-    public Projectile(Shooter shooter) {
+    public ProjectileConfig(Shooter shooter) {
         myShooter = shooter;
+    }
+
+    public ProjectileConfig(ProjectileConfig projectileConfig){
+
     }
 
     @Override
     public void update(long ms) {
 
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
     }
 
     @Override
