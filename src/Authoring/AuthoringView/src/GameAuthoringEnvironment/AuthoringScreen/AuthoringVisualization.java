@@ -2,7 +2,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import GameAuthoringEnvironment.AuthoringComponents.*;
 
-import GameAuthoringEnvironment.AuthoringScreen.PropertySettings.GamePropertySettings;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -61,32 +60,10 @@ public class AuthoringVisualization {
 
     private void setScene(Stage stage, Group myRoot) {
         myContainer = myRoot;
-
-        //This is the only pane that should be fixed on the screen
-        var leftGridPane = new Group();
-        leftGridPane.setLayoutY(63);
-
-        setLeftGridPane(leftGridPane);
-        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
-
+        myContainer.getChildren().addAll(addTopBar());
         myScene = new Scene(myContainer);
 
-
     }
-
-
-    private void setLeftGridPane(Group leftGridPane){
-        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
-        leftGridPane.getChildren().addAll(gameOutline.getVBox());
-    }
-
-
-    // add all the other modules that can be close
-    private void addNotStaticModule(){
-
-    }
-
-    // add all the buttons - ex) save, load etc
     private HBox addTopBar(){
 
         var TopMenuBar = new HBox();
@@ -99,9 +76,8 @@ public class AuthoringVisualization {
         ViewButton viewButton = new ViewButton();
         NewGameButton newGameButton = new NewGameButton();
         newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
-                gameOutline.setContent(gamePropertySettings.getMyGameController().getMyNumberOfLevels());
+            public void handle(MouseEvent event) {
+                GameController gameController = new GameController();
             }
         });
 

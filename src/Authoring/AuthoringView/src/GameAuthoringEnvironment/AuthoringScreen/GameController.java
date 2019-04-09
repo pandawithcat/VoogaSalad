@@ -2,90 +2,112 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.ObjectInputFilter;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 public class GameController {
 
-    private String myGameName;
-    private String gameType;
-    private int myScreenSize;
-    private int myNumberOfLevels;
-    private int myNumberOfLives;
+    private Stage popupwindow;
 
-
-    public GameController(String gameName, int screenSize, int numberOfLevels, int numberOfLives) {
-
-        myGameName = gameName;
-        myScreenSize = screenSize;
-        myNumberOfLevels = numberOfLevels;
-        myNumberOfLives = numberOfLives;
+    public GameController() {
         Game myGame = new Game();
         createConfigurable(myGame);
-
     }
 
 
     public void createConfigurable(Configurable myConfigurable){
+
+        popupwindow = new Stage();
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        //TODO Should change the window title
+        popupwindow.setTitle("What the fuck");
+
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
+        VBox layout = new VBox();
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
 
-            //System.out.println(key + " " + value);
+            //handle primitives
+            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class)){
+                Label myLabel = new Label(key);
+                TextField myTextField = new TextField();
+                layout.getChildren().addAll(myLabel, myTextField);
+            }
 
+            else if(value.isInstance(Paths.class)){
+                System.out.println(value + " is "+ "paths class");
+                Button fileUploadButton = new Button("Upload Image");
+                layout.getChildren().add(fileUploadButton);
+                FileChooser fileChooser = new FileChooser();
+                fileUploadButton.setOnMouseClicked(e -> {
 
-            if (!value.equals(java.lang.String.class) && !value.equals(java.lang.Integer.class)) {
-                //Handle obj list first
+                    File selectedFile = fileChooser.showOpenDialog(popupwindow);
+                    if (selectedFile != null) {
+                        //TODO Save the file
+                    }
+                });
+
+            }
+
+            //handle list
+            else if(value.isArray()) {
+                Object[] list = (Object[]) Array.newInstance(value.getComponentType());
+                for (int a = 0; a < list.length; a++) {
+                    if (list[a] instanceof Configurable) {
+                        createConfigurable((Configurable) list[a]);
+                    } else {
+                        handlePrimitives(myConfigurable, myAttributesMap, key, list[a]);
+                    }
+                }
+            }
+
+            //handle single object
+            else{
                 System.out.println(key + " " + value);
-                if (!value.equals(java.util.List.class)) {
-                    try {
-                        Object myObject = value.getConstructor().newInstance();
-                        System.out.println(myObject.toString() + "single object");
-                        if (myObject instanceof Configurable) {
-                            createConfigurable((Configurable) myObject);
-                        }
-                    } catch (Exception e) {//TODO Write Some errors here
-                    }
-                }
-                // Handle Object List
-                else {
-                    System.out.println("this reached here");
-                    try {
-                        Object[] list = (Object[]) value.getConstructor().newInstance();
-                        System.out.println(list.toString());
-                        System.out.println(list);
-                        for (int a = 0; a < list.length; a++) {
-                            if (list[a] instanceof Configurable) {
-                                System.out.println(list[a].toString() + "dadhfad");
-                                createConfigurable((Configurable) list[a]);
-                            } else {
-                                handlePrimitives(myConfigurable, myAttributesMap, key, list[a]);
+                Button myButton = new Button("Configure " + key);
+                myButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            Object myObject = value.getConstructor().newInstance();
+                            System.out.println(myObject.toString() + "single object");
+                            if (myObject instanceof Configurable) {
+                                createConfigurable((Configurable) myObject);
                             }
-                        }
-                    } catch (Exception e) {//TODO Write Some error
+                        } catch (Exception e) {//TODO Write Some errors here
+                            }
+
                     }
-                }
+                }));
+                layout.getChildren().add(myButton);
             }
-            else {
-                handlePrimitives(myConfigurable, myAttributesMap, key, value);
-            }
-
-            System.out.println(myAttributesMap);
-            //default object
-           /* Object object = new Game();
-            try {
-                Class<?> clazz = Class.forName(key);
-                object = clazz.getConstructor().newInstance();
-            }catch (Exception e){
-            }
-
-        myAttributesMap.put(key, object);*/
 
         }
+
+        Button setButton = new Button("This config completed");
+        layout.getChildren().add(setButton);
+        Scene scene= new Scene(layout, 500, 500);
+        popupwindow.setScene(scene);
+        popupwindow.showAndWait();
+
         myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
     }
 
@@ -102,12 +124,6 @@ public class GameController {
         catch (NoSuchMethodException e){}
 
     }
-
-
-    public int getMyNumberOfLevels(){
-        return myNumberOfLevels;
-    }
-
 
 
 }

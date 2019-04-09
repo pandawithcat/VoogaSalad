@@ -1,3 +1,4 @@
+/*
 package GameAuthoringEnvironment.AuthoringScreen.PropertySettings;
 
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
@@ -18,7 +19,6 @@ public class GamePropertySettings {
     private TextField gameNameTf, screenSizeTf, numberOfLivesTf, numberOfLevelTf;
     private MenuButton gameTypeMenu;
     private GameController myGameController;
-
 
     public GamePropertySettings(double width, double height){
 
@@ -81,3 +81,4 @@ public class GamePropertySettings {
 
 
 }
+*/

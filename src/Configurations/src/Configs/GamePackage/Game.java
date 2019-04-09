@@ -12,10 +12,8 @@ public class Game implements Configurable, Updatable, EventHandlable, Viewable {
     String gameName;
     @Configure
     List<Level> levelList;
-    /*@Configure
-    GameOptions gameType;*/
     @Configure
-    Integer screenSize;
+    GameOptions gameType;
     @Configure
     Integer numberOfLevels;
 
