@@ -13,11 +13,17 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     @Configure
     Level[] levelList;
     @Configure
-    Behavior<Game>[] gameType;
+    private Behavior<Game>[] gameType;
     @Configure
-    WeaponConfig[] allWeaponConfigs;
+    private WeaponConfig[] allWeaponConfigs;
     @Configure
-    Configuration myConfiguration;
+    private Configuration myConfiguration;
+    @Configure
+    private String myTitle;
+    @Configure
+    private String myDescription;
+    @Configure
+    private String myThumbnail;
 
     public Game(){
         myConfiguration = new Configuration(this);
@@ -37,4 +43,18 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     public Configuration getConfiguration() {
         return myConfiguration;
     }
+
+    public String getTitle(){
+        return myTitle;
+    }
+
+    public String getDescription(){
+        return myDescription;
+    }
+
+    public String getThumbnail(){
+        return myThumbnail;
+    }
+
+
 }
