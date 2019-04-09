@@ -17,8 +17,6 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
     private int myScore;
-//    private List<ImmutableImageView> viewsToBeRemoved;
-//    private List<ImmutableImageView> viewsToBeAdded;
     private MapFeature myMapFeature;
 
     public ActiveLevel(Level level, MapFeature mapFeature) {
@@ -37,7 +35,6 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
-        //TODO: Pass Imageviews back up to frontend
     }
 
     private void updateEnemies(long ms){

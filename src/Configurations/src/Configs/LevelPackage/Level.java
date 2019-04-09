@@ -44,7 +44,7 @@ public class Level implements Configurable{
         return myGame;
     }
 
-    private Arsenal getMyArsenal() {
+    public Arsenal getMyArsenal() {
         return myArsenal;
     }
 
@@ -68,5 +68,6 @@ public class Level implements Configurable{
     public Game getParent(){
         return myGame;
     }
+
 
 }
