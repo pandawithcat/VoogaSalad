@@ -7,21 +7,21 @@ import javafx.scene.input.MouseEvent;
 
 public class TerrainTile extends ImageView {
     ImageView imageView;
-    String type;
 
-    public TerrainTile(double x, double y, Image image){
+    public TerrainTile(double x, double y, Image image, String type){
         super(image);
         this.setX(x);
         this.setY(y);
         this.setFitWidth(20);
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
-        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                //imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream()))
-            }
-        });
+//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("HELLO I AM COL");
+//                imageView=new ImageView(getNewImage(type));
+//            }
+//        });
     }
 
     public Image getNewImage(String type){

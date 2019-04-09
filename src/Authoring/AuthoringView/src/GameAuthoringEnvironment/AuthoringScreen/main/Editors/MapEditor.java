@@ -83,7 +83,7 @@ public class MapEditor extends Screen {
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
-                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage))),r,c);
+                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile),r,c);
                 //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
@@ -186,30 +186,37 @@ public class MapEditor extends Screen {
 
         Integer col = map.getColumnIndex(source);
         Integer row = map.getRowIndex(source);
-        
+
         System.out.println(col);
         System.out.println(row);
         TileBuilder tb = new TileBuilder();
-        map.getChildren().get(row).
         //SquareCell sq = tb.getTile(currentTile,row,col,20,20);
-        //source.changeImage(currentTile);
+//        source.changeImage(currentTile);
+
+
+
+        //IMPLEMENTATION 1: THIS DOES NOT CHANGE THE IMAGE PROPERLY BUT THE MOUSE CLICKS ARE DETECTED PROPERLY
         //source.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage)));
-        //map.add(new TerrainTile(row,col,new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage))),col,row);
-//                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
-        //map.getChildren().remove(source);
+
+
+
+
+        //IMPLEMENTATION 2: THIS CHANGES THE IMAGE PROPERLY ONCE BUT AFTER ONE CHANGES THE FIRST IMAGE, SUBSEQUENT CLICKS
+        //ARE NOT DETECTED ANYMORE BECAUSE NEW TERRAINTILE ADDED TO MAP DOES NOT HAVE LISTENER
+
         //Image newIm = source.getNewImage(currentTile);
         //map.add(new TerrainTile(row,col,newIm),col,row);
 
+        /*******
+         * ignore below
+         */
+        //map.add(new TerrainTile(row,col,new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage))),col,row);
+//                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
+        //map.getChildren().remove(source);
+
 
     }
-    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
-                return node;
-            }
-        }
-        return null;
-    }
+
 
 }
 
