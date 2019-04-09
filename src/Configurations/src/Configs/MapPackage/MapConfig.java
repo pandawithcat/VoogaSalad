@@ -1,21 +1,47 @@
 package Configs.MapPackage;
 
+import Configs.Configurable;
+import Configs.Configuration;
 import Configs.MapPackage.Terrain;
 
 import java.util.List;
 
-public class MapConfig {
+public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
+    @Configure
     private List<Terrain> myTerrain;
+    @Configure
+    private int enemyEnteringGridXPos;
+    @Configure
+    private int enemyEnteringGridYPos;
+    @Configure
+    private int gridHeight;
+    @Configure
+    private int gridWidth;
+    @Configure
+    private double gridPixelWidth;
+    @Configure
+    private double gridPixelHeight;
+
+    private Configuration configuration;
 
     public List<Terrain> getTerrain() {
         return myTerrain;
     }
 
-   //This might have to use a weapon ID
-//    public boolean isValid(int x, int y, Weapon w){
-//
-//    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
 
     public void setTerrainList(List<Terrain> terrain) {
         myTerrain = terrain;

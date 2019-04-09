@@ -17,10 +17,6 @@ public class Level implements Configurable, Updatable{
     @Configure
     private Arsenal myArsenal;
     @Configure
-    private int gridSizeX;
-    @Configure
-    private int gridSizeY;
-    @Configure
     private MapConfig myMap;
 //    @Configure
 //    private Behavior<Level>[] levelBehaviors;
@@ -35,8 +31,6 @@ public class Level implements Configurable, Updatable{
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();
         myArsenal = level.getMyArsenal();
-        gridSizeX = level.getGridSizeX();
-        gridSizeY = level.getGridSizeY();
         myMap = level.getMyMap();
 //        levelBehaviors = level.getLevelBehaviors();
     }
@@ -64,15 +58,7 @@ public class Level implements Configurable, Updatable{
 //        return levelBehaviors;
 //    }
 
-    private int getGridSizeX() {
-        return gridSizeX;
-    }
-
-    private int getGridSizeY() {
-        return gridSizeY;
-    }
-
-    private MapConfig getMyMap() {
+    public MapConfig getMyMap() {
         return myMap;
     }
 

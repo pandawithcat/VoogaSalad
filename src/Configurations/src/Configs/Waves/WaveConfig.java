@@ -37,8 +37,10 @@ public class WaveConfig implements Updatable, Configurable {
         }
         if(currentEnemyIndex<enemies.length) {
             while(startTimes[currentEnemyIndex]>=ms) {
-                myLevel.getParent().getActiveLevel().addToActiveEnemies(enemies[currentEnemyIndex]);
-                myLevel.getParent().getActiveLevel().addViewToBeAdded(enemies[currentEnemyIndex].getView().getImageView());
+                MapFeature newMapFeature = new MapFeature(myLevel.getMyMap().getGridHeight(), myLevel.getMyMap().getGridWidth());
+                myLevel.getParent().getActiveLevel().addToActiveEnemies(enemies[currentEnemyIndex], newMapFeature);
+                newMapFeature.setImageView(enemies[currentEnemyIndex].getView().getHeight(), enemies[currentEnemyIndex].getView().getWidth());
+                myLevel.getParent().getActiveLevel().addViewToBeAdded(newMapFeature.getImageView());
                 currentEnemyIndex++;
             }
         }

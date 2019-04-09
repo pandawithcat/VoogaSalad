@@ -5,6 +5,8 @@ public class MapFeature {
     private int gridYPos;
     private double pixelXPos;
     private double pixelYPos;
+    private TransferImageView myImageView;
+
 
     public MapFeature(int gridXPos, int gridYPos) {
         setGridPos(gridXPos,gridYPos);
@@ -22,6 +24,17 @@ public class MapFeature {
         this.gridXPos = gridXPos;
         this.gridYPos = gridYPos;
         //TODO: CALCULATE PIXEL POSITION FROM THIS
+
+    }
+    public TransferImageView getImageView() {
+        return myImageView;
+    }
+
+    public void setImageView(double height, double width) {
+        myImageView.setFitHeight(height);
+        myImageView.setFitWidth(width);
+        myImageView.setX(pixelXPos);
+        myImageView.setY(pixelYPos);
 
     }
 

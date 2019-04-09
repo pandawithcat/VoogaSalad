@@ -41,6 +41,12 @@ public class ActiveLevel extends Level implements Updatable, Viewable, MapFeatur
         return null;
     }
 
+    public boolean isValid(int x, int y, double weaponHeight, double weaponWidth){
+        //TODO
+        return false;
+
+    }
+
     @Override
     public MapFeature getMapFeature() {
         return myMapFeature;

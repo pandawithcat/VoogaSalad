@@ -9,7 +9,6 @@ import java.nio.file.Path;
 //import java.awt.*;
 
 public class View implements Configurable {
-    private TransferImageView myImageView;
     private Configuration myConfiguration;
 
     @XStreamOmitField
@@ -53,9 +52,13 @@ public class View implements Configurable {
 
     }
 
-    public TransferImageView getImageView() {
-        return myImageView;
+    public double getWidth() {
+        return width;
     }
+    public double getHeight() {
+        return height;
+    }
+
 
 
 
