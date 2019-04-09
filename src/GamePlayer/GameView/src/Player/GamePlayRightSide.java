@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.Logic;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -13,10 +14,10 @@ public class GamePlayRightSide extends VBox {
     private double screenMinX;
     private double screenMinY;
 
-    public GamePlayRightSide(double width, double height){
+    public GamePlayRightSide(double width, double height, Logic logic){
         setPrefWidth(width);
         setPrefHeight(height);
-        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10);
+        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10, logic);
         this.getChildren().addAll(myGameArsenal, createPlayButton(width, height));
         setPadding(new Insets(padding,padding,padding,padding));
         setSpacing(padding);

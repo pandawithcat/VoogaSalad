@@ -1,19 +1,26 @@
 package Player;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.TreeView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
+import BackendExternal.Logic;
+import Configs.TransferImageView;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.layout.*;
 
-public class GamePlayMap extends HBox {
+import java.util.List;
 
-    public GamePlayMap(double width, double height) {
-        setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
+public class GamePlayMap extends GridPane {
+    private Logic myLogic;
+    private List terrainList;
+    private Group mapRoot;
 
+    public GamePlayMap(double width, double height, Logic logic) {
+        myLogic = logic;
+        terrainList = myLogic.getLevelTerrain();
+        mapRoot = new Group();
+        //TODO: not sure if this works yet
+        terrainList.forEach(terrainNode -> mapRoot.getChildren().add((Node)terrainNode));
         setPrefWidth(width);
         setPrefHeight(height);
     }
+
 }

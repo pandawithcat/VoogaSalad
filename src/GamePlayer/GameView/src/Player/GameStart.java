@@ -1,6 +1,7 @@
 package Player;
 
 import BackendExternal.GameInfo;
+import BackendExternal.Logic;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -56,7 +57,7 @@ public class GameStart extends Application {
     }
     private void startGame(){
         this.stage.close();
-        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
+        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization(new Logic());
         gamePlayVisualization.start(new Stage());
     }
 }
