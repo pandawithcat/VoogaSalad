@@ -12,11 +12,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 public class MapEditor extends Screen {
     private String currentTile = "Grass";
@@ -28,6 +32,10 @@ public class MapEditor extends Screen {
     private GridPane pane;
     private VBox myVBox;
     private Pane myToolBar;
+    private String dirtTileImage = "dirt.jpg";
+    private String waterTileImage="water.jpg";
+    private String grassTileImage="grass.jpg";
+    private ArrayList<ArrayList<TerrainTile>> tileList;
 
     private final BooleanProperty dragActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
@@ -68,12 +76,15 @@ public class MapEditor extends Screen {
     }
 
     public void initMap(){
+        tileList=new ArrayList<ArrayList<TerrainTile>>();
+
         map=new GridPane();
         TileBuilder tBuild = new TileBuilder();
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
-                map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
+                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage))),r,c);
+                //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
         }
@@ -90,6 +101,7 @@ public class MapEditor extends Screen {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 currentTile=tileView.getSelectionModel().getSelectedItem();
+                //System.out.println(currentTile);
             }
         });
     }
@@ -163,21 +175,40 @@ public class MapEditor extends Screen {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    System.out.println("HELLO");
-                    Node source = (Node) mouseEvent.getSource();
-                    Integer col = map.getColumnIndex(source);
-                    Integer row = map.getRowIndex(source);
-//                    System.out.println(col);
-//                    System.out.println(row);
-                    TileBuilder tb = new TileBuilder();
-                    SquareCell sq = tb.getTile(currentTile,row,col,20,20);
-
-                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
-
-
+                    updateCell(mouseEvent);
                 }
             });
         });
+    }
+    public void updateCell(MouseEvent mouseEvent){
+        System.out.println("HELLO");
+        TerrainTile source = (TerrainTile) mouseEvent.getSource();
+
+        Integer col = map.getColumnIndex(source);
+        Integer row = map.getRowIndex(source);
+        
+        System.out.println(col);
+        System.out.println(row);
+        TileBuilder tb = new TileBuilder();
+        map.getChildren().get(row).
+        //SquareCell sq = tb.getTile(currentTile,row,col,20,20);
+        //source.changeImage(currentTile);
+        //source.imageView=new ImageView(new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage)));
+        //map.add(new TerrainTile(row,col,new Image(this.getClass().getClassLoader().getResourceAsStream(waterTileImage))),col,row);
+//                    map.add(tb.getTile(currentTile,row,col,20,20),col,row);
+        //map.getChildren().remove(source);
+        //Image newIm = source.getNewImage(currentTile);
+        //map.add(new TerrainTile(row,col,newIm),col,row);
+
+
+    }
+    private Node getNodeFromGridPane(GridPane gridPane, int col, int row) {
+        for (Node node : gridPane.getChildren()) {
+            if (GridPane.getColumnIndex(node) == col && GridPane.getRowIndex(node) == row) {
+                return node;
+            }
+        }
+        return null;
     }
 
 }
