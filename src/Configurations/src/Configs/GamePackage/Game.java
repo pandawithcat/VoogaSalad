@@ -1,6 +1,7 @@
 package Configs.GamePackage;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public class Game implements Updatable, EventHandlable, Viewable, Configurable {
 
     List<Level> levelList;
-    GameOptions gameType;
+    Behavior<Game>[] gameType;
 
     @Override
     public void update(long ms) {

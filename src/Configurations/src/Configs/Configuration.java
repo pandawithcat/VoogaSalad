@@ -12,9 +12,11 @@ public class Configuration {
     private Map<String,Class> myAttributeTypes;
     private Map<String,Object> myAttributes;
     private boolean isComplete = false;
-    Class myConfigurableClass;
+    private Configurable myConfigurable;
+    private Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
+        myConfigurable = configurable;
         myConfigurableClass = configurable.getClass();
     }
 
@@ -38,7 +40,9 @@ public class Configuration {
     public void setOneAttribute(String name, Object value) {
         validateType(name,value);
         myAttributes.put(name,value);
-        if(isAttributesComplete(myAttributes)) isComplete = true;
+        if(isAttributesComplete(myAttributes)) {
+            isComplete = true;
+        }
     }
 
     public void setAllAttributes(Map<String,Object> attributes) {
@@ -53,6 +57,10 @@ public class Configuration {
         }
         myAttributes = attributes;
         isComplete = true;
+    }
+
+    private void setAttributesInConfigurable(){
+
     }
 
     public Map<String, Class>  getAttributes(){
