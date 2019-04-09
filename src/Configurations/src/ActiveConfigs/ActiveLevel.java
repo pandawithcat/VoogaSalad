@@ -28,6 +28,8 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         activeWeapons = new HashMap<>();
 //        setMyGame(game);
         myMapFeature = mapFeature;
+
+        //TODO: create myMapGrid
     }
 
     @Override
