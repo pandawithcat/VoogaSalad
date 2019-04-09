@@ -18,6 +18,10 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
         myShooter = shooter;
     }
 
+    public ProjectileConfig(ProjectileConfig projectileConfig){
+
+    }
+
     @Override
     public void update(long ms) {
 
