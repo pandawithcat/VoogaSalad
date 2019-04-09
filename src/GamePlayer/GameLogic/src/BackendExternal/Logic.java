@@ -141,7 +141,7 @@ public class Logic {
     // View calls this in game Loop to check if the level has ended
     // No input
     // Return: Boolean value indicating the status of the running level
-    boolean checkIfLevelEnd(){
+    public boolean checkIfLevelEnd(){
 
         return false;
     }

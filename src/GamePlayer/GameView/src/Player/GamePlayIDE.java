@@ -8,8 +8,6 @@ public class GamePlayIDE extends HBox {
     public static final double RIGHT_RATIO = 0.25;
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
-    private double screenMinX;
-    private double screenMinY;
 
     public GamePlayIDE(double width, double height, Logic logic){
         setPrefWidth(width);

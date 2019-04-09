@@ -43,9 +43,9 @@ public class GamePlayArsenal extends VBox {
     private ArrayList<TreeItem> getWeapons(List arsenal){
         ArrayList<TreeItem> weapons = new ArrayList<>();
         for (int i = 0; i < arsenal.size(); i++){
-            String weaponName = arsenal.get(i).get;
-            TreeItem tower = new TreeItem(weaponName);
-            weapons.add(tower);
+//            String weaponName = arsenal.get(i).get;
+//            TreeItem tower = new TreeItem(weaponName);
+//            weapons.add(tower);
         }
         return weapons;
     }

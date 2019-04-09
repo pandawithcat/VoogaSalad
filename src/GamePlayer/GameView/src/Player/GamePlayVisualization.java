@@ -43,6 +43,14 @@ public class GamePlayVisualization extends Application {
         }
     }
 
+    private void loop(){
+        myLogic.update(FRAMES_PER_SECOND);
+        myLogic.checkIfLevelEnd();
+        //getUpdateImageView
+        //getRemovedImageViews
+        //
+    }
+
 
     public static void main (String[] args) {
         Application.launch(args);
