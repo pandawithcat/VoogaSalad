@@ -32,8 +32,26 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
 
     @Override
     public void update(long ms) {
+        updateWeapons(ms);
+        updateEnemies(ms);
+        updateProjectiles(ms);
+        //TODO: Pass Imageviews back up to frontend
+    }
+
+    private void updateEnemies(long ms){
+        for(ActiveEnemy enemy : activeEnemies){
+            enemy.update(ms);
+        }
+    }
+    private void updateProjectiles(long ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
+        }
+    }
+
+    private void updateWeapons(long ms){
+        for (int id: activeWeapons.keySet()){
+            activeWeapons.get(id).update(ms);
         }
     }
 
@@ -72,6 +90,8 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     }
 
 
+    //TODO: EventHandler for adding new weapon to map
+    //TODO  add EventHandler for isValid
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
