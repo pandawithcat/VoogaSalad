@@ -51,7 +51,6 @@ public class Configuration {
 //            if(attributes.get(key) instanceof WaveConfig[]) {
 //                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((WaveConfig[]) attributes.get(key)))));
 //            }
-//        }
         myAttributes = attributes;
         setAttributesInConfigurable();
         isComplete = true;
@@ -83,7 +82,7 @@ public class Configuration {
         }
         myAttributeTypes = attributes;
         return Collections.unmodifiableMap(attributes);
-    };
+    }
 
     public boolean isConfigurationComplete() {
         return isComplete;
@@ -95,13 +94,6 @@ public class Configuration {
     }
 
 
-
-
-//    public void cast(Map<String,Object> attributes) {
-//        for(String key : attributes.keySet()) {
-//            myAttributeTypes.get(key).cast(attributes.get(key));
-//        }
-//    }
 
 
 

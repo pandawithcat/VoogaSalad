@@ -13,9 +13,9 @@ public class MapConfig {
     }
 
    //This might have to use a weapon ID
-    public boolean isValid(int x, int y, Weapon w){
-
-    }
+//    public boolean isValid(int x, int y, Weapon w){
+//
+//    }
 
     public void setTerrainList(List<Terrain> terrain) {
         myTerrain = terrain;
