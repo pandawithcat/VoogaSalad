@@ -19,17 +19,9 @@ public class WaveConfig implements Updatable, Viewable, Configurable {
     @Override
     public void update(long ms) {
 
+
     }
 
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
-    }
 
     @Override
     public Configuration getConfiguration() {
