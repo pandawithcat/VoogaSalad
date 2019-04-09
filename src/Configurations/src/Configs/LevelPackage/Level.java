@@ -21,7 +21,7 @@ public class Level implements Configurable, Updatable{
 //    @Configure
 //    private Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
-    private int currentWave=0;
+
 
     public Level(Game game){
         myGame = game;
@@ -41,16 +41,15 @@ public class Level implements Configurable, Updatable{
 
     @Override
     public void update(long ms) {
-        if (myWaveConfigs[currentWave].getIsFinished()) currentWave++;
-        ArrayAttributeManager.updateList(myWaveConfigs, ms);
+
 
     }
 
-    private Game getMyGame() {
+    protected Game getMyGame() {
         return myGame;
     }
 
-    private Arsenal getMyArsenal() {
+    protected Arsenal getMyArsenal() {
         return myArsenal;
     }
 
@@ -58,11 +57,11 @@ public class Level implements Configurable, Updatable{
 //        return levelBehaviors;
 //    }
 
-    public MapConfig getMyMap() {
+    protected MapConfig getMyMap() {
         return myMap;
     }
 
-    private WaveConfig[] getMyWaveConfigs() {
+    protected WaveConfig[] getMyWaveConfigs() {
         return myWaveConfigs;
     }
 
@@ -71,7 +70,7 @@ public class Level implements Configurable, Updatable{
         return null;
     }
 
-    public Game getParent(){
+    public Game getGame(){
         return myGame;
     }
 

@@ -20,14 +20,15 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
 //    private List<ImmutableImageView> viewsToBeRemoved;
 //    private List<ImmutableImageView> viewsToBeAdded;
     private MapFeature myMapFeature;
+    private int currentWave=0;
 
-    public ActiveLevel(Level level, MapFeature mapFeature) {
+    public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
 //        setMyGame(game);
-        myMapFeature = mapFeature;
+//        myMapFeature = mapFeature;
     }
 
     @Override
@@ -35,6 +36,8 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
+        if (getMyWaveConfigs()[currentWave].getIsFinished()) currentWave++;
+        ArrayAttributeManager.updateList(getMyWaveConfigs(), ms);
     }
 
 

@@ -9,9 +9,9 @@ import java.util.List;
 public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
     @Configure
-    Behavior<EnemyConfig>[] myBehaviors;
-
-
+    private Behavior<EnemyConfig>[] myBehaviors;
+    @Configure
+    private int unitSpeed;
     @Configure
     private View view;
 
@@ -23,7 +23,8 @@ public class EnemyConfig implements Configurable, Viewable {
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
-        myWaveConfig = enemyConfig.myWaveConfig;
+        myWaveConfig = enemyConfig.getMyWaveConfig();
+        unitSpeed = enemyConfig.unitSpeed;
         view = enemyConfig.getView();
     }
 
@@ -35,6 +36,10 @@ public class EnemyConfig implements Configurable, Viewable {
         return myBehaviors;
     }
 
+    public int getUnitSpeed() {
+        return unitSpeed;
+    }
+
     @Override
     public View getView() {
         return view;
@@ -43,5 +48,9 @@ public class EnemyConfig implements Configurable, Viewable {
     @Override
     public Configuration getConfiguration() {
         return null;
+    }
+
+    public WaveConfig getMyWaveConfig() {
+        return myWaveConfig;
     }
 }

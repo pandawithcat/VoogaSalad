@@ -51,6 +51,11 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
         return myActiveLevel;
     }
 
+    public void setMyActiveLevel(int levelIndex) {
+        ActiveLevel activeLevel = new ActiveLevel(levelList[levelIndex]);
+
+    }
+
     public String getTitle(){
         return myTitle;
     }
