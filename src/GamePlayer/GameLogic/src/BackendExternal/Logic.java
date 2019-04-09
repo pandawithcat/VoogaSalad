@@ -69,7 +69,7 @@ public class Logic {
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
-//    public List<WeaponInfo> getArsenal(){
+//    public Map<Integer,Info> getArsenal(){
 //
 //    }
 
@@ -77,7 +77,7 @@ public class Logic {
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
     // TODO: Adjust the type that is returned to make it as encapsulated as possible
-//    public TransferImageView instantiateWeapon(WeaponInfo newWeapon){
+//    public TransferImageView instantiateWeapon(int weaponID){
 //
 //    }
 
