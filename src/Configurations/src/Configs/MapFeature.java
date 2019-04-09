@@ -13,7 +13,7 @@ public class MapFeature {
     @XStreamOmitField
     private TransferImageView myImageView;
     private View view;
-    private int displayState;
+    private DisplayState displayState;
 
 
 
@@ -21,14 +21,14 @@ public class MapFeature {
         setGridPos(gridXPos,gridYPos,displayDirection);
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
-        displayState = 0;
+        displayState = DisplayState.NEW;
     }
 
     public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
         setPixelPos(pixelXPos,pixelYPos,direction);
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
-        displayState = 0;
+        displayState = DisplayState.NEW;
     }
 
     public double getPixelXPos() {
@@ -89,11 +89,11 @@ public class MapFeature {
 
     }
 
-    public int getDisplayState() {
+    public DisplayState getDisplayState() {
         return displayState;
     }
 
-    public void setDisplayState(int displayState) {
+    public void setDisplayState(DisplayState displayState) {
         this.displayState = displayState;
     }
 }

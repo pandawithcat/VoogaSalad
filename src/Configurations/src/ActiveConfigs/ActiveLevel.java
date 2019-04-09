@@ -34,8 +34,26 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
 
     @Override
     public void update(long ms) {
+        updateWeapons(ms);
+        updateEnemies(ms);
+        updateProjectiles(ms);
+        //TODO: Pass Imageviews back up to frontend
+    }
+
+    private void updateEnemies(long ms){
+        for(ActiveEnemy enemy : activeEnemies){
+            enemy.update(ms);
+        }
+    }
+    private void updateProjectiles(long ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
+        }
+    }
+
+    private void updateWeapons(long ms){
+        for (int id: activeWeapons.keySet()){
+            activeWeapons.get(id).update(ms);
         }
     }
 
@@ -54,7 +72,7 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToRemove.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==2).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToRemove.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.DIED).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
 
     }
 
@@ -66,7 +84,7 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     public List<ImmutableImageView> getViewsToBeAdded() {
         List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToAdd.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==0).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToAdd.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.NEW).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
     }
 
     public int getMyScore() {
@@ -74,6 +92,8 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     }
 
 
+    //TODO: EventHandler for adding new weapon to map
+    //TODO  add EventHandler for isValid
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
