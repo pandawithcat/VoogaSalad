@@ -8,14 +8,18 @@ import java.util.List;
 
 public class ProjectileConfig implements Configurable {
     private ShooterConfig myShooter;
+
+    Configuration myConfiguration;
+
     @Configure
-    List<Behavior<ProjectileConfig>> myBehaviors;
+    private List<Behavior<ProjectileConfig>> myBehaviors;
 //    public ProjectileConfig(){
 //         ProjectileOptions.values() how to get all options of the enum
 //    }
 
     public ProjectileConfig(ShooterConfig shooter) {
         myShooter = shooter;
+        myConfiguration = new Configuration(this);
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
@@ -33,6 +37,6 @@ public class ProjectileConfig implements Configurable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

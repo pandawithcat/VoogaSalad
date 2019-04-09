@@ -2,7 +2,7 @@ package ActiveConfigs;
 
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
-import Configs.EnemyPackage.Enemy;
+import Configs.EnemyPackage.EnemyConfig;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 import Configs.ProjectilePackage.ProjectileConfig;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ActiveLevel extends Level implements Updatable, Viewable {
     private List<ActiveWeapon> activeWeapons;
-    private List<Enemy> activeEnemies;
+    private List<EnemyConfig> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
     private int myScore;
@@ -56,8 +56,8 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
         viewsToBeAdded.add(imageView);
     }
 
-    public void addToActiveEnemies(Enemy enemy) {
-        activeEnemies.add(enemy);
+    public void addToActiveEnemies(EnemyConfig enemyConfig) {
+        activeEnemies.add(enemyConfig);
     }
 
     public void addToActiveProjectiles(ProjectileConfig projectile) {

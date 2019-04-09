@@ -18,11 +18,6 @@ public class Shooter extends ShooterConfig implements Updatable {
     }
 
     @Override
-    public Configuration getConfiguration() {
-        return null;
-    }
-
-    @Override
     public void update(long ms) {
     }
 }

@@ -11,14 +11,14 @@ import java.util.List;
 
 public class Game implements Updatable, EventHandlable, Viewable, Configurable {
 
+    private Configuration myConfiguration;
+
     @Configure
     Level[] levelList;
     @Configure
     private Behavior<Game>[] gameType;
     @Configure
     private WeaponConfig[] allWeaponConfigs;
-    @Configure
-    private Configuration myConfiguration;
     @Configure
     private String myTitle;
     @Configure

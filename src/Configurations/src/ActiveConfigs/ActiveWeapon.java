@@ -10,4 +10,8 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, Viewable {
         super(weaponConfig);
     }
 
+    @Override
+    public void update(long ms) {
+
+    }
 }

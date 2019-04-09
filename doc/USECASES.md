@@ -14,9 +14,9 @@ Hover over an Arsenal: We will use a hover over feature of javafx. When the mous
 
 Starting an Animation: Each time step, we will call .update() on the backend Game object and we will be able to access new positions and images to display in the map. 
 
-Docking down a life: When an enemy travels on the path outlined in the map, we will check if it reaches the end of the path. If an enemy reaches the end of the path, we will dock down a life using the backend game object. There would be a method that says dockLife(). 
+Docking down a life: When an enemyConfig travels on the path outlined in the map, we will check if it reaches the end of the path. If an enemyConfig reaches the end of the path, we will dock down a life using the backend game object. There would be a method that says dockLife(). 
 
-Killing an Enemy: During the animation and each time step, each weaponConfig that the towers throw out will be checked if it intersects with the enemy imageview. Then, the enemy imageview will disappeaer/ animate to blow up. 
+Killing an Enemy: During the animation and each time step, each weaponConfig that the towers throw out will be checked if it intersects with the enemyConfig imageview. Then, the enemyConfig imageview will disappeaer/ animate to blow up. 
 
 replay the game repeatedly without quitting: We will have some sort of restart button or replay button that will both be available in the overhead display as well as in a splash screen that pops up when you die. We will also have a button that will take us back to the level screen so a user can select a specific level to replay. 
 
@@ -72,7 +72,7 @@ Christina's use cases (6):
 
 ### Authoring Environment
 
-* **Adding an enemy that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemy to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
+* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
 
 * **Add new tower types:** New tower types will be created by creating a new TowerConfig object, and setting the image, towertype, weaponConfig type, and name of the object. This new tower may only be available on certain terrain types. This towerconfig will then be packaged with the game xml object and used by the game player to display all of the tower options available to the user. 
 
