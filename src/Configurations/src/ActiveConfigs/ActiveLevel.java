@@ -12,8 +12,8 @@ import java.util.stream.Stream;
 public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
-    private ActiveWave activeWave;
     private List<ActiveProjectile> activeProjectiles;
+    private ActiveWave activeWave;
     private Cell[][] myGrid;
     private int myScore;
     private MapFeature myMapFeature;
@@ -26,7 +26,7 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new HashMap<>();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
-
+        activeWave = new ActiveWave(getMyWaveConfigs()[0]);
         //TODO: create myGrid
     }
 
@@ -45,13 +45,13 @@ public class ActiveLevel extends Level implements Updatable {
         for(ActiveEnemy enemy : activeEnemies){
             enemy.update(ms);
         }
+        if (activeWave.isFinished()) currentWave++;
+        //ArrayAttributeManager.updateList(activeWave, ms); ??
     }
     private void updateProjectiles(long ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
-        if (getMyWaveConfigs()[currentWave].getIsFinished()) currentWave++;
-        ArrayAttributeManager.updateList(getMyWaveConfigs(), ms);
     }
 
     private void updateWeapons(long ms){
@@ -98,11 +98,25 @@ public class ActiveLevel extends Level implements Updatable {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
     }
 
+    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
+        activeEnemies.remove(activeEnemy);
+    }
+
     public void addToActiveProjectiles(ActiveProjectile activeProjectile) {
         activeProjectiles.add(activeProjectile);
     }
 
-    public void addToActiveWeapon(WeaponConfig weapon, MapFeature mapFeature) {
+    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
+        activeProjectiles.remove(activeProjectile);
+
+    }
+
+
+    public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
         activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature));
+    }
+
+    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
+        activeWeapons.remove(activeWeapon);
     }
 }

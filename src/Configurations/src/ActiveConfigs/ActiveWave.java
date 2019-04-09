@@ -6,19 +6,19 @@ import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
 
-public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
+public class ActiveWave extends WaveConfig implements Updatable{//, MapFeaturable}  {
     private long[] startTimes;
     private int currentEnemyIndex = 0;
     private boolean isFinished = false;
-    private MapFeature myMapFeature;
+    //private MapFeature myMapFeature;
 
-    public ActiveWave(WaveConfig waveConfig, MapFeature mapFeature) {
+    public ActiveWave(WaveConfig waveConfig){//}, MapFeature mapFeature) {
         super(waveConfig);
-        myMapFeature = mapFeature;
+        //myMapFeature = mapFeature;
     }
 
 
-    public boolean getIsFinished() {
+    public boolean isFinished() {
         return isFinished;
     }
 
@@ -52,8 +52,4 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
 
     }
 
-    @Override
-    public MapFeature getMapFeature() {
-        return myMapFeature;
-    }
 }
