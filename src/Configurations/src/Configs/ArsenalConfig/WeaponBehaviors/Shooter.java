@@ -1,4 +1,11 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
-public class Shooter {
+import Configs.Configurable;
+import Configs.Configuration;
+
+public class Shooter implements Configurable {
+    @Override
+    public Configuration getConfiguration() {
+        return null;
+    }
 }

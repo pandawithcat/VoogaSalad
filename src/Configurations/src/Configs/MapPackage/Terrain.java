@@ -1,15 +1,13 @@
 package Configs.MapPackage;
 
-import Configs.Configurable;
-import Configs.Configuration;
-import Configs.View;
-import Configs.Viewable;
+import Configs.*;
 
 import java.util.List;
 
-public class Terrain implements Viewable, Configurable{
-
+public class Terrain implements Viewable, Configurable {
+    @Configure
     private int gridXPos;
+    @Configure
     private int gridYPos;
     private Configuration myConfiguration;
 
@@ -22,8 +20,7 @@ public class Terrain implements Viewable, Configurable{
         return myConfiguration;
     }
 
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
+    //implement special case with the View in this class to set the x and y
+
+
 }

@@ -23,7 +23,12 @@ public class Stealthy extends EnemyBehavior{
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 

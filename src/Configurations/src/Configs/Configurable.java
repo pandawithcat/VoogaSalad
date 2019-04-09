@@ -10,4 +10,7 @@ public interface Configurable {
 
     Configuration getConfiguration();
 
+//    void default setConfiguration(){
+//
+//    }
 }

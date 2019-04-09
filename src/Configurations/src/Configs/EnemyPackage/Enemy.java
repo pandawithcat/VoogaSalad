@@ -29,7 +29,12 @@ public class Enemy implements Configurable, Viewable, Updatable {
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 

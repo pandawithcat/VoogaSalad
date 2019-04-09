@@ -13,7 +13,12 @@ public class WaveSpawner implements Viewable, Updatable {
     }
 
     @Override
-    public List<View> getViews() {
+    public List<ImmutableImageView> getViewsToBeAdded() {
+        return null;
+    }
+
+    @Override
+    public List<ImmutableImageView> getViewsToBeRemoved() {
         return null;
     }
 
