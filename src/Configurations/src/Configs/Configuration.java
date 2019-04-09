@@ -74,7 +74,7 @@ public class Configuration {
     }
 
     public Map<String, Class>  getAttributes(){
-        Map<String, Class> attributes = new HashMap<>();
+        Map<String, Class> attributes = new LinkedHashMap<>();
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.isAnnotationPresent(Configurable.Configure.class)){
                 attributes.put(field.getName(), field.getType());

@@ -11,7 +11,7 @@ import java.util.List;
 public class Game implements Updatable, EventHandlable, Viewable, Configurable {
 
     @Configure
-    List<Level> levelList;
+    Level[] levelList;
     @Configure
     Behavior<Game>[] gameType;
     @Configure

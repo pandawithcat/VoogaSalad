@@ -2,9 +2,6 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
-import Configs.ImmutableImageView;
-
-import java.util.List;
 
 public class Shootable extends WeaponBehavior{
     @Configure
@@ -19,7 +16,7 @@ public class Shootable extends WeaponBehavior{
 
     @Override
     public void update(long ms) {
-
+        myShooter.update(ms);
     }
 
     @Override
