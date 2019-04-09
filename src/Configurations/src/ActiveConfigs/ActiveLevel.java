@@ -12,16 +12,20 @@ import java.util.stream.Stream;
 public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
+    private ActiveWave activeWave;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myGrid;
     private int myScore;
+    private MapFeature myMapFeature;
+    private int currentWave=0;
 
-    public ActiveLevel(Level level, MapFeature mapFeature) {
+    public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
 //        setMyGame(game);
+//        myMapFeature = mapFeature;
 
         //TODO: create myGrid
     }
@@ -46,6 +50,8 @@ public class ActiveLevel extends Level implements Updatable {
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
+        if (getMyWaveConfigs()[currentWave].getIsFinished()) currentWave++;
+        ArrayAttributeManager.updateList(getMyWaveConfigs(), ms);
     }
 
     private void updateWeapons(long ms){

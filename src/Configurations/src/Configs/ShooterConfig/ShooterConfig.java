@@ -13,7 +13,7 @@ public class ShooterConfig implements Configurable{
     @Configure
     private ProjectileConfig projectileConfig;
     @Configure
-    private double radius;
+    private double shooterRange;
     private Configuration myConfiguration;
 
 
@@ -31,8 +31,8 @@ public class ShooterConfig implements Configurable{
         return myShootable;
     }
 
-    public double getRadius() {
-        return radius;
+    public double getShooterRange() {
+        return shooterRange;
     }
 
     public ProjectileConfig getProjectileConfig() {

@@ -21,7 +21,7 @@ public class Level implements Configurable{
 //    @Configure
 //    private Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
-    private int currentWave=0;
+
 
     public Level(Game game){
         myGame = game;
@@ -39,12 +39,11 @@ public class Level implements Configurable{
         this.myGame = myGame;
     }
 
-
-    private Game getMyGame() {
+    protected Game getMyGame() {
         return myGame;
     }
 
-    public Arsenal getMyArsenal() {
+    protected Arsenal getMyArsenal() {
         return myArsenal;
     }
 
@@ -52,11 +51,11 @@ public class Level implements Configurable{
 //        return levelBehaviors;
 //    }
 
-    public MapConfig getMyMap() {
+    protected MapConfig getMyMap() {
         return myMap;
     }
 
-    private WaveConfig[] getMyWaveConfigs() {
+    protected WaveConfig[] getMyWaveConfigs() {
         return myWaveConfigs;
     }
 
@@ -65,7 +64,7 @@ public class Level implements Configurable{
         return null;
     }
 
-    public Game getParent(){
+    public Game getGame(){
         return myGame;
     }
 
