@@ -56,7 +56,7 @@ Splash Screen{
 
 Build Phase{
 	Load map of current level ();
-	Load arsenal of current level, with appropriate things highlighted and not();
+	Load myArsenal of current level, with appropriate things highlighted and not();
 	Show enemyConfig path to user();
 	Allow for setup();
 	Mouse event handler()

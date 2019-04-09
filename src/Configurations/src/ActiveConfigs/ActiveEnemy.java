@@ -26,10 +26,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     @Override
     public void update(long ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
-        //dont forget to update state to 1 or 2(died) in myMapFeature
-        if
+//        if
+        //dont forget to update state to PRESENT or DIED in myMapFeature
 
-        getUnitSpeed()
+        getUnitSpeed();
 
 
     }

@@ -3,9 +3,7 @@ package ActiveConfigs;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
-import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
-import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,7 +13,7 @@ public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
-    private Cell[][] myMapGrid;
+    private Cell[][] myGrid;
     private int myScore;
 <<<<<<< HEAD
 //    private List<ImmutableImageView> viewsToBeRemoved;
@@ -33,7 +31,11 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
 
-        //TODO: create myMapGrid
+        //TODO: create myGrid
+    }
+
+    public Cell getGridCell(int gridX, int gridY){
+        return myGrid[gridY][gridX];
     }
 
     @Override

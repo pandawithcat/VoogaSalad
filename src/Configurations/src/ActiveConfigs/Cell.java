@@ -7,7 +7,7 @@ import Configs.MapPackage.Terrain;
 import java.util.List;
 
 public class Cell {
-    WeaponConfig myWeaponConfig;
+    ActiveWeapon myWeaponConfig;
     Terrain myTerrain;
-    List<EnemyConfig> myEnemies;
+    List<ActiveEnemy> myEnemies;
 }
