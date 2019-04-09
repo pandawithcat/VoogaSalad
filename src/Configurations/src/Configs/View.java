@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.nio.file.Path;
 //import java.awt.*;
 
@@ -20,6 +21,10 @@ public class View implements Configurable {
     private double width;
     @Configure
     private double height;
+
+    public View(File file, double width, double height) {
+        //TODO: set instance variables
+    }
 
 
 

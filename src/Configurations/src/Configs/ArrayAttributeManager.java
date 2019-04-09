@@ -1,8 +1,5 @@
 package Configs;
 
-import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.Enemy;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

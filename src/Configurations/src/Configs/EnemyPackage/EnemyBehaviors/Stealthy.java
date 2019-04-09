@@ -3,18 +3,15 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 
 import Configs.Configuration;
-import Configs.EnemyPackage.Enemy;
-import Configs.ImmutableImageView;
+import Configs.EnemyPackage.EnemyConfig;
 import Configs.ProjectilePackage.ProjectileConfig;
-
-import java.util.List;
 
 public class Stealthy extends EnemyBehavior{
     @Configure
     ProjectileConfig[] projectilesThatCanAttackMe;
 
-    Stealthy(Enemy enemy){
-        super(enemy);
+    Stealthy(EnemyConfig enemyConfig){
+        super(enemyConfig);
     }
 
     @Override

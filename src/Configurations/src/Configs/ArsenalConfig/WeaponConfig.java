@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class WeaponConfig implements  Configurable, Updatable {
+public class WeaponConfig implements  Configurable {
     Configuration myConfiguration;
     @Configure
     private String name;
@@ -20,14 +20,14 @@ public class WeaponConfig implements  Configurable, Updatable {
     @Configure
     private boolean unlocked;
 
-    public WeaponConfig() {
+    public WeaponConfig(Arsenal arsenal) {
         myConfiguration=new Configuration(this);
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
-        this.name = getName();
-        this.behaviors = getBehaviors();
-        this.view = getView();
+        this.name = weaponConfig.getName();
+        this.behaviors = weaponConfig.getBehaviors();
+        this.view = weaponConfig.getView();
     }
 
     @Override
@@ -51,15 +51,7 @@ public class WeaponConfig implements  Configurable, Updatable {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
     }
 
-    @Override
-    public void update(long ms) {
-        Map<String, Object> myAttributes = myConfiguration.getDefinedAttributes();
-        for (Object o :((Map) myAttributes).values()) {
-            if (o instanceof Updatable) {
-                ((Updatable) o).update(ms);
-            }
-        }
-    }
+
 
 
 }

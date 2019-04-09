@@ -1,19 +1,19 @@
 package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.Enemy;
+import Configs.EnemyPackage.EnemyConfig;
 
-public abstract class EnemyBehavior implements Behavior<Enemy>{
-    Enemy myEnemy;
-    EnemyBehavior(Enemy enemy){
-        myEnemy = enemy;
+public abstract class EnemyBehavior implements Behavior<EnemyConfig>{
+    EnemyConfig myEnemyConfig;
+    EnemyBehavior(EnemyConfig enemyConfig){
+        myEnemyConfig = enemyConfig;
     }
 
-    public Enemy getMyEnemy() {
-        return myEnemy;
+    public EnemyConfig getMyEnemyConfig() {
+        return myEnemyConfig;
     }
 
-    public void setMyEnemy(Enemy myEnemy) {
-        this.myEnemy = myEnemy;
+    public void setMyEnemyConfig(EnemyConfig myEnemyConfig) {
+        this.myEnemyConfig = myEnemyConfig;
     }
 }

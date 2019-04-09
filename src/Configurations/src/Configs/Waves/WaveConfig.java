@@ -1,11 +1,8 @@
 package Configs.Waves;
 
 import Configs.*;
-import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.Enemy;
+import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
-
-import java.util.List;
 
 //holds the enemies
 public class WaveConfig implements Updatable, Configurable {
@@ -15,7 +12,7 @@ public class WaveConfig implements Updatable, Configurable {
     @Configure
     private long rateOfRelease;
     @Configure
-    private Enemy[] enemies;
+    private EnemyConfig[] enemies;
 //    @Configure
 //    private Behavior<WaveConfig>[] myWaveBehaviors;
 
