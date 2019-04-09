@@ -24,13 +24,27 @@ public class WeaponConfig implements  Configurable, Updatable {
         myConfiguration=new Configuration(this);
     }
 
+    public WeaponConfig(WeaponConfig weaponConfig) {
+        this.name = getName();
+        this.behaviors = getBehaviors();
+        this.view = getView();
+    }
+
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
     }
 
     public String getName() {
-        return (String) myConfiguration.getDefinedAttributes().get(name.toString());
+        return name;
+    }
+
+    public Behavior<WeaponConfig>[] getBehaviors() {
+        return behaviors;
+    }
+
+    public View getView() {
+        return view;
     }
 
     public TransferImageView getImageView() {

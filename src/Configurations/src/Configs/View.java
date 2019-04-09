@@ -48,5 +48,9 @@ public class View implements Configurable {
 
     }
 
+    public TransferImageView getImageView() {
+        return myImageView;
+    }
+
 
 }

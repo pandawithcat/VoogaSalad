@@ -1,5 +1,6 @@
 package Configs.GamePackage;
 
+import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
@@ -19,6 +20,8 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     @Configure
     Configuration myConfiguration;
 
+    private ActiveLevel myActiveLevel;
+
     public Game(){
         myConfiguration = new Configuration(this);
     }
@@ -36,5 +39,9 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
     }
 }

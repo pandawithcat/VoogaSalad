@@ -13,14 +13,15 @@ public class WaveConfig implements Updatable, Configurable {
     @Configure
     private long timeToRelease;
     @Configure
-    private double rateOfRelease;
+    private long rateOfRelease;
     @Configure
     private Enemy[] enemies;
 //    @Configure
 //    private Behavior<WaveConfig>[] myWaveBehaviors;
 
-    private long relativeTime = 0;
+    private long[] startTimes;
     private int currentEnemyIndex = 0;
+    private boolean isFinished = false;
 
 
     public WaveConfig(Level level) {
@@ -29,15 +30,30 @@ public class WaveConfig implements Updatable, Configurable {
 
     @Override
     public void update(long ms) {
-        if(ms>=timeToRelease) {
-            relativeTime = 0;
-            currentEnemyIndex = 0;
-            myLevel.getParent().getActiveLevel().addToEnemies(enemies[currentEnemyIndex]);
-            myLevel.getParent().getActiveLevel().addToViewsToBeAdded(enemies[currentEnemyIndex]);
-
+        if(ms>=timeToRelease && currentEnemyIndex==0) {
+            startTimes = new long[enemies.length];
+            long relativeTime = 0;
+            for(int i = 0;i<startTimes.length;i++) {
+                startTimes[i] = ms+relativeTime;
+                relativeTime+=rateOfRelease;
+            }
+        }
+        if(currentEnemyIndex<enemies.length) {
+            while(startTimes[currentEnemyIndex]>=ms) {
+                myLevel.getParent().getActiveLevel().addToActiveEnemies(enemies[currentEnemyIndex]);
+                myLevel.getParent().getActiveLevel().addViewToBeAdded(enemies[currentEnemyIndex].getView().getImageView());
+                currentEnemyIndex++;
+            }
+        }
+        else {
+            isFinished = true;
         }
 //        ArrayAttributeManager.updateList(myWaveBehaviors, ms);
 
+    }
+
+    public boolean getIsFinished() {
+        return isFinished;
     }
 
 
