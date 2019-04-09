@@ -38,7 +38,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     public void killMe(){
         myMapFeature.setDisplayState(DisplayState.DIED);
-
+        myLevel.removeFromActiveEnemies(this);
     }
 
 }

@@ -47,6 +47,8 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         for (ActiveEnemy e : myCell.myEnemies){
             e.killMe();
         }
+        myMapFeature.setDisplayState(DisplayState.DIED);
+        myActiveLevel.removeFromActiveProjectiles(this);
     }
     private void move(long ms){
         double velocityMs = getVelocityInSeconds()/1000;
