@@ -3,7 +3,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
-import GameAuthoringEnvironment.AuthoringComponents.DataHandleComponents.PrimitiveContainer;
 import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -17,8 +16,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.ObjectInputFilter;
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,7 +24,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.CheckedOutputStream;
+
 
 public class GameController {
 
@@ -41,6 +38,7 @@ public class GameController {
 
     public void createConfigurable(Configurable myConfigurable){
         Stage popupwindow = new Stage();
+
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
 
@@ -48,7 +46,8 @@ public class GameController {
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
         System.out.println(attributesMap);
-        VBox layout = new VBox();
+        VBox layout = new VBox(10.00);
+        layout.autosize();
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
 
@@ -58,7 +57,8 @@ public class GameController {
             }
 
             //handle primitives
-            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class)){
+            System.out.println("Check Primitive" + value.isPrimitive());
+            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");
@@ -137,7 +137,6 @@ public class GameController {
                         public void handle(MouseEvent mouseEvent) {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                                 if (mouseEvent.getClickCount() == 2) {
-                                    //TODO MAKE This Part Run
                                     try {
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
                                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
@@ -174,6 +173,7 @@ public class GameController {
         }));
 
         layout.getChildren().add(setButton);
+
         Scene scene= new Scene(layout, 500, 500);
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
