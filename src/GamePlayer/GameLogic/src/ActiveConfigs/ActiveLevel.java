@@ -6,6 +6,7 @@ import Configs.EnemyPackage.Enemy;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActiveLevel extends Level implements Updatable, Viewable {
@@ -19,7 +20,9 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
 
     public ActiveLevel(Level level) {
         super(level);
-        activeEnemies =
+        activeEnemies = new ArrayList<>();
+        activeProjectiles = new ArrayList<>();
+        activeWeaponConfigs = new ArrayList<>();
     }
 
     @Override
@@ -31,7 +34,8 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
 
     @Override
     public List<ImmutableImageView> getViewsToBeRemoved() {
-        List<ImmutableImageView> sendViews = viewsToBeRemoved.
+        List<ImmutableImageView> sendViews = new ArrayList<>();
+        sendViews.addAll(viewsToBeRemoved);
         return viewsToBeRemoved;
     }
 
