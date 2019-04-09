@@ -11,6 +11,7 @@ public class Level implements Configurable{
 
     private Game myGame;
 
+
     @Configure
     private WaveConfig[] myWaveConfigs;
     @Configure
@@ -23,10 +24,11 @@ public class Level implements Configurable{
     private MapConfig myMap;
     @Configure
     private Behavior<Level>[] levelBehaviors;
-
+    private Configuration myConfiguration;
 
     public Level(Game game){
         myGame = game;
+        myConfiguration = new Configuration(this);
     }
 
     public Level(Level level){
@@ -36,6 +38,10 @@ public class Level implements Configurable{
         gridSizeY = level.getGridSizeY();
         myMap = level.getMyMap();
         levelBehaviors = level.getLevelBehaviors();
+    }
+
+    public void setMyGame(Game myGame) {
+        this.myGame = myGame;
     }
 
     private Game getMyGame() {

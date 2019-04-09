@@ -21,6 +21,7 @@ public class WaveConfig implements Updatable, Configurable {
 
     }
 
+    
     @Override
     public Configuration getConfiguration() {
         return null;

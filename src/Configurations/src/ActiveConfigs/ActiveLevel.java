@@ -18,11 +18,12 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
     private List<ImmutableImageView> viewsToBeRemoved;
     private List<ImmutableImageView> viewsToBeAdded;
 
-    public ActiveLevel(Level level) {
+    public ActiveLevel(Level level, Game game) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeaponConfigs = new ArrayList<>();
+        setMyGame(game);
     }
 
     @Override
@@ -32,14 +33,12 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
         }
     }
 
-    @Override
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<ImmutableImageView> sendViews = new ArrayList<>();
         sendViews.addAll(viewsToBeRemoved);
         return viewsToBeRemoved;
     }
 
-    @Override
     public List<ImmutableImageView> getViewsToBeAdded() {
         return viewsToBeAdded;
     }

@@ -2,7 +2,6 @@ package Configs.ProjectilePackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
-import Configs.ArsenalConfig.WeaponBehaviors.Shooter;
 
 import java.util.List;
 
@@ -19,7 +18,16 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
+        myBehaviors = projectileConfig.getMyBehaviors();
+        myShooter = projectileConfig.getMyShooter();
+    }
 
+    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
+        return myBehaviors;
+    }
+
+    public Shooter getMyShooter() {
+        return myShooter;
     }
 
     @Override
