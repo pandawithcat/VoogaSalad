@@ -6,10 +6,12 @@ import Configs.Waves.WaveConfig;
 
 import java.util.List;
 
-public class EnemyConfig implements Configurable, Viewable, Updatable {
+public class EnemyConfig implements Configurable{
     private WaveConfig myWaveConfig;
     @Configure
-    List<Behavior<EnemyConfig>> myBehaviors;
+    Behavior<EnemyConfig>[] myBehaviors;
+
+
     @Configure
     private View view;
 
@@ -17,22 +19,19 @@ public class EnemyConfig implements Configurable, Viewable, Updatable {
         myWaveConfig = waveConfig;
     }
 
-    public EnemyConfig(EnemyConfig enemyConfig) {
+
+
+    public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
         view = enemyConfig.getView();
     }
 
-    public void setMyBehaviors(List<Behavior<EnemyConfig>> behavior) {
-        myBehaviors = behavior;
-    }
+//    public void setMyBehaviors(List<Behavior<EnemyConfig>> behavior) {
+//        myBehaviors = behavior;
+//    }
 
-    public List<Behavior<EnemyConfig>> getMyBehaviors() {
+    public Behavior<EnemyConfig>[] getMyBehaviors() {
         return myBehaviors;
-    }
-
-    @Override
-    public void update(long ms) {
-
     }
 
     public View getView() {

@@ -14,7 +14,7 @@ public class View implements Configurable {
 
     @XStreamOmitField
     @Configure
-    private Path imagePath;
+    private File imagePath;
     @Configure
     private String imageName;
     @Configure
