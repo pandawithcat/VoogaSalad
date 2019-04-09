@@ -7,6 +7,7 @@ import Data.GameLibrary;
 
 import java.util.EventObject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Project 4: VoogaSalad
@@ -49,6 +50,8 @@ public class Logic {
     // No Return Value
     public void createGameInstance(GameInfo selectedGame) {
         myGame = myGameLibrary.getGame(selectedGame);
+        // TODO: Not sure if this is necessary
+        myGame.startGame();
     }
 
     // View calls to get the current level of the game when moving between levels
@@ -63,9 +66,11 @@ public class Logic {
     // No Input
     // Return: List of Viewable instances of static level items
     // TODO: Adjust the type that is returned to make it as encapsulated as possible
-//    public List<TransferImageView> getLevelTerrain(){
-//
-//    }
+    public List<ImmutableImageView> getLevelTerrain(){
+        // TODO: Can move this to a different level if need be
+        myGame.startNextLevel();
+        return myGame.getActiveLevel().getMyMap().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
+    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
@@ -77,15 +82,17 @@ public class Logic {
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
     // TODO: Adjust the type that is returned to make it as encapsulated as possible
-//    public TransferImageView instantiateWeapon(int weaponID){
-//
-//    }
+
+    // TODO: Change this to return a ImmutableImageView Instance of the active weapon
+    public void instantiateWeapon(int weaponID, double xPixel, double yPixel){
+        myGame.getActiveLevel().getMyArsenal().generateNewWeapon(weaponID, xPixel, yPixel);
+    }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
     // No Return
-    public void update(double currentTime){
-
+    public void update(long currentTime){
+        myGame.update(currentTime);
     }
 
     // View calls to check the current score of the game in the game loop
@@ -129,8 +136,11 @@ public class Logic {
     // No input
     // Return: Boolean value indicating the status of the running level
     boolean checkIfLevelEnd(){
+        return myGame.isLevelOver();
+    }
 
-        return false;
+    boolean checkIfGameEnd(){
+        return myGame.isGameOver();
     }
 
 
