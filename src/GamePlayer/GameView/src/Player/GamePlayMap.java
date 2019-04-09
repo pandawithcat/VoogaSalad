@@ -20,7 +20,7 @@ public class GamePlayMap extends GridPane {
         myLogic = logic;
         terrainList = myLogic.getLevelTerrain();
         mapRoot = new Group();
-        //TODO: fix what the getLeveTerrain() method returns - we need objects that can be added to root
+        //TODO: fix what the getLevelTerrain() method returns - we need objects that can be added to root
         terrainList.forEach(terrainObject -> mapRoot.getChildren().addAll(terrainObject));
         setPrefWidth(width);
         setPrefHeight(height);

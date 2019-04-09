@@ -41,23 +41,17 @@ public class GamePlayArsenal extends VBox {
     }
 
     private ArrayList<TreeItem> getWeapons(List arsenal){
-        ArrayList<TreeItem> weapons = new ArrayList<TreeItem>();
-        //TODO: also should iterate through list
+        ArrayList<TreeItem> weapons = new ArrayList<>();
         for (int i = 0; i < arsenal.size(); i++){
             String weaponName = arsenal.get(i).get;
-            TreeItem tower = new
+            TreeItem tower = new TreeItem(weaponName);
+            weapons.add(tower);
         }
-        TreeItem tower1 = new TreeItem("gang");
-        TreeItem tower2 = new TreeItem("boom");
-        TreeItem tower3 = new TreeItem("pop");
-        weapons.add(tower1);
-        weapons.add(tower2);
-        weapons.add(tower3);
         return weapons;
     }
 
     private ArrayList<TreeItem> getObstacles(){
-        ArrayList<TreeItem> obstacles = new ArrayList<TreeItem>();
+        ArrayList<TreeItem> obstacles = new ArrayList<>();
         //TODO: also should iterate through list
         TreeItem obstacle1 = new TreeItem("barrier");
         TreeItem obstacle2 = new TreeItem("yikes");
