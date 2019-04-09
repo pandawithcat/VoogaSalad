@@ -11,16 +11,19 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ActiveLevel extends Level implements Updatable, MapFeaturable {
+public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
     private int myScore;
+<<<<<<< HEAD
 //    private List<ImmutableImageView> viewsToBeRemoved;
 //    private List<ImmutableImageView> viewsToBeAdded;
     private MapFeature myMapFeature;
     private int currentWave=0;
+=======
+>>>>>>> 72a5e27100340093bd655773861b7804b1e49eb2
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
@@ -38,7 +41,6 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
-        //TODO: Pass Imageviews back up to frontend
     }
 
     private void updateEnemies(long ms){
@@ -67,10 +69,6 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
 
     }
 
-    @Override
-    public MapFeature getMapFeature() {
-        return myMapFeature;
-    }
 
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)

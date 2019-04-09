@@ -8,6 +8,7 @@ import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Game implements Updatable, EventHandlable, Configurable {
 
@@ -27,14 +28,38 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private String myThumbnail;
 
     private ActiveLevel myActiveLevel;
+    private int currentLevelNumber;
+    private boolean gameOver;
+    private boolean currentLevelOver;
 
     public Game(){
         myConfiguration = new Configuration(this);
+        gameOver = false;
     }
 
     @Override
     public void update(long ms) {
+        //TODO CHECK IF LEVEL IS OVER AND CHANGE currentLevelOver = true;
+        //TODO CHECK IF GAME IS OVER
+    }
 
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public boolean isLevelOver() {
+        return currentLevelOver;
+    }
+
+    public void startGame() {
+        currentLevelNumber = 1;
+        currentLevelOver = false;
+    }
+
+    public void startNextLevel() throws IllegalStateException{
+        if(gameOver) throw new IllegalStateException();
+        currentLevelNumber++;
+        currentLevelOver = false;
     }
 
     @Override
@@ -67,6 +92,10 @@ public class Game implements Updatable, EventHandlable, Configurable {
     public String getThumbnail(){
         return myThumbnail;
     }
+
+
+
+
 
 
 }
