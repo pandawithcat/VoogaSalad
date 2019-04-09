@@ -48,7 +48,6 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
             e.killMe();
         }
         myMapFeature.setDisplayState(DisplayState.DIED);
-        myActiveLevel.removeFromActiveProjectiles(this);
     }
     private void move(long ms){
         double velocityMs = getVelocityInSeconds()/1000;
