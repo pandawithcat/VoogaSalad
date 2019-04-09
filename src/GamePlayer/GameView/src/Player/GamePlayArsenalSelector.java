@@ -8,8 +8,6 @@ import javafx.scene.layout.HBox;
 public class GamePlayArsenalSelector extends HBox {
 
     public static final String WEAPON_IMAGE = "weapon.png";
-
-
     private Image weaponImage;
     private Image obstacleImage;
     private ImageView weaponImageView;
