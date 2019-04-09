@@ -4,6 +4,7 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Configuration;
 import Configs.EnemyPackage.Enemy;
+import Configs.ImmutableImageView;
 import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.util.List;
@@ -19,16 +20,6 @@ public class Stealthy extends EnemyBehavior{
     @Override
     public void update(long ms) {
 
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
     }
 
     @Override

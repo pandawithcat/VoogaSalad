@@ -28,16 +28,6 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
     }
 
     @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
-    }
-
-    @Override
     public Configuration getConfiguration() {
         return null;
     }
