@@ -40,9 +40,9 @@ public class ActiveWave extends WaveConfig implements Updatable {
         }
         if(currentEnemyIndex<getEnemies().length) {
             while(startTimes[currentEnemyIndex]>=ms) {
-                int x = getMyLevel().getMyMap().getEnemyEnteringGridXPos();
-                int y = getMyLevel().getMyMap().getEnemyEnteringGridYPos();
-                int direction = getMyLevel().getMyMap().getEnemyEnteringDirection();
+                int x = myActiveLevel.getMyMap().getEnemyEnteringGridXPos();
+                int y = myActiveLevel.getMyMap().getEnemyEnteringGridYPos();
+                int direction = myActiveLevel.getMyMap().getEnemyEnteringDirection();
                 EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
                 MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView());
                 getMyLevel().getGame().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);

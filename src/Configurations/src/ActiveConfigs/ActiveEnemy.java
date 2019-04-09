@@ -28,8 +28,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
-
-
+        myMapFeature.setDisplayState();
         getUnitSpeed();
 
 
