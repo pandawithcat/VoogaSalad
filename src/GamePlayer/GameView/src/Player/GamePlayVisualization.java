@@ -25,9 +25,10 @@ public class GamePlayVisualization extends Application {
     private Timeline animation = new Timeline();
     private GamePlayIDE myGameIDE;
 
-    public GamePlayVisualization(Logic logic){
-        myLogic = logic;
-    }
+//    public GamePlayVisualization(Logic logic){
+//        myLogic = logic;
+//    }
+
     @Override
     public void start(Stage stage){
         try {
@@ -35,7 +36,6 @@ public class GamePlayVisualization extends Application {
             var root = new Group();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
-            myGameIDE.setPadding(new Insets(padding,padding,padding,padding));
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);

@@ -15,7 +15,5 @@ public class GamePlayLeftSide extends VBox {
         myMap = new GamePlayMap(width,height * 9 / 10, logic);
         mySettings = new GamePlaySettingsBar(width,height / 10);
         this.getChildren().addAll(myMap, mySettings);
-        setPadding(new Insets(padding,padding,padding,padding));
-        setSpacing(padding);
     }
 }

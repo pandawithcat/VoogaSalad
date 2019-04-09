@@ -20,8 +20,8 @@ public class GamePlayArsenal extends VBox {
         TreeView arsenalView = new TreeView();
         TreeItem rootItem = new TreeItem("Arsenal");
 
-        rootItem.getChildren().addAll(myArsenal);
-        arsenalView.setRoot(rootItem);
+//        rootItem.getChildren().addAll(myArsenal);
+//        arsenalView.setRoot(rootItem);
         arsenalView.setPrefHeight(arsenalHeight);
         arsenalView.setPrefWidth(arsenalWidth);
         getChildren().addAll(arsenalView);

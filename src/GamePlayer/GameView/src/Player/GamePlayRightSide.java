@@ -19,8 +19,6 @@ public class GamePlayRightSide extends VBox {
         setPrefHeight(height);
         myGameArsenal = new GamePlayArsenal(width, height * 9 / 10, logic);
         this.getChildren().addAll(myGameArsenal, createPlayButton(width, height));
-        setPadding(new Insets(padding,padding,padding,padding));
-        setSpacing(padding);
 
     }
 
