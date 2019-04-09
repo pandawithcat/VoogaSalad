@@ -5,4 +5,5 @@ import Configs.MapFeature;
 public interface MapFeaturable {
 
     MapFeature getMapFeature();
+
 }

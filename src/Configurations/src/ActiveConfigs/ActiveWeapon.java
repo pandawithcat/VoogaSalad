@@ -20,7 +20,9 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
     @Override
     public void update(long ms) {
 
+        //dont forget to update state to 1 or 2(died) in myMapFeature
     }
+
 
     @Override
     public MapFeature getMapFeature() {

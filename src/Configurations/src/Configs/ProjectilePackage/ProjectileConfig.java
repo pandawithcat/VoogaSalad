@@ -13,7 +13,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     @Configure
     private View view;
     @Configure
-    private double velocity;
+    private double velocityInSeconds;
 
     //TODO: after first sprint implement behaviors
 //    @Configure
@@ -38,11 +38,15 @@ public class ProjectileConfig implements Configurable, Viewable {
         return view;
     }
 
-//    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
+    public double getVelocityInSeconds() {
+        return velocityInSeconds;
+    }
+
+    //    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
 //        return myBehaviors;
 //    }
 
-    private ShooterConfig getMyShooter() {
+    public ShooterConfig getMyShooter() {
         return myShooter;
     }
 
