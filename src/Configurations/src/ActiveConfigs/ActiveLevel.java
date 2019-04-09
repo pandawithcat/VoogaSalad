@@ -27,7 +27,7 @@ public class ActiveLevel extends Level implements Updatable {
         generateCurrentActiveWave();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
-        activeWave = new ActiveWave(getMyWaveConfigs()[0]);
+        activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
         //TODO: create myGrid
     }
 
@@ -52,7 +52,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void updateActiveWave(long ms){
-        if (activeWave.getIsFinished()) {
+        if (activeWave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();
         }
