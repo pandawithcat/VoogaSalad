@@ -4,6 +4,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -42,7 +44,11 @@ public class LoadingSplashScreen extends Application{
         root.applyCss();
         root.layout();
 
-        var scene = new Scene(root, 1000, 600);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth()));
+        stage.setY((primScreenBounds.getHeight()));
+
+        var scene = new Scene(root, primScreenBounds.getWidth(), primScreenBounds.getHeight());
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -4,7 +4,6 @@ import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.Enemy;
 
 public abstract class EnemyBehavior implements Behavior<Enemy>{
-    @Configure
     Enemy myEnemy;
     EnemyBehavior(Enemy enemy){
         myEnemy = enemy;

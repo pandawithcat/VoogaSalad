@@ -10,4 +10,5 @@ module AuthoringView {
 
     exports GameAuthoringEnvironment.AuthoringComponents;
     exports GameAuthoringEnvironment.AuthoringScreen;
+    exports Main;
 }

@@ -2,6 +2,7 @@ package BackendExternal;
 
 import Configs.GamePackage.Game;
 import Configs.ImmutableImageView;
+import Configs.TransferImageView;
 import Data.GameLibrary;
 
 import java.util.EventObject;
@@ -60,7 +61,8 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-//    public List<ImmutableImageView> getLevelTerrain(){
+    // TODO: Adjust the type that is returned to make it as encapsulated as possible
+//    public List<TransferImageView> getLevelTerrain(){
 //
 //    }
 //
@@ -73,7 +75,8 @@ public class Logic {
 //    // View calls this when a weapon is placed onto the map
 //    // Input: WeaponInfo Object
 //    // Return: ImageView corresponding to the weapon
-//    public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
+//    // TODO: Adjust the type that is returned to make it as encapsulated as possible
+//    public TransferImageView instantiateWeapon(WeaponInfo newWeapon){
 //
 //    }
 //
@@ -90,14 +93,14 @@ public class Logic {
 //    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
 //
 //    }
+
+    // View calls to move a dynamic object that has already been instantiated
+    // Input: WeaponInfo object, x and y coordinate
+    // No return
+    // TODO: Second Sprint move objects mid level
+//    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
 //
-//    // View calls to move a dynamic object that has already been instantiated
-//    // Input: WeaponInfo object, x and y coordinate
-//    // No return
-//    // TODO: Second Sprint move objects mid level
-////    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
-////
-////    }
+//    }
 
     // View calls this in game Loop to check if the level has ended
     // No input
