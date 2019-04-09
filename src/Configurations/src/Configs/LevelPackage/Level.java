@@ -51,7 +51,7 @@ public class Level implements Configurable{
 //        return levelBehaviors;
 //    }
 
-    protected MapConfig getMyMap() {
+    public MapConfig getMyMap() {
         return myMap;
     }
 
