@@ -6,7 +6,7 @@ import Configs.Waves.WaveConfig;
 
 import java.util.List;
 
-public class EnemyConfig implements Configurable{
+public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
     @Configure
     Behavior<EnemyConfig>[] myBehaviors;
@@ -23,6 +23,7 @@ public class EnemyConfig implements Configurable{
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
+        myWaveConfig = enemyConfig.myWaveConfig;
         view = enemyConfig.getView();
     }
 
@@ -34,6 +35,7 @@ public class EnemyConfig implements Configurable{
         return myBehaviors;
     }
 
+    @Override
     public View getView() {
         return view;
     }

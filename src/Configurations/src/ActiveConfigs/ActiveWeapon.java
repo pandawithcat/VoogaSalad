@@ -8,7 +8,7 @@ import Configs.Viewable;
 
 import java.util.Map;
 
-public class ActiveWeapon extends WeaponConfig implements Updatable, Viewable, MapFeaturable {
+public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
 
     public ActiveWeapon(WeaponConfig weaponConfig, MapFeature mapFeature) {

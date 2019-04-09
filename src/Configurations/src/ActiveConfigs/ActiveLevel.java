@@ -10,7 +10,7 @@ import Configs.ProjectilePackage.ProjectileConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveLevel extends Level implements Updatable, Viewable, MapFeaturable {
+public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     private List<ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
@@ -36,10 +36,6 @@ public class ActiveLevel extends Level implements Updatable, Viewable, MapFeatur
         }
     }
 
-    @Override
-    public View getView() {
-        return null;
-    }
 
     public boolean isValid(int x, int y, double weaponHeight, double weaponWidth){
         //TODO

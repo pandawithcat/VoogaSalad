@@ -4,7 +4,7 @@ import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 
 
-public class ActiveEnemy extends EnemyConfig implements Updatable, Viewable, MapFeaturable {
+public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
 
 

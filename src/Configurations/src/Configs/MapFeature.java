@@ -5,14 +5,16 @@ public class MapFeature {
     private int gridYPos;
     private double pixelXPos;
     private double pixelYPos;
+    private double direction;
     private TransferImageView myImageView;
 
 
-    public MapFeature(int gridXPos, int gridYPos) {
+    public MapFeature(int gridXPos, int gridYPos, double direction) {
         setGridPos(gridXPos,gridYPos);
 
 
     }
+
 
     public void setPixelPos(double x, double y) {
         pixelXPos = x;

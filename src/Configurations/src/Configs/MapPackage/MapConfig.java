@@ -35,6 +35,14 @@ public class MapConfig implements Configurable {
         return configuration;
     }
 
+    public int getEnemyEnteringGridXPos() {
+        return enemyEnteringGridXPos;
+    }
+
+    public int getEnemyEnteringGridYPos() {
+        return enemyEnteringGridYPos;
+    }
+
     public int getGridHeight() {
         return gridHeight;
     }

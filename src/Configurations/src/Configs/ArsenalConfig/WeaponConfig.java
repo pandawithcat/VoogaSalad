@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class WeaponConfig implements  Configurable {
+public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
     @Configure
     private String name;
@@ -43,6 +43,7 @@ public class WeaponConfig implements  Configurable {
         return behaviors;
     }
 
+    @Override
     public View getView() {
         return view;
     }
