@@ -1,18 +1,28 @@
 package ActiveConfigs;
 
-import Configs.ArsenalConfig.WeaponConfig;
+import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
-import Configs.Updatable;
-import Configs.Viewable;
 
-public class ActiveEnemy extends EnemyConfig implements Updatable, Viewable {
-    public ActiveEnemy(EnemyConfig enemyConfig) {
+
+public class ActiveEnemy extends EnemyConfig implements Updatable, Viewable, MapFeaturable {
+    private MapFeature myMapFeature;
+
+
+    public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature) {
         super(enemyConfig);
+        myMapFeature = mapFeature;
+    }
+
+    @Override
+    public MapFeature getMapFeature() {
+        return myMapFeature;
     }
 
     @Override
     public void update(long ms) {
-        super.update(ms);
+        //get x, y from myMapFeature and do logic using the map within the activeLevel
+
+
     }
 
 

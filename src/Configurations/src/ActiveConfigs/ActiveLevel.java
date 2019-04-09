@@ -10,21 +10,23 @@ import Configs.ProjectilePackage.ProjectileConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveLevel extends Level implements Updatable, Viewable {
+public class ActiveLevel extends Level implements Updatable, Viewable, MapFeaturable {
     private List<ActiveWeapon> activeWeapons;
-    private List<EnemyConfig> activeEnemies;
+    private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
     private int myScore;
     private List<ImmutableImageView> viewsToBeRemoved;
     private List<ImmutableImageView> viewsToBeAdded;
+    private MapFeature myMapFeature;
 
-    public ActiveLevel(Level level, Game game) {
+    public ActiveLevel(Level level, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new ArrayList<>();
-        setMyGame(game);
+//        setMyGame(game);
+        myMapFeature = mapFeature;
     }
 
     @Override
@@ -32,6 +34,16 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
+    }
+
+    @Override
+    public View getView() {
+        return null;
+    }
+
+    @Override
+    public MapFeature getMapFeature() {
+        return myMapFeature;
     }
 
     public List<ImmutableImageView> getViewsToBeRemoved() {
@@ -56,15 +68,15 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
         viewsToBeAdded.add(imageView);
     }
 
-    public void addToActiveEnemies(EnemyConfig enemyConfig) {
-        activeEnemies.add(enemyConfig);
+    public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
+        activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
     }
 
-    public void addToActiveProjectiles(ProjectileConfig projectile) {
-        activeProjectiles.add(new ActiveProjectile(projectile));
+    public void addToActiveProjectiles(ProjectileConfig projectile, MapFeature mapFeature) {
+        activeProjectiles.add(new ActiveProjectile(projectile, mapFeature));
     }
 
-    public void addToActiveWeapon(WeaponConfig weapon) {
-        activeWeapons.add(new ActiveWeapon(weapon));
+    public void addToActiveWeapon(WeaponConfig weapon, MapFeature mapFeature) {
+        activeWeapons.add(new ActiveWeapon(weapon,mapFeature));
     }
 }

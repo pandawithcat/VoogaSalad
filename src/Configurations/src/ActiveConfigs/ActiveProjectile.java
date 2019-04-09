@@ -1,13 +1,16 @@
 package ActiveConfigs;
 
+import Configs.*;
 import Configs.ProjectilePackage.ProjectileConfig;
-import Configs.Updatable;
-import Configs.Viewable;
 
-public class ActiveProjectile extends ProjectileConfig implements Updatable, Viewable {
+public class ActiveProjectile extends ProjectileConfig implements Updatable, Viewable, MapFeaturable {
+    private MapFeature myMapFeature;
 
-    public ActiveProjectile(ProjectileConfig projectileConfig){
+
+    public ActiveProjectile(ProjectileConfig projectileConfig, MapFeature mapFeature){
+
         super(projectileConfig);
+        myMapFeature = mapFeature;
     }
 
     @Override
@@ -15,4 +18,13 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Vie
 
     }
 
+    @Override
+    public View getView() {
+        return null;
+    }
+
+    @Override
+    public MapFeature getMapFeature() {
+        return myMapFeature;
+    }
 }
