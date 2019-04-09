@@ -20,8 +20,17 @@ public class ShooterConfig implements Configurable{
         myConfiguration = new Configuration(this);
     }
 
-    ShooterConfig(ShooterConfig shooterConfig){
-//        projectileConfig = new ProjectileConfig()
+    public ShooterConfig(ShooterConfig shooterConfig){
+        rateOfFire = shooterConfig.getRateOfFire();
+        projectileConfig = shooterConfig.getProjectileConfig();
+    }
+
+    private ProjectileConfig getProjectileConfig() {
+        return projectileConfig;
+    }
+
+    private double getRateOfFire() {
+        return rateOfFire;
     }
 
     @Override

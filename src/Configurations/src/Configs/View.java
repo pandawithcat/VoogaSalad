@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.nio.file.Path;
 //import java.awt.*;
 
@@ -13,7 +14,7 @@ public class View implements Configurable {
 
     @XStreamOmitField
     @Configure
-    private Path imagePath;
+    private File imagePath;
     @Configure
     private String imageName;
     @Configure
