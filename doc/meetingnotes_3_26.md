@@ -23,5 +23,5 @@ Shared Language:
         has a Map
         
     Arsenal: Set of available towers
-    Weapon: the base abstration for a weapon
+    Weapon: the base abstration for a weaponConfig
             has name, image, type, speed

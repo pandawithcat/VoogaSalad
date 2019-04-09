@@ -1,12 +1,12 @@
 package Configs.MapPackage;
 
 import Configs.EnemyPackage.Enemy;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.util.List;
 
 public class Cell {
-    Weapon myWeapon;
+    WeaponConfig myWeaponConfig;
     Terrain myTerrain;
     List<Enemy> myEnemies;
 }

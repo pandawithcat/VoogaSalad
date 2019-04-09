@@ -1,19 +1,19 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
-import Configs.ArsenalConfig.Weapon;
 
-public abstract class WeaponBehavior implements Behavior<Weapon> {
-    Weapon myWeapon;
-    WeaponBehavior(Weapon weapon){
-        myWeapon = weapon;
+public abstract class WeaponBehavior implements Behavior<WeaponConfig> {
+    WeaponConfig myWeaponConfig;
+    WeaponBehavior(WeaponConfig weaponConfig){
+        myWeaponConfig = weaponConfig;
     }
 
-    public Weapon getMyWeapon() {
-        return myWeapon;
+    public WeaponConfig getMyWeaponConfig() {
+        return myWeaponConfig;
     }
 
-    public void setMyWeapon(Weapon myWeapon) {
-        this.myWeapon = myWeapon;
+    public void setMyWeaponConfig(WeaponConfig myWeaponConfig) {
+        this.myWeaponConfig = myWeaponConfig;
     }
 }

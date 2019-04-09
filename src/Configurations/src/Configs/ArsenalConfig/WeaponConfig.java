@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Weapon implements  Configurable, Viewable, Updatable {
+public class WeaponConfig implements  Configurable, Updatable {
     Configuration myConfiguration;
     @Configure
     private String name;
     @Configure
-    private Behavior<Weapon>[] behaviors;
+    private Behavior<WeaponConfig>[] behaviors;
     @Configure
     private View view;
 
@@ -20,12 +20,9 @@ public class Weapon implements  Configurable, Viewable, Updatable {
     @Configure
     private boolean unlocked;
 
-    public Weapon() {
+    public WeaponConfig() {
         myConfiguration=new Configuration(this);
     }
-
-
-
 
     @Override
     public Configuration getConfiguration() {
@@ -38,16 +35,6 @@ public class Weapon implements  Configurable, Viewable, Updatable {
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
     }
 
     @Override

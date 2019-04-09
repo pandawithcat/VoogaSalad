@@ -1,9 +1,8 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
 import Configs.ImmutableImageView;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
 
 import java.util.List;
 
@@ -13,8 +12,8 @@ public class Shootable extends WeaponBehavior{
 
     Configuration myConfiguration;
 
-    Shootable(Weapon weapon){
-        super(weapon);
+    Shootable(WeaponConfig weaponConfig){
+        super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 

@@ -2,19 +2,18 @@ package Configs.LevelPackage;
 
 import Configs.*;
 import Configs.ArsenalConfig.Arsenal;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.Enemy;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.Wave;
-import Configs.ArsenalConfig.Weapon;
 import org.w3c.dom.events.Event;
 
 import java.util.List;
 
-public class Level implements Configurable, Viewable, EventHandlable, Updatable {
-    private List<Weapon> activeWeapons;
-    private List<Enemy> activeEnemies;
+public class Level implements Configurable{
+
     private Game myGame;
 
     @Configure
@@ -35,28 +34,49 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
         myGame = game;
     }
 
-    @Override
-    public void handleEvent(Event e) {
-
+    public Level(Level level){
+        myWaves = level.getMyWaves();
+        myArsenal = level.getMyArsenal();
+        gridSizeX = level.getGridSizeX();
+        gridSizeY = level.getGridSizeY();
+        myMap = level.getMyMap();
+        levelBehaviors = level.getLevelBehaviors();
     }
 
-    @Override
-    public void update(long ms) {
-
+    private Game getMyGame() {
+        return myGame;
     }
 
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
+    private Arsenal getMyArsenal() {
+        return myArsenal;
     }
 
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
+    private Behavior<Level>[] getLevelBehaviors() {
+        return levelBehaviors;
+    }
+
+    private int getGridSizeX() {
+        return gridSizeX;
+    }
+
+    private int getGridSizeY() {
+        return gridSizeY;
+    }
+
+    private MapConfig getMyMap() {
+        return myMap;
+    }
+
+    private Wave[] getMyWaves() {
+        return myWaves;
     }
 
     @Override
     public Configuration getConfiguration() {
         return null;
+    }
+
+    public Configurable getParent(){
+        return myGame;
     }
 }

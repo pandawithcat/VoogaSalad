@@ -1,7 +1,7 @@
 package Configs;
 
 import Configs.Behaviors.Behavior;
-import Configs.Behaviors.BehaviorManager;
+//import Configs.Behaviors.BehaviorManager;
 import Configs.Waves.Wave;
 import Configs.Waves.WaveSpawner;
 
@@ -48,9 +48,9 @@ public class Configuration {
     public void setAllAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
         for (String key:attributes.keySet()) {
-            if(attributes.get(key) instanceof Behavior[]) {
-                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
-            }
+//            if(attributes.get(key) instanceof Behavior[]) {
+//                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
+//            }
             if(attributes.get(key) instanceof Wave[]) {
                 attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
             }
@@ -82,6 +82,7 @@ public class Configuration {
         if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
+
 
 
 

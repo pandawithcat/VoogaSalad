@@ -2,7 +2,7 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
 import Configs.ImmutableImageView;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class TimeExpirable extends WeaponBehavior{
 
     Configuration myConfiguration;
 
-    public TimeExpirable(Weapon weapon){
-        super(weapon);
+    public TimeExpirable(WeaponConfig weaponConfig){
+        super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 
