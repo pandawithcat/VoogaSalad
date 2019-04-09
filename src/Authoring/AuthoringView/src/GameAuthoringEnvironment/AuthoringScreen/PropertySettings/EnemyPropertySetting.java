@@ -1,5 +1,7 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+/*
+package GameAuthoringEnvironment.AuthoringScreen.main.PropertySettings;
 
+import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -65,3 +67,4 @@ public class EnemyPropertySetting{
     }
 
 }
+*/

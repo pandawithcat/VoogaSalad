@@ -12,14 +12,12 @@ public class Game implements Configurable, Updatable, EventHandlable, Viewable {
     String gameName;
     @Configure
     List<Level> levelList;
+    /*@Configure
+    GameOptions gameType;*/
     @Configure
-    GameOptions gameType;
+    Integer screenSize;
     @Configure
-    int screenSize;
-    @Configure
-    int numberOfLevels;
-
-    private Game game;
+    Integer numberOfLevels;
 
     @Override
     public void update(long ms) {
@@ -40,7 +38,6 @@ public class Game implements Configurable, Updatable, EventHandlable, Viewable {
     public Configuration getConfiguration(){
         Configuration myConfiguration = new Configuration(this);
         return myConfiguration;
-
     }
 
 }

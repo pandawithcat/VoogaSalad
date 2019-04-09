@@ -1,8 +1,6 @@
-package GameAuthoringEnvironment.AuthoringScreen.main;
+package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
-import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
-import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
+import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,6 +21,7 @@ public class GameOutline extends Screen {
     private final TextArea textArea = new TextArea();
     private ImageView myImage;
     private Group myRoot;
+    private int defaultLevel = 2;
 
     public GameOutline(Group root, int width, int height, String moduleName){
         super(root, width, height, moduleName, false);
@@ -31,12 +30,12 @@ public class GameOutline extends Screen {
         content.setMaxSize(300, 1000);
         content.setMinSize(300, 1000);
         moduleWidth = getModuleWidth();
-        setContent();
+        setContent(defaultLevel);
     }
 
 
 
-    public void setContent() {
+    public void setContent(int numberOfLevels) {
 
         var url = this.getClass().getClassLoader().getResource("ButtonImages");
         try {
@@ -52,7 +51,7 @@ public class GameOutline extends Screen {
         myImage.setFitWidth(50);
 
         //TODO helper should be changed so that it takes in a int parameter(number of levels) and produces same number of level treeitems.
-        TreeViewHelper helper = new TreeViewHelper(2);
+        TreeViewHelper helper = new TreeViewHelper(numberOfLevels);
         ArrayList<TreeItem> levels = helper.getLevels();
 
         // Create the TreeView
@@ -104,11 +103,11 @@ public class GameOutline extends Screen {
                     }
                     if (cell.getTreeItem().getValue().equals("Arsenals")) {
                         //System.out.println("Arsenal screen created");
-                        createArsenalScreen();
+                        //createArsenalScreen();
                     }
                     if (cell.getTreeItem().getValue().equals("Enemies")) {
                         //System.out.println("Enemies screen created");
-                        createEnemiesScreen();
+                        //createEnemiesScreen();
                     }
 
                 }
@@ -123,7 +122,7 @@ public class GameOutline extends Screen {
         myRoot.getChildren().add(mapEditor.getVBox());
     }
 
-    private void createArsenalScreen(){
+    /*private void createArsenalScreen(){
         ArsenalEditor arsenalEditor = new ArsenalEditor(myRoot, 500, 500, "Arsenal Editor");
         myRoot.getChildren().add(arsenalEditor.getVBox());
 
@@ -131,9 +130,9 @@ public class GameOutline extends Screen {
 
     private void createEnemiesScreen(){
         EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "EnemyPackage Editor");
-        myRoot.getChildren().add(enemiesEditor.getVBox());
+        myRoot.getChildren().add(enemiesEditor.getVBox());*/
 
-    }
+    //}
 
 
 }

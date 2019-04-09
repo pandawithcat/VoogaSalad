@@ -2,8 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import GameAuthoringEnvironment.AuthoringComponents.*;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.GameOutline;
-import GameAuthoringEnvironment.AuthoringScreen.main.GamePropertySettings;
+import GameAuthoringEnvironment.AuthoringScreen.PropertySettings.GamePropertySettings;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -28,6 +27,7 @@ public class AuthoringVisualization {
     private double screenMinY;
     private Scene myScene;
     private Group myContainer;
+    private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
 
     public void start (Stage stage) {
@@ -76,7 +76,7 @@ public class AuthoringVisualization {
 
 
     private void setLeftGridPane(Group leftGridPane){
-        GameOutline gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
+        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
         leftGridPane.getChildren().addAll(gameOutline.getVBox());
     }
 
@@ -101,6 +101,7 @@ public class AuthoringVisualization {
         newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent me) {
                 GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
+                gameOutline.setContent(gamePropertySettings.getMyGameController().getMyNumberOfLevels());
             }
         });
 
