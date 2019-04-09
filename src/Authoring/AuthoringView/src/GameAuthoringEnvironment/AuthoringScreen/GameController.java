@@ -3,10 +3,13 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
+import GameAuthoringEnvironment.AuthoringComponents.DataHandleComponents.PrimitiveContainer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -39,7 +42,7 @@ public class GameController {
         popupwindow = new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         //TODO Should change the window title
-        popupwindow.setTitle("What the fuck");
+        popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
 
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
@@ -52,19 +55,30 @@ public class GameController {
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");
-                layout.getChildren().addAll(myLabel, myTextField, confirmButton);
+                var nameAndTfBar = new HBox();
+                nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
+                confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        myAttributesMap.put(key, myTextField.getText());
+
+                    }
+                }));
+                layout.getChildren().addAll(nameAndTfBar);
+
             }
 
             else if(value.isInstance(Paths.class)){
 
                 Button fileUploadButton = new Button("Upload Image");
+
                 layout.getChildren().add(fileUploadButton);
                 FileChooser fileChooser = new FileChooser();
                 fileUploadButton.setOnMouseClicked(e -> {
 
                     File selectedFile = fileChooser.showOpenDialog(popupwindow);
                     if (selectedFile != null) {
-                        //TODO Save the file
+                        myAttributesMap.put(key, selectedFile);
                     }
                 });
 
@@ -97,32 +111,46 @@ public class GameController {
                     System.out.println(value.getComponentType());
                     System.out.println(value.getComponentType().getName());*/
                     VBox tempVBOx  = new VBox();
-                    Button addNew = new Button("add new " + key);
+                    var buttonBar = new HBox();
+                    Button addNew = new Button("add new " + value.getComponentType().getSimpleName());
+                    Button confirmButton = new Button("Confirm");
+                    buttonBar.getChildren().addAll(addNew, confirmButton);
                     ListView sourceView = new ListView<>();
+                    confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            myAttributesMap.put(key, sourceView.getItems());
+                        }
+                    }));
 
                     //make new screen pop up when each level clicked
 
                     sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            try {
-                                Object object = Class.forName(value.getComponentType().getName());
-                                System.out.println(object.toString());
-                                createConfigurable((Configurable) object);
-                            } catch (Exception e){
 
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                                if (mouseEvent.getClickCount() == 2) {
+                                    try {
+                                        Object object = Class.forName(value.getComponentType().getName());
+                                        System.out.println(object.toString());
+                                        createConfigurable((Configurable) object);
+                                    } catch (Exception e) {
+
+                                    }
+                                }
                             }
                         }
                     }));
                     addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            sourceView.getItems().add(key);
+                            sourceView.getItems().add(value.getComponentType().getSimpleName());
 
                         }
                     }));
 
-                    tempVBOx.getChildren().addAll(sourceView, addNew);
+                    tempVBOx.getChildren().addAll(sourceView, buttonBar);
                     layout.getChildren().add(tempVBOx);
                 }
             }
@@ -132,7 +160,7 @@ public class GameController {
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //TODO
+                myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
             }
         }));
 
@@ -141,22 +169,8 @@ public class GameController {
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
 
-        myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
     }
 
-    private void handlePrimitives(Configurable configurable, Map<String, Object> attributeMap, String key, Object value){
-        String keyToCap = key.substring(0, 1).toUpperCase() + key.substring(1);
-        try {
-            Method method = configurable.getClass().getMethod("get"+keyToCap);
-            Object object = method.invoke(configurable);
-            attributeMap.put(key, object);
-        } //TODO Error Handling needed
-        catch (InvocationTargetException e) {}
-        catch (IllegalArgumentException e) {}
-        catch (IllegalAccessException e) {}
-        catch (NoSuchMethodException e){}
-
-    }
 
 
 }

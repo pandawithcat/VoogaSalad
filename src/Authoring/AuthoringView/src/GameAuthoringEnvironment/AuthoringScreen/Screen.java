@@ -1,6 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringComponents.CloseButton;
+import GameAuthoringEnvironment.AuthoringComponents.Buttons.CloseButton;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;

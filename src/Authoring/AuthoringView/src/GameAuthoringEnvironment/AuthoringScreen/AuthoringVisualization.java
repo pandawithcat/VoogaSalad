@@ -60,33 +60,9 @@ public class AuthoringVisualization {
 
     private void setScene(Stage stage, Group myRoot) {
         myContainer = myRoot;
-        myContainer.getChildren().addAll(addTopBar());
+        TopMenuBar topMenuBar = new TopMenuBar();
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
         myScene = new Scene(myContainer);
-
-    }
-    private HBox addTopBar(){
-
-        var TopMenuBar = new HBox();
-
-        HelpButton helpButton = new HelpButton();
-        SaveButton saveButton = new SaveButton();
-        ImageButton imageButton = new ImageButton();
-        LoadButton loadButton = new LoadButton();
-        PlayButton playButton = new PlayButton();
-        ViewButton viewButton = new ViewButton();
-        NewGameButton newGameButton = new NewGameButton();
-        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                GameController gameController = new GameController();
-            }
-        });
-
-
-
-        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
-                viewButton.getButton(), helpButton.getButton());
-
-        return  TopMenuBar;
     }
 
 

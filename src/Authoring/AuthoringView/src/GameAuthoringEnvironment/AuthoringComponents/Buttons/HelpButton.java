@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents.Buttons;
 
 public class HelpButton extends ButtonComponent {
 
