@@ -11,7 +11,9 @@ public class GamePlayArsenalSelector extends HBox {
 
 
     private Image weaponImage;
+    private Image obstacleImage;
     private ImageView weaponImageView;
+    private ImageView obstacleImageView;
 
 
     public GamePlayArsenalSelector(double width, double height){
@@ -22,6 +24,15 @@ public class GamePlayArsenalSelector extends HBox {
         Button weaponButton = new Button("", weaponImageView);
         weaponButton.setOnAction(e -> System.out.println("Weapon Button is pressed"));
         getChildren().add(weaponButton);
+
+        //obstacles
+        obstacleImage = new Image(WEAPON_IMAGE);
+        obstacleImageView = new ImageView(WEAPON_IMAGE);
+        obstacleImageView.setFitHeight(height);
+        obstacleImageView.setFitWidth(width /2);
+        Button obstacleButton = new Button("", obstacleImageView);
+        obstacleButton.setOnAction(e -> System.out.println("Obstacle Button is pressed"));
+        getChildren().add(obstacleButton);
 
     }
 

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class GamePlayArsenal extends VBox {
 
-    public static final double ARSENAL_RATIO = 0.80;
-    public static final double SELECTOR_RATIO = 0.20;
+    public static final double ARSENAL_RATIO = 0.90;
+    public static final double SELECTOR_RATIO = 0.10;
 
     private Logic myLogic;
     private GamePlayArsenalSelector myArsenalSelector;
