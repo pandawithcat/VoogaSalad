@@ -70,7 +70,7 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToRemove.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==2).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToRemove.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.DIED).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
 
     }
 
@@ -82,7 +82,7 @@ public class ActiveLevel extends Level implements Updatable, MapFeaturable {
     public List<ImmutableImageView> getViewsToBeAdded() {
         List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToAdd.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==0).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToAdd.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.NEW).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
     }
 
     public int getMyScore() {

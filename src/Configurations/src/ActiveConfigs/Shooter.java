@@ -31,7 +31,6 @@ public class Shooter extends ShooterConfig implements Updatable {
                 MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView());
                 ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getRadius());
                 getMyShootable().getWeaponConfig().getArsenal().getLevel().getParent().getActiveLevel().addToActiveProjectiles(activeProjectile);
-                getMyShootable().getWeaponConfig().getArsenal().getLevel().getParent().getActiveLevel().addViewToBeAdded(projectileMapFeature.getImageView());
             }
         }
 
