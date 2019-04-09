@@ -16,7 +16,7 @@ public class GamePlayArsenal extends VBox {
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic){
         myLogic = logic;
-        myArsenal = myLogic.getArsenal();
+//        myArsenal = myLogic.getArsenal();
         TreeView arsenalView = new TreeView();
         TreeItem rootItem = new TreeItem("Arsenal");
 
