@@ -36,8 +36,8 @@ public class GameLibrary {
         ResourceBundle gameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
         for (String s : gameStrings.keySet()){
             String[] gameDetails = gameStrings.getString(s).split(REGEX);
-            GameInfo newGameInfo = new GameInfo(s, gameDetails[0]);
-            myXMLFileNames.put(s,gameDetails[1]);
+            GameInfo newGameInfo = new GameInfo(s, gameDetails[0], gameDetails[1]);
+            myXMLFileNames.put(s,gameDetails[2]);
             myGames.add(newGameInfo);
         }
     }

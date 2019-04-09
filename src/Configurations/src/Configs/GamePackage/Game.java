@@ -14,6 +14,9 @@ public class Game implements Updatable, EventHandlable, Viewable {
     List<Level> levelList;
     GameOptions gameType;
 
+    private String myTitle;
+    private String myDescription;
+
     @Override
     public void update(long ms) {
 
@@ -28,6 +31,9 @@ public class Game implements Updatable, EventHandlable, Viewable {
     public List<View> getViews() {
         return null;
     }
+
+
+    public void getTitle()
 
 
 }
