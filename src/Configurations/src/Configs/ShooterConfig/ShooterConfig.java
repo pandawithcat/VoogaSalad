@@ -12,6 +12,8 @@ public class ShooterConfig implements Configurable{
     private double rateOfFire;
     @Configure
     private ProjectileConfig projectileConfig;
+    @Configure
+    private double radius;
     private Configuration myConfiguration;
 
 
@@ -20,8 +22,25 @@ public class ShooterConfig implements Configurable{
         myConfiguration = new Configuration(this);
     }
 
-    ShooterConfig(ShooterConfig shooterConfig){
-//        projectileConfig = new ProjectileConfig()
+    public ShooterConfig(ShooterConfig shooterConfig){
+        rateOfFire = shooterConfig.getRateOfFire();
+        projectileConfig = shooterConfig.getProjectileConfig();
+    }
+
+    public Shootable getMyShootable() {
+        return myShootable;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public ProjectileConfig getProjectileConfig() {
+        return projectileConfig;
+    }
+
+    public double getRateOfFire() {
+        return rateOfFire;
     }
 
     @Override

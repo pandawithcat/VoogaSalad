@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class WeaponConfig implements  Configurable, Updatable {
+public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
     @Configure
     private String name;
@@ -16,12 +16,31 @@ public class WeaponConfig implements  Configurable, Updatable {
     @Configure
     private View view;
 
+
     //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;
 
-    public WeaponConfig() {
+    private Arsenal arsenal;
+    private int weaponId;
+
+    public WeaponConfig(Arsenal arsenal) {
         myConfiguration=new Configuration(this);
+        this.arsenal = arsenal;
+    }
+
+    public WeaponConfig(WeaponConfig weaponConfig) {
+        this.name = weaponConfig.getName();
+        this.behaviors = weaponConfig.getBehaviors();
+        this.view = weaponConfig.getView();
+    }
+
+    public void setWeaponId(int weaponId) {
+        this.weaponId = weaponId;
+    }
+
+    public int getWeaponId() {
+        return weaponId;
     }
 
     @Override
@@ -30,22 +49,23 @@ public class WeaponConfig implements  Configurable, Updatable {
     }
 
     public String getName() {
-        return (String) myConfiguration.getDefinedAttributes().get(name.toString());
+        return name;
+    }
+
+    public Behavior<WeaponConfig>[] getBehaviors() {
+        return behaviors;
+    }
+
+    @Override
+    public View getView() {
+        return view;
     }
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
     }
 
-    @Override
-    public void update(long ms) {
-        Map<String, Object> myAttributes = myConfiguration.getDefinedAttributes();
-        for (Object o :((Map) myAttributes).values()) {
-            if (o instanceof Updatable) {
-                ((Updatable) o).update(ms);
-            }
-        }
+    public Arsenal getArsenal() {
+        return arsenal;
     }
-
-
 }

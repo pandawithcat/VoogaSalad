@@ -17,14 +17,11 @@ public class Level implements Configurable{
     @Configure
     private Arsenal myArsenal;
     @Configure
-    private int gridSizeX;
-    @Configure
-    private int gridSizeY;
-    @Configure
     private MapConfig myMap;
-    @Configure
-    private Behavior<Level>[] levelBehaviors;
+//    @Configure
+//    private Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
+    private int currentWave=0;
 
     public Level(Game game){
         myGame = game;
@@ -34,37 +31,28 @@ public class Level implements Configurable{
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();
         myArsenal = level.getMyArsenal();
-        gridSizeX = level.getGridSizeX();
-        gridSizeY = level.getGridSizeY();
         myMap = level.getMyMap();
-        levelBehaviors = level.getLevelBehaviors();
+//        levelBehaviors = level.getLevelBehaviors();
     }
 
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
 
+
     private Game getMyGame() {
         return myGame;
     }
 
-    private Arsenal getMyArsenal() {
+    public Arsenal getMyArsenal() {
         return myArsenal;
     }
 
-    private Behavior<Level>[] getLevelBehaviors() {
-        return levelBehaviors;
-    }
+//    private Behavior<Level>[] getLevelBehaviors() {
+//        return levelBehaviors;
+//    }
 
-    private int getGridSizeX() {
-        return gridSizeX;
-    }
-
-    private int getGridSizeY() {
-        return gridSizeY;
-    }
-
-    private MapConfig getMyMap() {
+    public MapConfig getMyMap() {
         return myMap;
     }
 
@@ -77,7 +65,9 @@ public class Level implements Configurable{
         return null;
     }
 
-    public Configurable getParent(){
+    public Game getParent(){
         return myGame;
     }
+
+
 }
