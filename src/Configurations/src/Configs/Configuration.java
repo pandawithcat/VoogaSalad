@@ -1,9 +1,8 @@
 package Configs;
 
-import Configs.Behaviors.Behavior;
 //import Configs.Behaviors.BehaviorManager;
-import Configs.Waves.Wave;
-import Configs.Waves.WaveSpawner;
+import Configs.Waves.WaveConfig;
+//        import Configs.Waves.WaveSpawner;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -51,9 +50,9 @@ public class Configuration {
 //            if(attributes.get(key) instanceof Behavior[]) {
 //                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
 //            }
-            if(attributes.get(key) instanceof Wave[]) {
-                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
-            }
+//            if(attributes.get(key) instanceof WaveConfig[]) {
+//                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((WaveConfig[]) attributes.get(key)))));
+//            }
         }
         myAttributes = attributes;
         isComplete = true;

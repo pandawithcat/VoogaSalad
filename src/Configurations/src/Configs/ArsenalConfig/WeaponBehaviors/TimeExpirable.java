@@ -26,14 +26,4 @@ public class TimeExpirable extends WeaponBehavior{
     public Configuration getConfiguration() {
         return myConfiguration;
     }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeAdded() {
-        return null;
-    }
-
-    @Override
-    public List<ImmutableImageView> getViewsToBeRemoved() {
-        return null;
-    }
 }
