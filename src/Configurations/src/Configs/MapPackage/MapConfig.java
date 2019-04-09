@@ -15,6 +15,8 @@ public class MapConfig implements Configurable {
     @Configure
     private int enemyEnteringGridYPos;
     @Configure
+    private int enemyEnteringDirection;
+    @Configure
     private int gridHeight;
     @Configure
     private int gridWidth;
@@ -33,6 +35,10 @@ public class MapConfig implements Configurable {
     @Override
     public Configuration getConfiguration() {
         return configuration;
+    }
+
+    public int getEnemyEnteringDirection() {
+        return enemyEnteringDirection;
     }
 
     public int getEnemyEnteringGridXPos() {

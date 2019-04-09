@@ -14,17 +14,19 @@ public class View implements Configurable {
     @XStreamOmitField
     @Configure
     private File imagePath;
-    @Configure
-    private String imageName;
+//    @Configure
+//    private String imageName;
     @Configure
     private double width;
     @Configure
     private double height;
 
-    public View(File file, double width, double height) {
-        //TODO: set instance variables
+    //this constructor is for the special case for the terrain blocks in the map
+    public View(Configurable configurableParent, File file, double width, double height) {
+        imagePath = file;
+        this.width = width;
+        this.height = height;
     }
-
 
 
     public View(Configurable configurableParent) {
@@ -46,11 +48,6 @@ public class View implements Configurable {
 //        myImageView.setFitWidth(height);
 //        myImageView.getFitWidth();
 //    }
-
-    //TODO: grid or pixel
-    public void updatePosition(int gridXPos, int gridYPos) {
-
-    }
 
     public double getWidth() {
         return width;

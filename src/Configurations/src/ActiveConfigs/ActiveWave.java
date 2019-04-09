@@ -1,5 +1,6 @@
 package ActiveConfigs;
 
+import Configs.EnemyPackage.EnemyConfig;
 import Configs.MapFeaturable;
 import Configs.MapFeature;
 import Configs.Updatable;
@@ -37,10 +38,13 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
             while(startTimes[currentEnemyIndex]>=ms) {
                 int x = getMyLevel().getMyMap().getEnemyEnteringGridXPos();
                 int y = getMyLevel().getMyMap().getEnemyEnteringGridYPos();
+                int direction = getMyLevel().getMyMap().getEnemyEnteringDirection();
+                EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
 
-                MapFeature newMapFeature = new MapFeature(x, y,getStartingLocation(x,y));
-                getMyLevel().getParent().getActiveLevel().addToActiveEnemies(getEnemies()[currentEnemyIndex], newMapFeature);
-                newMapFeature.setImageView(getEnemies()[currentEnemyIndex].getView().getHeight(), getEnemies()[currentEnemyIndex].getView().getWidth());
+                MapFeature newMapFeature = new MapFeature(x, y,direction);
+                getMyLevel().getParent().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);
+
+                newMapFeature.setImageView(enemyConfig.getView().getHeight(), enemyConfig.getView().getWidth());
                 getMyLevel().getParent().getActiveLevel().addViewToBeAdded(newMapFeature.getImageView());
                 currentEnemyIndex++;
             }
@@ -50,12 +54,6 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
         }
 //        ArrayAttributeManager.updateList(myWaveBehaviors, ms);
 
-    }
-
-    private double getStartingLocation(int enteringXPos, int enteringYPos) {
-        //TODO
-//        if(enteringXPos==0)
-        return 0;
     }
 
     @Override
