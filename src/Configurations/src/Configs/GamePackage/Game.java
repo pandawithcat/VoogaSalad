@@ -23,6 +23,9 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
         myConfiguration = new Configuration(this);
     }
 
+    private String myTitle;
+    private String myDescription;
+
     @Override
     public void update(long ms) {
 
