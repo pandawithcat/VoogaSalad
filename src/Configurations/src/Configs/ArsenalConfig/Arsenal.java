@@ -61,8 +61,8 @@ public class Arsenal {
         return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
     }
 
-    public WeaponConfig generateNewWeapon(int index, double pixelX, double pixelY, double direction){
-        WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
-        return new ActiveWeapon(myWeaponConfigs[index+1], new MapFeature(pixelX, pixelY, direction));
+    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
+        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID];
+        return new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView()));
     }
 }
