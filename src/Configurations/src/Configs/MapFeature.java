@@ -4,6 +4,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
 public class MapFeature {
+
     private int gridXPos;
     private int gridYPos;
     private double pixelXPos;
@@ -14,7 +15,6 @@ public class MapFeature {
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
-
 
 
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
@@ -29,6 +29,14 @@ public class MapFeature {
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
         displayState = DisplayState.NEW;
+    }
+
+    public int getGridXPos() {
+        return gridXPos;
+    }
+
+    public int getGridYPos() {
+        return gridYPos;
     }
 
     public double getPixelXPos() {

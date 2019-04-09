@@ -1,6 +1,5 @@
 package ActiveConfigs;
 
-import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.MapFeature;
 import Configs.ShooterConfig.ShooterConfig;
 import Configs.Updatable;
@@ -17,11 +16,12 @@ public class Shooter extends ShooterConfig implements Updatable {
     public void update(long ms) {
         //only shooting radially rn
         if(ms%getRateOfFire()==0) {
+            ActiveLevel myActiveLevel = getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getParent().getActiveLevel();
             int weaponId = getMyShootable().getWeaponConfig().getWeaponId();
-            MapFeature myShooterMapFeature = getMyShootable().getWeaponConfig().getArsenal().getLevel().getParent().getActiveLevel().getActiveWeapon(weaponId).getMapFeature();
+            MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();
             double weaponY = myShooterMapFeature.getPixelYPos();
-            View view = getMyShootable().getWeaponConfig().getArsenal().getLevel().getParent().getActiveLevel().getActiveWeapon(weaponId).getView();
+            View view = myActiveLevel.getActiveWeapon(weaponId).getView();
             double width = view.getWidth();
             double height = view.getHeight();
             double projectileStartXPos = weaponX + width/2;
@@ -29,8 +29,8 @@ public class Shooter extends ShooterConfig implements Updatable {
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
                 MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView());
-                ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getRadius());
-                getMyShootable().getWeaponConfig().getArsenal().getLevel().getParent().getActiveLevel().addToActiveProjectiles(activeProjectile);
+                ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getRadius(), myActiveLevel);
+                getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getParent().getActiveLevel().addToActiveProjectiles(activeProjectile);
             }
         }
 
