@@ -9,7 +9,7 @@ import org.w3c.dom.events.Event;
 
 import java.util.List;
 
-public class Game implements Updatable, EventHandlable, Viewable, Configurable {
+public class Game implements Updatable, EventHandlable, Configurable {
 
     private Configuration myConfiguration;
 

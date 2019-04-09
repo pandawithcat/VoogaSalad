@@ -7,7 +7,7 @@ import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
 
-public class Level implements Configurable, Updatable{
+public class Level implements Configurable{
 
     private Game myGame;
 
@@ -37,12 +37,6 @@ public class Level implements Configurable, Updatable{
 
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
-    }
-
-    @Override
-    public void update(long ms) {
-
-
     }
 
     protected Game getMyGame() {

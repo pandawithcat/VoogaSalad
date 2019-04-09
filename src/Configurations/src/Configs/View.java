@@ -22,7 +22,7 @@ public class View implements Configurable {
     private double height;
 
     //this constructor is for the special case for the terrain blocks in the map
-    public View(Configurable configurableParent, File file, double width, double height) {
+    public View(File file, double width, double height) {
         imagePath = file;
         this.width = width;
         this.height = height;

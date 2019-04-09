@@ -18,6 +18,7 @@ module Configurations {
     exports Configs.ProjectilePackage;
     exports Configs.Waves.WaveBehaviors;
     exports Configs.Waves;
+    exports ActiveConfigs;
 
 
 

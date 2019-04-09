@@ -28,12 +28,13 @@ public class View {
 
     }
 
-import BackendExternal.Model;
-
-public class View {
-    public View() {
-        Model myModel = new Model();
-    }
+    //COMMENTED THIS OUT BC WAS GIVING ERRORS
+//import BackendExternal.Model;
+//
+//public class View {
+//    public View() {
+//        Model myModel = new Model();
+//    }
 
 
 }
