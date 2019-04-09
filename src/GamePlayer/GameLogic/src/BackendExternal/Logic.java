@@ -60,43 +60,7 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-<<<<<<< HEAD
-    public List<ImmutableImageView> getLevelTerrain(){
 
-    }
-
-    // View call this when the user presses play or a level is over
-    // Return: ID and image file of available weapons
-    public List<WeaponInfo> getArsenal(){
-
-    }
-
-    // View calls this when a weapon is placed onto the map
-    // Input: WeaponInfo Object
-    // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
-    }
-
-    // View calls to update the state of the Dynamic parts of the level in the game loop
-    // Input: Time the method is called
-    // No Return
-    public void update(double currentTime){
-
-    }
-
-    // View calls to check if a location is valid to place a weapon
-    // Input: WeaponInfo object, x and y coordinate
-    // Return: boolean
-    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
-        return true;
-    }
-
-    // View calls to move a dynamic object that has already been instantiated
-    // Input: WeaponInfo object, x and y coordinate
-    // No return
-    // TODO: Second Sprint move objects mid level
-//    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
-=======
 //    public List<ImmutableImageView> getLevelTerrain(){
 //
 //    }
@@ -111,7 +75,6 @@ public class Logic {
 //    // Input: WeaponInfo Object
 //    // Return: ImageView corresponding to the weapon
 //    public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
->>>>>>> b3c188f6ec3123961de2de282fdd62a3678e3722
 //
 //    }
 //
