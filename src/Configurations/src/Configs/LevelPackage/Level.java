@@ -74,7 +74,7 @@ public class Level implements Configurable{
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     public Configurable getParent(){
