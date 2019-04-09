@@ -24,9 +24,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     public void update(long ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
         //dont forget to update state to PRESENT or DIED in myMapFeature
-
-
-
     }
 
 
