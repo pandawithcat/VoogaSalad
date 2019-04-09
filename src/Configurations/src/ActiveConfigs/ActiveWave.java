@@ -7,6 +7,7 @@ import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
 
+
 public class ActiveWave extends WaveConfig implements Updatable {
     private long[] startTimes;
     private int currentEnemyIndex = 0;
@@ -16,10 +17,11 @@ public class ActiveWave extends WaveConfig implements Updatable {
     public ActiveWave(WaveConfig waveConfig, ActiveLevel activeLevel) {
         super(waveConfig);
         myActiveLevel = activeLevel;
+
     }
 
 
-    public boolean getIsFinished() {
+    public boolean isFinished() {
         return isFinished;
     }
 
@@ -53,6 +55,8 @@ public class ActiveWave extends WaveConfig implements Updatable {
         else {
             isFinished = true;
         }
+
 //        ArrayAttributeManager.updateArray(myWaveBehaviors, ms);
     }
+
 }
