@@ -18,6 +18,7 @@ public class MapConfig {
     }
 
    //This might have to use a weapon ID
+
     public boolean isValid(int x, int y, Weapon w){
         return true;
     }

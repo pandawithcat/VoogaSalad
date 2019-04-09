@@ -119,7 +119,7 @@ public class LoadingSplashScreen extends Application{
     private void availableGames(){
         mediaPlayer.stop();
         this.stage.close();
-//        View.GamePlayVisualization gamePlayVisualization = new View.GamePlayVisualization();
+//        Player.View.GamePlayVisualization gamePlayVisualization = new Player.View.GamePlayVisualization();
 //        gamePlayVisualization.start(new Stage());
 
         GameSelection gameSelection = new GameSelection();
