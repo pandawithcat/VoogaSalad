@@ -19,7 +19,16 @@ public class ProjectileConfig implements Viewable, Configurable, Updatable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
+        myBehaviors = projectileConfig.getMyBehaviors();
+        myShooter = projectileConfig.getMyShooter();
+    }
 
+    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
+        return myBehaviors;
+    }
+
+    public Shooter getMyShooter() {
+        return myShooter;
     }
 
     @Override
