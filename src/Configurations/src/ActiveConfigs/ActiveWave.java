@@ -1,20 +1,23 @@
 package ActiveConfigs;
 
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.GamePackage.Game;
 import Configs.MapFeaturable;
 import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
 
-public class ActiveWave extends WaveConfig implements Updatable{//, MapFeaturable}  {
+
+public class ActiveWave extends WaveConfig implements Updatable {
     private long[] startTimes;
     private int currentEnemyIndex = 0;
     private boolean isFinished = false;
-    //private MapFeature myMapFeature;
+    private ActiveLevel myActiveLevel;
 
-    public ActiveWave(WaveConfig waveConfig){//}, MapFeature mapFeature) {
+    public ActiveWave(WaveConfig waveConfig, ActiveLevel activeLevel) {
         super(waveConfig);
-        //myMapFeature = mapFeature;
+        myActiveLevel = activeLevel;
+
     }
 
 
@@ -22,6 +25,10 @@ public class ActiveWave extends WaveConfig implements Updatable{//, MapFeaturabl
         return isFinished;
     }
 
+
+    public ActiveLevel getMyActiveLevel() {
+        return myActiveLevel;
+    }
 
     @Override
     public void update(long ms) {
@@ -48,8 +55,8 @@ public class ActiveWave extends WaveConfig implements Updatable{//, MapFeaturabl
         else {
             isFinished = true;
         }
-//        ArrayAttributeManager.updateList(myWaveBehaviors, ms);
 
+//        ArrayAttributeManager.updateArray(myWaveBehaviors, ms);
     }
 
 }

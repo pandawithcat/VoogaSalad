@@ -24,6 +24,7 @@ public class ActiveLevel extends Level implements Updatable {
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
+        generateCurrentActiveWave();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         activeWave = new ActiveWave(getMyWaveConfigs()[0]);
@@ -39,6 +40,7 @@ public class ActiveLevel extends Level implements Updatable {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
+        updateActiveWave(ms);
     }
 
     private void updateEnemies(long ms){
@@ -48,6 +50,19 @@ public class ActiveLevel extends Level implements Updatable {
         if (activeWave.isFinished()) currentWave++;
         //ArrayAttributeManager.updateList(activeWave, ms); ??
     }
+
+    private void updateActiveWave(long ms){
+        if (activeWave.getIsFinished()) {
+            currentWave++;
+            generateCurrentActiveWave();
+        }
+        activeWave.update(ms);
+    }
+
+    private void generateCurrentActiveWave(){
+        activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
+    }
+
     private void updateProjectiles(long ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
