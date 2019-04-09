@@ -24,7 +24,7 @@ public class GamePlayRightSide extends VBox {
     }
 
     private VBox createButtonPanel(double width, double height){
-        myButtonPanel = new ButtonPanel(width, height);
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO);
         return myButtonPanel;
     }
 
