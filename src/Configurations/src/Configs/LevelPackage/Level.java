@@ -7,7 +7,7 @@ import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
 
-public class Level implements Configurable{
+public class Level implements Configurable, Updatable{
 
     private Game myGame;
 
@@ -22,9 +22,10 @@ public class Level implements Configurable{
     private int gridSizeY;
     @Configure
     private MapConfig myMap;
-    @Configure
-    private Behavior<Level>[] levelBehaviors;
+//    @Configure
+//    private Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
+    private int currentWave=0;
 
     public Level(Game game){
         myGame = game;
@@ -37,11 +38,18 @@ public class Level implements Configurable{
         gridSizeX = level.getGridSizeX();
         gridSizeY = level.getGridSizeY();
         myMap = level.getMyMap();
-        levelBehaviors = level.getLevelBehaviors();
+//        levelBehaviors = level.getLevelBehaviors();
     }
 
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
+    }
+
+    @Override
+    public void update(long ms) {
+        if (myWaveConfigs[currentWave].getIsFinished()) currentWave++;
+        ArrayAttributeManager.updateList(myWaveConfigs, ms);
+
     }
 
     private Game getMyGame() {
@@ -52,9 +60,9 @@ public class Level implements Configurable{
         return myArsenal;
     }
 
-    private Behavior<Level>[] getLevelBehaviors() {
-        return levelBehaviors;
-    }
+//    private Behavior<Level>[] getLevelBehaviors() {
+//        return levelBehaviors;
+//    }
 
     private int getGridSizeX() {
         return gridSizeX;
@@ -77,7 +85,8 @@ public class Level implements Configurable{
         return null;
     }
 
-    public Configurable getParent(){
+    public Game getParent(){
         return myGame;
     }
+
 }

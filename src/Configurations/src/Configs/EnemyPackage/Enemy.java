@@ -10,6 +10,8 @@ public class Enemy implements Configurable, Viewable, Updatable {
     private WaveConfig myWaveConfig;
     @Configure
     List<Behavior<Enemy>> myBehaviors;
+    @Configure
+    private View view;
 
     public Enemy(WaveConfig waveConfig) {
         myWaveConfig = waveConfig;
@@ -26,6 +28,10 @@ public class Enemy implements Configurable, Viewable, Updatable {
     @Override
     public void update(long ms) {
 
+    }
+
+    public View getView() {
+        return view;
     }
 
     @Override

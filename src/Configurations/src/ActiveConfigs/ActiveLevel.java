@@ -5,12 +5,13 @@ import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.Enemy;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
+import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ActiveLevel extends Level implements Updatable, Viewable {
-    private List<WeaponConfig> activeWeaponConfigs;
+    private List<ActiveWeapon> activeWeapons;
     private List<Enemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myMapGrid;
@@ -22,7 +23,7 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
-        activeWeaponConfigs = new ArrayList<>();
+        activeWeapons = new ArrayList<>();
         setMyGame(game);
     }
 
@@ -45,5 +46,25 @@ public class ActiveLevel extends Level implements Updatable, Viewable {
 
     public int getMyScore() {
         return myScore;
+    }
+
+    public void addViewToBeRemoved(ImmutableImageView imageView) {
+        viewsToBeRemoved.add(imageView);
+    }
+
+    public void addViewToBeAdded(ImmutableImageView imageView) {
+        viewsToBeAdded.add(imageView);
+    }
+
+    public void addToActiveEnemies(Enemy enemy) {
+        activeEnemies.add(enemy);
+    }
+
+    public void addToActiveProjectiles(ProjectileConfig projectile) {
+        activeProjectiles.add(new ActiveProjectile(projectile));
+    }
+
+    public void addToActiveWeapon(WeaponConfig weapon) {
+        activeWeapons.add(new ActiveWeapon(weapon));
     }
 }

@@ -1,5 +1,6 @@
 package Configs.GamePackage;
 
+import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
@@ -13,11 +14,19 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     @Configure
     Level[] levelList;
     @Configure
-    Behavior<Game>[] gameType;
+    private Behavior<Game>[] gameType;
     @Configure
-    WeaponConfig[] allWeaponConfigs;
+    private WeaponConfig[] allWeaponConfigs;
     @Configure
-    Configuration myConfiguration;
+    private Configuration myConfiguration;
+    @Configure
+    private String myTitle;
+    @Configure
+    private String myDescription;
+    @Configure
+    private String myThumbnail;
+
+    private ActiveLevel myActiveLevel;
 
     public Game(){
         myConfiguration = new Configuration(this);
@@ -37,4 +46,22 @@ public class Game implements Updatable, EventHandlable, Viewable, Configurable {
     public Configuration getConfiguration() {
         return myConfiguration;
     }
+
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
+    }
+
+    public String getTitle(){
+        return myTitle;
+    }
+
+    public String getDescription(){
+        return myDescription;
+    }
+
+    public String getThumbnail(){
+        return myThumbnail;
+    }
+
+
 }
