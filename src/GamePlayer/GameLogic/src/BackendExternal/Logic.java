@@ -51,10 +51,11 @@ public class Logic {
         myGame = myGameLibrary.getGame(selectedGame);
     }
 
-    // TODO: Not completely necessary
-    // This method would return the game objects description string to display in a Splash Screen
-//    public String getGameDescription(){
-//
+    // View calls to get the current level of the game when moving between levels
+    // No Input
+    // Return: integer Level
+//    public int getLevelNum(){
+//        return myGame.getLevel();
 //    }
 
 
@@ -62,23 +63,23 @@ public class Logic {
     // No Input
     // Return: List of Viewable instances of static level items
     // TODO: Adjust the type that is returned to make it as encapsulated as possible
-    public List<TransferImageView> getLevelTerrain(){
-
-    }
+//    public List<TransferImageView> getLevelTerrain(){
+//
+//    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
-    public List<WeaponInfo> getArsenal(){
-
-    }
+//    public List<WeaponInfo> getArsenal(){
+//
+//    }
 
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
     // TODO: Adjust the type that is returned to make it as encapsulated as possible
-    public TransferImageView instantiateWeapon(WeaponInfo newWeapon){
-
-    }
+//    public TransferImageView instantiateWeapon(WeaponInfo newWeapon){
+//
+//    }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
@@ -87,12 +88,34 @@ public class Logic {
 
     }
 
+    // View calls to check the current score of the game in the game loop
+    // No Input
+    // Return: integer score
+//    public int getScore(){
+//        return myGame.getScore();
+//    }
+
+    // View calls to check the current lives of the game in the game loop
+    // No Input
+    // Return: integer lives
+//    public int getNumLives(){
+//        return myGame.getLives();
+//    }
+
+    // View calls to check the current lives of the game in the game loop
+    // No Input
+    // Return: integer lives
+//    public int getNumLives(){
+//        return myGame.getLives();
+//    }
+
+
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
-    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
-
-    }
+//    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
+//
+//    }
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
