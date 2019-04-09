@@ -29,7 +29,9 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
 
+
         getUnitSpeed();
+
 
 
     }
