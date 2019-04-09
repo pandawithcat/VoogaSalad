@@ -22,12 +22,13 @@ public class GamePlayRightSide extends VBox {
 
     }
 
+
+
     private Button createPlayButton(double width, double height){
         Button play = new Button("Play");
         play.setPrefWidth(width);
         play.setPrefHeight(height/10);
         play.setOnAction(e -> System.out.println("method to play"));
-        setPadding(new Insets(padding,padding,padding,padding));
         return play;
     }
 

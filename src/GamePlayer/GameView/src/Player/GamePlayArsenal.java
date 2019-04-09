@@ -10,7 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GamePlayArsenal extends VBox {
+
+    public static final double ARSENAL_RATIO = 0.80;
+    public static final double SELECTOR_RATIO = 0.20;
+
     private Logic myLogic;
+    private GamePlayArsenalSelector myArsenalSelector;
     //list of WeaponInfo objects which has ID and an imageview
     private List myArsenal;
 
@@ -22,9 +27,13 @@ public class GamePlayArsenal extends VBox {
 
 //        rootItem.getChildren().addAll(myArsenal);
 //        arsenalView.setRoot(rootItem);
-        arsenalView.setPrefHeight(arsenalHeight);
+        arsenalView.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalView.setPrefWidth(arsenalWidth);
         getChildren().addAll(arsenalView);
+
+        //arsenal selector part
+        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
+        getChildren().add(myArsenalSelector);
     }
 
     public ArrayList<TreeItem> getArsenal(){
