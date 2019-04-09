@@ -1,5 +1,3 @@
-package Player;
-
 import BackendExternal.Logic;
 
 public class View {
@@ -25,8 +23,17 @@ public class View {
     // Gets the user changes to the game
     // No Input to this Function
     // Return Value: List of Placement Config Objects, Empty if no changes have been made since last call
-    // TODO: Player.View Group make a class that has a Config Object and an x and y coordinate
+    // TODO: View Group make a class that has a Config Object and an x and y coordinate
     void getNewChanges(){
 
     }
+
+import BackendExternal.Model;
+
+public class View {
+    public View() {
+        Model myModel = new Model();
+    }
+
+
 }

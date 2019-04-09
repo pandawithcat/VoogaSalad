@@ -2,8 +2,7 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 
 import Configs.Configuration;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.awt.*;
 import java.util.List;
@@ -14,18 +13,13 @@ public class Movable extends WeaponBehavior{
     @Configure
     private List<Point> movingPattern;
 
-    public Movable(Weapon weapon){
-        super(weapon);
+    public Movable(WeaponConfig weaponConfig){
+        super(weaponConfig);
     }
 
     @Override
     public void update(long ms) {
 
-    }
-
-    @Override
-    public List<View> getViews() {
-        return null;
     }
 
     @Override

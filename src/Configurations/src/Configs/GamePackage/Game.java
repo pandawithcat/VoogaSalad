@@ -1,21 +1,31 @@
 package Configs.GamePackage;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
-import java.util.List;
-
-public class Game implements Configurable, Updatable, EventHandlable, Viewable {
+public class Game implements Updatable, EventHandlable, Viewable, Configurable {
 
     @Configure
-    String gameName;
+    Level[] levelList;
     @Configure
-    List<Level> levelList;
+    private Behavior<Game>[] gameType;
     @Configure
-    GameOptions gameType;
+    private WeaponConfig[] allWeaponConfigs;
     @Configure
-    Integer numberOfLevels;
+    private Configuration myConfiguration;
+    @Configure
+    private String myTitle;
+    @Configure
+    private String myDescription;
+    @Configure
+    private String myThumbnail;
+
+    public Game(){
+        myConfiguration = new Configuration(this);
+    }
 
     @Override
     public void update(long ms) {
@@ -28,14 +38,21 @@ public class Game implements Configurable, Updatable, EventHandlable, Viewable {
     }
 
     @Override
-    public List<View> getViews() {
-        return null;
-    }
-
-    @Override
-    public Configuration getConfiguration(){
-        Configuration myConfiguration = new Configuration(this);
+    public Configuration getConfiguration() {
         return myConfiguration;
     }
+
+    public String getTitle(){
+        return myTitle;
+    }
+
+    public String getDescription(){
+        return myDescription;
+    }
+
+    public String getThumbnail(){
+        return myThumbnail;
+    }
+
 
 }

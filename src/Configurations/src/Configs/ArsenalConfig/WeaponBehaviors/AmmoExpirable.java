@@ -1,8 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.util.List;
 
@@ -10,19 +9,17 @@ public class AmmoExpirable extends WeaponBehavior {
     @Configure
     int numberOfEnemiesPossibleToKill;
 
-    public AmmoExpirable(Weapon weapon){
-        super(weapon);
+    public AmmoExpirable(WeaponConfig weaponConfig){
+        super(weaponConfig);
     }
 
     @Override
     public void update(long ms) {
 
+
     }
 
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
+
 
     @Override
     public Configuration getConfiguration() {

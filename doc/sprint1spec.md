@@ -16,7 +16,7 @@ Authoring UI Goals:
 
 -3 types of towers implemented, with two types of shooting (radial (8 projectiles in a circle), straight)
 
--one type of path weapon/obstacle (spikes)
+-one type of path weaponConfig/obstacle (spikes)
 
 -Ability to save game
 
@@ -32,7 +32,7 @@ Maybe Focus Areas:
 
 -move enemies along their path based on AI
 
--implement towers shooting one type of projectile (arrow) in either radial or straight
+-implement towers shooting one type of projectileConfig (arrow) in either radial or straight
 
 -implement spikes that reduce HP of people that walk over them
 

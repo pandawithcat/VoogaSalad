@@ -1,10 +1,8 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import ActiveConfigs.Shooter;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
-
-import java.util.List;
 
 public class Shootable extends WeaponBehavior{
     @Configure
@@ -12,23 +10,18 @@ public class Shootable extends WeaponBehavior{
 
     Configuration myConfiguration;
 
-    Shootable(Weapon weapon){
-        super(weapon);
+    Shootable(WeaponConfig weaponConfig){
+        super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 
     @Override
     public void update(long ms) {
-
+        myShooter.update(ms);
     }
 
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
-    }
-
-    @Override
-    public List<View> getViews() {
-        return null;
     }
 }

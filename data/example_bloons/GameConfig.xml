@@ -14,24 +14,24 @@
     <shooterConfigs> <!--should be a map-->
         <shooterConfig>
             <name>Sniper</name>
-            <projectile>Sniper Bullet</projectile>
+            <projectileConfig>Sniper Bullet</projectileConfig>
             <firingSpeed>0.2</firingSpeed>
         </shooterConfig>
         <shooterConfig>
             <name>Bomb Shooter</name>
-            <projectile>Bomb</projectile>
+            <projectileConfig>Bomb</projectileConfig>
             <firingSpeed>0.5</firingSpeed>
         </shooterConfig>
     </shooterConfigs>
     <towerConfigs> <!--should be a map-->
         <TowerConfig>
             <name>Bomb Tower</name>
-            <weapon>Bazooka</weapon>
+            <weaponConfig>Bazooka</weaponConfig>
             <terrainsNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainsNotAllowedOn>
         </TowerConfig>
         <TowerConfig>
             <name>Sniper Tower</name>
-            <weapon>Sniper</weapon>
+            <weaponConfig>Sniper</weaponConfig>
             <terrainNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainNotAllowedOn>
         </TowerConfig>
     </towerConfigs>

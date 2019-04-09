@@ -7,12 +7,12 @@ import Configs.LevelPackage.Level;
 import java.util.List;
 
 //holds the enemies
-public class Wave implements Updatable, Viewable, Configurable {
+public class WaveConfig implements Updatable, Configurable {
     private Level myLevel;
     @Configure
-    Behavior<Wave>[] myWaveBehaviors;
+    Behavior<WaveConfig>[] myWaveBehaviors;
 
-    public Wave(Level level) {
+    public WaveConfig(Level level) {
         myLevel = level;
     }
 
@@ -21,11 +21,7 @@ public class Wave implements Updatable, Viewable, Configurable {
 
     }
 
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
-
+    
     @Override
     public Configuration getConfiguration() {
         return null;

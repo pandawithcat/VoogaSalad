@@ -4,7 +4,7 @@ Defining APIs:
 Points of Discussion: 
     Functionality of Grid, how it interacts with other things
     Every Grid square has a terrain
-    Can hold a weapon, or enemy
+    Can hold a weaponConfig, or enemy
         enemies can stack, not problematic since we can treat them as one blob
     Convert list of objects from game instance
     

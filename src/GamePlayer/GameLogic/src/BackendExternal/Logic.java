@@ -1,6 +1,8 @@
 package BackendExternal;
 
 import Configs.GamePackage.Game;
+import Configs.ImmutableImageView;
+import Configs.TransferImageView;
 import Data.GameLibrary;
 
 import java.util.EventObject;
@@ -49,26 +51,35 @@ public class Logic {
         myGame = myGameLibrary.getGame(selectedGame);
     }
 
-    // TODO: Not completely necessary
-    // This method would return the game objects description string to display in a Splash Screen
-//    public String getGameDescription(){
-//
+    // View calls to get the current level of the game when moving between levels
+    // No Input
+    // Return: integer Level
+//    public int getLevelNum(){
+//        return myGame.getLevel();
 //    }
 
 
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-//    public List<Viewable> getLevelStaticView(){
+    // TODO: Adjust the type that is returned to make it as encapsulated as possible
+//    public List<TransferImageView> getLevelTerrain(){
 //
 //    }
 
-    // View calls this when there is an event in the frontend that needs to be resolved in backend
-    // Input: Event
-    // No return
-    public void handleEvent(EventObject event){
+    // View call this when the user presses play or a level is over
+    // Return: ID and image file of available weapons
+//    public Map<Integer,Info> getArsenal(){
+//
+//    }
 
-    }
+    // View calls this when a weapon is placed onto the map
+    // Input: WeaponInfo Object
+    // Return: ImageView corresponding to the weapon
+    // TODO: Adjust the type that is returned to make it as encapsulated as possible
+//    public TransferImageView instantiateWeapon(int weaponID){
+//
+//    }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
@@ -77,10 +88,40 @@ public class Logic {
 
     }
 
-    // View calls to get the Viewable instances of dynamic items in the game loop
-    // No input
-    // Return: List of Viewable instances of dynamic level items
-//    public List<Viewable> getViewUpdates(){
+    // View calls to check the current score of the game in the game loop
+    // No Input
+    // Return: integer score
+//    public int getScore(){
+//        return myGame.getScore();
+//    }
+
+    // View calls to check the current lives of the game in the game loop
+    // No Input
+    // Return: integer lives
+//    public int getNumLives(){
+//        return myGame.getLives();
+//    }
+
+    // View calls to check the current lives of the game in the game loop
+    // No Input
+    // Return: integer lives
+//    public int getNumLives(){
+//        return myGame.getLives();
+//    }
+
+
+    // View calls to check if a location is valid to place a weapon
+    // Input: WeaponInfo object, x and y coordinate
+    // Return: boolean
+//    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
+//
+//    }
+
+    // View calls to move a dynamic object that has already been instantiated
+    // Input: WeaponInfo object, x and y coordinate
+    // No return
+    // TODO: Second Sprint move objects mid level
+//    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
 //
 //    }
 

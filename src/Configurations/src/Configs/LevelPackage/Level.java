@@ -3,22 +3,17 @@ package Configs.LevelPackage;
 import Configs.*;
 import Configs.ArsenalConfig.Arsenal;
 import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.Enemy;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
-import Configs.Waves.Wave;
-import Configs.ArsenalConfig.Weapon;
-import org.w3c.dom.events.Event;
+import Configs.Waves.WaveConfig;
 
-import java.util.List;
+public class Level implements Configurable{
 
-public class Level implements Configurable, Viewable, EventHandlable, Updatable {
-    private List<Weapon> activeWeapons;
-    private List<Enemy> activeEnemies;
     private Game myGame;
 
+
     @Configure
-    private Wave[] myWaves;
+    private WaveConfig[] myWaveConfigs;
     @Configure
     private Arsenal myArsenal;
     @Configure
@@ -29,29 +24,60 @@ public class Level implements Configurable, Viewable, EventHandlable, Updatable 
     private MapConfig myMap;
     @Configure
     private Behavior<Level>[] levelBehaviors;
-
+    private Configuration myConfiguration;
 
     public Level(Game game){
         myGame = game;
+        myConfiguration = new Configuration(this);
     }
 
-    @Override
-    public void handleEvent(Event e) {
-
+    public Level(Level level){
+        myWaveConfigs = level.getMyWaveConfigs();
+        myArsenal = level.getMyArsenal();
+        gridSizeX = level.getGridSizeX();
+        gridSizeY = level.getGridSizeY();
+        myMap = level.getMyMap();
+        levelBehaviors = level.getLevelBehaviors();
     }
 
-    @Override
-    public void update(long ms) {
-
+    public void setMyGame(Game myGame) {
+        this.myGame = myGame;
     }
 
-    @Override
-    public List<View> getViews() {
-        return null;
+    private Game getMyGame() {
+        return myGame;
+    }
+
+    private Arsenal getMyArsenal() {
+        return myArsenal;
+    }
+
+    private Behavior<Level>[] getLevelBehaviors() {
+        return levelBehaviors;
+    }
+
+    private int getGridSizeX() {
+        return gridSizeX;
+    }
+
+    private int getGridSizeY() {
+        return gridSizeY;
+    }
+
+    private MapConfig getMyMap() {
+        return myMap;
+    }
+
+    private WaveConfig[] getMyWaveConfigs() {
+        return myWaveConfigs;
     }
 
     @Override
     public Configuration getConfiguration() {
         return null;
+    }
+
+    public Configurable getParent(){
+        return myGame;
     }
 }
