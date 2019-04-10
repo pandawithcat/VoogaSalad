@@ -115,8 +115,15 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     //TODO: EventHandler for adding new weapon to map
-    //TODO  add EventHandler for isValid
+    public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), this);
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
 
+    //TODO  add EventHandler for isValid
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
