@@ -69,7 +69,7 @@ public class Logic {
     public List<ImmutableImageView> getLevelTerrain(){
         // TODO: Can move this to a different level if need be
         myGame.startNextLevel();
-        return myGame.getActiveLevel().getMyMap().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
+        return myGame.getActiveLevel().getMyMapConfig().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
     }
 
     // View call this when the user presses play or a level is over
@@ -85,7 +85,7 @@ public class Logic {
 
     // TODO: Change this to return a ImmutableImageView Instance of the active weapon
     public void instantiateWeapon(int weaponID, double xPixel, double yPixel){
-        myGame.getActiveLevel().getMyArsenal().generateNewWeapon(weaponID, xPixel, yPixel);
+        myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
