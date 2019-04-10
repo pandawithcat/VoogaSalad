@@ -7,9 +7,6 @@ import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Game implements Updatable, EventHandlable, Configurable {
 
     private Configuration myConfiguration;
@@ -35,6 +32,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     public Game(){
         myConfiguration = new Configuration(this);
         gameOver = false;
+        currentLevelNumber=0;
     }
 
     @Override
@@ -51,9 +49,11 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return currentLevelOver;
     }
 
-    public void startGame() {
-        currentLevelNumber = 1;
-        currentLevelOver = false;
+    public void startGame(int levelNumber) throws IllegalStateException{
+        if(levelNumber>=levelList.length) {
+            throw new IllegalStateException();
+        }
+        currentLevelNumber = levelNumber;
     }
 
     public void startNextLevel() throws IllegalStateException{
@@ -61,6 +61,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber++;
         currentLevelOver = false;
     }
+
 
     @Override
     public void handleEvent(Event e) {
