@@ -94,6 +94,7 @@ public class ActiveLevel extends Level implements Updatable {
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
+        //TODO: remove it from the list
         return viewsToRemove.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
 
     }
@@ -142,17 +143,14 @@ public class ActiveLevel extends Level implements Updatable {
 //    }
 
 
-    public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature, this));
-        recalculateMovementHeuristic();
-    }
-
     private void recalculateMovementHeuristic(){
         getMyMapConfig();
     }
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+        recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){

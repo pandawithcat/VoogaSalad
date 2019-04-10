@@ -1,18 +1,15 @@
 package Configs.ArsenalConfig;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.*;
 import Configs.Configurable.Configure;
-import Configs.Configuration;
-import Configs.ImmutableImageView;
-import Configs.Info;
 import Configs.LevelPackage.Level;
-import Configs.MapFeature;
 
 import java.util.*;
 
 
 //used to hold all of the possible weapons configured in the authoring environemnt
-public class Arsenal {
+public class Arsenal implements Configurable {
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
 
@@ -29,6 +26,11 @@ public class Arsenal {
 
     public Level getLevel() {
         return myLevel;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 
     //    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
