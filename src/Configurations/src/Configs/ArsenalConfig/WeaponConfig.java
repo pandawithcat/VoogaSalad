@@ -24,6 +24,10 @@ public class WeaponConfig implements  Configurable, Viewable {
         this.myArsenal = myArsenal;
     }
 
+    public String getImageFile() {
+        return view.getImage();
+    }
+
     public WeaponConfig(WeaponConfig weaponConfig) {
         this.name = weaponConfig.getName();
         this.behaviors = weaponConfig.getBehaviors();
@@ -56,9 +60,7 @@ public class WeaponConfig implements  Configurable, Viewable {
         return view;
     }
 
-    public TransferImageView getImageView() {
-        return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
-    }
+
 
     public Arsenal getMyArsenal() {
         return myArsenal;
