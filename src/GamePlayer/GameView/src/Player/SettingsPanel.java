@@ -1,5 +1,6 @@
 package Player;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 
 public class SettingsPanel extends HBox {
@@ -9,6 +10,8 @@ public class SettingsPanel extends HBox {
     private SaveButton saveButton;
 
     public SettingsPanel(double width, double height){
+        setPadding(new Insets(10, 10, 10, 10));
+        setSpacing(10);
         setPrefHeight(height);
         setPrefWidth(width);
         homeButton = new HomeButton(width/3,height);
