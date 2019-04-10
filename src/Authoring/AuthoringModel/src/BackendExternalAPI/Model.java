@@ -41,6 +41,7 @@ public class Model {
         myGameDetails.load(propertiesIS);
         myXMLFileName = myNewGame.getTitle() + XML_TAG;
         String propertyValue = myNewGame.getThumbnail() + REGEX + myNewGame.getDescription() + REGEX + myXMLFileName;
+        System.out.println(propertyValue);
         myGameDetails.setProperty(myNewGame.getTitle(),propertyValue);
         FileOutputStream propertiesOS = new FileOutputStream(PROPERTIES_FILE_PATH);
         myGameDetails.store(propertiesOS, null);
@@ -53,4 +54,18 @@ public class Model {
         xmlFW.write(gameString);
         xmlFW.close();
     }
+
+//    public static void main (String[] args) {
+//        Model m = new Model();
+//        Game g = new Game();
+//        g.setName("name");
+//        g.setMyDescription("description");
+//        g.setThumbnail("thumbnail.gif");
+//        m.saveToXML(g);
+//
+//
+//
+//    }
+
+
 }
