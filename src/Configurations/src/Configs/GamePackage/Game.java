@@ -7,13 +7,10 @@ import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
-<<<<<<< HEAD
-public class Game implements Updatable, EventHandlable, Viewable, Configurable {
-=======
+
 public class Game implements Updatable, EventHandlable, Configurable {
 
     private Configuration myConfiguration;
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
     @Configure
     private Level[] levelList;
