@@ -1,6 +1,6 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Editors;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
+import GameAuthoringEnvironment.AuthoringScreen.Screen;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 

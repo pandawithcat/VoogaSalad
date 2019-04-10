@@ -1,6 +1,8 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+/*
+package GameAuthoringEnvironment.AuthoringScreen.main.PropertySettings;
 
 
+import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -59,7 +61,8 @@ public class ArsenalPropertySetting {
     }
 
     private void handleImageButton(ActionEvent event) {
-        /*FileChooser fileChooser = new FileChooser();
+        */
+/*FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Image");
         File file = fileChooser.showSaveDialog(stage);
         if (file != null) {
@@ -69,7 +72,8 @@ public class ArsenalPropertySetting {
             } catch (IOException ex) {
                 System.out.println(ex.getMessage());
             }
-        }*/
+        }*//*
+
     }
 
     private void handleSaveArsenalProperty(ActionEvent event) {
@@ -88,3 +92,4 @@ public class ArsenalPropertySetting {
     }
 
 }
+*/

@@ -11,15 +11,18 @@ import java.nio.file.Path;
 public class View implements Configurable {
     private Configuration myConfiguration;
 
+    @Configure
+    private String myLabel;
     @XStreamOmitField
     @Configure
-    protected File imagePath;
-    //    @Configure
+
+    private File imagePath;
+//    @Configure
 //    private String imageName;
     @Configure
-    protected double width;
+    private double width;
     @Configure
-    protected double height;
+    private double height;
 
     //this constructor is for the special case for the terrain blocks in the map
     public View(File file, double width, double height) {
@@ -28,6 +31,10 @@ public class View implements Configurable {
         this.height = height;
     }
 
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
 
     public View(Configurable configurableParent) {
         myConfiguration = new Configuration(configurableParent);

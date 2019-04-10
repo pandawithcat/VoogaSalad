@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents.Buttons;
 
 import javafx.scene.control.ButtonBase;
 import javafx.scene.image.Image;

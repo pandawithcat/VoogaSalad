@@ -2,24 +2,26 @@ package Configs.EnemyPackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
+import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.Waves.WaveConfig;
 
 public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
     @Configure
-    private Behavior<EnemyConfig>[] myBehaviors;
+    private String myLabel;
+    @Configure
+    private EnemyBehavior[] myBehaviors;
     @Configure
     private int unitSpeedPerSecond;
     @Configure
     private View view;
+
     private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {
         myWaveConfig = waveConfig;
         myConfiguration = new Configuration(this);
     }
-
-
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
@@ -36,7 +38,7 @@ public class EnemyConfig implements Configurable, Viewable {
 //        myBehaviors = behavior;
 //    }
 
-    public Behavior<EnemyConfig>[] getMyBehaviors() {
+    public EnemyBehavior[] getMyBehaviors() {
         return myBehaviors;
     }
 
@@ -47,6 +49,11 @@ public class EnemyConfig implements Configurable, Viewable {
     @Override
     public View getView() {
         return view;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override
