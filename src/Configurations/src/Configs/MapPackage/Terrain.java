@@ -55,6 +55,12 @@ public class Terrain implements MapFeaturable, Configurable{
         return width;
     }
 
+    public boolean isPath() {
+        return isPath;
+    }
+
+
+
     //    @Override
 //    public Configuration getConfiguration() {
 //        return myConfiguration;

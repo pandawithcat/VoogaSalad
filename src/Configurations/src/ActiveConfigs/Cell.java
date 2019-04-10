@@ -28,10 +28,17 @@ public class Cell {
     }
 
 
+
     public ActiveWeapon getMyWeaponConfig() {
         return myWeaponConfig;
     }
 
+    public int getX(){
+        return X;
+    }
+    public int getY(){
+        return Y;
+    }
     public void setMyWeaponConfig(ActiveWeapon myWeaponConfig) {
         this.myWeaponConfig = myWeaponConfig;
     }
@@ -50,6 +57,14 @@ public class Cell {
 
     public void setMyEnemies(List<ActiveEnemy> myEnemies) {
         this.myEnemies = myEnemies;
+    }
+
+    public void setMovementHeuristic(int movementHeuristic) {
+        this.movementHeuristic = movementHeuristic;
+    }
+
+    public int getMovementHeuristic() {
+        return movementHeuristic;
     }
 }
 
