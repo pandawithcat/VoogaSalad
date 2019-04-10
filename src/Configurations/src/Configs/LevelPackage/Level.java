@@ -43,6 +43,10 @@ public class Level implements Configurable{
     }
 
 
+    public Arsenal getMyArsenal() {
+        return myArsenal;
+    }
+
 //    private Behavior<Level>[] getLevelBehaviors() {
 //        return levelBehaviors;
 //    }
