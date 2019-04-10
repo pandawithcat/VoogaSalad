@@ -20,4 +20,9 @@ public abstract class LevelBehavior implements Behavior<Level> {
     public void setMyLevel(Level myLevel) {
         this.myLevel = myLevel;
     }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
+    }
 }
