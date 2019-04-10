@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
@@ -105,8 +106,21 @@ public class GameController {
                             else{
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
-                                System.out.println(object.getClass());
-                                createConfigurable((Configurable) object);
+                                if(object instanceof Behavior){
+                                    System.out.println("did it run dafd");
+                                    Behavior behavior = (Behavior) object;
+                                    List<Class> behaviorList = behavior.getBehaviorOptions();
+                                    MenuButton dropDown = new MenuButton("Choose Behavior");
+                                    for(int a=0; a<behaviorList.size(); a++){
+                                        MenuItem menuItem = new MenuItem(behaviorList.get(0).getSimpleName());
+                                        dropDown.getItems().add(menuItem);
+                                    }
+                                    layout.getChildren().add(dropDown);
+                                    System.out.println("did it run");
+                                }
+                                else{
+                                    System.out.println(object.getClass());
+                                    createConfigurable((Configurable) object);}
                             }
                         } catch (Exception e) {}
 
