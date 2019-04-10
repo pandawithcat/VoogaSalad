@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Configuration {
     private Map<String,Class> myAttributeTypes;
-    private Map<String,Object> myAttributes;
+    private Map<String,Object> myAttributes = new HashMap<String, Object>();
     private boolean isComplete = false;
     private Configurable myConfigurable;
     private Class myConfigurableClass;
@@ -34,13 +34,15 @@ public class Configuration {
         }
     }
 
-//    public void setOneAttribute(String name, Object value) {
-//        validateType(name,value);
-//        myAttributes.put(name,value);
-//        if(isAttributesComplete(myAttributes)) {
-//            isComplete = true;
-//        }
-//    }
+    public void initializeAttributeMap(){
+        myAttributes = new HashMap<String, Object>();
+    }
+
+    public void setOneAttribute(String name, Object value) {
+        myAttributes.put(name,value);
+        //validateType(name,value);
+        if(isAttributesComplete(myAttributes)) isComplete = true;
+    }
 
     public void setAllAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);

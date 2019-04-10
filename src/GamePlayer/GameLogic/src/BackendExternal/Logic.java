@@ -2,11 +2,13 @@ package BackendExternal;
 
 import Configs.GamePackage.Game;
 import Configs.ImmutableImageView;
+import Configs.Info;
 import Configs.TransferImageView;
 import Data.GameLibrary;
 
 import java.util.EventObject;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -68,25 +70,21 @@ public class Logic {
     // No Input
     // Return: List of Viewable instances of static level items
     public List<ImmutableImageView> getLevelTerrain(){
-
-        // TODO: Can move this to a different level if need be
-        myGame.startNextLevel();
         return myGame.getActiveLevel().getMyMapConfig().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
 
     }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
-//    public Map<Integer,Info> getMyArsenal(){
-//
-//    }
+    public Map<Integer, Info> getMyArsenal(){
+        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
+    }
 
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    // TODO: Change this to return a ImmutableImageView Instance of the active weapon
-    public void instantiateWeapon(int weaponID, double xPixel, double yPixel){
-        myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel){
+        return myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -94,6 +92,20 @@ public class Logic {
     // No Return
     public void update(long currentTime){
         myGame.update(currentTime);
+    }
+
+    // View calls to get objects to add to the view
+    // No Input
+    // Return: List of Viewable instances
+    public List<ImmutableImageView> getObjectsToAdd(){
+        return myGame.getActiveLevel().getViewsToBeAdded();
+    }
+
+    // View calls to get objects to remove from the view
+    // No Input
+    // Return: List of Viewable instances
+    public List<ImmutableImageView> getObjectsToRemove(){
+        return myGame.getActiveLevel().getViewsToBeRemoved();
     }
 
     // View calls to check the current score of the game in the game loop

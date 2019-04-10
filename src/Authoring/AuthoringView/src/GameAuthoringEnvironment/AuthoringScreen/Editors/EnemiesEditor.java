@@ -1,6 +1,7 @@
+/*
 package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
+import Screen;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -57,13 +58,19 @@ public class EnemiesEditor extends Screen {
     }
 
     //TODO getter function
+<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Editors/EnemiesEditor.java
+  */
+/*  public ObservableList<Enemy> getAllEnemyList(){
+=======
   /*  public ObservableList<EnemyConfig> getAllEnemyList(){
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/Editors/EnemiesEditor.java
 
     }
 
     public ObservableList<EnemyConfig> getSelectedEnemyList(){
 
-    }*/
+    }*//*
+
 
     public void setContent() {
         Label sourceListLbl = new Label("Available enemies: ");
@@ -241,3 +248,4 @@ public class EnemiesEditor extends Screen {
     }
 
 }
+*/

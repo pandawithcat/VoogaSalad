@@ -1,6 +1,8 @@
-package GameAuthoringEnvironment.AuthoringComponents;
+package GameAuthoringEnvironment.AuthoringComponents.Buttons;
 
 public class SaveButton extends ButtonComponent{
+
+    //TODO This should call the method of setAllAttributes()
 
     public SaveButton(){
         setImage("Save", myButton);

@@ -1,6 +1,9 @@
+/*
 package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
+import DragContext;
+import GameAuthoringEnvironment.AuthoringScreen.main.PropertySettings.ArsenalPropertySetting;
+import Screen;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
@@ -147,13 +150,15 @@ public class ArsenalEditor extends Screen {
     }
 
     //TODO getter function
-  /*  public ObservableList<Arsenal> getAllArsenalList(){
+  */
+/*  public ObservableList<Arsenal> getAllArsenalList(){
 
     }
 
     public ObservableList<Arsenal> getSelectedArsenalList(){
 
-    }*/
+    }*//*
+
 
     //TODO Instead of the loggging area, make a pop up screen for setting properties for the objects
     public void setContent() {
@@ -322,11 +327,15 @@ public class ArsenalEditor extends Screen {
         listView.getItems().removeAll(selectedList);
     }
 
-    /*// Helper Method for Logging
+    */
+/*//*
+/ Helper Method for Logging
     private void writelog(String text) {
         this.loggingArea.appendText(text + "\n");
-    }*/
+    }*//*
+
 
 
 
 }
+*/
