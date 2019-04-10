@@ -18,7 +18,7 @@ public class Level implements Configurable{
     @Configure
     private MapConfig myMap;
 //    @Configure
-//    private Behavior<Level>[] levelBehaviors;
+//    protected Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
 
 
@@ -42,11 +42,11 @@ public class Level implements Configurable{
         return myGame;
     }
 
-    protected Arsenal getMyArsenal() {
+    public Arsenal getMyArsenal() {
         return myArsenal;
     }
 
-//    private Behavior<Level>[] getLevelBehaviors() {
+    //    private Behavior<Level>[] getLevelBehaviors() {
 //        return levelBehaviors;
 //    }
 
@@ -60,7 +60,7 @@ public class Level implements Configurable{
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     public Game getGame(){

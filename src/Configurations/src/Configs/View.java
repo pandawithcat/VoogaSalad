@@ -13,13 +13,13 @@ public class View implements Configurable {
 
     @XStreamOmitField
     @Configure
-    private File imagePath;
+    protected File imagePath;
 //    @Configure
 //    private String imageName;
     @Configure
-    private double width;
+    protected double width;
     @Configure
-    private double height;
+    protected double height;
 
     //this constructor is for the special case for the terrain blocks in the map
     public View(File file, double width, double height) {
@@ -36,7 +36,7 @@ public class View implements Configurable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     //    public View(String imageName, int x, int y, int width, int height){

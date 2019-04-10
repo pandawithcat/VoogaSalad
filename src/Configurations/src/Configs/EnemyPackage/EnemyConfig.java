@@ -12,9 +12,11 @@ public class EnemyConfig implements Configurable, Viewable {
     private int unitSpeedPerSecond;
     @Configure
     private View view;
+    private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {
         myWaveConfig = waveConfig;
+        myConfiguration = new Configuration(this);
     }
 
 
@@ -22,11 +24,15 @@ public class EnemyConfig implements Configurable, Viewable {
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
         myWaveConfig = enemyConfig.getMyWaveConfig();
-        unitSpeedPerSecond = enemyConfig.unitSpeedPerSecond;
+        unitSpeedPerSecond = enemyConfig.getUnitSpeedPerSecond();
         view = enemyConfig.getView();
     }
 
-//    public void setMyBehaviors(List<Behavior<EnemyConfig>> behavior) {
+    public WaveConfig getMyWaveConfig() {
+        return myWaveConfig;
+    }
+
+    //    public void setMyBehaviors(List<Behavior<EnemyConfig>> behavior) {
 //        myBehaviors = behavior;
 //    }
 
@@ -45,10 +51,10 @@ public class EnemyConfig implements Configurable, Viewable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
-    public WaveConfig getMyWaveConfig() {
-        return myWaveConfig;
-    }
+//    public WaveConfig getMyWaveConfig() {
+//        return myWaveConfig;
+//    }
 }

@@ -15,7 +15,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Configuration myConfiguration;
 
     @Configure
-    Level[] levelList;
+    private Level[] levelList;
     @Configure
     private Behavior<Game>[] gameType;
     @Configure

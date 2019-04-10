@@ -45,6 +45,6 @@ public class ShooterConfig implements Configurable{
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

@@ -37,16 +37,15 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         int myGridX = myMapFeature.getGridXPos();
         int myGridY = myMapFeature.getGridYPos();
         Cell myCell = myActiveLevel.getGridCell(myGridX, myGridY);
-        if (myCell.myEnemies.size()>0){
+        if (myCell.getMyEnemies().size()>0){
             handleEnemyCollision(myCell);
         }
     }
 
     private void handleEnemyCollision(Cell myCell){
         //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
-        for (ActiveEnemy e : myCell.myEnemies){
-            e.killMe();
-        }
+        myCell.getMyEnemies().forEach(e -> e.killMe());
+        myMapFeature.setDisplayState(DisplayState.DIED);
     }
     private void move(long ms){
         double velocityMs = getVelocityInSeconds()/1000;

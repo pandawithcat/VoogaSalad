@@ -30,6 +30,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //dont forget to update state to PRESENT or DIED in myMapFeature
 
         double distance = ms* getUnitSpeedPerSecond();
+        myMapFeature.setDisplayState(DisplayState.PRESENT);
 
 
 

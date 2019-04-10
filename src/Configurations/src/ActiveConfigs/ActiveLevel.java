@@ -1,9 +1,11 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
+import Configs.MapPackage.Terrain;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,8 +28,17 @@ public class ActiveLevel extends Level implements Updatable {
         generateCurrentActiveWave();
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
         //TODO: create myGrid
+//        setMyGame(game);
+//        myMapFeature = mapFeature;
+        myGrid = createMyGrid();
     }
-
+    private Cell[][] createMyGrid(){
+        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
+        for(Terrain t : getMyMapConfig().getTerrain()){
+            tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
+        }
+        return null;
+    }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
     }
@@ -83,19 +94,19 @@ public class ActiveLevel extends Level implements Updatable {
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToRemove.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.DIED).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToRemove.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
 
-    }
-
-
-    public ActiveWeapon getActiveWeapon(int id) {
-        return activeWeapons.get(id);
     }
 
     public List<ImmutableImageView> getViewsToBeAdded() {
         List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToAdd.stream().filter(weapon -> weapon.getMapFeature().getDisplayState()==DisplayState.NEW).map(weapon-> weapon.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToAdd.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.NEW).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
+    }
+
+
+    public ActiveWeapon getActiveWeapon(int id) {
+        return activeWeapons.get(id);
     }
 
     public int getMyScore() {
@@ -109,19 +120,19 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
-
-    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
-        activeEnemies.remove(activeEnemy);
-    }
+//
+//    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
+//        activeEnemies.remove(activeEnemy);
+//    }
 
     public void addToActiveProjectiles(ActiveProjectile activeProjectile) {
         activeProjectiles.add(activeProjectile);
     }
 
-    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
-        activeProjectiles.remove(activeProjectile);
-
-    }
+//    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
+//        activeProjectiles.remove(activeProjectile);
+//
+//    }
 
 
     public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
@@ -133,7 +144,7 @@ public class ActiveLevel extends Level implements Updatable {
         getMyMapConfig();
     }
 
-    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
-        activeWeapons.remove(activeWeapon);
-    }
+//    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
+//        activeWeapons.remove(activeWeapon);
+//    }
 }

@@ -12,8 +12,6 @@ public class WeaponConfig implements  Configurable, Viewable {
     private Behavior<WeaponConfig>[] behaviors;
     @Configure
     private View view;
-
-
     //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;

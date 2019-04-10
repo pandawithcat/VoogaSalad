@@ -21,9 +21,9 @@ public class MapConfig implements Configurable {
     @Configure
     private int gridWidth;
     @Configure
-    private double gridPixelWidth;
+    protected double gridPixelWidth;
     @Configure
-    private double gridPixelHeight;
+    protected double gridPixelHeight;
 
     private Configuration configuration;
 
