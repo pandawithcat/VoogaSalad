@@ -21,4 +21,9 @@ public abstract class EnemyBehavior implements Behavior<EnemyConfig>{
     public void setMyEnemyConfig(EnemyConfig myEnemyConfig) {
         this.myEnemyConfig = myEnemyConfig;
     }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
+    }
 }
