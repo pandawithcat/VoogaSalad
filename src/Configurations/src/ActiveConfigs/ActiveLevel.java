@@ -4,6 +4,7 @@ import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
+import Configs.MapPackage.Terrain;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,7 +17,6 @@ public class ActiveLevel extends Level implements Updatable {
     private ActiveWave activeWave;
     private Cell[][] myGrid;
     private int myScore;
-    private MapFeature myMapFeature;
     private int currentWave=0;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
@@ -28,9 +28,15 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
+        myGrid = createMyGrid();
     }
-
+    private Cell[][] createMyGrid(){
+        Cell[][] tempGrid = new Cell[getMyMap().getGridHeight()][getMyMap().getGridWidth()];
+        for(Terrain t : getMyMap().getTerrain()){
+            tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
+        }
+        return null;
+    }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
     }
