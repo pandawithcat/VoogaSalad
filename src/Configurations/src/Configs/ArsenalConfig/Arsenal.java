@@ -1,9 +1,11 @@
 package Configs.ArsenalConfig;
 
+import ActiveConfigs.ActiveWeapon;
 import Configs.Configurable.Configure;
 import Configs.Configuration;
 import Configs.Info;
 import Configs.LevelPackage.Level;
+import Configs.MapFeature;
 
 import java.util.*;
 
@@ -14,15 +16,21 @@ public class Arsenal {
     private WeaponConfig[] allWeaponConfigOptions;
 
     private Configuration myConfiguration;
+    private Level myLevel;
 
 
 //    private WeaponConfig[] unlockedWeapons;
 
     public Arsenal(Level level) {
         myConfiguration = new Configuration(level);
+        myLevel = level;
     }
 
-//    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
+    public Level getLevel() {
+        return myLevel;
+    }
+
+    //    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
 //        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
 //        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getName(), weapon->weapon.getImageView()));
 //        return Collections.unmodifiableMap(myMap);
@@ -34,26 +42,29 @@ public class Arsenal {
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< myWeaponConfigs.length; i++) {
             weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImageView()));
+            myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);
 
     }
 
+    //TODO: FOR SECOND SPRINT - UNLOCKABLES
 //    public List<WeaponConfig> getUnlockedWeapons() {
 //        return Collections.unmodifiableList(unlockedWeapons);
 //    }
 
-    public void unlockWeapon(String name){
-        //make a weapon unlocked
-    }
+//    public void unlockWeapon(String name){
+//        //make a weapon unlocked
+//    }
 
     public WeaponConfig[] getConfiguredWeapons() {
         return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
     }
 
-    public WeaponConfig generateNewWeapon(int index){
-        WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
-        //TODO: NEED TO MAKE COPY CONSTRUCTOR TO RETURN A COPY OF IT
-        return myWeaponConfigs[index+1];
+    //TODO: ALLOW CHANGE OF DIRECTION
+//    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
+    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY){
+    WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID];
+        return new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()));
     }
 }

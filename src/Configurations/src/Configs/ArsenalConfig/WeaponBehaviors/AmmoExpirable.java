@@ -9,8 +9,11 @@ public class AmmoExpirable extends WeaponBehavior {
     @Configure
     int numberOfEnemiesPossibleToKill;
 
+    private Configuration myConfiguration;
+
     public AmmoExpirable(WeaponConfig weaponConfig){
         super(weaponConfig);
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -19,10 +22,8 @@ public class AmmoExpirable extends WeaponBehavior {
 
     }
 
-
-
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

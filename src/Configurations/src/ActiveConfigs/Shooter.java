@@ -1,28 +1,41 @@
 package ActiveConfigs;
 
-import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
-import Configs.Configurable;
-import Configs.Configuration;
-import Configs.ProjectilePackage.ProjectileConfig;
+import Configs.MapFeature;
+import Configs.ShooterConfig.ShooterConfig;
 import Configs.Updatable;
+import Configs.View;
 
-public class Shooter implements Configurable, Updatable {
-    private Shootable myShootable;
+public class Shooter extends ShooterConfig implements Updatable {
+    //TODO after demo: implement behaviors
 
-    @Configure
-    private ProjectileConfig projectileConfig;
-
-    public Shooter(Shootable shootable){
-        super();
-    }
-
-    @Override
-    public Configuration getConfiguration() {
-        return null;
+    public Shooter(ShooterConfig shooterConfig){
+        super(shooterConfig);
     }
 
     @Override
     public void update(long ms) {
+        //only shooting radially rn
+        if(ms%getRateOfFire()==0) {
+            ActiveLevel myActiveLevel = getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getGame().getActiveLevel();
+            int weaponId = getMyShootable().getWeaponConfig().getWeaponId();
+            MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
+            double weaponX = myShooterMapFeature.getPixelXPos();
+            double weaponY = myShooterMapFeature.getPixelYPos();
+            View view = myActiveLevel.getActiveWeapon(weaponId).getView();
+
+            double width = view.getWidth();
+            double height = view.getHeight();
+            double projectileStartXPos = weaponX + width/2;
+            double projectileStartYPos = weaponY + height/2;
+            for(int i = 0 ;i<6;i++) {
+                double direction = 60*i;
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView());
+                ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getShooterRange(), myActiveLevel);
+                myActiveLevel.addToActiveProjectiles(activeProjectile);
+            }
+        }
+
+
 
     }
 }

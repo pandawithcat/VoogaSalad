@@ -8,7 +8,7 @@ Authoring UI Goals:
 
 -Ability to choose path of enemies on each level using clicks (including starting/ending) and have visual cues for them
 
--Modify terrain visuals by click and drag and also have it affect enemy movement (speed)
+-Modify terrain visuals by click and drag and also have it affect enemyConfig movement (speed)
 
 -Ability to decide when towers should be unlocked
 

@@ -3,18 +3,17 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 
 import Configs.Configuration;
-import Configs.EnemyPackage.Enemy;
-import Configs.ImmutableImageView;
+import Configs.EnemyPackage.EnemyConfig;
 import Configs.ProjectilePackage.ProjectileConfig;
-
-import java.util.List;
 
 public class Stealthy extends EnemyBehavior{
     @Configure
     ProjectileConfig[] projectilesThatCanAttackMe;
+    private Configuration myConfiguration;
 
-    Stealthy(Enemy enemy){
-        super(enemy);
+    Stealthy(EnemyConfig enemyConfig){
+        super(enemyConfig);
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -24,6 +23,6 @@ public class Stealthy extends EnemyBehavior{
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }
