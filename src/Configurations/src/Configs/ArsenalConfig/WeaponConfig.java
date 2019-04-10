@@ -7,16 +7,14 @@ import Configs.Behaviors.Behavior;
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
     @Configure
-    protected String name;
+    private String name;
     @Configure
-    protected Behavior<WeaponConfig>[] behaviors;
+    private Behavior<WeaponConfig>[] behaviors;
     @Configure
-    protected View view;
-
-
+    private View view;
     //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
-    protected boolean unlocked;
+    private boolean unlocked;
 
     private Arsenal myArsenal;
     private int weaponId;

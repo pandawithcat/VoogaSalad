@@ -14,7 +14,7 @@ import java.util.*;
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal {
     @Configure
-    protected WeaponConfig[] allWeaponConfigOptions;
+    private WeaponConfig[] allWeaponConfigOptions;
 
     private Configuration myConfiguration;
     private Level myLevel;
@@ -64,10 +64,5 @@ public class Arsenal {
 
     //TODO: ALLOW CHANGE OF DIRECTION
 //    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
-    public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
-        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID];
-        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()));
-        myLevel.getGame().getActiveLevel().addToActiveWeapons(activeWeapon);
-        return activeWeapon.getMapFeature().getImageView();
-    }
+
 }

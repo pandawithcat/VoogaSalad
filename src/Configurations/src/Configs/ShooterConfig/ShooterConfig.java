@@ -9,11 +9,11 @@ public class ShooterConfig implements Configurable{
     private Shootable myShootable;
 
     @Configure
-    protected double rateOfFire;
+    private double rateOfFire;
     @Configure
-    protected ProjectileConfig projectileConfig;
+    private ProjectileConfig projectileConfig;
     @Configure
-    protected double shooterRange;
+    private double shooterRange;
     private Configuration myConfiguration;
 
 
