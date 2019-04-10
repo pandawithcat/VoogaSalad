@@ -1,27 +1,17 @@
 package Configs.GamePackage;
 
-<<<<<<< HEAD
-import Configs.EventHandlable;
-=======
+
 import ActiveConfigs.ActiveLevel;
 import Configs.*;
-import Configs.ArsenalConfig.WeaponConfig;
+import Configs.ArsenalConfig.Weapon;
 import Configs.Behaviors.Behavior;
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 import Configs.LevelPackage.Level;
 import Configs.Updatable;
-import Configs.View;
-import Configs.Viewable;
 import org.w3c.dom.events.Event;
 
 public class Game implements Updatable, EventHandlable, Configurable {
 
-<<<<<<< HEAD
-public class Game implements Updatable, EventHandlable, Viewable {
 
-    List<Level> levelList;
-    GameOptions gameType;
-=======
     private Configuration myConfiguration;
 
     @Configure
@@ -29,7 +19,7 @@ public class Game implements Updatable, EventHandlable, Viewable {
     @Configure
     private Behavior<Game>[] gameType;
     @Configure
-    private WeaponConfig[] allWeaponConfigs;
+    private Weapon.WeaponConfig[] allWeaponConfigs;
     @Configure
     private String myTitle;
     @Configure
@@ -47,7 +37,6 @@ public class Game implements Updatable, EventHandlable, Viewable {
         gameOver = false;
         currentLevelNumber=0;
     }
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
     @Override
     public void update(long ms) {
@@ -72,13 +61,7 @@ public class Game implements Updatable, EventHandlable, Viewable {
 
     }
 
-<<<<<<< HEAD
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
 
-=======
     public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         currentLevelNumber++;
@@ -118,7 +101,6 @@ public class Game implements Updatable, EventHandlable, Viewable {
         return myThumbnail;
     }
 
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
 
 

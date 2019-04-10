@@ -1,7 +1,6 @@
 package ActiveConfigs;
 
 import Configs.*;
-import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;

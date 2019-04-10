@@ -69,7 +69,6 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-
     public List<ImmutableImageView> getLevelTerrain(){
         return myGame.getActiveLevel().getMyMapConfig().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
 
@@ -84,7 +83,6 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-
     public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel){
         return myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
     }
@@ -126,35 +124,10 @@ public class Logic {
 //    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
 //
 //    }
-    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
-
-    }
-
-    // View call this when the user presses play or a level is over
-    // Return: ID and image file of available weapons
-//    public List<WeaponInfo> getArsenal(){
-//
-//    }
-
-    // View calls this when a weapon is placed onto the map
-    // Input: WeaponInfo Object
-    // Return: ImageView corresponding to the weapon
-//    public ImmutableImageView instantiateWeapon(WeaponInfo newWeapon){
-//
-//    }
-
-
-    // View calls to check if a location is valid to place a weapon
-    // Input: WeaponInfo object, x and y coordinate
-    // Return: boolean
-//    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
-//
-//    }
 
     // View calls this in game Loop to check if the level has ended
     // No input
     // Return: Boolean value indicating the status of the running level
-
     boolean checkIfLevelEnd(){
         return myGame.isLevelOver();
     }
