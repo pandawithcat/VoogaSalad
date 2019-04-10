@@ -3,6 +3,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
+import Configs.MapPackage.MapConfig;
 import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -41,7 +42,7 @@ public class GameController {
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
 
-
+        System.out.println("it reached here");
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
 
@@ -51,11 +52,6 @@ public class GameController {
         layout.autosize();
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
-
-            //special case: map
-            if(value.getClass().isInstance(MapEditor.class)){
-
-            }
 
             //handle primitives
             if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class) || value.isPrimitive()){
@@ -100,12 +96,17 @@ public class GameController {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-                            Object object = Class.forName(value.getName());
-                            if (object.getClass().isInstance(Configurable.class)){
+                            //special case: map
+                            if(value.getClass().isInstance(MapConfig.class)) {
+                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
+                            }
+                            else{
+                                Class<?> cl = Class.forName(value.getName());
+                                Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                                var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);
                             }
-                        } catch (Exception e) {//TODO Write Some errors here
-                        }
+                        } catch (Exception e) {}
 
                     }
                 }));

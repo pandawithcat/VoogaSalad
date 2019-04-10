@@ -39,6 +39,10 @@ public class Arsenal {
 
     }
 
+    public Configuration getConfiguration() {
+        return myConfiguration;
+    }
+
 //    public List<WeaponConfig> getUnlockedWeapons() {
 //        return Collections.unmodifiableList(unlockedWeapons);
 //    }
