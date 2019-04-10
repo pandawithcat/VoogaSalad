@@ -12,14 +12,13 @@ public class EnemyConfig implements Configurable, Viewable {
     private int unitSpeedPerSecond;
     @Configure
     private View view;
+
     private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {
         myWaveConfig = waveConfig;
         myConfiguration = new Configuration(this);
     }
-
-
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();

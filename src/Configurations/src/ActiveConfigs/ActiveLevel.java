@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ActiveLevel extends Level implements Updatable {
+    public static final int DISTANCE_HEURISTIC = 1;
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
@@ -19,6 +20,8 @@ public class ActiveLevel extends Level implements Updatable {
     private Cell[][] myGrid;
     private int myScore;
     private int currentWave=0;
+    private final int gridWidth;
+    private final int gridHeight;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
@@ -27,11 +30,13 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
+        gridHeight = getMyMapConfig().getGridHeight();
+        gridWidth = getMyMapConfig().getGridWidth();
     }
+
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
         for(Terrain t : getMyMapConfig().getTerrain()){
@@ -39,8 +44,18 @@ public class ActiveLevel extends Level implements Updatable {
         }
         return null;
     }
+
+    
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
     }
 
     @Override
@@ -90,11 +105,21 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
+    private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
+        if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
+        else if(feature instanceof ActiveProjectile) activeProjectiles.remove(feature);
+        else if (feature instanceof ActiveEnemy) activeEnemies.remove(feature);
+        return feature.getMapFeature().getImageView();
+
+    }
 
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToRemove.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToRemove.stream()
+                .filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED)
+                .map(feature-> evaluateViewToBeRemoved(feature))
+                .collect(Collectors.toList());
 
     }
 
@@ -117,7 +142,7 @@ public class ActiveLevel extends Level implements Updatable {
     //TODO: EventHandler for adding new weapon to map
     public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
         WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID];
-        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), this);
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
         activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
         addToActiveWeapons(activeWeapon);
         return activeWeapon.getMapFeature().getImageView();
@@ -144,17 +169,49 @@ public class ActiveLevel extends Level implements Updatable {
 //    }
 
 
-    public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature, this));
-        recalculateMovementHeuristic();
+    private void recalculateMovementHeuristic(){
+        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
 
-    private void recalculateMovementHeuristic(){
-        getMyMapConfig();
+    private void astar(Cell startCell){
+        startCell.setMovementHeuristic(0);
+        LinkedList<Cell> stack = new LinkedList<>();
+        stack.addLast(startCell);
+        while(!stack.isEmpty()){
+            Cell expandedCell = stack.removeFirst();
+            int[]xAdditions = new int[]{0,0,-1,1};
+            int[]yAdditions = new int[]{1,-1,0,0};
+            for (int i = 0; i < 3; i++) {
+                int x = expandedCell.getX() + xAdditions[i];
+                int y = expandedCell.getY() + yAdditions[i];
+                if(isCellValid(x,y)){
+                    if (myGrid[x][y].getMyTerrain().getIfPath()){
+                        myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
+                    }
+                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                    if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
+                        myGrid[x][y].setMovementHeuristic(newHeuristic);
+                    }
+                }
+            }
+        }
     }
+
+    private boolean isCellValid(int x, int y){
+        if (x<0|x>getMyMapConfig().getGridWidth()){
+            return false;
+        }
+        if (y<0|y>getMyMapConfig().getGridHeight()){
+            return false;
+        }
+        return true;
+    }
+
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+        recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
