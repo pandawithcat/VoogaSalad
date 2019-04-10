@@ -4,6 +4,7 @@ import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
+import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
@@ -23,7 +24,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     @Configure
     private Level[] levelList;
     @Configure
-    private Behavior<Game>[] gameType;
+    private GameBehavior[] gameType;
     @Configure
     private WeaponConfig[] allWeaponConfigs;
 

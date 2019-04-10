@@ -2,6 +2,7 @@ package Configs.EnemyPackage;
 
 import Configs.*;
 import Configs.Behaviors.Behavior;
+import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.Waves.WaveConfig;
 
 public class EnemyConfig implements Configurable, Viewable {
@@ -9,7 +10,7 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private String myLabel;
     @Configure
-    private Behavior<EnemyConfig>[] myBehaviors;
+    private EnemyBehavior[] myBehaviors;
     @Configure
     private int unitSpeedPerSecond;
     @Configure
@@ -37,7 +38,7 @@ public class EnemyConfig implements Configurable, Viewable {
 //        myBehaviors = behavior;
 //    }
 
-    public Behavior<EnemyConfig>[] getMyBehaviors() {
+    public EnemyBehavior[] getMyBehaviors() {
         return myBehaviors;
     }
 
