@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -15,17 +16,15 @@ import javafx.stage.Stage;
 
 public class GameStart extends Application {
     private Stage stage;
-    private Pane root;
+    private StackPane root;
     private double width;
     private double height;
 
     @Override
     public void start(Stage primaryStage){
         stage = primaryStage;
-        root = new Pane();
+        root = new StackPane();
         root.setId("pane");
-        root.applyCss();
-        root.layout();
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
         height = primScreenBounds.getHeight();
@@ -38,20 +37,18 @@ public class GameStart extends Application {
     public void setTitle(GameInfo gameInfo, Image image){
 
         Text title = new Text(gameInfo.getGameTitle());
-        title.setX(width/2 - title.getBoundsInLocal().getWidth()/2);
-        title.setY(height * 0.25);
+        title.setTranslateY(-100);
         root.getChildren().add(title);
-
+        root.applyCss();
+        root.layout();
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(100);
         imageView.setFitHeight(100);
-        imageView.setX(width/2 - imageView.getBoundsInLocal().getWidth()/2);
-        imageView.setY(height/2);
         root.getChildren().add(imageView);
         Button play = new Button("Play");
+        play.setTranslateX(0);
+        play.setTranslateY(100);
         root.getChildren().add(play);
-        play.setTranslateY(height*.75);
-        play.setLayoutX(width/2 - imageView.getBoundsInLocal().getWidth()/2);
         play.setOnAction(e-> startGame());
     }
     private void startGame(){

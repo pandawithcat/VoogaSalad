@@ -5,6 +5,7 @@ import BackendExternal.Logic;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameSelection extends Application {
-    private StackPane root;
+    private VBox root;
     private Stage stage;
     private ScrollPane scrollPane = new ScrollPane();
     private double width;
@@ -27,14 +28,17 @@ public class GameSelection extends Application {
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
-        logic = new Logic();
+//        logic = new Logic();
         stage = primaryStage;
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
         height = primScreenBounds.getHeight();
         stage.setX(width);
         stage.setY(height);
-        root = new StackPane();
+        root = new VBox();
+        Label text = new Label("Select a Game");
+        text.setPrefHeight(100);
+        root.getChildren().add(text);
         root.getChildren().add(scrollPane);
         var scene = new Scene(root, width, height);
         scene.getStylesheets().add("style.css");
@@ -43,13 +47,13 @@ public class GameSelection extends Application {
         createGameSelectionScreen();
     }
     private List<GameInfo> uploadAvailableGames(){
-        List<GameInfo> gameInfoList= logic.getGameOptions();
-//        List<GameInfo> gameInfos = new ArrayList<>();
-//        for(int x = 1; x < 5; x++){
-//            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png");
-//            gameInfos.add(gameInfo);
-//        }
-        return gameInfoList;
+//        List<GameInfo> gameInfoList= logic.getGameOptions();
+        List<GameInfo> gameInfos = new ArrayList<>();
+        for(int x = 1; x < 5; x++){
+            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png");
+            gameInfos.add(gameInfo);
+        }
+        return gameInfos;
     }
 
     private void createGameSelectionScreen(){
