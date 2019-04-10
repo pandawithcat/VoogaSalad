@@ -40,6 +40,7 @@ public class GamePlayVisualization extends Application {
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
 
+            myLogic = new Logic();
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
@@ -58,7 +59,8 @@ public class GamePlayVisualization extends Application {
 
     private void step(double elapsedTime){
 //        myLogic.update(elapsedTime);
-//        myLogic.checkIfLevelEnd();
+//        if (myLogic.checkIfLevelEnd()){
+//            myLogic.
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
         //TODO: changelistener for dragging objects
