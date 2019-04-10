@@ -57,7 +57,7 @@ public class GameStart extends Application {
     }
     private void startGame(){
         this.stage.close();
-//        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization(new Logic());
-//        gamePlayVisualization.start(new Stage());
+        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
+        gamePlayVisualization.start(new Stage());
     }
 }

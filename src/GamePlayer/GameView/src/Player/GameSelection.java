@@ -24,8 +24,10 @@ public class GameSelection extends Application {
     private ScrollPane scrollPane = new ScrollPane();
     private double width;
     private double height;
+    private Logic logic;
     @Override
     public void start(Stage primaryStage) {
+//        logic = new Logic();
         stage = primaryStage;
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
