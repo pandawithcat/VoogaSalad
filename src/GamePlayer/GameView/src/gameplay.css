@@ -1,0 +1,16 @@
+.button {
+    -fx-background-color:
+            linear-gradient(#ffd65b, #e68400),
+            linear-gradient(#ffef84, #f2ba44),
+            linear-gradient(#ffea6a, #efaa22),
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}
+.button:pressed {
+    -fx-background-color:
+            linear-gradient(#fff7a4, #e5e6a1),
+            linear-gradient(#fffcde, #f2edd3),
+            linear-gradient(#ffea6a, #efeac9),
+            linear-gradient(#ffffd8 0%, #f7f8cd 50%, #eeeab1 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+}

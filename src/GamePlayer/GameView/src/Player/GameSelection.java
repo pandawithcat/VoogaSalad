@@ -27,7 +27,7 @@ public class GameSelection extends Application {
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
-//        logic = new Logic();
+        logic = new Logic();
         stage = primaryStage;
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
@@ -43,13 +43,13 @@ public class GameSelection extends Application {
         createGameSelectionScreen();
     }
     private List<GameInfo> uploadAvailableGames(){
-//        List<GameInfo> gameInfoList= logic.getGameOptions();
-        List<GameInfo> gameInfos = new ArrayList<>();
-        for(int x = 1; x < 5; x++){
-            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png");
-            gameInfos.add(gameInfo);
-        }
-        return gameInfos;
+        List<GameInfo> gameInfoList= logic.getGameOptions();
+//        List<GameInfo> gameInfos = new ArrayList<>();
+//        for(int x = 1; x < 5; x++){
+//            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png");
+//            gameInfos.add(gameInfo);
+//        }
+        return gameInfoList;
     }
 
     private void createGameSelectionScreen(){
