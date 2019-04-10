@@ -16,14 +16,17 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
 
     @Override
     public void update(long ms) {
-        Arrays.stream(getBehaviors()).forEach(b -> b.update(ms));
 
-        updateMapState();
+
+
+        Arrays.stream(behaviors).forEach(b -> b.update(ms));
+
+        updateWeaponDisplayState();
 
         //dont forget to update state to 1 or 2(died) in myMapFeature
     }
 
-    private void updateMapState(){
+    private void updateWeaponDisplayState(){
         if(false){
             myMapFeature.setDisplayState(DisplayState.DIED);
         }

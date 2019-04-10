@@ -44,9 +44,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
 
     private void handleEnemyCollision(Cell myCell){
         //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
-        for (ActiveEnemy e : myCell.getMyEnemies()){
-            e.killMe();
-        }
+        myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
     }
     private void move(long ms){

@@ -32,7 +32,7 @@ public class ActiveWave extends WaveConfig implements Updatable {
 
     @Override
     public void update(long ms) {
-        if(ms>=getTimeToRelease() && currentEnemyIndex==0) {
+        if(ms>=timeToRelease && currentEnemyIndex==0) {
             startTimes = new long[getEnemies().length];
             long relativeTime = 0;
             for(int i = 0;i<startTimes.length;i++) {
