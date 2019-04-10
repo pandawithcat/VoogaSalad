@@ -9,6 +9,8 @@ import java.util.List;
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
     @Configure
+    private String myLabel;
+    @Configure
     private List<Terrain> myTerrain;
     @Configure
     private int enemyEnteringGridXPos;
@@ -78,6 +80,11 @@ public class MapConfig implements Configurable {
         for(Terrain t : terrain) {
 
         }
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
 }

@@ -9,6 +9,8 @@ public class ShooterConfig implements Configurable{
     private Shootable myShootable;
 
     @Configure
+    private String myLabel;
+    @Configure
     private double rateOfFire;
     @Configure
     private ProjectileConfig projectileConfig;
@@ -41,6 +43,11 @@ public class ShooterConfig implements Configurable{
 
     public double getRateOfFire() {
         return rateOfFire;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

@@ -4,6 +4,8 @@ import Configs.Configurable;
 import Configs.Updatable;
 import Configs.Viewable;
 
+import java.util.List;
+
 /**
  * marker interface
  * @param <T>

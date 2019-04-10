@@ -7,6 +7,8 @@ import java.util.List;
 
 public class HealthExpirable extends WeaponBehavior{
     @Configure
+    private String myLabel;
+    @Configure
     protected int amountOfHealth;
 
     Configuration myConfiguration;
@@ -19,6 +21,11 @@ public class HealthExpirable extends WeaponBehavior{
     @Override
     public void update(long ms) {
 
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override
