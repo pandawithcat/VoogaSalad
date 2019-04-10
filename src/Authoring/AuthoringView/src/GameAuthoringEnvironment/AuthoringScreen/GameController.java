@@ -5,6 +5,7 @@ import Configs.Configuration;
 import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
@@ -45,6 +46,8 @@ public class GameController {
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
 
         VBox layout = new VBox(10.00);
+        VBox.setMargin(layout, new Insets(20, 20, 20, 20));
+
         layout.autosize();
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
@@ -126,13 +129,12 @@ public class GameController {
                     addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            sourceView.getItems().add(value.getComponentType().getSimpleName());
+                            sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
                             try {
                                 Class<?> cl = Class.forName(value.getComponentType().getName());
                                 Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 tempList.add(object);
-                                System.out.println(tempList.get(0).getClass());
 
                             } catch (Exception e) {
 
@@ -150,7 +152,7 @@ public class GameController {
                                     try {
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
                                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                                        Object object = cons.newInstance(myConfigurable);
+                                        var object = cons.newInstance(myConfigurable);
                                         createConfigurable((Configurable) object);
                                     } catch (Exception e) {
 
