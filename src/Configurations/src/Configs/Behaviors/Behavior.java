@@ -12,4 +12,5 @@ import java.util.List;
  */
 
 public interface Behavior<T> extends Updatable, Configurable {
+    List<Class> getBehaviorOptions();
 }
