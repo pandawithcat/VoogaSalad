@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ActiveLevel extends Level implements Updatable {
+    public static final int DISTANCE_HEURISTIC = 1;
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
@@ -29,13 +30,13 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
+
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
         for(Terrain t : getMyMapConfig().getTerrain()){
@@ -43,6 +44,8 @@ public class ActiveLevel extends Level implements Updatable {
         }
         return null;
     }
+
+    
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
     }
@@ -167,8 +170,43 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     private void recalculateMovementHeuristic(){
-        getMyMapConfig();
+        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
+
+    private void astar(Cell startCell){
+        startCell.setMovementHeuristic(0);
+        LinkedList<Cell> stack = new LinkedList<>();
+        stack.addLast(startCell);
+        while(!stack.isEmpty()){
+            Cell expandedCell = stack.removeFirst();
+            int[]xAdditions = new int[]{0,0,-1,1};
+            int[]yAdditions = new int[]{1,-1,0,0};
+            for (int i = 0; i < 3; i++) {
+                int x = expandedCell.getX() + xAdditions[i];
+                int y = expandedCell.getY() + yAdditions[i];
+                if(isCellValid(x,y)){
+                    if (myGrid[x][y].getMyTerrain().getIfPath()){
+                        myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
+                    }
+                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                    if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
+                        myGrid[x][y].setMovementHeuristic(newHeuristic);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isCellValid(int x, int y){
+        if (x<0|x>getMyMapConfig().getGridWidth()){
+            return false;
+        }
+        if (y<0|y>getMyMapConfig().getGridHeight()){
+            return false;
+        }
+        return true;
+    }
+
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);

@@ -12,6 +12,7 @@ public class EnemyConfig implements Configurable, Viewable {
     private int unitSpeedPerSecond;
     @Configure
     private View view;
+
     private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {

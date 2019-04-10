@@ -65,6 +65,7 @@ public class MapFeature {
 
         gridXPos = (int) (newX*Game.gridPixelWidth/gridWidth);
         gridYPos = (int) (newY*Game.gridPixelHeight/gridHeight);
+
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
