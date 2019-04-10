@@ -54,7 +54,7 @@ public class GameController {
             var value = attributesMap.get(key);
 
             //handle primitives
-            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class) || value.isPrimitive()){
+            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");
@@ -97,13 +97,15 @@ public class GameController {
                     public void handle(MouseEvent event) {
                         try {
                             //special case: map
-                            if(value.getClass().isInstance(MapConfig.class)) {
+                            Class<?> clazz = Class.forName(value.getName());
+                            if(clazz.getSimpleName().equals("MapConfig")) {
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
+                                configurableMap.setConfigurations();
                             }
                             else{
-                                Class<?> cl = Class.forName(value.getName());
-                                Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                                Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
+                                System.out.println(object.getClass());
                                 createConfigurable((Configurable) object);
                             }
                         } catch (Exception e) {}

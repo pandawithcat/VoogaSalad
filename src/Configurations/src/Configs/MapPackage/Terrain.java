@@ -41,7 +41,7 @@ public class Terrain implements MapFeaturable, Configurable{
     public Terrain(MapConfig mapConfig, ImageView imageView, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
 
         myConfiguration = new Configuration(this);
-        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
+//        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
         //TODO FINISH
 
     }

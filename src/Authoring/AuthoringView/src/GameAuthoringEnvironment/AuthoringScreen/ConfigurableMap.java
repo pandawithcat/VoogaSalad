@@ -1,7 +1,13 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.Configurable;
+import Configs.Configuration;
+import Configs.MapPackage.MapConfig;
+import Configs.MapPackage.Terrain;
+import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,35 +19,35 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigurableMap {
-    private GridPane map;
+    Map<String, Object> passedMap;
+    List<TerrainTile> terrainTileList;
+    GridPane map;
     private ListView<String> tileView = new ListView<>();
     private String currentTile = "Grass";
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
     private String grassTileImage="grass.jpg";
     private VBox layout;
-    private final int tileViewWidth = 150;
+    private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
-    private Map<String, Object> myAttributesMap;
+    private Map<String, Object> myMap;
+    private Stage popUpWindow;
 
-    public ConfigurableMap(Map<String, Object> myMap){
-        myAttributesMap = myMap;
+    public ConfigurableMap(Map<String, Object> myAttributeMap){
+       myMap = myAttributeMap;
     }
 
-
-
     public void setConfigurations(){
-        Stage popUpWindow = new Stage();
+        popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
+
         layout = new VBox(10.00);
-        layout.autosize();
-        Scene scene= new Scene(layout, 500, 500);
-        popUpWindow.setScene(scene);
-        popUpWindow.showAndWait();
+
         Label mapLbl = new Label("Map");
         Label tileListLbl = new Label("Tiles");
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
@@ -51,27 +57,32 @@ public class ConfigurableMap {
 
 
         // Add the Labels and Views to the Pane
-        layout.getChildren().add(messageLbl);
-        layout.getChildren().addAll(mapLbl, tileListLbl);
-        layout.getChildren().addAll(map, tileView);
+        layout.getChildren().addAll(messageLbl, mapLbl, tileListLbl, map, tileView);
         addSubmit();
+
+        Scene scene= new Scene(layout, 800, 800);
+        popUpWindow.setScene(scene);
+        popUpWindow.show();
         //pane.add(tileView,2,1);
 
         // Add the Pane and The LoggingArea to the VBox
     }
     public void initMap(){
 
-        map=new GridPane();
+        map = new GridPane();
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
-                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile),r,c);
+                TerrainTile myTile = new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile);
+
+                map.add(myTile,r,c);
                 //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
         }
         addGridEvent();
     }
+
     public void initTileView(){
         tileView.setPrefSize(tileViewWidth, tileViewHeight);
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -91,6 +102,33 @@ public class ConfigurableMap {
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                terrainTileList=new ArrayList<>();
+                List<Terrain> tileList = new ArrayList<>();
+                for(Node child: map.getChildren()){
+                    terrainTileList.add((TerrainTile) child);
+                }
+                MapConfig m = new MapConfig();
+                Configuration c = m.getConfiguration();
+                for(TerrainTile t : terrainTileList){
+                    Terrain tile = new Terrain(m,t.getImageView(),t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+                    tileList.add(tile);
+                }
+                passedMap=new HashMap<>();
+                passedMap.put("myLabel","Map");
+                passedMap.put("myTerrain",tileList);
+                passedMap.put("enemyEnteringGridXPos", 0);
+                passedMap.put("enemyEnteringGridYPos", 0);
+                passedMap.put("enemyEnteringDirection",90);
+                passedMap.put("enemyExitGridXPos",20);
+                passedMap.put("enemyExitGridYPos",20);
+
+
+                passedMap.put("gridHeight",(int)map.getHeight());
+                passedMap.put("gridWidth",(int)map.getWidth());
+                c.getAttributes();
+                c.setAllAttributes(passedMap);
+                myMap.put("MapConfig", c);
+                popUpWindow.close();
 
             }
         });
@@ -98,6 +136,30 @@ public class ConfigurableMap {
 
     }
 
+    //    private void addSizeLabel(){
+//
+//        TextField txt = new TextField();
+//        txt.setPromptText("Size of Tile to Modify");
+//        Button sub = new Button("Submit");
+//        Label lab = new Label();
+//
+//        sub.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                if(txt.getText()!=null&&!txt.getText().isEmpty()&&Integer.parseInt(txt.getText())<6){
+//                    modTileSize=Integer.parseInt(txt.getText());
+//                    lab.setText("");
+//                    System.out.println(modTileSize);
+//                }
+//                else{
+//                    lab.setText("Invalid Input");
+//                }
+//
+//            }
+//        });
+//        .addRow(3,txt,sub);
+//
+//    }
     private void addGridEvent(){
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -118,10 +180,14 @@ public class ConfigurableMap {
 
         System.out.println(col);
         System.out.println(row);
+
         source.changeImage(currentTile);
+
+
+
+
 
 
     }
 
 }
-

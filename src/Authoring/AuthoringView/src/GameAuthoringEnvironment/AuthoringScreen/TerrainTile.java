@@ -1,14 +1,16 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.input.MouseEvent;
 
 public class TerrainTile extends ImageView {
     ImageView imageView;
     boolean isPath;
+    String tileImString;
 
-    public TerrainTile(double x, double y, Image image, String type){
+    public TerrainTile(int x, int y, Image image, String type){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -16,6 +18,7 @@ public class TerrainTile extends ImageView {
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
         isPath=false;
+        tileImString="grass.jpg";
 
 
 //        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -61,16 +64,32 @@ public class TerrainTile extends ImageView {
     public void changeToGrass(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
         isPath=false;
+        tileImString="grass.jpg";
     }
 
     public void changeToWater(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
         isPath=true;
+        tileImString="water.jpg";
 
     }
     public void changeToDirt(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
         isPath=true;
+        tileImString="dirt.jpg";
+    }
+
+    public ImageView getImageView(){
+        return imageView;
+    }
+
+    public String getTileImString(){
+        return tileImString;
+    }
+    public boolean getIsPath(){
+        return isPath;
     }
 
 }
+
+
