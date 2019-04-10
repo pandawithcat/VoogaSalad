@@ -5,6 +5,7 @@ import Configs.EnemyPackage.EnemyConfig;
 
 
 public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
+    public static final double CONVERSION_TO_SECONDS = .001;
     private MapFeature myMapFeature;
     private Cell[][] activeMapGrid;
     private double distance = 0;
@@ -60,7 +61,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //dont forget to update state to PRESENT or DIED in myMapFeature
 
         myMapFeature.setDisplayState(DisplayState.PRESENT);
-        distance += ms* getUnitSpeedPerSecond();
+        distance += ms* getUnitSpeedPerSecond()* CONVERSION_TO_SECONDS;
         int numMovements = (int) distance;
         distance -= numMovements;
         for (int i = 0; i < numMovements; i++) {
