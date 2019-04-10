@@ -21,4 +21,9 @@ public abstract class GameBehavior implements Behavior<Game> {
     public void setMyGame(Game myGame) {
         this.myGame = myGame;
     }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
+    }
 }
