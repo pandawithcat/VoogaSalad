@@ -4,6 +4,9 @@ import BackendExternal.Logic;
 import Configs.ImmutableImageView;
 import Configs.Info;
 import Configs.TransferImageView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -12,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class GamePlayArsenal extends VBox {
@@ -38,25 +42,47 @@ public class GamePlayArsenal extends VBox {
         isWeapon = true;
         myLogic = logic;
 //        myArsenal = logic.getMyArsenal();
-        ScrollPane arsenalView = new ScrollPane();
-        VBox arsenalDisplay = new VBox();
+        ListView arsenalDisplay = new ListView();
+        arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
+        arsenalDisplay.setPrefWidth(arsenalWidth);
         createTestArsenal();
         //START TEST STUFF
-        System.out.println(myTestMap.get(0).getImage());
-        ImageView test = new ImageView(new Image(myTestMap.get(0).getImage()));
-        System.out.println(test);
-        myTestMap.values().stream().forEach(info -> arsenalDisplay.getChildren().add(test));
+        ArrayList<ImageView> viewList = new ArrayList<ImageView>();
+
+        myTestMap.values().stream().forEach(info -> { try {
+            ImageView image = new ImageView(new Image(info.getImage()));
+            image.setFitWidth(arsenalWidth/2);
+            image.setFitHeight(arsenalWidth/2);
+            viewList.add(image);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        });
+
+        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
+        arsenalDisplay.setItems(items);
+        arsenalDisplay.setOnMouseEntered(e -> System.out.println(arsenalDisplay.getSelectionModel().getSelectedItem()));
+
+
+//        for (int i = 0; i < myTestMap.size(); i++) {
+//            ImageView test = new ImageView(new Image(myTestMap.get(i).getImage()));
+//            test.setFitWidth(arsenalWidth/2);
+//            test.setFitHeight(arsenalWidth/2);
+//            test.setOnMouseEntered();
+//            arsenalDisplay.getChildren().add(test);
+//        }
+//        myTestMap.values().stream().forEach(info -> arsenalDisplay.getChildren().add(test));
 //        myArsenal.values().stream().forEach(info -> arsenalDisplay.getChildren().add(info.getImageView()));
-        arsenalView.setContent(arsenalDisplay);
 //        arsenalView.setContent((Node)myTestMap.get(0).getImageView());
 
         //TODO: implement the hover shit when we set content
 //        rootItem.getChildren().addAll(myArsenal);
 //        arsenalView.setRoot(rootItem);
 
-        arsenalView.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
-        arsenalView.setPrefWidth(arsenalWidth);
-        getChildren().addAll(arsenalView);
+        arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
+        arsenalDisplay.setPrefWidth(arsenalWidth);
+
+        getChildren().addAll(arsenalDisplay);
 
         //arsenal selector part
 //        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
@@ -136,11 +162,12 @@ public class GamePlayArsenal extends VBox {
         return obstacles;
     }
 
+    //TEST DATA
     private void createTestArsenal(){
         Info testInfo = new Info("test", "weapon.png");
         myTestMap = new HashMap<>();
-        myTestMap.put(0,testInfo);
+        for (int i = 0; i < 5; i++) {
+            myTestMap.put(i, testInfo);
+        }
     }
-
-
 }
