@@ -30,14 +30,17 @@ public class ActiveLevel extends Level implements Updatable {
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
-        myGrid = createMyGrid();
+        createMyGrid();
     }
-    private Cell[][] createMyGrid(){
-        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
-        for(Terrain t : getMyMapConfig().getTerrain()){
-            tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
+    private void createMyGrid() {
+        myGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
+        for (Terrain t : getMyMapConfig().getTerrain()) {
+            for (int i = 0; i < t.getHeight(); i++) {
+                for (int j = 0; j < t.getWidth(); j++) {
+                    myGrid[t.getMapFeature().getGridYPos() + i][t.getMapFeature().getGridXPos() + j] = new Cell(i, j, t);
+                }
+            }
         }
-        return null;
     }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];

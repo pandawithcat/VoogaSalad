@@ -57,7 +57,7 @@ public class MapFeature {
         myImageView.setTranslateX(newX);
         myImageView.setTranslateY(newY);
 
-        gridXPos = Math.floorDiv(newX, view.
+        gridXPos = Math.floorDiv(newX, view.width);
 
 
         //TODO; calculate grid position
