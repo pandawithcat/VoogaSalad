@@ -1,5 +1,6 @@
 package Configs.ProjectilePackage;
 
+import ActiveConfigs.Shooter;
 import Configs.*;
 import Configs.Behaviors.Behavior;
 import Configs.ShooterConfig.ShooterConfig;

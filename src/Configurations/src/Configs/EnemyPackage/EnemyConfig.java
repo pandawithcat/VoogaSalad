@@ -19,8 +19,6 @@ public class EnemyConfig implements Configurable, Viewable {
         myConfiguration = new Configuration(this);
     }
 
-
-
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
         myWaveConfig = enemyConfig.getMyWaveConfig();

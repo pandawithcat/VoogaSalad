@@ -28,7 +28,6 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
@@ -95,6 +94,7 @@ public class ActiveLevel extends Level implements Updatable {
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
+        //TODO: remove it from the list
         return viewsToRemove.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
 
     }
@@ -116,7 +116,16 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     //TODO: EventHandler for adding new weapon to map
+    public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), this);
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
+
     //TODO  add EventHandler for isValid
+
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
@@ -135,11 +144,6 @@ public class ActiveLevel extends Level implements Updatable {
 //
 //    }
 
-
-    public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature, this));
-        recalculateMovementHeuristic();
-    }
 
     private void recalculateMovementHeuristic(){
         astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
@@ -183,6 +187,8 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+        recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
