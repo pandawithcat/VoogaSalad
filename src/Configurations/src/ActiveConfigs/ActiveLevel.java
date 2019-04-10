@@ -1,6 +1,7 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
@@ -33,6 +34,10 @@ public class ActiveLevel extends Level implements Updatable {
 
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
+    }
+
+    public Arsenal getMyArsenal() {
+        return myArsenal;
     }
 
     @Override
