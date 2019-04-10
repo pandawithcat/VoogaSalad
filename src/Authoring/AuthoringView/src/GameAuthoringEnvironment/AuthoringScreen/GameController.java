@@ -36,8 +36,10 @@ import java.util.*;
 public class GameController {
 
     private Stage popupwindow;
+    private GameController myGameController;
 
     public GameController() {
+        myGameController = this;
         Game myGame = new Game();
         createConfigurable(myGame);
     }
@@ -165,8 +167,9 @@ public class GameController {
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
                                         List<Class> behaviorList = WeaponBehavior.IMPLEMENTING_BEHAVIORS;
 
+                                        //TODO Change this that behavior field can be accessed without using bunch of ifs
                                         if(!cl.getSimpleName().contains("Behavior")){
-                                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());;
+                                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                             var object = cons.newInstance(myConfigurable);
                                             createConfigurable((Configurable) object);
                                             }
@@ -198,8 +201,8 @@ public class GameController {
                                             behaviorList = ShooterBehavior.IMPLEMENTING_BEHAVIORS;
                                         }*/
 
-                                       ConfigureBehavior configureBehavior = new ConfigureBehavior(myAttributesMap, behaviorList);
-                                       System.out.println("did it run");
+                                       ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+
 
                                     } catch (Exception e) {
 

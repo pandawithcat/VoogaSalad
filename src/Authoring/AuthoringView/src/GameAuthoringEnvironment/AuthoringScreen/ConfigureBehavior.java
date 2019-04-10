@@ -1,11 +1,10 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Behaviors.Behavior;
+import Configs.Configurable;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -15,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +25,17 @@ public class ConfigureBehavior {
     Map<String, Object> myMap;
     Stage popUpWindow;
     VBox layout;
+    Configurable myConfigurable;
     private ListView<Class> sourceView = new ListView<>();
     private ListView<Class> targetView = new ListView<>();
     int sourceViewWidth = 250;
     int sourceViewHeight = 250;
     int viewGap = 10;
+    GameController myGameController;
 
-    public ConfigureBehavior(Map<String, Object> attributesMap, List<Class> behaviorList) {
+    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+        myGameController = gameController;
+        myConfigurable = configurable;
         myList = behaviorList;
         myMap = attributesMap;
         setContent();
@@ -51,10 +55,31 @@ public class ConfigureBehavior {
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
 
 
+        //TODO Change the listview so that only the simple name shows up
         sourceView.getItems().addAll(myList);
         System.out.println(sourceView.getItems().get(0).getClass() + "adjfhdalkfahdsjfk");
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        //When clicked, calls createconfigurable again
+        targetView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                var selected = targetView.getSelectionModel().getSelectedItem();
+                if (selected.getClass().isInstance(Configurable.class)) {
+                    try {
+                        Class<?> cl = Class.forName(selected.getComponentType().getName());
+                        Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                        var object = cons.newInstance(myConfigurable);
+                        myGameController.createConfigurable((Configurable) object);
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            }
+        });;
 
         // Create the GridPane
         GridPane pane = new GridPane();
@@ -68,18 +93,36 @@ public class ConfigureBehavior {
         //setDragAndDrop();
         VBox root = new VBox();
         root.getChildren().addAll(pane);
-        layout.getChildren().add(root);
+
+        Button setButton = new Button("This config completed");
+        setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if(!myConfigurable.getConfiguration().isConfigurationComplete()){
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setAlertType(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("Atrributtes not all filled out");
+                    alert.showAndWait();
+                }
+                else {
+                    myConfigurable.getConfiguration().setAllAttributes(myMap);
+                    popUpWindow.close();
+                }
+            }
+        }));
+        layout.getChildren().addAll(root, setButton);
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
         popUpWindow.show();
 
     }
 
-    public ListView getTargetView() {
+    public ListView<Class> getTargetView() {
         return targetView;
     }
 
-    public ListView getSourceView() {
+    public ListView<Class> getSourceView() {
         return sourceView;
     }
 
