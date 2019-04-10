@@ -7,8 +7,8 @@ public class MapFeature {
 
     private int gridXPos;
     private int gridYPos;
-    private double pixelXPos;
-    private double pixelYPos;
+//    private double pixelXPos;
+//    private double pixelYPos;
     private double displayDirection;
     private double trigDirection;
     @XStreamOmitField
@@ -31,6 +31,14 @@ public class MapFeature {
         displayState = DisplayState.NEW;
     }
 
+    public double getPixelXPos() {
+        return myImageView.getTranslateX();
+    }
+
+    public double getPixelYPos() {
+        return myImageView.getTranslateY();
+    }
+
     public int getGridXPos() {
         return gridXPos;
     }
@@ -39,23 +47,22 @@ public class MapFeature {
         return gridYPos;
     }
 
-    public double getPixelXPos() {
-        return pixelXPos;
-    }
 
-    public double getPixelYPos() {
-        return pixelYPos;
-    }
 
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
-        pixelXPos+=deltaPixelX;
-        pixelYPos+=deltaPixelY;
+//        pixelXPos+=deltaPixelX;
+//        pixelYPos+=deltaPixelY;
+        myImageView.setTranslateX(getPixelXPos()+deltaPixelX);
+        myImageView.setTranslateY(getPixelYPos()+deltaPixelY);
+
+
         //TODO; calculate grid position
     }
 
     public void setPixelPos(double x, double y, double direction) {
-        pixelXPos = x;
-        pixelYPos = y;
+        myImageView.setTranslateX(x);
+        myImageView.setTranslateY(y);
+        myImageView.setRotate(direction);
         this.displayDirection = direction;
         //TODO: CALCULATE GRID POSITION FROM THIS
 
@@ -71,12 +78,10 @@ public class MapFeature {
 
     }
     public TransferImageView getImageView() {
-        //throw exception if not defined
+        //TODO: throw exception if not defined
         myImageView.setFitHeight(view.getHeight());
         myImageView.setFitWidth(view.getWidth());
-        myImageView.setX(pixelXPos);
-        myImageView.setY(pixelYPos);
-        myImageView.setRotate(displayDirection);
+
         return myImageView;
 
 

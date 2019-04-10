@@ -3,6 +3,7 @@ package Configs.ArsenalConfig;
 import ActiveConfigs.ActiveWeapon;
 import Configs.Configurable.Configure;
 import Configs.Configuration;
+import Configs.ImmutableImageView;
 import Configs.Info;
 import Configs.LevelPackage.Level;
 import Configs.MapFeature;
@@ -63,8 +64,10 @@ public class Arsenal {
 
     //TODO: ALLOW CHANGE OF DIRECTION
 //    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
-    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY){
-    WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID];
-        return new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()));
+    public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()));
+        myLevel.getGame().getActiveLevel().addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
     }
 }
