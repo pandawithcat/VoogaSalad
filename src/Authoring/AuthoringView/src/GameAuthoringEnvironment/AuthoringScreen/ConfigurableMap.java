@@ -1,7 +1,12 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.Configuration;
+import Configs.MapPackage.MapConfig;
+import Configs.MapPackage.Terrain;
+import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -13,24 +18,21 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigurableMap {
-    private GridPane map;
+    Map<String, Object> passedMap;
+    List<TerrainTile> terrainTileList;
+    GridPane map;
     private ListView<String> tileView = new ListView<>();
     private String currentTile = "Grass";
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
     private String grassTileImage="grass.jpg";
-    private VBox layout;
+    VBox layout;
     private final int tileViewWidth = 150;
     private final int tileViewHeight = 400;
-    private Map<String, Object> myAttributesMap;
-
-    public ConfigurableMap(Map<String, Object> myMap){
-        myAttributesMap = myMap;
-    }
-
 
 
     public void setConfigurations(){
@@ -65,7 +67,9 @@ public class ConfigurableMap {
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
-                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile),r,c);
+                TerrainTile myTile = new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile);
+
+                map.add(myTile,r,c);
                 //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
@@ -91,13 +95,55 @@ public class ConfigurableMap {
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-
+                terrainTileList=new ArrayList<>();
+                List<Terrain> tileList = new ArrayList<>();
+                for(Node child: map.getChildren()){
+                    terrainTileList.add((TerrainTile) child);
+                }
+                MapConfig m = new MapConfig();
+                Configuration c = m.getConfiguration();
+                for(TerrainTile t : terrainTileList){
+                    Terrain tile = new Terrain(m,t.getImageView(),t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+                    tileList.add(tile);
+                }
+                passedMap=new HashMap<>();
+                passedMap.put("myTerrain",tileList);
+                passedMap.put("enemyEnteringGridXPos", 0);
+                passedMap.put("enemyEnteringGridYPos", 0);
+                passedMap.put("enemyEnteringDirection",90);
+                passedMap.put("gridHeight",map.getHeight());
+                passedMap.put("gridWidth",map.getWidth());
+                c.setAllAttributes(passedMap);
             }
         });
         layout.getChildren().add(subButton);
 
     }
 
+    //    private void addSizeLabel(){
+//
+//        TextField txt = new TextField();
+//        txt.setPromptText("Size of Tile to Modify");
+//        Button sub = new Button("Submit");
+//        Label lab = new Label();
+//
+//        sub.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                if(txt.getText()!=null&&!txt.getText().isEmpty()&&Integer.parseInt(txt.getText())<6){
+//                    modTileSize=Integer.parseInt(txt.getText());
+//                    lab.setText("");
+//                    System.out.println(modTileSize);
+//                }
+//                else{
+//                    lab.setText("Invalid Input");
+//                }
+//
+//            }
+//        });
+//        .addRow(3,txt,sub);
+//
+//    }
     private void addGridEvent(){
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -118,10 +164,14 @@ public class ConfigurableMap {
 
         System.out.println(col);
         System.out.println(row);
+
         source.changeImage(currentTile);
+
+
+
+
 
 
     }
 
 }
-
