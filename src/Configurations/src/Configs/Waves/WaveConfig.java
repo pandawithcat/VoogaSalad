@@ -16,10 +16,14 @@ public class WaveConfig implements  Configurable {
 //    @Configure
 //    private Behavior<WaveConfig>[] myWaveBehaviors;
 
+    private Configuration myConfiguration;
+
 
 
     public WaveConfig(Level level) {
         myLevel = level;
+        myConfiguration = new Configuration(this);
+
     }
 
     public WaveConfig(WaveConfig waveConfig) {
@@ -48,6 +52,6 @@ public class WaveConfig implements  Configurable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

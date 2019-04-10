@@ -74,7 +74,7 @@ public class Logic {
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
-//    public Map<Integer,Info> getArsenal(){
+//    public Map<Integer,Info> getMyArsenal(){
 //
 //    }
 

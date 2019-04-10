@@ -6,11 +6,14 @@ import Configs.EnemyPackage.EnemyConfig;
 
 public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
+    private Cell[][] activeMapGrid;
+    ActiveLevel myLevel;
 
 
     public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature) {
         super(enemyConfig);
         myMapFeature = mapFeature;
+        myLevel = getMyWaveConfig().getMyLevel().getGame().getActiveLevel();
     }
 
 
@@ -23,11 +26,17 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     @Override
     public void update(long ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
-        //dont forget to update state to 1 or 2(died) in myMapFeature
+//        if
+        //dont forget to update state to PRESENT or DIED in myMapFeature
+        myMapFeature.setDisplayState(DisplayState.PRESENT);
+        getUnitSpeed();
 
 
 
     }
 
+    public void killMe(){
+        myMapFeature.setDisplayState(DisplayState.DIED);
+    }
 
 }

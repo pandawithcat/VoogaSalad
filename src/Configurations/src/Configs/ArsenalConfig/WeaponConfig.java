@@ -3,9 +3,6 @@ package Configs.ArsenalConfig;
 import Configs.*;
 import Configs.Behaviors.Behavior;
 
-import java.util.List;
-import java.util.Map;
-
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
@@ -21,12 +18,12 @@ public class WeaponConfig implements  Configurable, Viewable {
     @Configure
     private boolean unlocked;
 
-    private Arsenal arsenal;
+    private Arsenal myArsenal;
     private int weaponId;
 
-    public WeaponConfig(Arsenal arsenal) {
+    public WeaponConfig(Arsenal myArsenal) {
         myConfiguration=new Configuration(this);
-        this.arsenal = arsenal;
+        this.myArsenal = myArsenal;
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
@@ -65,7 +62,7 @@ public class WeaponConfig implements  Configurable, Viewable {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
     }
 
-    public Arsenal getArsenal() {
-        return arsenal;
+    public Arsenal getMyArsenal() {
+        return myArsenal;
     }
 }

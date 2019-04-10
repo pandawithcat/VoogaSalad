@@ -36,7 +36,7 @@ public class View implements Configurable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     //    public View(String imageName, int x, int y, int width, int height){

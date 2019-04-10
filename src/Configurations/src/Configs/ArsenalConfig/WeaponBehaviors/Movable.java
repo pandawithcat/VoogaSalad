@@ -12,9 +12,11 @@ public class Movable extends WeaponBehavior{
     private double movingSpeed;
     @Configure
     private List<Point> movingPattern;
+    private Configuration myConfiguration;
 
     public Movable(WeaponConfig weaponConfig){
         super(weaponConfig);
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -24,6 +26,6 @@ public class Movable extends WeaponBehavior{
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

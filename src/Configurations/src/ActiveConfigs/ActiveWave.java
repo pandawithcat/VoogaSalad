@@ -1,28 +1,34 @@
 package ActiveConfigs;
 
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.GamePackage.Game;
 import Configs.MapFeaturable;
 import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
 
-public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
+
+public class ActiveWave extends WaveConfig implements Updatable {
     private long[] startTimes;
     private int currentEnemyIndex = 0;
     private boolean isFinished = false;
-    private MapFeature myMapFeature;
+    private ActiveLevel myActiveLevel;
 
-    public ActiveWave(WaveConfig waveConfig, MapFeature mapFeature) {
+    public ActiveWave(WaveConfig waveConfig, ActiveLevel activeLevel) {
         super(waveConfig);
-        myMapFeature = mapFeature;
+        myActiveLevel = activeLevel;
 
     }
 
 
-    public boolean getIsFinished() {
+    public boolean isFinished() {
         return isFinished;
     }
 
+
+    public ActiveLevel getMyActiveLevel() {
+        return myActiveLevel;
+    }
 
     @Override
     public void update(long ms) {
@@ -36,12 +42,12 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
         }
         if(currentEnemyIndex<getEnemies().length) {
             while(startTimes[currentEnemyIndex]>=ms) {
-                int x = getMyLevel().getMyMap().getEnemyEnteringGridXPos();
-                int y = getMyLevel().getMyMap().getEnemyEnteringGridYPos();
-                int direction = getMyLevel().getMyMap().getEnemyEnteringDirection();
+                int x = myActiveLevel.getMyMap().getEnemyEnteringGridXPos();
+                int y = myActiveLevel.getMyMap().getEnemyEnteringGridYPos();
+                int direction = myActiveLevel.getMyMap().getEnemyEnteringDirection();
                 EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
                 MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView());
-                getMyLevel().getParent().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);
+                getMyLevel().getGame().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);
 
                 currentEnemyIndex++;
             }
@@ -49,12 +55,8 @@ public class ActiveWave extends WaveConfig implements Updatable, MapFeaturable {
         else {
             isFinished = true;
         }
-//        ArrayAttributeManager.updateList(myWaveBehaviors, ms);
 
+//        ArrayAttributeManager.updateArray(myWaveBehaviors, ms);
     }
 
-    @Override
-    public MapFeature getMapFeature() {
-        return myMapFeature;
-    }
 }
