@@ -142,6 +142,10 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature));
     }
 
+    public void addToActiveWeapons(ActiveWeapon activeWeapon) {
+        activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+    }
+
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
 //        activeWeapons.remove(activeWeapon);
 //    }
