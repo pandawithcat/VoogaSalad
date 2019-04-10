@@ -7,9 +7,11 @@ import Configs.MapPackage.Terrain;
 import java.util.List;
 
 public class Cell {
+
     private ActiveWeapon myWeaponConfig;
     private Terrain myTerrain;
     private List<ActiveEnemy> myEnemies;
+    private int movementHeuristic;
 
     public ActiveWeapon getMyWeaponConfig() {
         return myWeaponConfig;
@@ -35,3 +37,4 @@ public class Cell {
         this.myEnemies = myEnemies;
     }
 }
+

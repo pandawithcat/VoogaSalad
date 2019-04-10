@@ -7,25 +7,22 @@ import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Game implements Updatable, EventHandlable, Configurable {
 
     private Configuration myConfiguration;
 
     @Configure
-    protected Level[] levelList;
+    private Level[] levelList;
     @Configure
-    protected Behavior<Game>[] gameType;
+    private Behavior<Game>[] gameType;
     @Configure
-    protected WeaponConfig[] allWeaponConfigs;
+    private WeaponConfig[] allWeaponConfigs;
     @Configure
-    protected String myTitle;
+    private String myTitle;
     @Configure
-    protected String myDescription;
+    private String myDescription;
     @Configure
-    protected String myThumbnail;
+    private String myThumbnail;
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;
@@ -35,6 +32,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     public Game(){
         myConfiguration = new Configuration(this);
         gameOver = false;
+        currentLevelNumber=0;
     }
 
     @Override
@@ -51,9 +49,13 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return currentLevelOver;
     }
 
-    public void startGame(int startingLevel) {
-        currentLevelNumber = startingLevel;
-        currentLevelOver = false;
+
+    public void startGame(int levelNumber) throws IllegalStateException{
+        if(levelNumber>=levelList.length) {
+            throw new IllegalStateException();
+        }
+        currentLevelNumber = levelNumber;
+
     }
 
     public int startNextLevel() throws IllegalStateException{
@@ -62,6 +64,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelOver = false;
         return currentLevelNumber;
     }
+
 
     @Override
     public void handleEvent(Event e) {

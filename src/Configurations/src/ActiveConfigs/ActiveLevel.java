@@ -26,24 +26,21 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
+        activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
+        //TODO: create myGrid
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
-        activeWave = new ActiveWave(myWaveConfigs[0], this);
         myGrid = createMyGrid();
     }
     private Cell[][] createMyGrid(){
-        Cell[][] tempGrid = new Cell[myMap.getGridHeight()][myMap.getGridWidth()];
-        for(Terrain t : myMap.getTerrain()){
+        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
+        for(Terrain t : getMyMapConfig().getTerrain()){
             tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
         }
         return null;
     }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
-    }
-
-    public Arsenal getMyArsenal() {
-        return myArsenal;
     }
 
     @Override
@@ -71,7 +68,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void generateCurrentActiveWave(){
-        activeWave = new ActiveWave(myWaveConfigs[currentWave], this);
+        activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
     }
 
     private void updateProjectiles(long ms){
@@ -118,10 +115,19 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     //TODO: EventHandler for adding new weapon to map
+    public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), this);
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
+
     //TODO  add EventHandler for isValid
 
+
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
-        activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
+        activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
 //
 //    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
@@ -139,7 +145,12 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature));
+        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature, this));
+        recalculateMovementHeuristic();
+    }
+
+    private void recalculateMovementHeuristic(){
+        getMyMapConfig();
     }
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {

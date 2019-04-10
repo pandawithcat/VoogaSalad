@@ -20,10 +20,12 @@ public class Terrain implements MapFeaturable{
 
     private MapFeature myMapFeature;
     private View view;
+    private boolean isPath;
 
-    public Terrain(int gridXPos, int gridYPos, File imgFile, double height, double width){
+    public Terrain(int gridXPos, int gridYPos, File imgFile, double height, double width, boolean isPath){
         view = new View(imgFile, height, width);
         myMapFeature = new MapFeature(gridXPos,gridYPos,0,view);
+        this.isPath = isPath;
 
 //        myConfiguration = new Configuration(this);
     }

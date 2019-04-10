@@ -8,18 +8,17 @@ import java.util.Map;
 
 public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
+    private ActiveLevel myActiveLevel;
 
-    public ActiveWeapon(WeaponConfig weaponConfig, MapFeature mapFeature) {
+    public ActiveWeapon(WeaponConfig weaponConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
         super(weaponConfig);
         myMapFeature = mapFeature;
+        myActiveLevel = activeLevel;
     }
 
     @Override
     public void update(long ms) {
-
-
-
-        Arrays.stream(behaviors).forEach(b -> b.update(ms));
+        Arrays.stream(getBehaviors()).forEach(b -> b.update(ms));
 
         updateWeaponDisplayState();
 
