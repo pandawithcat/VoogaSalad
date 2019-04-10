@@ -81,7 +81,7 @@ public class Configuration {
         }
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
-                field.get();
+//                field.get();
                 break;
             }
         }
