@@ -3,11 +3,9 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 
-import java.util.List;
-
 public class AmmoExpirable extends WeaponBehavior {
     @Configure
-    int numberOfEnemiesPossibleToKill;
+    protected int numberOfEnemiesPossibleToKill;
 
     private Configuration myConfiguration;
 

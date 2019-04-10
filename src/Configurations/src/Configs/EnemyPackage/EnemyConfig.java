@@ -7,13 +7,13 @@ import Configs.Waves.WaveConfig;
 import java.util.List;
 
 public class EnemyConfig implements Configurable, Viewable {
-    private WaveConfig myWaveConfig;
+    protected WaveConfig myWaveConfig;
     @Configure
-    private Behavior<EnemyConfig>[] myBehaviors;
+    protected Behavior<EnemyConfig>[] myBehaviors;
     @Configure
-    private int unitSpeed;
+    protected int unitSpeed;
     @Configure
-    private View view;
+    protected View view;
     private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {
@@ -25,7 +25,7 @@ public class EnemyConfig implements Configurable, Viewable {
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
-        myWaveConfig = enemyConfig.getMyWaveConfig();
+        myWaveConfig = enemyConfig.myWaveConfig;
         unitSpeed = enemyConfig.unitSpeed;
         view = enemyConfig.getView();
     }
@@ -52,7 +52,7 @@ public class EnemyConfig implements Configurable, Viewable {
         return myConfiguration;
     }
 
-    public WaveConfig getMyWaveConfig() {
-        return myWaveConfig;
-    }
+//    public WaveConfig getMyWaveConfig() {
+//        return myWaveConfig;
+//    }
 }

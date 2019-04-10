@@ -13,7 +13,7 @@ import java.util.*;
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal {
     @Configure
-    private WeaponConfig[] allWeaponConfigOptions;
+    protected WeaponConfig[] allWeaponConfigOptions;
 
     private Configuration myConfiguration;
     private Level myLevel;

@@ -16,7 +16,7 @@ public class Shooter extends ShooterConfig implements Updatable {
     public void update(long ms) {
         //only shooting radially rn
         if(ms%getRateOfFire()==0) {
-            ActiveLevel myActiveLevel = getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getGame().getActiveLevel();
+            ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getGame().getActiveLevel();
             int weaponId = getMyShootable().getWeaponConfig().getWeaponId();
             MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();

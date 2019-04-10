@@ -1,9 +1,11 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
+import Configs.MapPackage.Terrain;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,7 +18,6 @@ public class ActiveLevel extends Level implements Updatable {
     private ActiveWave activeWave;
     private Cell[][] myGrid;
     private int myScore;
-    private MapFeature myMapFeature;
     private int currentWave=0;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
@@ -27,12 +28,22 @@ public class ActiveLevel extends Level implements Updatable {
         generateCurrentActiveWave();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
-        activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
+        activeWave = new ActiveWave(myWaveConfigs[0], this);
+        myGrid = createMyGrid();
     }
-
+    private Cell[][] createMyGrid(){
+        Cell[][] tempGrid = new Cell[myMap.getGridHeight()][myMap.getGridWidth()];
+        for(Terrain t : myMap.getTerrain()){
+            tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
+        }
+        return null;
+    }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
+    }
+
+    public Arsenal getMyArsenal() {
+        return myArsenal;
     }
 
     @Override
@@ -60,7 +71,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void generateCurrentActiveWave(){
-        activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
+        activeWave = new ActiveWave(myWaveConfigs[currentWave], this);
     }
 
     private void updateProjectiles(long ms){
