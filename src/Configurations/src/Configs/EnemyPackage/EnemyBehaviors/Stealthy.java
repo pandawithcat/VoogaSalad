@@ -8,6 +8,8 @@ import Configs.ProjectilePackage.ProjectileConfig;
 
 public class Stealthy extends EnemyBehavior{
     @Configure
+    private String myLabel;
+    @Configure
     ProjectileConfig[] projectilesThatCanAttackMe;
     private Configuration myConfiguration;
 
@@ -19,6 +21,11 @@ public class Stealthy extends EnemyBehavior{
     @Override
     public void update(long ms) {
 
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override
