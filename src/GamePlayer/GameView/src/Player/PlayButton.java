@@ -1,10 +1,19 @@
 package Player;
 
 import javafx.scene.control.Button;
-public class PlayButton extends Button {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+public class PlayButton extends Button {
+    private String icon = "playButton1.png";
+    private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(icon));
+    private ImageView imageView = new ImageView(image);
     public PlayButton(double width, double height){
+        imageView.setFitWidth(width/2);
+        imageView.setFitHeight(height);
+        setGraphic(imageView);
         setPrefWidth(width);
+        setId("playButton");
         System.out.println(width);
         setPrefHeight(height);
     }

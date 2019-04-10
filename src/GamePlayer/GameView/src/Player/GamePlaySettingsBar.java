@@ -12,7 +12,10 @@ public class GamePlaySettingsBar extends HBox {
 
     public GamePlaySettingsBar(double width, double height){
         setPrefHeight(height);
+        setId("HUD");
         setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
+
+
         Label score = new Label("Score: ");
         score.setPrefWidth(width/3);
         Label lives = new Label("Lives: ");

@@ -14,3 +14,24 @@
             linear-gradient(#ffffd8 0%, #f7f8cd 50%, #eeeab1 100%),
             linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
 }
+
+#playButton{
+    -fx-background-color:
+            linear-gradient(#3bff2c, #1be663),
+            linear-gradient(#1eff30, #34f239),
+            linear-gradient(#5cff0a, #70ef58),
+            linear-gradient(#3cff2e 0%, #51f84d 50%, #16ee9e 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(39, 255, 50, 0.9), rgba(255,255,255,0));
+}
+#fastFowardButton{
+    -fx-background-color:
+            linear-gradient(#2931ff, #68b2e6),
+            linear-gradient(#5694ff, #e1eaf2),
+            linear-gradient(#221fff, #4953ef),
+            linear-gradient(#b4d6ff 0%, #542ff8 50%, #1c35ee 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(78, 68, 255, 0.9), rgba(255,255,255,0));
+}
+
+#HUD{
+    -fx-background-image: url("wood.jpg");
+}
