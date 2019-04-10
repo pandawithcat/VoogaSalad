@@ -6,9 +6,10 @@ import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
     @Configure
-    Shooter myShooter;
+    protected Shooter myShooter;
 
     Configuration myConfiguration;
+    private WeaponConfig weaponConfig;
 
     Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -23,5 +24,9 @@ public class Shootable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    public WeaponConfig getWeaponConfig() {
+        return weaponConfig;
     }
 }

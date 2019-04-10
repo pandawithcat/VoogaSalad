@@ -56,8 +56,8 @@ Splash Screen{
 
 Build Phase{
 	Load map of current level ();
-	Load arsenal of current level, with appropriate things highlighted and not();
-	Show enemy path to user();
+	Load myArsenal of current level, with appropriate things highlighted and not();
+	Show enemyConfig path to user();
 	Allow for setup();
 	Mouse event handler()
 		On drag and drop, add elements (weapons most probably) to the map();
@@ -75,7 +75,7 @@ Game Run Phase{
 		Move active enemies to new location based on movement algorithm();  —Kunal
 		make sure they’re not hitting walls, etc
 		Check if any active enemies have reached the exit and update the game accordingly();
-		Check to see if this is the correct time to place a new enemy at the entrance point();
+		Check to see if this is the correct time to place a new enemyConfig at the entrance point();
 	Check if any enemies are dead, remove from screen if so();
 	Update all active projectiles and weapons to see if they’re hitting any enemies or walls();
 		If hitting something, update that something, update score();

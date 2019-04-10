@@ -1,8 +1,11 @@
 module Configurations {
     requires java.desktop;
     requires javafx.graphics;
+
     requires xstream;
+    opens Configs to xstream;
     exports Configs;
+    
     exports Configs.ArsenalConfig.WeaponBehaviors;
     exports Configs.ArsenalConfig;
     exports Configs.Behaviors;
@@ -18,13 +21,5 @@ module Configurations {
     exports Configs.ProjectilePackage;
     exports Configs.Waves.WaveBehaviors;
     exports Configs.Waves;
-
-
-
-
-
-
-
-
-
+    exports ActiveConfigs;
 }

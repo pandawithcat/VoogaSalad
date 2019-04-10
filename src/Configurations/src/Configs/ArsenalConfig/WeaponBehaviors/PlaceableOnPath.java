@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class PlaceableOnPath extends WeaponBehavior {
     @Configure
-    int rangeOnPath;
+    protected int rangeOnPath;
 
     Configuration myConfiguration;
 

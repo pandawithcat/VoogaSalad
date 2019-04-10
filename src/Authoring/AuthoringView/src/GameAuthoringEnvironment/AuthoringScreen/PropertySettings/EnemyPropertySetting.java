@@ -26,7 +26,7 @@ public class EnemyPropertySetting{
         popupwindow = new Stage();
         myEnemiesEditor = enemiesEditor;
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("Enemy Property Setting");
+        popupwindow.setTitle("EnemyConfig Property Setting");
 
         nameLabel = new Label("Arsenal Name");
         nameTf = new TextField();
@@ -34,9 +34,9 @@ public class EnemyPropertySetting{
         healthLabel = new Label("Arsenal Price");
         healthTf = new TextField();
 
-        MenuButton projectile = new MenuButton("Choose Enemy");
-        MenuButton projectileSpeed = new MenuButton("Choose Enemy Speed");
-        MenuButton health = new MenuButton("Choose Enemy Health");
+        MenuButton projectile = new MenuButton("Choose EnemyConfig");
+        MenuButton projectileSpeed = new MenuButton("Choose EnemyConfig Speed");
+        MenuButton health = new MenuButton("Choose EnemyConfig Health");
 
 
 

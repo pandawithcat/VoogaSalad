@@ -4,23 +4,29 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.nio.file.Path;
 //import java.awt.*;
 
 public class View implements Configurable {
-    private TransferImageView myImageView;
     private Configuration myConfiguration;
 
     @XStreamOmitField
     @Configure
-    private Path imagePath;
+    protected File imagePath;
+//    @Configure
+//    private String imageName;
     @Configure
-    private String imageName;
+    protected double width;
     @Configure
-    private double width;
-    @Configure
-    private double height;
+    protected double height;
 
+    //this constructor is for the special case for the terrain blocks in the map
+    public View(File file, double width, double height) {
+        imagePath = file;
+        this.width = width;
+        this.height = height;
+    }
 
 
     public View(Configurable configurableParent) {
@@ -30,7 +36,7 @@ public class View implements Configurable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     //    public View(String imageName, int x, int y, int width, int height){
@@ -43,10 +49,17 @@ public class View implements Configurable {
 //        myImageView.getFitWidth();
 //    }
 
-    //TODO: grid or pixel
-    public void updatePosition(int gridXPos, int gridYPos) {
-
+    public double getWidth() {
+        return width;
     }
+    public double getHeight() {
+        return height;
+    }
+    public String getImage() {
+        return imagePath.toString();
+    }
+
+
 
 
 }

@@ -25,7 +25,7 @@ public class EnemiesEditor extends Screen {
     private ListView<Enemy> sourceView = new ListView<>();
     private ListView<Enemy> targetView = new ListView<>();
     private TextArea loggingArea = new TextArea("");
-    private static final DataFormat Enemy_LIST = new DataFormat("Enemy List");
+    private static final DataFormat Enemy_LIST = new DataFormat("EnemyConfig List");
 
     public EnemiesEditor(Group myRoot, int width, int height, String moduleName){
         super(myRoot, width, height, moduleName, true);
@@ -48,7 +48,7 @@ public class EnemiesEditor extends Screen {
         return sourceView;
     }
 
-    //TODO put Enemy as an argument
+    //TODO put EnemyConfig as an argument
     public void addEnemies(Enemy Enemy) {
         EnemyList.addAll(Enemy);
     }
@@ -58,12 +58,16 @@ public class EnemiesEditor extends Screen {
     }
 
     //TODO getter function
+<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Editors/EnemiesEditor.java
   */
 /*  public ObservableList<Enemy> getAllEnemyList(){
+=======
+  /*  public ObservableList<EnemyConfig> getAllEnemyList(){
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/Editors/EnemiesEditor.java
 
     }
 
-    public ObservableList<Enemy> getSelectedEnemyList(){
+    public ObservableList<EnemyConfig> getSelectedEnemyList(){
 
     }*//*
 
@@ -225,7 +229,7 @@ public class EnemiesEditor extends Screen {
     }
 
     private void removeSelectedEnemies(ListView<Enemy> listView) {
-        // Get all selected Enemy in a separate list to avoid the shared list issue
+        // Get all selected EnemyConfig in a separate list to avoid the shared list issue
         List<Enemy> selectedList = new ArrayList<>();
 
         for (Enemy Enemy : listView.getSelectionModel().getSelectedItems()) {
