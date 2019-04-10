@@ -27,7 +27,6 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
-        //TODO: create myGrid
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();

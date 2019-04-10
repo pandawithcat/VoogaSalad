@@ -8,6 +8,10 @@ import java.util.List;
 
 public class Cell {
 
+    public Cell(){
+
+    }
+
     private ActiveWeapon myWeaponConfig;
     private Terrain myTerrain;
     private List<ActiveEnemy> myEnemies;
