@@ -52,7 +52,6 @@ public class LoadingSplashScreen extends Application{
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
-
         root.getChildren().add(createWelcomeMusic());
         root.getChildren().add(createLogoBackground());
         Button start = createStartButton("shiny-yelow", "Start", 0, 100);

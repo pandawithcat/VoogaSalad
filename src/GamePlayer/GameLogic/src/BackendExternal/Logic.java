@@ -36,6 +36,10 @@ public class Logic {
 
     }
 
+    public void forTesting() {
+        myGame = new Game();
+        myGame.getActiveLevel();
+    }
 
     // View will call this first to get the name and thumbnail file name of each game
     // No Input
