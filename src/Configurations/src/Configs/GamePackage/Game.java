@@ -49,17 +49,20 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return currentLevelOver;
     }
 
+
     public void startGame(int levelNumber) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
         currentLevelNumber = levelNumber;
+
     }
 
-    public void startNextLevel() throws IllegalStateException{
+    public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         currentLevelNumber++;
         currentLevelOver = false;
+        return currentLevelNumber;
     }
 
 
