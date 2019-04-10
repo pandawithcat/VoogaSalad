@@ -16,6 +16,7 @@ public class TerrainTile extends ImageView {
         this.setFitWidth(20);
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
+        isPath=false;
 
 
 //        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -60,14 +61,17 @@ public class TerrainTile extends ImageView {
 
     public void changeToGrass(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
+        isPath=false;
     }
 
     public void changeToWater(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
+        isPath=true;
 
     }
     public void changeToDirt(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
+        isPath=true;
     }
 
 }
