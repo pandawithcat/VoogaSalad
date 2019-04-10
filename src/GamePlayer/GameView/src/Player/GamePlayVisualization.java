@@ -52,8 +52,8 @@ public class GamePlayVisualization extends Application {
     }
 
     private void step(double elapsedTime){
-        myLogic.update(elapsedTime);
-        myLogic.checkIfLevelEnd();
+//        myLogic.update(elapsedTime);
+//        myLogic.checkIfLevelEnd();
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
         //TODO: changelistener for dragging objects

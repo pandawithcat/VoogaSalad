@@ -1,26 +1,60 @@
 package Configs.MapPackage;
 
-import Configs.ArsenalConfig.Weapon;
+import Configs.Configurable;
+import Configs.Configuration;
+import Configs.MapPackage.Terrain;
 
 import java.util.List;
 
-public class MapConfig {
-    private Cell[][] myMapGrid;
+public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
+    @Configure
     private List<Terrain> myTerrain;
+    @Configure
+    private int enemyEnteringGridXPos;
+    @Configure
+    private int enemyEnteringGridYPos;
+    @Configure
+    private int enemyEnteringDirection;
+    @Configure
+    private int gridHeight;
+    @Configure
+    private int gridWidth;
+    @Configure
+    protected double gridPixelWidth;
+    @Configure
+    protected double gridPixelHeight;
 
-    public Cell[][] getMapGrid() {
-        return myMapGrid;
-    }
+    private Configuration configuration;
 
     public List<Terrain> getTerrain() {
         return myTerrain;
     }
 
-   //This might have to use a weapon ID
 
-    public boolean isValid(int x, int y, Weapon w){
-        return true;
+    @Override
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public int getEnemyEnteringDirection() {
+        return enemyEnteringDirection;
+    }
+
+    public int getEnemyEnteringGridXPos() {
+        return enemyEnteringGridXPos;
+    }
+
+    public int getEnemyEnteringGridYPos() {
+        return enemyEnteringGridYPos;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
     }
 
     public void setTerrainList(List<Terrain> terrain) {

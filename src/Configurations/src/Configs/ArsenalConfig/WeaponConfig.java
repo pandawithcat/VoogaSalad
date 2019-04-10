@@ -4,23 +4,13 @@ import Configs.*;
 import Configs.Behaviors.Behavior;
 
 
-<<<<<<< HEAD:src/Configurations/src/Configs/ArsenalConfig/Weapon.java
-
-public class Weapon implements  Configurable, Viewable, Updatable {
-=======
 public class WeaponConfig implements  Configurable, Viewable {
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java
     Configuration myConfiguration;
     @Configure
     private String name;
     @Configure
-    private Behavior<Weapon>[] behaviors;
+    private Behavior<WeaponConfig>[] behaviors;
     @Configure
-<<<<<<< HEAD:src/Configurations/src/Configs/ArsenalConfig/Weapon.java
-    private View myView;
-
-    public Weapon() {
-=======
     private View view;
     //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
@@ -30,7 +20,6 @@ public class WeaponConfig implements  Configurable, Viewable {
     private int weaponId;
 
     public WeaponConfig(Arsenal myArsenal) {
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java
         myConfiguration=new Configuration(this);
         this.myArsenal = myArsenal;
     }
@@ -49,32 +38,23 @@ public class WeaponConfig implements  Configurable, Viewable {
         return weaponId;
     }
 
-
-<<<<<<< HEAD:src/Configurations/src/Configs/ArsenalConfig/Weapon.java
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
-
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
-=======
+    }
+
     public String getName() {
         return name;
     }
 
     public Behavior<WeaponConfig>[] getBehaviors() {
         return behaviors;
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java
     }
 
     @Override
     public View getView() {
         return view;
     }
-<<<<<<< HEAD:src/Configurations/src/Configs/ArsenalConfig/Weapon.java
-=======
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
@@ -83,5 +63,4 @@ public class WeaponConfig implements  Configurable, Viewable {
     public Arsenal getMyArsenal() {
         return myArsenal;
     }
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java
 }

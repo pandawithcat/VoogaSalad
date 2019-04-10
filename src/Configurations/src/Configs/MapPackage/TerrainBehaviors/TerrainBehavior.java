@@ -1,6 +1,5 @@
 package Configs.MapPackage.TerrainBehaviors;
 
-import Configs.ArsenalConfig.Weapon;
 import Configs.MapPackage.Terrain;
 
 public abstract class TerrainBehavior {

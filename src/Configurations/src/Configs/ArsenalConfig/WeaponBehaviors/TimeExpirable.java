@@ -1,8 +1,8 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
-import Configs.View;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ImmutableImageView;
+import Configs.ArsenalConfig.WeaponConfig;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ public class TimeExpirable extends WeaponBehavior{
 
     Configuration myConfiguration;
 
-    public TimeExpirable(Weapon weapon){
-        super(weapon);
+    public TimeExpirable(WeaponConfig weaponConfig){
+        super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 
@@ -26,12 +26,4 @@ public class TimeExpirable extends WeaponBehavior{
     public Configuration getConfiguration() {
         return myConfiguration;
     }
-<<<<<<< HEAD
-
-    @Override
-    public List<View> getViews() {
-        return null;
-    }
-=======
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 }
