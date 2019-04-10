@@ -1,6 +1,6 @@
-package GameAuthoringEnvironment.AuthoringScreen.main;
+package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringComponents.CloseButton;
+import GameAuthoringEnvironment.AuthoringComponents.Buttons.CloseButton;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -47,10 +47,6 @@ public abstract class Screen {
     private void setResizable(boolean isResizable){
 
     }
-
-
-
-    public abstract void setContent();
 
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();

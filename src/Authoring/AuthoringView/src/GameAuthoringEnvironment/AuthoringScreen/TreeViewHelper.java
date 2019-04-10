@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.main;
+package GameAuthoringEnvironment.AuthoringScreen;
 
 import javafx.scene.control.TreeItem;
 

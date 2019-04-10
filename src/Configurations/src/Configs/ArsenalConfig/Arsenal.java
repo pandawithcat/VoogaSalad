@@ -49,15 +49,6 @@ public class Arsenal {
 
     }
 
-    //TODO: FOR SECOND SPRINT - UNLOCKABLES
-//    public List<WeaponConfig> getUnlockedWeapons() {
-//        return Collections.unmodifiableList(unlockedWeapons);
-//    }
-
-//    public void unlockWeapon(String name){
-//        //make a weapon unlocked
-//    }
-
     public WeaponConfig[] getConfiguredWeapons() {
         return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
     }
