@@ -5,10 +5,12 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -18,8 +20,8 @@ public class GamePlayVisualization extends Application {
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
-    private double screenWidth = 1000;
-    private double screenHeight = 600;
+    private double screenWidth;
+    private double screenHeight;
     private static final int padding = 15;
     private Logic myLogic;
     private Timeline animation = new Timeline();
@@ -34,6 +36,11 @@ public class GamePlayVisualization extends Application {
         try {
             Stage primaryStage = stage;
             var root = new Group();
+            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            primaryStage.setX(screenWidth);
+            primaryStage.setY(screenHeight);
+            screenWidth = primScreenBounds.getWidth();
+            screenHeight = primScreenBounds.getHeight();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
             root.getChildren().add(myGameIDE);
@@ -52,8 +59,8 @@ public class GamePlayVisualization extends Application {
     }
 
     private void step(double elapsedTime){
-        myLogic.update(elapsedTime);
-        myLogic.checkIfLevelEnd();
+//        myLogic.update(elapsedTime);
+//        myLogic.checkIfLevelEnd();
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
         //TODO: changelistener for dragging objects

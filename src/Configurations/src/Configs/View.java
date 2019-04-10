@@ -3,7 +3,10 @@ package Configs;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+<<<<<<< HEAD
 
+=======
+>>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
 
 import java.io.File;
 import java.nio.file.Path;
@@ -59,6 +62,7 @@ public class View implements Configurable {
     public String getImage() {
         return imagePath.toString();
     }
+
 
 
 

@@ -1,10 +1,5 @@
 package Configs.ArsenalConfig;
 
-<<<<<<< HEAD
-import Configs.Configurable;
-import Configs.LevelPackage.Level;
-import Configs.ArsenalConfig.Weapon;
-=======
 import ActiveConfigs.ActiveWeapon;
 import Configs.Configurable.Configure;
 import Configs.Configuration;
@@ -12,27 +7,12 @@ import Configs.ImmutableImageView;
 import Configs.Info;
 import Configs.LevelPackage.Level;
 import Configs.MapFeature;
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal {
-<<<<<<< HEAD
-    @Configurable.Configure
-    private Weapon[] allWeaponOptions;
-    private List<Weapon> unlockedWeapons;
-    private Level myLevel;
-
-    public Arsenal(Level level) {
-        myLevel = level;
-    }
-
-=======
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
 
@@ -66,32 +46,18 @@ public class Arsenal {
             myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
-    public List<Weapon> getAllWeaponOptions() {
-        return Collections.unmodifiableList(new ArrayList<>(Arrays.asList(allWeaponOptions)));
     }
 
-<<<<<<< HEAD
-    public List<Weapon> getUnlockedWeapons() {
-        return Collections.unmodifiableList(unlockedWeapons);
-    }
-=======
     //TODO: FOR SECOND SPRINT - UNLOCKABLES
 //    public List<WeaponConfig> getUnlockedWeapons() {
 //        return Collections.unmodifiableList(unlockedWeapons);
 //    }
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
 //    public void unlockWeapon(String name){
 //        //make a weapon unlocked
 //    }
 
-<<<<<<< HEAD
-    public Weapon generateNewWeapon(String name){
-        return null; //weaponOptions.get(name).copy();
-    }
-=======
     public WeaponConfig[] getConfiguredWeapons() {
         return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
     }
@@ -99,5 +65,4 @@ public class Arsenal {
     //TODO: ALLOW CHANGE OF DIRECTION
 //    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
 
->>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 }

@@ -63,4 +63,8 @@ public class WeaponConfig implements  Configurable, Viewable {
     public Arsenal getMyArsenal() {
         return myArsenal;
     }
+<<<<<<< HEAD:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java
 }
+=======
+}
+>>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef:src/Configurations/src/Configs/ArsenalConfig/WeaponConfig.java

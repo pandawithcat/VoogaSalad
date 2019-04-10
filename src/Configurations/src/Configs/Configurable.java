@@ -9,5 +9,8 @@ public interface Configurable {
 
 
     Configuration getConfiguration();
+<<<<<<< HEAD
 
+=======
+>>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
 }

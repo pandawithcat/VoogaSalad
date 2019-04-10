@@ -1,6 +1,7 @@
 module Configurations {
     requires java.desktop;
     requires javafx.graphics;
+
     requires xstream;
 
     opens Configs to xstream;
