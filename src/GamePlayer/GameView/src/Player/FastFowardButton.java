@@ -12,8 +12,8 @@ public class FastFowardButton extends Button {
         imageView.setFitWidth(width/2);
         imageView.setFitHeight(height);
         setGraphic(imageView);
-        setMinWidth(width);
-        setMinHeight(height);
+        setPrefWidth(width);
+        setPrefHeight(height);
         setId("fastFowardButton");
 
     }

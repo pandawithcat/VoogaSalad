@@ -7,6 +7,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class GamePlaySettingsBar extends HBox {
 
@@ -15,6 +16,8 @@ public class GamePlaySettingsBar extends HBox {
         setId("HUD");
         setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
 
+        Rectangle rect = new Rectangle(500,100);
+        rect.getStyleClass().add("my-rect");
 
         Label score = new Label("Score: ");
         score.setPrefWidth(width/3);

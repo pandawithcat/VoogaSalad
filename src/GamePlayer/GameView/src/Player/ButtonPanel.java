@@ -11,6 +11,7 @@ public class ButtonPanel extends VBox {
     private SettingsPanel mySettingsPanel;
 
     public ButtonPanel(double width, double height){
+        setPadding(new Insets(0, 0, 20, 0));
         setId("HUD");
         setSpacing(1);
         myPlayButton = new PlayButton(width, height* 0.4);
