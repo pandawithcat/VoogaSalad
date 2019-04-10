@@ -1,11 +1,18 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
+import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameBehaviors.GameBehavior;
+import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
+import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -90,7 +97,7 @@ public class GameController {
             }
             //handle single object
 
-            else if(!value.isArray() && value.getClass().isInstance(Configuration.class)){
+            else if(!value.isArray()){
 
                 Button myButton = new Button("Configure " + value.getSimpleName());
                 myButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
@@ -106,22 +113,9 @@ public class GameController {
                             else{
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
-                                if(object instanceof Behavior){
-                                    System.out.println("did it run dafd");
-                                    Behavior behavior = (Behavior) object;
-                                    List<Class> behaviorList = behavior.getBehaviorOptions();
-                                    MenuButton dropDown = new MenuButton("Choose Behavior");
-                                    for(int a=0; a<behaviorList.size(); a++){
-                                        MenuItem menuItem = new MenuItem(behaviorList.get(0).getSimpleName());
-                                        dropDown.getItems().add(menuItem);
-                                    }
-                                    layout.getChildren().add(dropDown);
-                                    System.out.println("did it run");
-                                }
-                                else{
+                                System.out.println("did it run dafdadfa");
                                     System.out.println(object.getClass());
                                     createConfigurable((Configurable) object);}
-                            }
                         } catch (Exception e) {}
 
                     }
@@ -167,10 +161,46 @@ public class GameController {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                                 if (mouseEvent.getClickCount() == 2) {
                                     try {
+                                        System.out.println(value.getComponentType().getName());
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
-                                        Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                                        var object = cons.newInstance(myConfigurable);
-                                        createConfigurable((Configurable) object);
+                                        List<Class> behaviorList = WeaponBehavior.IMPLEMENTING_BEHAVIORS;
+
+                                        if(!cl.getSimpleName().contains("Behavior")){
+                                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());;
+                                            var object = cons.newInstance(myConfigurable);
+                                            createConfigurable((Configurable) object);
+                                            }
+                                        else if(cl.getSimpleName().equals("WeaponBehavior") ){
+                                            behaviorList = WeaponBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+                                        else if (cl.getSimpleName().equals("EnemyBehavior") ){
+                                            behaviorList = EnemyBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+                                        else if (cl.getSimpleName().equals("GameBehavior") ){
+                                            behaviorList = GameBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+                                        else if (cl.getSimpleName().equals("LevelBehavior") ){
+                                            behaviorList = LevelBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+                                        else if (cl.getSimpleName().equals("TerrainBehavior") ){
+                                            behaviorList = TerrainBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+                                        else{
+                                            behaviorList = ProjectileBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }
+
+                                        /*else if (cl.getSimpleName().equals("ProjectileBehavior") ){
+                                            behaviorList = ProjectileBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }*/
+
+
+                                       /* else if (cl.getSimpleName().equals("ShooterBehavior") ){
+                                            behaviorList = ShooterBehavior.IMPLEMENTING_BEHAVIORS;
+                                        }*/
+
+                                       ConfigureBehavior configureBehavior = new ConfigureBehavior(myAttributesMap, behaviorList);
+                                       System.out.println("did it run");
+
                                     } catch (Exception e) {
 
                                     }
@@ -196,8 +226,17 @@ public class GameController {
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                popupwindow.close();
+                if(!myConfigurable.getConfiguration().isConfigurationComplete()){
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.setAlertType(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setContentText("Atrributtes not all filled out");
+                    alert.showAndWait();
+                }
+                else {
+                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
+                    popupwindow.close();
+                }
             }
         }));
 
