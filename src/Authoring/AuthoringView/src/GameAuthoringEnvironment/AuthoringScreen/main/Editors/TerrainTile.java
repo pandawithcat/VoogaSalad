@@ -8,6 +8,7 @@ import javafx.scene.input.MouseEvent;
 public class TerrainTile extends ImageView {
     ImageView imageView;
     boolean isPath;
+    String tileImString;
 
     public TerrainTile(double x, double y, Image image, String type){
         super(image);
@@ -17,6 +18,7 @@ public class TerrainTile extends ImageView {
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
         isPath=false;
+        tileImString="grass.jpg";
 
 
 //        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -62,16 +64,19 @@ public class TerrainTile extends ImageView {
     public void changeToGrass(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
         isPath=false;
+        tileImString="grass.jpg";
     }
 
     public void changeToWater(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
         isPath=true;
+        tileImString="water.jpg";
 
     }
     public void changeToDirt(){
         this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
         isPath=true;
+        tileImString="dirt.jpg";
     }
 
 }

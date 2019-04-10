@@ -12,8 +12,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ConfigurableMap {
+    Map<String, Object> passedMap;
+    List<TerrainTile> terrainTileList;
     GridPane map;
     private ListView<String> tileView = new ListView<>();
     private String currentTile = "Grass";
@@ -57,7 +62,9 @@ public class ConfigurableMap {
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
-                map.add(new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile),r,c);
+                TerrainTile myTile = new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile);
+
+                map.add(myTile,r,c);
                 //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
@@ -83,6 +90,7 @@ public class ConfigurableMap {
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                terrainTileList=new ArrayList<>();
 
             }
         });
@@ -134,9 +142,7 @@ public class ConfigurableMap {
 
         System.out.println(col);
         System.out.println(row);
-        TileBuilder tb = new TileBuilder();
-        //SquareCell sq = tb.getTile(currentTile,row,col,20,20);
-        //map.get
+
         source.changeImage(currentTile);
 
 
