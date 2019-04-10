@@ -2,7 +2,6 @@ package Configs.LevelPackage;
 
 import Configs.*;
 import Configs.ArsenalConfig.Arsenal;
-import Configs.Behaviors.Behavior;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
@@ -31,7 +30,7 @@ public class Level implements Configurable{
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();
         myArsenal = level.getMyArsenal();
-        myMap = level.getMyMap();
+        myMap = level.getMyMapConfig();
 //        levelBehaviors = level.getLevelBehaviors();
     }
 
@@ -51,7 +50,7 @@ public class Level implements Configurable{
 //        return levelBehaviors;
 //    }
 
-    public MapConfig getMyMap() {
+    public MapConfig getMyMapConfig() {
         return myMap;
     }
 

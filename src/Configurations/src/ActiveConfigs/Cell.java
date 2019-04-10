@@ -10,4 +10,6 @@ public class Cell {
     ActiveWeapon myWeaponConfig;
     Terrain myTerrain;
     List<ActiveEnemy> myEnemies;
+    int movementHeuristic;
 }
+

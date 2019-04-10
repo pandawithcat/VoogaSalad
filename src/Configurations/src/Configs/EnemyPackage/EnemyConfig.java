@@ -4,14 +4,12 @@ import Configs.*;
 import Configs.Behaviors.Behavior;
 import Configs.Waves.WaveConfig;
 
-import java.util.List;
-
 public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
     @Configure
     private Behavior<EnemyConfig>[] myBehaviors;
     @Configure
-    private int unitSpeed;
+    private int unitSpeedPerSecond;
     @Configure
     private View view;
 
@@ -24,7 +22,7 @@ public class EnemyConfig implements Configurable, Viewable {
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
         myWaveConfig = enemyConfig.getMyWaveConfig();
-        unitSpeed = enemyConfig.unitSpeed;
+        unitSpeedPerSecond = enemyConfig.unitSpeedPerSecond;
         view = enemyConfig.getView();
     }
 
@@ -36,8 +34,8 @@ public class EnemyConfig implements Configurable, Viewable {
         return myBehaviors;
     }
 
-    public int getUnitSpeed() {
-        return unitSpeed;
+    public int getUnitSpeedPerSecond() {
+        return unitSpeedPerSecond;
     }
 
     @Override

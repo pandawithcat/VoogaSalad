@@ -16,7 +16,6 @@ public class ActiveLevel extends Level implements Updatable {
     private ActiveWave activeWave;
     private Cell[][] myGrid;
     private int myScore;
-    private MapFeature myMapFeature;
     private int currentWave=0;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
@@ -25,8 +24,6 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
-//        setMyGame(game);
-//        myMapFeature = mapFeature;
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
         //TODO: create myGrid
     }
@@ -110,7 +107,7 @@ public class ActiveLevel extends Level implements Updatable {
     //TODO  add EventHandler for isValid
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
-        activeEnemies.add(new ActiveEnemy(enemy, mapFeature));
+        activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
 
     public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
@@ -128,7 +125,12 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     public void addToActiveWeapons(WeaponConfig weapon, MapFeature mapFeature) {
-        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature));
+        activeWeapons.put(weapon.getWeaponId(), new ActiveWeapon(weapon,mapFeature, this));
+        recalculateMovementHeuristic();
+    }
+
+    private void recalculateMovementHeuristic(){
+        getMyMapConfig();
     }
 
     public void removeFromActiveWeapons(ActiveWeapon activeWeapon){

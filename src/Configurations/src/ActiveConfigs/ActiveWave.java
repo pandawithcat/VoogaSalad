@@ -1,8 +1,6 @@
 package ActiveConfigs;
 
 import Configs.EnemyPackage.EnemyConfig;
-import Configs.GamePackage.Game;
-import Configs.MapFeaturable;
 import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
@@ -42,9 +40,9 @@ public class ActiveWave extends WaveConfig implements Updatable {
         }
         if(currentEnemyIndex<getEnemies().length) {
             while(startTimes[currentEnemyIndex]>=ms) {
-                int x = myActiveLevel.getMyMap().getEnemyEnteringGridXPos();
-                int y = myActiveLevel.getMyMap().getEnemyEnteringGridYPos();
-                int direction = myActiveLevel.getMyMap().getEnemyEnteringDirection();
+                int x = myActiveLevel.getMyMapConfig().getEnemyEnteringGridXPos();
+                int y = myActiveLevel.getMyMapConfig().getEnemyEnteringGridYPos();
+                int direction = myActiveLevel.getMyMapConfig().getEnemyEnteringDirection();
                 EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
                 MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView());
                 getMyLevel().getGame().getActiveLevel().addToActiveEnemies(enemyConfig, newMapFeature);
