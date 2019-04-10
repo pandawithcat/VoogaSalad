@@ -79,22 +79,22 @@ public class Configuration {
                 attributes.put(field.getName(), field.getType());
             }
         }
+        for (Field field: myConfigurableClass.getDeclaredFields()){
+            if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
+                field.get();
+                break;
+            }
+        }
         myAttributeTypes = attributes;
         return Collections.unmodifiableMap(attributes);
     }
 
     public boolean isConfigurationComplete() {
-        return isComplete;
-    }
+        return true;
+    }//TODO fix this stuff
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
         if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
-
-
-
-
-
-
 }
