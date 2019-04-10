@@ -14,8 +14,10 @@ public class Terrain implements MapFeaturable, Configurable{
     private View view;
     @Configure
     private String image;
+
     @Configure
     private double height;
+
     @Configure
     private double width;
     @Configure
@@ -26,10 +28,9 @@ public class Terrain implements MapFeaturable, Configurable{
     private boolean isPath;
 
 
-
     private Configuration myConfiguration;
-    private MapFeature myMapFeature;
 
+    private MapFeature myMapFeature;
     public Terrain(){
         myConfiguration = new Configuration(this);
         myMapFeature = new MapFeature(gridXPos,gridYPos,0,view);
@@ -46,12 +47,20 @@ public class Terrain implements MapFeaturable, Configurable{
         return myConfiguration;
     }
 
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
     //    @Override
 //    public Configuration getConfiguration() {
 //        return myConfiguration;
+
 //    }
 
     //implement special case with the View in this class to set the x and y
-
 
 }
