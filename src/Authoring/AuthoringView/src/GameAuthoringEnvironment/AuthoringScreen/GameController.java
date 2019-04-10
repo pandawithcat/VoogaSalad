@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
@@ -54,7 +55,7 @@ public class GameController {
             var value = attributesMap.get(key);
 
             //handle primitives
-            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.equals(java.lang.Boolean.class) || value.isPrimitive()){
+            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");
@@ -97,15 +98,29 @@ public class GameController {
                     public void handle(MouseEvent event) {
                         try {
                             //special case: map
-                            if(value.getClass().isInstance(MapConfig.class)) {
-                                ConfigurableMap configurableMap = new ConfigurableMap();
+                            Class<?> clazz = Class.forName(value.getName());
+                            if(clazz.getSimpleName().equals("MapConfig")) {
+                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
                             }
                             else{
-                                Class<?> cl = Class.forName(value.getName());
-                                Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                                Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
-                                createConfigurable((Configurable) object);
+                                if(object instanceof Behavior){
+                                    System.out.println("did it run dafd");
+                                    Behavior behavior = (Behavior) object;
+                                    List<Class> behaviorList = behavior.getBehaviorOptions();
+                                    MenuButton dropDown = new MenuButton("Choose Behavior");
+                                    for(int a=0; a<behaviorList.size(); a++){
+                                        MenuItem menuItem = new MenuItem(behaviorList.get(0).getSimpleName());
+                                        dropDown.getItems().add(menuItem);
+                                    }
+                                    layout.getChildren().add(dropDown);
+                                    System.out.println("did it run");
+                                }
+                                else{
+                                    System.out.println(object.getClass());
+                                    createConfigurable((Configurable) object);}
                             }
                         } catch (Exception e) {}
 

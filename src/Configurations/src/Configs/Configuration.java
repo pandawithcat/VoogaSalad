@@ -34,9 +34,6 @@ public class Configuration {
         }
     }
 
-    public void initializeAttributeMap(){
-        myAttributes = new HashMap<String, Object>();
-    }
 
     public void setOneAttribute(String name, Object value) {
         myAttributes.put(name,value);
