@@ -30,5 +30,13 @@ public class View {
 
     }
 
+    //COMMENTED THIS OUT BC WAS GIVING ERRORS
+//import BackendExternal.Model;
+//
+//public class View {
+//    public View() {
+//        Model myModel = new Model();
+//    }
+
 
 }

@@ -6,17 +6,25 @@ Mark's Use Cases(12):
 
 Load Button: In the initial splash screen, we will have a load button where we can upload an XML file. The XML file specifies the game that was created in the authoring environment. The XML file is parsed through the backend, and the frontend recieves an instance of a game object. We use elements of the game object to display the game. 
 
-Play Button: When we press play after loading a game, we will use the Game object to load the images needed to create the map and the arsenal. This will be done in a grid fashion so we will load an image for each portion of the grid. 
+Play Button: When we press play after loading a game, we will use the Game object to load the images needed to create the map and the myArsenal. This will be done in a grid fashion so we will load an image for each portion of the grid. 
 
 Dragging a Tower: We will use the draggable in JavaFX to drag an imageview into the map. We will add a changeListener in order to check each time the position changes and then change the radius color to red or green depending on whether that position is valid for the tower. 
 
+<<<<<<< HEAD
 Hover over an Arsenal: We will use a hover over feature of javafx. When the mouse hovers over a weapon inside of an arsenal, we can see how many coins it will cost and the beahvior of it in a text format. The format will be called from the object that we created (Game object). 
+=======
+Hover over an Arsenal: We will use a hover over feature of javafx. When the mouse hovers over a weaponConfig inside of an myArsenal, we can see how many coins it will cost and the beahvior of it in a text format. The format will be called from the object that we created (Game object). 
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
 Starting an Animation: Each time step, we will call .update() on the backend Game object and we will be able to access new positions and images to display in the map. 
 
-Docking down a life: When an enemy travels on the path outlined in the map, we will check if it reaches the end of the path. If an enemy reaches the end of the path, we will dock down a life using the backend game object. There would be a method that says dockLife(). 
+Docking down a life: When an enemyConfig travels on the path outlined in the map, we will check if it reaches the end of the path. If an enemyConfig reaches the end of the path, we will dock down a life using the backend game object. There would be a method that says dockLife(). 
 
+<<<<<<< HEAD
 Killing an Enemy: During the animation and each time step, each weapon that the towers throw out will be checked if it intersects with the enemy imageview. Then, the enemy imageview will disappeaer/ animate to blow up. 
+=======
+Killing an Enemy: During the animation and each time step, each weaponConfig that the towers throw out will be checked if it intersects with the enemyConfig imageview. Then, the enemyConfig imageview will disappeaer/ animate to blow up. 
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
 replay the game repeatedly without quitting: We will have some sort of restart button or replay button that will both be available in the overhead display as well as in a splash screen that pops up when you die. We will also have a button that will take us back to the level screen so a user can select a specific level to replay. 
 
@@ -36,17 +44,22 @@ Brian's Use Cases (7):
 Adding a level:
     While using the game authoring environment to create a new game, the user will likely want to create multiple levels for a game.  This will require a displayed list of levels created in the authoring environment along with a button to create a new level.  When creating a new level, there will need to be a level display window that outlines the map of the level and gives the user the ability to add objects to the map.  In the backend of the game authoring environment, the new level will need to be added to a list data strucutre holding information about each level.
     
+<<<<<<< HEAD
 Formatting a projectile:
     While designing a level in the game authoring environment, the user will be designing weapons that will be available in the arsenal of the user.  Part of the weapon design will be designing the projectile that is produced by the weapon.  A section of the authoring environment will be needed for input while designing a specific object.  In this case the user should be able to select from an image file as well as select from a list of effects the projectile can have upon collision.  In the backend, these design decisions of the user will be saved as string attributes of the projectile config object being created.
+=======
+Formatting a projectileConfig:
+    While designing a level in the game authoring environment, the user will be designing weapons that will be available in the myArsenal of the user.  Part of the weaponConfig design will be designing the projectileConfig that is produced by the weaponConfig.  A section of the authoring environment will be needed for input while designing a specific object.  In this case the user should be able to select from an image file as well as select from a list of effects the projectileConfig can have upon collision.  In the backend, these design decisions of the user will be saved as string attributes of the projectileConfig config object being created.
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
     
 Creating Vehicle Path:
-    While creating a level in the authoring environment, the user will have the possibility to add a vehicle to the game player's arsenal.  One attribute of the vehicle that will have to be set is the path in which it takes in the game map.  One way the designer could set this attribute would be clicking and dragging the cursor within the level map window with the endpoints of the path being set entry and exit points to choose from.  This could be visualized by the front-end as a line being drawn and processed by the backend as an array of location values set in the vehicle config object that describes the path the vehicle will follow in the given level.
+    While creating a level in the authoring environment, the user will have the possibility to add a vehicle to the game player's myArsenal.  One attribute of the vehicle that will have to be set is the path in which it takes in the game map.  One way the designer could set this attribute would be clicking and dragging the cursor within the level map window with the endpoints of the path being set entry and exit points to choose from.  This could be visualized by the front-end as a line being drawn and processed by the backend as an array of location values set in the vehicle config object that describes the path the vehicle will follow in the given level.
 
 Set Destroy Animation of Tower:
     When a user is going through the process of creating a tower, each of the design aspects of the object that the user needs to decide upon must be displayed in a box within the authoring environment.  In the case of a tower, one of these attributes will be the destruction animation of the tower.  When the user clicks to set the attribute, a list of options should appear that can be selected from.  In the backend, this would come in the form of a set list of animation files that the user has access to choosing and the name of this file being set as a string attribute within the new tower config object being created.
     
 Set Number of Enemies in a Wave:
-    Part of a level in tower defense will be waves of enemies that will move from one part of the screen to another.  A level will have a list of waves and an attribute of a wave will be the number of enemies in the wave.  This could be set by the user as an input text box in the frontend that the user will type a number into.  This would then translate to the setting of an attribute within the wave config object to the number of enemies value passed from the frontend.
+    Part of a level in tower defense will be waveConfigs of enemies that will move from one part of the screen to another.  A level will have a list of waveConfigs and an attribute of a waveConfig will be the number of enemies in the waveConfig.  This could be set by the user as an input text box in the frontend that the user will type a number into.  This would then translate to the setting of an attribute within the waveConfig config object to the number of enemies value passed from the frontend.
     
 Changing the Image Size of a Game Element:
     When adding elements to a level in the authoring environment, a user might want to change the size of the element being added to the map.  One way a user should be able to do this is through a text input of a height and width value.  This will be stored in the backend as atribute values stored in the config object of the element.  Another way this could be edited by the game designer is by using click and drag size adjustment similar to image modification in powerpoint for example.  When the user ends the drag, the new height and width attribute will automatically be passed to save in the config object in the same way.
@@ -72,7 +85,7 @@ Christina's use cases (6):
 
 ### Authoring Environment
 
-* **Adding an enemy that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemy to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
+* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
 
 * **Add new tower types:** New tower types will be created by creating a new TowerConfig object, and setting the image, towertype, weapon type, and name of the object. This new tower may only be available on certain terrain types. This towerconfig will then be packaged with the game xml object and used by the game player to display all of the tower options available to the user. 
 
@@ -80,9 +93,13 @@ Christina's use cases (6):
 
 * **Define the structure of the map:** The map will be a grid, that has a scaled number of tiles depending on the screen size. For each tile on the map, you should be able to set the terrain type at that point in the authoring environment. This should be done by using the terrainconfig objects that are available in the authoring environment. Each terrainconfig should be referenced in each point on the map that it is present.
 
+<<<<<<< HEAD
 * **Add a new weapon type:** You should be able to add a new weapon type in the frontend of the authoring environment, which will change the speed of shooting a projectile and the direction of shooting the projectile (homing, radial, line). This weapon type is then selectable as an option for each tower within the authoring environment. Some initial options can be defined within a properties file.
+=======
+* **Add a new weaponConfig type:** You should be able to add a new weaponConfig type in the frontend of the authoring environment, which will change the speed of shooting a projectileConfig and the direction of shooting the projectileConfig (homing, radial, line). This weaponConfig type is then selectable as an option for each tower within the authoring environment. Some initial options can be defined within a properties file.
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 
-* **Add a new projectile type:** You should be able to add a new projectile type in the frontend of the authoring environment, which will create a new projectileConfigPackage.ProjectileConfig object that defines the image, projectile type (bomb or bullet), and kill power.
+* **Add a new projectileConfig type:** You should be able to add a new projectileConfig type in the frontend of the authoring environment, which will create a new projectileConfigPackage.ProjectileConfig object that defines the image, projectileConfig type (bomb or bullet), and kill power.
 
 * **Add number of lives:** User can put in number of lives the player will begin with. Involves simply setting an integer for lives that will be given to the back end to determine number of lives instance variable for game object.
 

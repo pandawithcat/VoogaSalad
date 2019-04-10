@@ -8,7 +8,7 @@ Authoring UI Goals:
 
 -Ability to choose path of enemies on each level using clicks (including starting/ending) and have visual cues for them
 
--Modify terrain visuals by click and drag and also have it affect enemy movement (speed)
+-Modify terrain visuals by click and drag and also have it affect enemyConfig movement (speed)
 
 -Ability to decide when towers should be unlocked
 
@@ -32,7 +32,7 @@ Maybe Focus Areas:
 
 -move enemies along their path based on AI
 
--implement towers shooting one type of projectile (arrow) in either radial or straight
+-implement towers shooting one type of projectileConfig (arrow) in either radial or straight
 
 -implement spikes that reduce HP of people that walk over them
 

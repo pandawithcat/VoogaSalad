@@ -8,7 +8,7 @@ import java.util.List;
 
 public class TimeExpirable extends WeaponBehavior{
     @Configure
-    double timeAlive;
+    protected double timeAlive;
 
     Configuration myConfiguration;
 
@@ -26,9 +26,12 @@ public class TimeExpirable extends WeaponBehavior{
     public Configuration getConfiguration() {
         return myConfiguration;
     }
+<<<<<<< HEAD
 
     @Override
     public List<View> getViews() {
         return null;
     }
+=======
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
 }

@@ -19,7 +19,7 @@ Shared Language:
         setLevel(Level)
     
     Level:
-        has an arsenal
+        has an myArsenal
         has a Map
         
     Arsenal: Set of available towers

@@ -3,18 +3,17 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 
 import Configs.Configuration;
-import Configs.EnemyPackage.Enemy;
-import Configs.ProjectilePackage.Projectile;
-import Configs.View;
-
-import java.util.List;
+import Configs.EnemyPackage.EnemyConfig;
+import Configs.ProjectilePackage.ProjectileConfig;
 
 public class Stealthy extends EnemyBehavior{
     @Configure
-    Projectile[] projectilesThatCanAttackMe;
+    ProjectileConfig[] projectilesThatCanAttackMe;
+    private Configuration myConfiguration;
 
-    Stealthy(Enemy enemy){
-        super(enemy);
+    Stealthy(EnemyConfig enemyConfig){
+        super(enemyConfig);
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -23,12 +22,15 @@ public class Stealthy extends EnemyBehavior{
     }
 
     @Override
+<<<<<<< HEAD
     public List<View> getViews() {
         return null;
     }
 
     @Override
+=======
+>>>>>>> e359d39c535474f2a421b7b7920361e6858a7860
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 }

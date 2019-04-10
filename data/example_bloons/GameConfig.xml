@@ -14,12 +14,12 @@
     <shooterConfigs> <!--should be a map-->
         <shooterConfig>
             <name>Sniper</name>
-            <projectile>Sniper Bullet</projectile>
+            <projectileConfig>Sniper Bullet</projectileConfig>
             <firingSpeed>0.2</firingSpeed>
         </shooterConfig>
         <shooterConfig>
             <name>Bomb Shooter</name>
-            <projectile>Bomb</projectile>
+            <projectileConfig>Bomb</projectileConfig>
             <firingSpeed>0.5</firingSpeed>
         </shooterConfig>
     </shooterConfigs>
