@@ -14,9 +14,11 @@ public class EnemyConfig implements Configurable, Viewable {
     private int unitSpeed;
     @Configure
     private View view;
+    private Configuration myConfiguration;
 
     public EnemyConfig(WaveConfig waveConfig) {
         myWaveConfig = waveConfig;
+        myConfiguration = new Configuration(this);
     }
 
 
@@ -47,7 +49,7 @@ public class EnemyConfig implements Configurable, Viewable {
 
     @Override
     public Configuration getConfiguration() {
-        return null;
+        return myConfiguration;
     }
 
     public WaveConfig getMyWaveConfig() {
