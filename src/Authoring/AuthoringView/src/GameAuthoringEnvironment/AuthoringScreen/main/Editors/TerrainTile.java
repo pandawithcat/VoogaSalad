@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 public class TerrainTile extends ImageView {
     ImageView imageView;
+    boolean isPath;
 
     public TerrainTile(double x, double y, Image image, String type){
         super(image);
@@ -15,6 +16,8 @@ public class TerrainTile extends ImageView {
         this.setFitWidth(20);
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
+
+
 //        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 //            @Override
 //            public void handle(MouseEvent mouseEvent) {

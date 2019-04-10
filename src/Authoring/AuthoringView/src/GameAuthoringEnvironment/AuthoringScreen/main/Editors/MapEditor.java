@@ -4,14 +4,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,6 +33,7 @@ public class MapEditor extends Screen {
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
     private String grassTileImage="grass.jpg";
+    private int modTileSize=1;
     private ArrayList<ArrayList<TerrainTile>> tileList;
 
     private final BooleanProperty dragActiveProperty =
@@ -66,6 +65,7 @@ public class MapEditor extends Screen {
         pane.addRow(1, mapLbl, tileListLbl);
         pane.addRow(2, map, tileView);
         addSubmit();
+        addSizeLabel();
         //pane.add(tileView,2,1);
 
         VBox root = new VBox();
@@ -159,7 +159,7 @@ public class MapEditor extends Screen {
     }
 
     private void addSubmit(){
-        Button subButton = new Button("Submit");
+        Button subButton = new Button("Submit Map");
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -167,6 +167,31 @@ public class MapEditor extends Screen {
             }
         });
         pane.addRow(3,subButton);
+
+    }
+
+    private void addSizeLabel(){
+
+        TextField txt = new TextField();
+        txt.setPromptText("Size of Tile to Modify");
+        Button sub = new Button("Submit");
+        Label lab = new Label();
+
+        sub.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(txt.getText()!=null&&!txt.getText().isEmpty()&&Integer.parseInt(txt.getText())<6){
+                    modTileSize=Integer.parseInt(txt.getText());
+                    lab.setText("");
+                    System.out.println(modTileSize);
+                }
+                else{
+                    lab.setText("Invalid Input");
+                }
+
+            }
+        });
+        pane.addRow(3,txt,sub);
 
     }
 
@@ -178,6 +203,7 @@ public class MapEditor extends Screen {
                     updateCell(mouseEvent);
                 }
             });
+
         });
     }
     public void updateCell(MouseEvent mouseEvent){
@@ -191,6 +217,7 @@ public class MapEditor extends Screen {
         System.out.println(row);
         TileBuilder tb = new TileBuilder();
         //SquareCell sq = tb.getTile(currentTile,row,col,20,20);
+        //map.get
         source.changeImage(currentTile);
 
 
@@ -199,6 +226,19 @@ public class MapEditor extends Screen {
 
 
     }
+
+
+    /**********
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+
+
 
 
 }
