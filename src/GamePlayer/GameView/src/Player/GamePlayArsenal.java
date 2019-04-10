@@ -169,6 +169,5 @@ public class GamePlayArsenal extends VBox {
         for (int i = 0; i < 5; i++) {
             myTestMap.put(i, testInfo);
         }
-
     }
 }
