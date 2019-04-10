@@ -2,13 +2,13 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Behaviors.Behavior;
 import Configs.Configurable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -26,11 +26,14 @@ public class ConfigureBehavior {
     Stage popUpWindow;
     VBox layout;
     Configurable myConfigurable;
+    private static final DataFormat Behavior_LIST = new DataFormat("Behavior List");
     private ListView<Class> sourceView = new ListView<>();
     private ListView<Class> targetView = new ListView<>();
     int sourceViewWidth = 250;
     int sourceViewHeight = 250;
     int viewGap = 10;
+    private final BooleanProperty dragModeActiveProperty =
+            new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
 
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
@@ -106,11 +109,14 @@ public class ConfigureBehavior {
                     alert.showAndWait();
                 }
                 else {
+                    //TODO Add THE TARGETVIEW LIST TO THE ATTRIBUTES BUT HOW?
                     myConfigurable.getConfiguration().setAllAttributes(myMap);
                     popUpWindow.close();
                 }
             }
         }));
+
+        setDragAndDrop();
         layout.getChildren().addAll(root, setButton);
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
@@ -127,7 +133,7 @@ public class ConfigureBehavior {
     }
 
     //TODO This can be refactord to a separate class
-  /*  private void setDragAndDrop() {
+    private void setDragAndDrop() {
 
         sourceView.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -168,7 +174,8 @@ public class ConfigureBehavior {
     }
 
 
-    private void dragDetected(MouseEvent event, ListView< listView) {
+
+    private void dragDetected(MouseEvent event, ListView listView) {
         // Make sure at least one item is selected
         int selectedCount = listView.getSelectionModel().getSelectedIndices().size();
 
@@ -181,22 +188,22 @@ public class ConfigureBehavior {
         Dragboard dragboard = listView.startDragAndDrop(TransferMode.COPY_OR_MOVE);
 
         // Put the the selected items to the dragboard
-        ArrayList<Arsenal> selectedItems = getSelectedArsenal(listView);
+        ArrayList<Class> selectedItems = getSelectedBehavior(listView);
 
         ClipboardContent content = new ClipboardContent();
-        content.put(Arsenal_LIST, selectedItems);
+        content.put(Behavior_LIST, selectedItems);
 
         dragboard.setContent(content);
         //Stops any further handling of the event
         event.consume();
     }
 
-    private void dragOver(DragEvent event, ListView<Arsenal> listView) {
+    private void dragOver(DragEvent event, ListView listView) {
         // If drag board has an ITEM_LIST and it is not being dragged
         // over itself, we accept the MOVE transfer mode
         Dragboard dragboard = event.getDragboard();
 
-        if (event.getGestureSource() != listView && dragboard.hasContent(Arsenal_LIST)) {
+        if (event.getGestureSource() != listView && dragboard.hasContent(Behavior_LIST)) {
             event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
         }
 
@@ -204,14 +211,14 @@ public class ConfigureBehavior {
     }
 
     @SuppressWarnings("unchecked")
-    private void dragDone(DragEvent event, ListView<Arsenal> source, ListView<Arsenal> target) {
+    private void dragDone(DragEvent event, ListView source, ListView target) {
 
         // Transfer the data to the target
         Dragboard dragboard = event.getDragboard();
         boolean dragCompleted = false;
 
-        if (dragboard.hasContent(Arsenal_LIST)) {
-            ArrayList<Arsenal> list = (ArrayList<Arsenal>) dragboard.getContent(Arsenal_LIST);
+        if (dragboard.hasContent(Behavior_LIST)) {
+            ArrayList<Behavior> list = (ArrayList<Behavior>) dragboard.getContent(Behavior_LIST);
             source.getItems().addAll(list);
 
         }
@@ -219,26 +226,26 @@ public class ConfigureBehavior {
         TransferMode tm = event.getTransferMode();
 
         if (tm == TransferMode.MOVE) {
-            removeSelectedArsenals(target);
+            removeSelectedBehaviors(target);
         }
 
         event.consume();
     }
 
 
-    private ArrayList<String> getSelectedArsenal(ListView<String> listView) {
+    private ArrayList<Class> getSelectedBehavior(ListView listView) {
 
-        ArrayList<String> list = new ArrayList<>(listView.getSelectionModel().getSelectedItems());
+        ArrayList<Class> list = new ArrayList<>(listView.getSelectionModel().getSelectedItems());
 
         return list;
     }
 
-    private void removeSelectedArsenals(ListView listView) {
-        // Get all selected Arsenal in a separate list to avoid the shared list issue
-        List<String> selectedList = new ArrayList<>();
+    private void removeSelectedBehaviors(ListView listView) {
 
-        for (Arsenal Arsenal : listView.getSelectionModel().getSelectedItems()) {
-            selectedList.add(Arsenal);
+        List<Class> selectedList = new ArrayList<>();
+
+        for (Object object : listView.getSelectionModel().getSelectedItems()) {
+            selectedList.add((Class) object);
         }
 
         // Clear the selection
@@ -246,7 +253,5 @@ public class ConfigureBehavior {
         // Remove items from the selected list
         listView.getItems().removeAll(selectedList);
     }
-    }
-}
-*/
+
 }

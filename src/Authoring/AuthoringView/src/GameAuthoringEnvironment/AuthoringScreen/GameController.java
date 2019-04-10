@@ -148,6 +148,7 @@ public class GameController {
                                 Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 tempList.add(object);
+                                System.out.println(tempList);
 
                             } catch (Exception e) {
 
@@ -230,6 +231,8 @@ public class GameController {
             @Override
             public void handle(MouseEvent event) {
                 if(!myConfigurable.getConfiguration().isConfigurationComplete()){
+                    System.out.println(myAttributesMap);
+                    System.out.println(myConfigurable.getConfiguration().getAttributes());
                     Alert alert = new Alert(Alert.AlertType.NONE);
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
@@ -237,6 +240,8 @@ public class GameController {
                     alert.showAndWait();
                 }
                 else {
+                    System.out.println(myAttributesMap);
+                    System.out.println(myConfigurable.getConfiguration().getAttributes());
                     myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
                     popupwindow.close();
                 }
