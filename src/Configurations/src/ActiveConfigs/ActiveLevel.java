@@ -161,7 +161,7 @@ public class ActiveLevel extends Level implements Updatable {
                 int x = expandedCell.getX() + xAdditions[i];
                 int y = expandedCell.getY() + yAdditions[i];
                 if(isCellValid(x,y)){
-                    if (myGrid[x][y].getMyTerrain().isPath()){
+                    if (myGrid[x][y].getMyTerrain().getIfPath()){
                         myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
                     }
                     int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
@@ -171,7 +171,6 @@ public class ActiveLevel extends Level implements Updatable {
                 }
             }
         }
-
     }
 
     private boolean isCellValid(int x, int y){

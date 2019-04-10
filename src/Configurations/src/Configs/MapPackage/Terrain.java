@@ -46,6 +46,10 @@ public class Terrain implements MapFeaturable, Configurable{
         return myConfiguration;
     }
 
+    public boolean getIfPath() {
+        return isPath;
+    }
+
     //    @Override
 //    public Configuration getConfiguration() {
 //        return myConfiguration;
