@@ -1,5 +1,7 @@
 package Configs;
 
+import ActiveConfigs.ActiveLevel;
+import Configs.GamePackage.Game;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
@@ -15,16 +17,20 @@ public class MapFeature {
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
+    private int gridHeight;
+    private int gridWidth;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, int gridHeight, int gridWeight) {
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
+        this.gridHeight = gridHeight;
+        this.gridWidth = gridWeight;
     }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, int gridHeight, int gridWeight) {
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
         myImageView.setFitHeight(view.getHeight());
@@ -57,10 +63,8 @@ public class MapFeature {
         myImageView.setTranslateX(newX);
         myImageView.setTranslateY(newY);
 
-        gridXPos = Math.floorDiv(newX, view.
-
-
-        //TODO; calculate grid position
+        gridXPos = (int) (newX*Game.gridPixelWidth/gridWidth);
+        gridYPos = (int) (newY*Game.gridPixelHeight/gridHeight);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -73,8 +77,11 @@ public class MapFeature {
         this.gridXPos = gridXPos;
         this.gridYPos = gridYPos;
 
-        //TODO: CALCULATE PIXEL POSITION FROM THIS
-        //set imageview x and y in this
+        double pixelX = (Game.gridPixelWidth/gridWidth)*gridXPos;
+        double pixelY = (Game.gridPixelHeight/gridWidth)*gridYPos;
+
+        myImageView.setTranslateX(pixelX);
+        myImageView.setTranslateY(pixelY);
 
     }
 

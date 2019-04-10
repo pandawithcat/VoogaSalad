@@ -1,6 +1,7 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.util.List;
@@ -19,20 +20,20 @@ public class Terrain implements MapFeaturable, Configurable{
     @Configure
     private double width;
     @Configure
-    private double gridHeigth;
+    private double gridBlockHeight;
     @Configure
-    private double gridWidth;
+    private double gridBlockWidth;
     @Configure
     private boolean isPath;
-
 
 
     private Configuration myConfiguration;
     private MapFeature myMapFeature;
 
-    public Terrain(){
+    public Terrain(MapConfig mapConfig, ImageView imageView, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
         myConfiguration = new Configuration(this);
-        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view);
+        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
+        //TODO FINISH
 
     }
 

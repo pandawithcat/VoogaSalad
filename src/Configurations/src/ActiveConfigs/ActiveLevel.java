@@ -19,6 +19,8 @@ public class ActiveLevel extends Level implements Updatable {
     private Cell[][] myGrid;
     private int myScore;
     private int currentWave=0;
+    private final int gridWidth;
+    private final int gridHeight;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
@@ -31,6 +33,8 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
+        gridHeight = getMyMapConfig().getGridHeight();
+        gridWidth = getMyMapConfig().getGridWidth();
     }
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
@@ -41,6 +45,14 @@ public class ActiveLevel extends Level implements Updatable {
     }
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
+    }
+
+    public int getGridWidth() {
+        return gridWidth;
+    }
+
+    public int getGridHeight() {
+        return gridHeight;
     }
 
     @Override
@@ -90,12 +102,21 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
+    private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
+        if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
+        else if(feature instanceof ActiveProjectile) activeProjectiles.remove(feature);
+        else if (feature instanceof ActiveEnemy) activeEnemies.remove(feature);
+        return feature.getMapFeature().getImageView();
+
+    }
 
     public List<ImmutableImageView> getViewsToBeRemoved() {
         List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        //TODO: remove it from the list
-        return viewsToRemove.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
+        return viewsToRemove.stream()
+                .filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED)
+                .map(feature-> evaluateViewToBeRemoved(feature))
+                .collect(Collectors.toList());
 
     }
 
@@ -118,7 +139,7 @@ public class ActiveLevel extends Level implements Updatable {
     //TODO: EventHandler for adding new weapon to map
     public ImmutableImageView generateNewWeapon(int ID, double pixelX, double pixelY){
         WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID];
-        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), this);
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
         activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
         addToActiveWeapons(activeWeapon);
         return activeWeapon.getMapFeature().getImageView();

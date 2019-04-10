@@ -20,12 +20,16 @@ public class MapConfig implements Configurable {
     private int gridHeight;
     @Configure
     private int gridWidth;
-    @Configure
-    protected double gridPixelWidth;
-    @Configure
-    protected double gridPixelHeight;
+//    @Configure
+//    protected double gridPixelWidth;
+//    @Configure
+//    protected double gridPixelHeight;
 
     private Configuration configuration;
+
+    public MapConfig() {
+        //TODO FINISH
+    }
 
     public List<Terrain> getTerrain() {
         return myTerrain;

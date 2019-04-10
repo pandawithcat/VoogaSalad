@@ -9,6 +9,9 @@ import org.w3c.dom.events.Event;
 
 public class Game implements Updatable, EventHandlable, Configurable {
 
+    public static final double gridPixelWidth = 500;
+    public static final double gridPixelHeight = 500;
+
     private Configuration myConfiguration;
 
     @Configure
