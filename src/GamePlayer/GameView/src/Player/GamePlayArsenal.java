@@ -1,15 +1,18 @@
 package Player;
 
 import BackendExternal.Logic;
+import Configs.ImmutableImageView;
+import Configs.Info;
+import Configs.TransferImageView;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GamePlayArsenal extends VBox {
 
@@ -25,19 +28,32 @@ public class GamePlayArsenal extends VBox {
     private ImageView obstacleImageView;
     private boolean isWeapon;
 
+    private Map <Integer, Info> myTestMap ;
+
     //list of WeaponInfo objects which has ID and an imageview
-    private List myArsenal;
+    private Map<Integer, Info> myArsenal;
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic){
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
-//        myArsenal = myLogic.getArsenal();
+//        myArsenal = logic.getMyArsenal();
         ScrollPane arsenalView = new ScrollPane();
-        arsenalView.setContent(new Label("hey"));
+        VBox arsenalDisplay = new VBox();
+        createTestArsenal();
+        //START TEST STUFF
+        System.out.println(myTestMap.get(0).getImage());
+        ImageView test = new ImageView(new Image(myTestMap.get(0).getImage()));
+        System.out.println(test);
+        myTestMap.values().stream().forEach(info -> arsenalDisplay.getChildren().add(test));
+//        myArsenal.values().stream().forEach(info -> arsenalDisplay.getChildren().add(info.getImageView()));
+        arsenalView.setContent(arsenalDisplay);
+//        arsenalView.setContent((Node)myTestMap.get(0).getImageView());
+
         //TODO: implement the hover shit when we set content
 //        rootItem.getChildren().addAll(myArsenal);
 //        arsenalView.setRoot(rootItem);
+
         arsenalView.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalView.setPrefWidth(arsenalWidth);
         getChildren().addAll(arsenalView);
@@ -119,5 +135,12 @@ public class GamePlayArsenal extends VBox {
         obstacles.add(obstacle3);
         return obstacles;
     }
+
+    private void createTestArsenal(){
+        Info testInfo = new Info("test", "weapon.png");
+        myTestMap = new HashMap<>();
+        myTestMap.put(0,testInfo);
+    }
+
 
 }
