@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Movable extends WeaponBehavior{
     @Configure
+    private String myLabel;
+    @Configure
     protected double movingSpeed;
     @Configure
     protected List<Point> movingPattern;
@@ -22,6 +24,11 @@ public class Movable extends WeaponBehavior{
     @Override
     public void update(long ms) {
 
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override
