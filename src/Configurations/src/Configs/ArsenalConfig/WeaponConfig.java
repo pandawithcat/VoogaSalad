@@ -1,15 +1,18 @@
 package Configs.ArsenalConfig;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.Behaviors.Behavior;
 
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
     @Configure
+    private String myLabel;
+    @Configure
     private String name;
     @Configure
-    private Behavior<WeaponConfig>[] behaviors;
+    private WeaponBehavior[] behaviors;
     @Configure
     private View view;
     //because the user needs to configure this part and this is the only way to pass in that information
@@ -47,7 +50,7 @@ public class WeaponConfig implements  Configurable, Viewable {
         return name;
     }
 
-    public Behavior<WeaponConfig>[] getBehaviors() {
+    public WeaponBehavior[] getBehaviors() {
         return behaviors;
     }
 
@@ -58,6 +61,11 @@ public class WeaponConfig implements  Configurable, Viewable {
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     public Arsenal getMyArsenal() {

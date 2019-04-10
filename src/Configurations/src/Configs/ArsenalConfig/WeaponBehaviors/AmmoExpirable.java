@@ -5,6 +5,8 @@ import Configs.ArsenalConfig.WeaponConfig;
 
 public class AmmoExpirable extends WeaponBehavior {
     @Configure
+    private String myLabel;
+    @Configure
     protected int numberOfEnemiesPossibleToKill;
 
     private Configuration myConfiguration;
@@ -18,6 +20,11 @@ public class AmmoExpirable extends WeaponBehavior {
     public void update(long ms) {
 
 
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

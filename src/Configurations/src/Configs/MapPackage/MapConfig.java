@@ -9,6 +9,8 @@ import java.util.List;
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
     @Configure
+    private String myLabel;
+    @Configure
     private List<Terrain> myTerrain;
     @Configure
     private int enemyEnteringGridXPos;
@@ -17,15 +19,24 @@ public class MapConfig implements Configurable {
     @Configure
     private int enemyEnteringDirection;
     @Configure
+    private int enemyExitGridXPos;
+    @Configure
+    private int enemyExitGridYPos;
+    @Configure
     private int gridHeight;
     @Configure
     private int gridWidth;
-    @Configure
-    protected double gridPixelWidth;
-    @Configure
-    protected double gridPixelHeight;
+//    @Configure
+//    protected double gridPixelWidth;
+//    @Configure
+//    protected double gridPixelHeight;
 
     private Configuration configuration;
+
+    public MapConfig() {
+        configuration = new Configuration(this);
+        //TODO FINISH
+    }
 
     public List<Terrain> getTerrain() {
         return myTerrain;
@@ -49,6 +60,14 @@ public class MapConfig implements Configurable {
         return enemyEnteringGridYPos;
     }
 
+    public int getEnemyExitGridXPos() {
+        return enemyExitGridXPos;
+    }
+
+    public int getEnemyExitGridYPos() {
+        return enemyExitGridYPos;
+    }
+
     public int getGridHeight() {
         return gridHeight;
     }
@@ -62,6 +81,11 @@ public class MapConfig implements Configurable {
         for(Terrain t : terrain) {
 
         }
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
 }

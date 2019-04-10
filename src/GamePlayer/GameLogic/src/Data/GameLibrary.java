@@ -32,6 +32,8 @@ public class GameLibrary {
         populateLibrary();
     }
 
+
+
     private void populateLibrary(){
         ResourceBundle gameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
         for (String s : gameStrings.keySet()){
@@ -52,5 +54,8 @@ public class GameLibrary {
         File xmlFile = new File(FILE_PATH + gameXMLFileName);
         return (Game)serializer.fromXML(xmlFile);
     }
+
+
+
 
 }

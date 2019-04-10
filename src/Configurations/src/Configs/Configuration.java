@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Configuration {
     private Map<String,Class> myAttributeTypes;
-    private Map<String,Object> myAttributes;
+    private Map<String,Object> myAttributes = new HashMap<String, Object>();
     private boolean isComplete = false;
     private Configurable myConfigurable;
     private Class myConfigurableClass;
@@ -34,13 +34,12 @@ public class Configuration {
         }
     }
 
-//    public void setOneAttribute(String name, Object value) {
-//        validateType(name,value);
-//        myAttributes.put(name,value);
-//        if(isAttributesComplete(myAttributes)) {
-//            isComplete = true;
-//        }
-//    }
+
+    public void setOneAttribute(String name, Object value) {
+        myAttributes.put(name,value);
+        //validateType(name,value);
+        if(isAttributesComplete(myAttributes)) isComplete = true;
+    }
 
     public void setAllAttributes(Map<String,Object> attributes) {
         validateAttributes(attributes);
@@ -80,22 +79,23 @@ public class Configuration {
                 attributes.put(field.getName(), field.getType());
             }
         }
+        for (Field field: myConfigurableClass.getDeclaredFields()){
+            if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
+                // TODO: Why was this causing an error
+               // field.get();
+                break;
+            }
+        }
         myAttributeTypes = attributes;
         return Collections.unmodifiableMap(attributes);
     }
 
     public boolean isConfigurationComplete() {
-        return isComplete;
-    }
+        return true;
+    }//TODO fix this stuff
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
         if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
-
-
-
-
-
-
 }

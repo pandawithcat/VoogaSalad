@@ -1,5 +1,7 @@
 package Configs;
 
+import ActiveConfigs.ActiveLevel;
+import Configs.GamePackage.Game;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
@@ -9,25 +11,31 @@ public class MapFeature {
     private int gridYPos;
 //    private double pixelXPos;
 //    private double pixelYPos;
-    private double displayDirection;
+//    private double displayDirection;
     private double trigDirection;
     @XStreamOmitField
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
+    private int gridHeight;
+    private int gridWidth;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
-        setGridPos(gridXPos,gridYPos,displayDirection);
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, int gridHeight, int gridWeight) {
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
+        setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
+        this.gridHeight = gridHeight;
+        this.gridWidth = gridWeight;
     }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
-        setPixelPos(pixelXPos,pixelYPos,direction);
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, int gridHeight, int gridWeight) {
         this.view = view;
         myImageView = new TransferImageView(new Image(view.getImage()));
+        myImageView.setFitHeight(view.getHeight());
+        myImageView.setFitWidth(view.getWidth());
+        setImageView(pixelXPos,pixelYPos, direction);
         displayState = DisplayState.NEW;
     }
 
@@ -47,58 +55,53 @@ public class MapFeature {
         return gridYPos;
     }
 
-
-
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
 //        pixelXPos+=deltaPixelX;
 //        pixelYPos+=deltaPixelY;
-        myImageView.setTranslateX(getPixelXPos()+deltaPixelX);
-        myImageView.setTranslateY(getPixelYPos()+deltaPixelY);
+        double newX = getPixelXPos()+deltaPixelX;
+        double newY = getPixelYPos()+deltaPixelY;
+        myImageView.setTranslateX(newX);
+        myImageView.setTranslateY(newY);
 
+        gridXPos = (int) (newX*Game.gridPixelWidth/gridWidth);
+        gridYPos = (int) (newY*Game.gridPixelHeight/gridHeight);
 
-        //TODO; calculate grid position
     }
 
-    public void setPixelPos(double x, double y, double direction) {
-        myImageView.setTranslateX(x);
-        myImageView.setTranslateY(y);
+    private void setImageView(double pixelXPos, double pixelYPos, double direction) {
+        myImageView.setTranslateX(pixelXPos);
+        myImageView.setTranslateY(pixelYPos);
         myImageView.setRotate(direction);
-        this.displayDirection = direction;
-        //TODO: CALCULATE GRID POSITION FROM THIS
-
-        //set imageview x and y in this
     }
 
     public void setGridPos(int gridXPos, int gridYPos, double direction) {
         this.gridXPos = gridXPos;
         this.gridYPos = gridYPos;
-        this.displayDirection = direction;
-        //TODO: CALCULATE PIXEL POSITION FROM THIS
-        //set imageview x and y in this
+
+        double pixelX = (Game.gridPixelWidth/gridWidth)*gridXPos;
+        double pixelY = (Game.gridPixelHeight/gridWidth)*gridYPos;
+
+        myImageView.setTranslateX(pixelX);
+        myImageView.setTranslateY(pixelY);
 
     }
+
     public TransferImageView getImageView() {
-        //TODO: throw exception if not defined
-        myImageView.setFitHeight(view.getHeight());
-        myImageView.setFitWidth(view.getWidth());
-
         return myImageView;
-
-
     }
 
     public double getDirection() {
-        return displayDirection;
+        return myImageView.getRotate();
     }
 
     public double getTrigDirection() {
-        trigDirection = (360-displayDirection+90)%360;
+        trigDirection = (360-getDirection()+90)%360;
         return trigDirection;
     }
 
     public void setTrigDirection(double trigDirection) {
         this.trigDirection = trigDirection;
-        displayDirection = (-trigDirection+450)%360;
+        myImageView.setRotate((-trigDirection+450)%360);
 
     }
 
