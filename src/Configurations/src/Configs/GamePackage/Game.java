@@ -1,26 +1,14 @@
 package Configs.GamePackage;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
 import ActiveConfigs.ActiveLevel;
 import Configs.*;
-import Configs.ArsenalConfig.Weapon;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
-<<<<<<< HEAD
-import Configs.Updatable;
-=======
->>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
 import org.w3c.dom.events.Event;
 
 public class Game implements Updatable, EventHandlable, Configurable {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
     private Configuration myConfiguration;
 
     @Configure
@@ -28,7 +16,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     @Configure
     private Behavior<Game>[] gameType;
     @Configure
-    private Weapon.WeaponConfig[] allWeaponConfigs;
+    private WeaponConfig[] allWeaponConfigs;
     @Configure
     private String myTitle;
     @Configure
@@ -70,10 +58,6 @@ public class Game implements Updatable, EventHandlable, Configurable {
 
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a0fbae9c7c0c83ef94a96e04f9852a12117d70ef
     public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         currentLevelNumber++;
