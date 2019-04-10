@@ -11,6 +11,8 @@ import java.util.*;
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal implements Configurable {
     @Configure
+    private String myLabel;
+    @Configure
     private WeaponConfig[] allWeaponConfigOptions;
 
     private Configuration myConfiguration;
@@ -26,6 +28,11 @@ public class Arsenal implements Configurable {
 
     public Level getLevel() {
         return myLevel;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

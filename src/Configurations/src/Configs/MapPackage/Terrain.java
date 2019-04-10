@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Terrain implements MapFeaturable, Configurable{
     @Configure
+    private String myLabel;
+    @Configure
     private int gridXPos;
     @Configure
     private int gridYPos;
@@ -66,6 +68,10 @@ public class Terrain implements MapFeaturable, Configurable{
         return isPath;
     }
 
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
 
     //    @Override
 //    public Configuration getConfiguration() {

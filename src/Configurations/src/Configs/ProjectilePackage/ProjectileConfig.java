@@ -12,6 +12,8 @@ public class ProjectileConfig implements Configurable, Viewable {
 
     Configuration myConfiguration;
     @Configure
+    private String myLabel;
+    @Configure
     private View view;
     @Configure
     private double velocityInSeconds;
@@ -46,6 +48,10 @@ public class ProjectileConfig implements Configurable, Viewable {
     //    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
 //        return myBehaviors;
 //    }
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
 
     public ShooterConfig getMyShooter() {
         return myShooter;

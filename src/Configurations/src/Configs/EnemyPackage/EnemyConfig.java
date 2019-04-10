@@ -7,6 +7,8 @@ import Configs.Waves.WaveConfig;
 public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
     @Configure
+    private String myLabel;
+    @Configure
     private Behavior<EnemyConfig>[] myBehaviors;
     @Configure
     private int unitSpeedPerSecond;
@@ -46,6 +48,11 @@ public class EnemyConfig implements Configurable, Viewable {
     @Override
     public View getView() {
         return view;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

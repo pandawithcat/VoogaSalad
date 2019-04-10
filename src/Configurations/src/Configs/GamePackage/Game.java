@@ -15,17 +15,17 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Configuration myConfiguration;
 
     @Configure
-    private Level[] levelList;
-    @Configure
-    private Behavior<Game>[] gameType;
-    @Configure
-    private WeaponConfig[] allWeaponConfigs;
-    @Configure
     private String myTitle;
     @Configure
     private String myDescription;
     @Configure
     private String myThumbnail;
+    @Configure
+    private Level[] levelList;
+    @Configure
+    private Behavior<Game>[] gameType;
+    @Configure
+    private WeaponConfig[] allWeaponConfigs;
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;
@@ -100,9 +100,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return myThumbnail;
     }
 
-
-
-
-
-
+    @Override
+    public String getLabel() {
+        return myTitle;
+    }
 }

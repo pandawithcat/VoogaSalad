@@ -8,6 +8,8 @@ import Configs.LevelPackage.Level;
 public class WaveConfig implements  Configurable {
     private Level myLevel;
     @Configure
+    private String myLabel;
+    @Configure
     private long timeToRelease;
     @Configure
     private long rateOfRelease;
@@ -48,6 +50,11 @@ public class WaveConfig implements  Configurable {
 
     public Level getMyLevel() {
         return myLevel;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

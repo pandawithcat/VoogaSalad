@@ -7,10 +7,10 @@ import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
 
 public class Level implements Configurable{
-
     private Game myGame;
 
-
+    @Configure
+    private String myLabel;
     @Configure
     private WaveConfig[] myWaveConfigs;
     @Configure
@@ -57,6 +57,11 @@ public class Level implements Configurable{
 
     protected WaveConfig[] getMyWaveConfigs() {
         return myWaveConfigs;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override
