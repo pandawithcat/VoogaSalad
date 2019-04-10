@@ -98,7 +98,8 @@ public class GameController {
                         try {
                             //special case: map
                             if(value.getClass().isInstance(MapConfig.class)) {
-                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
+                                ConfigurableMap configurableMap = new ConfigurableMap();
+                                configurableMap.setConfigurations();
                             }
                             else{
                                 Class<?> cl = Class.forName(value.getName());
