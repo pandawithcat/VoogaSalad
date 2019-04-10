@@ -15,17 +15,17 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Configuration myConfiguration;
 
     @Configure
-    Level[] levelList;
+    protected Level[] levelList;
     @Configure
-    private Behavior<Game>[] gameType;
+    protected Behavior<Game>[] gameType;
     @Configure
-    private WeaponConfig[] allWeaponConfigs;
+    protected WeaponConfig[] allWeaponConfigs;
     @Configure
-    private String myTitle;
+    protected String myTitle;
     @Configure
-    private String myDescription;
+    protected String myDescription;
     @Configure
-    private String myThumbnail;
+    protected String myThumbnail;
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class HealthExpirable extends WeaponBehavior{
     @Configure
-    int amountOfHealth;
+    protected int amountOfHealth;
 
     Configuration myConfiguration;
 

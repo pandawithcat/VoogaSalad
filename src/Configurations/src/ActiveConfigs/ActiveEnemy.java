@@ -13,7 +13,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature) {
         super(enemyConfig);
         myMapFeature = mapFeature;
-        myLevel = getMyWaveConfig().getMyLevel().getGame().getActiveLevel();
+        myLevel = myWaveConfig.getMyLevel().getGame().getActiveLevel();
     }
 
 

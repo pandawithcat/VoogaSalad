@@ -6,13 +6,13 @@ import Configs.LevelPackage.Level;
 
 //holds the enemies
 public class WaveConfig implements  Configurable {
-    private Level myLevel;
+    protected Level myLevel;
     @Configure
-    private long timeToRelease;
+    protected long timeToRelease;
     @Configure
-    private long rateOfRelease;
+    protected long rateOfRelease;
     @Configure
-    private EnemyConfig[] enemies;
+    protected EnemyConfig[] enemies;
 //    @Configure
 //    private Behavior<WaveConfig>[] myWaveBehaviors;
 

@@ -9,21 +9,21 @@ import java.util.List;
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
     @Configure
-    private List<Terrain> myTerrain;
+    protected List<Terrain> myTerrain;
     @Configure
-    private int enemyEnteringGridXPos;
+    protected int enemyEnteringGridXPos;
     @Configure
-    private int enemyEnteringGridYPos;
+    protected int enemyEnteringGridYPos;
     @Configure
-    private int enemyEnteringDirection;
+    protected int enemyEnteringDirection;
     @Configure
-    private int gridHeight;
+    protected int gridHeight;
     @Configure
-    private int gridWidth;
+    protected int gridWidth;
     @Configure
-    private double gridPixelWidth;
+    protected double gridPixelWidth;
     @Configure
-    private double gridPixelHeight;
+    protected double gridPixelHeight;
 
     private Configuration configuration;
 

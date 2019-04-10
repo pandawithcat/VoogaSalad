@@ -12,9 +12,9 @@ public class ProjectileConfig implements Configurable, Viewable {
 
     Configuration myConfiguration;
     @Configure
-    private View view;
+    protected View view;
     @Configure
-    private double velocityInSeconds;
+    protected double velocityInSeconds;
 
     //TODO: after first sprint implement behaviors
 //    @Configure
