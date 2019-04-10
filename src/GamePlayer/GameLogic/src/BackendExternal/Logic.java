@@ -18,12 +18,15 @@ import java.util.stream.Collectors;
  */
 
 public class Logic {
+
+    private static final int DEFAULT_START_LEVEL = 0;
 //     TODO: Second Sprint
 //     private UserAuthenticator myUserAuthenticator;
 //     private myUserGameData;
 
     private Game myGame;
     private GameLibrary myGameLibrary;
+
 
     public Logic() {
 //        myUserAuthenticator = new UserAuthenticator();
@@ -44,31 +47,27 @@ public class Logic {
 //
 //    }
 
-    // First Sprint Version
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
     // No Return Value
     public void createGameInstance(GameInfo selectedGame) {
         myGame = myGameLibrary.getGame(selectedGame);
-        // TODO: Not sure if this is necessary
-        myGame.startGame();
+        // TODO: Second sprint have the option of getting this from User Data (Previous Level)
+        myGame.startGame(DEFAULT_START_LEVEL);
     }
 
     // View calls to get the current level of the game when moving between levels
     // No Input
-    // Return: integer Level
-//    public int getLevelNum(){
-//        return myGame.getLevel();
-//    }
+    // Return: integer Level number
+    public int startNextLevel(){
+        return myGame.startNextLevel();
+    }
 
 
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-    // TODO: Adjust the type that is returned to make it as encapsulated as possible
     public List<ImmutableImageView> getLevelTerrain(){
-        // TODO: Can move this to a different level if need be
-        myGame.startNextLevel();
         return myGame.getActiveLevel().getMyMap().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
     }
 
@@ -81,8 +80,6 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    // TODO: Adjust the type that is returned to make it as encapsulated as possible
-
     // TODO: Change this to return a ImmutableImageView Instance of the active weapon
     public void instantiateWeapon(int weaponID, double xPixel, double yPixel){
         myGame.getActiveLevel().getMyArsenal().generateNewWeapon(weaponID, xPixel, yPixel);
@@ -109,12 +106,6 @@ public class Logic {
 //        return myGame.getLives();
 //    }
 
-    // View calls to check the current lives of the game in the game loop
-    // No Input
-    // Return: integer lives
-//    public int getNumLives(){
-//        return myGame.getLives();
-//    }
 
 
     // View calls to check if a location is valid to place a weapon

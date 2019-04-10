@@ -43,7 +43,7 @@ public class Level implements Configurable{
         return myGame;
     }
 
-    protected Arsenal getMyArsenal() {
+    public Arsenal getMyArsenal() {
         return myArsenal;
     }
 

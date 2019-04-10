@@ -51,15 +51,16 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return currentLevelOver;
     }
 
-    public void startGame() {
-        currentLevelNumber = 1;
+    public void startGame(int startingLevel) {
+        currentLevelNumber = startingLevel;
         currentLevelOver = false;
     }
 
-    public void startNextLevel() throws IllegalStateException{
+    public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         currentLevelNumber++;
         currentLevelOver = false;
+        return currentLevelNumber;
     }
 
     @Override
