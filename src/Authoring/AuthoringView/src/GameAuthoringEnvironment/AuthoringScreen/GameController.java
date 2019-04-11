@@ -126,10 +126,10 @@ public class GameController {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-
                             Class<?> clazz = Class.forName(value.getName());
                             //special case: map TODO use reflection for this
                             if(clazz.getSimpleName().equals("MapConfig")) {
+                                System.out.println("adfa");
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
                             }

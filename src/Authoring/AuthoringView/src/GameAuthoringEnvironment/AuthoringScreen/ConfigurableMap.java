@@ -43,7 +43,7 @@ public class ConfigurableMap {
 
     public void setConfigurations(){
         popUpWindow = new Stage();
-        popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
         layout = new VBox(10.00);
@@ -62,7 +62,7 @@ public class ConfigurableMap {
 
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
-        popUpWindow.show();
+        popUpWindow.showAndWait();
         //pane.add(tileView,2,1);
 
         // Add the Pane and The LoggingArea to the VBox
