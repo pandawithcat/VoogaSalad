@@ -50,7 +50,7 @@ public class GameSelection extends Application {
 //        List<GameInfo> gameInfoList= logic.getGameOptions();
         List<GameInfo> gameInfos = new ArrayList<>();
         for(int x = 1; x < 5; x++){
-            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png");
+            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png","");
             gameInfos.add(gameInfo);
         }
         return gameInfos;
@@ -66,7 +66,7 @@ public class GameSelection extends Application {
                 Text title = new Text(gameInfo.getGameTitle());
                 title.setX(300);
                 hBox.getChildren().add(title);
-                String gameImage = gameInfo.getMyGameThumbnail();
+                String gameImage = gameInfo.getGameThumbnail();
                 Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(gameImage));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(100);

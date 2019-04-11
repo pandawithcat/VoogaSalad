@@ -21,4 +21,9 @@ public abstract class WaveBehavior implements Behavior<WaveConfig> {
     public void setMyWaveConfig(WaveConfig myWaveConfig) {
         this.myWaveConfig = myWaveConfig;
     }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
+    }
 }

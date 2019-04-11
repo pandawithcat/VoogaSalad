@@ -29,7 +29,7 @@ public class GamePlaySettingsBar extends StackPane {
         Rectangle rect4 = new Rectangle(width/8,height/2);
         rect4.getStyleClass().add("my-rect");
         rect4.setTranslateX(width *2/6);
-        
+
         getChildren().addAll(rect1,rect2,rect3,rect4);
 
         Text score = new Text("Score: ");
