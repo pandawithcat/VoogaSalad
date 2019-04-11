@@ -21,7 +21,7 @@
     <myAttributes>
       <entry>
         <string>myDescription</string>
-        <string>asdv</string>
+        <string>asdf</string>
       </entry>
       <entry>
         <string>levelList</string>
@@ -39,7 +39,7 @@
       </entry>
       <entry>
         <string>myThumbnail</string>
-        <string>ascd</string>
+        <string>asdf</string>
       </entry>
       <entry>
         <string>myTitle</string>
@@ -51,8 +51,8 @@
     <myConfigurableClass>Configs.GamePackage.Game</myConfigurableClass>
   </myConfiguration>
   <myTitle>asdf</myTitle>
-  <myDescription>asdv</myDescription>
-  <myThumbnail>ascd</myThumbnail>
+  <myDescription>asdf</myDescription>
+  <myThumbnail>asdf</myThumbnail>
   <levelList reference="../myConfiguration/myAttributes/entry[2]/Configs.LevelPackage.Level-array"/>
   <currentLevelNumber>0</currentLevelNumber>
   <gameOver>false</gameOver>
