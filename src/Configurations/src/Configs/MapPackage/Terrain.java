@@ -1,49 +1,41 @@
 package Configs.MapPackage;
 
 import Configs.*;
-import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
-import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
-import java.util.List;
 
-public class Terrain implements MapFeaturable, Configurable{
+public class Terrain implements MapFeaturable, Configurable, Viewable{
     @Configure
     private String myLabel;
     @Configure
-    private int gridXPos;
-    @Configure
-    private int gridYPos;
-    @Configure
     private View view;
-    @Configure
-    private String image;
 
-    @Configure
-    private double height;
-
-    @Configure
-    private double width;
     @Configure
     private double gridBlockHeight;
     @Configure
     private double gridBlockWidth;
     @Configure
     private boolean isPath;
-    @Configure
-    private TerrainBehavior[] terrainBehaviors;
+//    @Configure
+//    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
     private MapFeature myMapFeature;
 
     public Terrain(MapConfig mapConfig, ImageView imageView, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-
+        view = new View(new File(fileName),height, width);
+        myMapFeature = new MapFeature(gridXPos, gridYPos, 0, view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
+        this.gridBlockHeight = gridBlockHeight;
+        this.gridBlockWidth = gridBlockWidth;
+        this.isPath = isPath;
         myConfiguration = new Configuration(this);
-//        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
-        //TODO FINISH
+    }
 
+    @Override
+    public View getView() {
+        return view;
     }
 
     @Override
@@ -61,20 +53,20 @@ public class Terrain implements MapFeaturable, Configurable{
     }
 
     public double getHeight() {
-        return height;
+        return view.getHeight();
     }
 
     public double getWidth() {
-        return width;
+        return view.getWidth();
     }
 
     public boolean isPath() {
         return isPath;
     }
 
-    public TerrainBehavior[] getTerrainBehaviors() {
-        return terrainBehaviors;
-    }
+//    public TerrainBehavior[] getTerrainBehaviors() {
+//        return terrainBehaviors;
+//    }
 
     @Override
     public String getLabel() {
