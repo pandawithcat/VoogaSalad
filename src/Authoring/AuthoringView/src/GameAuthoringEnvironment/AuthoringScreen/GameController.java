@@ -191,7 +191,7 @@ public class GameController {
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
                                        /* System.out.println(cl.getSimpleName());
                                         System.out.println(cl.getClasses());
-                                        System.out.println(value.getComponentType().getName());*/
+                                        System.out.println(value.getComponentType().getLabel());*/
                                         //TODO Use reflection to check this
                                         if(cl.getSimpleName().contains("Behavior")){
                                             Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
