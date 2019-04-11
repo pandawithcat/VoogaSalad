@@ -35,7 +35,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private WeaponConfig[] allWeaponConfigs;*/
 
     private ActiveLevel myActiveLevel;
-    private int currentLevelNumber;
+    private int currentLevelNumber = 0;
     private boolean gameOver;
     private boolean currentLevelOver;
 
@@ -86,6 +86,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
+        setMyActiveLevel(levelNumber);//TODO check this logic
         currentLevelNumber = levelNumber;
 
     }
@@ -109,6 +110,9 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
     public ActiveLevel getActiveLevel() {
+        if (myActiveLevel == null){
+            setMyActiveLevel(currentLevelNumber);
+        }
         return myActiveLevel;
     }
 
