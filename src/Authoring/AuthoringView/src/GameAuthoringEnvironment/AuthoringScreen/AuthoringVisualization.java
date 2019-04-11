@@ -55,7 +55,7 @@ public class AuthoringVisualization {
         stage.setTitle(Title);
         stage.setResizable(true);
         stage.show();
-        setAnimation();
+        //setAnimation();
     }
 
     private void setScene(Stage stage, Group myRoot) {
@@ -63,20 +63,51 @@ public class AuthoringVisualization {
         TopMenuBar topMenuBar = new TopMenuBar();
         myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
         myScene = new Scene(myContainer);
+//=======
+//
+//        //This is the only pane that should be fixed on the screen
+//        var leftGridPane = new Group();
+//        leftGridPane.setLayoutY(63);
+//        setLeftGridPane(leftGridPane);
+//        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
+//        myScene = new Scene(myContainer);
+//    }
+//
+//
+//    private void setLeftGridPane(Group leftGridPane){
+//        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
+//        leftGridPane.getChildren().addAll(gameOutline.getVBox());
+//    }
+//
+//    // add all the buttons - ex) save, load etc
+//    private HBox addTopBar(){
+//
+//        var TopMenuBar = new HBox();
+//
+//        HelpButton helpButton = new HelpButton();
+//        SaveButton saveButton = new SaveButton();
+//        ImageButton imageButton = new ImageButton();
+//        LoadButton loadButton = new LoadButton();
+//        PlayButton playButton = new PlayButton();
+//        ViewButton viewButton = new ViewButton();
+//        NewGameButton newGameButton = new NewGameButton();
+//        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            public void handle(MouseEvent me) {
+//                System.out.println("Mouse entered");
+//                // TODO Make This pop up window that sets the Game Properties
+//                // TODO Alert buttonn if game was not created
+//                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
+//                //gameOutline.setContent(gamePropertySettings.getMyGame().getMyNumberOfLevels());
+//            }
+//        });
+//
+//        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
+//                viewButton.getButton(), helpButton.getButton());
+//
+//        return  TopMenuBar;
+//>>>>>>> 07b6588bd2a5d7519977ccc8cef96eb76d8d5653
     }
 
-
-    private void setAnimation(){
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
-        var animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
-    private void step(){
-
-    }
 
     private void handleKeyInput(KeyEvent e) {
         if (keyCombinationCommandN.match(e)) {
