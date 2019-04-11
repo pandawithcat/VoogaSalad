@@ -10,7 +10,7 @@ public abstract class GameBehavior implements Behavior<Game> {
     Game myGame;
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of();
 
-    GameBehavior(Game game){
+    public GameBehavior(Game game){
         myGame = game;
     }
 
