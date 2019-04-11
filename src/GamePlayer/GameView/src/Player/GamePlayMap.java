@@ -84,11 +84,11 @@ public class GamePlayMap extends GridPane {
 //        imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
 
         //hardcoded animation
-        if(!getChildren().contains(imageView)){
-            getChildren().add(imageView);
+        if(!mapRoot.getChildren().contains(imageView)){
             imageView.setFitWidth(50);
             imageView.setFitHeight(50);
             imageView.setLayoutX(100);
+            mapRoot.getChildren().add(imageView);
         }
         imageView.setLayoutX(imageView.getX() + 10);
     }
