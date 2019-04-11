@@ -74,7 +74,7 @@ public class MapFeature {
         this.displayDirection = direction;
         this.gridXPos = (int) (pixelXPos/(gridWidth/Game.gridPixelWidth));
         this.gridYPos = (int) (pixelYPos/(gridHeight/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,direction);
+        setImageView(pixelXPos,pixelYPos,displayDirection);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -92,7 +92,8 @@ public class MapFeature {
         setImageView(pixelXPos,pixelYPos,direction);
     }
 
-    
+
+
     public TransferImageView getImageView() {
         myImageView.setTranslateX(pixelXPos);
         myImageView.setTranslateY(pixelYPos);
