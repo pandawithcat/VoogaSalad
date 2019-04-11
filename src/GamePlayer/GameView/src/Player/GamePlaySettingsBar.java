@@ -17,15 +17,19 @@ public class GamePlaySettingsBar extends StackPane {
         Rectangle rect1 = new Rectangle(width/8,height/2);
         rect1.getStyleClass().add("my-rect");
         rect1.setTranslateX(- width *2/6);
+
         Rectangle rect2 = new Rectangle(width/8,height/2);
         rect2.getStyleClass().add("my-rect");
         rect2.setTranslateX(- width / 6);
+
         Rectangle rect3 = new Rectangle(width/8,height/2);
         rect3.getStyleClass().add("my-rect");
         rect3.setTranslateX(width /6);
+
         Rectangle rect4 = new Rectangle(width/8,height/2);
         rect4.getStyleClass().add("my-rect");
         rect4.setTranslateX(width *2/6);
+
         getChildren().addAll(rect1,rect2,rect3,rect4);
 
         Text score = new Text("Score: ");
@@ -38,4 +42,5 @@ public class GamePlaySettingsBar extends StackPane {
         level.setTranslateX(rect4.getTranslateX());
         getChildren().addAll(score,lives,money, level);
     }
+
 }

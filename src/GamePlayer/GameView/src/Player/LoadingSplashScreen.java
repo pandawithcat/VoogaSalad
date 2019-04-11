@@ -116,7 +116,7 @@ public class LoadingSplashScreen extends Application{
         root.getChildren().add(button);
     }
     private void availableGames(){
-//        mediaPlayer.stop();
+        mediaPlayer.stop();
         this.stage.close();
         GameSelection gameSelection = new GameSelection();
         gameSelection.start(new Stage());

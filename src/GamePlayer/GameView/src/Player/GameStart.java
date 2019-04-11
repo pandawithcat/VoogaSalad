@@ -35,6 +35,7 @@ public class GameStart extends Application {
     }
 
     public void setTitle(GameInfo gameInfo, Image image){
+//        logic.createGameInstance(gameInfo);
 
         Text title = new Text(gameInfo.getGameTitle());
         title.setTranslateY(-100);
