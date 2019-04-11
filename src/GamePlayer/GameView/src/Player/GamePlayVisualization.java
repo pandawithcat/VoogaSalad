@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -17,13 +19,15 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class GamePlayVisualization extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
-    private static final long FRAMES_PER_SECOND = 1;
-    private static final long MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final long SECOND_DELAY = 1 / FRAMES_PER_SECOND;
+    public static final int FRAMES_PER_SECOND = 60;
+    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth;
     private double screenHeight;
@@ -31,12 +35,12 @@ public class GamePlayVisualization extends Application {
     private Logic myLogic;
     private Timeline animation = new Timeline();
     private GamePlayIDE myGameIDE;
-
+    private Group root;
     @Override
     public void start(Stage stage){
         try {
             Stage primaryStage = stage;
-            var root = new Group();
+            root = new Group();
             Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
@@ -44,7 +48,6 @@ public class GamePlayVisualization extends Application {
             screenHeight = primScreenBounds.getHeight();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-//            myLogic = new Logic();
             PlayInterface playMethod = () -> startLoop();
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, playMethod);
             root.getChildren().add(myGameIDE);
@@ -54,7 +57,7 @@ public class GamePlayVisualization extends Application {
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
             //gameLoop
-            startLoop();
+//            startLoop();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -74,9 +77,10 @@ public class GamePlayVisualization extends Application {
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
+        animation.play();
     }
 
-    private void step(long elapsedTime){
+    private void step(double elapsedTime){
 //        myLogic.update(elapsedTime);
 //        if (myLogic.checkIfLevelEnd()){
 //            myLogic.
@@ -91,6 +95,7 @@ public class GamePlayVisualization extends Application {
         //getViewsToBeAdded
         //getRemovedImageViews
         //
+        myGameIDE.getLeft().getMap().update(elapsedTime);
     }
 
 

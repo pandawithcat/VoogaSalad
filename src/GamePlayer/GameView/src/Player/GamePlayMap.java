@@ -24,12 +24,12 @@ public class GamePlayMap extends GridPane {
     private Group mapRoot;
     public static final String WEAPON_IMAGE = "wood.jpg";
     public static final String GRASS_IMAGE = "grassplay.jpg";
-
+    public static final String RESOURCES_PATH = "resources/";
     //TEST TERRAIN
     private List<ImmutableImageView> testTerrain = new ArrayList<ImmutableImageView>();
     private List<ImmutableImageView> imageToAdd;
     private List<ImmutableImageView> imageToRemove;
-
+    private ImageView imageView;
 
 
     public GamePlayMap(double width, double height, Logic logic) {
@@ -48,9 +48,9 @@ public class GamePlayMap extends GridPane {
 //        createSquareTestTerrain(width, height);
 
         System.out.println(testTerrain.size());
-        testTerrain.stream().forEach(img -> {
-            getChildren().add(img.getAsNode());
-        });
+//        testTerrain.stream().forEach(img -> {
+//            getChildren().add(img.getAsNode());
+//        });
 
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
@@ -60,16 +60,37 @@ public class GamePlayMap extends GridPane {
         setPrefHeight(height);
         System.out.println("Daddy: " + width);
         System.out.println("Chill: " + height);
-
+        //for hardocded animation
+        createImagesForHardCode();
+    }
+    // for hardcoded animation
+    private void createImagesForHardCode(){
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream(RESOURCES_PATH + "balloon.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        imageView = new ImageView(image);
     }
 
-    public void update(long elapsedTime){
-        myLogic.update(elapsedTime);
-        imageToAdd = myLogic.getObjectsToAdd();
-        imageToRemove = myLogic.getObjectsToRemove();
-        //TODO: third method to move obejcts?
-        imageToRemove.stream().forEach(img -> mapRoot.getChildren().remove(img.getAsNode()));
-        imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
+    public void update(double elapsedTime){
+        //commenting out logic to hardcode animation
+//        myLogic.update(elapsedTime);
+//        imageToAdd = myLogic.getObjectsToAdd();
+//        imageToRemove = myLogic.getObjectsToRemove();
+//        //TODO: third method to move obejcts?
+//        imageToRemove.stream().forEach(img -> mapRoot.getChildren().remove(img.getAsNode()));
+//        imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
+
+        //hardcoded animation
+        if(!getChildren().contains(imageView)){
+            getChildren().add(imageView);
+            imageView.setFitWidth(50);
+            imageView.setFitHeight(50);
+            imageView.setLayoutX(100);
+        }
+        imageView.setLayoutX(imageView.getX() + 10);
     }
 
     //NOT yet used
