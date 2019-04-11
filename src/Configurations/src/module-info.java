@@ -24,9 +24,6 @@ module Configurations {
     exports Configs.Waves.WaveBehaviors;
     exports Configs.Waves;
     exports ActiveConfigs;
-<<<<<<< HEAD
-}
-=======
+
     exports Configs.GamePackage.GameBehaviors;
 }
->>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50

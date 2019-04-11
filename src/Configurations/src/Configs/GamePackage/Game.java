@@ -39,8 +39,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber=0;
     }
 
-<<<<<<< HEAD
-=======
+
     //FOR TESTING
     public void setName(String name) {
         myTitle = name;
@@ -51,7 +50,6 @@ public class Game implements Updatable, EventHandlable, Configurable {
     public void setMyDescription(String name) {
         myDescription = name;
     }
->>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50
 
     @Override
     public void update(long ms) {
