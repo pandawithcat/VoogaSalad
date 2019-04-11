@@ -52,7 +52,7 @@ public class ConfigurableMap {
     public void setConfigurations(){
         popUpWindow = new Stage();
         System.out.println("this reached here1");
-        //popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
         layout = new VBox(10.00);
@@ -128,11 +128,12 @@ public class ConfigurableMap {
                     terrainTileList.add((TerrainTile) child);
                 }
                 MapConfig m = new MapConfig();
-                Configuration c = m.getConfiguration();
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m,t.getImageView(),t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+                    Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+
                     tileList.add(tile);
                 }
+
                 passedMap=new HashMap<>();
                 passedMap.put("myLabel","Map");
                 passedMap.put("myTerrain",tileList);
@@ -141,13 +142,13 @@ public class ConfigurableMap {
                 passedMap.put("enemyEnteringDirection",90);
                 passedMap.put("enemyExitGridXPos",20);
                 passedMap.put("enemyExitGridYPos",20);
-
-
                 passedMap.put("gridHeight",(int)map.getHeight());
                 passedMap.put("gridWidth",(int)map.getWidth());
-                c.getAttributes();
-                c.setAllAttributes(passedMap);
+
+                m.getConfiguration().setAllAttributes(passedMap);
+
                 myMap.put("myMap", m);
+
                 popUpWindow.close();
 
             }

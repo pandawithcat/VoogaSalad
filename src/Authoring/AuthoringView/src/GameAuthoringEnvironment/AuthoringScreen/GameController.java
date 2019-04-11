@@ -76,6 +76,8 @@ public class GameController {
                     //TODO DO Errorchecking/Refactor
                     @Override
                     public void handle(MouseEvent event) {
+                        System.out.println(value.equals(java.lang.String.class));
+
                         if(value.equals(java.lang.Integer.class)){
                             myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
                         }
@@ -127,10 +129,13 @@ public class GameController {
                             if(clazz.getSimpleName().equals("MapConfig")) {
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
+                                System.out.println(myAttributesMap);
                             }
                             else{
+                                //TODO idf clazz does not taken in myconfigurable as a parameter, then error
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
+                                System.out.println(object.getClass());
                                 createConfigurable((Configurable) object);}
                         } catch ( ClassNotFoundException|NoSuchMethodException|InstantiationException|IllegalAccessException|InvocationTargetException e) {
                             //TODO ErrorChecking
@@ -197,7 +202,7 @@ public class GameController {
                                         else{
                                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                             var object = cons.newInstance(myConfigurable);
-                                            createConfigurable((Configurable) object);
+                                            createConfigurable((Configurable) tempList.get(0));
                                         }
 
                                     } catch (Exception e) {
@@ -211,13 +216,20 @@ public class GameController {
                     }));
 
                     confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+
                         @Override
                         public void handle(MouseEvent event) {
+                            System.out.println("dfadafadss");
                             try {
                                 Class c = Class.forName(value.getComponentType().getName());
-                                System.out.println(c.getClass().getName());
+//                                System.out.println(c.getClass().getName());
                                 Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
-                                System.out.println(ob.getClass().getName());
+//                                System.out.println(ob.getClass().getName());
+                                System.out.println("HYASFFDSHUALUKHDFASLUHKADFSLHUKDAHLUKFHLUKALHSDF");
+                                System.out.println(myConfigurable);
+                                if (myConfigurable instanceof Level){
+                                    System.out.println(((Level) myConfigurable).getMyMapConfig());
+                                }
                                 for(int a=0; a<tempList.size() ; a++){
                                     ob[a] =(Object) tempList.get(a);
                                 }
@@ -249,8 +261,8 @@ public class GameController {
                     alert.showAndWait();
                 }
                 else {*/
-                    System.out.println(myAttributesMap);
-                    System.out.println(myConfigurable.getConfiguration().getAttributes());
+//                    System.out.println(myAttributesMap);
+//                    System.out.println(myConfigurable.getConfiguration().getAttributes());
                     myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
                     popupwindow.close();
 
