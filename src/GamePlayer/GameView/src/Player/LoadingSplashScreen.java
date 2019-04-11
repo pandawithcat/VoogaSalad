@@ -30,7 +30,7 @@ import java.io.File;
 
 public class LoadingSplashScreen extends Application{
 
-    private final String WELCOME_MUSIC = "resources/main-theme.mp3";
+    private final String WELCOME_MUSIC = "resources/gameMusic.mp3";
     private StackPane root;
     private Rectangle rect;
     private Text text;

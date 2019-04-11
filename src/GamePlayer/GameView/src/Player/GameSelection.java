@@ -29,19 +29,20 @@ public class GameSelection extends Application {
     private VBox root;
     private Stage stage;
     private ScrollPane scrollPane = new ScrollPane();
-    private double width;
-    private double height;
+    private double width = ScreenSize.getWidth();
+    private double height = ScreenSize.getHeight();
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
+        scrollPane.setId("scrollpane");
+        scrollPane.setPrefViewportWidth(50);
+        scrollPane.setPrefViewportHeight(50);
         logic = new Logic();
         stage = primaryStage;
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        width = primScreenBounds.getWidth();
-        height = primScreenBounds.getHeight();
         stage.setX(width);
         stage.setY(height);
         root = new VBox();
+        root.setId("pane");
         Label text = new Label("Select a Game");
         text.setPrefHeight(100);
         root.getChildren().add(text);
@@ -58,19 +59,14 @@ public class GameSelection extends Application {
     }
     private List<GameInfo> uploadAvailableGames(){
         List<GameInfo> gameInfoList= logic.getGameOptions();
-//        List<GameInfo> gameInfos = new ArrayList<>();
-//        for(int x = 1; x < 5; x++){
-//            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png","");
-//            gameInfos.add(gameInfo);
-//        }
         return gameInfoList;
     }
 
     private void createGameSelectionScreen() throws FileNotFoundException {
         VBox vBox = new VBox();
-        vBox.setPrefWidth(width);
+        vBox.setPrefWidth(width/3);
             HBox hBox = new HBox();
-            hBox.setPrefWidth(width);
+            hBox.setPrefWidth(width/3);
             for(GameInfo gameInfo: uploadAvailableGames()){
                 Text title = new Text(gameInfo.getGameTitle());
                 title.setX(300);
@@ -84,7 +80,7 @@ public class GameSelection extends Application {
                 hBox.getChildren().add(imageView);
             }
             vBox.getChildren().add(hBox);
-        scrollPane.setContent(vBox);
+        scrollPane.setContent(hBox);
     }
     private void startGame(GameInfo gameInfo, Image image){
         this.stage.close();
