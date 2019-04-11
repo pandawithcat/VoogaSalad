@@ -57,7 +57,7 @@ public class GamePlayVisualization extends Application {
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
             //gameLoop
-//            startLoop();
+            startLoop();
         }
         catch (Exception e){
             e.printStackTrace();

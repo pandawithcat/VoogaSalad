@@ -4,11 +4,13 @@ import BackendExternal.Logic;
 import Configs.ImmutableImageView;
 import Configs.MapPackage.MapConfig;
 import Configs.TransferImageView;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -18,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlayMap extends GridPane {
+public class GamePlayMap extends GridPane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
     private Group mapRoot;
@@ -31,7 +33,7 @@ public class GamePlayMap extends GridPane {
     private List<ImmutableImageView> imageToRemove;
     private ImageView imageView;
 
-
+    private int movement = 5;
     public GamePlayMap(double width, double height, Logic logic) {
         myLogic = logic;
         //returns ImmutableImageViewList
@@ -52,14 +54,39 @@ public class GamePlayMap extends GridPane {
 //            getChildren().add(img.getAsNode());
 //        });
 
+        //took out gridpane for hadcoded animation
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
         //TODO: not sure if this works yet
 //        terrainList.forEach(terrainNode -> mapRoot.getChildren().add(terrainNode));
+
+//        took out gridpane for hardcoded animation
         setPrefWidth(width);
         setPrefHeight(height);
+        mapRoot.prefWidth(width);
+        mapRoot.prefHeight(height);
         System.out.println("Daddy: " + width);
         System.out.println("Chill: " + height);
+
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image image = null;
+                try {
+                    image = new Image(new FileInputStream(RESOURCES_PATH + "thumbnail1.gif"));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                ImageView tower = new ImageView(image);
+                tower.setFitHeight(50);
+                tower.setFitWidth(50);
+                tower.setTranslateX(mouseEvent.getX());
+                tower.setTranslateY(mouseEvent.getY());
+                getChildren().add(tower);
+            }
+        });
+
+
         //for hardocded animation
         createImagesForHardCode();
     }
@@ -72,6 +99,10 @@ public class GamePlayMap extends GridPane {
             e.printStackTrace();
         }
         imageView = new ImageView(image);
+        imageView.setFitWidth(50);
+        imageView.setFitHeight(50);
+        imageView.setTranslateY(ScreenSize.getHeight()/3);
+        getChildren().add(imageView);
     }
 
     public void update(double elapsedTime){
@@ -84,14 +115,10 @@ public class GamePlayMap extends GridPane {
 //        imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
 
         //hardcoded animation
-        if(!mapRoot.getChildren().contains(imageView)){
-            imageView.setFitWidth(50);
-            imageView.setFitHeight(50);
-            imageView.setLayoutX(100);
-            mapRoot.getChildren().add(imageView);
-        }
-        imageView.setLayoutX(imageView.getX() + 10);
+        imageView.setTranslateX(movement);
+        movement ++;
     }
+
 
     //NOT yet used
     private void createFilledTestTerrain(double width, double height){
