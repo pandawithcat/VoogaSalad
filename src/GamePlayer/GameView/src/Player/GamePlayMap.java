@@ -42,7 +42,11 @@ public class GamePlayMap extends GridPane {
 //        terrainList.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
 
         mapRoot=new Group();
-        createTestTerrain();
+
+
+        createFilledTestTerrain(width, height);
+//        createSquareTestTerrain(width, height);
+
         System.out.println(testTerrain.size());
         testTerrain.stream().forEach(img -> {
             getChildren().add(img.getAsNode());
@@ -69,20 +73,42 @@ public class GamePlayMap extends GridPane {
     }
 
     //NOT yet used
-    private void createTestTerrain(){
-        for (int i = 0; i < 10; i++) {
+    private void createFilledTestTerrain(double width, double height){
+        for (int i = 0; i < 20; i++) {
 
-            for(int j = 0;j<10;j++) {
-                System.out.println("yes");
+            for(int j = 0;j<20;j++) {
 //                Image test = new Image(getClass().getResourceAsStream("/resources/"+WEAPON_IMAGE));
                 try {
                     Image image = new Image(new FileInputStream("resources/grass.jpg"));
 //                Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg"));
                     TransferImageView iv = new TransferImageView(image);
-                    iv.setFitWidth(6);
-                    iv.setFitHeight(6);
-                    iv.setTranslateX(6*i);
-                    iv.setTranslateY(6*j);
+                    iv.setFitWidth(width/20);
+                    iv.setFitHeight(height/20);
+                    iv.setTranslateX(iv.getFitWidth()*i);
+                    iv.setTranslateY(iv.getFitHeight()*j);
+                    testTerrain.add(iv);
+                }
+                catch (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+
+            }
+        }
+    }
+
+    private void createSquareTestTerrain(double width, double height){
+        for (int i = 0; i < 20; i++) {
+
+            for(int j = 0;j<20;j++) {
+//                Image test = new Image(getClass().getResourceAsStream("/resources/"+WEAPON_IMAGE));
+                try {
+                    Image image = new Image(new FileInputStream("resources/grass.jpg"));
+//                Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg"));
+                    TransferImageView iv = new TransferImageView(image);
+                    iv.setFitWidth(height/20);
+                    iv.setFitHeight(height/20);
+                    iv.setTranslateX(iv.getFitWidth()*i);
+                    iv.setTranslateY(iv.getFitHeight()*j);
                     testTerrain.add(iv);
                 }
                 catch (FileNotFoundException e) {
