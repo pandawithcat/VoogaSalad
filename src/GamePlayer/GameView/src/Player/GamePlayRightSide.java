@@ -15,15 +15,15 @@ public class GamePlayRightSide extends VBox {
 
 
 
-    public GamePlayRightSide(double width, double height, Logic logic){
+    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method){
         setPrefWidth(width);
         setPrefHeight(height);
         myGameArsenal = new GamePlayArsenal(width, height * ARSENAL_RATIO, logic);
-        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height));
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method));
     }
 
-    private VBox createButtonPanel(double width, double height){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO);
+    private VBox createButtonPanel(double width, double height, PlayInterface method){
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method);
         return myButtonPanel;
     }
 

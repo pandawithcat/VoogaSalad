@@ -8,7 +8,9 @@ import java.util.List;
 
 public class TimeExpirable extends WeaponBehavior{
     @Configure
-    protected double timeAlive;
+    private String myLabel;
+    @Configure
+    private double timeAlive;
 
     Configuration myConfiguration;
 
@@ -20,6 +22,11 @@ public class TimeExpirable extends WeaponBehavior{
     @Override
     public void update(long ms) {
 
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

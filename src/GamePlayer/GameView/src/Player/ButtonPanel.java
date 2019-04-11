@@ -10,7 +10,7 @@ public class ButtonPanel extends VBox {
     private FastFowardButton myFastFowardButton;
     private SettingsPanel mySettingsPanel;
 
-    public ButtonPanel(double width, double height){
+    public ButtonPanel(double width, double height, PlayInterface method){
         setPadding(new Insets(0, 0, 20, 0));
         setId("HUD");
         setSpacing(1);
@@ -20,7 +20,14 @@ public class ButtonPanel extends VBox {
         hbox.setSpacing(10);
         hbox.getChildren().add(myPlayButton);
         myFastFowardButton = new FastFowardButton(width, height * 0.4);
-        myPlayButton.setOnAction(e->changeToFastFoward(hbox));
+        myPlayButton.setOnAction(e-> {
+                    try {
+                        changeToFastFoward(hbox);
+                        method.playButton();
+                    } catch (Exception error) {
+                        error.printStackTrace();
+                    }
+                });
         myFastFowardButton.setOnAction(e->changeToPlay(hbox));
         mySettingsPanel = new SettingsPanel(width, height/2);
         getChildren().add(mySettingsPanel);

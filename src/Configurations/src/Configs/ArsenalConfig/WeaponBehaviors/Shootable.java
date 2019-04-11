@@ -5,6 +5,9 @@ import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
+
+    @Configure
+    private String myLabel;
     @Configure
     protected Shooter myShooter;
 
@@ -24,6 +27,11 @@ public class Shootable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     public WeaponConfig getWeaponConfig() {

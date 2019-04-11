@@ -2,8 +2,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import GameAuthoringEnvironment.AuthoringComponents.*;
 
-import GameAuthoringEnvironment.AuthoringScreen.main.GameOutline;
-import GameAuthoringEnvironment.AuthoringScreen.main.GamePropertySettings;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.EventHandler;
@@ -28,6 +26,7 @@ public class AuthoringVisualization {
     private double screenMinY;
     private Scene myScene;
     private Group myContainer;
+    private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
 
     public void start (Stage stage) {
@@ -61,65 +60,9 @@ public class AuthoringVisualization {
 
     private void setScene(Stage stage, Group myRoot) {
         myContainer = myRoot;
-
-        //This is the only pane that should be fixed on the screen
-        var leftGridPane = new Group();
-        leftGridPane.setLayoutY(63);
-        //leftGridPane.setGridLinesVisible(true);
-        setLeftGridPane(leftGridPane);
-
-/*
-        myContainer.setRight(null);
-        myContainer.setBottom(null);
-
-        myContainer.setTop(addTopBar());
-        myContainer.setLeft(leftGridPane);*/
-
-        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
-
+        TopMenuBar topMenuBar = new TopMenuBar();
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
         myScene = new Scene(myContainer);
-
-
-    }
-
-
-    private void setLeftGridPane(Group leftGridPane){
-        GameOutline gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
-        leftGridPane.getChildren().addAll(gameOutline.getVBox());
-    }
-
-
-    // add all the other modules that can be close
-    private void addNotStaticModule(){
-
-    }
-
-    // add all the buttons - ex) save, load etc
-    private HBox addTopBar(){
-
-        var TopMenuBar = new HBox();
-
-        HelpButton helpButton = new HelpButton();
-        SaveButton saveButton = new SaveButton();
-        ImageButton imageButton = new ImageButton();
-        LoadButton loadButton = new LoadButton();
-        PlayButton playButton = new PlayButton();
-        ViewButton viewButton = new ViewButton();
-        NewGameButton newGameButton = new NewGameButton();
-        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
-                System.out.println("Mouse entered");
-                // TODO Make This pop up window that sets the Game Properties
-                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight, "Game Property Settings");
-            }
-        });
-
-
-
-        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
-                viewButton.getButton(), helpButton.getButton());
-
-        return  TopMenuBar;
     }
 
 

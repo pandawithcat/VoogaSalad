@@ -4,7 +4,6 @@ import BackendExternal.Logic;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,9 +15,9 @@ import javafx.util.Duration;
 
 public class GamePlayVisualization extends Application {
     private String Title = "VoogaSalad Game";
-    private static final int FRAMES_PER_SECOND = 1;
-    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    private static final long FRAMES_PER_SECOND = 1;
+    private static final long MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final long SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth;
     private double screenHeight;
@@ -40,25 +39,36 @@ public class GamePlayVisualization extends Application {
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
 
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
+//            myLogic = new Logic();
+            PlayInterface playMethod = () -> startLoop();
+            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, playMethod);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
 
             //gameLoop
-            var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-            animation.setCycleCount(Timeline.INDEFINITE);
-            animation.getKeyFrames().add(frame);
+            startLoop();
+
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    private void step(double elapsedTime){
+    private void startLoop(){
+        System.out.println("yes boy");
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+    }
+
+    private void step(long elapsedTime){
 //        myLogic.update(elapsedTime);
-//        myLogic.checkIfLevelEnd();
+//        if (myLogic.checkIfLevelEnd()){
+//            myLogic.
+        //TODO: yeah idk if this is best design below
+//        myGameIDE.getLeft().getMap().update(elapsedTime);
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
         //TODO: changelistener for dragging objects

@@ -93,6 +93,20 @@ public class Logic {
         myGame.update(currentTime);
     }
 
+    // View calls to get objects to add to the view
+    // No Input
+    // Return: List of Viewable instances
+    public List<ImmutableImageView> getObjectsToAdd(){
+        return myGame.getActiveLevel().getViewsToBeAdded();
+    }
+
+    // View calls to get objects to remove from the view
+    // No Input
+    // Return: List of Viewable instances
+    public List<ImmutableImageView> getObjectsToRemove(){
+        return myGame.getActiveLevel().getViewsToBeRemoved();
+    }
+
     // View calls to check the current score of the game in the game loop
     // No Input
     // Return: integer score

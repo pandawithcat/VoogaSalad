@@ -16,4 +16,9 @@ public class GamePlayLeftSide extends VBox {
         mySettings = new GamePlaySettingsBar(width,height * 2/ 10);
         this.getChildren().addAll(myMap, mySettings);
     }
+
+    public GamePlayMap getMap(){
+        return myMap;
+
+    }
 }

@@ -8,7 +8,7 @@ import Configs.View;
 public class Shooter extends ShooterConfig implements Updatable {
     //TODO after demo: implement behaviors
 
-    public Shooter(ShooterConfig shooterConfig){
+    public Shooter(ShooterConfig shooterConfig, ActiveLevel activeLevel){
         super(shooterConfig);
     }
 
@@ -29,7 +29,7 @@ public class Shooter extends ShooterConfig implements Updatable {
             double projectileStartYPos = weaponY + height/2;
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView());
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView(),myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth());
                 ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
             }
