@@ -23,10 +23,10 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private String myThumbnail;
     @Configure
     private Level[] levelList;
-    @Configure
-    private GameBehavior[] gameType;
-    @Configure
-    private WeaponConfig[] allWeaponConfigs;
+    /*@Configure
+    private GameBehavior[] gameType;*/
+    /*@Configure
+    private WeaponConfig[] allWeaponConfigs;*/
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;

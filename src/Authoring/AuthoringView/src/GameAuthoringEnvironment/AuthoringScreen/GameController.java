@@ -7,6 +7,7 @@ import Configs.Configuration;
 import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.GamePackage.Game;
 import Configs.GamePackage.GameBehaviors.GameBehavior;
+import Configs.LevelPackage.Level;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.file.Paths;
@@ -45,6 +47,7 @@ public class GameController {
     }
 
 
+
     public void createConfigurable(Configurable myConfigurable){
 
         Stage popupwindow = new Stage();
@@ -52,29 +55,41 @@ public class GameController {
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
 
-        System.out.println("it reached here");
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
 
         VBox layout = new VBox(10.00);
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
 
-        layout.autosize();
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
+            System.out.println(value);
 
             //handle primitives
-            if(value.equals(java.lang.String.class) || value.equals(java.lang.Integer.class) || value.isPrimitive()){
+            if(value.equals(java.lang.String.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
-                Button confirmButton = new Button("Confirm");
+                Button confirmButton = new Buttexon("Confirm");
                 var nameAndTfBar = new HBox();
                 nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
                 confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        myAttributesMap.put(key, myTextField.getText());
-
+                        if(value.equals(java.lang.Integer.class)){
+                            myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
+                        }
+                        else if(value.equals(java.lang.Long.class)){
+                            myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
+                        }
+                        else if(value.equals(java.lang.Double.class)){
+                            myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
+                        }
+                        else if(value.equals(java.lang.Boolean.class)){
+                            myAttributesMap.put(key, Boolean.parseBoolean(myTextField.getText()));
+                        }
+                        else{
+                            myAttributesMap.put(key, myTextField.getText());
+                        }
                     }
                 }));
                 layout.getChildren().addAll(nameAndTfBar);
@@ -126,7 +141,7 @@ public class GameController {
             }
 
             //handle list
-            else if(value.isArray()) {
+            else if(value.isArray() ) {
                 if(value.getComponentType().getClass().isInstance(Configurable.class)) {
                     List<Object> tempList = new ArrayList<>();
                     Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
@@ -164,48 +179,24 @@ public class GameController {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                                 if (mouseEvent.getClickCount() == 2) {
                                     try {
-                                        System.out.println(value.getComponentType().getName());
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
-                                        List<Class> behaviorList = WeaponBehavior.IMPLEMENTING_BEHAVIORS;
-
-                                        //TODO Change this that behavior field can be accessed without using bunch of ifs
-                                        if(!cl.getSimpleName().contains("Behavior")){
+                                        System.out.println(cl.getSimpleName());
+                                        System.out.println(cl.getClasses());
+                                        System.out.println(value.getComponentType().getName());
+                                        Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                                        List<Class> behaviorList = (List<Class>) myField.get(null);
+                                        /*if(!cl.getComponentType().getClass().isInstance()){
                                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                             var object = cons.newInstance(myConfigurable);
                                             createConfigurable((Configurable) object);
-                                            }
-                                        else if(cl.getSimpleName().equals("WeaponBehavior") ){
-                                            behaviorList = WeaponBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-                                        else if (cl.getSimpleName().equals("EnemyBehavior") ){
-                                            behaviorList = EnemyBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-                                        else if (cl.getSimpleName().equals("GameBehavior") ){
-                                            behaviorList = GameBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-                                        else if (cl.getSimpleName().equals("LevelBehavior") ){
-                                            behaviorList = LevelBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-                                        else if (cl.getSimpleName().equals("TerrainBehavior") ){
-                                            behaviorList = TerrainBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-                                        else{
-                                            behaviorList = ProjectileBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }
-
-                                        /*else if (cl.getSimpleName().equals("ProjectileBehavior") ){
-                                            behaviorList = ProjectileBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }*/
-
-
-                                       /* else if (cl.getSimpleName().equals("ShooterBehavior") ){
-                                            behaviorList = ShooterBehavior.IMPLEMENTING_BEHAVIORS;
-                                        }*/
+                                            }*/
 
                                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                                       System.out.println(configureBehavior);
 
 
                                     } catch (Exception e) {
+                                        System.out.println(e);
 
                                     }
                                 }
@@ -230,7 +221,7 @@ public class GameController {
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(!myConfigurable.getConfiguration().isConfigurationComplete()){
+                /*if(!myConfigurable.getConfiguration().isConfigurationComplete()){
                     System.out.println(myAttributesMap);
                     System.out.println(myConfigurable.getConfiguration().getAttributes());
                     Alert alert = new Alert(Alert.AlertType.NONE);
@@ -239,12 +230,12 @@ public class GameController {
                     alert.setContentText("Atrributtes not all filled out");
                     alert.showAndWait();
                 }
-                else {
+                else {*/
                     System.out.println(myAttributesMap);
                     System.out.println(myConfigurable.getConfiguration().getAttributes());
                     myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
                     popupwindow.close();
-                }
+
             }
         }));
 

@@ -5,7 +5,6 @@ import Configs.Configurable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -46,7 +45,7 @@ public class ConfigureBehavior {
 
     private void setContent() {
         popUpWindow = new Stage();
-        popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Behavior Editor");
         layout = new VBox(10.00);
 
