@@ -148,6 +148,42 @@ public class ConfigurableMap {
 
     }
 
+    //    private void addSizeLabel(){
+//
+//        TextField txt = new TextField();
+//        txt.setPromptText("Size of Tile to Modify");
+//        Button sub = new Button("Submit");
+//        Label lab = new Label();
+//
+//        sub.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                if(txt.getText()!=null&&!txt.getText().isEmpty()&&Integer.parseInt(txt.getText())<6){
+//                    modTileSize=Integer.parseInt(txt.getText());
+//                    lab.setText("");
+//                    System.out.println(modTileSize);
+//                }
+//                else{
+//                    lab.setText("Invalid Input");
+//                }
+//
+//            }
+//        });
+//        .addRow(3,txt,sub);
+//
+//    }
+    private void addEnemEnterPosButton(){
+        TextField enemEnterX = new TextField();
+        Button confirmEnemEnterX = new Button("Confirm");
+        TextField enemEnterY = new TextField();
+        Button confirmEnemEnterY = new Button("Confirm");
+        TextField enemExitX = new TextField();
+        Button confirmEnemExitX = new Button("Confirm");
+        TextField enemExitY = new TextField();
+        Button confirmEnemExitY = new Button("Confirm ");
+
+    }
+
     private void addGridEvent(){
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {

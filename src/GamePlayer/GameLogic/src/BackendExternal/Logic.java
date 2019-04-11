@@ -70,7 +70,13 @@ public class Logic {
     // No Input
     // Return: List of Viewable instances of static level items
     public List<ImmutableImageView> getLevelTerrain(){
-        return myGame.getActiveLevel().getMyMapConfig().getTerrain().stream().map(terrain -> terrain.getMapFeature().getImageView()).collect(Collectors.toList());
+        return myGame
+                .getActiveLevel()
+                .getMyMapConfig()
+                .getTerrain()
+                .stream()
+                .map(terrain -> terrain.getMapFeature().getImageView())
+                .collect(Collectors.toList());
 
     }
 

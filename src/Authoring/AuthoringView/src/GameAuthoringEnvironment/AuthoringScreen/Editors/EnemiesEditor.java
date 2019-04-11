@@ -1,7 +1,16 @@
 /*
 package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
+<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Editors/EnemiesEditor.java
 import Screen;
+=======
+//<<<<<<< HEAD:src/GUI/GameAuthoringEnvironment/AuthoringScreen/Modules/Editors/EnemiesEditor.java
+//import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
+//import GUI.GameAuthoringEnvironment.AuthoringConfig.Enemy;
+//import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
+//=======
+import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
+>>>>>>> 07b6588bd2a5d7519977ccc8cef96eb76d8d5653:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/Editors/EnemiesEditor.java
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

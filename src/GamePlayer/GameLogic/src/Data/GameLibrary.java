@@ -42,6 +42,7 @@ public class GameLibrary {
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();
         myGameDetails.load(propertiesIS);
+        System.out.println("Reading from Game Options Properties File");
         for (String s : myGameDetails.stringPropertyNames()){
             String[] gameDetails = myGameDetails.getProperty(s).split(REGEX);
             GameInfo newGameInfo = new GameInfo(s, gameDetails[0], gameDetails[1]);
@@ -57,7 +58,9 @@ public class GameLibrary {
     public Game getGame(GameInfo chosenGameInfo){
         XStream serializer = new XStream(new DomDriver());
         String gameXMLFileName = myXMLFileNames.get(chosenGameInfo.getGameTitle());
+        System.out.println("Loading Game XML File: " + gameXMLFileName);
         File xmlFile = new File(XML_FILE_PATH + gameXMLFileName);
+        System.out.println("Un-Serializing Game XML File");
         return (Game)serializer.fromXML(xmlFile);
     }
 

@@ -12,7 +12,6 @@ import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
-import GameAuthoringEnvironment.AuthoringScreen.Editors.MapEditor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

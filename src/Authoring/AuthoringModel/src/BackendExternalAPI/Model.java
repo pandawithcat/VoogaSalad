@@ -36,22 +36,27 @@ public class Model {
     }
 
     private void updatePropertiesFile() throws IOException{
+        System.out.println("Reading Properties File");
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();
         myGameDetails.load(propertiesIS);
         myXMLFileName = myNewGame.getTitle() + XML_TAG;
         String propertyValue = myNewGame.getThumbnail() + REGEX + myNewGame.getDescription() + REGEX + myXMLFileName;
+        System.out.println("Adding: " + propertyValue);
         System.out.println(propertyValue);
         myGameDetails.setProperty(myNewGame.getTitle(),propertyValue);
         FileOutputStream propertiesOS = new FileOutputStream(PROPERTIES_FILE_PATH);
         myGameDetails.store(propertiesOS, null);
+        System.out.println("Saved Properties File");
     }
 
     private void writeToXMLFile() throws IOException {
         XStream mySerializer = new XStream(new DomDriver());
+        System.out.println("Serializing Game");
         String gameString = mySerializer.toXML(myNewGame);
         FileWriter xmlFW = new FileWriter(XML_FILE_PATH + myXMLFileName);
         xmlFW.write(gameString);
+        System.out.println("Saved Game XML File");
         xmlFW.close();
     }
 

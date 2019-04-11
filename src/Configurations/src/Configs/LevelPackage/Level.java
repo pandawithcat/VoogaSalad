@@ -21,7 +21,6 @@ public class Level implements Configurable{
     private MapConfig myMap;
     @Configure
     private LevelBehavior[] levelBehaviors;
-    @XStreamOmitField
     private Configuration myConfiguration;
 
 
