@@ -36,7 +36,6 @@ public class Logic {
 
     }
 
-
     // View will call this first to get the name and thumbnail file name of each game
     // No Input
     // Return: List of GameInfo objects

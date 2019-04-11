@@ -35,11 +35,13 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber=0;
     }
 
+
     @Override
     public void update(long ms) {
         //TODO CHECK IF LEVEL IS OVER AND CHANGE currentLevelOver = true;
         //TODO CHECK IF GAME IS OVER
     }
+
 
     public boolean isGameOver() {
         return gameOver;

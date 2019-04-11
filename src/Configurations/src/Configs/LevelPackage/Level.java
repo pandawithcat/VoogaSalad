@@ -6,6 +6,8 @@ import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
 
+import java.util.Map;
+
 public class Level implements Configurable{
 
     private Game myGame;
@@ -20,12 +22,6 @@ public class Level implements Configurable{
     //    @Configure
 //    protected Behavior<Level>[] levelBehaviors;
     private Configuration myConfiguration;
-
-
-    public Level(Game game){
-        myGame = game;
-        myConfiguration = new Configuration(this);
-    }
 
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();

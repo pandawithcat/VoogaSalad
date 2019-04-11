@@ -28,7 +28,7 @@ public class GameSelection extends Application {
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
-//        logic = new Logic();
+        logic = new Logic();
         stage = primaryStage;
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
@@ -83,7 +83,7 @@ public class GameSelection extends Application {
         this.stage.close();
         GameStart gameStart = new GameStart();
         gameStart.start(new Stage());
-        gameStart.setTitle(gameInfo, image);
+        gameStart.setTitle(gameInfo, image, logic);
     }
 
     public static void main (String [] args){launch(args);}
