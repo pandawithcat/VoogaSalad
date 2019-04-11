@@ -12,8 +12,11 @@ public class Configuration {
     private Map<String,Class> myAttributeTypes;
     @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
+    @XStreamOmitField
     private boolean isComplete = false;
+    @XStreamOmitField
     private Configurable myConfigurable;
+    @XStreamOmitField
     private Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
@@ -45,6 +48,7 @@ public class Configuration {
     public void setOneAttribute(String name, Object value) {
         myAttributes.put(name,value);
         //validateType(name,value);
+        setAttributesInConfigurable();
         if(isAttributesComplete(myAttributes)) isComplete = true;
     }
 

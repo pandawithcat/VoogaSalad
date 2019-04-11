@@ -2,26 +2,30 @@ package Configs;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import java.io.File;
-
 
 public class View implements Configurable {
     private Configuration myConfiguration;
 
     @Configure
     private String myLabel;
-    @XStreamOmitField
     @Configure
-    private File imagePath;
+    private String imagePath;
 //    @Configure
 //    private String imageName;
     @Configure
     private double width;
     @Configure
     private double height;
+    private Configurable myConfigurable;
+
+
+    public View(Configurable configurableParent) {
+        myConfigurable = configurableParent;
+        myConfiguration = new Configuration(this);
+    }
 
     //this constructor is for the special case for the terrain blocks in the map
-    public View(File file, double width, double height) {
+    public View(String file, double width, double height) {
         imagePath = file;
         this.width = width;
         this.height = height;
@@ -32,10 +36,6 @@ public class View implements Configurable {
         return myLabel;
     }
 
-    public View(Configurable configurableParent) {
-        myConfiguration = new Configuration(configurableParent);
-
-    }
 
     @Override
     public Configuration getConfiguration() {
@@ -59,7 +59,7 @@ public class View implements Configurable {
         return height;
     }
     public String getImage() {
-        return imagePath.toString();
+        return imagePath;
     }
 
 
