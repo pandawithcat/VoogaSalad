@@ -6,6 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class FastFowardButton extends Button {
     private String icon = "fastFoward.png";
+
     private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(icon));
     private ImageView imageView = new ImageView(image);
     public FastFowardButton(double width, double height){

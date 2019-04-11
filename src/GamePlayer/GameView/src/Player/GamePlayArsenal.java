@@ -1,21 +1,17 @@
 package Player;
 
 import BackendExternal.Logic;
-import Configs.ImmutableImageView;
 import Configs.Info;
-import Configs.TransferImageView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.lang.reflect.Array;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class GamePlayArsenal extends VBox {
@@ -44,7 +40,7 @@ public class GamePlayArsenal extends VBox {
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic){
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic) throws FileNotFoundException {
         myArsenalWidth = arsenalWidth;
         //initialize weapon display first
         isWeapon = true;
@@ -75,9 +71,9 @@ public class GamePlayArsenal extends VBox {
         getChildren().add(createArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO));
     }
 
-    private HBox createArsenalSelector(double width, double height){
+    private HBox createArsenalSelector(double width, double height) throws FileNotFoundException {
         HBox arsenalSelector = new HBox();
-        weaponImage = new Image(WEAPON_IMAGE);
+        weaponImage = new Image(new FileInputStream("resources/" +WEAPON_IMAGE));
         weaponImageView = new ImageView(weaponImage);
         weaponImageView.setFitHeight(height);
         weaponImageView.setFitWidth(width /2);
@@ -86,8 +82,8 @@ public class GamePlayArsenal extends VBox {
         arsenalSelector.getChildren().add(weaponButton);
 
         //obstacles
-        obstacleImage = new Image(WEAPON_IMAGE);
-        obstacleImageView = new ImageView(OBSTACLE_IMAGE);
+        obstacleImage = new Image(new FileInputStream("resources/" + OBSTACLE_IMAGE));
+        obstacleImageView = new ImageView(obstacleImage);
         obstacleImageView.setFitHeight(height);
         obstacleImageView.setFitWidth(width /2);
         Button obstacleButton = new Button("", obstacleImageView);
@@ -98,10 +94,11 @@ public class GamePlayArsenal extends VBox {
 
     private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth){
         currArsenal.values().stream().forEach(info -> { try {
-        ImageView image = new ImageView(new Image(info.getImage()));
-        image.setFitWidth(arsenalWidth/2);
-        image.setFitHeight(arsenalWidth/2);
-        viewList.add(image);
+        Image image = new Image(new FileInputStream("resources/" + info.getImage()));
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(arsenalWidth/2);
+        imageView.setFitHeight(arsenalWidth/2);
+        viewList.add(imageView);
         } catch (Exception e){
             e.printStackTrace();
         }
