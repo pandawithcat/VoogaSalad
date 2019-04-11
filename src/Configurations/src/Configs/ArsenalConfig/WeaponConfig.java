@@ -2,15 +2,12 @@ package Configs.ArsenalConfig;
 
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
-import Configs.Behaviors.Behavior;
 
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
     @Configure
     private String myLabel;
-    @Configure
-    private String name;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure
@@ -28,7 +25,7 @@ public class WeaponConfig implements  Configurable, Viewable {
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
-        this.name = weaponConfig.getName();
+        this.myLabel = weaponConfig.getLabel();
         this.behaviors = weaponConfig.getBehaviors();
         this.view = weaponConfig.getView();
     }
@@ -46,8 +43,10 @@ public class WeaponConfig implements  Configurable, Viewable {
         return myConfiguration;
     }
 
-    public String getName() {
-        return name;
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     public WeaponBehavior[] getBehaviors() {
@@ -61,11 +60,6 @@ public class WeaponConfig implements  Configurable, Viewable {
 
     public TransferImageView getImageView() {
         return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
-    }
-
-    @Override
-    public String getLabel() {
-        return myLabel;
     }
 
     public Arsenal getMyArsenal() {
