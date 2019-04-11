@@ -28,6 +28,7 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         generateCurrentActiveWave();
+        //TODO: fix active wave to be a wave spawner
         activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
@@ -44,7 +45,14 @@ public class ActiveLevel extends Level implements Updatable {
         return null;
     }
 
-    
+    public boolean noMoreEnemiesLeft() {
+        //TODO: check logic on seeing if theres no more waves
+
+        return activeEnemies.size()==0;
+    }
+
+
+
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
     }

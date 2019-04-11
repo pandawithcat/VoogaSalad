@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.Configurable;
 import Configs.Configuration;
 import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.Terrain;
@@ -30,20 +31,23 @@ public class ConfigurableMap {
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
     private String grassTileImage="grass.jpg";
-    VBox layout;
-    private final int tileViewWidth = 150;
+    private VBox layout;
+    private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
+    private Map<String, Object> myMap;
+    private Stage popUpWindow;
 
+    public ConfigurableMap(Map<String, Object> myAttributeMap){
+       myMap = myAttributeMap;
+    }
 
     public void setConfigurations(){
-        Stage popUpWindow = new Stage();
+        popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
+
         layout = new VBox(10.00);
-        layout.autosize();
-        Scene scene= new Scene(layout, 500, 500);
-        popUpWindow.setScene(scene);
-        popUpWindow.showAndWait();
+
         Label mapLbl = new Label("Map");
         Label tileListLbl = new Label("Tiles");
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
@@ -53,17 +57,19 @@ public class ConfigurableMap {
 
 
         // Add the Labels and Views to the Pane
-        layout.getChildren().add(messageLbl);
-        layout.getChildren().addAll(mapLbl, tileListLbl);
-        layout.getChildren().addAll(map, tileView);
+        layout.getChildren().addAll(messageLbl, mapLbl, tileListLbl, map, tileView);
         addSubmit();
+
+        Scene scene= new Scene(layout, 800, 800);
+        popUpWindow.setScene(scene);
+        popUpWindow.show();
         //pane.add(tileView,2,1);
 
         // Add the Pane and The LoggingArea to the VBox
     }
     public void initMap(){
 
-        map=new GridPane();
+        map = new GridPane();
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
 
@@ -76,6 +82,7 @@ public class ConfigurableMap {
         }
         addGridEvent();
     }
+
     public void initTileView(){
         tileView.setPrefSize(tileViewWidth, tileViewHeight);
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -107,13 +114,22 @@ public class ConfigurableMap {
                     tileList.add(tile);
                 }
                 passedMap=new HashMap<>();
+                passedMap.put("myLabel","Map");
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridXPos", 0);
                 passedMap.put("enemyEnteringGridYPos", 0);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("gridHeight",map.getHeight());
-                passedMap.put("gridWidth",map.getWidth());
+                passedMap.put("enemyExitGridXPos",20);
+                passedMap.put("enemyExitGridYPos",20);
+
+
+                passedMap.put("gridHeight",(int)map.getHeight());
+                passedMap.put("gridWidth",(int)map.getWidth());
+                c.getAttributes();
                 c.setAllAttributes(passedMap);
+                myMap.put("MapConfig", c);
+                popUpWindow.close();
+
             }
         });
         layout.getChildren().add(subButton);

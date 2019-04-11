@@ -26,4 +26,9 @@ public abstract class WeaponBehavior implements Behavior<WeaponConfig> {
     public void setMyWeaponConfig(WeaponConfig myWeaponConfig) {
         this.myWeaponConfig = myWeaponConfig;
     }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
+    }
 }

@@ -23,10 +23,10 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private String myThumbnail;
     @Configure
     private Level[] levelList;
-    @Configure
-    private GameBehavior[] gameType;
-    @Configure
-    private WeaponConfig[] allWeaponConfigs;
+    /*@Configure
+    private GameBehavior[] gameType;*/
+    /*@Configure
+    private WeaponConfig[] allWeaponConfigs;*/
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;
@@ -39,11 +39,35 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber=0;
     }
 
+<<<<<<< HEAD
+=======
+    //FOR TESTING
+    public void setName(String name) {
+        myTitle = name;
+    }
+    public void setThumbnail(String name) {
+        myThumbnail = name;
+    }
+    public void setMyDescription(String name) {
+        myDescription = name;
+    }
+>>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50
 
     @Override
     public void update(long ms) {
-        //TODO CHECK IF LEVEL IS OVER AND CHANGE currentLevelOver = true;
-        //TODO CHECK IF GAME IS OVER
+        myActiveLevel.update(ms);
+        if(myActiveLevel.noMoreEnemiesLeft()) {
+            currentLevelOver = true;
+            currentLevelNumber++;
+            if(currentLevelNumber==levelList.length) {
+                gameOver = true;
+            }
+            else {
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
+            }
+        }
+
+
     }
 
 

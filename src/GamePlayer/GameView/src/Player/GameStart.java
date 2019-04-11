@@ -1,7 +1,6 @@
 package Player;
 
 import BackendExternal.GameInfo;
-import BackendExternal.Logic;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -35,8 +34,8 @@ public class GameStart extends Application {
         primaryStage.show();
     }
 
-    public void setTitle(GameInfo gameInfo, Image image, Logic logic){
-        logic.createGameInstance(gameInfo);
+    public void setTitle(GameInfo gameInfo, Image image){
+
         Text title = new Text(gameInfo.getGameTitle());
         title.setTranslateY(-100);
         root.getChildren().add(title);

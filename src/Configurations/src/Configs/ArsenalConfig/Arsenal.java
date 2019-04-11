@@ -22,7 +22,7 @@ public class Arsenal implements Configurable {
 //    private WeaponConfig[] unlockedWeapons;
 
     public Arsenal(Level level) {
-        myConfiguration = new Configuration(level);
+        myConfiguration = new Configuration(this);
         myLevel = level;
     }
 
