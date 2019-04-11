@@ -10,8 +10,8 @@ import java.util.Properties;
 
 public class Model {
 
-    private final String PROPERTIES_FILE_PATH = "resources/GameInfo.properties";
-    private final String XML_FILE_PATH = "resources/GameXMLs/";
+    private final String PROPERTIES_FILE_PATH = "games/GameInfo.properties";
+    private final String XML_FILE_PATH = "games/GameXMLs/";
     private final String REGEX = "~";
     private final String XML_TAG = "XML.xml";
 
