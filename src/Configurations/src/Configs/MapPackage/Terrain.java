@@ -24,7 +24,7 @@ public class Terrain implements MapFeaturable, Configurable, Viewable{
     private Configuration myConfiguration;
     private MapFeature myMapFeature;
 
-    public Terrain(MapConfig mapConfig, ImageView imageView, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
         view = new View(fileName,height, width);
         myMapFeature = new MapFeature(gridXPos, gridYPos, 0, view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
         this.gridBlockHeight = gridBlockHeight;
