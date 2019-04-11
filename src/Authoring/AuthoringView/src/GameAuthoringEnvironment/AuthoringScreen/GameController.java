@@ -63,16 +63,16 @@ public class GameController {
 
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
-            System.out.println(value);
 
             //handle primitives
             if(value.equals(java.lang.String.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
-                Button confirmButton = new Buttexon("Confirm");
+                Button confirmButton = new Button("Confirm");
                 var nameAndTfBar = new HBox();
                 nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
                 confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    //TODO DO Errorchecking/Refactor
                     @Override
                     public void handle(MouseEvent event) {
                         if(value.equals(java.lang.Integer.class)){
@@ -93,15 +93,12 @@ public class GameController {
                     }
                 }));
                 layout.getChildren().addAll(nameAndTfBar);
-
             }
 
-            //handle path
+            //Handle Paths
             else if(value.isInstance(Paths.class)){
 
                 Button fileUploadButton = new Button("Upload Image");
-
-                layout.getChildren().add(fileUploadButton);
                 FileChooser fileChooser = new FileChooser();
                 fileUploadButton.setOnMouseClicked(e -> {
 
@@ -111,9 +108,12 @@ public class GameController {
                     }
                 });
 
-            }
-            //handle single object
+                layout.getChildren().add(fileUploadButton);
 
+            }
+
+            //handle single object
+            //this single object is a link to others so it doesn't save anything to the myAttributesMap
             else if(!value.isArray()){
 
                 Button myButton = new Button("Configure " + value.getSimpleName());
@@ -121,8 +121,9 @@ public class GameController {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-                            //special case: map
+
                             Class<?> clazz = Class.forName(value.getName());
+                            //special case: map TODO use reflection for this
                             if(clazz.getSimpleName().equals("MapConfig")) {
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
@@ -130,10 +131,10 @@ public class GameController {
                             else{
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
-                                System.out.println("did it run dafdadfa");
-                                    System.out.println(object.getClass());
-                                    createConfigurable((Configurable) object);}
-                        } catch (Exception e) {}
+                                createConfigurable((Configurable) object);}
+                        } catch (Exception e) {
+                            //TODO ErrorChecking
+                        }
 
                     }
                 }));
@@ -143,6 +144,7 @@ public class GameController {
             //handle list
             else if(value.isArray() ) {
                 if(value.getComponentType().getClass().isInstance(Configurable.class)) {
+
                     List<Object> tempList = new ArrayList<>();
                     Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
                     VBox tempVBOx  = new VBox();
@@ -157,13 +159,14 @@ public class GameController {
                     addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
+                            //adds to the visual
                             sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
                             try {
+                                //adds to the list
                                 Class<?> cl = Class.forName(value.getComponentType().getName());
                                 Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 tempList.add(object);
-                                System.out.println(tempList);
 
                             } catch (Exception e) {
 
@@ -179,23 +182,25 @@ public class GameController {
                             if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                                 if (mouseEvent.getClickCount() == 2) {
                                     try {
+
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
-                                        System.out.println(cl.getSimpleName());
+                                       /* System.out.println(cl.getSimpleName());
                                         System.out.println(cl.getClasses());
-                                        System.out.println(value.getComponentType().getName());
-                                        Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
-                                        List<Class> behaviorList = (List<Class>) myField.get(null);
-                                        /*if(!cl.getComponentType().getClass().isInstance()){
+                                        System.out.println(value.getComponentType().getName());*/
+                                        //TODO Use reflection to check this
+                                        if(cl.getSimpleName().contains("Behavior")){
+                                            Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                                            List<Class> behaviorList = (List<Class>) myField.get(null);
+                                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                                        }
+                                        else{
                                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                                             var object = cons.newInstance(myConfigurable);
                                             createConfigurable((Configurable) object);
-                                            }*/
-
-                                       ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-                                       System.out.println(configureBehavior);
-
+                                        }
 
                                     } catch (Exception e) {
+                                        //TODO Errorchecking
                                         System.out.println(e);
 
                                     }
