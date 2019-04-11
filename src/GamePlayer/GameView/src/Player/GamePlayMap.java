@@ -19,6 +19,9 @@ public class GamePlayMap extends GridPane {
 
     //TEST TERRAIN
     private List<ImmutableImageView> testTerrain = new ArrayList<ImmutableImageView>();
+    private List<ImmutableImageView> imageToAdd;
+    private List<ImmutableImageView> imageToRemove;
+
 
 
     public GamePlayMap(double width, double height, Logic logic) {
@@ -37,7 +40,12 @@ public class GamePlayMap extends GridPane {
         setPrefHeight(height);
     }
 
-
+    public void update(long elapsedTime){
+        //TODO: third method to move obejcts?
+        myLogic.update(elapsedTime);
+        imageToAdd = myLogic.getObjectsToAdd();
+        imageToRemove = myLogic.getObjectsToRemove();
+    }
 
     //NOT yet used
     private void createTestTerrain(){
