@@ -8,12 +8,8 @@ import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-////public class Game implements Updatable, EventHandlable, Viewable, Configurable {
-////=======
-//=======
-//>>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50
+
+
 public class Game implements Updatable, EventHandlable, Configurable {
 
     public static final double gridPixelWidth = 500;

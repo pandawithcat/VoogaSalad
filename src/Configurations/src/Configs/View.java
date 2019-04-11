@@ -19,6 +19,13 @@ public class View implements Configurable {
     private double width;
     @Configure
     private double height;
+    private Configurable myConfigurable;
+
+
+    public View(Configurable configurableParent) {
+        myConfigurable = configurableParent;
+        myConfiguration = new Configuration(this);
+    }
 
     //this constructor is for the special case for the terrain blocks in the map
     public View(File file, double width, double height) {
@@ -32,10 +39,6 @@ public class View implements Configurable {
         return myLabel;
     }
 
-    public View(Configurable configurableParent) {
-        myConfiguration = new Configuration(configurableParent);
-
-    }
 
     @Override
     public Configuration getConfiguration() {
