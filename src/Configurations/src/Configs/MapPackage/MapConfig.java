@@ -35,7 +35,7 @@ public class MapConfig implements Configurable {
 
     private Configuration configuration;
 
-    public MapConfig(Level level) {
+    public MapConfig() {
         configuration = new Configuration(this);
         //TODO FINISH
     }

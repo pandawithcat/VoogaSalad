@@ -41,7 +41,7 @@ public class ActiveLevel extends Level implements Updatable {
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
         for(Terrain t : getMyMapConfig().getTerrain()){
-            tempGrid[t.getMapFeature().getGridYPos()][t.getMapFeature().getGridXPos()].setMyTerrain(t);
+            tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
         return null;
     }
