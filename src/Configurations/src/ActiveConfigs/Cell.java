@@ -25,6 +25,7 @@ public class Cell {
         myTerrain = t;
         myEnemies = new ArrayList<>();
         myWeaponConfig = null;
+
     }
 
 
