@@ -137,6 +137,8 @@ public class LoadingSplashScreen extends Application{
         pathTransition.setNode(node);
         return pathTransition;
     }
+
     public static void main(String [] args){
-        Application.launch(args);}
+        launch(args);
+    }
 }

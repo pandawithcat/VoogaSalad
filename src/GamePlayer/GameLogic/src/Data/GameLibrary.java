@@ -18,9 +18,9 @@ import java.util.*;
 
 public class GameLibrary {
 
-    private final String GAME_INFO_FILE = "GameInfo";
     private final String REGEX = "~";
-    private final String FILE_PATH = "resources/GameXMLs/";
+    private final String PROPERTIES_FILE_PATH = "games/GameInfo.properties";
+    private final String XML_FILE_PATH = "games/GameXMLs/";
 
     private List<GameInfo> myGames;
     private Map<String,String> myXMLFileNames;
@@ -29,15 +29,21 @@ public class GameLibrary {
     public GameLibrary(){
         myGames = new ArrayList<>();
         myXMLFileNames = new HashMap<>();
-        populateLibrary();
+        try {
+            populateLibrary();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
 
-    private void populateLibrary(){
-        ResourceBundle gameStrings = ResourceBundle.getBundle(GAME_INFO_FILE);
-        for (String s : gameStrings.keySet()){
-            String[] gameDetails = gameStrings.getString(s).split(REGEX);
+    private void populateLibrary() throws IOException {
+        FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
+        Properties myGameDetails = new Properties();
+        myGameDetails.load(propertiesIS);
+        for (String s : myGameDetails.stringPropertyNames()){
+            String[] gameDetails = myGameDetails.getProperty(s).split(REGEX);
             GameInfo newGameInfo = new GameInfo(s, gameDetails[0], gameDetails[1]);
             myXMLFileNames.put(s,gameDetails[2]);
             myGames.add(newGameInfo);
@@ -51,8 +57,11 @@ public class GameLibrary {
     public Game getGame(GameInfo chosenGameInfo){
         XStream serializer = new XStream(new DomDriver());
         String gameXMLFileName = myXMLFileNames.get(chosenGameInfo.getGameTitle());
-        File xmlFile = new File(FILE_PATH + gameXMLFileName);
+        File xmlFile = new File(XML_FILE_PATH + gameXMLFileName);
         return (Game)serializer.fromXML(xmlFile);
     }
+
+
+
 
 }
