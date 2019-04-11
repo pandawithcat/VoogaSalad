@@ -120,6 +120,7 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("gimme dat");
                 ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
                 Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
 
@@ -127,8 +128,9 @@ public class GamePlayArsenal extends VBox {
                 ClipboardContent content = new ClipboardContent();
                 content.put(DataFormat.IMAGE,selected);
                 db.setContent(content);
-
                 mouseEvent.consume();
+//                lastX = event.getSceneX();
+//                lastY = event.getSceneY();
             }
         });
 
@@ -137,8 +139,9 @@ public class GamePlayArsenal extends VBox {
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
+                System.out.println("we in");
                 if (event.getDragboard().hasImage()) {
-                    System.out.println("we in");
+                    System.out.println("yes ba");
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.MOVE);
                 }
@@ -169,24 +172,9 @@ public class GamePlayArsenal extends VBox {
         });
 
 
-
-//        .setOnDragOver(new EventHandler<DragEvent>() {
-//            public void handle(DragEvent event) {
-//                /* data is dragged over the target */
-//                /* accept it only if it is not dragged from the same node
-//                 * and if it has a string data */
-//                if (event.getGestureSource() != target &&
-//                        event.getDragboard().hasString()) {
-//                    /* allow for both copying and moving, whatever user chooses */
-//                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-//                }
-//
-//                event.consume();
-//            }
-//        });
-
-
     }
+
+
     private void switchWeaponDisplay(){
         if (!isWeapon) {
             //TODO: implement display switch
