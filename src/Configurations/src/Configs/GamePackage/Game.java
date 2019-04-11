@@ -6,14 +6,11 @@ import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.w3c.dom.events.Event;
 
-//<<<<<<< HEAD
-////<<<<<<< HEAD
-////public class Game implements Updatable, EventHandlable, Viewable, Configurable {
-////=======
-//=======
-//>>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50
+
+
 public class Game implements Updatable, EventHandlable, Configurable {
 
     public static final double gridPixelWidth = 500;
@@ -22,12 +19,16 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Configuration myConfiguration;
 
     @Configure
+    @XStreamOmitField
     private String myTitle;
     @Configure
+    @XStreamOmitField
     private String myDescription;
     @Configure
+    @XStreamOmitField
     private String myThumbnail;
     @Configure
+    @XStreamOmitField
     private Level[] levelList;
     /*@Configure
     private GameBehavior[] gameType;*/
