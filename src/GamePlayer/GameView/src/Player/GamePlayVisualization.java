@@ -7,14 +7,20 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
+
 public class GamePlayVisualization extends Application {
     private String Title = "VoogaSalad Game";
+    private String GAME_MUSIC = "resources/gameMusic.mp3";
     private static final long FRAMES_PER_SECOND = 1;
     private static final long MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final long SECOND_DELAY = 1 / FRAMES_PER_SECOND;
@@ -46,15 +52,23 @@ public class GamePlayVisualization extends Application {
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
-
+            MediaView music = createWelcomeMusic();
+            root.getChildren().add(music);
             //gameLoop
             startLoop();
-
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
+    private MediaView createWelcomeMusic(){
+        Media sound = new Media(new File(GAME_MUSIC).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setAutoPlay(true);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        return mediaView;
+    }
+
 
     private void startLoop(){
         System.out.println("yes boy");

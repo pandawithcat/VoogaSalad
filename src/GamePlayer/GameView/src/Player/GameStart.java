@@ -35,8 +35,8 @@ public class GameStart extends Application {
         primaryStage.show();
     }
 
-    public void setTitle(GameInfo gameInfo, Image image, Logic logic){
-        logic.createGameInstance(gameInfo);
+    public void setTitle(GameInfo gameInfo, Image image){
+//        logic.createGameInstance(gameInfo);
         Text title = new Text(gameInfo.getGameTitle());
         title.setTranslateY(-100);
         root.getChildren().add(title);

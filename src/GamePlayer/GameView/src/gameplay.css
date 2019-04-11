@@ -28,10 +28,12 @@
     -fx-background-color:
             linear-gradient(#2931ff, #68b2e6),
             linear-gradient(#5694ff, #e1eaf2),
-            linear-gradient(#221fff, #4953ef),
-            linear-gradient(#b4d6ff 0%, #542ff8 50%, #1c35ee 100%),
-            linear-gradient(from 0% 0% to 15% 50%, rgba(78, 68, 255, 0.9), rgba(255,255,255,0));
-    -fx-background-radius: 20;}
+            linear-gradient(#63a8ff, #bcd1ef),
+            linear-gradient(#b4d6ff 0%, #448af8 50%, #1c35ee 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(27, 102, 255, 0.9), rgba(255,255,255,0));
+    -fx-background-radius: 20;
+}
+
 
 #HUD{
     -fx-background-image: url("wood.jpg");
