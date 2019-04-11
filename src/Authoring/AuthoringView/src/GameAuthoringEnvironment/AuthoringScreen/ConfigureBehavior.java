@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class ConfigureBehavior {
 
-    List<String> myList;
+    List<Class> myList;
     Map<String, Object> myMap;
     Stage popUpWindow;
     VBox layout;
@@ -38,11 +38,7 @@ public class ConfigureBehavior {
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameController = gameController;
         myConfigurable = configurable;
-        myList = new ArrayList<>();
-        for(Class behavior:behaviorList){
-            String[] name =  behavior.getSimpleName().split(".");
-            myList.add(name[name.length-1]);
-        }
+        myList = behaviorList;
         myMap = attributesMap;
         setContent();
     }
