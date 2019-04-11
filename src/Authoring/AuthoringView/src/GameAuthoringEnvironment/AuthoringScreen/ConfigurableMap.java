@@ -11,12 +11,18 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,12 +44,15 @@ public class ConfigurableMap {
     private Stage popUpWindow;
 
     public ConfigurableMap(Map<String, Object> myAttributeMap){
-       myMap = myAttributeMap;
+
+        System.out.println("this reached here");
+        myMap = myAttributeMap;
     }
 
     public void setConfigurations(){
         popUpWindow = new Stage();
-        popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        System.out.println("this reached here1");
+        //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
         layout = new VBox(10.00);
@@ -62,20 +71,23 @@ public class ConfigurableMap {
 
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
-        popUpWindow.show();
-        //pane.add(tileView,2,1);
+        popUpWindow.showAndWait();
 
-        // Add the Pane and The LoggingArea to the VBox
     }
     public void initMap(){
 
         map = new GridPane();
         for(int r = 0; r<20; r++) {
             for(int c = 0; c<20; c++){
+                try {
+                    java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
+                    Image image = new Image(fis);
+                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
+                    map.add(myTile, r, c);
+                }
+                catch (IOException e){
 
-                TerrainTile myTile = new TerrainTile(r,c,new Image(this.getClass().getClassLoader().getResourceAsStream(grassTileImage)),currentTile);
-
-                map.add(myTile,r,c);
+                }
                 //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
 
@@ -127,7 +139,7 @@ public class ConfigurableMap {
                 passedMap.put("gridWidth",(int)map.getWidth());
                 c.getAttributes();
                 c.setAllAttributes(passedMap);
-                myMap.put("MapConfig", c);
+                myMap.put("myMap", m);
                 popUpWindow.close();
 
             }
@@ -171,6 +183,7 @@ public class ConfigurableMap {
         Button confirmEnemExitY = new Button("Confirm ");
 
     }
+
     private void addGridEvent(){
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
