@@ -1,6 +1,8 @@
 package Configs;
 
 //import Configs.Behaviors.BehaviorManager;
+import Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Waves.WaveConfig;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -113,4 +115,5 @@ public class Configuration {
         if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
+
 }
