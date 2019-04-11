@@ -139,6 +139,7 @@ public class GameController {
                                 createConfigurable((Configurable) object);}
                         } catch (Exception e) {
                             //TODO ErrorChecking
+                            e.printStackTrace();
                         }
 
                     }
