@@ -41,12 +41,14 @@ public class ConfigurableMap {
     private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
     private Map<String, Object> myMap;
+    Configuration myConfiguration;
     private Stage popUpWindow;
 
-    public ConfigurableMap(Map<String, Object> myAttributeMap){
+    public ConfigurableMap(Map<String, Object> myAttributeMap, Configuration configuration){
 
         System.out.println("this reached here");
         myMap = myAttributeMap;
+        myConfiguration = configuration;
     }
 
     public void setConfigurations(){
@@ -139,7 +141,8 @@ public class ConfigurableMap {
                 m.getConfiguration().setAllAttributes(passedMap);
 
                 myMap.put("myMap", m);
-
+//                myConfiguration.setOneAttribute("myMap", m);
+                System.out.println(m);
                 popUpWindow.close();
 
             }

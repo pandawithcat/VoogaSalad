@@ -125,7 +125,7 @@ public class GameController {
                             Class<?> clazz = Class.forName(value.getName());
                             //special case: map TODO use reflection for this
                             if(clazz.getSimpleName().equals("MapConfig")) {
-                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
+                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable.getConfiguration());
                                 configurableMap.setConfigurations();
                             }
                             else{
@@ -215,9 +215,14 @@ public class GameController {
                         public void handle(MouseEvent event) {
                             try {
                                 Class c = Class.forName(value.getComponentType().getName());
-                                System.out.println(c.getClass().getName());
+//                                System.out.println(c.getClass().getName());
                                 Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
-                                System.out.println(ob.getClass().getName());
+//                                System.out.println(ob.getClass().getName());
+                                System.out.println("HYASFFDSHUALUKHDFASLUHKADFSLHUKDAHLUKFHLUKALHSDF");
+                                System.out.println(myConfigurable);
+                                if (myConfigurable instanceof Level){
+                                    System.out.println(((Level) myConfigurable).getMyMapConfig());
+                                }
                                 for(int a=0; a<tempList.size() ; a++){
                                     ob[a] =(Object) tempList.get(a);
                                 }
@@ -249,8 +254,8 @@ public class GameController {
                     alert.showAndWait();
                 }
                 else {*/
-                    System.out.println(myAttributesMap);
-                    System.out.println(myConfigurable.getConfiguration().getAttributes());
+//                    System.out.println(myAttributesMap);
+//                    System.out.println(myConfigurable.getConfiguration().getAttributes());
                     myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
                     popupwindow.close();
 
