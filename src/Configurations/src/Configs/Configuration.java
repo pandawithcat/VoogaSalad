@@ -12,8 +12,11 @@ public class Configuration {
     private Map<String,Class> myAttributeTypes;
     @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
+    @XStreamOmitField
     private boolean isComplete = false;
+    @XStreamOmitField
     private Configurable myConfigurable;
+    @XStreamOmitField
     private Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
