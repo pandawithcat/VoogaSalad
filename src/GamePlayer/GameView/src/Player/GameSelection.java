@@ -3,6 +3,7 @@ package Player;
 import BackendExternal.GameInfo;
 import BackendExternal.Logic;
 import javafx.application.Application;
+import javafx.application.Preloader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class GameSelection extends Application {
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
-//        logic = new Logic();
+        logic = new Logic();
         stage = primaryStage;
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         width = primScreenBounds.getWidth();
@@ -86,6 +86,9 @@ public class GameSelection extends Application {
         gameStart.setTitle(gameInfo, image);
     }
 
-    public static void main (String [] args){launch(args);}
+
+    public static void main (String [] args){
+        launch(args);
+    }
 
 }
