@@ -12,6 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +24,6 @@ public class GamePlayMap extends GridPane {
     private Group mapRoot;
     public static final String WEAPON_IMAGE = "wood.jpg";
     public static final String GRASS_IMAGE = "grassplay.jpg";
-
-    private Image image = new Image(WEAPON_IMAGE);
-
 
     //TEST TERRAIN
     private List<ImmutableImageView> testTerrain = new ArrayList<ImmutableImageView>();
@@ -40,6 +40,7 @@ public class GamePlayMap extends GridPane {
 //        terrainList = myLogic.getLevelTerrain();
 //        mapRoot = new Group();
 //        terrainList.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
+
         mapRoot=new Group();
         createTestTerrain();
         System.out.println(testTerrain.size());
@@ -70,15 +71,24 @@ public class GamePlayMap extends GridPane {
     //NOT yet used
     private void createTestTerrain(){
         for (int i = 0; i < 10; i++) {
-            for(int j = 0; j < 10 ;j++) {
-                System.out.println("sem");
+
+            for(int j = 0;j<10;j++) {
+                System.out.println("yes");
 //                Image test = new Image(getClass().getResourceAsStream("/resources/"+WEAPON_IMAGE));
-                TransferImageView iv = new TransferImageView(new Image(WEAPON_IMAGE));
-                iv.setFitWidth(60);
-                iv.setFitHeight(60);
-                iv.setTranslateX(60*i);
-                iv.setTranslateY(60*j);
-                testTerrain.add(iv);
+                try {
+                    Image image = new Image(new FileInputStream("resources/grass.jpg"));
+//                Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg"));
+                    TransferImageView iv = new TransferImageView(image);
+                    iv.setFitWidth(6);
+                    iv.setFitHeight(6);
+                    iv.setTranslateX(6*i);
+                    iv.setTranslateY(6*j);
+                    testTerrain.add(iv);
+                }
+                catch (FileNotFoundException e) {
+                    System.out.println(e);
+                }
+
             }
         }
     }

@@ -9,9 +9,9 @@ public class MapFeature {
 
     private int gridXPos;
     private int gridYPos;
-//    private double pixelXPos;
-//    private double pixelYPos;
-//    private double displayDirection;
+    private double pixelXPos;
+    private double pixelYPos;
+    private double displayDirection;
     private double trigDirection;
     @XStreamOmitField
     private TransferImageView myImageView;
@@ -56,16 +56,20 @@ public class MapFeature {
     }
 
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
-//        pixelXPos+=deltaPixelX;
-//        pixelYPos+=deltaPixelY;
-        double newX = getPixelXPos()+deltaPixelX;
-        double newY = getPixelYPos()+deltaPixelY;
-        myImageView.setTranslateX(newX);
-        myImageView.setTranslateY(newY);
+        pixelXPos+=deltaPixelX;
+        pixelYPos+=deltaPixelY;
 
-        gridXPos = (int) (newX*Game.gridPixelWidth/gridWidth);
-        gridYPos = (int) (newY*Game.gridPixelHeight/gridHeight);
+        myImageView.setTranslateX(pixelXPos);
+        myImageView.setTranslateY(pixelYPos);
 
+        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/gridWidth);
+        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/gridHeight);
+    }
+
+    public void moveRelatively(double deltaPixelX, double deltaPixelY, double degree) {
+        myImageView.setRotate(degree);
+        displayDirection = degree;
+        moveRelatively(deltaPixelX, deltaPixelY);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -83,6 +87,7 @@ public class MapFeature {
 
         myImageView.setTranslateX(pixelX);
         myImageView.setTranslateY(pixelY);
+        myImageView.setRotate(direction);
 
     }
 
