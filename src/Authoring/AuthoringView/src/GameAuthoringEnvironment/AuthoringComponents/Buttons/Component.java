@@ -32,19 +32,21 @@ public abstract class Component {
 
 
     public void setImage(String fileName, ButtonBase button) {
-            var url = this.getClass().getClassLoader().getResource("ButtonImages");
-            try {
-                File folder = new File(url.toURI());
-                Image test = new Image(folder.toURI()+ fileName);
-                myImage = new ImageView(test);
-                } catch (URISyntaxException e) {
-                e.printStackTrace();
-                }
+//        var url = this.getClass().getClassLoader().getResource("ButtonImages");
 
-            //TODO magic numbers should be changed based on the screensize
-            myImage.setFitHeight(50);
-            myImage.setFitWidth(125);
-            button.setGraphic(myImage);
+//        try {
+//                File folder = new File(url.toURI());
+//                Image test = new Image(folder.toURI()+ fileName);
+//                } catch (URISyntaxException e) {
+//                e.printStackTrace();
+//                }
+
+        Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+fileName+".png"));
+        myImage = new ImageView(test);
+        //TODO magic numbers should be changed based on the screensize
+        myImage.setFitHeight(50);
+        myImage.setFitWidth(125);
+        button.setGraphic(myImage);
     }
 
 }
