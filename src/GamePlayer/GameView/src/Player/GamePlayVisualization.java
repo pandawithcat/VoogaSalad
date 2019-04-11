@@ -4,7 +4,6 @@ import BackendExternal.Logic;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -40,7 +39,7 @@ public class GamePlayVisualization extends Application {
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
 
-            myLogic = new Logic();
+//            myLogic = new Logic();
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);

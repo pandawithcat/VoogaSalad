@@ -26,13 +26,17 @@ public class GamePlayArsenal extends VBox {
     private Logic myLogic;
     private GamePlayArsenalSelector myArsenalSelector;
     public static final String WEAPON_IMAGE = "weapon.png";
+    public static final String OBSTACLE_IMAGE = "obstacle.png";
     private Image weaponImage;
     private Image obstacleImage;
     private ImageView weaponImageView;
     private ImageView obstacleImageView;
     private boolean isWeapon;
+    private ArrayList<ImageView> viewList;
 
-    private Map <Integer, Info> myTestMap ;
+    private Map <Integer, Info> myTestWeapons ;
+    private Map <Integer, Info> myTestObstacles ;
+
 
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
@@ -45,24 +49,15 @@ public class GamePlayArsenal extends VBox {
         ListView arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-        createTestArsenal();
+
         //START TEST STUFF
-        ArrayList<ImageView> viewList = new ArrayList<ImageView>();
-
-        myTestMap.values().stream().forEach(info -> { try {
-            ImageView image = new ImageView(new Image(info.getImage()));
-            image.setFitWidth(arsenalWidth/2);
-            image.setFitHeight(arsenalWidth/2);
-            viewList.add(image);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        });
-
+        createTestWeaponArsenal();
+        createTestObstacleArsenal();
+        viewList = new ArrayList<ImageView>();
+        setArsenalDisplay(myTestWeapons,arsenalWidth);
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
         arsenalDisplay.setOnMouseEntered(e -> System.out.println(arsenalDisplay.getSelectionModel().getSelectedItem()));
-
 
 //        for (int i = 0; i < myTestMap.size(); i++) {
 //            ImageView test = new ImageView(new Image(myTestMap.get(i).getImage()));
@@ -110,10 +105,25 @@ public class GamePlayArsenal extends VBox {
         return arsenalSelector;
     }
 
+    private void setArsenalDisplay(Map<Integer, Info> arsenalDisplay, double arsenalWidth){
+        arsenalDisplay.values().stream().forEach(info -> { try {
+        ImageView image = new ImageView(new Image(info.getImage()));
+        image.setFitWidth(arsenalWidth/2);
+        image.setFitHeight(arsenalWidth/2);
+        viewList.add(image);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        });
+
+
+    }
+
     private void switchWeaponDisplay(){
         if (!isWeapon) {
             //TODO: implement display switch
-            System.out.println("switch to weapon");
+            viewList.clear();
+
             isWeapon = true;
         }
     }
@@ -163,11 +173,19 @@ public class GamePlayArsenal extends VBox {
     }
 
     //TEST DATA
-    private void createTestArsenal(){
+    private void createTestWeaponArsenal(){
         Info testInfo = new Info("test", "weapon.png");
-        myTestMap = new HashMap<>();
+        myTestWeapons = new HashMap<>();
         for (int i = 0; i < 5; i++) {
-            myTestMap.put(i, testInfo);
+            myTestWeapons.put(i, testInfo);
+        }
+    }
+
+    private void createTestObstacleArsenal(){
+        Info testInfo = new Info("test", "obstacle.png");
+        myTestObstacles = new HashMap<>();
+        for (int i = 0; i < 5; i++) {
+            myTestObstacles.put(i, testInfo);
         }
     }
 }
