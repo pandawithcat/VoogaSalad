@@ -35,8 +35,9 @@ public class GameSelection extends Application {
     @Override
     public void start(Stage primaryStage) {
         scrollPane.setId("scrollpane");
-        scrollPane.setPrefViewportWidth(50);
-        scrollPane.setPrefViewportHeight(50);
+        scrollPane.setPrefSize(width/2,height/2);
+
+
         logic = new Logic();
         stage = primaryStage;
         stage.setX(width);
@@ -80,7 +81,9 @@ public class GameSelection extends Application {
                 hBox.getChildren().add(imageView);
             }
             vBox.getChildren().add(hBox);
+
         scrollPane.setContent(hBox);
+
     }
     private void startGame(GameInfo gameInfo, Image image){
         this.stage.close();
