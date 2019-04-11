@@ -44,7 +44,6 @@ public class GamePlayVisualization extends Application {
             screenHeight = primScreenBounds.getHeight();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-
 //            myLogic = new Logic();
             PlayInterface playMethod = () -> startLoop();
             myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, playMethod);

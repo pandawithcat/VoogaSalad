@@ -69,14 +69,15 @@ public class GamePlayMap extends GridPane {
 
     //NOT yet used
     private void createTestTerrain(){
-        for (int i = 0; i < 50; i++) {
-            for(int j = 0;j<50;j++) {
+        for (int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10 ;j++) {
+                System.out.println("sem");
 //                Image test = new Image(getClass().getResourceAsStream("/resources/"+WEAPON_IMAGE));
                 TransferImageView iv = new TransferImageView(new Image(WEAPON_IMAGE));
-                iv.setFitWidth(6);
-                iv.setFitHeight(6);
-                iv.setTranslateX(6*i);
-                iv.setTranslateY(6*j);
+                iv.setFitWidth(60);
+                iv.setFitHeight(60);
+                iv.setTranslateX(60*i);
+                iv.setTranslateY(60*j);
                 testTerrain.add(iv);
             }
         }
