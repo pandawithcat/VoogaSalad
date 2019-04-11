@@ -2,11 +2,15 @@ package Configs;
 
 //import Configs.Behaviors.BehaviorManager;
 import Configs.Waves.WaveConfig;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.lang.reflect.Field;
 import java.util.*;
 
 public class Configuration {
+    @XStreamOmitField
     private Map<String,Class> myAttributeTypes;
+    @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
     private boolean isComplete = false;
     private Configurable myConfigurable;
