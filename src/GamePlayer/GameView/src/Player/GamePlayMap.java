@@ -47,7 +47,6 @@ public class GamePlayMap extends GridPane {
         //TODO: third method to move obejcts?
         imageToRemove.stream().forEach(img -> mapRoot.getChildren().remove(img.getAsNode()));
         imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
-
     }
 
     //NOT yet used

@@ -40,20 +40,27 @@ public class GamePlayVisualization extends Application {
             startScreen.getStylesheets().add("gameplay.css");
 
 //            myLogic = new Logic();
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic);
+            PlayInterface playMethod = () -> startLoop();
+            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, playMethod);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
 
             //gameLoop
-            var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-            animation.setCycleCount(Timeline.INDEFINITE);
-            animation.getKeyFrames().add(frame);
+            startLoop();
+
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void startLoop(){
+        System.out.println("yes boy");
+        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
     }
 
     private void step(long elapsedTime){
