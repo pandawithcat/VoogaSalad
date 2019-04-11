@@ -101,10 +101,18 @@ public class ConfigurableMap {
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");
         tileView.getItems().add(2,"Dirt");
+        tileView.getItems().add(3,"EnemyEntering");
+        tileView.getItems().add(4,"EnemyExiting");
+
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                currentTile=tileView.getSelectionModel().getSelectedItem();
+                if(!tileView.getSelectionModel().getSelectedItem().equals("EnemyEntering")||!tileView.getSelectionModel().getSelectedItem().equals("EnemyExiting")) {
+                    currentTile = tileView.getSelectionModel().getSelectedItem();
+                }
+//                else{
+//                    currentTile =
+//                }
                 //System.out.println(currentTile);
             }
         });

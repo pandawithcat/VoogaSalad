@@ -63,7 +63,21 @@ public class TerrainTile extends ImageView {
         else if(type.equals("Dirt")){
             changeToDirt();
         }
+        else if(type.equals("EnemyEntering")){
+            changeToEnter();
+        }
 
+    }
+
+    public void changeToEnter(){
+        try{
+            this.setImage(new Image(new FileInputStream("resources/enter.jpg")));
+        }
+        catch(FileNotFoundException f){
+            System.out.println(f);
+        }
+        isPath=true;
+        tileImString="enter.jpg";
     }
 
     public void changeToGrass(){
