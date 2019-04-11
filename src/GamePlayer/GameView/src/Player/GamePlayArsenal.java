@@ -33,6 +33,9 @@ public class GamePlayArsenal extends VBox {
     private ImageView obstacleImageView;
     private boolean isWeapon;
     private ArrayList<ImageView> viewList;
+    private ListView arsenalDisplay;
+    private double myArsenalWidth;
+
 
     private Map <Integer, Info> myTestWeapons ;
     private Map <Integer, Info> myTestObstacles ;
@@ -42,33 +45,21 @@ public class GamePlayArsenal extends VBox {
     private Map<Integer, Info> myArsenal;
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic){
+        myArsenalWidth = arsenalWidth;
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
 //        myArsenal = logic.getMyArsenal();
-        ListView arsenalDisplay = new ListView();
+        arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
 
         //START TEST STUFF
         createTestWeaponArsenal();
         createTestObstacleArsenal();
-        viewList = new ArrayList<ImageView>();
+        viewList = new ArrayList<>();
         setArsenalDisplay(myTestWeapons,arsenalWidth);
-        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
-        arsenalDisplay.setItems(items);
-        arsenalDisplay.setOnMouseEntered(e -> System.out.println(arsenalDisplay.getSelectionModel().getSelectedItem()));
 
-//        for (int i = 0; i < myTestMap.size(); i++) {
-//            ImageView test = new ImageView(new Image(myTestMap.get(i).getImage()));
-//            test.setFitWidth(arsenalWidth/2);
-//            test.setFitHeight(arsenalWidth/2);
-//            test.setOnMouseEntered();
-//            arsenalDisplay.getChildren().add(test);
-//        }
-//        myTestMap.values().stream().forEach(info -> arsenalDisplay.getChildren().add(test));
-//        myArsenal.values().stream().forEach(info -> arsenalDisplay.getChildren().add(info.getImageView()));
-//        arsenalView.setContent((Node)myTestMap.get(0).getImageView());
 
         //TODO: implement the hover shit when we set content
 //        rootItem.getChildren().addAll(myArsenal);
@@ -96,7 +87,7 @@ public class GamePlayArsenal extends VBox {
 
         //obstacles
         obstacleImage = new Image(WEAPON_IMAGE);
-        obstacleImageView = new ImageView(WEAPON_IMAGE);
+        obstacleImageView = new ImageView(OBSTACLE_IMAGE);
         obstacleImageView.setFitHeight(height);
         obstacleImageView.setFitWidth(width /2);
         Button obstacleButton = new Button("", obstacleImageView);
@@ -105,8 +96,8 @@ public class GamePlayArsenal extends VBox {
         return arsenalSelector;
     }
 
-    private void setArsenalDisplay(Map<Integer, Info> arsenalDisplay, double arsenalWidth){
-        arsenalDisplay.values().stream().forEach(info -> { try {
+    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth){
+        currArsenal.values().stream().forEach(info -> { try {
         ImageView image = new ImageView(new Image(info.getImage()));
         image.setFitWidth(arsenalWidth/2);
         image.setFitHeight(arsenalWidth/2);
@@ -115,15 +106,16 @@ public class GamePlayArsenal extends VBox {
             e.printStackTrace();
         }
         });
-
-
+        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
+        arsenalDisplay.setItems(items);
+        arsenalDisplay.setOnMouseEntered(e -> System.out.println(arsenalDisplay.getSelectionModel().getSelectedItem()));
     }
 
     private void switchWeaponDisplay(){
         if (!isWeapon) {
             //TODO: implement display switch
             viewList.clear();
-
+            setArsenalDisplay(myTestWeapons, myArsenalWidth/2);
             isWeapon = true;
         }
     }
@@ -131,7 +123,9 @@ public class GamePlayArsenal extends VBox {
     private void switchObstacleDisplay(){
         if (isWeapon) {
             //TODO: implement display switch
+            viewList.clear();
             System.out.println("switch to obstacle");
+            setArsenalDisplay(myTestObstacles, myArsenalWidth/2);
             isWeapon = false;
         }
     }
