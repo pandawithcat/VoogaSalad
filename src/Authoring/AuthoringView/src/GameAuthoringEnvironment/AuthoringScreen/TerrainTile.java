@@ -5,6 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class TerrainTile extends ImageView {
     ImageView imageView;
     boolean isPath;
@@ -62,19 +67,35 @@ public class TerrainTile extends ImageView {
     }
 
     public void changeToGrass(){
-        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg")));
+        try {
+
+            this.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+        }
+        catch(FileNotFoundException f){
+            System.out.println(f);
+        }
         isPath=false;
         tileImString="grass.jpg";
     }
 
     public void changeToWater(){
-        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg")));
+        try {
+            this.setImage(new Image(new FileInputStream("resources/water.jpg")));
+        }
+        catch(FileNotFoundException f){
+            System.out.println(f);
+        }
         isPath=true;
         tileImString="water.jpg";
 
     }
     public void changeToDirt(){
-        this.setImage(new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg")));
+        try {
+            this.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+        }
+        catch(FileNotFoundException f){
+            System.out.println(f);
+        }
         isPath=true;
         tileImString="dirt.jpg";
     }

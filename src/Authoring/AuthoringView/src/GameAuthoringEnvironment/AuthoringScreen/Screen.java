@@ -28,7 +28,7 @@ public abstract class Screen {
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
-        module.setId("module");
+        //module.setId("module");
         content.prefHeightProperty().bind(module.heightProperty());
         content.prefWidthProperty().bind(module.widthProperty());
 
@@ -47,6 +47,7 @@ public abstract class Screen {
     private void setResizable(boolean isResizable){
 
     }
+
 
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();

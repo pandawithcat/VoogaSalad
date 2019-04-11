@@ -1,0 +1,45 @@
+<Configs.GamePackage.Game>
+  <myConfiguration>
+    <myAttributeTypes class="linked-hash-map">
+      <entry>
+        <string>myTitle</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>myDescription</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>myThumbnail</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>levelList</string>
+        <java-class>[LConfigs.LevelPackage.Level;</java-class>
+      </entry>
+    </myAttributeTypes>
+    <myAttributes>
+      <entry>
+        <string>myDescription</string>
+        <string>d</string>
+      </entry>
+      <entry>
+        <string>myThumbnail</string>
+        <string>d</string>
+      </entry>
+      <entry>
+        <string>myTitle</string>
+        <string>d</string>
+      </entry>
+    </myAttributes>
+    <isComplete>true</isComplete>
+    <myConfigurable class="Configs.GamePackage.Game" reference="../.."/>
+    <myConfigurableClass>Configs.GamePackage.Game</myConfigurableClass>
+  </myConfiguration>
+  <myTitle>d</myTitle>
+  <myDescription>d</myDescription>
+  <myThumbnail>d</myThumbnail>
+  <currentLevelNumber>0</currentLevelNumber>
+  <gameOver>false</gameOver>
+  <currentLevelOver>false</currentLevelOver>
+</Configs.GamePackage.Game>

@@ -5,6 +5,8 @@ import Configs.GamePackage.Game;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
+import java.io.FileInputStream;
+
 public class MapFeature {
 
     private int gridXPos;
@@ -23,14 +25,19 @@ public class MapFeature {
 
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, int gridHeight, int gridWeight) {
         this.view = view;
-        myImageView = new TransferImageView(new Image(view.getImage()));
+        try {
+            System.out.println(view.getImage());
+            FileInputStream fileInputStream = new FileInputStream("resources/" + view.getImage());
+            myImageView = new TransferImageView(new Image(fileInputStream));
+        }catch (Exception e) {
+        }
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
         myImageView.setFitHeight(view.getHeight());
         myImageView.setFitWidth(view.getWidth());
         this.gridHeight = gridHeight;
         this.gridWidth = gridWeight;
-    }
+        }
 
     public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, int gridHeight, int gridWeight) {
         this.view = view;
@@ -74,7 +81,7 @@ public class MapFeature {
         this.displayDirection = direction;
         this.gridXPos = (int) (pixelXPos/(gridWidth/Game.gridPixelWidth));
         this.gridYPos = (int) (pixelYPos/(gridHeight/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,direction);
+        setImageView(pixelXPos,pixelYPos,displayDirection);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -92,7 +99,8 @@ public class MapFeature {
         setImageView(pixelXPos,pixelYPos,direction);
     }
 
-    
+
+
     public TransferImageView getImageView() {
         myImageView.setTranslateX(pixelXPos);
         myImageView.setTranslateY(pixelYPos);

@@ -6,6 +6,7 @@ import Configs.GamePackage.Game;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Level implements Configurable{
     private Game myGame;

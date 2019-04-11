@@ -10,4 +10,11 @@ public interface Configurable {
     String getLabel();
 
     Configuration getConfiguration();
+//<<<<<<< HEAD
+//
+////    void default setConfiguration(){
+////
+////    }
+//=======
+//>>>>>>> d898fe4184eca2ca34e66f5d655b4df4f2237341
 }
