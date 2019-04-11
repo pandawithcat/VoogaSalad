@@ -86,7 +86,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
-        setMyActiveLevel(levelNumber);
+        setMyActiveLevel(levelNumber);//TODO check this logic
         currentLevelNumber = levelNumber;
 
     }
