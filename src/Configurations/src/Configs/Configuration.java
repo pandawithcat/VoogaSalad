@@ -66,11 +66,14 @@ public class Configuration {
                 field.set(myConfigurable, myAttributes.get(key));
             }
             catch (NoSuchFieldException e) {
+                System.out.println("1" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
             catch (IllegalAccessException e) {
+                System.out.println("2" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
+
         }
 
     }

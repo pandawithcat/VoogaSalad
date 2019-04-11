@@ -27,10 +27,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -129,7 +126,6 @@ public class GameController {
                             Class<?> clazz = Class.forName(value.getName());
                             //special case: map TODO use reflection for this
                             if(clazz.getSimpleName().equals("MapConfig")) {
-                                System.out.println("adfa");
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
                             }
@@ -137,8 +133,9 @@ public class GameController {
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);}
-                        } catch (Exception e) {
+                        } catch ( ClassNotFoundException|NoSuchMethodException|InstantiationException|IllegalAccessException|InvocationTargetException e) {
                             //TODO ErrorChecking
+                            e.printStackTrace();
                         }
 
                     }
@@ -217,7 +214,19 @@ public class GameController {
                     confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            myAttributesMap.put(key, tempList);
+                            try {
+                                Class c = Class.forName(value.getComponentType().getName());
+                                System.out.println(c.getClass().getName());
+                                Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
+                                System.out.println(ob.getClass().getName());
+                                for(int a=0; a<tempList.size() ; a++){
+                                    ob[a] =(Object) tempList.get(a);
+                                }
+                                myAttributesMap.put(key, ob);
+                            }
+                            catch (ClassNotFoundException e){
+
+                            }
                         }
                     }));
 
