@@ -4,11 +4,18 @@ import BackendExternal.Logic;
 import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -92,22 +99,40 @@ public class GamePlayArsenal extends VBox {
         return arsenalSelector;
     }
 
-    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth){
-        currArsenal.values().stream().forEach(info -> { try {
-        Image image = new Image(new FileInputStream("resources/" + info.getImage()));
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(arsenalWidth/2);
-        imageView.setFitHeight(arsenalWidth/2);
-        viewList.add(imageView);
-        } catch (Exception e){
+    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
+        try {
+            for (int i = 0; i < currArsenal.size(); i++) {
+                Image image = new Image(new FileInputStream("resources/" + currArsenal.get(i).getImage()));
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(arsenalWidth / 2);
+                imageView.setFitHeight(arsenalWidth / 2);
+                Tooltip t = new Tooltip("A Square");
+                Tooltip.install(imageView, t);
+                viewList.add(imageView);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        });
+
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
-        arsenalDisplay.setOnMouseEntered(e -> System.out.println(arsenalDisplay.getSelectionModel().getSelectedItem()));
-    }
 
+        //TODO: this definitely does not work
+        arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+                Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
+
+                /* Put a string on a dragboard */
+                ClipboardContent content = new ClipboardContent();
+                content.putString(selected.toString());
+                db.setContent(content);
+
+                mouseEvent.consume();
+            }
+        });
+    }
     private void switchWeaponDisplay(){
         if (!isWeapon) {
             //TODO: implement display switch
