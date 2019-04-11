@@ -17,4 +17,6 @@ public class GamePlayIDE extends HBox {
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
 
+
+
 }

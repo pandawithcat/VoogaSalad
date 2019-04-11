@@ -37,12 +37,16 @@ public class GamePlayMap extends GridPane {
         setPrefHeight(height);
     }
 
+
+
     //NOT yet used
     private void createTestTerrain(){
         for (int i = 0; i < 10; i++){
 
         }
     }
+
+
 
 
 }

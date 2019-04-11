@@ -115,7 +115,7 @@ public class GamePlayArsenal extends VBox {
         if (!isWeapon) {
             //TODO: implement display switch
             viewList.clear();
-            setArsenalDisplay(myTestWeapons, myArsenalWidth/2);
+            setArsenalDisplay(myTestWeapons, myArsenalWidth);
             isWeapon = true;
         }
     }
@@ -124,8 +124,7 @@ public class GamePlayArsenal extends VBox {
         if (isWeapon) {
             //TODO: implement display switch
             viewList.clear();
-            System.out.println("switch to obstacle");
-            setArsenalDisplay(myTestObstacles, myArsenalWidth/2);
+            setArsenalDisplay(myTestObstacles, myArsenalWidth);
             isWeapon = false;
         }
     }
