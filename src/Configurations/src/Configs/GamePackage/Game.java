@@ -4,12 +4,16 @@ import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
+import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
 import org.w3c.dom.events.Event;
 
 //<<<<<<< HEAD
-//public class Game implements Updatable, EventHandlable, Viewable, Configurable {
+////<<<<<<< HEAD
+////public class Game implements Updatable, EventHandlable, Viewable, Configurable {
+////=======
 //=======
+//>>>>>>> e11763d259370ab5512cb002562f786bd4ef0f50
 public class Game implements Updatable, EventHandlable, Configurable {
 
     public static final double gridPixelWidth = 500;
@@ -18,17 +22,17 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Configuration myConfiguration;
 
     @Configure
-    private Level[] levelList;
-    @Configure
-    private Behavior<Game>[] gameType;
-    @Configure
-    private WeaponConfig[] allWeaponConfigs;
-    @Configure
     private String myTitle;
     @Configure
     private String myDescription;
     @Configure
     private String myThumbnail;
+    @Configure
+    private Level[] levelList;
+    /*@Configure
+    private GameBehavior[] gameType;*/
+    /*@Configure
+    private WeaponConfig[] allWeaponConfigs;*/
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;
@@ -41,10 +45,32 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber=0;
     }
 
+    //FOR TESTING
+    public void setName(String name) {
+        myTitle = name;
+    }
+    public void setThumbnail(String name) {
+        myThumbnail = name;
+    }
+    public void setMyDescription(String name) {
+        myDescription = name;
+    }
+
     @Override
     public void update(long ms) {
-        //TODO CHECK IF LEVEL IS OVER AND CHANGE currentLevelOver = true;
-        //TODO CHECK IF GAME IS OVER
+        myActiveLevel.update(ms);
+        if(myActiveLevel.noMoreEnemiesLeft()) {
+            currentLevelOver = true;
+            currentLevelNumber++;
+            if(currentLevelNumber==levelList.length) {
+                gameOver = true;
+            }
+            else {
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
+            }
+        }
+
+
     }
 
     public boolean isGameOver() {
@@ -103,9 +129,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return myThumbnail;
     }
 
-
-
-
-
-
+    @Override
+    public String getLabel() {
+        return myTitle;
+    }
 }

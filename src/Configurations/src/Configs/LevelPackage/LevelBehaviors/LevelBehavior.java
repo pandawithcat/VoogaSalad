@@ -3,8 +3,12 @@ package Configs.LevelPackage.LevelBehaviors;
 import Configs.Behaviors.Behavior;
 import Configs.LevelPackage.Level;
 
+import java.util.List;
+
 public abstract class LevelBehavior implements Behavior<Level> {
     private Level myLevel;
+    public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of();
+
     public LevelBehavior(Level level) {
         myLevel = level;
     }
@@ -15,5 +19,10 @@ public abstract class LevelBehavior implements Behavior<Level> {
 
     public void setMyLevel(Level myLevel) {
         this.myLevel = myLevel;
+    }
+
+    @Override
+    public List<Class> getBehaviorOptions() {
+        return IMPLEMENTING_BEHAVIORS;
     }
 }

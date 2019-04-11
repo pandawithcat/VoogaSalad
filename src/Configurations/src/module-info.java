@@ -1,6 +1,7 @@
 module Configurations {
     requires java.desktop;
     requires javafx.graphics;
+    requires java.base;
 
     requires xstream;
     opens Configs to xstream;
@@ -22,4 +23,5 @@ module Configurations {
     exports Configs.Waves.WaveBehaviors;
     exports Configs.Waves;
     exports ActiveConfigs;
+    exports Configs.GamePackage.GameBehaviors;
 }

@@ -3,6 +3,7 @@ package Configs.ProjectilePackage;
 import ActiveConfigs.Shooter;
 import Configs.*;
 import Configs.Behaviors.Behavior;
+import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ShooterConfig.ShooterConfig;
 
 import java.util.List;
@@ -12,17 +13,16 @@ public class ProjectileConfig implements Configurable, Viewable {
 
     Configuration myConfiguration;
     @Configure
+    private String myLabel;
+    @Configure
     private View view;
     @Configure
     private double velocityInSeconds;
 
     //TODO: after first sprint implement behaviors
-//    @Configure
-//    private List<Behavior<ProjectileConfig>> myBehaviors;
+    @Configure
+    private ProjectileBehavior[] myBehaviors;
 
-//    public ProjectileConfig(){
-//         ProjectileOptions.values() how to get all options of the enum
-//    }
 
     public ProjectileConfig(ShooterConfig shooter) {
         myShooter = shooter;
@@ -43,9 +43,14 @@ public class ProjectileConfig implements Configurable, Viewable {
         return velocityInSeconds;
     }
 
-    //    private List<Behavior<ProjectileConfig>> getMyBehaviors() {
-//        return myBehaviors;
-//    }
+    private ProjectileBehavior[] getMyBehaviors() {
+        return myBehaviors;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
 
     public ShooterConfig getMyShooter() {
         return myShooter;

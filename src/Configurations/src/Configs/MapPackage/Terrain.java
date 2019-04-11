@@ -1,12 +1,16 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.util.List;
 
 public class Terrain implements MapFeaturable, Configurable{
+    @Configure
+    private String myLabel;
     @Configure
     private int gridXPos;
     @Configure
@@ -27,6 +31,8 @@ public class Terrain implements MapFeaturable, Configurable{
     private double gridBlockWidth;
     @Configure
     private boolean isPath;
+    @Configure
+    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
@@ -35,7 +41,7 @@ public class Terrain implements MapFeaturable, Configurable{
     public Terrain(MapConfig mapConfig, ImageView imageView, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
 
         myConfiguration = new Configuration(this);
-        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
+//        myMapFeature = new MapFeature(gridXPos,gridYPos,0,view, mapConfig.getGridHeight(), mapConfig.getGridWidth());
         //TODO FINISH
 
     }
@@ -66,6 +72,14 @@ public class Terrain implements MapFeaturable, Configurable{
         return isPath;
     }
 
+    public TerrainBehavior[] getTerrainBehaviors() {
+        return terrainBehaviors;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
 
     //    @Override
 //    public Configuration getConfiguration() {

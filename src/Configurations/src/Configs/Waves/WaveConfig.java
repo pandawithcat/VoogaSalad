@@ -3,18 +3,21 @@ package Configs.Waves;
 import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
+import Configs.Waves.WaveBehaviors.WaveBehavior;
 
 //holds the enemies
 public class WaveConfig implements  Configurable {
     private Level myLevel;
+    @Configure
+    private String myLabel;
     @Configure
     private long timeToRelease;
     @Configure
     private long rateOfRelease;
     @Configure
     private EnemyConfig[] enemies;
-//    @Configure
-//    private Behavior<WaveConfig>[] myWaveBehaviors;
+    @Configure
+    private WaveBehavior[] myWaveBehaviors;
 
     private Configuration myConfiguration;
 
@@ -31,8 +34,12 @@ public class WaveConfig implements  Configurable {
         timeToRelease = waveConfig.timeToRelease;
         rateOfRelease = waveConfig.rateOfRelease;
         enemies = waveConfig.enemies;
+        myWaveBehaviors = waveConfig.getMyWaveBehaviors();
     }
 
+    public WaveBehavior[] getMyWaveBehaviors() {
+        return myWaveBehaviors;
+    }
 
     public long getTimeToRelease() {
         return timeToRelease;
@@ -48,6 +55,11 @@ public class WaveConfig implements  Configurable {
 
     public Level getMyLevel() {
         return myLevel;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
     }
 
     @Override

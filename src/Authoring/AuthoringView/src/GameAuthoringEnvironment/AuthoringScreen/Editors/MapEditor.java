@@ -13,7 +13,6 @@ public class MapEditor extends Screen {
     }
 
     public void setContent(){
-
     }
 
 }
