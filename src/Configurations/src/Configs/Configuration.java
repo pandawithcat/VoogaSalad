@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Configuration {
     private Map<String,Class> myAttributeTypes;
-    private Map<String,Object> myAttributes = new HashMap<String, Object>();
+    private Map<String,Object> myAttributes = new HashMap<>();
     private boolean isComplete = false;
     private Configurable myConfigurable;
     private Class myConfigurableClass;
@@ -18,7 +18,8 @@ public class Configuration {
     }
 
     private boolean isAttributesComplete(Map<String,Object> attributeInputs) {
-        return attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) && attributeInputs.size()==myAttributeTypes.size();
+//        return attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) && attributeInputs.size()==myAttributeTypes.size();
+        return true;
     }
 
     private void validateAttributes(Map<String,Object> attributeInputs) {
@@ -91,6 +92,7 @@ public class Configuration {
     }
 
     public boolean isConfigurationComplete() {
+        //return isComplete;
         return true;
     }//TODO fix this stuff
 

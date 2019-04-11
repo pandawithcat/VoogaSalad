@@ -3,5 +3,6 @@ module AuthoringModel {
 
     requires Configurations;
     requires xstream;
+    exports BackendExternalAPI;
 
 }

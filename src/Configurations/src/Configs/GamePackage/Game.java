@@ -52,8 +52,19 @@ public class Game implements Updatable, EventHandlable, Configurable {
 
     @Override
     public void update(long ms) {
-        //TODO CHECK IF LEVEL IS OVER AND CHANGE currentLevelOver = true;
-        //TODO CHECK IF GAME IS OVER
+        myActiveLevel.update(ms);
+        if(myActiveLevel.noMoreEnemiesLeft()) {
+            currentLevelOver = true;
+            currentLevelNumber++;
+            if(currentLevelNumber==levelList.length) {
+                gameOver = true;
+            }
+            else {
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
+            }
+        }
+
+
     }
 
     public boolean isGameOver() {
