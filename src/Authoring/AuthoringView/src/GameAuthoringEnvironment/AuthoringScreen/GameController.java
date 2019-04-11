@@ -39,13 +39,18 @@ public class GameController {
 
     private Stage popupwindow;
     private GameController myGameController;
+    private Game myGame;
+    AuthoringVisualization myAuthoringVisualization;
 
     public GameController() {
         myGameController = this;
-        Game myGame = new Game();
+        myGame = new Game();
         createConfigurable(myGame);
     }
 
+    public Game getMyGame(){
+        return myGame;
+    }
 
 
     public void createConfigurable(Configurable myConfigurable){

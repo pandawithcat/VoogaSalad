@@ -71,12 +71,12 @@ public class ConfigureBehavior {
                 var selected = targetView.getSelectionModel().getSelectedItem();
                 if (selected.getClass().isInstance(Configurable.class)) {
                     try {
-                        Class<?> cl = Class.forName(selected.getComponentType().getName());
+                        Class<?> cl = Class.forName(selected.getName());
                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                         var object = cons.newInstance(myConfigurable);
                         myGameController.createConfigurable((Configurable) object);
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
 
                 }
