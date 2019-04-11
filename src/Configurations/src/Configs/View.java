@@ -1,12 +1,9 @@
 package Configs;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.File;
-import java.nio.file.Path;
-//import java.awt.*;
+
 
 public class View implements Configurable {
     private Configuration myConfiguration;
