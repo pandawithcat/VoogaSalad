@@ -160,6 +160,17 @@ public class ConfigurableMap {
 //        .addRow(3,txt,sub);
 //
 //    }
+    private void addEnemEnterPosButton(){
+        TextField enemEnterX = new TextField();
+        Button confirmEnemEnterX = new Button("Confirm");
+        TextField enemEnterY = new TextField();
+        Button confirmEnemEnterY = new Button("Confirm");
+        TextField enemExitX = new TextField();
+        Button confirmEnemExitX = new Button("Confirm");
+        TextField enemExitY = new TextField();
+        Button confirmEnemExitY = new Button("Confirm ");
+
+    }
     private void addGridEvent(){
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
