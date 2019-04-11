@@ -35,11 +35,12 @@ public class GameStart extends Application {
     }
 
     public void setTitle(GameInfo gameInfo, Image image){
-//        logic.createGameInstance(gameInfo);
-
         Text title = new Text(gameInfo.getGameTitle());
         title.setTranslateY(-100);
+        Text subtitle = new Text(gameInfo.getGameDescription());
+        subtitle.setTranslateY(-60);
         root.getChildren().add(title);
+        root.getChildren().add(subtitle);
         root.applyCss();
         root.layout();
         ImageView imageView = new ImageView(image);
@@ -54,7 +55,7 @@ public class GameStart extends Application {
     }
     private void startGame(){
         this.stage.close();
-        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
-        gamePlayVisualization.start(new Stage());
+        LogInPreloader logInPreloader = new LogInPreloader();
+        logInPreloader.start(new Stage());
     }
 }

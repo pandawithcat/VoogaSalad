@@ -16,26 +16,33 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameSelection extends Application {
+
+    public static final String RESOURCES_PATH = "resources/";
+
     private VBox root;
     private Stage stage;
     private ScrollPane scrollPane = new ScrollPane();
-    private double width;
-    private double height;
+    private double width = ScreenSize.getWidth();
+    private double height = ScreenSize.getHeight();
     private Logic logic;
     @Override
     public void start(Stage primaryStage) {
+        scrollPane.setId("scrollpane");
+        scrollPane.setPrefViewportWidth(50);
+        scrollPane.setPrefViewportHeight(50);
         logic = new Logic();
         stage = primaryStage;
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        width = primScreenBounds.getWidth();
-        height = primScreenBounds.getHeight();
         stage.setX(width);
         stage.setY(height);
         root = new VBox();
+        root.setId("pane");
         Label text = new Label("Select a Game");
         text.setPrefHeight(100);
         root.getChildren().add(text);
@@ -44,30 +51,27 @@ public class GameSelection extends Application {
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
-        createGameSelectionScreen();
+        try {
+            createGameSelectionScreen();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
     private List<GameInfo> uploadAvailableGames(){
-//        List<GameInfo> gameInfoList= logic.getGameOptions();
-        List<GameInfo> gameInfos = new ArrayList<>();
-        for(int x = 1; x < 5; x++){
-            GameInfo gameInfo = new GameInfo("Trial" + x, "tower" + x + ".png","");
-            gameInfos.add(gameInfo);
-        }
-        return gameInfos;
+        List<GameInfo> gameInfoList= logic.getGameOptions();
+        return gameInfoList;
     }
 
-    private void createGameSelectionScreen(){
+    private void createGameSelectionScreen() throws FileNotFoundException {
         VBox vBox = new VBox();
-        vBox.setPrefWidth(width);
-        for(int x = 0; x < 20; x ++) {
+        vBox.setPrefWidth(width/3);
             HBox hBox = new HBox();
-            hBox.setPrefWidth(width);
+            hBox.setPrefWidth(width/3);
             for(GameInfo gameInfo: uploadAvailableGames()){
                 Text title = new Text(gameInfo.getGameTitle());
                 title.setX(300);
                 hBox.getChildren().add(title);
-                String gameImage = gameInfo.getGameThumbnail();
-                Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(gameImage));
+                Image image = new Image(new FileInputStream(RESOURCES_PATH + gameInfo.getGameThumbnail()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(100);
                 imageView.setFitHeight(100);
@@ -76,8 +80,7 @@ public class GameSelection extends Application {
                 hBox.getChildren().add(imageView);
             }
             vBox.getChildren().add(hBox);
-        }
-        scrollPane.setContent(vBox);
+        scrollPane.setContent(hBox);
     }
     private void startGame(GameInfo gameInfo, Image image){
         this.stage.close();
