@@ -34,17 +34,19 @@ public class AuthoringVisualization {
 
     public AuthoringVisualization(Game game){
         myGame = game;
+        setScene();
     }
 
-    public void start (Stage stage) {
+
+    private void setScene() {
         var root = new Group();
-        setScene(stage, root);
-        root.setOnKeyPressed(event -> handleKeyInput(event));
-        setStage(stage);
-    }
+        myContainer = root;
+        TopMenuBar topMenuBar = new TopMenuBar();
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
+        myScene = new Scene(myContainer);
 
-    private void setStage(Stage stage){
 
+        Stage myStage = new Stage();
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         screenHeight = primaryScreenBounds.getHeight();
@@ -52,40 +54,17 @@ public class AuthoringVisualization {
         screenMinX = primaryScreenBounds.getMinX();
         screenMinY = primaryScreenBounds.getMinY();
 
-        stage.setScene(myScene);
+        myStage.setScene(myScene);
 
         //set Stage boundaries to visible bounds of the main screen
-        stage.setX(screenMinX);
-        stage.setY(screenMinY);
-        stage.setWidth(screenWidth);
-        stage.setHeight(screenHeight);
-        stage.setTitle(Title);
-        stage.setResizable(true);
-        stage.show();
-        //setAnimation();
-    }
+        myStage.setX(screenMinX/2);
+        myStage.setY(screenMinY/2);
+        myStage.setWidth(screenWidth/2);
+        myStage.setHeight(screenHeight/2);
+        myStage.setTitle(Title);
+        myStage.setResizable(true);
+        myStage.show();
 
-    private void setScene(Stage stage, Group myRoot) {
-        myContainer = myRoot;
-        TopMenuBar topMenuBar = new TopMenuBar();
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
-        myScene = new Scene(myContainer);
-//=======
-//
-//        //This is the only pane that should be fixed on the screen
-//        var leftGridPane = new Group();
-//        leftGridPane.setLayoutY(63);
-//        setLeftGridPane(leftGridPane);
-//        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
-//        myScene = new Scene(myContainer);
-//    }
-//
-//
-//    private void setLeftGridPane(Group leftGridPane){
-//        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
-//        leftGridPane.getChildren().addAll(gameOutline.getVBox());
-//    }
-//
     }
 
 

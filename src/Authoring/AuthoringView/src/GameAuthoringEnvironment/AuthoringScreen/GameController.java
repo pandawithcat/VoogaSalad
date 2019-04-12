@@ -131,6 +131,13 @@ public class GameController {
                                 configurableMap.setConfigurations();
                                 System.out.println(myAttributesMap);
                             }
+                            else if(clazz.getSimpleName().equals("View")){
+                                FileChooser fileChooser = new FileChooser();
+                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
+                                String filepath = selectedFile.toString();
+                                myAttributesMap.put(key, filepath);
+                            }
+
                             else{
                                 //TODO idf clazz does not taken in myconfigurable as a parameter, then error
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());

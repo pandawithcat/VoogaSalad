@@ -69,7 +69,7 @@ public class ConfigureBehavior {
             @Override
             public void handle(MouseEvent event) {
                 var selected = targetView.getSelectionModel().getSelectedItem();
-                if (selected.getClass().isInstance(Configurable.class)) {
+                if (selected.isInstance(Configurable.class)) {
                     try {
                         Class<?> cl = Class.forName(selected.getName());
                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());

@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -10,23 +11,25 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class StartingScreen {
 
     private VBox myContatiner;
-    private Game myGame;
+    private Stage myStage;
 
     public void start (Stage stage) {
-        var root = new Group();
-        setScene(stage, root);
-        setStage(stage);
+        myStage = stage;
+        setScene();
+        setStage();
     }
 
 
-    private void setScene(Stage stage, Group root){
-
+    private void setScene(){
         myContatiner = new VBox(10.00);
         Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+ "logo" +".png"));
         ImageView imageView = new ImageView(test);
@@ -39,19 +42,38 @@ public class StartingScreen {
         myContatiner.getChildren().addAll(imageView, newGameButton, importGameButton, description);
 
         Scene scene= new Scene(myContatiner, 800, 800);
-        stage.setScene(scene);
+        myStage.setScene(scene);
+    }
+
+    private void makeGame(Game game){
+        AuthoringVisualization authoringVisualization = new AuthoringVisualization(game);
+        myStage.close();
     }
 
     private void handleNewGameButton(MouseEvent event){
-        AuthoringVisualization authoringVisualization = new AuthoringVisualization(myGame);
+        Game newGame = new Game();
+        makeGame(newGame);
     }
 
     private void importGame(MouseEvent evemt){
+        FileChooser fileChooser = new FileChooser();
 
+        File selectedFile = fileChooser.showOpenDialog(myStage);
+        if (selectedFile != null) {
+            //TODO Make Game based on this
+            String filepath = selectedFile.toString();
+            // TODO game should be created by reading in the xml
+            /*Game importedGame = new Game();
+            importedGame = new Model(filepath);*/
 
+            if (!filepath.endsWith("XML")) {
+                //TODO Alert
+            }
+        }
+        makeGame(new Game());
     }
 
-    private void setStage(Stage stage){
+    private void setStage(){
 
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
@@ -61,13 +83,13 @@ public class StartingScreen {
         double screenMinY = primaryScreenBounds.getMinY();
 
         //set Stage boundaries to visible bounds of the main screen
-        stage.setX(screenMinX/2.5);
-        stage.setY(screenMinY/2.5);
-        stage.setWidth(screenWidth/2.5);
-        stage.setHeight(screenHeight/2.5);
-        stage.setTitle("Welcome to NoMergeConflicts");
+        myStage.setX(screenWidth/3);
+        myStage.setY(screenHeight/3);
+        myStage.setWidth(screenWidth/2.5);
+        myStage.setHeight(screenHeight/2.5);
+        myStage.setTitle("Welcome to NoMergeConflicts");
 
-        stage.show();
+        myStage.show();
     }
 
 }
