@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringComponents.*;
 
 import javafx.animation.KeyFrame;
@@ -28,6 +29,12 @@ public class AuthoringVisualization {
     private Group myContainer;
     private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
+    private Game myGame;
+
+
+    public AuthoringVisualization(Game game){
+        myGame = game;
+    }
 
     public void start (Stage stage) {
         var root = new Group();
@@ -79,33 +86,6 @@ public class AuthoringVisualization {
 //        leftGridPane.getChildren().addAll(gameOutline.getVBox());
 //    }
 //
-//    // add all the buttons - ex) save, load etc
-//    private HBox addTopBar(){
-//
-//        var TopMenuBar = new HBox();
-//
-//        HelpButton helpButton = new HelpButton();
-//        SaveButton saveButton = new SaveButton();
-//        ImageButton imageButton = new ImageButton();
-//        LoadButton loadButton = new LoadButton();
-//        PlayButton playButton = new PlayButton();
-//        ViewButton viewButton = new ViewButton();
-//        NewGameButton newGameButton = new NewGameButton();
-//        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            public void handle(MouseEvent me) {
-//                System.out.println("Mouse entered");
-//                // TODO Make This pop up window that sets the Game Properties
-//                // TODO Alert buttonn if game was not created
-//                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
-//                //gameOutline.setContent(gamePropertySettings.getMyGame().getMyNumberOfLevels());
-//            }
-//        });
-//
-//        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
-//                viewButton.getButton(), helpButton.getButton());
-//
-//        return  TopMenuBar;
-//>>>>>>> 07b6588bd2a5d7519977ccc8cef96eb76d8d5653
     }
 
 
