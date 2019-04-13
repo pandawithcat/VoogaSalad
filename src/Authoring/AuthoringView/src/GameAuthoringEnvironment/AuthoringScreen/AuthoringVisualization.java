@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -42,7 +43,19 @@ public class AuthoringVisualization {
         var root = new Group();
         myContainer = root;
         TopMenuBar topMenuBar = new TopMenuBar();
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
+
+
+        //TODO Change this part - maybe even add the logo and logo also disappears
+        Text instructions = new Text("Write down instructions and make this text disappear once the user clicks new game button");
+        instructions.setX(300);
+        instructions.setY(300);
+        instructions.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+               myContainer.getChildren().remove(instructions);
+            }
+        });
+
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), instructions);
         myScene = new Scene(myContainer);
 
 
@@ -76,8 +89,4 @@ public class AuthoringVisualization {
         }
     }
 
-    //TODO This will handle how the closing buttons work - automatic resizing of modules is neccesary. Would be ideal if we can move this to the modules class
-    public void close(){
-
-    }
 }

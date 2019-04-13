@@ -1,6 +1,5 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringComponents.Buttons.CloseButton;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -62,10 +61,7 @@ public abstract class Screen {
         title.setVisible(true);
         /*Font myFont = new Font ("Courier New", 10);
         title.setFont(myFont);*/
-        CloseButton close = new CloseButton();
-        close.getButton().setLayoutX(0);
-        close.getButton().setLayoutY(-20);
-        toolbarPane.getChildren().addAll(title, close.getButton());
+        toolbarPane.getChildren().addAll(title);
     }
 
     //public abstract void setContent();

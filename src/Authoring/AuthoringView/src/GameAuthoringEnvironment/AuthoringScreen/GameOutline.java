@@ -41,14 +41,8 @@ public class GameOutline extends Screen {
 
     public void setContent(int numberOfLevels) {
 
-        var url = this.getClass().getClassLoader().getResource("ButtonImages");
-        try {
-            File folder = new File(url.toURI());
-            Image test = new Image(folder.toURI()+"Folder");
-            myImage = new ImageView(test);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+"Folder.png"));
+        myImage = new ImageView(test);
 
         //TODO magic numbers should be changed based on the screensize
         myImage.setFitHeight(50);
@@ -137,23 +131,6 @@ public class GameOutline extends Screen {
     }
 
 
-//    private void createMapScreen(){
-//        MapEditor mapEditor = new MapEditor(myRoot,650, 550, "Map Editor");
-//        myRoot.getChildren().add(mapEditor.getVBox());
-//    }
-
-    /*private void createArsenalScreen(){
-        ArsenalEditor arsenalEditor = new ArsenalEditor(myRoot, 500, 500, "Arsenal Editor");
-        System.out.println(myRoot.getChildren());
-        myRoot.getChildren().add(arsenalEditor.getVBox());
-
-    }
-
-    private void createEnemiesScreen(){
-        EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "EnemyPackage Editor");
-        myRoot.getChildren().add(enemiesEditor.getVBox());*/
-
-    //}
 
 
 }

@@ -197,9 +197,6 @@ public class GameController {
                                     try {
 
                                         Class<?> cl = Class.forName(value.getComponentType().getName());
-                                       /* System.out.println(cl.getSimpleName());
-                                        System.out.println(cl.getClasses());
-                                        System.out.println(value.getComponentType().getLabel());*/
                                         //TODO Use reflection to check this
                                         if(cl.getSimpleName().contains("Behavior")){
                                             Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
@@ -207,9 +204,7 @@ public class GameController {
                                             ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
                                         }
                                         else{
-                                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                                            var object = cons.newInstance(myConfigurable);
-                                            createConfigurable((Configurable) tempList.get(0));
+                                            createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
                                         }
 
                                     } catch (Exception e) {
@@ -258,6 +253,7 @@ public class GameController {
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                //TODO Should close the screen but shows that game configuration is not complete
                 /*if(!myConfigurable.getConfiguration().isConfigurationComplete()){
                     System.out.println(myAttributesMap);
                     System.out.println(myConfigurable.getConfiguration().getAttributes());
