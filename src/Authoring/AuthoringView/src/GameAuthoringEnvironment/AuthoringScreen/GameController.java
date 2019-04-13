@@ -13,6 +13,7 @@ import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -53,6 +54,8 @@ public class GameController {
 
         Stage popupwindow = new Stage();
 
+        List<Button> allButton = new ArrayList<>();
+
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
 
@@ -70,6 +73,8 @@ public class GameController {
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");
+
+
                 var nameAndTfBar = new HBox();
                 nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
                 confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
@@ -95,6 +100,7 @@ public class GameController {
                         }
                     }
                 }));
+                allButton.add(confirmButton);
                 layout.getChildren().addAll(nameAndTfBar);
             }
 
@@ -110,7 +116,6 @@ public class GameController {
                         myAttributesMap.put(key, selectedFile);
                     }
                 });
-
                 layout.getChildren().add(fileUploadButton);
 
             }
@@ -166,6 +171,7 @@ public class GameController {
                     buttonBar.setSpacing(10);
                     Button addNew = new Button("add new " + value.getComponentType().getSimpleName());
                     Button confirmButton = new Button("Confirm");
+
                     buttonBar.getChildren().addAll(addNew, confirmButton);
                     ListView sourceView = new ListView<>();
 
@@ -242,7 +248,7 @@ public class GameController {
                             }
                         }
                     }));
-
+                    allButton.add(confirmButton);
                     tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
                     layout.getChildren().add(tempVBOx);
                 }
@@ -266,6 +272,9 @@ public class GameController {
                 else {*/
 //                    System.out.println(myAttributesMap);
 //                    System.out.println(myConfigurable.getConfiguration().getAttributes());
+                    for(Button button: allButton){
+                        button.fireEvent(event);
+                    }
                     myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
                     popupwindow.close();
 

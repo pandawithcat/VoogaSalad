@@ -44,6 +44,8 @@ public class ConfigureBehavior {
     }
 
     private void setContent() {
+
+
         popUpWindow = new Stage();
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Behavior Editor");
