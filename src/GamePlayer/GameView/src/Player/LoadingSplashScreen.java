@@ -4,6 +4,7 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,7 +30,7 @@ import java.io.File;
 
 public class LoadingSplashScreen extends Application{
 
-    private final String WELCOME_MUSIC = "resources/main-theme.mp3";
+    private final String WELCOME_MUSIC = "resources/gameMusic.mp3";
     private StackPane root;
     private Rectangle rect;
     private Text text;
@@ -42,11 +44,14 @@ public class LoadingSplashScreen extends Application{
         root.applyCss();
         root.layout();
 
-        var scene = new Scene(root, 1000, 600);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth()));
+        stage.setY((primScreenBounds.getHeight()));
+
+        var scene = new Scene(root, primScreenBounds.getWidth(), primScreenBounds.getHeight());
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
-
         root.getChildren().add(createWelcomeMusic());
         root.getChildren().add(createLogoBackground());
         Button start = createStartButton("shiny-yelow", "Start", 0, 100);
@@ -113,11 +118,7 @@ public class LoadingSplashScreen extends Application{
     private void availableGames(){
         mediaPlayer.stop();
         this.stage.close();
-//        View.GamePlayVisualization gamePlayVisualization = new View.GamePlayVisualization();
-//        gamePlayVisualization.start(new Stage());
-
         GameSelection gameSelection = new GameSelection();
-
         gameSelection.start(new Stage());
     }
     private Path generatePath(int x, int y)
@@ -137,8 +138,6 @@ public class LoadingSplashScreen extends Application{
         pathTransition.setNode(node);
         return pathTransition;
     }
-
     public static void main(String [] args){
-        launch(args);
-    }
+        Application.launch(args);}
 }

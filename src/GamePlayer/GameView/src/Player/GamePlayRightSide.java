@@ -1,35 +1,36 @@
 package Player;
 
+import BackendExternal.Logic;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.io.FileNotFoundException;
 
 public class GamePlayRightSide extends VBox {
 
-    public GamePlayArsenal myGameArsenal;
-    public double rightSideWidth;
-    private double rightSideHeight;
-    private static final int padding = 10;
-    private double screenMinX;
-    private double screenMinY;
+    public static final double ARSENAL_RATIO = 0.75;
+    public static final double BUTTON_RATIO = 0.25;
+    private GamePlayArsenal myGameArsenal;
+    private ButtonPanel myButtonPanel;
 
-    public GamePlayRightSide(double width, double height){
+
+
+    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
         setPrefWidth(width);
         setPrefHeight(height);
-        myGameArsenal = new GamePlayArsenal(width, height * 9 / 10);
-        this.getChildren().addAll(myGameArsenal, createPlayButton(width, height));
-        setPadding(new Insets(padding,padding,padding,padding));
-        setSpacing(padding);
-
+        try {
+            myGameArsenal = new GamePlayArsenal(width, height * ARSENAL_RATIO, logic);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward));
     }
 
-    private Button createPlayButton(double width, double height){
-        Button play = new Button("Play");
-        play.setPrefWidth(width);
-        play.setPrefHeight(height/10);
-        play.setOnAction(e -> System.out.println("method to play"));
-        setPadding(new Insets(padding,padding,padding,padding));
-        return play;
+    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward){
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward);
+        return myButtonPanel;
     }
 
 }

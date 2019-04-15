@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.Logic;
 import javafx.scene.layout.HBox;
 
 public class GamePlayIDE extends HBox {
@@ -8,15 +9,15 @@ public class GamePlayIDE extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    private double screenMinX;
-    private double screenMinY;
-
-    public GamePlayIDE(double width, double height){
+    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
         setPrefWidth(width);
         setPrefHeight(height);
-        myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height);
+        myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
+        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward);
         this.getChildren().addAll(myGameLeft,myGameRight);
+    }
+    public GamePlayLeftSide getLeft(){
+        return myGameLeft;
     }
 
 }

@@ -1,14 +1,20 @@
 package Configs;
 
-import javafx.scene.image.ImageView;
-
 public class Info {
 
     private String name;
-    private TransferImageView imageView;
+    private String image;
 
-    public Info(String name, TransferImageView imageView) {
+    public Info(String name, String imageView) {
         this.name = name;
-        this.imageView = imageView;
+        this.image = image;
+    }
+
+    public String getName() {
+        return this.getName();
+    }
+
+    public String getImage() {
+        return image;
     }
 }
