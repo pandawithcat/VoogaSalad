@@ -51,11 +51,18 @@ public class GameStart extends Application {
         play.setTranslateX(0);
         play.setTranslateY(100);
         root.getChildren().add(play);
-        play.setOnAction(e-> startGame());
+        play.setOnAction(e-> startGame(gameInfo));
     }
-    private void startGame(){
+    private void startGame(GameInfo gameInfo){
         this.stage.close();
         LogInPreloader logInPreloader = new LogInPreloader();
         logInPreloader.start(new Stage());
+        logInPreloader.setTransitionEvent(e->transitionToScreen(gameInfo));
+    }
+    private void transitionToScreen(GameInfo gameInfo){
+        System.out.println("prints");
+        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
+        gamePlayVisualization.start(new Stage());
+        gamePlayVisualization.setGameInfo(gameInfo);
     }
 }

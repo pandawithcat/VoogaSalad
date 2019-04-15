@@ -1,11 +1,10 @@
 package Player;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -14,9 +13,8 @@ import javafx.util.Duration;
 
 public class LogInPreloader extends Application {
     public static final int MILLISECOND_DELAY = 200;
-
+    private EventHandler eventHandler;
     private Timeline animation;
-        ProgressBar bar;
         Stage stage;
         Text text = new Text("Loading ...");
         @Override
@@ -35,6 +33,10 @@ public class LogInPreloader extends Application {
             animation.getKeyFrames().add(animationFrame);
             animation.play();
         }
+        public void setTransitionEvent(EventHandler eventHandler){
+            this.eventHandler = eventHandler;
+        }
+
         private void step(){
             if(text.getText().equals("Loading ...")){
                 text.setText("Loading .. ");
@@ -43,14 +45,9 @@ public class LogInPreloader extends Application {
             }else{
                 text.setText("Loading ...");
             }
+            animation.setOnFinished(eventHandler);
+        }
 
-            animation.setOnFinished(e-> moveOn());
-        }
-        private void moveOn(){
-            this.stage.close();
-            GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
-            gamePlayVisualization.start(new Stage());
-        }
         public static void main(String [] args){
             launch(args);
         }

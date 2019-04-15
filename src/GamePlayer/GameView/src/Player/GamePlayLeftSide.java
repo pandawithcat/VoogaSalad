@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 public class GamePlayLeftSide extends VBox {
     public GamePlayMap myMap;
     public GamePlaySettingsBar mySettings;
-    public static final int padding = 10;
 
     public GamePlayLeftSide(double width, double height, Logic logic){
         setPrefWidth(width);
@@ -19,6 +18,5 @@ public class GamePlayLeftSide extends VBox {
 
     public GamePlayMap getMap(){
         return myMap;
-
     }
 }

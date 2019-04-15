@@ -36,8 +36,7 @@ public class GameSelection extends Application {
     public void start(Stage primaryStage) {
         scrollPane.setId("scrollpane");
         scrollPane.setPrefSize(width/2,height/2);
-
-
+        
         logic = new Logic();
         stage = primaryStage;
         stage.setX(width);
@@ -83,7 +82,6 @@ public class GameSelection extends Application {
             vBox.getChildren().add(hBox);
 
         scrollPane.setContent(hBox);
-
     }
     private void startGame(GameInfo gameInfo, Image image){
         this.stage.close();

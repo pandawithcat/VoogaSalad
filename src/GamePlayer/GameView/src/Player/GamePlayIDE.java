@@ -9,18 +9,15 @@ public class GamePlayIDE extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method){
+    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
         setPrefWidth(width);
         setPrefHeight(height);
         myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method);
+        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
-
     public GamePlayLeftSide getLeft(){
         return myGameLeft;
     }
-
-
 
 }

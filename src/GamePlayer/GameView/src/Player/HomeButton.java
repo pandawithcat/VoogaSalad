@@ -16,10 +16,5 @@ public class HomeButton extends Button {
         setPrefWidth(width/3);
         setPrefHeight(height/2);
         setPrefWidth(width);
-        setOnAction(e -> startHome());
-    }
-    private void startHome(){
-        GameSelection gameSelection = new GameSelection();
-        gameSelection.start(new Stage());
     }
 }

@@ -17,9 +17,6 @@ public class SettingsPanel extends HBox {
         homeButton = new HomeButton(width/3,height);
         settingsButton = new SettingsButton(width/3,height);
         saveButton = new SaveButton(width/3,height);
-        getChildren().add(homeButton);
-        getChildren().add(settingsButton);
-        getChildren().add(saveButton);
-
+        getChildren().addAll(homeButton, settingsButton, saveButton);
     }
 }

@@ -17,7 +17,7 @@ public class GamePlayRightSide extends VBox {
 
 
 
-    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method){
+    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
         setPrefWidth(width);
         setPrefHeight(height);
         try {
@@ -25,11 +25,11 @@ public class GamePlayRightSide extends VBox {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method));
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward));
     }
 
-    private VBox createButtonPanel(double width, double height, PlayInterface method){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method);
+    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward){
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward);
         return myButtonPanel;
     }
 

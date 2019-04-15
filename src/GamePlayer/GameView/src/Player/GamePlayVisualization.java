@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.GameInfo;
 import BackendExternal.Logic;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -25,12 +26,12 @@ import java.io.FileNotFoundException;
 public class GamePlayVisualization extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
-    public static final int FRAMES_PER_SECOND = 60;
+    public static int FRAMES_PER_SECOND = 60;
     public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
-    private double screenWidth;
-    private double screenHeight;
+    private double screenWidth = ScreenSize.getWidth();
+    private double screenHeight = ScreenSize.getHeight();
     private static final int padding = 15;
     private Logic myLogic;
     private Timeline animation = new Timeline();
@@ -41,28 +42,30 @@ public class GamePlayVisualization extends Application {
         try {
             Stage primaryStage = stage;
             root = new Group();
-            Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+            myLogic = new Logic();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
-            screenWidth = primScreenBounds.getWidth();
-            screenHeight = primScreenBounds.getHeight();
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-            PlayInterface playMethod = () -> startLoop();
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, playMethod);
+            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward());
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            //gameLoop
-//            startLoop();
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
+    public void setGameInfo(GameInfo gameInfo){
+        myLogic.createGameInstance(gameInfo);
+    }
+    private void fastFoward(){
+        FRAMES_PER_SECOND = 150;
+    }
+
     private MediaView createWelcomeMusic(){
         Media sound = new Media(new File(GAME_MUSIC).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
@@ -71,9 +74,8 @@ public class GamePlayVisualization extends Application {
         return mediaView;
     }
 
-
     private void startLoop(){
-        System.out.println("yes boy");
+        FRAMES_PER_SECOND = 60;
         var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
         animation.setCycleCount(Timeline.INDEFINITE);
         animation.getKeyFrames().add(frame);
