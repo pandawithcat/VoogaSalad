@@ -31,6 +31,10 @@ public class View implements Configurable {
         this.height = height;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
     @Override
     public String getLabel() {
         return myLabel;

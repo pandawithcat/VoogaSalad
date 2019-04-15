@@ -58,8 +58,8 @@ public class WeaponConfig implements  Configurable, Viewable {
         return view;
     }
 
-    public TransferImageView getImageView() {
-        return (TransferImageView) myConfiguration.getDefinedAttributes().get(view.toString());
+    public String getImage() {
+        return view.getImagePath();
     }
 
     public Arsenal getMyArsenal() {

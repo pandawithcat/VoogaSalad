@@ -49,7 +49,7 @@ public class Arsenal implements Configurable {
         WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< myWeaponConfigs.length; i++) {
-            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getLabel(), myWeaponConfigs[i].getImageView()));
+            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getLabel(), myWeaponConfigs[i].getImage()));
             myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);
