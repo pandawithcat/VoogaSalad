@@ -37,18 +37,14 @@ public class LogInPreloader extends Application {
             this.eventHandler = eventHandler;
         }
 
-        private void step(){
-            if(text.getText().equals("Loading ...")){
+        private void step() {
+            if (text.getText().equals("Loading ...")) {
                 text.setText("Loading .. ");
-            }else if(text.getText().equals("Loading .. ")){
+            } else if (text.getText().equals("Loading .. ")) {
                 text.setText("Loading .  ");
-            }else{
+            } else {
                 text.setText("Loading ...");
             }
             animation.setOnFinished(eventHandler);
-        }
-
-        public static void main(String [] args){
-            launch(args);
         }
 }

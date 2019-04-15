@@ -89,10 +89,4 @@ public class GameSelection extends Application {
         gameStart.start(new Stage());
         gameStart.setTitle(gameInfo, image);
     }
-
-
-    public static void main (String [] args){
-        launch(args);
-    }
-
 }

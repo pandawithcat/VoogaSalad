@@ -99,10 +99,4 @@ public class GamePlayVisualization extends Application {
         //
         myGameIDE.getLeft().getMap().update(elapsedTime);
     }
-
-
-    public static void main (String[] args) {
-        Application.launch(args);
-    }
-
 }

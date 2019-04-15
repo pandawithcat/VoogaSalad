@@ -60,7 +60,6 @@ public class GameStart extends Application {
         logInPreloader.setTransitionEvent(e->transitionToScreen(gameInfo));
     }
     private void transitionToScreen(GameInfo gameInfo){
-        System.out.println("prints");
         GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
         gamePlayVisualization.start(new Stage());
         gamePlayVisualization.setGameInfo(gameInfo);
