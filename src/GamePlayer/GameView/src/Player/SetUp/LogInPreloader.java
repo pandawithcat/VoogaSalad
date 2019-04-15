@@ -1,5 +1,6 @@
-package Player;
+package Player.SetUp;
 
+import Player.ScreenSize;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;

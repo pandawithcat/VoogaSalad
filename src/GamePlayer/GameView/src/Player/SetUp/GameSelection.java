@@ -1,25 +1,21 @@
-package Player;
+package Player.SetUp;
 
 import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import Player.ScreenSize;
 import javafx.application.Application;
-import javafx.application.Preloader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameSelection extends Application {

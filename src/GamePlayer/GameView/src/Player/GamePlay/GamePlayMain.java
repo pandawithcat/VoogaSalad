@@ -1,29 +1,24 @@
-package Player;
+package Player.GamePlay;
 
 import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import Player.ScreenSize;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
-public class GamePlayVisualization extends Application {
+public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
     public static int FRAMES_PER_SECOND = 60;

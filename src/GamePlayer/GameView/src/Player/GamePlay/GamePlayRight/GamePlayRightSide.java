@@ -1,9 +1,9 @@
-package Player;
+package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import Player.GamePlay.GamePlayLeft.ButtonPanel;
+import Player.GamePlay.GamePlayLeft.GamePlayArsenal;
+import Player.GamePlay.PlayInterface;
 import javafx.scene.layout.VBox;
 
 import java.io.FileNotFoundException;

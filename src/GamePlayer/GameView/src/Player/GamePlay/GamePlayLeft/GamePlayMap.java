@@ -1,4 +1,4 @@
-package Player;
+package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
 import Configs.ImmutableImageView;

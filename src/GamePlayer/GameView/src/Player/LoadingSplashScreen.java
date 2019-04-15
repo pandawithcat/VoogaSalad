@@ -1,5 +1,6 @@
 package Player;
 
+import Player.SetUp.GameSelection;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;

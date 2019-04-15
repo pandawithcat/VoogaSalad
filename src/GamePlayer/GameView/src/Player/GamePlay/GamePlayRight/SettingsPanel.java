@@ -1,5 +1,7 @@
-package Player;
+package Player.GamePlay.GamePlayRight;
 
+import Player.GamePlay.Buttons.HomeButton;
+import Player.GamePlay.Buttons.SaveButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 

@@ -1,13 +1,13 @@
-package Player;
+package Player.SetUp;
 
 import BackendExternal.GameInfo;
+import Player.GamePlay.GamePlayMain;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -60,8 +60,8 @@ public class GameStart extends Application {
         logInPreloader.setTransitionEvent(e->transitionToScreen(gameInfo));
     }
     private void transitionToScreen(GameInfo gameInfo){
-        GamePlayVisualization gamePlayVisualization = new GamePlayVisualization();
-        gamePlayVisualization.start(new Stage());
-        gamePlayVisualization.setGameInfo(gameInfo);
+        GamePlayMain gamePlayMain = new GamePlayMain();
+        gamePlayMain.start(new Stage());
+        gamePlayMain.setGameInfo(gameInfo);
     }
 }

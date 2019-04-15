@@ -1,4 +1,4 @@
-package Player;
+package Player.GamePlay.GamePlayRight;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

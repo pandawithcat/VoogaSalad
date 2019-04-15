@@ -1,5 +1,9 @@
-package Player;
+package Player.GamePlay.GamePlayLeft;
 
+import Player.GamePlay.Buttons.FastFowardButton;
+import Player.GamePlay.Buttons.PlayButton;
+import Player.GamePlay.GamePlayRight.SettingsPanel;
+import Player.GamePlay.PlayInterface;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;

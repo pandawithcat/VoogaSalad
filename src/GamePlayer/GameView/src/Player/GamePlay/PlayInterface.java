@@ -1,7 +1,7 @@
-package Player;
+package Player.GamePlay;
 
 @FunctionalInterface
-interface PlayInterface {
+public interface PlayInterface {
 
     //functional interface to pass play button as lambda
     void playButton();

@@ -1,7 +1,8 @@
-package Player;
+package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
-import javafx.geometry.Insets;
+import Player.GamePlay.GamePlayLeft.GamePlayMap;
+import Player.GamePlay.GamePlayRight.GamePlaySettingsBar;
 import javafx.scene.layout.VBox;
 
 public class GamePlayLeftSide extends VBox {
