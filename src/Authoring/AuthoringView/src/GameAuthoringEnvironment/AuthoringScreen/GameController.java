@@ -69,6 +69,24 @@ public class GameController {
             var value = attributesMap.get(key);
 
             //handle primitives
+            System.out.println("These are the values" + key);
+           /* if(key.toLowerCase().contains("thumbnail") || key.contains("filepath")){
+                *//*Label myLabel = new Label(key);
+                TextField myTextField = new TextField();
+                Button confirmButton = new Button("Confirm");
+
+                var nameAndTfBar = new HBox();
+                nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
+
+                FileChooser fileChooser = new FileChooser();
+                File selectedFile = fileChooser.showOpenDialog(popupwindow);
+                String filepath = selectedFile.toString();
+                myTextField.setText(filepath);
+                myAttributesMap.put(key, filepath);
+                allButton.add(confirmButton);
+                layout.getChildren().addAll(nameAndTfBar);*//*
+
+            }*/
             if(value.equals(java.lang.String.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
@@ -137,10 +155,14 @@ public class GameController {
                                 System.out.println(myAttributesMap);
                             }
                             else if(clazz.getSimpleName().equals("View")){
-                                FileChooser fileChooser = new FileChooser();
-                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
-                                String filepath = selectedFile.toString();
-                                myAttributesMap.put(key, filepath);
+//                                FileChooser fileChooser = new FileChooser();
+//                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
+//                                String filepath = selectedFile.toString();
+//                                myAttributesMap.put(key, filepath);
+                                Constructor<?> cons = clazz.getConstructor(Configurable.class);
+                                var object = cons.newInstance(myConfigurable);
+                                System.out.println(object.getClass());
+                                createConfigurable((Configurable) object);
                             }
 
                             else{

@@ -44,8 +44,6 @@ public class ConfigureBehavior {
     }
 
     private void setContent() {
-
-
         popUpWindow = new Stage();
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Behavior Editor");
@@ -71,7 +69,7 @@ public class ConfigureBehavior {
             @Override
             public void handle(MouseEvent event) {
                 var selected = targetView.getSelectionModel().getSelectedItem();
-                if (selected.isInstance(Configurable.class)) {
+                if (selected.getClass().isInstance(Configurable.class)) {
                     try {
                         Class<?> cl = Class.forName(selected.getName());
                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
