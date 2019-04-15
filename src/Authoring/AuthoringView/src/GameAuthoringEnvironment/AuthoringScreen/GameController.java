@@ -18,6 +18,11 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -26,10 +31,15 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.*;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 
 public class GameController {
@@ -70,24 +80,30 @@ public class GameController {
 
             //handle primitives
             System.out.println("These are the values" + key);
-           /* if(key.toLowerCase().contains("thumbnail") || key.contains("filepath")){
-                *//*Label myLabel = new Label(key);
+            if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
+                Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
-                Button confirmButton = new Button("Confirm");
+                Button chooseImageButton = new Button("Choose Image");
 
                 var nameAndTfBar = new HBox();
-                nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
+                nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton);
+                chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    //TODO DO Errorchecking/Refactor
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println(value.getName());
+                        FileChooser fileChooser = new FileChooser();
+                        File selectedFile = fileChooser.showOpenDialog(popupwindow);
+                        String filepath = selectedFile.toString();
+                        myTextField.setText(filepath);
+                        myAttributesMap.put(key, filepath);
 
-                FileChooser fileChooser = new FileChooser();
-                File selectedFile = fileChooser.showOpenDialog(popupwindow);
-                String filepath = selectedFile.toString();
-                myTextField.setText(filepath);
-                myAttributesMap.put(key, filepath);
-                allButton.add(confirmButton);
-                layout.getChildren().addAll(nameAndTfBar);*//*
+                    }
+                }));
+                layout.getChildren().addAll(nameAndTfBar);
 
-            }*/
-            if(value.equals(java.lang.String.class) || value.isPrimitive()){
+            }
+            else if(value.equals(java.lang.String.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button confirmButton = new Button("Confirm");

@@ -15,7 +15,7 @@ public class Shootable extends WeaponBehavior{
     Configuration myConfiguration;
     private WeaponConfig weaponConfig;
 
-    Shootable(WeaponConfig weaponConfig){
+    public Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
         myConfiguration = new Configuration(this);
     }

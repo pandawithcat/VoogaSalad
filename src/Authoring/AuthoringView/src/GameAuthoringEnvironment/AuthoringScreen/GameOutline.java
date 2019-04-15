@@ -1,9 +1,5 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

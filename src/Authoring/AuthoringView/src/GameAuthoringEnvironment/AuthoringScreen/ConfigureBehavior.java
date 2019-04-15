@@ -69,7 +69,6 @@ public class ConfigureBehavior {
             @Override
             public void handle(MouseEvent event) {
                 var selected = targetView.getSelectionModel().getSelectedItem();
-                if (selected.getClass().isInstance(Configurable.class)) {
                     try {
                         Class<?> cl = Class.forName(selected.getName());
                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
@@ -78,9 +77,7 @@ public class ConfigureBehavior {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
-            }
         });;
 
         // Create the GridPane
