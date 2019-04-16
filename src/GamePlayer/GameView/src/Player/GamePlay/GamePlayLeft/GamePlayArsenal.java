@@ -113,11 +113,14 @@ public class GamePlayArsenal extends VBox {
 
         arsenalDisplay.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
+                System.out.println("drag over");
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
+                System.out.println(event.getDragboard());
+                System.out.println(event.getGestureSource());
                 if (event.getGestureSource() != arsenalDisplay &&
-                        event.getDragboard().hasString()) {
+                        event.getDragboard().hasImage()) {
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
@@ -131,9 +134,9 @@ public class GamePlayArsenal extends VBox {
                 /* data dropped */
                 /* if there is a string data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
-                System.out.println(db);
+                System.out.println("Complete Drag: " + db);
                 boolean success = false;
-                if (db.hasString()) {
+                if (db.hasImage()) {
                     myLogic.instantiateWeapon(1,5,5);
                     success = true;
                 }
@@ -145,26 +148,26 @@ public class GamePlayArsenal extends VBox {
             }
         });
 
-        arsenalDisplay.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image Moved");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString(selected.toString());
-                mouseEvent.consume();
-            }
-        });
-
-        arsenalDisplay.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image set");
-//                myLogic.instantiateWeapon();ImageView@534739bf[styleClass=image-view]
-            }
-        });
+//        arsenalDisplay.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("image Moved");
+//                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+//
+//                /* Put a string on a dragboard */
+//                ClipboardContent content = new ClipboardContent();
+//                content.putString(selected.toString());
+//                mouseEvent.consume();
+//            }
+//        });
+//
+//        arsenalDisplay.setOnMouseReleased(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("image set");
+////                myLogic.instantiateWeapon();ImageView@534739bf[styleClass=image-view]
+//            }
+//        });
 
 
     }
