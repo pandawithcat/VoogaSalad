@@ -6,7 +6,8 @@ import Configs.GamePackage.Game;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.WaveConfig;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.util.Map;
 
 public class Level implements Configurable{
     private Game myGame;
@@ -19,15 +20,10 @@ public class Level implements Configurable{
     private Arsenal myArsenal;
     @Configure
     private MapConfig myMap;
+
     @Configure
     private LevelBehavior[] levelBehaviors;
     private Configuration myConfiguration;
-
-
-    public Level(Game game){
-        myGame = game;
-        myConfiguration = new Configuration(this);
-    }
 
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();

@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class MapFeature {
 
@@ -19,35 +20,37 @@ public class MapFeature {
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
-    private int gridHeight;
-    private int gridWidth;
+    private double gridHeight;
+    private double gridWidth;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, int gridHeight, int gridWeight) {
-        this.view = view;
-        try {
-            System.out.println(view.getImage());
-            FileInputStream fileInputStream = new FileInputStream("resources/" + view.getImage());
-            myImageView = new TransferImageView(new Image(fileInputStream));
-        }catch (Exception e) {
-        }
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double gridHeight, double gridWeight) {
+        setImage(view);
+        this.gridHeight = gridHeight;
+        this.gridWidth = gridWeight;
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
-        myImageView.setFitHeight(view.getHeight());
-        myImageView.setFitWidth(view.getWidth());
+
+    }
+
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double gridHeight, double gridWeight) {
+        setImage(view);
         this.gridHeight = gridHeight;
         this.gridWidth = gridWeight;
-        }
-
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, int gridHeight, int gridWeight) {
-        this.view = view;
-        myImageView = new TransferImageView(new Image(view.getImage()));
-        myImageView.setFitHeight(view.getHeight());
-        myImageView.setFitWidth(view.getWidth());
         setPixelPos(pixelXPos,pixelYPos,direction);
         displayState = DisplayState.NEW;
-        this.gridHeight = gridHeight;
-        this.gridWidth = gridWeight;
+
+    }
+
+    private void setImage(View view) {
+        try {
+            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
+            myImageView.setFitHeight(view.getHeight());
+            myImageView.setFitWidth(view.getWidth());
+        }
+        catch (FileNotFoundException e) {
+            throw new IllegalStateException();
+        }
     }
 
     public double getPixelXPos() {
@@ -81,7 +84,7 @@ public class MapFeature {
         this.displayDirection = direction;
         this.gridXPos = (int) (pixelXPos/(gridWidth/Game.gridPixelWidth));
         this.gridYPos = (int) (pixelYPos/(gridHeight/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,displayDirection);
+        setImageView(pixelXPos,pixelYPos,direction);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -96,9 +99,11 @@ public class MapFeature {
         this.displayDirection = direction;
         pixelXPos = (Game.gridPixelWidth/gridWidth)*gridXPos;
         pixelYPos = (Game.gridPixelHeight/gridWidth)*gridYPos;
+        System.out.println("HIDNFNLDJFLKJL");
+        System.out.println(pixelXPos);
+        System.out.println(pixelYPos);
         setImageView(pixelXPos,pixelYPos,direction);
     }
-
 
 
     public TransferImageView getImageView() {
