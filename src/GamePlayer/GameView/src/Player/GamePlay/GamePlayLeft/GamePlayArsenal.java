@@ -92,10 +92,12 @@ public class GamePlayArsenal extends VBox {
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
 
+
         //TODO: this definitely does not work
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                System.out.println("we are dragging");
                 ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
                 Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
 
@@ -114,10 +116,30 @@ public class GamePlayArsenal extends VBox {
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
-                if (event.getDragboard().hasImage()) {
+                if (event.getGestureSource() != arsenalDisplay &&
+                        event.getDragboard().hasString()) {
                     /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.MOVE);
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
+
+                event.consume();
+            }
+        });
+
+        arsenalDisplay.setOnDragDropped(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                /* if there is a string data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                System.out.println(db);
+                boolean success = false;
+                if (db.hasString()) {
+                    myLogic.instantiateWeapon(1,5,5);
+                    success = true;
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
 
                 event.consume();
             }
