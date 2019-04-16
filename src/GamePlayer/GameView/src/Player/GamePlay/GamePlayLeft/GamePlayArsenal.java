@@ -70,29 +70,8 @@ public class GamePlayArsenal extends VBox {
         getChildren().addAll(arsenalDisplay);
 
         //arsenal selector part
-//        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
-        getChildren().add(createArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO));
-    }
-
-    private HBox createArsenalSelector(double width, double height) throws FileNotFoundException {
-        arsenalSelector = new HBox();
-        weaponImage = new Image(new FileInputStream("resources/" +WEAPON_IMAGE));
-        weaponImageView = new ImageView(weaponImage);
-        weaponImageView.setFitHeight(height);
-        weaponImageView.setFitWidth(width /2);
-        Button weaponButton = new Button("", weaponImageView);
-        weaponButton.setOnAction(e -> switchWeaponDisplay());
-        arsenalSelector.getChildren().add(weaponButton);
-
-        //obstacles
-        obstacleImage = new Image(new FileInputStream("resources/" + OBSTACLE_IMAGE));
-        obstacleImageView = new ImageView(obstacleImage);
-        obstacleImageView.setFitHeight(height);
-        obstacleImageView.setFitWidth(width /2);
-        Button obstacleButton = new Button("", obstacleImageView);
-        obstacleButton.setOnAction(e -> switchObstacleDisplay());
-        arsenalSelector.getChildren().add(obstacleButton);
-        return arsenalSelector;
+        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
+        getChildren().add(myArsenalSelector);
     }
 
     private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
