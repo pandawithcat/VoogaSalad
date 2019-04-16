@@ -33,6 +33,7 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
+        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
@@ -43,7 +44,7 @@ public class ActiveLevel extends Level implements Updatable {
             tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
-        return null;
+        return tempGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
