@@ -39,7 +39,6 @@ public class MapFeature {
         this.gridWidth = gridWeight;
         setPixelPos(pixelXPos,pixelYPos,direction);
         displayState = DisplayState.NEW;
-
     }
 
     private void setImage(View view) {

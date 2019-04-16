@@ -1,11 +1,9 @@
 package BackendExternal;
 
+import ActiveConfigs.Cell;
+import Configs.*;
 import Configs.GamePackage.Game;
-import Configs.ImmutableImageView;
-import Configs.Info;
-import Configs.MapFeature;
 import Configs.MapPackage.Terrain;
-import Configs.TransferImageView;
 import Data.GameLibrary;
 import javafx.scene.image.Image;
 
@@ -103,7 +101,7 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
+        return myGame.getArsenal().getAllWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
@@ -153,9 +151,26 @@ public class Logic {
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
-//    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
-//
-//    }
+    public boolean checkPlacementLocation(int weaponId, int x, int y, int direction){
+        View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
+        int height;
+        int width;
+        if(direction==90||direction==270) {
+            height = weaponView.getHeight();
+            width = weaponView.getWidth();
+        }
+        else{
+            height = weaponView.getWidth();
+            width = weaponView.getHeight();
+        }
+        Cell[][] grid = myGame.getActiveLevel().getMyGrid();
+        for(int col = x;col<x+width;col++) {
+            for(int row = y;row<y+height;row++) {
+                if (!grid[row][col].isValidWeaponPlacement()) return false;
+            }
+        }
+        return true;
+    }
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
