@@ -48,7 +48,7 @@ public class GamePlayArsenal extends VBox {
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
-//        myArsenal = logic.getMyArsenal();
+        myArsenal = logic.getMyArsenal();
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
@@ -97,8 +97,8 @@ public class GamePlayArsenal extends VBox {
 
     private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
         try {
-            for (int i = 0; i < currArsenal.size(); i++) {
-                Image image = new Image(new FileInputStream("resources/" + currArsenal.get(i).getImage()));
+            for (Integer id:myArsenal.keySet()) {
+                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(arsenalWidth / 2);
                 imageView.setFitHeight(arsenalWidth / 2);
@@ -117,7 +117,6 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("gimme dat");
                 ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
                 Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
 
@@ -136,9 +135,7 @@ public class GamePlayArsenal extends VBox {
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
-                System.out.println("we in");
                 if (event.getDragboard().hasImage()) {
-                    System.out.println("yes ba");
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.MOVE);
                 }

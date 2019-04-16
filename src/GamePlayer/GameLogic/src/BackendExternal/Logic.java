@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -103,7 +104,11 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
+        Map<Integer, Info> testData = new HashMap<>();
+        testData.put(1, new Info("weapon1", "thumbnail3.gif"));
+        return testData;
+
+//        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
