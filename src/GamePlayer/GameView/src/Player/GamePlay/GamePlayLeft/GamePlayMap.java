@@ -32,12 +32,13 @@ public class GamePlayMap extends GridPane{
 
     public GamePlayMap(double width, double height, Logic logic) {
         myLogic = logic;
+        mapRoot=new Group();
         applyCss();
         layout();
-        //TODO: uncomment when we have data that works
-//        terrainList = myLogic.getLevelTerrain();
-//        terrainList.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
-        mapRoot=new Group();
+
+        terrainList = myLogic.getLevelTerrain();
+        terrainList.stream().forEach(img -> getChildren().add(img.getAsNode()));
+
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
 //        createFilledTestTerrain(width, height);
@@ -62,14 +63,14 @@ public class GamePlayMap extends GridPane{
 
     }
 
-    public void update(double elapsedTime){
+    public void update(long elapsedTime){
         //commenting out logic to hardcode animation
-//        myLogic.update(elapsedTime);
-//        imageToAdd = myLogic.getObjectsToAdd();
-//        imageToRemove = myLogic.getObjectsToRemove();
+        myLogic.update(elapsedTime);
+        List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
+        List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
 //        //TODO: third method to move obejcts?
-//        imageToRemove.stream().forEach(img -> mapRoot.getChildren().remove(img.getAsNode()));
-//        imageToAdd.stream().forEach(img -> mapRoot.getChildren().add(img.getAsNode()));
+        imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
+        imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
     }
 
     //NOT yet used

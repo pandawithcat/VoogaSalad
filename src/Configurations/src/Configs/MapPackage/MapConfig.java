@@ -72,10 +72,20 @@ public class MapConfig implements Configurable {
     }
 
     public int getGridHeight() {
+
+        System.out.println("HEIGHT");
+        System.out.println(gridHeight);
+
         return gridHeight;
     }
 
     public int getGridWidth() {
+
+        System.out.println("WIDTH");
+        System.out.println(gridWidth);
+
+
+
         return gridWidth;
     }
 

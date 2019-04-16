@@ -21,14 +21,14 @@ import java.io.File;
 public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
-    public static int FRAMES_PER_SECOND = 60;
-    public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+    public static long FRAMES_PER_SECOND = 60;
+    public static final long MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+    public static final long SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
     private static final int padding = 15;
-    private Logic myLogic;
+    private Logic myLogic = new Logic();
     private Timeline animation = new Timeline();
     private GamePlayIDE myGameIDE;
     private Group root;
@@ -37,7 +37,6 @@ public class GamePlayMain extends Application {
         try {
             Stage primaryStage = stage;
             root = new Group();
-            myLogic = new Logic();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
@@ -77,7 +76,7 @@ public class GamePlayMain extends Application {
         animation.play();
     }
 
-    private void step(double elapsedTime){
+    private void step(long elapsedTime){
 //        myLogic.update(elapsedTime);
 //        if (myLogic.checkIfLevelEnd()){
 //            myLogic.

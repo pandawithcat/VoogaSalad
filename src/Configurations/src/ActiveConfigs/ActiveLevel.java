@@ -27,12 +27,16 @@ public class ActiveLevel extends Level implements Updatable {
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
-        generateCurrentActiveWave();
         //TODO: fix active wave to be a wave spawner
-        activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
+        //TODO: COMMENTED OUT BELOW FOR TESTING
+//        generateCurrentActiveWave();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
+        System.out.println("CREATINGGRID");
         myGrid = createMyGrid();
+        System.out.println("GETTINGMAPCONFIG");
+        System.out.println(getMyMapConfig());
+
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
@@ -40,6 +44,7 @@ public class ActiveLevel extends Level implements Updatable {
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
         for(Terrain t : getMyMapConfig().getTerrain()){
+            tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
         return null;
@@ -90,6 +95,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void generateCurrentActiveWave(){
+
         activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
     }
 
