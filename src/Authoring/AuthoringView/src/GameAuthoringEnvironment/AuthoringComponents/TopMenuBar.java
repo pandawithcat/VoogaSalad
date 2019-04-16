@@ -3,6 +3,7 @@ package GameAuthoringEnvironment.AuthoringComponents;
 import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
+import GameAuthoringEnvironment.AuthoringScreen.GameOutline;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -15,10 +16,12 @@ public class TopMenuBar {
 
     private HBox TopMenuBar;
     private GameController gameController;
+    private GameOutline myGameOutline;
 
     //TODO @Hyunjae : Set Style for these buttons
 
-    public TopMenuBar(){
+    public TopMenuBar(GameOutline gameOutline){
+        myGameOutline = gameOutline;
         TopMenuBar = new HBox();
 
         Button newGameButton = new Button("New Game");
@@ -31,9 +34,9 @@ public class TopMenuBar {
         Button saveButton = new Button("Save");
         saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-
-                Model model = new Model();
-                model.saveToXML(gameController.getMyGame());
+                myGameOutline.setContent(gameController.getMyGame());
+               /* Model model = new Model();
+                model.saveToXML(gameController.getMyGame());*/
             }
         });
 

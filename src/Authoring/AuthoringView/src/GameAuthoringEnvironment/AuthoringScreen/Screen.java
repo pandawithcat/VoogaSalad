@@ -88,6 +88,8 @@ public abstract class Screen {
         return module;
     }
 
+    public Pane getContent(){return content;}
+
     protected int getModuleWidth() {
         return moduleWidth;
     }

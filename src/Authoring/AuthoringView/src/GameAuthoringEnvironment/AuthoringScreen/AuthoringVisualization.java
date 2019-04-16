@@ -2,21 +2,16 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringComponents.*;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class AuthoringVisualization {
 
@@ -50,15 +45,14 @@ public class AuthoringVisualization {
         screenMinX = primaryScreenBounds.getMinX();
         screenMinY = primaryScreenBounds.getMinY();
 
-        TopMenuBar topMenuBar = new TopMenuBar();
 
-        //TODO Refactor
-        GameOutline gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
+        //TODO Refactor and don't use magic numbers
+        gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
         VBox myGameOutline = gameOutline.getModule();
         //myGameOutline.setLayoutX();
-        //myGameOutline.setLayoutY();
+        myGameOutline.setLayoutY(25);
 
-
+        TopMenuBar topMenuBar = new TopMenuBar(gameOutline);
 
         //TODO Change this part - maybe even add the logo and logo also disappears
         Text instructions = new Text("Write down instructions and make this text disappear once the user clicks new game button");
