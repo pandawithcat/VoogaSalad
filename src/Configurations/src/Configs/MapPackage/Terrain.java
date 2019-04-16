@@ -31,7 +31,6 @@ public class Terrain implements Configurable, Viewable{
 
 
     private Configuration myConfiguration;
-    private MapFeature myMapFeature;
 
     public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
         view = new View(fileName,height, width);
@@ -49,6 +48,14 @@ public class Terrain implements Configurable, Viewable{
 
     public int getGridYPos() {
         return gridYPos;
+    }
+
+    public double getGridBlockHeight() {
+        return gridBlockHeight;
+    }
+
+    public double getGridBlockWidth() {
+        return gridBlockWidth;
     }
 
     @Override

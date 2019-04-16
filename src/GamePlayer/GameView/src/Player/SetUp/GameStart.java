@@ -61,7 +61,7 @@ public class GameStart extends Application {
     }
     private void transitionToScreen(GameInfo gameInfo){
         GamePlayMain gamePlayMain = new GamePlayMain();
-        gamePlayMain.start(new Stage());
         gamePlayMain.setGameInfo(gameInfo);
+        gamePlayMain.start(new Stage());
     }
 }

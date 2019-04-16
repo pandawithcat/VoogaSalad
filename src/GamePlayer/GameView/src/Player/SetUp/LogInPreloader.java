@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LogInPreloader extends Application {
-    public static final int MILLISECOND_DELAY = 200;
+    public static final int MILLISECOND_DELAY = 150;
     private EventHandler eventHandler;
     private Timeline animation;
         Stage stage;
