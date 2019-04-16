@@ -35,6 +35,7 @@ public class ConfigureBehavior {
             new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
 
+
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameController = gameController;
         myConfigurable = configurable;
@@ -80,6 +81,7 @@ public class ConfigureBehavior {
                 }
         });;
 
+        setCellFactory();
         // Create the GridPane
         GridPane pane = new GridPane();
         pane.setHgap(viewGap);
@@ -250,6 +252,45 @@ public class ConfigureBehavior {
         listView.getSelectionModel().clearSelection();
         // Remove items from the selected list
         listView.getItems().removeAll(selectedList);
+    }
+
+
+    private void setCellFactory(){
+        sourceView.setCellFactory(list -> {
+            //TODO Set Images Accordingly
+            ListCell<Class> cell = new ListCell<>() {
+                @Override
+                public void updateItem(Class item, boolean empty) {
+                    super.updateItem(item, empty) ;
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText(item.getSimpleName());
+                    }
+                }
+            };
+            //controlTreeCellMouseClick(cell);
+            return cell ;
+        });
+
+        targetView.setCellFactory(list -> {
+            //TODO Set Images Accordingly
+            ListCell<Class> cell = new ListCell<>() {
+                @Override
+                public void updateItem(Class item, boolean empty) {
+                    super.updateItem(item, empty) ;
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        setText(item.getSimpleName());
+                    }
+                }
+            };
+            //controlTreeCellMouseClick(cell);
+            return cell ;
+        });
     }
 
 }
