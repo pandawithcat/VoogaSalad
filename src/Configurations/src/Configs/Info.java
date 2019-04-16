@@ -1,7 +1,5 @@
 package Configs;
 
-import javafx.scene.image.ImageView;
-
 public class Info {
 
     private String name;

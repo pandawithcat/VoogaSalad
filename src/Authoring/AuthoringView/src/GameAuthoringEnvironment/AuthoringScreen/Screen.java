@@ -1,6 +1,5 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringComponents.Buttons.CloseButton;
 import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -28,7 +27,7 @@ public abstract class Screen {
 
         module.setMinSize(moduleWidth, moduleHeight);
         module.setMaxSize(moduleWidth, moduleHeight);
-        module.setId("module");
+        //module.setId("module");
         content.prefHeightProperty().bind(module.heightProperty());
         content.prefWidthProperty().bind(module.widthProperty());
 
@@ -48,6 +47,7 @@ public abstract class Screen {
 
     }
 
+
     protected void addToolbar(String moduleName) {
         this.toolbarPane = new Pane();
         //TODO Make toolbar white
@@ -61,10 +61,7 @@ public abstract class Screen {
         title.setVisible(true);
         /*Font myFont = new Font ("Courier New", 10);
         title.setFont(myFont);*/
-        CloseButton close = new CloseButton();
-        close.getButton().setLayoutX(0);
-        close.getButton().setLayoutY(-20);
-        toolbarPane.getChildren().addAll(title, close.getButton());
+        toolbarPane.getChildren().addAll(title);
     }
 
     //public abstract void setContent();

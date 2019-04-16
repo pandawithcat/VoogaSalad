@@ -1,9 +1,18 @@
 /*
 package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
 
+<<<<<<< HEAD:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/Editors/ArsenalEditor.java
 import DragContext;
 import GameAuthoringEnvironment.AuthoringScreen.main.PropertySettings.ArsenalPropertySetting;
 import Screen;
+=======
+//<<<<<<< HEAD:src/GUI/GameAuthoringEnvironment/AuthoringScreen/Modules/Editors/ArsenalEditor.java
+//import GUI.GameAuthoringEnvironment.AuthoringConfig.Arsenal;
+//import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.ArsenalPropertySetting;
+//import GUI.GameAuthoringEnvironment.AuthoringScreen.Modules.Module;
+//=======
+import GameAuthoringEnvironment.AuthoringScreen.main.Screen;
+>>>>>>> 07b6588bd2a5d7519977ccc8cef96eb76d8d5653:src/Authoring/AuthoringView/src/GameAuthoringEnvironment/AuthoringScreen/main/Editors/ArsenalEditor.java
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;

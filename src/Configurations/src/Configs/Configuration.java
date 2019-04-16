@@ -1,15 +1,20 @@
 package Configs;
 
-//import Configs.Behaviors.BehaviorManager;
-import Configs.Waves.WaveConfig;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.lang.reflect.Field;
 import java.util.*;
 
 public class Configuration {
+    @XStreamOmitField
     private Map<String,Class> myAttributeTypes;
+    @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
+    @XStreamOmitField
     private boolean isComplete = false;
+    @XStreamOmitField
     private Configurable myConfigurable;
+    @XStreamOmitField
     private Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
@@ -30,15 +35,18 @@ public class Configuration {
     }
 
     private void validateType(String attributeInput, Object value) {
-        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+       /* if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+            System.out.println(value.getClass());
+            System.out.println(myAttributeTypes.get(attributeInput));
             throw new IllegalArgumentException();
-        }
+        }*/
     }
 
 
     public void setOneAttribute(String name, Object value) {
         myAttributes.put(name,value);
         //validateType(name,value);
+        setAttributesInConfigurable();
         if(isAttributesComplete(myAttributes)) isComplete = true;
     }
 
@@ -64,11 +72,14 @@ public class Configuration {
                 field.set(myConfigurable, myAttributes.get(key));
             }
             catch (NoSuchFieldException e) {
+                System.out.println("1" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
             catch (IllegalAccessException e) {
+                System.out.println("2" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
+
         }
 
     }
@@ -78,12 +89,16 @@ public class Configuration {
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.isAnnotationPresent(Configurable.Configure.class)){
                 attributes.put(field.getName(), field.getType());
+                if(myConfigurableClass.getSimpleName().equals("AmmoExpirable")){
+                    System.out.println(field.getType());
+                }
             }
         }
+
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
                 // TODO: Why was this causing an error
-               // field.get();
+                // field.get();
                 break;
             }
         }
@@ -100,4 +115,5 @@ public class Configuration {
         if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
+
 }

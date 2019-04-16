@@ -63,24 +63,21 @@ public class ConfigureBehavior {
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        //When clicked, calls createconfigurable again
+        //When clicked, calls createconfigurable again if the behavior is configurable
         targetView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent event) {
                 var selected = targetView.getSelectionModel().getSelectedItem();
-                if (selected.getClass().isInstance(Configurable.class)) {
                     try {
-                        Class<?> cl = Class.forName(selected.getComponentType().getName());
+                        Class<?> cl = Class.forName(selected.getName());
                         Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                         var object = cons.newInstance(myConfigurable);
                         myGameController.createConfigurable((Configurable) object);
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
-
                 }
-            }
         });;
 
         // Create the GridPane
@@ -109,6 +106,8 @@ public class ConfigureBehavior {
                 }
                 else {
                     //TODO Add THE TARGETVIEW LIST TO THE ATTRIBUTES BUT HOW?
+                    List<Class> selectedBehaviors = targetView.getItems();
+
                     myConfigurable.getConfiguration().setAllAttributes(myMap);
                     popUpWindow.close();
                 }

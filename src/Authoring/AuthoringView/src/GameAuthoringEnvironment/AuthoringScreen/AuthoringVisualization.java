@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringComponents.*;
 
 import javafx.animation.KeyFrame;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -28,16 +30,36 @@ public class AuthoringVisualization {
     private Group myContainer;
     private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
+    private Game myGame;
 
-    public void start (Stage stage) {
-        var root = new Group();
-        setScene(stage, root);
-        root.setOnKeyPressed(event -> handleKeyInput(event));
-        setStage(stage);
+
+    public AuthoringVisualization(Game game){
+        myGame = game;
+        setScene();
     }
 
-    private void setStage(Stage stage){
 
+    private void setScene() {
+        var root = new Group();
+        myContainer = root;
+        TopMenuBar topMenuBar = new TopMenuBar();
+
+
+        //TODO Change this part - maybe even add the logo and logo also disappears
+        Text instructions = new Text("Write down instructions and make this text disappear once the user clicks new game button");
+        instructions.setX(300);
+        instructions.setY(300);
+        instructions.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+               myContainer.getChildren().remove(instructions);
+            }
+        });
+
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), instructions);
+        myScene = new Scene(myContainer);
+
+
+        Stage myStage = new Stage();
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         screenHeight = primaryScreenBounds.getHeight();
@@ -45,38 +67,19 @@ public class AuthoringVisualization {
         screenMinX = primaryScreenBounds.getMinX();
         screenMinY = primaryScreenBounds.getMinY();
 
-        stage.setScene(myScene);
+        myStage.setScene(myScene);
 
         //set Stage boundaries to visible bounds of the main screen
-        stage.setX(screenMinX);
-        stage.setY(screenMinY);
-        stage.setWidth(screenWidth);
-        stage.setHeight(screenHeight);
-        stage.setTitle(Title);
-        stage.setResizable(true);
-        stage.show();
-        setAnimation();
-    }
-
-    private void setScene(Stage stage, Group myRoot) {
-        myContainer = myRoot;
-        TopMenuBar topMenuBar = new TopMenuBar();
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
-        myScene = new Scene(myContainer);
-    }
-
-
-    private void setAnimation(){
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step());
-        var animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
-    }
-
-    private void step(){
+        myStage.setX(screenMinX/2);
+        myStage.setY(screenMinY/2);
+        myStage.setWidth(screenWidth/2);
+        myStage.setHeight(screenHeight/2);
+        myStage.setTitle(Title);
+        myStage.setResizable(true);
+        myStage.show();
 
     }
+
 
     private void handleKeyInput(KeyEvent e) {
         if (keyCombinationCommandN.match(e)) {
@@ -86,8 +89,4 @@ public class AuthoringVisualization {
         }
     }
 
-    //TODO This will handle how the closing buttons work - automatic resizing of modules is neccesary. Would be ideal if we can move this to the modules class
-    public void close(){
-
-    }
 }

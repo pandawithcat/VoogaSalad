@@ -3,7 +3,6 @@ package Player.GamePlay;
 import BackendExternal.Logic;
 import Player.GamePlay.GamePlayLeft.GamePlayLeftSide;
 import Player.GamePlay.GamePlayRight.GamePlayRightSide;
-import Player.GamePlay.PlayInterface;
 import javafx.scene.layout.HBox;
 
 public class GamePlayIDE extends HBox {

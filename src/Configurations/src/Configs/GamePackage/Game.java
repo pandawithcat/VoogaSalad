@@ -6,7 +6,10 @@ import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.w3c.dom.events.Event;
+
+
 
 public class Game implements Updatable, EventHandlable, Configurable {
 
@@ -29,7 +32,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private WeaponConfig[] allWeaponConfigs;*/
 
     private ActiveLevel myActiveLevel;
-    private int currentLevelNumber;
+    private int currentLevelNumber = 0;
     private boolean gameOver;
     private boolean currentLevelOver;
 
@@ -38,7 +41,6 @@ public class Game implements Updatable, EventHandlable, Configurable {
         gameOver = false;
         currentLevelNumber=0;
     }
-
 
     //FOR TESTING
     public void setName(String name) {
@@ -68,6 +70,9 @@ public class Game implements Updatable, EventHandlable, Configurable {
 
     }
 
+    public Level[] getLevelList() {
+        return levelList;
+    }
 
     public boolean isGameOver() {
         return gameOver;
@@ -82,6 +87,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
+        setMyActiveLevel(levelNumber);//TODO check this logic
         currentLevelNumber = levelNumber;
 
     }
@@ -105,6 +111,9 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
     public ActiveLevel getActiveLevel() {
+        if (myActiveLevel == null){
+            setMyActiveLevel(currentLevelNumber);
+        }
         return myActiveLevel;
     }
 

@@ -3,9 +3,10 @@ package BackendExternalAPI;
 import Configs.GamePackage.Game;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import org.xml.sax.XMLFilter;
 
 import java.io.*;
+
+import java.util.Arrays;
 import java.util.Properties;
 
 public class Model {
@@ -53,6 +54,23 @@ public class Model {
         FileWriter xmlFW = new FileWriter(XML_FILE_PATH + myXMLFileName);
         xmlFW.write(gameString);
         xmlFW.close();
+
+
+        //for testingvv
+        String gameXMLFileName = "wtfXML.xml";
+        System.out.println("Loading Game XML File: " + gameXMLFileName);
+        File xmlFile = new File("games/GameXMLs/" + gameXMLFileName);
+        System.out.println("Un-Serializing Game XML File");
+        Game g = (Game)(mySerializer.fromXML(xmlFile));
+        System.out.println("LEVEL LIST:" + Arrays.asList(g.getLevelList()));
+        System.out.println("LEVEL LABEL" + g.getLevelList()[0].getLabel());
+        System.out.println("LEVEL MAP" + g.getLevelList()[0].getMyMapConfig());
+
+
+
+        //for testing^^
+
+
     }
 
 //    public static void main (String[] args) {
