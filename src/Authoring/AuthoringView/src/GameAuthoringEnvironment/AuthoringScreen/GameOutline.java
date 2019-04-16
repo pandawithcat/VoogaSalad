@@ -77,7 +77,6 @@ public class GameOutline extends Screen{
                 }
             }else if(value.getClass().isArray()){
 
-                int length = Array.getLength(value);
                 Object[] valueArray = (Object[]) value;
                 for(int b=0; b<valueArray.length ; b++){
                     Configurable configurable = (Configurable) valueArray[b];
@@ -101,7 +100,7 @@ public class GameOutline extends Screen{
                         setText(null);
                         setGraphic(null);
                     } else {
-                        setText(item.toString());
+                        setText(item.getLabel());
                     }
                 }
             };
