@@ -5,6 +5,8 @@ import Configs.MapFeature;
 import Configs.Updatable;
 import Configs.Waves.WaveConfig;
 
+import java.util.Arrays;
+
 
 public class ActiveWave extends WaveConfig implements Updatable {
     private long[] startTimes;
@@ -40,15 +42,19 @@ public class ActiveWave extends WaveConfig implements Updatable {
         }
         if(currentEnemyIndex<getEnemies().length) {
             while(startTimes[currentEnemyIndex]>=ms) {
-                int x = myActiveLevel.getMyMapConfig().getEnemyEnteringGridXPos();
-                int y = myActiveLevel.getMyMapConfig().getEnemyEnteringGridYPos();
-                int direction = myActiveLevel.getMyMapConfig().getEnemyEnteringDirection();
+                //TODO: UNCOMMENT WAS FOR TESTING
+//                int x = myActiveLevel.getMyMapConfig().getEnemyEnteringGridXPos();
+//                int y = myActiveLevel.getMyMapConfig().getEnemyEnteringGridYPos();
+//                int direction = myActiveLevel.getMyMapConfig().getEnemyEnteringDirection();
+                int x = 0;
+                int y = 0;
+                int direction = 90;
                 EnemyConfig enemyConfig = getEnemies()[currentEnemyIndex];
                 MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView(),myActiveLevel.getGridHeight(),myActiveLevel.getGridWidth());
                 myActiveLevel.addToActiveEnemies(enemyConfig, newMapFeature);
-
-                currentEnemyIndex++;
             }
+            currentEnemyIndex++;
+
         }
         else {
             isFinished = true;

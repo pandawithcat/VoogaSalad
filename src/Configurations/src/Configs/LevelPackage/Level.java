@@ -17,8 +17,6 @@ public class Level implements Configurable{
     @Configure
     private WaveConfig[] myWaveConfigs;
     @Configure
-    private Arsenal myArsenal;
-    @Configure
     private MapConfig myMap;
 
     @Configure
@@ -27,7 +25,6 @@ public class Level implements Configurable{
 
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();
-        myArsenal = level.getMyArsenal();
         myMap = level.getMyMapConfig();
         levelBehaviors = level.getLevelBehaviors();
     }
@@ -40,10 +37,6 @@ public class Level implements Configurable{
         return myGame;
     }
 
-
-    public Arsenal getMyArsenal() {
-        return myArsenal;
-    }
 
     private LevelBehavior[] getLevelBehaviors() {
         return levelBehaviors;
