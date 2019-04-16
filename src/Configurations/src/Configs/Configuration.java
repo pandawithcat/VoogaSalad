@@ -1,9 +1,5 @@
 package Configs;
 
-//import Configs.Behaviors.BehaviorManager;
-import Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable;
-import Configs.ArsenalConfig.WeaponConfig;
-import Configs.Waves.WaveConfig;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.lang.reflect.Field;
@@ -102,7 +98,7 @@ public class Configuration {
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
                 // TODO: Why was this causing an error
-               // field.get();
+                // field.get();
                 break;
             }
         }

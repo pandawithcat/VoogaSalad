@@ -12,7 +12,7 @@ Brian: XML -> Game Object Conversion
 
 Game Object -> Game Instance
 
-Interface between Game Model and Game Player.View (passing of viewables)
+Interface between Game Model and Game Player.Player.View (passing of viewables)
 
 II: User authentication in top level game logic so view can handle viewing
 
@@ -81,7 +81,7 @@ Game Run Phase{
 		If hitting something, update that something, update score();
 		Otherwise update position of that projectileConfig based on how it’s supposed to move();
 	Check all weapons to see if it’s the right time to shoot, if so, shoot and create new projectiles/etc();
-		make sure to update ammo, health, etc of the weaponConfig itself();
+		make sure to update ammo, health, etc of the weapon itself();
 	Render new state
 
 }

@@ -26,12 +26,12 @@
     <towerConfigs> <!--should be a map-->
         <TowerConfig>
             <name>Bomb Tower</name>
-            <weaponConfig>Bazooka</weaponConfig>
+            <weapon>Bazooka</weapon>
             <terrainsNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainsNotAllowedOn>
         </TowerConfig>
         <TowerConfig>
             <name>Sniper Tower</name>
-            <weaponConfig>Sniper</weaponConfig>
+            <weapon>Sniper</weapon>
             <terrainNotAllowedOn> <!--should be filled with all the terrainConfigs it is not able to be placed on--> </terrainNotAllowedOn>
         </TowerConfig>
     </towerConfigs>
