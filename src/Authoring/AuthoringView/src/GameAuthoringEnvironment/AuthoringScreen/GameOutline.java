@@ -14,19 +14,22 @@ import java.util.ArrayList;
 
 //TODO Change all magic values
 
-public class GameOutline extends Screen {
+public class GameOutline extends Screen{
 
     private Pane content;
     private int moduleWidth;
     private final TextArea textArea = new TextArea();
     private ImageView myImage;
     private Group myRoot;
-    private int defaultLevel = 2;
+    private int defaultLevel = 0;
+    private int myHeight;
+    private int myWidth;
 
-    public GameOutline(Group root, int width, int height, String moduleName){
-        super(root, width, height, moduleName, false);
-        myRoot = root;
-        content = getContent();
+    public GameOutline(int height, int width){
+        super(width, height);
+        myHeight = height;
+        myWidth = width;
+
         content.setMaxSize(300, 1000);
         content.setMinSize(300, 1000);
         moduleWidth = getModuleWidth();
@@ -91,42 +94,13 @@ public class GameOutline extends Screen {
         cell.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                 if (mouseEvent.getClickCount() == 2) {
-//<<<<<<< HEAD:src/GUI/GameAuthoringEnvironment/AuthoringScreen/Modules/GameOutline.java
-//                        //TODO Can change this to reflection
-//                        if (cell.getTreeItem().getValue().equals("Map")) {
-//                            //System.out.println("map screen created");
-//                            createMapScreen();
-//                        }
-//                        if (cell.getTreeItem().getValue().equals("Arsenals")) {
-//                            //System.out.println("Arsenal screen created");
-//                            createArsenalScreen();
-//                        }
-//                        if (cell.getTreeItem().getValue().equals("Enemies")) {
-//                            //System.out.println("Enemies screen created");
-//                            createEnemiesScreen();
-//                        }
-//=======
-                    //TODO Can change this to reflection
-                    if (cell.getTreeItem().getValue().equals("Map")) {
-                        //System.out.println("map screen created");
-                        //createMapScreen();
-                    }
-                    if (cell.getTreeItem().getValue().equals("Arsenals")) {
-                        //System.out.println("Arsenal screen created");
-                        //createArsenalScreen();
-                    }
-                    if (cell.getTreeItem().getValue().equals("Enemies")) {
-                        //System.out.println("Enemies screen created");
-                        //createEnemiesScreen();
-                    }
+                    //TODO Implement reflection here
 
                 }
             }
         });
 
     }
-
-
 
 
 }

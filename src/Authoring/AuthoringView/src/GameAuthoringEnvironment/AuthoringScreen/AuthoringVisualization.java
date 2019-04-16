@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -35,14 +36,28 @@ public class AuthoringVisualization {
 
     public AuthoringVisualization(Game game){
         myGame = game;
+        var root = new Group();
+        myContainer = root;
         setScene();
     }
 
 
     private void setScene() {
-        var root = new Group();
-        myContainer = root;
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        screenHeight = primaryScreenBounds.getHeight();
+        screenWidth = primaryScreenBounds.getWidth();
+        screenMinX = primaryScreenBounds.getMinX();
+        screenMinY = primaryScreenBounds.getMinY();
+
         TopMenuBar topMenuBar = new TopMenuBar();
+
+        //TODO Refactor
+        GameOutline gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
+        VBox myGameOutline = gameOutline.getModule();
+        //myGameOutline.setLayoutX();
+        //myGameOutline.setLayoutY();
+
 
 
         //TODO Change this part - maybe even add the logo and logo also disappears
@@ -55,21 +70,13 @@ public class AuthoringVisualization {
             }
         });
 
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), instructions);
+
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), myGameOutline, instructions);
         myScene = new Scene(myContainer);
 
 
         Stage myStage = new Stage();
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        screenHeight = primaryScreenBounds.getHeight();
-        screenWidth = primaryScreenBounds.getWidth();
-        screenMinX = primaryScreenBounds.getMinX();
-        screenMinY = primaryScreenBounds.getMinY();
-
         myStage.setScene(myScene);
-
-        //set Stage boundaries to visible bounds of the main screen
         myStage.setX(screenMinX/2);
         myStage.setY(screenMinY/2);
         myStage.setWidth(screenWidth/2);
