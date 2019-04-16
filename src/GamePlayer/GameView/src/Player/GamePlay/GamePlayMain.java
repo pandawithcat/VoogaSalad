@@ -69,14 +69,17 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
-        FRAMES_PER_SECOND = 60;
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+//        FRAMES_PER_SECOND = 60;
+//        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
+//        animation.setCycleCount(Timeline.INDEFINITE);
+//        animation.getKeyFrames().add(frame);
+//        animation.play();
+        while(true){
+            step(System.currentTimeMillis());
+        }
     }
 
-    private void step(long elapsedTime){
+    private void step(double elapsedTime){
 //        myLogic.update(elapsedTime);
 //        if (myLogic.checkIfLevelEnd()){
 //            myLogic.
