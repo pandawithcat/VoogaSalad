@@ -1,19 +1,17 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringComponents.*;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class AuthoringVisualization {
 
@@ -28,16 +26,18 @@ public class AuthoringVisualization {
     private Group myContainer;
     private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
+    private Game myGame;
 
-    public void start (Stage stage) {
+
+    public AuthoringVisualization(Game game){
+        myGame = game;
         var root = new Group();
-        setScene(stage, root);
-        root.setOnKeyPressed(event -> handleKeyInput(event));
-        setStage(stage);
+        myContainer = root;
+        setScene();
     }
 
-    private void setStage(Stage stage){
 
+    private void setScene() {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         screenHeight = primaryScreenBounds.getHeight();
@@ -45,67 +45,40 @@ public class AuthoringVisualization {
         screenMinX = primaryScreenBounds.getMinX();
         screenMinY = primaryScreenBounds.getMinY();
 
-        stage.setScene(myScene);
 
-        //set Stage boundaries to visible bounds of the main screen
-        stage.setX(screenMinX);
-        stage.setY(screenMinY);
-        stage.setWidth(screenWidth);
-        stage.setHeight(screenHeight);
-        stage.setTitle(Title);
-        stage.setResizable(true);
-        stage.show();
-        //setAnimation();
-    }
+        //TODO Refactor and don't use magic numbers
+        gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
+        VBox myGameOutline = gameOutline.getModule();
+        //myGameOutline.setLayoutX();
+        myGameOutline.setLayoutY(25);
 
-    private void setScene(Stage stage, Group myRoot) {
-        myContainer = myRoot;
-        TopMenuBar topMenuBar = new TopMenuBar();
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar());
+        TopMenuBar topMenuBar = new TopMenuBar(gameOutline);
+
+        //TODO Change this part - maybe even add the logo and logo also disappears
+        Text instructions = new Text("Write down instructions and make this text disappear once the user clicks new game button");
+        instructions.setX(300);
+        instructions.setY(300);
+        instructions.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+               myContainer.getChildren().remove(instructions);
+            }
+        });
+
+
+        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), myGameOutline, instructions);
         myScene = new Scene(myContainer);
-//=======
-//
-//        //This is the only pane that should be fixed on the screen
-//        var leftGridPane = new Group();
-//        leftGridPane.setLayoutY(63);
-//        setLeftGridPane(leftGridPane);
-//        myContainer.getChildren().addAll(addTopBar(), leftGridPane);
-//        myScene = new Scene(myContainer);
-//    }
-//
-//
-//    private void setLeftGridPane(Group leftGridPane){
-//        gameOutline = new GameOutline(myContainer, 300, 1000, "GameOutline");
-//        leftGridPane.getChildren().addAll(gameOutline.getVBox());
-//    }
-//
-//    // add all the buttons - ex) save, load etc
-//    private HBox addTopBar(){
-//
-//        var TopMenuBar = new HBox();
-//
-//        HelpButton helpButton = new HelpButton();
-//        SaveButton saveButton = new SaveButton();
-//        ImageButton imageButton = new ImageButton();
-//        LoadButton loadButton = new LoadButton();
-//        PlayButton playButton = new PlayButton();
-//        ViewButton viewButton = new ViewButton();
-//        NewGameButton newGameButton = new NewGameButton();
-//        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            public void handle(MouseEvent me) {
-//                System.out.println("Mouse entered");
-//                // TODO Make This pop up window that sets the Game Properties
-//                // TODO Alert buttonn if game was not created
-//                GamePropertySettings gamePropertySettings = new GamePropertySettings(screenWidth, screenHeight);
-//                //gameOutline.setContent(gamePropertySettings.getMyGame().getMyNumberOfLevels());
-//            }
-//        });
-//
-//        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
-//                viewButton.getButton(), helpButton.getButton());
-//
-//        return  TopMenuBar;
-//>>>>>>> 07b6588bd2a5d7519977ccc8cef96eb76d8d5653
+
+
+        Stage myStage = new Stage();
+        myStage.setScene(myScene);
+        myStage.setX(screenMinX/2);
+        myStage.setY(screenMinY/2);
+        myStage.setWidth(screenWidth/2);
+        myStage.setHeight(screenHeight/2);
+        myStage.setTitle(Title);
+        myStage.setResizable(true);
+        myStage.show();
+
     }
 
 
@@ -117,8 +90,4 @@ public class AuthoringVisualization {
         }
     }
 
-    //TODO This will handle how the closing buttons work - automatic resizing of modules is neccesary. Would be ideal if we can move this to the modules class
-    public void close(){
-
-    }
 }

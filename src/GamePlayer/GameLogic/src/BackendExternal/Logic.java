@@ -3,6 +3,7 @@ package BackendExternal;
 import Configs.GamePackage.Game;
 import Configs.ImmutableImageView;
 import Configs.Info;
+import Configs.MapFeature;
 import Configs.MapPackage.Terrain;
 import Configs.TransferImageView;
 import Data.GameLibrary;
@@ -39,7 +40,6 @@ public class Logic {
         myGameLibrary = new GameLibrary();
 
     }
-
 
     // View will call this first to get the name and thumbnail file name of each game
     // No Input
@@ -85,13 +85,19 @@ public class Logic {
     }
 
     private ImmutableImageView getImageView(Terrain t) {
-        try {
-            return new TransferImageView(new Image(new FileInputStream(t.getView().getImage())));
-        }
-        catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-        return null;
+
+        //TODO: last two in the constructor should be gotten dynamically
+            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), Game.gridPixelHeight/Math.sqrt(myGame
+                    .getActiveLevel()
+                    .getMyMapConfig()
+                    .getTerrain().size()), Game.gridPixelWidth/Math.sqrt(myGame
+                    .getActiveLevel()
+                    .getMyMapConfig()
+                    .getTerrain().size()));
+
+            return mapFeature.getImageView();
+//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
+
     }
 
     // View call this when the user presses play or a level is over

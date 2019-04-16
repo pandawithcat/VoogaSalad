@@ -1,10 +1,9 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.ArsenalEditor;
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.EnemiesEditor;
-//import GameAuthoringEnvironment.AuthoringScreen.main.Editors.MapEditor;
+import Configs.Configurable;
+import Configs.GamePackage.Game;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,147 +12,116 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 //TODO Change all magic values
 
-public class GameOutline extends Screen {
+public class GameOutline extends Screen{
 
-    private Pane content;
-    private int moduleWidth;
-    private final TextArea textArea = new TextArea();
+    private Pane myContent;
     private ImageView myImage;
-    private Group myRoot;
-    private int defaultLevel = 2;
+    private int myHeight;
+    private int myWidth;
+    private TreeView<Configurable> myTreeView = new TreeView<>();
 
-    public GameOutline(Group root, int width, int height, String moduleName){
-        super(root, width, height, moduleName, false);
-        myRoot = root;
-        content = getContent();
-        content.setMaxSize(300, 1000);
-        content.setMinSize(300, 1000);
-        moduleWidth = getModuleWidth();
-        setContent(defaultLevel);
+    public GameOutline(int width, int height){
+        super(width, height);
+        myHeight = height;
+        myWidth = width;
+        myContent = getContent();
+        Game myGame = new Game();
+        setContent(myGame);
     }
 
 
 
-    public void setContent(int numberOfLevels) {
+    public void setContent(Game game) {
 
-        var url = this.getClass().getClassLoader().getResource("ButtonImages");
-        try {
-            File folder = new File(url.toURI());
-            Image test = new Image(folder.toURI()+"Folder");
-            myImage = new ImageView(test);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
+       /* Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+"Folder.png"));
+        myImage = new ImageView(test);
         //TODO magic numbers should be changed based on the screensize
         myImage.setFitHeight(50);
-        myImage.setFitWidth(50);
+        myImage.setFitWidth(50);*/
+    }
 
-        //TODO helper should be changed so that it takes in a int parameter(number of levels) and produces same number of level treeitems.
-        TreeViewHelper helper = new TreeViewHelper(numberOfLevels);
-        ArrayList<TreeItem> levels = helper.getLevels();
+    public void makeTreeView(Game game){
+        TreeItem<Configurable> myRoot = new TreeItem<>(game);
+        createRecursion(myRoot);
+        myTreeView.setRoot(myRoot);
+        setCellFactory();
+        myContent.getChildren().add(myTreeView);
+    }
 
-        // Create the TreeView
-        TreeView treeView = new TreeView();
-        // Create the Root TreeItem
-        TreeItem rootItem = new TreeItem("Game title");
-        // Add children to the root
-        rootItem.getChildren().addAll(levels);
-        // Set the Root Node
-        treeView.setRoot(rootItem);
-        treeView.setMinWidth(300);
-        treeView.setMaxWidth(300);
-        treeView.setMinHeight(1000);
-        treeView.setMaxHeight(1000);
+    //recursively create a treeview
+    private void createRecursion(TreeItem<Configurable> myConfigurable) {
 
-        treeView.setCellFactory(tree -> {
 
-            TreeCell<String> cell = new TreeCell<>() {
+        Map<String, Object> myMap = myConfigurable.getValue().getConfiguration().getDefinedAttributes();
+
+        for (String key : myMap.keySet()) {
+            var value = myMap.get(key);
+            if (!value.getClass().isArray()  && value.getClass().isInstance(Configurable.class)) {
+                try {
+                    TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
+                    myConfigurable.getChildren().add(treeItem);
+                    createRecursion(treeItem);
+                } catch (Exception e) {
+                    //TODO Handle Error
+                    e.printStackTrace();
+                }
+            }else if(value.getClass().isArray()){
+
+                Object[] valueArray = (Object[]) value;
+                for(int b=0; b<valueArray.length ; b++){
+                    Configurable configurable = (Configurable) valueArray[b];
+                    TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
+                    myConfigurable.getChildren().add(treeItem);
+                    createRecursion(treeItem);
+                }
+            }
+        }
+    }
+
+    private void setCellFactory(){
+
+        myTreeView.setCellFactory(tree -> {
+            //TODO Set Images Accordingly
+            TreeCell<Configurable> cell = new TreeCell<>() {
                 @Override
-                public void updateItem(String item, boolean empty) {
+                public void updateItem(Configurable item, boolean empty) {
                     super.updateItem(item, empty) ;
                     if (empty) {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        if(super.getTreeItem().getValue().equals("Game title")){
-                            setGraphic(myImage);
-                        }
-                        setText(item);
+                        setText(item.getLabel());
                     }
                 }
             };
-            controlTreeCellMouseClick(cell);
+            //controlTreeCellMouseClick(cell);
             return cell ;
         });
-
-        content.getChildren().addAll(treeView);
     }
 
-    //TODO If new component is added, add another if statement
-    private void controlTreeCellMouseClick(TreeCell<String> cell) {
+
+    private void controlTreeCellMouseClick(TreeCell<Configurable> cell) {
 
         cell.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                 if (mouseEvent.getClickCount() == 2) {
-//<<<<<<< HEAD:src/GUI/GameAuthoringEnvironment/AuthoringScreen/Modules/GameOutline.java
-//                        //TODO Can change this to reflection
-//                        if (cell.getTreeItem().getValue().equals("Map")) {
-//                            //System.out.println("map screen created");
-//                            createMapScreen();
-//                        }
-//                        if (cell.getTreeItem().getValue().equals("Arsenals")) {
-//                            //System.out.println("Arsenal screen created");
-//                            createArsenalScreen();
-//                        }
-//                        if (cell.getTreeItem().getValue().equals("Enemies")) {
-//                            //System.out.println("Enemies screen created");
-//                            createEnemiesScreen();
-//                        }
-//=======
-                    //TODO Can change this to reflection
-                    if (cell.getTreeItem().getValue().equals("Map")) {
-                        //System.out.println("map screen created");
-                        //createMapScreen();
-                    }
-                    if (cell.getTreeItem().getValue().equals("Arsenals")) {
-                        //System.out.println("Arsenal screen created");
-                        //createArsenalScreen();
-                    }
-                    if (cell.getTreeItem().getValue().equals("Enemies")) {
-                        //System.out.println("Enemies screen created");
-                        //createEnemiesScreen();
-                    }
+                    //TODO Implement reflection here
 
                 }
             }
         });
 
     }
-
-
-//    private void createMapScreen(){
-//        MapEditor mapEditor = new MapEditor(myRoot,650, 550, "Map Editor");
-//        myRoot.getChildren().add(mapEditor.getVBox());
-//    }
-
-    /*private void createArsenalScreen(){
-        ArsenalEditor arsenalEditor = new ArsenalEditor(myRoot, 500, 500, "Arsenal Editor");
-        System.out.println(myRoot.getChildren());
-        myRoot.getChildren().add(arsenalEditor.getVBox());
-
-    }
-
-    private void createEnemiesScreen(){
-        EnemiesEditor enemiesEditor = new EnemiesEditor(myRoot, 300, 300, "EnemyPackage Editor");
-        myRoot.getChildren().add(enemiesEditor.getVBox());*/
-
-    //}
 
 
 }

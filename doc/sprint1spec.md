@@ -16,7 +16,7 @@ Authoring UI Goals:
 
 -3 types of towers implemented, with two types of shooting (radial (8 projectiles in a circle), straight)
 
--one type of path weaponConfig/obstacle (spikes)
+-one type of path weapon/obstacle (spikes)
 
 -Ability to save game
 

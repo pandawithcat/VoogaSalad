@@ -42,6 +42,8 @@ public class ConfigurableMap {
     private final int tileViewHeight = 400;
     private Map<String, Object> myMap;
     private Stage popUpWindow;
+    private String mapName;
+    private TextField nameTf;
 
     public ConfigurableMap(Map<String, Object> myAttributeMap){
 
@@ -57,7 +59,13 @@ public class ConfigurableMap {
 
         layout = new VBox(10.00);
 
+        VBox nameBox = new VBox(10);
         Label mapLbl = new Label("Map");
+        nameTf = new TextField();
+        Button nameButton = new Button("Confirm");
+        nameButton.setOnMouseClicked(this::handleConfirmButton);
+        nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
+
         Label tileListLbl = new Label("Tiles");
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         initMap();
@@ -66,7 +74,7 @@ public class ConfigurableMap {
 
 
         // Add the Labels and Views to the Pane
-        layout.getChildren().addAll(messageLbl, mapLbl, tileListLbl, map, tileView);
+        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
         addSubmit();
 
         Scene scene= new Scene(layout, 800, 800);
@@ -74,25 +82,29 @@ public class ConfigurableMap {
         popUpWindow.showAndWait();
 
     }
-    public void initMap(){
 
-        map = new GridPane();
-        for(int r = 0; r<20; r++) {
-            for(int c = 0; c<20; c++){
-                try {
-                    java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
-                    Image image = new Image(fis);
+    public void handleConfirmButton(MouseEvent event){
+        mapName = nameTf.getText();
+    }
+
+    public void initMap() {
+        try {
+            java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
+            Image image = new Image(fis);
+            map = new GridPane();
+            for (int r = 0; r < 20; r++) {
+                for (int c = 0; c < 20; c++) {
+                    MapConfig m = new MapConfig();
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
                     map.add(myTile, r, c);
+                    //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
                 }
-                catch (IOException e){
 
-                }
-                //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
             }
+            addGridEvent();
+        }catch (FileNotFoundException e){
 
         }
-        addGridEvent();
     }
 
     public void initTileView(){
@@ -135,7 +147,7 @@ public class ConfigurableMap {
                 }
 
                 passedMap=new HashMap<>();
-                passedMap.put("myLabel","Map");
+                passedMap.put("myLabel",mapName);
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridXPos", 0);
                 passedMap.put("enemyEnteringGridYPos", 0);

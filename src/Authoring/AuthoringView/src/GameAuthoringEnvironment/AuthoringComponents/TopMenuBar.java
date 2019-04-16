@@ -1,41 +1,77 @@
 package GameAuthoringEnvironment.AuthoringComponents;
 
 import BackendExternalAPI.Model;
-import GameAuthoringEnvironment.AuthoringComponents.Buttons.*;
+import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
+import GameAuthoringEnvironment.AuthoringScreen.GameOutline;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class TopMenuBar {
 
     private HBox TopMenuBar;
     private GameController gameController;
-    public TopMenuBar(){
+    private GameOutline myGameOutline;
+
+    //TODO @Hyunjae : Set Style for these buttons
+
+    public TopMenuBar(GameOutline gameOutline){
+        myGameOutline = gameOutline;
         TopMenuBar = new HBox();
 
-        HelpButton helpButton = new HelpButton();
-        SaveButton saveButton = new SaveButton();
-        saveButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Button newGameButton = new Button("New Game");
+        newGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
+                gameController = new GameController();
+            }
+        });
 
+        Button saveButton = new Button("Save");
+        saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                myGameOutline.makeTreeView(gameController.getMyGame());
                 Model model = new Model();
                 model.saveToXML(gameController.getMyGame());
             }
         });
 
-        ImageButton imageButton = new ImageButton();
-        LoadButton loadButton = new LoadButton();
-        PlayButton playButton = new PlayButton();
-        ViewButton viewButton = new ViewButton();
-        NewGameButton newGameButton = new NewGameButton();
-        newGameButton.getButton().setOnMouseClicked(new EventHandler<MouseEvent>() {
+        Button loadButton = new Button("Load");
+        loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                gameController = new GameController();
+
+                //TODO Import XML using filechooser and call a game.d
+               /* FileChooser fileChooser = new FileChooser();
+
+                File selectedFile = fileChooser.showOpenDialog(myStage);
+                if (selectedFile != null) {
+                    //TODO Make Game based on this
+                    String filepath = selectedFile.toString();
+                    // TODO game should be created by reading in the xml
+            *//*Game importedGame = new Game();
+            importedGame = new Model(filepath);*//*
+
+                    if (!filepath.endsWith("XML")) {
+                        //TODO Alert
+                    }
+                }
+                makeGame(new Game());*/
             }
         });
-        TopMenuBar.getChildren().addAll(newGameButton.getButton(), saveButton.getButton(), loadButton.getButton(), imageButton.getButton(), playButton.getButton(),
-                viewButton.getButton(), helpButton.getButton());
+
+        Button settingsButton = new Button("Settings");
+        settingsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+
+               //TODO This button should show a pop up screen that allows users to change css settings, font size etc.
+            }
+        });
+
+        TopMenuBar.getChildren().addAll(newGameButton, saveButton, loadButton);
     }
 
     public HBox getTopMenuBar(){

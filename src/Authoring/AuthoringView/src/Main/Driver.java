@@ -1,6 +1,7 @@
 package Main;
 
 import GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
+import GameAuthoringEnvironment.AuthoringScreen.StartingScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -8,7 +9,8 @@ import static javafx.application.Application.launch;
 
 public class Driver extends Application {
 
-    AuthoringVisualization VogaSalad = new AuthoringVisualization();
+    StartingScreen VogaSalad = new StartingScreen();
+
     /*
     Starts the Application
      */

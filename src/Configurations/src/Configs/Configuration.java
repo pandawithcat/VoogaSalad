@@ -1,7 +1,5 @@
 package Configs;
 
-//import Configs.Behaviors.BehaviorManager;
-import Configs.Waves.WaveConfig;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.lang.reflect.Field;
@@ -37,11 +35,11 @@ public class Configuration {
     }
 
     private void validateType(String attributeInput, Object value) {
-        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+       /* if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
             System.out.println(value.getClass());
             System.out.println(myAttributeTypes.get(attributeInput));
             throw new IllegalArgumentException();
-        }
+        }*/
     }
 
 
@@ -91,12 +89,16 @@ public class Configuration {
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.isAnnotationPresent(Configurable.Configure.class)){
                 attributes.put(field.getName(), field.getType());
+                if(myConfigurableClass.getSimpleName().equals("AmmoExpirable")){
+                    System.out.println(field.getType());
+                }
             }
         }
+
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
                 // TODO: Why was this causing an error
-               // field.get();
+                // field.get();
                 break;
             }
         }
@@ -110,7 +112,8 @@ public class Configuration {
     }//TODO fix this stuff
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
-        if (!isComplete) throw new IllegalStateException();
+        //if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
+
 }
