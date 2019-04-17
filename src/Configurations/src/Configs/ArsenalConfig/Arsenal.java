@@ -1,6 +1,8 @@
 package Configs.ArsenalConfig;
 
+import ActiveConfigs.ActiveWeapon;
 import Configs.*;
+import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 
 import java.util.*;
@@ -14,18 +16,18 @@ public class Arsenal implements Configurable {
     private WeaponConfig[] allWeaponConfigOptions;
 
     private Configuration myConfiguration;
-    private Level myLevel;
+    private Game myGame;
 
 
 //    private WeaponConfig[] unlockedWeapons;
 
-    public Arsenal(Level level) {
+    public Arsenal(Game game) {
         myConfiguration = new Configuration(this);
-        myLevel = level;
+        myGame = game;
     }
 
-    public Level getLevel() {
-        return myLevel;
+    public Game getGame() {
+        return myGame;
     }
 
     @Override
@@ -54,6 +56,15 @@ public class Arsenal implements Configurable {
         }
         return Collections.unmodifiableMap(weaponInfoMap);
 
+    }
+
+    //TODO: EventHandler for adding new weapon to map
+    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID-1];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView()), myGame.getActiveLevel());
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
     }
 
     public WeaponConfig[] getConfiguredWeapons() {

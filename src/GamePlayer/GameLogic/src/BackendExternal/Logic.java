@@ -85,13 +85,7 @@ public class Logic {
     private ImmutableImageView getImageView(Terrain t) {
 
         //TODO: last two in the constructor should be gotten dynamically
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), Game.gridPixelHeight/Math.sqrt(myGame
-                    .getActiveLevel()
-                    .getMyMapConfig()
-                    .getTerrain().size()), Game.gridPixelWidth/Math.sqrt(myGame
-                    .getActiveLevel()
-                    .getMyMapConfig()
-                    .getTerrain().size()));
+            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());
 
             return mapFeature.getImageView();
 //            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
@@ -108,7 +102,7 @@ public class Logic {
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
     public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel){
-        return myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
+        return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel);
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop

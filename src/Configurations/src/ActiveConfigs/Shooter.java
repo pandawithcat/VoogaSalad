@@ -16,7 +16,7 @@ public class Shooter extends ShooterConfig implements Updatable {
     public void update(long ms) {
         //only shooting radially rn
         if(ms%getRateOfFire()==0) {
-            ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getLevel().getGame().getActiveLevel();
+            ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();
             int weaponId = getMyShootable().getWeaponConfig().getWeaponId();
             MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();
@@ -29,7 +29,7 @@ public class Shooter extends ShooterConfig implements Updatable {
             double projectileStartYPos = weaponY + height/2;
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView(),myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth());
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView());
                 ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
             }

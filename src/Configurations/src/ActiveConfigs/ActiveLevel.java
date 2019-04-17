@@ -212,7 +212,6 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
-
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
