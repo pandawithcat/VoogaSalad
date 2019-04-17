@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,12 +30,6 @@ public class GamePlayArsenal extends VBox {
 
     private Logic myLogic;
     private GamePlayArsenalSelector myArsenalSelector;
-    public static final String WEAPON_IMAGE = "weapon.png";
-    public static final String OBSTACLE_IMAGE = "obstacle.png";
-    private Image weaponImage;
-    private Image obstacleImage;
-    private ImageView weaponImageView;
-    private ImageView obstacleImageView;
     private boolean isWeapon;
     private ArrayList<ImageView> viewList;
     private ListView arsenalDisplay;
@@ -45,12 +40,6 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
-
-
-//    private Map <Integer, Info> myTestWeapons ;
-    private Map <Integer, Info> myTestObstacles ;
-
-
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
@@ -80,10 +69,8 @@ public class GamePlayArsenal extends VBox {
 
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-
         getChildren().addAll(arsenalDisplay);
 
-        //arsenal selector part
         myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
         getChildren().add(myArsenalSelector);
     }
@@ -100,9 +87,11 @@ public class GamePlayArsenal extends VBox {
                 System.out.println("  ID: " + weaponMap.get(imageView.toString()));
                 imageView.setFitWidth(arsenalWidth / 2);
                 imageView.setFitHeight(arsenalWidth / 2);
-                Tooltip t = new Tooltip("A Square");
-                Tooltip.install(imageView, t);
+                Tooltip t = new Tooltip("information");
+                Tooltip.install(imageView,t);
+
                 viewList.add(imageView);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,8 +99,7 @@ public class GamePlayArsenal extends VBox {
 
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
-
-
+        arsenalDisplay.setOnMouseClicked(event -> displayArsenalItem(event));
         arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
         myMap.setOnDragOver(event -> dragOver(event));
         myMap.setOnDragEntered(event -> dragEntered(event));
@@ -120,45 +108,11 @@ public class GamePlayArsenal extends VBox {
 
     }
 
-//    private void switchWeaponDisplay(){
-//        if (!isWeapon) {
-//            //TODO: implement display switch
-//            viewList.clear();
-//            setArsenalDisplay(myTestWeapons, myArsenalWidth);
-//            isWeapon = true;
-//        }
-//    }
-//
-//    private void switchObstacleDisplay(){
-//        if (isWeapon) {
-//            //TODO: implement display switch
-//            viewList.clear();
-//            setArsenalDisplay(myTestObstacles, myArsenalWidth);
-//            isWeapon = false;
-//        }
-//    }
-
-
-//    private ArrayList<TreeItem> getWeapons(List arsenal){
-//        ArrayList<TreeItem> weapons = new ArrayList<>();
-//        for (int i = 0; i < arsenal.size(); i++){
-////            String weaponName = arsenal.get(i).get;
-////            TreeItem tower = new TreeItem(weaponName);
-////            weapons.add(tower);
-//        }
-//        return weapons;
-//    }
-//
-//    private ArrayList<TreeItem> getObstacles(){
-//        ArrayList<TreeItem> obstacles = new ArrayList<>();
-//        TreeItem obstacle1 = new TreeItem("barrier");
-//        TreeItem obstacle2 = new TreeItem("yikes");
-//        TreeItem obstacle3 = new TreeItem("gang");
-//        obstacles.add(obstacle1);
-//        obstacles.add(obstacle2);
-//        obstacles.add(obstacle3);
-//        return obstacles;
-//    }
+    private void displayArsenalItem(MouseEvent event){
+        ImageView curr = (ImageView)arsenalDisplay.getSelectionModel().getSelectedItem();
+        System.out.println(curr);
+        curr.setOnMouseEntered(e-> System.out.println("please"));
+    }
 
     private void dragDropped(DragEvent event){
         System.out.println("inside drop");
@@ -232,6 +186,46 @@ public class GamePlayArsenal extends VBox {
         db.setContent(content);
         mouseEvent.consume();
     }
+
+    //    private void switchWeaponDisplay(){
+//        if (!isWeapon) {
+//            //TODO: implement display switch
+//            viewList.clear();
+//            setArsenalDisplay(myTestWeapons, myArsenalWidth);
+//            isWeapon = true;
+//        }
+//    }
+//
+//    private void switchObstacleDisplay(){
+//        if (isWeapon) {
+//            //TODO: implement display switch
+//            viewList.clear();
+//            setArsenalDisplay(myTestObstacles, myArsenalWidth);
+//            isWeapon = false;
+//        }
+//    }
+
+
+//    private ArrayList<TreeItem> getWeapons(List arsenal){
+//        ArrayList<TreeItem> weapons = new ArrayList<>();
+//        for (int i = 0; i < arsenal.size(); i++){
+////            String weaponName = arsenal.get(i).get;
+////            TreeItem tower = new TreeItem(weaponName);
+////            weapons.add(tower);
+//        }
+//        return weapons;
+//    }
+//
+//    private ArrayList<TreeItem> getObstacles(){
+//        ArrayList<TreeItem> obstacles = new ArrayList<>();
+//        TreeItem obstacle1 = new TreeItem("barrier");
+//        TreeItem obstacle2 = new TreeItem("yikes");
+//        TreeItem obstacle3 = new TreeItem("gang");
+//        obstacles.add(obstacle1);
+//        obstacles.add(obstacle2);
+//        obstacles.add(obstacle3);
+//        return obstacles;
+//    }
 
 //    //TEST DATA
 //    private void createTestWeaponArsenal(){
