@@ -131,6 +131,9 @@ public class GamePlayArsenal extends VBox {
 
                 movingImage = new ImageView();
                 movingImage.setImage(writableImage);
+                movingImage.setFitWidth(myMap.getGridSize());
+                movingImage.setFitHeight(myMap.getGridSize());
+
                 myRoot.getChildren().add(movingImage);
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
