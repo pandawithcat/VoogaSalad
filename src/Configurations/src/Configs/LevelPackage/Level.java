@@ -23,6 +23,11 @@ public class Level implements Configurable{
     private LevelBehavior[] levelBehaviors;
     private Configuration myConfiguration;
 
+    public Level(Game game) {
+        myGame = game;
+        myConfiguration = new Configuration(this);
+    }
+
     public Level(Level level){
         myWaveConfigs = level.getMyWaveConfigs();
         myMap = level.getMyMapConfig();
