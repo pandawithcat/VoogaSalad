@@ -66,14 +66,14 @@ public class GameOutline extends Screen{
     public void makeTreeView(Game game){
         myGame = game;
         TreeItem<Configurable> myRoot = new TreeItem<>(game);
-        createRecursion(myRoot);
+        createTreeView(myRoot);
         myTreeView.setRoot(myRoot);
         setCellFactory();
         myContent.getChildren().add(myTreeView);
     }
 
     //recursively create a treeview
-    private void createRecursion(TreeItem<Configurable> myConfigurable) {
+    private void createTreeView(TreeItem<Configurable> myConfigurable) {
 
 
         Map<String, Object> myMap = myConfigurable.getValue().getConfiguration().getDefinedAttributes();
@@ -84,7 +84,7 @@ public class GameOutline extends Screen{
                 try {
                     TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
                     myConfigurable.getChildren().add(treeItem);
-                    createRecursion(treeItem);
+                    createTreeView(treeItem);
                 } catch (Exception e) {
                     //TODO Handle Error
                     e.printStackTrace();
@@ -96,7 +96,7 @@ public class GameOutline extends Screen{
                     Configurable configurable = (Configurable) valueArray[b];
                     TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
                     myConfigurable.getChildren().add(treeItem);
-                    createRecursion(treeItem);
+                    createTreeView(treeItem);
                 }
             }
         }
@@ -128,13 +128,11 @@ public class GameOutline extends Screen{
     private void controlTreeCellMouseClick(TreeCell<Configurable> cell) {
 
         cell.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
+            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
                     Object object = cell.getTreeItem().getValue();
                     //Don't open pop up screen if Game is clicked;
                     if(!object.getClass().equals(Game.class)){
                     findMyClass(object, myGame);}
-                }
             }
         });
 
@@ -144,7 +142,7 @@ public class GameOutline extends Screen{
     private void findMyClass(Object myObject, Configurable configurable) {
 
         Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
-
+        System.out.println(myMap);
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
             //base case
@@ -187,7 +185,9 @@ public class GameOutline extends Screen{
         //TODO Add labels and textfields
         List<Button> allButton = new ArrayList<>();
         Map<String, Object> myAttributesMap = new HashMap<>();
+        //myMap stores all the data from the game -- this should be changed to show all possible attributes
         Map<String, Object> myMap = selectedObject.getConfiguration().getDefinedAttributes();
+        System.out.println("This is the saved attributes " + myMap);
         for(String key: myMap.keySet()){
             var value = myMap.get(key);
             if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
@@ -407,7 +407,7 @@ public class GameOutline extends Screen{
             }
         }
 
-        Button setButton = new Button("This config completed");
+        Button setButton = new Button("Save Changes");
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

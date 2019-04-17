@@ -71,7 +71,15 @@ public class TopMenuBar {
             }
         });
 
-        TopMenuBar.getChildren().addAll(newGameButton, saveButton, loadButton);
+        Button refreshButton = new Button("Refresh");
+        refreshButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+
+                //TODO This button refresh the game outline
+            }
+        });
+
+        TopMenuBar.getChildren().addAll(newGameButton, saveButton, loadButton, refreshButton);
     }
 
     public HBox getTopMenuBar(){
