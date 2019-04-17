@@ -10,8 +10,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -61,7 +65,7 @@ public class GamePlayArsenal extends VBox {
         createTestWeaponArsenal();
         createTestObstacleArsenal();
         viewList = new ArrayList<>();
-        setArsenalDisplay(myTestWeapons,arsenalWidth);
+        setArsenalDisplay(myArsenal,arsenalWidth);
 
 
         //TODO: implement the hover shit when we set content
@@ -78,9 +82,9 @@ public class GamePlayArsenal extends VBox {
         getChildren().add(myArsenalSelector);
     }
 
-    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
+    private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
-            for (Integer id:myArsenal.keySet()) {
+            for (Integer id: arsenal.keySet()) {
                 Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(arsenalWidth / 2);
@@ -101,19 +105,15 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("we are dragging");
                 selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
                 Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
 
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
-                content.put(DataFormat.IMAGE,selectedImage);
+                content.putString(selectedImage.toString());
+//                content.put(DataFormat.IMAGE,selectedImage);
                 db.setContent(content);
-                System.out.println(selectedImage);
-                System.out.println(content);
                 mouseEvent.consume();
-//                lastX = event.getSceneX();
-//                lastY = event.getSceneY();
             }
         });
 
@@ -123,17 +123,35 @@ public class GamePlayArsenal extends VBox {
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
-                System.out.println(event.getDragboard());
                 System.out.println(event.getGestureSource());
-                System.out.println(event.getDragboard().getDragView());
 
-
-                if (event.getGestureSource() != myMap && event.getDragboard().hasImage()) {
+                if (event.getGestureSource() != myMap ) {
                     System.out.println(event.getDragboard().getImage());
                     /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                    event.acceptTransferModes(TransferMode.COPY);
+                }
+                event.consume();
+            }
+        });
+
+        myMap.setOnDragEntered(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag-and-drop gesture entered the target */
+                System.out.println("onDragEntered");
+                /* show to the user that it is an actual gesture target */
+                if (event.getGestureSource() != myMap &&
+                        event.getDragboard().hasString()) {
+                    System.out.println("in the map");
                 }
 
+                event.consume();
+            }
+        });
+
+        myMap.setOnDragExited(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* mouse moved away, remove the graphical cues */
+                System.out.println("we out the map");
                 event.consume();
             }
         });
@@ -147,7 +165,13 @@ public class GamePlayArsenal extends VBox {
                 boolean success = false;
                 if (db.hasImage()) {
                     myLogic.instantiateWeapon(1,5,5);
+                    System.out.println("created weapon");
                     success = true;
+                }
+                if (db.hasString()){
+                    System.out.println("X: " + event.getX());
+                    System.out.println("Y: " + event.getY());
+                    myLogic.instantiateWeapon(1, event.getX(),event.getY());
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
