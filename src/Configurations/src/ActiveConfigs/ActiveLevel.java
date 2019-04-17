@@ -33,7 +33,7 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
-        recalculateMovementHeuristic();
+//        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
@@ -52,8 +52,6 @@ public class ActiveLevel extends Level implements Updatable {
 
         return activeEnemies.size()==0;
     }
-
-
 
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
@@ -225,7 +223,6 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
-
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
