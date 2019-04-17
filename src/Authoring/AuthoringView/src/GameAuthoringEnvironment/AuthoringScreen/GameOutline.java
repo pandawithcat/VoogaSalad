@@ -2,14 +2,19 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 //import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.lang.reflect.Array;
@@ -29,6 +34,7 @@ public class GameOutline extends Screen{
     private int myHeight;
     private int myWidth;
     private TreeView<Configurable> myTreeView = new TreeView<>();
+    private Game myGame;
 
     public GameOutline(int width, int height){
         super(width, height);
@@ -51,6 +57,7 @@ public class GameOutline extends Screen{
     }
 
     public void makeTreeView(Game game){
+        myGame = game;
         TreeItem<Configurable> myRoot = new TreeItem<>(game);
         createRecursion(myRoot);
         myTreeView.setRoot(myRoot);
@@ -116,12 +123,50 @@ public class GameOutline extends Screen{
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                 if (mouseEvent.getClickCount() == 2) {
                     //TODO Implement reflection here
-
+                    Class currentClass = cell.getTreeItem().getValue().getClass();
+                    //findMyClass(currentClass, myGame);
                 }
             }
         });
 
     }
 
+    /*//recursively search the right class
+    private void findMyClass(Class myClass, Configurable configurable) {
+        Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
 
+        for (String key : myMap.keySet()) {
+            var value = myMap.get(key);
+            //base case
+            if(value.getClass().equals(myClass)){
+                showTheScreen();
+            }
+
+            else if (!value.getClass().isArray()  && value.getClass().isInstance(Configurable.class)) {
+
+            } else if(value.getClass().isArray()){
+
+                Object[] valueArray = (Object[]) value;
+                for(int b=0; b<valueArray.length ; b++){
+                    Configurable configurable = (Configurable) valueArray[b];
+                    TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
+                    myConfigurable.getChildren().add(treeItem);
+                    createRecursion(treeItem);
+                }
+            }
+        }
+    }
+
+
+    private void showTheScreen(){
+        Stage popupwindow = new Stage();
+        popupwindow.initModality(Modality.APPLICATION_MODAL);
+        popupwindow.setTitle("Change Settings");
+        VBox layout = new VBox(10.00);
+        VBox.setMargin(layout, new Insets(20, 20, 20, 20));
+        Scene scene= new Scene(layout, 500, 500);
+        popupwindow.setScene(scene);
+        popupwindow.showAndWait();
+    }
+*/
 }
