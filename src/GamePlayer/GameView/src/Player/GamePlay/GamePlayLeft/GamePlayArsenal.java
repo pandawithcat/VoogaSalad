@@ -97,7 +97,7 @@ public class GamePlayArsenal extends VBox {
                 ImageView imageView = new ImageView(image);
                 weaponMap.put(imageView.toString(), id);
                 System.out.println(imageView);
-                System.out.println("actual ID: " + weaponMap.get(imageView.toString()));
+                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
                 imageView.setFitWidth(arsenalWidth / 2);
                 imageView.setFitHeight(arsenalWidth / 2);
                 Tooltip t = new Tooltip("A Square");
@@ -139,51 +139,36 @@ public class GamePlayArsenal extends VBox {
 //    }
 
 
-    public ArrayList<TreeItem> getArsenal(){
-        ArrayList<TreeItem> myArsenal = new ArrayList<TreeItem>();
-        //TODO: Iterate through a list of things users can implement
-        TreeItem myWeapons = new TreeItem("Weapons");
-        myWeapons.getChildren().addAll(getWeapons(myArsenal));
-
-        TreeItem myObstacles = new TreeItem("Obstacles");
-        myObstacles.getChildren().addAll(getObstacles());
-        myArsenal.add(myWeapons);
-        myArsenal.add(myObstacles);
-        return myArsenal;
-    }
-
-    private ArrayList<TreeItem> getWeapons(List arsenal){
-        ArrayList<TreeItem> weapons = new ArrayList<>();
-        for (int i = 0; i < arsenal.size(); i++){
-//            String weaponName = arsenal.get(i).get;
-//            TreeItem tower = new TreeItem(weaponName);
-//            weapons.add(tower);
-        }
-        return weapons;
-    }
-
-    private ArrayList<TreeItem> getObstacles(){
-        ArrayList<TreeItem> obstacles = new ArrayList<>();
-        //TODO: also should iterate through list
-        TreeItem obstacle1 = new TreeItem("barrier");
-        TreeItem obstacle2 = new TreeItem("yikes");
-        TreeItem obstacle3 = new TreeItem("gang");
-        obstacles.add(obstacle1);
-        obstacles.add(obstacle2);
-        obstacles.add(obstacle3);
-        return obstacles;
-    }
+//    private ArrayList<TreeItem> getWeapons(List arsenal){
+//        ArrayList<TreeItem> weapons = new ArrayList<>();
+//        for (int i = 0; i < arsenal.size(); i++){
+////            String weaponName = arsenal.get(i).get;
+////            TreeItem tower = new TreeItem(weaponName);
+////            weapons.add(tower);
+//        }
+//        return weapons;
+//    }
+//
+//    private ArrayList<TreeItem> getObstacles(){
+//        ArrayList<TreeItem> obstacles = new ArrayList<>();
+//        TreeItem obstacle1 = new TreeItem("barrier");
+//        TreeItem obstacle2 = new TreeItem("yikes");
+//        TreeItem obstacle3 = new TreeItem("gang");
+//        obstacles.add(obstacle1);
+//        obstacles.add(obstacle2);
+//        obstacles.add(obstacle3);
+//        return obstacles;
+//    }
 
     private void dragDropped(DragEvent event){
+        System.out.println("inside drop");
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
-            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
-            movingImage.setTranslateX(event.getX());
-            movingImage.setTranslateY(event.getY());
             myRoot.getChildren().remove(movingImage);
-            success = true;
             System.out.println("drag dropped");
+            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
+            success = true;
         }
         event.setDropCompleted(success);
         event.consume();
