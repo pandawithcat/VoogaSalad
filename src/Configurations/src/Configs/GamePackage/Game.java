@@ -1,7 +1,9 @@
 package Configs.GamePackage;
 
 import ActiveConfigs.ActiveLevel;
+import ActiveConfigs.ActiveWeapon;
 import Configs.*;
+import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 import Configs.GamePackage.GameBehaviors.GameBehavior;
@@ -27,6 +29,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private String myThumbnail;
     @Configure
     private Level[] levelList;
+    @Configure
+    private Arsenal myArsenal;
     /*@Configure
     private GameBehavior[] gameType;*/
     /*@Configure
@@ -43,15 +47,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
         currentLevelNumber=0;
     }
 
-    //FOR TESTING
-    public void setName(String name) {
-        myTitle = name;
-    }
-    public void setThumbnail(String name) {
-        myThumbnail = name;
-    }
-    public void setMyDescription(String name) {
-        myDescription = name;
+    public Arsenal getArsenal() {
+        return myArsenal;
     }
 
     @Override
@@ -70,6 +67,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
 
 
     }
+
+
 
     public Level[] getLevelList() {
         return levelList;
