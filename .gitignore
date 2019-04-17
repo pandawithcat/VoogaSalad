@@ -4,7 +4,6 @@
 *.ipr
 *.iws
 .idea/
-classes/
 out/
 local.properties
 

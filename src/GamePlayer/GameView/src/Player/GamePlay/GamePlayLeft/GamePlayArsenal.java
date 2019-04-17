@@ -36,6 +36,7 @@ public class GamePlayArsenal extends VBox {
     private double myArsenalWidth;
     private HBox arsenalSelector;
     private ImageView selectedImage;
+    private GamePlayMap myMap;
 
 
     private Map <Integer, Info> myTestWeapons ;
@@ -45,11 +46,12 @@ public class GamePlayArsenal extends VBox {
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic) throws FileNotFoundException {
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map) throws FileNotFoundException {
         myArsenalWidth = arsenalWidth;
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
+        myMap = map;
         myArsenal = logic.getMyArsenal();
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
@@ -78,7 +80,7 @@ public class GamePlayArsenal extends VBox {
 
     private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
         try {
-            for (Integer id : myArsenal.keySet()) {
+            for (Integer id:myArsenal.keySet()) {
                 Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(arsenalWidth / 2);
@@ -93,19 +95,15 @@ public class GamePlayArsenal extends VBox {
 
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
-        arsenalDisplay.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                selectedImage = (ImageView)arsenalDisplay.getSelectionModel().getSelectedItem();
-            }
-        });
+
 
         //TODO: this definitely does not work
-        selectedImage.setOnDragDetected(new EventHandler<MouseEvent>() {
+        arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("we are dragging");
-                Dragboard db = arsenalDisplay.startDragAndDrop(TransferMode.ANY);
+                selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+                Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
 
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
@@ -119,7 +117,7 @@ public class GamePlayArsenal extends VBox {
             }
         });
 
-        selectedImage.setOnDragOver(new EventHandler<DragEvent>() {
+        myMap.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 System.out.println("drag over");
                 /* data is dragged over the target */
@@ -127,12 +125,10 @@ public class GamePlayArsenal extends VBox {
                  * and if it has a string data */
                 System.out.println(event.getDragboard());
                 System.out.println(event.getGestureSource());
-                System.out.println(event.getGestureSource());
                 System.out.println(event.getDragboard().getDragView());
-                System.out.println(event.getDragboard().getImage());
 
 
-                if (event.getGestureSource() != selectedImage && event.getDragboard().hasImage()) {
+                if (event.getGestureSource() != myMap && event.getDragboard().hasImage()) {
                     System.out.println(event.getDragboard().getImage());
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
@@ -142,7 +138,7 @@ public class GamePlayArsenal extends VBox {
             }
         });
 
-        arsenalDisplay.setOnDragDropped(new EventHandler<DragEvent>() {
+        myMap.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 /* data dropped */
                 /* if there is a string data on dragboard, read it and use it */

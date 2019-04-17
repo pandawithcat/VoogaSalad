@@ -1,9 +1,11 @@
 package BackendExternal;
 
-import ActiveConfigs.Cell;
-import Configs.*;
 import Configs.GamePackage.Game;
+import Configs.ImmutableImageView;
+import Configs.Info;
+import Configs.MapFeature;
 import Configs.MapPackage.Terrain;
+import Configs.TransferImageView;
 import Data.GameLibrary;
 import javafx.scene.image.Image;
 
@@ -86,7 +88,13 @@ public class Logic {
     private ImmutableImageView getImageView(Terrain t) {
 
         //TODO: last two in the constructor should be gotten dynamically
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());
+            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), Game.gridPixelHeight/Math.sqrt(myGame
+                    .getActiveLevel()
+                    .getMyMapConfig()
+                    .getTerrain().size()), Game.gridPixelWidth/Math.sqrt(myGame
+                    .getActiveLevel()
+                    .getMyMapConfig()
+                    .getTerrain().size()));
 
             return mapFeature.getImageView();
 //            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
@@ -96,22 +104,18 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-//<<<<<<< HEAD
-//        Map<Integer, Info> testData = new HashMap<>();
-//        testData.put(1, new Info("weapon1", "thumbnail3.gif"));
-//        return testData;
-//
-////        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
-//=======
-        return myGame.getArsenal().getAllWeaponConfigOptions();
-//>>>>>>> b0ec1d010debea0eef4d31cf456c282725b4ce4f
+        Map<Integer, Info> testData = new HashMap<>();
+        testData.put(1, new Info("weapon1", "thumbnail3.gif"));
+        return testData;
+
+//        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
-        return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel){
+        return myGame.getActiveLevel().generateNewWeapon(weaponID, xPixel, yPixel);
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -154,28 +158,9 @@ public class Logic {
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
-    public boolean checkPlacementLocation(int weaponId, int x, int y, int direction){
-        View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
-        int height;
-        int width;
-        if(direction==90||direction==270) {
-            height = weaponView.getHeight();
-            width = weaponView.getWidth();
-        }
-        else{
-            height = weaponView.getWidth();
-            width = weaponView.getHeight();
-        }
-        Cell[][] grid = myGame.getActiveLevel().getMyGrid();
-        for(int col = x;col<x+width;col++) {
-            for(int row = y;row<y+height;row++) {
-                if (!grid[row][col].isValidWeaponPlacement()) return false;
-            }
-        }
-        return true;
-    }
-
-
+//    public boolean checkPlacementLocation(WeaponInfo movingWeapon, double x, double y){
+//
+//    }
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate

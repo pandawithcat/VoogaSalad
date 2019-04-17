@@ -28,7 +28,10 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         //TODO: fix active wave to be a wave spawner
+        //TODO: COMMENTED OUT BELOW FOR TESTING
         generateCurrentActiveWave();
+//        setMyGame(game);
+//        myMapFeature = mapFeature;
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
@@ -40,11 +43,7 @@ public class ActiveLevel extends Level implements Updatable {
             tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
-        return tempGrid;
-    }
-
-    public Cell[][] getMyGrid() {
-        return myGrid;
+        return null;
     }
 
     public boolean noMoreEnemiesLeft() {
@@ -52,6 +51,8 @@ public class ActiveLevel extends Level implements Updatable {
 
         return activeEnemies.size()==0;
     }
+
+
 
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridY][gridX];
@@ -151,6 +152,15 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
+    //TODO: EventHandler for adding new weapon to map
+    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID-1];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
+
     //TODO  add EventHandler for isValid
 
 
@@ -214,6 +224,7 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
