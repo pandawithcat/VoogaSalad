@@ -101,8 +101,8 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel){
-        return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel);
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
+        return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -167,9 +167,6 @@ public class Logic {
     }
 
 
-    public void createWeapon(int weaponId, int x, int y, int direction) {
-        myGame.getArsenal().generateNewWeapon(weaponId, x, y, direction);
-    }
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
