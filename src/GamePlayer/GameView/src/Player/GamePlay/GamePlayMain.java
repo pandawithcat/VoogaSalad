@@ -38,7 +38,8 @@ public class GamePlayMain extends Application {
             primaryStage.setY(screenHeight);
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward());
+            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward(),
+                    root);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);

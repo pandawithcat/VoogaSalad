@@ -3,6 +3,7 @@ package Player.GamePlay;
 import BackendExternal.Logic;
 import Player.GamePlay.GamePlayLeft.GamePlayLeftSide;
 import Player.GamePlay.GamePlayRight.GamePlayRightSide;
+import javafx.scene.Group;
 import javafx.scene.layout.HBox;
 
 public class GamePlayIDE extends HBox {
@@ -11,11 +12,13 @@ public class GamePlayIDE extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
+    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method,
+                       PlayInterface fastFoward, Group root){
         setPrefWidth(width);
         setPrefHeight(height);
         myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward, myGameLeft.getMap());
+        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward,
+                myGameLeft.getMap(), root);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
     public GamePlayLeftSide getLeft(){

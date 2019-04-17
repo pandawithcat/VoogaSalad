@@ -5,10 +5,10 @@ import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -40,7 +40,9 @@ public class GamePlayArsenal extends VBox {
     private double myArsenalWidth;
     private HBox arsenalSelector;
     private ImageView selectedImage;
+    private ImageView movingImage;
     private GamePlayMap myMap;
+    private Group myRoot;
 
 
     private Map <Integer, Info> myTestWeapons ;
@@ -50,13 +52,14 @@ public class GamePlayArsenal extends VBox {
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map) throws FileNotFoundException {
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map, Group root) throws FileNotFoundException {
         myArsenalWidth = arsenalWidth;
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
         myMap = map;
         myArsenal = logic.getMyArsenal();
+        myRoot = root;
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
@@ -101,13 +104,34 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setItems(items);
 
 
-        //TODO: this definitely does not work
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
                 Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
 
+                //creates deepcopy of imageview
+                var imageCopy = selectedImage.getImage();
+                PixelReader pixelReader = imageCopy.getPixelReader();
+
+                int width = (int)imageCopy.getWidth();
+                int height = (int)imageCopy.getHeight();
+
+                //Copy from source to destination pixel by pixel
+                WritableImage writableImage
+                        = new WritableImage(width, height);
+                PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+                for (int y = 0; y < height; y++){
+                    for (int x = 0; x < width; x++){
+                        Color color = pixelReader.getColor(x, y);
+                        pixelWriter.setColor(x, y, color);
+                    }
+                }
+
+                movingImage = new ImageView();
+                movingImage.setImage(writableImage);
+                myRoot.getChildren().add(movingImage);
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
                 content.putString(selectedImage.toString());
@@ -119,12 +143,13 @@ public class GamePlayArsenal extends VBox {
 
         myMap.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-                System.out.println("drag over");
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
-                System.out.println(event.getGestureSource());
-
+                System.out.println(event.getX());
+                System.out.println(event.getY());
+                movingImage.setTranslateX(event.getX() - movingImage.getBoundsInParent().getWidth()/2);
+                movingImage.setTranslateY(event.getY() - movingImage.getBoundsInParent().getHeight()/2);
                 if (event.getGestureSource() != myMap ) {
                     System.out.println(event.getDragboard().getImage());
                     /* allow for both copying and moving, whatever user chooses */
@@ -172,6 +197,9 @@ public class GamePlayArsenal extends VBox {
                     System.out.println("X: " + event.getX());
                     System.out.println("Y: " + event.getY());
                     myLogic.instantiateWeapon(1, event.getX(),event.getY());
+                    movingImage.setTranslateX(event.getX());
+                    movingImage.setTranslateY(event.getY());
+                    myRoot.getChildren().remove(movingImage);
                 }
                 /* let the source know whether the string was successfully
                  * transferred and used */
