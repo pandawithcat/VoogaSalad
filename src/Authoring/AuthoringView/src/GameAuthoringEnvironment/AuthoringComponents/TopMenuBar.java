@@ -1,16 +1,11 @@
 package GameAuthoringEnvironment.AuthoringComponents;
 
-import BackendExternalAPI.Model;
-import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
 import GameAuthoringEnvironment.AuthoringScreen.GameOutline;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.FileChooser;
-
-import java.io.File;
 
 public class TopMenuBar {
 
@@ -74,8 +69,8 @@ public class TopMenuBar {
         Button refreshButton = new Button("Refresh");
         refreshButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-
                 //TODO This button refresh the game outline
+                myGameOutline.makeTreeView(gameController.getMyGame());
             }
         });
 

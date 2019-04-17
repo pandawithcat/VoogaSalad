@@ -22,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.ObjectInputFilter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -31,10 +32,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 //TODO Change all magic values
 
-public class GameOutline extends Screen{
+public class GameOutline extends Screen {
 
     private Pane myContent;
     private ImageView myImage;
@@ -43,7 +45,7 @@ public class GameOutline extends Screen{
     private TreeView<Configurable> myTreeView = new TreeView<>();
     private Game myGame;
 
-    public GameOutline(int width, int height){
+    public GameOutline(int width, int height) {
         super(width, height);
         myHeight = height;
         myWidth = width;
@@ -51,7 +53,6 @@ public class GameOutline extends Screen{
         Game myGame = new Game();
         setContent(myGame);
     }
-
 
 
     public void setContent(Game game) {
@@ -63,7 +64,10 @@ public class GameOutline extends Screen{
         myImage.setFitWidth(50);*/
     }
 
-    public void makeTreeView(Game game){
+    public void makeTreeView(Game game) {
+        if (myContent.getChildren().contains(myTreeView)) {
+            myContent.getChildren().remove(myTreeView);
+        }
         myGame = game;
         TreeItem<Configurable> myRoot = new TreeItem<>(game);
         createTreeView(myRoot);
@@ -72,7 +76,7 @@ public class GameOutline extends Screen{
         myContent.getChildren().add(myTreeView);
     }
 
-    //recursively create a treeview
+    //recursively creates a treeview - only creates something that has been defined
     private void createTreeView(TreeItem<Configurable> myConfigurable) {
 
 
@@ -80,7 +84,8 @@ public class GameOutline extends Screen{
 
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
-            if (!value.getClass().isArray()  && value.getClass().isInstance(Configurable.class)) {
+            //value is not an array, just an object
+            if (value instanceof Configurable) {
                 try {
                     TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
                     myConfigurable.getChildren().add(treeItem);
@@ -89,12 +94,11 @@ public class GameOutline extends Screen{
                     //TODO Handle Error
                     e.printStackTrace();
                 }
-            }else if(value.getClass().isArray()){
+            } else if (value.getClass().isArray()) {
 
                 Object[] valueArray = (Object[]) value;
-                for(int b=0; b<valueArray.length ; b++){
-                    Configurable configurable = (Configurable) valueArray[b];
-                    TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
+                for (Object object : valueArray) {
+                    TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) object);
                     myConfigurable.getChildren().add(treeItem);
                     createTreeView(treeItem);
                 }
@@ -102,14 +106,14 @@ public class GameOutline extends Screen{
         }
     }
 
-    private void setCellFactory(){
+    private void setCellFactory() {
 
         myTreeView.setCellFactory(tree -> {
             //TODO Set Images Accordingly
             TreeCell<Configurable> cell = new TreeCell<>() {
                 @Override
                 public void updateItem(Configurable item, boolean empty) {
-                    super.updateItem(item, empty) ;
+                    super.updateItem(item, empty);
                     if (empty) {
                         setText(null);
                         setGraphic(null);
@@ -118,9 +122,8 @@ public class GameOutline extends Screen{
                     }
                 }
             };
-
             controlTreeCellMouseClick(cell);
-            return cell ;
+            return cell;
         });
     }
 
@@ -129,10 +132,8 @@ public class GameOutline extends Screen{
 
         cell.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
-                    Object object = cell.getTreeItem().getValue();
-                    //Don't open pop up screen if Game is clicked;
-                    if(!object.getClass().equals(Game.class)){
-                    findMyClass(object, myGame);}
+                Object object = cell.getTreeItem().getValue();
+                findMyClass(object, myGame);
             }
         });
 
@@ -141,27 +142,31 @@ public class GameOutline extends Screen{
     //recursively search the right class
     private void findMyClass(Object myObject, Configurable configurable) {
 
+        //if myobject is myGame
+        if (myObject.equals(configurable)) {
+            showTheScreen((Configurable) myObject);
+        }
+
         Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
         System.out.println(myMap);
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
             //base case
-            if(value.equals(myObject)){
-                showTheScreen((Configurable)value);
+            if (value.equals(myObject)) {
+                showTheScreen((Configurable) value);
             }
             // if value configurable recurse!
-            else if (!value.getClass().isArray()  && value instanceof Configurable) {
+            else if (!value.getClass().isArray() && value instanceof Configurable) {
                 Configurable temp = (Configurable) value;
                 findMyClass(myObject, temp);
-            // if value is an array
-            } else if(value.getClass().isArray()){
+                // if value is an array
+            } else if (value.getClass().isArray()) {
 
                 Object[] valueArray = (Object[]) value;
-                for(int b=0; b<valueArray.length ; b++){
-                    if(valueArray[b].equals(myObject)){
+                for (int b = 0; b < valueArray.length; b++) {
+                    if (valueArray[b].equals(myObject)) {
                         showTheScreen((Configurable) valueArray[b]);
-                    }
-                    else {
+                    } else {
                         Configurable myConfigurable = (Configurable) valueArray[b];
                         findMyClass(myObject, myConfigurable);
                     }
@@ -171,7 +176,7 @@ public class GameOutline extends Screen{
     }
 
 
-    private void showTheScreen(Configurable selectedObject){
+    private void showTheScreen(Configurable selectedObject) {
 
         Stage popupwindow = new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
@@ -186,15 +191,19 @@ public class GameOutline extends Screen{
         List<Button> allButton = new ArrayList<>();
         Map<String, Object> myAttributesMap = new HashMap<>();
         //myMap stores all the data from the game -- this should be changed to show all possible attributes
+        Map<String, Class> attributesMap = selectedObject.getConfiguration().getAttributes();
         Map<String, Object> myMap = selectedObject.getConfiguration().getDefinedAttributes();
         System.out.println("This is the saved attributes " + myMap);
-        for(String key: myMap.keySet()){
-            var value = myMap.get(key);
-            if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
+        for (String key : attributesMap.keySet()) {
+            var value = attributesMap.get(key);
+
+            //handle primitives
+            if (key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")) {
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
-                String myValue = (String) value;
-                myTextField.setText(myValue.toString());
+                if (myMap.keySet().contains(key)) {
+                    myTextField.setText(myMap.get(key).toString());
+                }
                 Button chooseImageButton = new Button("Choose Image");
 
                 var nameAndTfBar = new HBox();
@@ -213,33 +222,30 @@ public class GameOutline extends Screen{
                 }));
                 layout.getChildren().addAll(nameAndTfBar);
 
-            }
-            else if(value instanceof String || value.getClass().isPrimitive()){
+            } else if (value.equals(java.lang.String.class) || value.isPrimitive()) {
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
-                myTextField.setText(value.toString());
+                if (myMap.keySet().contains(key)) {
+                    myTextField.setText(myMap.get(key).toString());
+                }
                 Button confirmButton = new Button("Confirm");
 
 
-                HBox nameAndTfBar = new HBox();
+                var nameAndTfBar = new HBox();
                 nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
                 confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
                     //TODO DO Errorchecking/Refactor
                     @Override
                     public void handle(MouseEvent event) {
-                        if(value.getClass().getName().equals("int")){
+                        if (value.getName().equals("int")) {
                             myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
-                        }
-                        else if(value.getClass().getName().equals("long")){
+                        } else if (value.getName().equals("long")) {
                             myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
-                        }
-                        else if(value.getClass().getName().equals("double")){
+                        } else if (value.getName().equals("double")) {
                             myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
-                        }
-                        else if(value.getClass().getName().equals("boolean")){
+                        } else if (value.getName().equals("boolean")) {
                             myAttributesMap.put(key, Boolean.parseBoolean(myTextField.getText()));
-                        }
-                        else{
+                        } else {
                             myAttributesMap.put(key, myTextField.getText());
                         }
                     }
@@ -248,13 +254,14 @@ public class GameOutline extends Screen{
                 layout.getChildren().addAll(nameAndTfBar);
             }
 
-            //TODO Handle Paths
-            else if(value.getClass().isInstance(Paths.class)){
-                Label myLabel = new Label(key);
-                TextField pathTf = new TextField();
-                File myPath = (File) value;
-                pathTf.setText(myPath.getPath());
+            //Handle Paths
+            else if (value.isInstance(Paths.class)) {
+
                 Button fileUploadButton = new Button("Upload Image");
+                TextField pathsTf = new TextField();
+                if (myMap.keySet().contains(key)) {
+                    pathsTf.setText(myMap.get(key).toString());
+                }
                 FileChooser fileChooser = new FileChooser();
                 fileUploadButton.setOnMouseClicked(e -> {
 
@@ -263,40 +270,39 @@ public class GameOutline extends Screen{
                         myAttributesMap.put(key, selectedFile);
                     }
                 });
-                layout.getChildren().add(fileUploadButton);
+                layout.getChildren().addAll(fileUploadButton, pathsTf);
 
             }
 
             //handle single object
             //this single object is a link to others so it doesn't save anything to the myAttributesMap
-            else if(!value.getClass().isArray()){
+            else if (!value.isArray()) {
 
-                Button myButton = new Button("Configure " + value.getClass().getSimpleName());
+                Button myButton = new Button("Configure " + value.getSimpleName());
                 myButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
                         try {
-                            Class<?> clazz = Class.forName(value.getClass().getName());
-                            //TODO Find a way to display the existing map
-                            if(clazz.getSimpleName().equals("MapConfig")) {
+                            Class<?> clazz = Class.forName(value.getName());
+                            //special case: map TODO use reflection for this
+                            if (clazz.getSimpleName().equals("MapConfig")) {
                                 ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
                                 configurableMap.setConfigurations();
-                            }
-                            //TODO Find a way to handle view
-                            else if(clazz.getSimpleName().equals("View")){
+                            } else if (clazz.getSimpleName().equals("View")) {
 //                                FileChooser fileChooser = new FileChooser();
 //                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
 //                                String filepath = selectedFile.toString();
 //                                myAttributesMap.put(key, filepath);
-//                                Constructor<?> cons = clazz.getConstructor(Configurable.class);
-//                                var object = cons.newInstance(myConfigurable);
-//                                createConfigurable((Configurable) object);
-                            }
-
-                            else{
+                                Constructor<?> cons = clazz.getConstructor(Configurable.class);
+                                var object = cons.newInstance(selectedObject);
+                                showTheScreen((Configurable) object);
+                            } else {
                                 //TODO idf clazz does not taken in myconfigurable as a parameter, then error
-                                showTheScreen((Configurable) value);}
-                        } catch (Exception e) {
+                                Constructor<?> cons = clazz.getConstructor(selectedObject.getClass());
+                                var object = cons.newInstance(selectedObject);
+                                showTheScreen((Configurable) object);
+                            }
+                        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                             //TODO ErrorChecking
                             e.printStackTrace();
                         }
@@ -307,40 +313,29 @@ public class GameOutline extends Screen{
             }
 
             //handle list
-            else if(value.getClass().isArray() ) {
-                //TODO Check if this if statement works
-                Object[] myArray = (Object[]) value;
-                if(value.getClass().getComponentType().isInstance(Configurable.class)) {
+            else if (value.isArray()) {
+                if (value.getComponentType().getClass().isInstance(Configurable.class)) {
 
                     List<Object> tempList = new ArrayList<>();
-                    //Add existing objects to the templist
-                    for(int a=0; a<myArray.length ; a++){
-                        tempList.add(myArray[a]);
-                    }
-
-                    Label listLabel = new Label("Add new " + value.toString() + " here");
-                    VBox tempVBOx  = new VBox();
+                    Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
+                    VBox tempVBOx = new VBox();
                     tempVBOx.setSpacing(10);
                     var buttonBar = new HBox();
                     buttonBar.setSpacing(10);
-                    Button addNew = new Button("add new " + myArray.getClass().getComponentType().toString());
+                    Button addNew = new Button("add new " + value.getComponentType().getSimpleName());
                     Button confirmButton = new Button("Confirm");
 
                     buttonBar.getChildren().addAll(addNew, confirmButton);
-                    //Add existing objects to sourceview
                     ListView sourceView = new ListView<>();
-                    for(int a=0; a<myArray.length ; a++){
-                        sourceView.getItems().add(myArray[a].getClass().getSimpleName() + sourceView.getItems().size() + a);
-                    }
 
                     addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
                             //adds to the visual
-                            sourceView.getItems().add(value.getClass().getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
+                            sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
                             try {
                                 //adds to the list
-                                Class<?> cl = Class.forName(value.getClass().getComponentType().getName());
+                                Class<?> cl = Class.forName(value.getComponentType().getName());
                                 Constructor<?> cons = cl.getConstructor(selectedObject.getClass());
                                 var object = cons.newInstance(selectedObject);
                                 tempList.add(object);
@@ -356,17 +351,17 @@ public class GameOutline extends Screen{
 
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                                 if (mouseEvent.getClickCount() == 2) {
                                     try {
-                                        Class<?> cl = Class.forName(value.getClass().getComponentType().getName());
+
+                                        Class<?> cl = Class.forName(value.getComponentType().getName());
                                         //TODO Use reflection to check this
-                                        if(cl.getSimpleName().contains("Behavior")){
+                                        if (cl.getSimpleName().contains("Behavior")) {
                                             Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                                             List<Class> behaviorList = (List<Class>) myField.get(null);
                                             //ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, selectedObject, myAttributesMap, behaviorList);
-                                        }
-                                        else{
+                                        } else {
                                             showTheScreen((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
                                         }
 
@@ -385,17 +380,17 @@ public class GameOutline extends Screen{
                         @Override
                         public void handle(MouseEvent event) {
                             try {
-                                Class c = Class.forName(value.getClass().getComponentType().getName());
+                                Class c = Class.forName(value.getComponentType().getName());
+//                                System.out.println(c.getClass().getName());
                                 Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
-                                if (selectedObject instanceof Level){
+                                if (selectedObject instanceof Level) {
                                     System.out.println(((Level) selectedObject).getMyMapConfig());
                                 }
-                                for(int a=0; a<tempList.size() ; a++){
-                                    ob[a] = tempList.get(a);
+                                for (int a = 0; a < tempList.size(); a++) {
+                                    ob[a] = (Object) tempList.get(a);
                                 }
                                 myAttributesMap.put(key, ob);
-                            }
-                            catch (ClassNotFoundException e){
+                            } catch (ClassNotFoundException e) {
 
                             }
                         }
@@ -407,7 +402,7 @@ public class GameOutline extends Screen{
             }
         }
 
-        Button setButton = new Button("Save Changes");
+        Button setButton = new Button("This config completed");
         setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -424,7 +419,7 @@ public class GameOutline extends Screen{
                 else {*/
 //                    System.out.println(myAttributesMap);
 //                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                for(Button button: allButton){
+                for (Button button : allButton) {
                     button.fireEvent(event);
                 }
                 selectedObject.getConfiguration().setAllAttributes(myAttributesMap);
@@ -433,8 +428,9 @@ public class GameOutline extends Screen{
             }
         }));
 
+        layout.getChildren().add(setButton);
 
-        Scene scene= new Scene(layout, 500, 500);
+        Scene scene = new Scene(layout, 500, 500);
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
     }
