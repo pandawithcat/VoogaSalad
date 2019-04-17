@@ -166,6 +166,11 @@ public class Logic {
         return true;
     }
 
+
+    public void createWeapon(int weaponId, int x, int y, int direction) {
+        myGame.getArsenal().generateNewWeapon(weaponId, x, y, direction);
+    }
+
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
     // No return
