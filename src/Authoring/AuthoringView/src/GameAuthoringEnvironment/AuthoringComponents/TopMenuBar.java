@@ -35,8 +35,8 @@ public class TopMenuBar {
         saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 myGameOutline.makeTreeView(gameController.getMyGame());
-                Model model = new Model();
-                model.saveToXML(gameController.getMyGame());
+                /*Model model = new Model();
+                model.saveToXML(gameController.getMyGame());*/
             }
         });
 

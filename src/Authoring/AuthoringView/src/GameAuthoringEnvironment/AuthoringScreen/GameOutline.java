@@ -15,14 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 //TODO Change all magic values
@@ -111,7 +103,8 @@ public class GameOutline extends Screen{
                     }
                 }
             };
-            //controlTreeCellMouseClick(cell);
+
+            controlTreeCellMouseClick(cell);
             return cell ;
         });
     }
@@ -122,36 +115,43 @@ public class GameOutline extends Screen{
         cell.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                 if (mouseEvent.getClickCount() == 2) {
-                    //TODO Implement reflection here
-                    Class currentClass = cell.getTreeItem().getValue().getClass();
-                    //findMyClass(currentClass, myGame);
+                    Object object = cell.getTreeItem().getValue();
+                    //Don't open pop up screen if Game is clicked;
+                    if(!object.getClass().equals(Game.class)){
+                    findMyClass(object, myGame);}
                 }
             }
         });
 
     }
 
-    /*//recursively search the right class
-    private void findMyClass(Class myClass, Configurable configurable) {
+    //recursively search the right class
+    private void findMyClass(Object myObject, Configurable configurable) {
+
         Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
 
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
             //base case
-            if(value.getClass().equals(myClass)){
+            if(value.equals(myObject)){
                 showTheScreen();
             }
-
-            else if (!value.getClass().isArray()  && value.getClass().isInstance(Configurable.class)) {
-
+            // if value configurable recurse!
+            else if (!value.getClass().isArray()  && value instanceof Configurable) {
+                Configurable temp = (Configurable) value;
+                findMyClass(myObject, temp);
+            // if value is an array
             } else if(value.getClass().isArray()){
 
                 Object[] valueArray = (Object[]) value;
                 for(int b=0; b<valueArray.length ; b++){
-                    Configurable configurable = (Configurable) valueArray[b];
-                    TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
-                    myConfigurable.getChildren().add(treeItem);
-                    createRecursion(treeItem);
+                    if(valueArray[b].equals(myObject)){
+                        showTheScreen();
+                    }
+                    else {
+                        Configurable myConfigurable = (Configurable) valueArray[b];
+                        findMyClass(myObject, myConfigurable);
+                    }
                 }
             }
         }
@@ -168,5 +168,4 @@ public class GameOutline extends Screen{
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
     }
-*/
 }
