@@ -5,6 +5,7 @@ import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,7 @@ public class GamePlayArsenal extends VBox {
     private ListView arsenalDisplay;
     private double myArsenalWidth;
     private HBox arsenalSelector;
+    private ImageView selectedImage;
 
 
     private Map <Integer, Info> myTestWeapons ;
@@ -76,7 +78,7 @@ public class GamePlayArsenal extends VBox {
 
     private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
         try {
-            for (Integer id:myArsenal.keySet()) {
+            for (Integer id : myArsenal.keySet()) {
                 Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(arsenalWidth / 2);
@@ -91,27 +93,33 @@ public class GamePlayArsenal extends VBox {
 
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
-
+        arsenalDisplay.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                selectedImage = (ImageView)arsenalDisplay.getSelectionModel().getSelectedItem();
+            }
+        });
 
         //TODO: this definitely does not work
-        arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
+        selectedImage.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("we are dragging");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-                Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
+                Dragboard db = arsenalDisplay.startDragAndDrop(TransferMode.ANY);
 
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
-                content.put(DataFormat.IMAGE,selected);
+                content.put(DataFormat.IMAGE,selectedImage);
                 db.setContent(content);
+                System.out.println(selectedImage);
+                System.out.println(content);
                 mouseEvent.consume();
 //                lastX = event.getSceneX();
 //                lastY = event.getSceneY();
             }
         });
 
-        arsenalDisplay.setOnDragOver(new EventHandler<DragEvent>() {
+        selectedImage.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 System.out.println("drag over");
                 /* data is dragged over the target */
@@ -119,8 +127,13 @@ public class GamePlayArsenal extends VBox {
                  * and if it has a string data */
                 System.out.println(event.getDragboard());
                 System.out.println(event.getGestureSource());
-                if (event.getGestureSource() != arsenalDisplay &&
-                        event.getDragboard().hasImage()) {
+                System.out.println(event.getGestureSource());
+                System.out.println(event.getDragboard().getDragView());
+                System.out.println(event.getDragboard().getImage());
+
+
+                if (event.getGestureSource() != selectedImage && event.getDragboard().hasImage()) {
+                    System.out.println(event.getDragboard().getImage());
                     /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
