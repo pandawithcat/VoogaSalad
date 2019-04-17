@@ -13,9 +13,9 @@ public class Terrain implements Configurable, Viewable{
     private View view;
 
     @Configure
-    private double gridBlockHeight;
+    private int gridBlockHeight;
     @Configure
-    private double gridBlockWidth;
+    private int gridBlockWidth;
     @Configure
     private boolean isPath;
     @Configure
@@ -23,17 +23,14 @@ public class Terrain implements Configurable, Viewable{
     @Configure
     private int gridXPos;
 
-
-
-
 //    @Configure
 //    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-        view = new View(fileName,height, width);
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos,  int gridBlockHeight, int gridBlockWidth, boolean isPath){
+        view = new View(fileName,gridBlockHeight, gridBlockWidth);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;
         this.isPath = isPath;
