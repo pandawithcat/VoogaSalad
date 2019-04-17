@@ -15,7 +15,7 @@ public class GamePlayIDE extends HBox {
         setPrefWidth(width);
         setPrefHeight(height);
         myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward);
+        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward, myGameLeft.getMap());
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
     public GamePlayLeftSide getLeft(){

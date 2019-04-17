@@ -5,12 +5,17 @@ import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,6 +39,8 @@ public class GamePlayArsenal extends VBox {
     private ListView arsenalDisplay;
     private double myArsenalWidth;
     private HBox arsenalSelector;
+    private ImageView selectedImage;
+    private GamePlayMap myMap;
 
 
     private Map <Integer, Info> myTestWeapons ;
@@ -43,12 +50,13 @@ public class GamePlayArsenal extends VBox {
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic) throws FileNotFoundException {
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map) throws FileNotFoundException {
         myArsenalWidth = arsenalWidth;
         //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
-//        myArsenal = logic.getMyArsenal();
+        myMap = map;
+        myArsenal = logic.getMyArsenal();
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
@@ -57,7 +65,7 @@ public class GamePlayArsenal extends VBox {
         createTestWeaponArsenal();
         createTestObstacleArsenal();
         viewList = new ArrayList<>();
-        setArsenalDisplay(myTestWeapons,arsenalWidth);
+        setArsenalDisplay(myArsenal,arsenalWidth);
 
 
         //TODO: implement the hover shit when we set content
@@ -70,35 +78,14 @@ public class GamePlayArsenal extends VBox {
         getChildren().addAll(arsenalDisplay);
 
         //arsenal selector part
-//        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
-        getChildren().add(createArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO));
+        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
+        getChildren().add(myArsenalSelector);
     }
 
-    private HBox createArsenalSelector(double width, double height) throws FileNotFoundException {
-        arsenalSelector = new HBox();
-        weaponImage = new Image(new FileInputStream("resources/" +WEAPON_IMAGE));
-        weaponImageView = new ImageView(weaponImage);
-        weaponImageView.setFitHeight(height);
-        weaponImageView.setFitWidth(width /2);
-        Button weaponButton = new Button("", weaponImageView);
-        weaponButton.setOnAction(e -> switchWeaponDisplay());
-        arsenalSelector.getChildren().add(weaponButton);
-
-        //obstacles
-        obstacleImage = new Image(new FileInputStream("resources/" + OBSTACLE_IMAGE));
-        obstacleImageView = new ImageView(obstacleImage);
-        obstacleImageView.setFitHeight(height);
-        obstacleImageView.setFitWidth(width /2);
-        Button obstacleButton = new Button("", obstacleImageView);
-        obstacleButton.setOnAction(e -> switchObstacleDisplay());
-        arsenalSelector.getChildren().add(obstacleButton);
-        return arsenalSelector;
-    }
-
-    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
+    private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
-            for (int i = 0; i < currArsenal.size(); i++) {
-                Image image = new Image(new FileInputStream("resources/" + currArsenal.get(i).getImage()));
+            for (Integer id: arsenal.keySet()) {
+                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(arsenalWidth / 2);
                 imageView.setFitHeight(arsenalWidth / 2);
@@ -113,60 +100,107 @@ public class GamePlayArsenal extends VBox {
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
 
+
         //TODO: this definitely does not work
         arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("gimme dat");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-                Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
+                selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+                Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
 
                 /* Put a string on a dragboard */
                 ClipboardContent content = new ClipboardContent();
-                content.put(DataFormat.IMAGE,selected);
+                content.putString(selectedImage.toString());
+//                content.put(DataFormat.IMAGE,selectedImage);
                 db.setContent(content);
                 mouseEvent.consume();
-//                lastX = event.getSceneX();
-//                lastY = event.getSceneY();
             }
         });
 
-        arsenalDisplay.setOnDragOver(new EventHandler<DragEvent>() {
+        myMap.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
+                System.out.println("drag over");
                 /* data is dragged over the target */
                 /* accept it only if it is not dragged from the same node
                  * and if it has a string data */
-                System.out.println("we in");
-                if (event.getDragboard().hasImage()) {
-                    System.out.println("yes ba");
+                System.out.println(event.getGestureSource());
+
+                if (event.getGestureSource() != myMap ) {
+                    System.out.println(event.getDragboard().getImage());
                     /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.MOVE);
+                    event.acceptTransferModes(TransferMode.COPY);
+                }
+                event.consume();
+            }
+        });
+
+        myMap.setOnDragEntered(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* the drag-and-drop gesture entered the target */
+                System.out.println("onDragEntered");
+                /* show to the user that it is an actual gesture target */
+                if (event.getGestureSource() != myMap &&
+                        event.getDragboard().hasString()) {
+                    System.out.println("in the map");
                 }
 
                 event.consume();
             }
         });
 
-        arsenalDisplay.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image Moved");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString(selected.toString());
-                mouseEvent.consume();
+        myMap.setOnDragExited(new EventHandler <DragEvent>() {
+            public void handle(DragEvent event) {
+                /* mouse moved away, remove the graphical cues */
+                System.out.println("we out the map");
+                event.consume();
             }
         });
 
-        arsenalDisplay.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image set");
-//                myLogic.instantiateWeapon();ImageView@534739bf[styleClass=image-view]
+        myMap.setOnDragDropped(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                /* data dropped */
+                /* if there is a string data on dragboard, read it and use it */
+                Dragboard db = event.getDragboard();
+                System.out.println("Complete Drag: " + db);
+                boolean success = false;
+                if (db.hasImage()) {
+                    myLogic.instantiateWeapon(1,5,5);
+                    System.out.println("created weapon");
+                    success = true;
+                }
+                if (db.hasString()){
+                    System.out.println("X: " + event.getX());
+                    System.out.println("Y: " + event.getY());
+                    myLogic.instantiateWeapon(1, event.getX(),event.getY());
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
             }
         });
+
+//        arsenalDisplay.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("image Moved");
+//                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+//
+//                /* Put a string on a dragboard */
+//                ClipboardContent content = new ClipboardContent();
+//                content.putString(selected.toString());
+//                mouseEvent.consume();
+//            }
+//        });
+//
+//        arsenalDisplay.setOnMouseReleased(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("image set");
+////                myLogic.instantiateWeapon();ImageView@534739bf[styleClass=image-view]
+//            }
+//        });
 
 
     }

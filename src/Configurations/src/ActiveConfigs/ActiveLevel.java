@@ -28,7 +28,10 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         //TODO: fix active wave to be a wave spawner
+        //TODO: COMMENTED OUT BELOW FOR TESTING
         generateCurrentActiveWave();
+//        setMyGame(game);
+//        myMapFeature = mapFeature;
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
@@ -41,10 +44,6 @@ public class ActiveLevel extends Level implements Updatable {
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
         return null;
-    }
-
-    public Cell[][] getMyGrid() {
-        return myGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
@@ -68,22 +67,26 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
+        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
         updateActiveWave(ms);
     }
 
-    private void updateEnemies(long ms){
+    private void updateEnemies(double ms){
+
         for(ActiveEnemy enemy : activeEnemies){
+//            activeEnemies.add(enemy);
+//            enemy.getMapFeature().setGridPos(50,50,0);
             enemy.update(ms);
         }
         if (activeWave.isFinished()) currentWave++;
         //ArrayAttributeManager.updateList(activeWave, ms); ??
     }
 
-    private void updateActiveWave(long ms){
+    private void updateActiveWave(double ms){
         if (activeWave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();
@@ -96,13 +99,13 @@ public class ActiveLevel extends Level implements Updatable {
         activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
     }
 
-    private void updateProjectiles(long ms){
+    private void updateProjectiles(double ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
     }
 
-    private void updateWeapons(long ms){
+    private void updateWeapons(double ms){
         for (int id: activeWeapons.keySet()){
             activeWeapons.get(id).update(ms);
         }
@@ -148,6 +151,15 @@ public class ActiveLevel extends Level implements Updatable {
         return myScore;
     }
 
+
+    //TODO: EventHandler for adding new weapon to map
+    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
+        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID-1];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
 
     //TODO  add EventHandler for isValid
 
@@ -212,6 +224,7 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
