@@ -102,10 +102,11 @@ public class GamePlayArsenal extends VBox {
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
+            System.out.println("drag dropped");
             myRoot.getChildren().remove(movingImage);
+            System.out.println(selectedImage.toString() + ", " + event.getX() + ", " + event.getY());
             //TODO: add the check level end thing here before instantiating weapon
             myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
-            System.out.println(selectedImage.toString() + ", " + event.getX() + ", " + event.getY());
             success = true;
         }
         event.setDropCompleted(success);
