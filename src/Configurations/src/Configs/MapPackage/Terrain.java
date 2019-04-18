@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 public class Terrain implements Configurable, Viewable{
-    @Configure
     private String myLabel;
     @Configure
     private View view;

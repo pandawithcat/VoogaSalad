@@ -7,8 +7,9 @@ import Configs.Waves.WaveConfig;
 
 public class EnemyConfig implements Configurable, Viewable {
     private WaveConfig myWaveConfig;
-    @Configure
     private String myLabel;
+    @Configure
+    private String name;
     @Configure
     private EnemyBehavior[] myBehaviors;
     @Configure

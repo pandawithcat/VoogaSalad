@@ -10,8 +10,9 @@ import java.util.List;
 
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
-    @Configure
     private String myLabel;
+    @Configure
+    private String name;
     @Configure
     private List<Terrain> myTerrain;
     @Configure

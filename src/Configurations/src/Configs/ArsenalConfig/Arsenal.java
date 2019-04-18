@@ -10,10 +10,11 @@ import java.util.*;
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal implements Configurable {
-    @Configure
     private String myLabel;
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
+    @Configure
+    private WeaponUnlocker weponaUnlocker;
 
     private Configuration myConfiguration;
     private Game myGame;
