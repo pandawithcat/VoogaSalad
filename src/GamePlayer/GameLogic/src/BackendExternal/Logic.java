@@ -128,15 +128,15 @@ public class Logic {
     // View calls to check the current score of the game in the game loop
     // No Input
     // Return: integer score
-//    public int getScore(){
-//        return myGame.getScore();
-//    }
+    public int getScore(){
+        return myGame.getActiveLevel().getMyScore();
+    }
 
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
 //    public int getNumLives(){
-//        return myGame.getLives();
+//        return myGame.getActiveLevel().ge;
 //    }
 
 
