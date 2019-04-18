@@ -22,14 +22,11 @@ public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
     public static long FRAMES_PER_SECOND = 60;
-    public static final long MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-    public static final long SECOND_DELAY = 1 / FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
     private static final int padding = 15;
     private Logic myLogic = new Logic();
-    private Timeline animation = new Timeline();
     private GamePlayIDE myGameIDE;
     private Group root;
     @Override
@@ -41,7 +38,8 @@ public class GamePlayMain extends Application {
             primaryStage.setY(screenHeight);
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward());
+            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward(),
+                    root);
             root.getChildren().add(myGameIDE);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
@@ -69,19 +67,13 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
-        FRAMES_PER_SECOND = 60;
-        var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> step(SECOND_DELAY));
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+        while(true){
+            step(System.currentTimeMillis());
+        }
     }
 
-    private void step(long elapsedTime){
-//        myLogic.update(elapsedTime);
-//        if (myLogic.checkIfLevelEnd()){
-//            myLogic.
+    private void step(double elapsedTime){
         //TODO: yeah idk if this is best design below
-//        myGameIDE.getLeft().getMap().update(elapsedTime);
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
         //TODO: changelistener for dragging objects

@@ -58,42 +58,43 @@ public class GamePlayMap extends GridPane{
         setPrefHeight(height);
         mapRoot.prefWidth(width);
         mapRoot.prefHeight(height);
-        System.out.println("Daddy: " + width);
-        System.out.println("Chill: " + height);
-
     }
 
-    public void update(long elapsedTime){
+    public void update(double elapsedTime){
         //commenting out logic to hardcode animation
         myLogic.update(elapsedTime);
         List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
         List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
-//        //TODO: third method to move obejcts?
+
         imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
         imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
     }
 
-    //NOT yet used
-    private void createFilledTestTerrain(double width, double height){
-        for (int i = 0; i < 20; i++) {
-
-            for(int j = 0;j<20;j++) {
-                try {
-                    Image image = new Image(new FileInputStream("resources/grass.jpg"));
-                    TransferImageView iv = new TransferImageView(image);
-                    iv.setFitWidth(width/20);
-                    iv.setFitHeight(height/20);
-                    iv.setTranslateX(iv.getFitWidth()*i);
-                    iv.setTranslateY(iv.getFitHeight()*j);
-                    testTerrain.add(iv);
-                }
-                catch (FileNotFoundException e) {
-                    System.out.println(e);
-                }
-
-            }
-        }
+    public double getGridSize(){
+        return terrainList.get(0).getAsNode().getBoundsInParent().getWidth();
     }
+
+//    //NOT yet used
+//    private void createFilledTestTerrain(double width, double height){
+//        for (int i = 0; i < 20; i++) {
+//
+//            for(int j = 0;j<20;j++) {
+//                try {
+//                    Image image = new Image(new FileInputStream("resources/grass.jpg"));
+//                    TransferImageView iv = new TransferImageView(image);
+//                    iv.setFitWidth(width/20);
+//                    iv.setFitHeight(height/20);
+//                    iv.setTranslateX(iv.getFitWidth()*i);
+//                    iv.setTranslateY(iv.getFitHeight()*j);
+//                    testTerrain.add(iv);
+//                }
+//                catch (FileNotFoundException e) {
+//                    System.out.println(e);
+//                }
+//
+//            }
+//        }
+//    }
 //
 //    private void createSquareTestTerrain(double width, double height){
 //        for (int i = 0; i < 20; i++) {
