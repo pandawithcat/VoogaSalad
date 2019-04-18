@@ -42,7 +42,9 @@ public class CreateAccount {
         //TODO Set up APIs
         //if(true)
         if(pwTf.getText().equals(confirmPwTf.getText())){
+            //TODO USE regex to check the id, pw etc
             popupwindow.close();
+
         }
 
         //if(false) - alert
