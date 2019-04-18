@@ -1,0 +1,4 @@
+module DatabaseUtil {
+
+    exports ExternalAPIs;
+}
