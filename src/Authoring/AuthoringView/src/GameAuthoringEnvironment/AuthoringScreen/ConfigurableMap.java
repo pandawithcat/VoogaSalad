@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.Configuration;
+import Configs.LevelPackage.Level;
 import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.Terrain;
 import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
@@ -44,11 +45,13 @@ public class ConfigurableMap {
     private Stage popUpWindow;
     private String mapName;
     private TextField nameTf;
+    private Configurable myLevel;
 
-    public ConfigurableMap(Map<String, Object> myAttributeMap){
+    public ConfigurableMap(Map<String, Object> myAttributeMap, Configurable level){
 
         System.out.println("this reached here");
         myMap = myAttributeMap;
+        myLevel = level;
     }
 
     public void setConfigurations(){
@@ -130,7 +133,7 @@ public class ConfigurableMap {
                 for(Node child: map.getChildren()){
                     terrainTileList.add((TerrainTile) child);
                 }
-                MapConfig m = new MapConfig();
+                MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
                     Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),2,2,t.getIsPath());
 
