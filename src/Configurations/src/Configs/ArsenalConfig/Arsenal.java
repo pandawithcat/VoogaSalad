@@ -41,7 +41,7 @@ public class Arsenal implements Configurable {
         return myConfiguration;
     }
 
-    //    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
+//        public Map<String, TransferImageView> getAllWeaponConfigOptions() {
 //        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
 //        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getLabel(), weapon->weapon.getImageView()));
 //        return Collections.unmodifiableMap(myMap);
