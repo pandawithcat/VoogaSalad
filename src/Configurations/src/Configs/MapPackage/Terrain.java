@@ -32,8 +32,9 @@ public class Terrain implements Configurable, Viewable{
 
     private Configuration myConfiguration;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int height, int width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-        view = new View(fileName,height, width);
+
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
+        view = new View(fileName,gridBlockHeight, gridBlockWidth);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;
         this.isPath = isPath;

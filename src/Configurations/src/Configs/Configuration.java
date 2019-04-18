@@ -23,23 +23,22 @@ public class Configuration {
     }
 
     private boolean isAttributesComplete(Map<String,Object> attributeInputs) {
-//        return attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) && attributeInputs.size()==myAttributeTypes.size();
-        return true;
+        return attributeInputs.keySet().containsAll(myAttributeTypes.keySet()) && attributeInputs.size()==myAttributeTypes.size();
     }
 
-    private void validateAttributes(Map<String,Object> attributeInputs) {
+    private void validateAttributes(Map<String,Object> attributeInputs) throws IllegalArgumentException{
         if(!isAttributesComplete(attributeInputs)) {
             throw new IllegalArgumentException();
         }
         myAttributes.keySet().stream().forEach(key -> validateType(key,attributeInputs.get(key)));
     }
 
-    private void validateType(String attributeInput, Object value) {
-       /* if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+    private void validateType(String attributeInput, Object value) throws IllegalArgumentException {
+        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
             System.out.println(value.getClass());
             System.out.println(myAttributeTypes.get(attributeInput));
             throw new IllegalArgumentException();
-        }*/
+        }
     }
 
 
@@ -72,11 +71,9 @@ public class Configuration {
                 field.set(myConfigurable, myAttributes.get(key));
             }
             catch (NoSuchFieldException e) {
-                System.out.println("1" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
             catch (IllegalAccessException e) {
-                System.out.println("2" + myAttributes.get(key));
                 throw new IllegalStateException();
             }
 
@@ -89,17 +86,9 @@ public class Configuration {
         for (Field field: myConfigurableClass.getDeclaredFields()){
             if (field.isAnnotationPresent(Configurable.Configure.class)){
                 attributes.put(field.getName(), field.getType());
-                if(myConfigurableClass.getSimpleName().equals("AmmoExpirable")){
-                    System.out.println(field.getType());
-                }
-            }
-        }
-
-        for (Field field: myConfigurableClass.getDeclaredFields()){
-            if (field.getName().equals("IMPLEMENTING_BEHAVIORS")){
-                // TODO: Why was this causing an error
-                // field.get();
-                break;
+//                if(myConfigurableClass.getSimpleName().equals("AmmoExpirable")){
+//                    System.out.println(field.getType());
+//                }
             }
         }
         myAttributeTypes = attributes;
@@ -107,12 +96,11 @@ public class Configuration {
     }
 
     public boolean isConfigurationComplete() {
-        //return isComplete;
-        return true;
-    }//TODO fix this stuff
+        return isComplete;
+    }
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
-        //if (!isComplete) throw new IllegalStateException();
+        if (!isComplete) throw new IllegalStateException();
         return Collections.unmodifiableMap(myAttributes);
     }
 

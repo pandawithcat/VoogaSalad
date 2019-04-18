@@ -20,31 +20,30 @@ public class MapFeature {
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
-    private double gridHeight;
-    private double gridWidth;
+    private double heightInGridUnits;
+    private double widthInGridUnits;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double gridHeight, double gridWeight) {
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
         setImage(view);
-        this.gridHeight = gridHeight;
-        this.gridWidth = gridWeight;
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
 
     }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double gridHeight, double gridWeight) {
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
         setImage(view);
-        this.gridHeight = gridHeight;
-        this.gridWidth = gridWeight;
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
         setPixelPos(pixelXPos,pixelYPos,direction);
         displayState = DisplayState.NEW;
-
     }
 
     private void setImage(View view) {
         try {
-            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+ view.getImage())));
+            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
             myImageView.setFitHeight(view.getHeight());
             myImageView.setFitWidth(view.getWidth());
         }
@@ -74,16 +73,16 @@ public class MapFeature {
         pixelYPos+=deltaPixelY;
         myImageView.setTranslateX(pixelXPos);
         myImageView.setTranslateY(pixelYPos);
-        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/gridWidth);
-        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/gridHeight);
+        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
+        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
     }
 
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
         this.pixelYPos = pixelYPos;
         this.pixelXPos = pixelXPos;
         this.displayDirection = direction;
-        this.gridXPos = (int) (pixelXPos/(gridWidth/Game.gridPixelWidth));
-        this.gridYPos = (int) (pixelYPos/(gridHeight/Game.gridPixelHeight));
+        this.gridXPos = (int) (pixelXPos/(widthInGridUnits/Game.gridPixelWidth));
+        this.gridYPos = (int) (pixelYPos/(heightInGridUnits/Game.gridPixelHeight));
         setImageView(pixelXPos,pixelYPos,direction);
     }
 
@@ -97,8 +96,11 @@ public class MapFeature {
         this.gridXPos = gridXPos;
         this.gridYPos = gridYPos;
         this.displayDirection = direction;
-        pixelXPos = (Game.gridPixelWidth/gridWidth)*gridXPos;
-        pixelYPos = (Game.gridPixelHeight/gridWidth)*gridYPos;
+        pixelXPos = (Game.gridPixelWidth/widthInGridUnits)*gridXPos;
+        pixelYPos = (Game.gridPixelHeight/heightInGridUnits)*gridYPos;
+        System.out.println("HIDNFNLDJFLKJL");
+        System.out.println(pixelXPos);
+        System.out.println(pixelYPos);
         setImageView(pixelXPos,pixelYPos,direction);
     }
 
