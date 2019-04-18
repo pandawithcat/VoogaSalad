@@ -8,7 +8,6 @@ import Configs.ProjectilePackage.ProjectileConfig;
 public class ShooterConfig implements Configurable{
     private Shootable myShootable;
 
-    @Configure
     private String myLabel;
     @Configure
     private double rateOfFire;

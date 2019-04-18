@@ -6,8 +6,9 @@ import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
-    @Configure
     private String myLabel;
+    @Configure
+    private String name;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure

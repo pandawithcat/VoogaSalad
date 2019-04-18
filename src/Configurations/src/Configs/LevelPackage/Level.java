@@ -12,7 +12,6 @@ import java.util.Map;
 public class Level implements Configurable{
     private Game myGame;
 
-    @Configure
     private String myLabel;
     @Configure
     private WaveConfig[] myWaveConfigs;

@@ -6,7 +6,6 @@ import Configs.ArsenalConfig.WeaponConfig;
 import java.util.List;
 
 public class HealthExpirable extends WeaponBehavior{
-    @Configure
     private String myLabel;
     @Configure
     protected int amountOfHealth;

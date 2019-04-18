@@ -7,7 +7,6 @@ import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
 
-    @Configure
     private String myLabel;
     @Configure
     protected Shooter myShooter;

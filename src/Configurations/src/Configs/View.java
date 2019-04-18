@@ -3,7 +3,6 @@ package Configs;
 public class View implements Configurable {
     private Configuration myConfiguration;
 
-    @Configure
     private String myLabel;
     @Configure
     private String imagePath;
