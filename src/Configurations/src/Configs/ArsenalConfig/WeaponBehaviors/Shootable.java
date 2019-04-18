@@ -1,5 +1,6 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+
 import ActiveConfigs.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configurable;

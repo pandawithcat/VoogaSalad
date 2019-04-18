@@ -103,17 +103,20 @@ public class GameController {
                     @Override
                     public void handle(MouseEvent event) {
                         if(value.getName().equals("int")){
-                            myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
+                            Integer a = Integer.parseInt(myTextField.getText());
+                            myAttributesMap.put(key, a.intValue());
                         }
                         else if(value.getName().equals("long")){
-                            myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
+                            Long b = Long.parseLong(myTextField.getText());
+                            myAttributesMap.put(key, b.longValue());
                         }
                         else if(value.getName().equals("double")){
-                            myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
+                            Double c =Double.parseDouble(myTextField.getText());
+                            myAttributesMap.put(key, c.doubleValue());
                         }
                         else if(value.getName().equals("boolean")){
-                            Boolean b = Boolean.parseBoolean(myTextField.getText());
-                            myAttributesMap.put(key, b.booleanValue());
+                            Boolean d = Boolean.parseBoolean(myTextField.getText());
+                            myAttributesMap.put(key, d.booleanValue());
                         }
                         else{
                             myAttributesMap.put(key, myTextField.getText());
@@ -159,13 +162,17 @@ public class GameController {
                                 Constructor<?> cons = clazz.getConstructor(Configurable.class);
                                 var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);
+                                myAttributesMap.put(key, object);
                             }
 
                             else{
                                 //TODO idf clazz does not taken in myconfigurable as a parameter, then error
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
-                                createConfigurable((Configurable) object);}
+                                createConfigurable((Configurable) object);
+                                myAttributesMap.put(key, object);
+                            }
+
                         } catch ( ClassNotFoundException|NoSuchMethodException|InstantiationException|IllegalAccessException|InvocationTargetException e) {
                             //TODO ErrorChecking
                             e.printStackTrace();
