@@ -295,11 +295,11 @@ public class GameController {
                 else {*/
 //                    System.out.println(myAttributesMap);
 //                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                    for(Button button: allButton){
-                        button.fireEvent(event);
-                    }
-                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                    popupwindow.close();
+                for(Button button: allButton){
+                    button.fireEvent(event);
+                }
+                myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
+                popupwindow.close();
 
             }
         }));

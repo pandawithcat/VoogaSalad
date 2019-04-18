@@ -107,7 +107,7 @@ public class Logic {
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
     // No Return
-    public void update(long currentTime){
+    public void update(double currentTime){
         myGame.update(currentTime);
     }
 
