@@ -149,8 +149,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    //TODO  add EventHandler for isValid
-
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));

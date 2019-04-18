@@ -84,7 +84,6 @@ public class Logic {
 
     private ImmutableImageView getImageView(Terrain t) {
 
-        //TODO: last two in the constructor should be gotten dynamically
             MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());
 
             return mapFeature.getImageView();

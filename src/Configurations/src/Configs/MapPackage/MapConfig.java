@@ -34,12 +34,17 @@ public class MapConfig implements Configurable {
 //    protected double gridPixelHeight;
 
     private Configuration configuration;
+    private Level myLevel;
 
-    public MapConfig() {
+    public MapConfig(Level level) {
         configuration = new Configuration(this);
-        //TODO FINISH
+        myLevel = level;
+
     }
 
+    public Level getLevel() {
+        return myLevel;
+    }
 
     public List<Terrain> getTerrain() {
         return myTerrain;
