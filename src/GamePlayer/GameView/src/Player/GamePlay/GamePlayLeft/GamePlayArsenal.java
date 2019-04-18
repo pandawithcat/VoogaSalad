@@ -103,6 +103,7 @@ public class GamePlayArsenal extends VBox {
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
+            //TODO: add the check level end thing here before instantiating weapon
             myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
             System.out.println(selectedImage.toString() + ", " + event.getX() + ", " + event.getY());
             success = true;
