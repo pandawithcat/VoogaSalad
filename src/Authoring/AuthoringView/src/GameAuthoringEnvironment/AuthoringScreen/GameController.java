@@ -166,10 +166,6 @@ public class GameController {
                                 configurableMap.setConfigurations();
                             }
                             else if(clazz.getSimpleName().equals("View")){
-//                                FileChooser fileChooser = new FileChooser();
-//                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
-//                                String filepath = selectedFile.toString();
-//                                myAttributesMap.put(key, filepath);
                                 Constructor<?> cons = clazz.getConstructor(Configurable.class);
                                 var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);
