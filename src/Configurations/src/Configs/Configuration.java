@@ -44,7 +44,7 @@ public class Configuration {
 
     public void setOneAttribute(String name, Object value) {
         myAttributes.put(name,value);
-        //validateType(name,value);
+        validateType(name,value);
         setAttributesInConfigurable();
         if(isAttributesComplete(myAttributes)) isComplete = true;
     }
