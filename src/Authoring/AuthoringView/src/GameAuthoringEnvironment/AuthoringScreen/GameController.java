@@ -27,7 +27,7 @@ public class GameController {
 
     private GameController myGameController;
     private Game myGame;
-    private Map<String, Object[]> configuredObjects;
+    private Map<String, List<Object>> configuredObjects;
 
     public GameController() {
         myGameController = this;
@@ -180,6 +180,7 @@ public class GameController {
                 if(value.getComponentType().getClass().isInstance(Configurable.class)) {
 
                     List<Object> tempList = new ArrayList<>();
+                    System.out.println(tempList);
                     Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
                     VBox tempVBOx  = new VBox();
                     tempVBOx.setSpacing(10);
@@ -191,7 +192,13 @@ public class GameController {
 
                     buttonBar.getChildren().addAll(addNew, confirmButton, removeButton);
                     ListView sourceView = new ListView<>();
-
+                    if(configuredObjects.get(key) != null){
+                        tempList.addAll(configuredObjects.get(key));
+                        for(Object object: configuredObjects.get(key)){
+                            Configurable temp = (Configurable) object;
+                            sourceView.getItems().add(temp.getLabel());
+                        }
+                    }
 
                     addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
                         @Override
@@ -252,6 +259,13 @@ public class GameController {
                                     ob[a] = tempList.get(a);
                                 }
                                 myAttributesMap.put(key, ob);
+                                List<Object> newObjects = Arrays.asList(ob);
+                                if(configuredObjects.get(key) != null){
+                                    configuredObjects.get(key).addAll(newObjects);
+                                }else{
+                                    configuredObjects.put(key, newObjects);
+                                }
+                                System.out.println(configuredObjects.keySet());
                             }
                             catch (ClassNotFoundException e){
                                 //TODO(Hyunjae) Errorchecking

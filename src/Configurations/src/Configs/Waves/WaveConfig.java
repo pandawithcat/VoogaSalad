@@ -8,9 +8,8 @@ import Configs.Waves.WaveBehaviors.WaveBehavior;
 //holds the enemies
 public class WaveConfig implements  Configurable {
     private Level myLevel;
-    private String myLabel;
     @Configure
-    private String name;
+    private String myLabel;
     @Configure
     private double timeToReleaseInMs;
     @Configure
