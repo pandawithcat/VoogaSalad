@@ -116,8 +116,8 @@ public class GameController {
                         if(value.getName().equals("int")){
                             myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
                         }
-                        else if(value.getName().equals("double")){
-                            myAttributesMap.put(key, double.parsedouble(myTextField.getText()));
+                        else if(value.getName().equals("long")){
+                            myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
                         }
                         else if(value.getName().equals("double")){
                             myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
@@ -295,11 +295,11 @@ public class GameController {
                 else {*/
 //                    System.out.println(myAttributesMap);
 //                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                    for(Button button: allButton){
-                        button.fireEvent(event);
-                    }
-                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                    popupwindow.close();
+                for(Button button: allButton){
+                    button.fireEvent(event);
+                }
+                myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
+                popupwindow.close();
 
             }
         }));

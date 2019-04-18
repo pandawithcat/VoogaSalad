@@ -239,8 +239,8 @@ public class GameOutline extends Screen {
                     public void handle(MouseEvent event) {
                         if (value.getName().equals("int")) {
                             myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
-                        } else if (value.getName().equals("double")) {
-                            myAttributesMap.put(key, double.parsedouble(myTextField.getText()));
+                        } else if (value.getName().equals("long")) {
+                            myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
                         } else if (value.getName().equals("double")) {
                             myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
                         } else if (value.getName().equals("boolean")) {

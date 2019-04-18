@@ -28,7 +28,10 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         //TODO: fix active wave to be a wave spawner
+        //TODO: COMMENTED OUT BELOW FOR TESTING
         generateCurrentActiveWave();
+//        setMyGame(game);
+//        myMapFeature = mapFeature;
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
@@ -40,7 +43,7 @@ public class ActiveLevel extends Level implements Updatable {
             tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
-        return null;
+        return tempGrid;
     }
 
     public Cell[][] getMyGrid() {
@@ -69,6 +72,7 @@ public class ActiveLevel extends Level implements Updatable {
 
     @Override
     public void update(double ms) {
+        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
@@ -76,7 +80,10 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void updateEnemies(double ms){
+
         for(ActiveEnemy enemy : activeEnemies){
+//            activeEnemies.add(enemy);
+//            enemy.getMapFeature().setGridPos(50,50,0);
             enemy.update(ms);
         }
         if (activeWave.isFinished()) currentWave++;
@@ -150,6 +157,9 @@ public class ActiveLevel extends Level implements Updatable {
 
 
 
+    //TODO  add EventHandler for isValid
+
+
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
@@ -210,6 +220,7 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
+
     }
 
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
