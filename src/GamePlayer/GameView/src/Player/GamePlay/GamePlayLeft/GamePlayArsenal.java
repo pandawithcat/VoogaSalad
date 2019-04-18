@@ -167,7 +167,7 @@ public class GamePlayArsenal extends VBox {
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
-            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
+            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(),0);
             success = true;
         }
         event.setDropCompleted(success);
