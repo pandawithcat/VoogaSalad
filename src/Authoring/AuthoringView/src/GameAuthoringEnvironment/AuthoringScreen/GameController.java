@@ -84,9 +84,10 @@ public class GameController {
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button chooseImageButton = new Button("Choose Image");
+                Button confirmButton = new Button("Confirm");
 
                 var nameAndTfBar = new HBox();
-                nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton);
+                nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton, confirmButton);
                 chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
                     //TODO(Louis) Change this so that image is called in from the server
                     @Override
@@ -95,10 +96,17 @@ public class GameController {
                         File selectedFile = fileChooser.showOpenDialog(popupwindow);
                         String filepath = selectedFile.toString();
                         myTextField.setText(filepath);
-                        myAttributesMap.put(key, filepath);
-
                     }
                 }));
+
+                confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        myAttributesMap.put(key, myTextField.getText());
+                    }
+                }));
+
+                allButton.add(confirmButton);
                 layout.getChildren().addAll(nameAndTfBar);
 
             }
@@ -138,6 +146,7 @@ public class GameController {
             //Handle Paths
             else if(value.isInstance(Paths.class)){
 
+                System.out.println("Paths class being used" + value);
                 Button fileUploadButton = new Button("Upload Image");
                 FileChooser fileChooser = new FileChooser();
                 fileUploadButton.setOnMouseClicked(e -> {
@@ -284,23 +293,21 @@ public class GameController {
             @Override
             public void handle(MouseEvent event) {
                 //TODO Should close the screen but shows that game configuration is not complete
-                /*if(!myConfigurable.getConfiguration().isConfigurationComplete()){
-                    System.out.println(myAttributesMap);
-                    System.out.println(myConfigurable.getConfiguration().getAttributes());
+                if(!myConfigurable.getConfiguration().isConfigurationComplete()){
                     Alert alert = new Alert(Alert.AlertType.NONE);
                     alert.setAlertType(Alert.AlertType.WARNING);
                     alert.setTitle("Warning");
                     alert.setContentText("Atrributtes not all filled out");
                     alert.showAndWait();
                 }
-                else {*/
-//                    System.out.println(myAttributesMap);
-//                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                for(Button button: allButton){
-                    button.fireEvent(event);
+                else {
+
+                    for (Button button : allButton) {
+                        button.fireEvent(event);
+                    }
+                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
+                    popupwindow.close();
                 }
-                myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                popupwindow.close();
 
             }
         }));

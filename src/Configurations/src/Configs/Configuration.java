@@ -11,7 +11,7 @@ public class Configuration {
     @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
     @XStreamOmitField
-    private boolean isComplete = false;
+    private boolean isComplete = true;
     @XStreamOmitField
     private Configurable myConfigurable;
     @XStreamOmitField
