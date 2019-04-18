@@ -11,7 +11,7 @@ public class Configuration {
     @XStreamOmitField
     private Map<String,Object> myAttributes = new HashMap<>();
     @XStreamOmitField
-    private boolean isComplete = false;
+    private boolean isComplete = true;
     @XStreamOmitField
     private Configurable myConfigurable;
     @XStreamOmitField
@@ -44,7 +44,7 @@ public class Configuration {
 
     public void setOneAttribute(String name, Object value) {
         myAttributes.put(name,value);
-        //validateType(name,value);
+        validateType(name,value);
         setAttributesInConfigurable();
         if(isAttributesComplete(myAttributes)) isComplete = true;
     }
@@ -100,7 +100,7 @@ public class Configuration {
     }
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
-        if (!isComplete) throw new IllegalStateException();
+       /* if (!isComplete) throw new IllegalStateException();*/
         return Collections.unmodifiableMap(myAttributes);
     }
 

@@ -5,6 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 public class GamePlayArsenalSelector extends HBox {
 
     public static final String WEAPON_IMAGE = "weapon.png";
@@ -15,7 +18,11 @@ public class GamePlayArsenalSelector extends HBox {
 
 
     public GamePlayArsenalSelector(double width, double height){
-        weaponImage = new Image(WEAPON_IMAGE);
+        try {
+            weaponImage = new Image(new FileInputStream("resources/" + WEAPON_IMAGE));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
         weaponImageView = new ImageView(weaponImage);
         weaponImageView.setFitHeight(height);
         weaponImageView.setFitWidth(width /2);
@@ -24,8 +31,12 @@ public class GamePlayArsenalSelector extends HBox {
         getChildren().add(weaponButton);
 
         //obstacles
-        obstacleImage = new Image(WEAPON_IMAGE);
-        obstacleImageView = new ImageView(WEAPON_IMAGE);
+        try {
+            obstacleImage = new Image(new FileInputStream("resources/" + WEAPON_IMAGE));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        obstacleImageView = new ImageView(obstacleImage);
         obstacleImageView.setFitHeight(height);
         obstacleImageView.setFitWidth(width /2);
         Button obstacleButton = new Button("", obstacleImageView);

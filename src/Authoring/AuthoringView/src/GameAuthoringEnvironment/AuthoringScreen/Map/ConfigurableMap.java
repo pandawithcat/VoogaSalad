@@ -1,6 +1,5 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Map;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -12,7 +11,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -137,8 +135,8 @@ public class ConfigurableMap {
         //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
 
-        Integer col = map.getColumnIndex(source);
-        Integer row = map.getRowIndex(source);
+        Integer col = GridPane.getColumnIndex(source);
+        Integer row = GridPane.getRowIndex(source);
 
         System.out.println(col);
         System.out.println(row);

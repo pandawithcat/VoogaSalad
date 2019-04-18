@@ -29,7 +29,7 @@ public class Cell {
     }
 
     public boolean isValidWeaponPlacement() {
-        return myWeaponConfig==null&&( !(myWeaponConfig.isPathWeapon() ^ myTerrain.isPath()));
+        return myWeaponConfig==null&&(myWeaponConfig.isPathWeapon() == myTerrain.isPath());
     }
 
 

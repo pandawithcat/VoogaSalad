@@ -6,8 +6,6 @@ public class View implements Configurable {
     private String myLabel;
     @Configure
     private String imagePath;
-//    @Configure
-//    private String imageName;
     @Configure
     private int width;
     @Configure

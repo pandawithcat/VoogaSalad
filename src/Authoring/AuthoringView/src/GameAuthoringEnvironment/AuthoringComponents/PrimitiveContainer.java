@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringComponents.DataHandleComponents;
+package GameAuthoringEnvironment.AuthoringComponents;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

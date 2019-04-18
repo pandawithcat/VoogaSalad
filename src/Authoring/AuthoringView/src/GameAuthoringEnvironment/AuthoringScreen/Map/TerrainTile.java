@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Map;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;

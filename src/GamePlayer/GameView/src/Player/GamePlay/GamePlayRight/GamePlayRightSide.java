@@ -3,9 +3,12 @@ package Player.GamePlay.GamePlayRight;
 import BackendExternal.Logic;
 import Player.GamePlay.GamePlayLeft.ButtonPanel;
 import Player.GamePlay.GamePlayLeft.GamePlayArsenal;
+import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import Player.GamePlay.PlayInterface;
+import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class GamePlayRightSide extends VBox {
@@ -17,11 +20,12 @@ public class GamePlayRightSide extends VBox {
 
 
 
-    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward){
+    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward
+            , GamePlayMap myMap, Group root){
         setPrefWidth(width);
         setPrefHeight(height);
         try {
-            myGameArsenal = new GamePlayArsenal(width, height * ARSENAL_RATIO, logic);
+            myGameArsenal = new GamePlayArsenal(width, height * ARSENAL_RATIO, logic, myMap, root);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
