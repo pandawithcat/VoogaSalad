@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class MapFeature {
 
@@ -19,35 +20,36 @@ public class MapFeature {
     private TransferImageView myImageView;
     private View view;
     private DisplayState displayState;
-    private int gridHeight;
-    private int gridWidth;
+    private double heightInGridUnits;
+    private double widthInGridUnits;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, int gridHeight, int gridWeight) {
-        this.view = view;
-        try {
-            System.out.println(view.getImage());
-            FileInputStream fileInputStream = new FileInputStream("resources/" + view.getImage());
-            myImageView = new TransferImageView(new Image(fileInputStream));
-        }catch (Exception e) {
-        }
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
+        setImage(view);
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
-        myImageView.setFitHeight(view.getHeight());
-        myImageView.setFitWidth(view.getWidth());
-        this.gridHeight = gridHeight;
-        this.gridWidth = gridWeight;
-        }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, int gridHeight, int gridWeight) {
-        this.view = view;
-        myImageView = new TransferImageView(new Image(view.getImage()));
-        myImageView.setFitHeight(view.getHeight());
-        myImageView.setFitWidth(view.getWidth());
+    }
+
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
+        setImage(view);
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
         setPixelPos(pixelXPos,pixelYPos,direction);
         displayState = DisplayState.NEW;
-        this.gridHeight = gridHeight;
-        this.gridWidth = gridWeight;
+    }
+
+    private void setImage(View view) {
+        try {
+            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
+            myImageView.setFitHeight(view.getHeight());
+            myImageView.setFitWidth(view.getWidth());
+        }
+        catch (FileNotFoundException e) {
+            throw new IllegalStateException();
+        }
     }
 
     public double getPixelXPos() {
@@ -71,17 +73,17 @@ public class MapFeature {
         pixelYPos+=deltaPixelY;
         myImageView.setTranslateX(pixelXPos);
         myImageView.setTranslateY(pixelYPos);
-        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/gridWidth);
-        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/gridHeight);
+        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
+        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
     }
 
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
         this.pixelYPos = pixelYPos;
         this.pixelXPos = pixelXPos;
         this.displayDirection = direction;
-        this.gridXPos = (int) (pixelXPos/(gridWidth/Game.gridPixelWidth));
-        this.gridYPos = (int) (pixelYPos/(gridHeight/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,displayDirection);
+        this.gridXPos = (int) (pixelXPos/(widthInGridUnits/Game.gridPixelWidth));
+        this.gridYPos = (int) (pixelYPos/(heightInGridUnits/Game.gridPixelHeight));
+        setImageView(pixelXPos,pixelYPos,direction);
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -94,11 +96,13 @@ public class MapFeature {
         this.gridXPos = gridXPos;
         this.gridYPos = gridYPos;
         this.displayDirection = direction;
-        pixelXPos = (Game.gridPixelWidth/gridWidth)*gridXPos;
-        pixelYPos = (Game.gridPixelHeight/gridWidth)*gridYPos;
+        pixelXPos = (Game.gridPixelWidth/widthInGridUnits)*gridXPos;
+        pixelYPos = (Game.gridPixelHeight/heightInGridUnits)*gridYPos;
+        System.out.println("HIDNFNLDJFLKJL");
+        System.out.println(pixelXPos);
+        System.out.println(pixelYPos);
         setImageView(pixelXPos,pixelYPos,direction);
     }
-
 
 
     public TransferImageView getImageView() {

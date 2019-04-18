@@ -1,7 +1,9 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.PlaceableOnPath;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Behaviors.Behavior;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -14,6 +16,10 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
         super(weaponConfig);
         myMapFeature = mapFeature;
         myActiveLevel = activeLevel;
+    }
+
+    public boolean isPathWeapon() {
+        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
     }
 
     @Override

@@ -94,7 +94,6 @@ public class ConfigurableMap {
             map = new GridPane();
             for (int r = 0; r < 20; r++) {
                 for (int c = 0; c < 20; c++) {
-                    MapConfig m = new MapConfig();
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
                     map.add(myTile, r, c);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
@@ -133,7 +132,7 @@ public class ConfigurableMap {
                 }
                 MapConfig m = new MapConfig();
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+                    Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),2,2,t.getIsPath());
 
                     tileList.add(tile);
                 }
