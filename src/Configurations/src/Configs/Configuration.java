@@ -27,9 +27,9 @@ public class Configuration {
     }
 
     private void validateAttributes(Map<String,Object> attributeInputs) throws IllegalArgumentException{
-        if(!isAttributesComplete(attributeInputs)) {
+        /*if(!isAttributesComplete(attributeInputs)) {
             throw new IllegalArgumentException();
-        }
+        }*/
         myAttributes.keySet().stream().forEach(key -> validateType(key,attributeInputs.get(key)));
     }
 
