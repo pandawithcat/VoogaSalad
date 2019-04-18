@@ -58,9 +58,7 @@ public class ConfigureBehavior {
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
 
 
-        //TODO Change the listview so that only the simple name shows up
         sourceView.getItems().addAll(myList);
-        System.out.println(sourceView.getItems().get(0).getClass() + "adjfhdalkfahdsjfk");
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
