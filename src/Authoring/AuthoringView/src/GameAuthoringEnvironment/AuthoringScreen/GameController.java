@@ -166,7 +166,7 @@ public class GameController {
                             Class<?> clazz = Class.forName(value.getName());
                             //special case: map TODO use reflection for this
                             if(clazz.getSimpleName().equals("MapConfig")) {
-                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
+                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
                                 configurableMap.setConfigurations();
                                 System.out.println(myAttributesMap);
                             }

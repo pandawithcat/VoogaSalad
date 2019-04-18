@@ -13,9 +13,9 @@ public class Terrain implements Configurable, Viewable{
     private View view;
 
     @Configure
-    private double gridBlockHeight;
+    private int gridBlockHeight;
     @Configure
-    private double gridBlockWidth;
+    private int gridBlockWidth;
     @Configure
     private boolean isPath;
     @Configure
