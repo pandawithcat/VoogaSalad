@@ -13,8 +13,10 @@ public class Arsenal implements Configurable {
     private String myLabel;
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
-    @Configure
-    private WeaponUnlocker weponaUnlocker;
+
+    //TODO: UNCOMMENT BELOW
+//    @Configure
+//    private WeaponUnlocker weponaUnlocker;
 
     private Configuration myConfiguration;
     private Game myGame;

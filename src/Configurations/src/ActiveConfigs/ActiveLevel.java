@@ -210,10 +210,7 @@ public class ActiveLevel extends Level implements Updatable {
         if (x<0|x>getMyMapConfig().getGridWidth()){
             return false;
         }
-        if (y<0|y>getMyMapConfig().getGridHeight()){
-            return false;
-        }
-        return true;
+        return !(y < 0 | y > getMyMapConfig().getGridHeight());
     }
 
 
