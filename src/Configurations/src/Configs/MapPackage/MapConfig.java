@@ -34,12 +34,17 @@ public class MapConfig implements Configurable {
 //    protected double gridPixelHeight;
 
     private Configuration configuration;
+    private Level myLevel;
 
-    public MapConfig() {
+    public MapConfig(Level level) {
         configuration = new Configuration(this);
-        //TODO FINISH
+        myLevel = level;
+
     }
 
+    public Level getLevel() {
+        return myLevel;
+    }
 
     public List<Terrain> getTerrain() {
         return myTerrain;
@@ -72,10 +77,19 @@ public class MapConfig implements Configurable {
     }
 
     public int getGridHeight() {
+
+        System.out.println("HEIGHT");
+        System.out.println(gridHeight);
+
         return gridHeight;
     }
 
     public int getGridWidth() {
+
+        System.out.println("WIDTH");
+        System.out.println(gridWidth);
+
+
 
         return gridWidth;
     }

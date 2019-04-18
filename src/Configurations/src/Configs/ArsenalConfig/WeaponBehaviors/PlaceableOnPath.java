@@ -22,7 +22,7 @@ public class PlaceableOnPath extends WeaponBehavior {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
 
     }
 

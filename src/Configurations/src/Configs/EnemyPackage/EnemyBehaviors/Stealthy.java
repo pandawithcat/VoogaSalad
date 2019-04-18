@@ -19,7 +19,7 @@ public class Stealthy extends EnemyBehavior{
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
 
     }
 
