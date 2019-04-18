@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Map;
 
 
 import javafx.scene.paint.Color;
