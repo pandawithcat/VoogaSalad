@@ -13,7 +13,7 @@ public class Shooter extends ShooterConfig implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         //only shooting radially rn
         if(ms%getRateOfFire()==0) {
             ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();

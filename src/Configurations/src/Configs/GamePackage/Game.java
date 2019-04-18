@@ -52,7 +52,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         myActiveLevel.update(ms);
         if(myActiveLevel.noMoreEnemiesLeft()) {
             currentLevelOver = true;
