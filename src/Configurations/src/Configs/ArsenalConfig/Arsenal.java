@@ -13,8 +13,10 @@ public class Arsenal implements Configurable {
     private String myLabel;
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
-    @Configure
-    private WeaponUnlocker weponaUnlocker;
+
+    //TODO: UNCOMMENT BELOW
+//    @Configure
+//    private WeaponUnlocker weponaUnlocker;
 
     private Configuration myConfiguration;
     private Game myGame;
@@ -41,7 +43,7 @@ public class Arsenal implements Configurable {
         return myConfiguration;
     }
 
-    //    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
+//        public Map<String, TransferImageView> getAllWeaponConfigOptions() {
 //        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
 //        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getLabel(), weapon->weapon.getImageView()));
 //        return Collections.unmodifiableMap(myMap);
