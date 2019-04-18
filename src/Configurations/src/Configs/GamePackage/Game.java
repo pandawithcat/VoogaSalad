@@ -61,11 +61,10 @@ public class Game implements Updatable, EventHandlable, Configurable {
                 gameOver = true;
             }
             else {
-                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
+                currentLevelNumber++;
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber]);
             }
         }
-
-
     }
 
 
