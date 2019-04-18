@@ -71,7 +71,7 @@ public class Arsenal implements Configurable {
     }
 
     public WeaponConfig[] getConfiguredWeapons() {
-        return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
+        return allWeaponConfigOptions;
     }
 
     //TODO: ALLOW CHANGE OF DIRECTION

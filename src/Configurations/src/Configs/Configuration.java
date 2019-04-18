@@ -7,15 +7,15 @@ import java.util.*;
 
 public class Configuration {
     @XStreamOmitField
-    private Map<String,Class> myAttributeTypes;
+    private transient Map<String,Class> myAttributeTypes;
     @XStreamOmitField
-    private Map<String,Object> myAttributes = new HashMap<>();
+    private transient Map<String,Object> myAttributes = new HashMap<>();
     @XStreamOmitField
-    private boolean isComplete = true;
+    private transient boolean isComplete = true;
     @XStreamOmitField
-    private Configurable myConfigurable;
+    private transient Configurable myConfigurable;
     @XStreamOmitField
-    private Class myConfigurableClass;
+    private transient Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
         myConfigurable = configurable;

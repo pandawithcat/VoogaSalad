@@ -55,33 +55,6 @@ public class Model {
         xmlFW.write(gameString);
         xmlFW.close();
 
-
-        //for testingvv
-        String gameXMLFileName = "wtfXML.xml";
-        System.out.println("Loading Game XML File: " + gameXMLFileName);
-        File xmlFile = new File("games/GameXMLs/" + gameXMLFileName);
-        System.out.println("Un-Serializing Game XML File");
-        Game g = (Game)(mySerializer.fromXML(xmlFile));
-
-
-
-
-        //for testing^^
-
-
     }
-
-//    public static void main (String[] args) {
-//        Model m = new Model();
-//        Game g = new Game();
-//        g.setName("name");
-//        g.setMyDescription("description");
-//        g.setThumbnail("thumbnail.gif");
-//        m.saveToXML(g);
-//
-//
-//
-//    }
-
 
 }
