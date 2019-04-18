@@ -31,17 +31,21 @@ public class StartingScreen {
 
     private void setScene(){
         myContatiner = new VBox(10.00);
+        myContatiner.setStyle("-fx-background-color: #898989");
         Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+ "logo" +".png"));
         ImageView imageView = new ImageView(test);
         Button newGameButton = new Button("Create New Game");
+        newGameButton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-alignment: center");
         newGameButton.setOnMouseClicked(this:: handleNewGameButton);
         Button importGameButton = new Button("Import Game");
+        importGameButton.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white; -fx-alignment: center");
         importGameButton.setOnMouseClicked(this::importGame);
         Text description = new Text("Welcome to NoMergeConflicts. This is a Tower defense game editor in which you can create your own unique tower defenese game!");
 
         myContatiner.getChildren().addAll(imageView, newGameButton, importGameButton, description);
 
         Scene scene= new Scene(myContatiner, 800, 800);
+
         myStage.setScene(scene);
     }
 
@@ -85,8 +89,8 @@ public class StartingScreen {
         //set Stage boundaries to visible bounds of the main screen
         myStage.setX(screenWidth/3);
         myStage.setY(screenHeight/3);
-        myStage.setWidth(screenWidth/2.5);
-        myStage.setHeight(screenHeight/2.5);
+        myStage.setWidth(screenWidth/1.5);
+        myStage.setHeight(screenHeight/1.5);
         myStage.setTitle("Welcome to NoMergeConflicts");
 
         myStage.show();
