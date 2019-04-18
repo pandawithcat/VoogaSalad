@@ -79,7 +79,7 @@ public class ConfigureBehavior {
                         e.printStackTrace();
                     }
                 }
-        });;
+        });
 
         setCellFactory();
         // Create the GridPane

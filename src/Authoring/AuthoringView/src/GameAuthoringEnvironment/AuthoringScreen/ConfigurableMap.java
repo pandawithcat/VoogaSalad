@@ -135,7 +135,7 @@ public class ConfigurableMap {
                 }
                 MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),2,2,t.getIsPath());
+                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),2,2,t.getIsPath());
 
                     tileList.add(tile);
                 }
@@ -214,8 +214,8 @@ public class ConfigurableMap {
         //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
 
-        Integer col = map.getColumnIndex(source);
-        Integer row = map.getRowIndex(source);
+        Integer col = GridPane.getColumnIndex(source);
+        Integer row = GridPane.getRowIndex(source);
 
         System.out.println(col);
         System.out.println(row);

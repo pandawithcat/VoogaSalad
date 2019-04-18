@@ -65,9 +65,7 @@ public class GameOutline extends Screen {
     }
 
     public void makeTreeView(Game game) {
-        if (myContent.getChildren().contains(myTreeView)) {
-            myContent.getChildren().remove(myTreeView);
-        }
+        myContent.getChildren().remove(myTreeView);
         myGame = game;
         TreeItem<Configurable> myRoot = new TreeItem<>(game);
         createTreeView(myRoot);
@@ -387,7 +385,7 @@ public class GameOutline extends Screen {
                                     System.out.println(((Level) selectedObject).getMyMapConfig());
                                 }
                                 for (int a = 0; a < tempList.size(); a++) {
-                                    ob[a] = (Object) tempList.get(a);
+                                    ob[a] = tempList.get(a);
                                 }
                                 myAttributesMap.put(key, ob);
                             } catch (ClassNotFoundException e) {

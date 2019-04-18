@@ -100,7 +100,7 @@ public class Configuration {
     }
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
-        if (!isComplete) throw new IllegalStateException();
+       /* if (!isComplete) throw new IllegalStateException();*/
         return Collections.unmodifiableMap(myAttributes);
     }
 

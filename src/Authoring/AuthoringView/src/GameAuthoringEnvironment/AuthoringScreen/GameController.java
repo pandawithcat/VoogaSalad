@@ -78,7 +78,8 @@ public class GameController {
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
 
-            //handle primitives
+            //handle images
+            System.out.println(key.toLowerCase());
             if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
@@ -87,7 +88,7 @@ public class GameController {
                 var nameAndTfBar = new HBox();
                 nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton);
                 chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                    //TODO DO Errorchecking/Refactor
+                    //TODO(Louis) Change this so that image is called in from the server
                     @Override
                     public void handle(MouseEvent event) {
                         FileChooser fileChooser = new FileChooser();
@@ -262,7 +263,7 @@ public class GameController {
                                     System.out.println(((Level) myConfigurable).getMyMapConfig());
                                 }
                                 for(int a=0; a<tempList.size() ; a++){
-                                    ob[a] =(Object) tempList.get(a);
+                                    ob[a] = tempList.get(a);
                                 }
                                 myAttributesMap.put(key, ob);
                             }
