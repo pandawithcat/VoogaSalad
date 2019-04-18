@@ -30,6 +30,7 @@ public class ActiveLevel extends Level implements Updatable {
         //TODO: fix active wave to be a wave spawner
         generateCurrentActiveWave();
         myGrid = createMyGrid();
+        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
