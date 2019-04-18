@@ -72,7 +72,6 @@ public class GamePlayArsenal extends VBox {
     private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
             //creates internal mapping of weapon and id
-            System.out.println(arsenal);
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
@@ -87,37 +86,25 @@ public class GamePlayArsenal extends VBox {
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName()));
 //                weaponMap.put(.toString(), id);
-                System.out.println(myArsenal);
-
-
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        arsenalDisplay.setOnMouseClicked(event -> displayArsenalItem(event));
         arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
         myMap.setOnDragOver(event -> dragOver(event));
         myMap.setOnDragEntered(event -> dragEntered(event));
         myMap.setOnDragExited(event -> dragExited(event));
         myMap.setOnDragDropped(event -> dragDropped(event));
-
-    }
-
-    private void displayArsenalItem(MouseEvent event){
-        ImageView curr = (ImageView)arsenalDisplay.getSelectionModel().getSelectedItem();
-        System.out.println(curr);
-        curr.setOnMouseEntered(e-> System.out.println("please"));
     }
 
     private void dragDropped(DragEvent event){
-        System.out.println("inside drop");
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
-            System.out.println("drag dropped");
             myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
+            System.out.println(selectedImage.toString() + ", " + event.getX() + ", " + event.getY());
             success = true;
         }
         event.setDropCompleted(success);
@@ -125,14 +112,14 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragExited(DragEvent event){
-        System.out.println("drag exited");
+//        System.out.println("drag exited");
         event.consume();
     }
 
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
-            System.out.println("drag entered");
+//            System.out.println("drag entered");
         }
         event.consume();
     }
@@ -157,9 +144,7 @@ public class GamePlayArsenal extends VBox {
         int width = (int)imageCopy.getWidth();
         int height = (int)imageCopy.getHeight();
 
-        //Copy from source to destination pixel by pixel
-        WritableImage writableImage
-                = new WritableImage(width, height);
+        WritableImage writableImage = new WritableImage(width, height);
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         for (int y = 0; y < height; y++){
@@ -175,10 +160,8 @@ public class GamePlayArsenal extends VBox {
         movingImage.setFitHeight(myMap.getGridSize());
 
         myRoot.getChildren().add(movingImage);
-        /* Put a string on a dragboard */
         ClipboardContent content = new ClipboardContent();
         content.putString(selectedImage.toString());
-//                content.put(DataFormat.IMAGE,selectedImage);
         db.setContent(content);
         mouseEvent.consume();
     }
