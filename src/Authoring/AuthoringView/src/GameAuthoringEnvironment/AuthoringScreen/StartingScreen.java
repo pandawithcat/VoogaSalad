@@ -58,7 +58,7 @@ public class StartingScreen {
         importGameButton.setOnMouseClicked(this::importGame);
 
 
-       loginDescription = new Text("Welcome to NoMergeConflicts. First login or create your new account");
+        loginDescription = new Text("Welcome to NoMergeConflicts. First login or create your new account");
 
         myContatiner.getChildren().addAll(imageView, idTf, pwTf, loginBox, loginDescription);
 
@@ -76,7 +76,7 @@ public class StartingScreen {
         //if(log in successful)
         Text instructions = new Text("Now Click New Game to make a new Game or click import Game to import a existing game");
 
-        myContatiner.getChildren().removeAll(idTf, pwTf, loginBox);
+        myContatiner.getChildren().removeAll(idTf, pwTf, loginBox, loginDescription);
         myContatiner.getChildren().addAll(newGameButton, importGameButton, instructions);
     }
 
