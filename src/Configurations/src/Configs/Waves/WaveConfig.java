@@ -11,9 +11,9 @@ public class WaveConfig implements  Configurable {
     @Configure
     private String myLabel;
     @Configure
-    private long timeToReleaseInMs;
+    private double timeToReleaseInMs;
     @Configure
-    private long rateOfReleaseEnemiesPerMs;
+    private double rateOfReleaseEnemiesPerMs;
     @Configure
     private EnemyConfig[] enemies;
     @Configure
@@ -41,11 +41,11 @@ public class WaveConfig implements  Configurable {
         return myWaveBehaviors;
     }
 
-    public long getTimeToRelease() {
+    public double getTimeToRelease() {
         return timeToReleaseInMs;
     }
 
-    public long getRateOfRelease() {
+    public double getRateOfRelease() {
         return rateOfReleaseEnemiesPerMs;
     }
 

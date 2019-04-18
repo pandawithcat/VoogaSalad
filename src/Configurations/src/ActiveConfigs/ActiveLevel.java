@@ -68,14 +68,14 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
         updateActiveWave(ms);
     }
 
-    private void updateEnemies(long ms){
+    private void updateEnemies(double ms){
         for(ActiveEnemy enemy : activeEnemies){
             enemy.update(ms);
         }
@@ -83,7 +83,7 @@ public class ActiveLevel extends Level implements Updatable {
         //ArrayAttributeManager.updateList(activeWave, ms); ??
     }
 
-    private void updateActiveWave(long ms){
+    private void updateActiveWave(double ms){
         if (activeWave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();
@@ -96,13 +96,13 @@ public class ActiveLevel extends Level implements Updatable {
         activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
     }
 
-    private void updateProjectiles(long ms){
+    private void updateProjectiles(double ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
     }
 
-    private void updateWeapons(long ms){
+    private void updateWeapons(double ms){
         for (int id: activeWeapons.keySet()){
             activeWeapons.get(id).update(ms);
         }

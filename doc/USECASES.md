@@ -42,7 +42,7 @@ set preferences specific to each game played: If a user wants a "hard" preferenc
 Brian's Use Cases (7):
 
 Adding a level:
-    While using the game authoring environment to create a new game, the user will likely want to create multiple levels for a game.  This will require a displayed list of levels created in the authoring environment along with a button to create a new level.  When creating a new level, there will need to be a level display window that outlines the map of the level and gives the user the ability to add objects to the map.  In the backend of the game authoring environment, the new level will need to be added to a list data strucutre holding information about each level.
+    While using the game authoring environment to create a new game, the user will likely want to create multiple levels for a game.  This will require a displayed list of levels created in the authoring environment adouble with a button to create a new level.  When creating a new level, there will need to be a level display window that outlines the map of the level and gives the user the ability to add objects to the map.  In the backend of the game authoring environment, the new level will need to be added to a list data strucutre holding information about each level.
     
 <<<<<<< HEAD
 Formatting a projectile:
@@ -85,7 +85,7 @@ Christina's use cases (6):
 
 ### Authoring Environment
 
-* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
+* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, adouble with other setters, will be called so that the object will contain an instance variable of the value `5`.
 
 * **Add new tower types:** New tower types will be created by creating a new TowerConfig object, and setting the image, towertype, weapon type, and name of the object. This new tower may only be available on certain terrain types. This towerconfig will then be packaged with the game xml object and used by the game player to display all of the tower options available to the user. 
 
