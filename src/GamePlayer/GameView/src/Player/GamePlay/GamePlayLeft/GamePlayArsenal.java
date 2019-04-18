@@ -4,13 +4,19 @@ import BackendExternal.Logic;
 import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,30 +40,38 @@ public class GamePlayArsenal extends VBox {
     private ListView arsenalDisplay;
     private double myArsenalWidth;
     private HBox arsenalSelector;
+    private ImageView selectedImage;
+    private ImageView movingImage;
+    private GamePlayMap myMap;
+    private Group myRoot;
+    private Map <String, Integer> weaponMap;
 
 
-    private Map <Integer, Info> myTestWeapons ;
+//    private Map <Integer, Info> myTestWeapons ;
     private Map <Integer, Info> myTestObstacles ;
 
 
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
-    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic) throws FileNotFoundException {
+    public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map, Group root) throws FileNotFoundException {
         myArsenalWidth = arsenalWidth;
-        //initialize weapon display first
         isWeapon = true;
         myLogic = logic;
-//        myArsenal = logic.getMyArsenal();
+        myMap = map;
+        myArsenal = logic.getMyArsenal();
+
+        System.out.println(weaponMap);
+        myRoot = root;
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
 
         //START TEST STUFF
-        createTestWeaponArsenal();
-        createTestObstacleArsenal();
+//        createTestWeaponArsenal();
+//        createTestObstacleArsenal();
         viewList = new ArrayList<>();
-        setArsenalDisplay(myTestWeapons,arsenalWidth);
+        setArsenalDisplay(myArsenal,arsenalWidth);
 
 
         //TODO: implement the hover shit when we set content
@@ -70,36 +84,20 @@ public class GamePlayArsenal extends VBox {
         getChildren().addAll(arsenalDisplay);
 
         //arsenal selector part
-//        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
-        getChildren().add(createArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO));
+        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
+        getChildren().add(myArsenalSelector);
     }
 
-    private HBox createArsenalSelector(double width, double height) throws FileNotFoundException {
-        arsenalSelector = new HBox();
-        weaponImage = new Image(new FileInputStream("resources/" +WEAPON_IMAGE));
-        weaponImageView = new ImageView(weaponImage);
-        weaponImageView.setFitHeight(height);
-        weaponImageView.setFitWidth(width /2);
-        Button weaponButton = new Button("", weaponImageView);
-        weaponButton.setOnAction(e -> switchWeaponDisplay());
-        arsenalSelector.getChildren().add(weaponButton);
-
-        //obstacles
-        obstacleImage = new Image(new FileInputStream("resources/" + OBSTACLE_IMAGE));
-        obstacleImageView = new ImageView(obstacleImage);
-        obstacleImageView.setFitHeight(height);
-        obstacleImageView.setFitWidth(width /2);
-        Button obstacleButton = new Button("", obstacleImageView);
-        obstacleButton.setOnAction(e -> switchObstacleDisplay());
-        arsenalSelector.getChildren().add(obstacleButton);
-        return arsenalSelector;
-    }
-
-    private void setArsenalDisplay(Map<Integer, Info> currArsenal, double arsenalWidth) {
+    private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
-            for (int i = 0; i < currArsenal.size(); i++) {
-                Image image = new Image(new FileInputStream("resources/" + currArsenal.get(i).getImage()));
+            //creates internal mapping of weapon and id
+            weaponMap = new HashMap<>();
+            for (Integer id: arsenal.keySet()) {
+                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
                 ImageView imageView = new ImageView(image);
+                weaponMap.put(imageView.toString(), id);
+                System.out.println(imageView);
+                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
                 imageView.setFitWidth(arsenalWidth / 2);
                 imageView.setFitHeight(arsenalWidth / 2);
                 Tooltip t = new Tooltip("A Square");
@@ -113,133 +111,142 @@ public class GamePlayArsenal extends VBox {
         ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
         arsenalDisplay.setItems(items);
 
-        //TODO: this definitely does not work
-        arsenalDisplay.setOnDragDetected(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("gimme dat");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-                Dragboard db = selected.startDragAndDrop(TransferMode.ANY);
 
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.put(DataFormat.IMAGE,selected);
-                db.setContent(content);
-                mouseEvent.consume();
-//                lastX = event.getSceneX();
-//                lastY = event.getSceneY();
+        arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
+        myMap.setOnDragOver(event -> dragOver(event));
+        myMap.setOnDragEntered(event -> dragEntered(event));
+        myMap.setOnDragExited(event -> dragExited(event));
+        myMap.setOnDragDropped(event -> dragDropped(event));
+
+    }
+
+//    private void switchWeaponDisplay(){
+//        if (!isWeapon) {
+//            //TODO: implement display switch
+//            viewList.clear();
+//            setArsenalDisplay(myTestWeapons, myArsenalWidth);
+//            isWeapon = true;
+//        }
+//    }
+//
+//    private void switchObstacleDisplay(){
+//        if (isWeapon) {
+//            //TODO: implement display switch
+//            viewList.clear();
+//            setArsenalDisplay(myTestObstacles, myArsenalWidth);
+//            isWeapon = false;
+//        }
+//    }
+
+
+//    private ArrayList<TreeItem> getWeapons(List arsenal){
+//        ArrayList<TreeItem> weapons = new ArrayList<>();
+//        for (int i = 0; i < arsenal.size(); i++){
+////            String weaponName = arsenal.get(i).get;
+////            TreeItem tower = new TreeItem(weaponName);
+////            weapons.add(tower);
+//        }
+//        return weapons;
+//    }
+//
+//    private ArrayList<TreeItem> getObstacles(){
+//        ArrayList<TreeItem> obstacles = new ArrayList<>();
+//        TreeItem obstacle1 = new TreeItem("barrier");
+//        TreeItem obstacle2 = new TreeItem("yikes");
+//        TreeItem obstacle3 = new TreeItem("gang");
+//        obstacles.add(obstacle1);
+//        obstacles.add(obstacle2);
+//        obstacles.add(obstacle3);
+//        return obstacles;
+//    }
+
+    private void dragDropped(DragEvent event){
+        System.out.println("inside drop");
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) {
+            myRoot.getChildren().remove(movingImage);
+            System.out.println("drag dropped");
+            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
+            success = true;
+        }
+        event.setDropCompleted(success);
+        event.consume();
+    }
+
+    private void dragExited(DragEvent event){
+        System.out.println("drag exited");
+        event.consume();
+    }
+
+    private void dragEntered(DragEvent event){
+        if (event.getGestureSource() != myMap &&
+                event.getDragboard().hasString()) {
+            System.out.println("drag entered");
+        }
+        event.consume();
+    }
+
+    private void dragOver(DragEvent event){
+        movingImage.setTranslateX(event.getX());
+        movingImage.setTranslateY(event.getY());
+        if (event.getGestureSource() != myMap ) {
+            event.acceptTransferModes(TransferMode.COPY);
+        }
+        event.consume();
+    }
+
+    private void dragDetected(MouseEvent mouseEvent){
+        selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+        Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
+
+        //creates deepcopy of imageview
+        var imageCopy = selectedImage.getImage();
+        PixelReader pixelReader = imageCopy.getPixelReader();
+
+        int width = (int)imageCopy.getWidth();
+        int height = (int)imageCopy.getHeight();
+
+        //Copy from source to destination pixel by pixel
+        WritableImage writableImage
+                = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++){
+            for (int x = 0; x < width; x++){
+                Color color = pixelReader.getColor(x, y);
+                pixelWriter.setColor(x, y, color);
             }
-        });
-
-        arsenalDisplay.setOnDragOver(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* data is dragged over the target */
-                /* accept it only if it is not dragged from the same node
-                 * and if it has a string data */
-                System.out.println("we in");
-                if (event.getDragboard().hasImage()) {
-                    System.out.println("yes ba");
-                    /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.MOVE);
-                }
-
-                event.consume();
-            }
-        });
-
-        arsenalDisplay.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image Moved");
-                ImageView selected = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
-
-                /* Put a string on a dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString(selected.toString());
-                mouseEvent.consume();
-            }
-        });
-
-        arsenalDisplay.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("image set");
-//                myLogic.instantiateWeapon();ImageView@534739bf[styleClass=image-view]
-            }
-        });
-
-
-    }
-
-
-    private void switchWeaponDisplay(){
-        if (!isWeapon) {
-            //TODO: implement display switch
-            viewList.clear();
-            setArsenalDisplay(myTestWeapons, myArsenalWidth);
-            isWeapon = true;
         }
+
+        movingImage = new ImageView();
+        movingImage.setImage(writableImage);
+        movingImage.setFitWidth(myMap.getGridSize());
+        movingImage.setFitHeight(myMap.getGridSize());
+
+        myRoot.getChildren().add(movingImage);
+        /* Put a string on a dragboard */
+        ClipboardContent content = new ClipboardContent();
+        content.putString(selectedImage.toString());
+//                content.put(DataFormat.IMAGE,selectedImage);
+        db.setContent(content);
+        mouseEvent.consume();
     }
 
-    private void switchObstacleDisplay(){
-        if (isWeapon) {
-            //TODO: implement display switch
-            viewList.clear();
-            setArsenalDisplay(myTestObstacles, myArsenalWidth);
-            isWeapon = false;
-        }
-    }
-
-
-    public ArrayList<TreeItem> getArsenal(){
-        ArrayList<TreeItem> myArsenal = new ArrayList<TreeItem>();
-        //TODO: Iterate through a list of things users can implement
-        TreeItem myWeapons = new TreeItem("Weapons");
-        myWeapons.getChildren().addAll(getWeapons(myArsenal));
-
-        TreeItem myObstacles = new TreeItem("Obstacles");
-        myObstacles.getChildren().addAll(getObstacles());
-        myArsenal.add(myWeapons);
-        myArsenal.add(myObstacles);
-        return myArsenal;
-    }
-
-    private ArrayList<TreeItem> getWeapons(List arsenal){
-        ArrayList<TreeItem> weapons = new ArrayList<>();
-        for (int i = 0; i < arsenal.size(); i++){
-//            String weaponName = arsenal.get(i).get;
-//            TreeItem tower = new TreeItem(weaponName);
-//            weapons.add(tower);
-        }
-        return weapons;
-    }
-
-    private ArrayList<TreeItem> getObstacles(){
-        ArrayList<TreeItem> obstacles = new ArrayList<>();
-        //TODO: also should iterate through list
-        TreeItem obstacle1 = new TreeItem("barrier");
-        TreeItem obstacle2 = new TreeItem("yikes");
-        TreeItem obstacle3 = new TreeItem("gang");
-        obstacles.add(obstacle1);
-        obstacles.add(obstacle2);
-        obstacles.add(obstacle3);
-        return obstacles;
-    }
-
-    //TEST DATA
-    private void createTestWeaponArsenal(){
-        Info testInfo = new Info("test", "weapon.png");
-        myTestWeapons = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
-            myTestWeapons.put(i, testInfo);
-        }
-    }
-
-    private void createTestObstacleArsenal(){
-        Info testInfo = new Info("test", "obstacle.png");
-        myTestObstacles = new HashMap<>();
-        for (int i = 0; i < 5; i++) {
-            myTestObstacles.put(i, testInfo);
-        }
-    }
+//    //TEST DATA
+//    private void createTestWeaponArsenal(){
+//        Info testInfo = new Info("test", "weapon.png");
+//        myTestWeapons = new HashMap<>();
+//        for (int i = 0; i < 5; i++) {
+//            myTestWeapons.put(i, testInfo);
+//        }
+//    }
+//
+//    private void createTestObstacleArsenal(){
+//        Info testInfo = new Info("test", "obstacle.png");
+//        myTestObstacles = new HashMap<>();
+//        for (int i = 0; i < 5; i++) {
+//            myTestObstacles.put(i, testInfo);
+//        }
+//    }
 }
