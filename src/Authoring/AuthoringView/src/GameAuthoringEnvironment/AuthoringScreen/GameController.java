@@ -112,7 +112,8 @@ public class GameController {
                             myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
                         }
                         else if(value.getName().equals("boolean")){
-                            myAttributesMap.put(key, Boolean.parseBoolean(myTextField.getText()));
+                            Boolean b = Boolean.parseBoolean(myTextField.getText());
+                            myAttributesMap.put(key, b.booleanValue());
                         }
                         else{
                             myAttributesMap.put(key, myTextField.getText());

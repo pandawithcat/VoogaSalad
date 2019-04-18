@@ -9,6 +9,8 @@ public interface Configurable {
 
     String getLabel();
 
+    //String getName();
+
     Configuration getConfiguration();
 
 }

@@ -62,9 +62,7 @@ public class Model {
         File xmlFile = new File("games/GameXMLs/" + gameXMLFileName);
         System.out.println("Un-Serializing Game XML File");
         Game g = (Game)(mySerializer.fromXML(xmlFile));
-        System.out.println("LEVEL LIST:" + Arrays.asList(g.getLevelList()));
-        System.out.println("LEVEL LABEL" + g.getLevelList()[0].getLabel());
-        System.out.println("LEVEL MAP" + g.getLevelList()[0].getMyMapConfig());
+
 
 
 
