@@ -4,8 +4,8 @@
 *.ipr
 *.iws
 .idea/
-classes/
 out/
+classes/
 local.properties
 
 # Generic Android ignores #

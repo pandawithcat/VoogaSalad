@@ -70,6 +70,10 @@ public class GamePlayMap extends GridPane{
         imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
     }
 
+    public double getGridSize(){
+        return terrainList.get(0).getAsNode().getBoundsInParent().getWidth();
+    }
+
 //    //NOT yet used
 //    private void createFilledTestTerrain(double width, double height){
 //        for (int i = 0; i < 20; i++) {

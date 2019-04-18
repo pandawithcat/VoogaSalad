@@ -6,13 +6,13 @@ import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
-    @Configure
     private String myLabel;
+    @Configure
+    private String name;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure
     private View view;
-    //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;
 

@@ -42,9 +42,7 @@ public class ButtonPanel extends VBox {
     }
 
     private void changeToPlay(HBox hbox){
-        if(hbox.getChildren().contains(myFastFowardButton)){
-            hbox.getChildren().remove(myFastFowardButton);
-        }
+        hbox.getChildren().remove(myFastFowardButton);
         hbox.getChildren().add(myPlayButton);
     }
     private void changeToFastFoward(HBox hbox){

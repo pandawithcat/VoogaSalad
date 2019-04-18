@@ -8,7 +8,6 @@ import java.awt.*;
 import java.util.List;
 
 public class Movable extends WeaponBehavior{
-    @Configure
     private String myLabel;
     @Configure
     protected double movingSpeed;

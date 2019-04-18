@@ -12,8 +12,9 @@ public class ProjectileConfig implements Configurable, Viewable {
     private ShooterConfig myShooter;
 
     Configuration myConfiguration;
-    @Configure
     private String myLabel;
+    @Configure
+    private String name;
     @Configure
     private View view;
     @Configure

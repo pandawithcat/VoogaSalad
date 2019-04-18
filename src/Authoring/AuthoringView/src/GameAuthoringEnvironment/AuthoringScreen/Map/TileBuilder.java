@@ -1,4 +1,4 @@
-package GameAuthoringEnvironment.AuthoringScreen.main.Editors;
+package GameAuthoringEnvironment.AuthoringScreen.Map;
 
 public class TileBuilder {
     public SquareCell getTile(String type, double r, double c, double width, double height){

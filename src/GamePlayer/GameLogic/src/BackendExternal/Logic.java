@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.EventObject;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -85,7 +84,6 @@ public class Logic {
 
     private ImmutableImageView getImageView(Terrain t) {
 
-        //TODO: last two in the constructor should be gotten dynamically
             MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());
 
             return mapFeature.getImageView();
@@ -96,15 +94,7 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-//<<<<<<< HEAD
-//        Map<Integer, Info> testData = new HashMap<>();
-//        testData.put(1, new Info("weapon1", "thumbnail3.gif"));
-//        return testData;
-//
-////        return myGame.getActiveLevel().getMyArsenal().getAllWeaponConfigOptions();
-//=======
         return myGame.getArsenal().getAllWeaponConfigOptions();
-//>>>>>>> b0ec1d010debea0eef4d31cf456c282725b4ce4f
     }
 
     // View calls this when a weapon is placed onto the map
@@ -138,15 +128,15 @@ public class Logic {
     // View calls to check the current score of the game in the game loop
     // No Input
     // Return: integer score
-//    public int getScore(){
-//        return myGame.getScore();
-//    }
+    public int getScore(){
+        return myGame.getActiveLevel().getMyScore();
+    }
 
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
 //    public int getNumLives(){
-//        return myGame.getLives();
+//        return myGame.getActiveLevel().ge;
 //    }
 
 

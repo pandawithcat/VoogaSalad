@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 public class Terrain implements Configurable, Viewable{
-    @Configure
     private String myLabel;
     @Configure
     private View view;
@@ -23,13 +22,17 @@ public class Terrain implements Configurable, Viewable{
     @Configure
     private int gridXPos;
 
+
+
+
 //    @Configure
 //    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos,  int gridBlockHeight, int gridBlockWidth, boolean isPath){
+
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
         view = new View(fileName,gridBlockHeight, gridBlockWidth);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;

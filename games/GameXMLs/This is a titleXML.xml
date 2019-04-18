@@ -89,11 +89,11 @@
                     </entry>
                     <entry>
                       <string>timeToReleaseInMs</string>
-                      <java-class>long</java-class>
+                      <java-class>double</java-class>
                     </entry>
                     <entry>
                       <string>rateOfReleaseEnemiesPerMs</string>
-                      <java-class>long</java-class>
+                      <java-class>double</java-class>
                     </entry>
                     <entry>
                       <string>enemies</string>
@@ -107,7 +107,7 @@
                   <myAttributes>
                     <entry>
                       <string>timeToReleaseInMs</string>
-                      <long>1000</long>
+                      <double>1000</double>
                     </entry>
                     <entry>
                       <string>myLabel</string>
@@ -115,7 +115,7 @@
                     </entry>
                     <entry>
                       <string>rateOfReleaseEnemiesPerMs</string>
-                      <long>1000</long>
+                      <double>1000</double>
                     </entry>
                     <entry>
                       <string>myWaveBehaviors</string>

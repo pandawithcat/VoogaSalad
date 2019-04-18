@@ -115,6 +115,9 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
     public void setMyActiveLevel(int levelIndex) {
+        System.out.println(Arrays.toString(levelList));
+        System.out.println(levelIndex);
+        System.out.println(levelList[levelIndex]);
         myActiveLevel = new ActiveLevel(levelList[levelIndex]);
 
     }

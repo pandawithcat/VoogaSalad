@@ -5,7 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 public interface Configurable {
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface Configure{}
+    @interface Configure{}
 
     String getLabel();
 

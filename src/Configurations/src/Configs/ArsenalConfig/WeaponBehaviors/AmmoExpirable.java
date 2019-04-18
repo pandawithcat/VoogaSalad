@@ -5,7 +5,6 @@ import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 
 public class AmmoExpirable extends WeaponBehavior {
-    @Configure
     private String myLabel;
     @Configure
     protected int numberOfEnemiesPossibleToKill;
