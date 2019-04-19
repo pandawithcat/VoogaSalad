@@ -59,8 +59,32 @@ public class GameController {
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
 
-            //handle images
-            if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
+            //handle booleans
+            if(value.equals(boolean.class)){
+                HBox box = new HBox(10);
+                Label myLabel = new Label(key);
+                RadioButton trueButton = new RadioButton("True");
+                RadioButton falseButton = new RadioButton("False");
+                Button confirmButton = new Button("Confirm");
+                box.getChildren().addAll(myLabel, trueButton, falseButton);
+                confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                    //TODO DO Errorchecking/Refactor
+                    @Override
+                    public void handle(MouseEvent event) {
+                            if(trueButton.isSelected()) {
+                                myAttributesMap.put(key, true);
+                            }
+                            else {
+                                myAttributesMap.put(key, false);
+                            }
+
+                    }
+                }));
+                allButton.add(confirmButton);
+                layout.getChildren().add(box);
+            }
+            //handle special case: require image
+            else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
                 Button chooseImageButton = new Button("Choose Image");
@@ -90,6 +114,7 @@ public class GameController {
                 layout.getChildren().addAll(nameAndTfBar);
 
             }
+            //handle string and primitives except boolean
             else if(value.equals(java.lang.String.class) || value.isPrimitive()){
                 Label myLabel = new Label(key);
                 TextField myTextField = new TextField();
@@ -113,10 +138,6 @@ public class GameController {
                         else if(value.getName().equals("double")){
                             Double c =Double.parseDouble(myTextField.getText());
                             myAttributesMap.put(key, c.doubleValue());
-                        }
-                        else if(value.getName().equals("boolean")){
-                            Boolean d = Boolean.parseBoolean(myTextField.getText());
-                            myAttributesMap.put(key, d.booleanValue());
                         }
                         else{
                             myAttributesMap.put(key, myTextField.getText());
@@ -167,6 +188,9 @@ public class GameController {
 
                             else{
                                 //TODO idf clazz does not taken in myconfigurable as a parameter, then error
+                                System.out.println("This is the key" + key);
+                                System.out.println("This is the value" + value);
+                                System.out.println("This is the class of the value" + value.getClass());
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);
