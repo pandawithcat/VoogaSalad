@@ -31,8 +31,8 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Level[] levelList;
     @Configure
     private Arsenal myArsenal;
-    /*@Configure
-    private GameBehavior[] gameType;*/
+    @Configure
+    private GameBehavior gameType;
     /*@Configure
     private WeaponConfig[] allWeaponConfigs;*/
 
@@ -61,11 +61,10 @@ public class Game implements Updatable, EventHandlable, Configurable {
                 gameOver = true;
             }
             else {
-                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
+                currentLevelNumber++;
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber]);
             }
         }
-
-
     }
 
 

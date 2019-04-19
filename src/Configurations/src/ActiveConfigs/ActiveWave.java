@@ -37,7 +37,9 @@ public class ActiveWave extends WaveConfig implements Updatable {
                 startTimes[i] = ms+(i*getRateOfRelease());
             }
         }
-        if(currentEnemyIndex>=getEnemies().length) isFinished= true;
+        if(currentEnemyIndex>=getEnemies().length) {
+            isFinished= true;
+        }
 
         while(ms>=getTimeToRelease() && currentEnemyIndex<getEnemies().length && startTimes[currentEnemyIndex]>=ms) {
             int x = myActiveLevel.getMyMapConfig().getEnemyEnteringGridXPos();

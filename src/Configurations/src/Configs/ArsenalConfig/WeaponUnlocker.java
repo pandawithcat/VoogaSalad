@@ -21,6 +21,10 @@ public class WeaponUnlocker implements Configurable {
     @Configure
     private WeaponUnlockerBehavior unlockerMode;
 
+    @Override
+    public Configuration getConfiguration() {
+        return null;
+    }
 
     @Override
     public String getLabel() {
