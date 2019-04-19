@@ -166,6 +166,7 @@ public class GameController {
 
             //handle single object
             //this single object is a link to others so it doesn't save anything to the myAttributesMap
+            //TODO Need a special case for classes that do not implement configurables
             else if(!value.isArray()){
 
                 Button myButton = new Button("Configure " + value.getSimpleName());
@@ -188,9 +189,6 @@ public class GameController {
 
                             else{
                                 //TODO idf clazz does not taken in myconfigurable as a parameter, then error
-                                System.out.println("This is the key" + key);
-                                System.out.println("This is the value" + value);
-                                System.out.println("This is the class of the value" + value.getClass());
                                 Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                                 var object = cons.newInstance(myConfigurable);
                                 createConfigurable((Configurable) object);
