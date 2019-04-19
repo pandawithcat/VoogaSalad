@@ -8,12 +8,13 @@ import Configs.Waves.WaveBehaviors.WaveBehavior;
 //holds the enemies
 public class WaveConfig implements  Configurable {
     private Level myLevel;
-    @Configure
     private String myLabel;
     @Configure
-    private long timeToReleaseInMs;
+    private String name;
     @Configure
-    private long rateOfReleaseEnemiesPerMs;
+    private double timeToReleaseInMs;
+    @Configure
+    private double rateOfReleaseEnemiesPerMs;
     @Configure
     private EnemyConfig[] enemies;
     @Configure
@@ -41,11 +42,11 @@ public class WaveConfig implements  Configurable {
         return myWaveBehaviors;
     }
 
-    public long getTimeToRelease() {
+    public double getTimeToRelease() {
         return timeToReleaseInMs;
     }
 
-    public long getRateOfRelease() {
+    public double getRateOfRelease() {
         return rateOfReleaseEnemiesPerMs;
     }
 

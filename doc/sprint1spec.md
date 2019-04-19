@@ -16,7 +16,7 @@ Authoring UI Goals:
 
 -3 types of towers implemented, with two types of shooting (radial (8 projectiles in a circle), straight)
 
--one type of path weaponConfig/obstacle (spikes)
+-one type of path weapon/obstacle (spikes)
 
 -Ability to save game
 
@@ -30,7 +30,7 @@ Maybe Focus Areas:
 
 -map logic of unlockables to portions of the serialized game file
 
--move enemies along their path based on AI
+-move enemies adouble their path based on AI
 
 -implement towers shooting one type of projectileConfig (arrow) in either radial or straight
 

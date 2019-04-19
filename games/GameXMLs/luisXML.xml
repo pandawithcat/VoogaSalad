@@ -21,16 +21,156 @@
     <myAttributes>
       <entry>
         <string>myDescription</string>
-        <string>louis is good</string>
+        <string>dood</string>
       </entry>
       <entry>
         <string>levelList</string>
         <Configs.LevelPackage.Level-array>
           <Configs.LevelPackage.Level>
             <myGame reference="../../../../../.."/>
+            <myLabel>pen</myLabel>
+            <myWaveConfigs>
+              <Configs.Waves.WaveConfig>
+                <myLevel reference="../../.."/>
+                <myLabel>wah</myLabel>
+                <timeToReleaseInMs>800</timeToReleaseInMs>
+                <rateOfReleaseEnemiesPerMs>1</rateOfReleaseEnemiesPerMs>
+                <enemies>
+                  <Configs.EnemyPackage.EnemyConfig>
+                    <myWaveConfig reference="../../.."/>
+                    <myLabel>louis</myLabel>
+                    <myBehaviors/>
+                    <unitSpeedPerSecond>2</unitSpeedPerSecond>
+                    <myConfiguration>
+                      <myAttributeTypes class="linked-hash-map">
+                        <entry>
+                          <string>myLabel</string>
+                          <java-class>java.lang.String</java-class>
+                        </entry>
+                        <entry>
+                          <string>myBehaviors</string>
+                          <java-class>[LConfigs.EnemyPackage.EnemyBehaviors.EnemyBehavior;</java-class>
+                        </entry>
+                        <entry>
+                          <string>unitSpeedPerSecond</string>
+                          <java-class>int</java-class>
+                        </entry>
+                        <entry>
+                          <string>view</string>
+                          <java-class>Configs.View</java-class>
+                        </entry>
+                      </myAttributeTypes>
+                      <myAttributes>
+                        <entry>
+                          <string>myBehaviors</string>
+                          <Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior-array reference="../../../../myBehaviors"/>
+                        </entry>
+                        <entry>
+                          <string>myLabel</string>
+                          <string>louis</string>
+                        </entry>
+                        <entry>
+                          <string>unitSpeedPerSecond</string>
+                          <int>2</int>
+                        </entry>
+                      </myAttributes>
+                      <isComplete>true</isComplete>
+                      <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
+                      <myConfigurableClass>Configs.EnemyPackage.EnemyConfig</myConfigurableClass>
+                    </myConfiguration>
+                  </Configs.EnemyPackage.EnemyConfig>
+                </enemies>
+                <myWaveBehaviors/>
+                <myConfiguration>
+                  <myAttributeTypes class="linked-hash-map">
+                    <entry>
+                      <string>myLabel</string>
+                      <java-class>java.lang.String</java-class>
+                    </entry>
+                    <entry>
+                      <string>timeToReleaseInMs</string>
+                      <java-class>double</java-class>
+                    </entry>
+                    <entry>
+                      <string>rateOfReleaseEnemiesPerMs</string>
+                      <java-class>double</java-class>
+                    </entry>
+                    <entry>
+                      <string>enemies</string>
+                      <java-class>[LConfigs.EnemyPackage.EnemyConfig;</java-class>
+                    </entry>
+                    <entry>
+                      <string>myWaveBehaviors</string>
+                      <java-class>[LConfigs.Waves.WaveBehaviors.WaveBehavior;</java-class>
+                    </entry>
+                  </myAttributeTypes>
+                  <myAttributes>
+                    <entry>
+                      <string>timeToReleaseInMs</string>
+                      <double>800</double>
+                    </entry>
+                    <entry>
+                      <string>myLabel</string>
+                      <string>wah</string>
+                    </entry>
+                    <entry>
+                      <string>rateOfReleaseEnemiesPerMs</string>
+                      <double>1</double>
+                    </entry>
+                    <entry>
+                      <string>myWaveBehaviors</string>
+                      <Configs.Waves.WaveBehaviors.WaveBehavior-array reference="../../../../myWaveBehaviors"/>
+                    </entry>
+                    <entry>
+                      <string>enemies</string>
+                      <Configs.EnemyPackage.EnemyConfig-array reference="../../../../enemies"/>
+                    </entry>
+                  </myAttributes>
+                  <isComplete>true</isComplete>
+                  <myConfigurable class="Configs.Waves.WaveConfig" reference="../.."/>
+                  <myConfigurableClass>Configs.Waves.WaveConfig</myConfigurableClass>
+                </myConfiguration>
+              </Configs.Waves.WaveConfig>
+            </myWaveConfigs>
+            <levelBehaviors/>
             <myConfiguration>
-              <myAttributes/>
-              <isComplete>false</isComplete>
+              <myAttributeTypes class="linked-hash-map">
+                <entry>
+                  <string>myLabel</string>
+                  <java-class>java.lang.String</java-class>
+                </entry>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <java-class>[LConfigs.Waves.WaveConfig;</java-class>
+                </entry>
+                <entry>
+                  <string>myArsenal</string>
+                  <java-class>Configs.ArsenalConfig.Arsenal</java-class>
+                </entry>
+                <entry>
+                  <string>myMap</string>
+                  <java-class>Configs.MapPackage.MapConfig</java-class>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <java-class>[LConfigs.LevelPackage.LevelBehaviors.LevelBehavior;</java-class>
+                </entry>
+              </myAttributeTypes>
+              <myAttributes>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <Configs.Waves.WaveConfig-array reference="../../../../myWaveConfigs"/>
+                </entry>
+                <entry>
+                  <string>myLabel</string>
+                  <string>pen</string>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <Configs.LevelPackage.LevelBehaviors.LevelBehavior-array reference="../../../../levelBehaviors"/>
+                </entry>
+              </myAttributes>
+              <isComplete>true</isComplete>
               <myConfigurable class="Configs.LevelPackage.Level" reference="../.."/>
               <myConfigurableClass>Configs.LevelPackage.Level</myConfigurableClass>
             </myConfiguration>
@@ -39,7 +179,7 @@
       </entry>
       <entry>
         <string>myThumbnail</string>
-        <string>hyunjae.gif</string>
+        <string>meep</string>
       </entry>
       <entry>
         <string>myTitle</string>
@@ -51,8 +191,8 @@
     <myConfigurableClass>Configs.GamePackage.Game</myConfigurableClass>
   </myConfiguration>
   <myTitle>luis</myTitle>
-  <myDescription>louis is good</myDescription>
-  <myThumbnail>hyunjae.gif</myThumbnail>
+  <myDescription>dood</myDescription>
+  <myThumbnail>meep</myThumbnail>
   <levelList reference="../myConfiguration/myAttributes/entry[2]/Configs.LevelPackage.Level-array"/>
   <currentLevelNumber>0</currentLevelNumber>
   <gameOver>false</gameOver>

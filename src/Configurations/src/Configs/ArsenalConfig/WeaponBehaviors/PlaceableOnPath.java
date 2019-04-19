@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class PlaceableOnPath extends WeaponBehavior {
-    @Configure
     private String myLabel;
     @Configure
     protected int rangeOnPath;
@@ -22,8 +21,8 @@ public class PlaceableOnPath extends WeaponBehavior {
     }
 
     @Override
-    public void update(long ms) {
-
+    public void update(double ms) {
+        //TODO
     }
 
     @Override

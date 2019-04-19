@@ -28,6 +28,10 @@ public class Cell {
 
     }
 
+    public boolean isValidWeaponPlacement() {
+        return myWeaponConfig==null&&(myWeaponConfig.isPathWeapon() == myTerrain.isPath());
+    }
+
 
 
     public ActiveWeapon getMyWeaponConfig() {

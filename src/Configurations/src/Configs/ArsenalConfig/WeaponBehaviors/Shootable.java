@@ -1,26 +1,27 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+
 import ActiveConfigs.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Configurable;
 import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
 
-    @Configure
     private String myLabel;
     @Configure
-    protected Shooter myShooter;
+    private Shooter myShooter;
 
     Configuration myConfiguration;
     private WeaponConfig weaponConfig;
 
-    Shootable(WeaponConfig weaponConfig){
+    public Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
         myConfiguration = new Configuration(this);
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         myShooter.update(ms);
     }
 

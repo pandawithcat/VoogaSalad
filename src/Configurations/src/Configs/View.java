@@ -1,21 +1,15 @@
 package Configs;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
-
 public class View implements Configurable {
     private Configuration myConfiguration;
 
-    @Configure
     private String myLabel;
     @Configure
     private String imagePath;
-//    @Configure
-//    private String imageName;
     @Configure
-    private double width;
+    private int width;
     @Configure
-    private double height;
+    private int height;
     private Configurable myConfigurable;
 
 
@@ -25,10 +19,14 @@ public class View implements Configurable {
     }
 
     //this constructor is for the special case for the terrain blocks in the map
-    public View(String file, double width, double height) {
+    public View(String file, int width, int height) {
         imagePath = file;
         this.width = width;
         this.height = height;
+    }
+
+    public String getImagePath() {
+        return imagePath;
     }
 
     @Override
@@ -52,10 +50,10 @@ public class View implements Configurable {
 //        myImageView.getFitWidth();
 //    }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
     public String getImage() {

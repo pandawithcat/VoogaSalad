@@ -7,7 +7,6 @@ import Configs.ArsenalConfig.WeaponConfig;
 import java.util.List;
 
 public class TimeExpirable extends WeaponBehavior{
-    @Configure
     private String myLabel;
     @Configure
     private double timeAlive;
@@ -20,8 +19,8 @@ public class TimeExpirable extends WeaponBehavior{
     }
 
     @Override
-    public void update(long ms) {
-
+    public void update(double ms) {
+        //TODO
     }
 
     @Override

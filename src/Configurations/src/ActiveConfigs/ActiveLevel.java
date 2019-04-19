@@ -1,7 +1,6 @@
 package ActiveConfigs;
 
 import Configs.*;
-import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
@@ -28,12 +27,13 @@ public class ActiveLevel extends Level implements Updatable {
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
-        generateCurrentActiveWave();
         //TODO: fix active wave to be a wave spawner
-        activeWave = new ActiveWave(getMyWaveConfigs()[0], this);
+        //TODO: COMMENTED OUT BELOW FOR TESTING
+        generateCurrentActiveWave();
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
+        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
@@ -41,9 +41,14 @@ public class ActiveLevel extends Level implements Updatable {
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
         for(Terrain t : getMyMapConfig().getTerrain()){
+            tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
             tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
         }
-        return null;
+        return tempGrid;
+    }
+
+    public Cell[][] getMyGrid() {
+        return myGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
@@ -67,22 +72,26 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
+        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
         updateActiveWave(ms);
     }
 
-    private void updateEnemies(long ms){
+    private void updateEnemies(double ms){
+
         for(ActiveEnemy enemy : activeEnemies){
+//            activeEnemies.add(enemy);
+//            enemy.getMapFeature().setGridPos(50,50,0);
             enemy.update(ms);
         }
         if (activeWave.isFinished()) currentWave++;
         //ArrayAttributeManager.updateList(activeWave, ms); ??
     }
 
-    private void updateActiveWave(long ms){
+    private void updateActiveWave(double ms){
         if (activeWave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();
@@ -91,16 +100,17 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void generateCurrentActiveWave(){
+
         activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
     }
 
-    private void updateProjectiles(long ms){
+    private void updateProjectiles(double ms){
         for (ActiveProjectile projectile: activeProjectiles){
             projectile.update(ms);
         }
     }
 
-    private void updateWeapons(long ms){
+    private void updateWeapons(double ms){
         for (int id: activeWeapons.keySet()){
             activeWeapons.get(id).update(ms);
         }
@@ -147,14 +157,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    //TODO: EventHandler for adding new weapon to map
-    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
-        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID-1];
-        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
-        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
-        addToActiveWeapons(activeWeapon);
-        return activeWeapon.getMapFeature().getImageView();
-    }
 
     //TODO  add EventHandler for isValid
 
@@ -186,20 +188,24 @@ public class ActiveLevel extends Level implements Updatable {
         LinkedList<Cell> stack = new LinkedList<>();
         stack.addLast(startCell);
         while(!stack.isEmpty()){
-            Cell expandedCell = stack.removeFirst();
-            int[]xAdditions = new int[]{0,0,-1,1};
-            int[]yAdditions = new int[]{1,-1,0,0};
-            for (int i = 0; i < 3; i++) {
-                int x = expandedCell.getX() + xAdditions[i];
-                int y = expandedCell.getY() + yAdditions[i];
-                if(isCellValid(x,y)){
-                    if (myGrid[x][y].getMyTerrain().getIfPath()){
-                        myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
-                    }
-                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
-                    if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
-                        myGrid[x][y].setMovementHeuristic(newHeuristic);
-                    }
+            popCellAndCalculateNeighborsHeuristic(stack);
+        }
+    }
+
+    private void popCellAndCalculateNeighborsHeuristic(LinkedList<Cell> stack) {
+        Cell expandedCell = stack.removeFirst();
+        int[]xAdditions = new int[]{0,0,-1,1};
+        int[]yAdditions = new int[]{1,-1,0,0};
+        for (int i = 0; i < 3; i++) {
+            int x = expandedCell.getX() + xAdditions[i];
+            int y = expandedCell.getY() + yAdditions[i];
+            if(isCellValid(x,y)){
+                if (myGrid[x][y].getMyTerrain().getIfPath()){
+                    myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
+                }
+                int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
+                    myGrid[x][y].setMovementHeuristic(newHeuristic);
                 }
             }
         }
@@ -209,10 +215,7 @@ public class ActiveLevel extends Level implements Updatable {
         if (x<0|x>getMyMapConfig().getGridWidth()){
             return false;
         }
-        if (y<0|y>getMyMapConfig().getGridHeight()){
-            return false;
-        }
-        return true;
+        return !(y < 0 | y > getMyMapConfig().getGridHeight());
     }
 
 

@@ -1,13 +1,13 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.Configurable;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 
 public class AmmoExpirable extends WeaponBehavior {
-    @Configure
     private String myLabel;
     @Configure
-    protected int numberOfEnemiesPossibleToKill;
+    private int numberOfEnemiesPossibleToKill;
 
     private Configuration myConfiguration;
 
@@ -17,9 +17,8 @@ public class AmmoExpirable extends WeaponBehavior {
     }
 
     @Override
-    public void update(long ms) {
-
-
+    public void update(double ms) {
+        //TODO
     }
 
     @Override

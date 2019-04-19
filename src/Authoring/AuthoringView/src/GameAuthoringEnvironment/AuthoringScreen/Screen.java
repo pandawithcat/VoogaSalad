@@ -1,11 +1,12 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import GameAuthoringEnvironment.AuthoringComponents.Buttons.CloseButton;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public abstract class Screen {
 
@@ -17,11 +18,10 @@ public abstract class Screen {
     private Group myRoot;
     private boolean resizable = false;
 
-    public Screen(Group root, int width, int height, String moduleName, boolean toolBarExist) {
+    public Screen(int width, int height) {
 
         module = new VBox();
         content = new Pane();
-        myRoot = root;
         moduleWidth = width;
         moduleHeight = height;
         //module.setStyle("-fx-border-color: black;");
@@ -33,14 +33,7 @@ public abstract class Screen {
         content.prefWidthProperty().bind(module.widthProperty());
 
 
-        if(toolBarExist){
-        addToolbar(moduleName);
-        module.getChildren().addAll(toolbarPane, content);
-        } else{
-            module.getChildren().addAll(content);
-        }
-
-        setResizable(resizable);
+        module.getChildren().addAll(content);
     }
 
     //TODO implement to make screen resizable
@@ -48,25 +41,6 @@ public abstract class Screen {
 
     }
 
-
-    protected void addToolbar(String moduleName) {
-        this.toolbarPane = new Pane();
-        //TODO Make toolbar white
-        //toolbarPane.setStyle();
-        toolbarPane.setPrefWidth(moduleWidth);
-        toolbarPane.setMaxHeight(toolbarHeight);
-        //toolbarPane.setId(moduleName);
-
-        Text title = new Text(moduleName);
-        title.setLayoutX(moduleWidth/3);
-        title.setVisible(true);
-        /*Font myFont = new Font ("Courier New", 10);
-        title.setFont(myFont);*/
-        CloseButton close = new CloseButton();
-        close.getButton().setLayoutX(0);
-        close.getButton().setLayoutY(-20);
-        toolbarPane.getChildren().addAll(title, close.getButton());
-    }
 
     //public abstract void setContent();
 
@@ -110,15 +84,11 @@ public abstract class Screen {
         module.setStyle(style);
     }
 
-    public VBox getVBox() {
+    public VBox getModule() {
         return module;
     }
 
-    public Pane getToolbarPane(){return toolbarPane;}
-
-    protected Pane getContent() {
-        return content;
-    }
+    public Pane getContent(){return content;}
 
     protected int getModuleWidth() {
         return moduleWidth;

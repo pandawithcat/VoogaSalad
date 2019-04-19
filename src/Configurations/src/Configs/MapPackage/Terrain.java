@@ -7,15 +7,14 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 public class Terrain implements Configurable, Viewable{
-    @Configure
     private String myLabel;
     @Configure
     private View view;
 
     @Configure
-    private double gridBlockHeight;
+    private int gridBlockHeight;
     @Configure
-    private double gridBlockWidth;
+    private int gridBlockWidth;
     @Configure
     private boolean isPath;
     @Configure
@@ -31,10 +30,10 @@ public class Terrain implements Configurable, Viewable{
 
 
     private Configuration myConfiguration;
-    private MapFeature myMapFeature;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-        view = new View(fileName,height, width);
+
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
+        view = new View(fileName,gridBlockHeight, gridBlockWidth);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;
         this.isPath = isPath;
@@ -49,6 +48,14 @@ public class Terrain implements Configurable, Viewable{
 
     public int getGridYPos() {
         return gridYPos;
+    }
+
+    public double getGridBlockHeight() {
+        return gridBlockHeight;
+    }
+
+    public double getGridBlockWidth() {
+        return gridBlockWidth;
     }
 
     @Override
