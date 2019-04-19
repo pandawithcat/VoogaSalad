@@ -10,7 +10,7 @@ public class Shootable extends WeaponBehavior{
 
     private String myLabel;
     @Configure
-    protected Shooter myShooter;
+    private Shooter myShooter;
 
     Configuration myConfiguration;
     private WeaponConfig weaponConfig;

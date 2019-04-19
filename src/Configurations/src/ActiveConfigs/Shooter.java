@@ -1,15 +1,54 @@
 package ActiveConfigs;
 
-import Configs.MapFeature;
+import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
+import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.ShooterConfig.ShooterConfig;
-import Configs.Updatable;
-import Configs.View;
 
-public class Shooter extends ShooterConfig implements Updatable {
+public class Shooter implements Updatable , Configurable {
     //TODO after demo: implement behaviors
 
-    public Shooter(ShooterConfig shooterConfig, ActiveLevel activeLevel){
-        super(shooterConfig);
+    private Shootable myShootable;
+
+    @Configure
+    private String myLabel;
+    @Configure
+    private double rateOfFire;
+    @Configure
+    private ProjectileConfig projectileConfig;
+    @Configure
+    private double shooterRange;
+    private Configuration myConfiguration;
+
+    public Shooter(Shootable shootable){
+        myShootable = shootable;
+        myConfiguration = new Configuration(this);
+    }
+
+    public Shootable getMyShootable() {
+        return myShootable;
+    }
+
+    public double getShooterRange() {
+        return shooterRange;
+    }
+
+    public ProjectileConfig getProjectileConfig() {
+        return projectileConfig;
+    }
+
+    public double getRateOfFire() {
+        return rateOfFire;
+    }
+
+    @Override
+    public String getLabel() {
+        return myLabel;
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
     }
 
     @Override
@@ -34,8 +73,5 @@ public class Shooter extends ShooterConfig implements Updatable {
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
             }
         }
-
-
-
     }
 }

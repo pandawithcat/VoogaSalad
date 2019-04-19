@@ -33,6 +33,7 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
+        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
     }
@@ -187,20 +188,24 @@ public class ActiveLevel extends Level implements Updatable {
         LinkedList<Cell> stack = new LinkedList<>();
         stack.addLast(startCell);
         while(!stack.isEmpty()){
-            Cell expandedCell = stack.removeFirst();
-            int[]xAdditions = new int[]{0,0,-1,1};
-            int[]yAdditions = new int[]{1,-1,0,0};
-            for (int i = 0; i < 3; i++) {
-                int x = expandedCell.getX() + xAdditions[i];
-                int y = expandedCell.getY() + yAdditions[i];
-                if(isCellValid(x,y)){
-                    if (myGrid[x][y].getMyTerrain().getIfPath()){
-                        myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
-                    }
-                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
-                    if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
-                        myGrid[x][y].setMovementHeuristic(newHeuristic);
-                    }
+            popCellAndCalculateNeighborsHeuristic(stack);
+        }
+    }
+
+    private void popCellAndCalculateNeighborsHeuristic(LinkedList<Cell> stack) {
+        Cell expandedCell = stack.removeFirst();
+        int[]xAdditions = new int[]{0,0,-1,1};
+        int[]yAdditions = new int[]{1,-1,0,0};
+        for (int i = 0; i < 3; i++) {
+            int x = expandedCell.getX() + xAdditions[i];
+            int y = expandedCell.getY() + yAdditions[i];
+            if(isCellValid(x,y)){
+                if (myGrid[x][y].getMyTerrain().getIfPath()){
+                    myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
+                }
+                int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
+                    myGrid[x][y].setMovementHeuristic(newHeuristic);
                 }
             }
         }
