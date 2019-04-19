@@ -16,8 +16,6 @@ public class WeaponUnlocker implements Configurable {
         this.myConfiguration = new Configuration(this);
     }
 
-
-
     @Configure
     private WeaponUnlockerBehavior unlockerMode;
 
@@ -31,8 +29,4 @@ public class WeaponUnlocker implements Configurable {
         return null;
     }
 
-    @Override
-    public Configuration getConfiguration() {
-        return null;
-    }
 }
