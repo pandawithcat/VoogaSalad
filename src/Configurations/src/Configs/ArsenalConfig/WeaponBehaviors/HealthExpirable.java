@@ -19,7 +19,7 @@ public class HealthExpirable extends WeaponBehavior{
 
     @Override
     public void update(double ms) {
-
+        //TODO
     }
 
     @Override
