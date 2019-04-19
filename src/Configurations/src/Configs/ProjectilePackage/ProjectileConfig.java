@@ -1,12 +1,9 @@
 package Configs.ProjectilePackage;
 
-import ActiveConfigs.Shooter;
+import Configs.ShooterConfig.Shooter;
 import Configs.*;
-import Configs.Behaviors.Behavior;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ShooterConfig.ShooterConfig;
-
-import java.util.List;
 
 public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
