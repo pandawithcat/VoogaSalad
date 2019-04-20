@@ -49,6 +49,11 @@ public class Wave implements Updatable, Configurable {
         return myConfiguration;
     }
 
+    public double getTimeToReleaseInMs() {
+        return timeToReleaseInMs;
+    }
+
+
     @Override
     public void update(double ms) {
         if(ms>=timeToReleaseInMs && currentEnemyIndex==0) {
