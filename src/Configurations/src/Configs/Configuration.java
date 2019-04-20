@@ -55,8 +55,8 @@ public class Configuration {
 //            if(attributes.get(key) instanceof Behavior[]) {
 //                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
 //            }
-//            if(attributes.get(key) instanceof WaveConfig[]) {
-//                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((WaveConfig[]) attributes.get(key)))));
+//            if(attributes.get(key) instanceof Wave[]) {
+//                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
 //            }
         myAttributes = attributes;
         setAttributesInConfigurable();

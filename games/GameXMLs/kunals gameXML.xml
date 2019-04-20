@@ -8,14 +8,14 @@
       <myGame reference="../../.."/>
       <myLabel>round1</myLabel>
       <myWaveConfigs>
-        <Configs.Waves.WaveConfig>
+        <Configs.Waves.Wave>
           <myLevel reference="../../.."/>
           <name>rapsgame1</name>
           <timeToReleaseInMs>1000.0</timeToReleaseInMs>
           <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
           <enemies>
             <Configs.EnemyPackage.EnemyConfig>
-              <myWaveConfig reference="../../.."/>
+              <myWave reference="../../.."/>
               <name>kawhi</name>
               <myBehaviors/>
               <unitSpeedPerSecond>1</unitSpeedPerSecond>
@@ -29,7 +29,7 @@
               <myConfiguration/>
             </Configs.EnemyPackage.EnemyConfig>
             <Configs.EnemyPackage.EnemyConfig>
-              <myWaveConfig reference="../../.."/>
+              <myWave reference="../../.."/>
               <name>lowry</name>
               <myBehaviors/>
               <unitSpeedPerSecond>1</unitSpeedPerSecond>
@@ -45,7 +45,7 @@
           </enemies>
           <myWaveBehaviors/>
           <myConfiguration/>
-        </Configs.Waves.WaveConfig>
+        </Configs.Waves.Wave>
       </myWaveConfigs>
       <myMap>
         <myTerrain>

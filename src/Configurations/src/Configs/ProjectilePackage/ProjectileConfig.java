@@ -3,7 +3,6 @@ package Configs.ProjectilePackage;
 import Configs.ShooterConfig.Shooter;
 import Configs.*;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
-import Configs.ShooterConfig.ShooterConfig;
 
 public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
