@@ -34,14 +34,14 @@
             <myGame reference="../../../../../.."/>
             <myLabel>level1</myLabel>
             <myWaveConfigs>
-              <Configs.Waves.WaveConfig>
+              <Configs.Waves.Wave>
                 <myLevel reference="../../.."/>
                 <myLabel>wave1</myLabel>
                 <timeToReleaseInMs>100.0</timeToReleaseInMs>
                 <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
                 <enemies>
                   <Configs.EnemyPackage.EnemyConfig>
-                    <myWaveConfig reference="../../.."/>
+                    <myWave reference="../../.."/>
                     <name>enemy</name>
                     <myBehaviors/>
                     <unitSpeedPerSecond>4</unitSpeedPerSecond>
@@ -131,10 +131,10 @@
                     </entry>
                   </myAttributes>
                   <isComplete>true</isComplete>
-                  <myConfigurable class="Configs.Waves.WaveConfig" reference="../.."/>
-                  <myConfigurableClass>Configs.Waves.WaveConfig</myConfigurableClass>
+                  <myConfigurable class="Configs.Waves.Wave" reference="../.."/>
+                  <myConfigurableClass>Configs.Waves.Wave</myConfigurableClass>
                 </myConfiguration>
-              </Configs.Waves.WaveConfig>
+              </Configs.Waves.Wave>
             </myWaveConfigs>
             <myMap>
               <myTerrain>
@@ -7414,7 +7414,7 @@
               <myAttributes>
                 <entry>
                   <string>myWaveConfigs</string>
-                  <Configs.Waves.WaveConfig-array reference="../../../../myWaveConfigs"/>
+                  <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
                 </entry>
                 <entry>
                   <string>myLabel</string>

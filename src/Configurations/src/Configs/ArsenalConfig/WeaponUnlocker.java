@@ -24,4 +24,8 @@ public class WeaponUnlocker implements Configurable {
         return null;
     }
 
+    @Override
+    public Configuration getConfiguration() {
+        return null;
+    }
 }
