@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
+
 public class ActiveLevel extends Level implements Updatable {
     public static final int DISTANCE_HEURISTIC = 1;
     private Map<Integer,ActiveWeapon> activeWeapons;
@@ -33,17 +35,21 @@ public class ActiveLevel extends Level implements Updatable {
 //        setMyGame(game);
 //        myMapFeature = mapFeature;
         myGrid = createMyGrid();
-        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
+        recalculateMovementHeuristic();
     }
 
     private Cell[][] createMyGrid(){
-        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
-        for(Terrain t : getMyMapConfig().getTerrain()){
-            tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
-            tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
+        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridWidth()][getMyMapConfig().getGridHeight()];//cell[row][col]
+        for(Terrain t: getMyMapConfig().getTerrain()) {
+            for (int x = 0; x < TERRAIN_SIZE; x++) {
+                for (int y = 0; y < TERRAIN_SIZE; y++) {
+                    tempGrid[t.getGridXPos() + x][t.getGridYPos() + y] = new Cell(t.getGridXPos() + x, t.getGridYPos() + y, t);
+                }
+            }
         }
+        
         return tempGrid;
     }
 

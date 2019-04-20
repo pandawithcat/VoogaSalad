@@ -6,7 +6,10 @@ import javafx.scene.image.ImageView;
 
 import java.io.File;
 
+
 public class Terrain implements Configurable, Viewable{
+    public static final int TERRAIN_SIZE = 4;
+
     private String myLabel;
     @Configure
     private View view;
@@ -43,11 +46,11 @@ public class Terrain implements Configurable, Viewable{
     }
 
     public int getGridXPos() {
-        return gridXPos;
+        return gridXPos*TERRAIN_SIZE;
     }
 
     public int getGridYPos() {
-        return gridYPos;
+        return gridYPos*TERRAIN_SIZE;
     }
 
     public double getGridBlockHeight() {

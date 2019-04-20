@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigurableMap {
+    public static final int GRID_WIDTH = 20;
+    public static final int GRID_HEIGHT = 20;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -95,8 +97,8 @@ public class ConfigurableMap {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
             Image image = new Image(fis);
             map = new GridPane();
-            for (int r = 0; r < 20; r++) {
-                for (int c = 0; c < 20; c++) {
+            for (int r = 0; r < GRID_WIDTH; r++) {
+                for (int c = 0; c < GRID_HEIGHT; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
                     map.add(myTile, r, c);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
@@ -146,10 +148,10 @@ public class ConfigurableMap {
                 passedMap.put("enemyEnteringGridXPos", 0);
                 passedMap.put("enemyEnteringGridYPos", 0);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("enemyExitGridXPos",20);
-                passedMap.put("enemyExitGridYPos",20);
-                passedMap.put("gridHeight",(int)map.getHeight());
-                passedMap.put("gridWidth",(int)map.getWidth());
+                passedMap.put("enemyExitGridXPos",19);
+                passedMap.put("enemyExitGridYPos",19);
+                passedMap.put("gridHeight",GRID_HEIGHT);
+                passedMap.put("gridWidth",GRID_WIDTH);
 
                 m.getConfiguration().setAllAttributes(passedMap);
 

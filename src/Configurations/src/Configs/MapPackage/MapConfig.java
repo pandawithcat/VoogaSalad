@@ -8,6 +8,8 @@ import Configs.MapPackage.Terrain;
 import java.util.Collection;
 import java.util.List;
 
+import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
+
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
     private String myLabel;
@@ -29,6 +31,7 @@ public class MapConfig implements Configurable {
     private int gridHeight;
     @Configure
     private int gridWidth;
+
 //    @Configure
 //    protected double gridPixelWidth;
 //    @Configure
@@ -58,23 +61,23 @@ public class MapConfig implements Configurable {
     }
 
     public int getEnemyEnteringDirection() {
-        return enemyEnteringDirection;
+        return enemyEnteringDirection*TERRAIN_SIZE;
     }
 
     public int getEnemyEnteringGridXPos() {
-        return enemyEnteringGridXPos;
+        return enemyEnteringGridXPos*TERRAIN_SIZE;
     }
 
     public int getEnemyEnteringGridYPos() {
-        return enemyEnteringGridYPos;
+        return enemyEnteringGridYPos*TERRAIN_SIZE;
     }
 
     public int getEnemyExitGridXPos() {
-        return enemyExitGridXPos;
+        return enemyExitGridXPos*TERRAIN_SIZE;
     }
 
     public int getEnemyExitGridYPos() {
-        return enemyExitGridYPos;
+        return enemyExitGridYPos*TERRAIN_SIZE;
     }
 
     public int getGridHeight() {
@@ -82,7 +85,7 @@ public class MapConfig implements Configurable {
         System.out.println("HEIGHT");
         System.out.println(gridHeight);
 
-        return gridHeight;
+        return gridHeight*TERRAIN_SIZE;
     }
 
     public int getGridWidth() {
@@ -92,7 +95,7 @@ public class MapConfig implements Configurable {
 
 
 
-        return gridWidth;
+        return gridWidth*TERRAIN_SIZE;
     }
 
     public void setTerrainList(List<Terrain> terrain) {
