@@ -1,15 +1,12 @@
 package Configs.ProjectilePackage;
 
-import ActiveConfigs.Shooter;
+import Configs.ShooterConfig.Shooter;
 import Configs.*;
-import Configs.Behaviors.Behavior;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ShooterConfig.ShooterConfig;
 
-import java.util.List;
-
 public class ProjectileConfig implements Configurable, Viewable {
-    private ShooterConfig myShooter;
+    private Shooter myShooter;
 
     Configuration myConfiguration;
     private String myLabel;
@@ -25,7 +22,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     private ProjectileBehavior[] myBehaviors;
 
 
-    public ProjectileConfig(ShooterConfig shooter) {
+    public ProjectileConfig(Shooter shooter) {
         myShooter = shooter;
         myConfiguration = new Configuration(this);
     }
@@ -53,7 +50,7 @@ public class ProjectileConfig implements Configurable, Viewable {
         return myLabel;
     }
 
-    public ShooterConfig getMyShooter() {
+    public Shooter getMyShooter() {
         return myShooter;
     }
 

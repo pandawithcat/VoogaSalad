@@ -1,20 +1,18 @@
 package Configs.LevelPackage;
 
 import Configs.*;
-import Configs.ArsenalConfig.Arsenal;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
-import Configs.Waves.WaveConfig;
+import Configs.Waves.Wave;
 
-import java.util.Map;
 
 public class Level implements Configurable{
     private Game myGame;
     @Configure
     private String myLabel;
     @Configure
-    private WaveConfig[] myWaveConfigs;
+    private Wave[] myWaves;
     @Configure
     private MapConfig myMap;
 
@@ -28,7 +26,7 @@ public class Level implements Configurable{
     }
 
     public Level(Level level){
-        myWaveConfigs = level.getMyWaveConfigs();
+        myWaves = level.getMyWaves();
         myMap = level.getMyMapConfig();
         levelBehaviors = level.getLevelBehaviors();
     }
@@ -50,8 +48,8 @@ public class Level implements Configurable{
         return myMap;
     }
 
-    protected WaveConfig[] getMyWaveConfigs() {
-        return myWaveConfigs;
+    protected Wave[] getMyWaves() {
+        return myWaves;
     }
 
     @Override

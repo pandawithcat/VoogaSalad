@@ -1,9 +1,10 @@
-package ActiveConfigs;
+package Configs.ShooterConfig;
 
+import ActiveConfigs.ActiveLevel;
+import ActiveConfigs.ActiveProjectile;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.ProjectilePackage.ProjectileConfig;
-import Configs.ShooterConfig.ShooterConfig;
 
 public class Shooter implements Updatable , Configurable {
     //TODO after demo: implement behaviors

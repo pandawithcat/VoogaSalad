@@ -1,10 +1,10 @@
 package ActiveConfigs;
 
 import Configs.*;
-import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
+import Configs.Waves.Wave;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,7 +17,7 @@ public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
-    private ActiveWave activeWave;
+    private Wave wave;
     private Cell[][] myGrid;
     private int myScore;
     private int currentWave=0;
@@ -30,10 +30,7 @@ public class ActiveLevel extends Level implements Updatable {
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
         //TODO: fix active wave to be a wave spawner
-        //TODO: COMMENTED OUT BELOW FOR TESTING
         generateCurrentActiveWave();
-//        setMyGame(game);
-//        myMapFeature = mapFeature;
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
@@ -94,21 +91,21 @@ public class ActiveLevel extends Level implements Updatable {
 //            enemy.getMapFeature().setGridPos(50,50,0);
             enemy.update(ms);
         }
-        if (activeWave.isFinished()) currentWave++;
-        //ArrayAttributeManager.updateList(activeWave, ms); ??
+        if (wave.isFinished()) currentWave++;
+        //ArrayAttributeManager.updateList(wave, ms); ??
     }
 
     private void updateActiveWave(double ms){
-        if (activeWave.isFinished()) {
+        if (wave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();
         }
-        activeWave.update(ms);
+        wave.update(ms);
     }
 
     private void generateCurrentActiveWave(){
 
-        activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
+        wave = getMyWaves()[currentWave];
     }
 
     private void updateProjectiles(double ms){
@@ -124,11 +121,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    public boolean isValid(int x, int y, double weaponHeight, double weaponWidth){
-        //TODO
-        return false;
-
-    }
 
     private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
         if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
