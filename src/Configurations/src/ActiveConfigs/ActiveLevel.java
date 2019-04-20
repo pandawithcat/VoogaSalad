@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
+
 public class ActiveLevel extends Level implements Updatable {
     public static final int DISTANCE_HEURISTIC = 1;
     private Map<Integer,ActiveWeapon> activeWeapons;
@@ -30,17 +32,22 @@ public class ActiveLevel extends Level implements Updatable {
         //TODO: fix active wave to be a wave spawner
         generateCurrentActiveWave();
         myGrid = createMyGrid();
-        recalculateMovementHeuristic();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
+        recalculateMovementHeuristic();
+        System.out.println("meep");
     }
 
     private Cell[][] createMyGrid(){
-        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
-        for(Terrain t : getMyMapConfig().getTerrain()){
-            tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
-            tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
+        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridWidth()][getMyMapConfig().getGridHeight()];//cell[row][col]
+        for(Terrain t: getMyMapConfig().getTerrain()) {
+            for (int x = 0; x < TERRAIN_SIZE; x++) {
+                for (int y = 0; y < TERRAIN_SIZE; y++) {
+                    tempGrid[t.getGridXPos() + x][t.getGridYPos() + y] = new Cell(t.getGridXPos() + x, t.getGridYPos() + y, t);
+                }
+            }
         }
+        
         return tempGrid;
     }
 
@@ -177,10 +184,28 @@ public class ActiveLevel extends Level implements Updatable {
 
     private void astar(Cell startCell){
         startCell.setMovementHeuristic(0);
-        LinkedList<Cell> stack = new LinkedList<>();
-        stack.addLast(startCell);
-        while(!stack.isEmpty()){
-            popCellAndCalculateNeighborsHeuristic(stack);
+        PriorityQueue<Cell> pq = new PriorityQueue<>();
+        pq.add(startCell);
+        while(!pq.isEmpty()){
+            Cell expandedCell = pq.remove();
+            int[]xAdditions = new int[]{0,0,-1,1};
+            int[]yAdditions = new int[]{1,-1,0,0};
+            for (int i = 0; i < 3; i++) {
+                int x = expandedCell.getX() + xAdditions[i];
+                int y = expandedCell.getY() + yAdditions[i];
+                if(isCellValid(x,y)){
+                    Cell inspectedCell = myGrid[x][y];
+                    if (!inspectedCell.getMyTerrain().getIfPath()){
+                        inspectedCell.setMovementHeuristic(Integer.MAX_VALUE);
+                        continue;
+                    }
+                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                    if (newHeuristic<inspectedCell.getMovementHeuristic()){
+                        inspectedCell.setMovementHeuristic(newHeuristic);
+                        pq.add(inspectedCell);
+                    }
+                }
+            }
         }
     }
 
@@ -204,10 +229,10 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private boolean isCellValid(int x, int y){
-        if (x<0|x>getMyMapConfig().getGridWidth()){
+        if (x<0|x>=getMyMapConfig().getGridWidth()){
             return false;
         }
-        return !(y < 0 | y > getMyMapConfig().getGridHeight());
+        return !(y < 0 | y >= getMyMapConfig().getGridHeight());
     }
 
 
