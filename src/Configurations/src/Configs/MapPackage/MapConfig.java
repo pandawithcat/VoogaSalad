@@ -82,16 +82,16 @@ public class MapConfig implements Configurable {
 
     public int getGridHeight() {
 
-        System.out.println("HEIGHT");
-        System.out.println(gridHeight);
+//        System.out.println("HEIGHT");
+//        System.out.println(gridHeight);
 
         return gridHeight*TERRAIN_SIZE;
     }
 
     public int getGridWidth() {
-
-        System.out.println("WIDTH");
-        System.out.println(gridWidth);
+//
+//        System.out.println("WIDTH");
+//        System.out.println(gridWidth);
 
 
 

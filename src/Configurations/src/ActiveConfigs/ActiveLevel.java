@@ -38,6 +38,7 @@ public class ActiveLevel extends Level implements Updatable {
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
+        System.out.println("meep");
     }
 
     private Cell[][] createMyGrid(){
@@ -191,10 +192,28 @@ public class ActiveLevel extends Level implements Updatable {
 
     private void astar(Cell startCell){
         startCell.setMovementHeuristic(0);
-        LinkedList<Cell> stack = new LinkedList<>();
-        stack.addLast(startCell);
-        while(!stack.isEmpty()){
-            popCellAndCalculateNeighborsHeuristic(stack);
+        PriorityQueue<Cell> pq = new PriorityQueue<>();
+        pq.add(startCell);
+        while(!pq.isEmpty()){
+            Cell expandedCell = pq.remove();
+            int[]xAdditions = new int[]{0,0,-1,1};
+            int[]yAdditions = new int[]{1,-1,0,0};
+            for (int i = 0; i < 3; i++) {
+                int x = expandedCell.getX() + xAdditions[i];
+                int y = expandedCell.getY() + yAdditions[i];
+                if(isCellValid(x,y)){
+                    Cell inspectedCell = myGrid[x][y];
+                    if (!inspectedCell.getMyTerrain().getIfPath()){
+                        inspectedCell.setMovementHeuristic(Integer.MAX_VALUE);
+                        continue;
+                    }
+                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                    if (newHeuristic<inspectedCell.getMovementHeuristic()){
+                        inspectedCell.setMovementHeuristic(newHeuristic);
+                        pq.add(inspectedCell);
+                    }
+                }
+            }
         }
     }
 
@@ -218,10 +237,10 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private boolean isCellValid(int x, int y){
-        if (x<0|x>getMyMapConfig().getGridWidth()){
+        if (x<0|x>=getMyMapConfig().getGridWidth()){
             return false;
         }
-        return !(y < 0 | y > getMyMapConfig().getGridHeight());
+        return !(y < 0 | y >= getMyMapConfig().getGridHeight());
     }
 
 
