@@ -64,7 +64,7 @@ public class Logic {
     // No Input
     // Return: integer Level number
     public int startNextLevel(){
-        return myGame.startNextLevel();
+        return myGame.getLevelSpawner().startNextLevel();
     }
 
 

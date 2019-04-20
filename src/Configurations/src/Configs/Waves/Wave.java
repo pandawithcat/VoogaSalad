@@ -9,9 +9,9 @@ import Configs.Waves.WaveBehaviors.WaveBehavior;
 
 public class Wave implements Updatable, Configurable {
     private Level myLevel;
-    private String myLabel = "Wave";
+    public static final String myLabel = "Wave";
     @Configure
-    private String name;
+    private String myName;
     @Configure
     private double timeToReleaseInMs;
     @Configure
@@ -39,9 +39,10 @@ public class Wave implements Updatable, Configurable {
         return isFinished;
     }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     @Override

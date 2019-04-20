@@ -10,10 +10,12 @@ import java.util.List;
 public class WaveSpawner implements Updatable {
     private List<Wave> currentWaves;
     private List<Wave> myWaves;
+    private boolean noMoreEnemies;
 
     public WaveSpawner(Wave[] waves) {
         myWaves = new ArrayList<>(Arrays.asList(waves));
         currentWaves = new ArrayList<>();
+        noMoreEnemies = false;
     }
 
 
@@ -29,5 +31,11 @@ public class WaveSpawner implements Updatable {
                 myWaves.remove(wave);
             }
         });
+        if(myWaves.isEmpty()&&currentWaves.isEmpty()) noMoreEnemies = true;
+
+    }
+
+    public boolean isNoMoreEnemies() {
+        return noMoreEnemies;
     }
 }

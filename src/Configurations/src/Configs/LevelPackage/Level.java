@@ -9,8 +9,9 @@ import Configs.Waves.Wave;
 
 public class Level implements Configurable{
     private Game myGame;
+    public static final String myLabel = "Level";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private Wave[] myWaves;
     @Configure
@@ -29,10 +30,7 @@ public class Level implements Configurable{
         myWaves = level.getMyWaves();
         myMap = level.getMyMapConfig();
         levelBehaviors = level.getLevelBehaviors();
-    }
-
-    public void setMyGame(Game myGame) {
-        this.myGame = myGame;
+        myName = level.myName;
     }
 
     protected Game getMyGame() {
@@ -53,10 +51,9 @@ public class Level implements Configurable{
     }
 
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
-
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;

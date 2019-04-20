@@ -226,7 +226,7 @@ public class GameController {
                         tempList.addAll(configuredObjects.get(key));
                         for(Object object: configuredObjects.get(key)){
                             Configurable temp = (Configurable) object;
-                            sourceView.getItems().add(temp.getLabel());
+                            sourceView.getItems().add(temp.getName());
                         }
                     }
 

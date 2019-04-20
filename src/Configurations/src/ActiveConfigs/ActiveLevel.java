@@ -27,7 +27,6 @@ public class ActiveLevel extends Level implements Updatable {
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
-        //TODO: fix active wave to be a wave spawner
         myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
@@ -49,14 +48,20 @@ public class ActiveLevel extends Level implements Updatable {
         return tempGrid;
     }
 
+    public void addToScore(int points) {
+        myScore+=points;
+    }
+
+    public int getScore() {
+        return myScore;
+    }
+
     public Cell[][] getMyGrid() {
         return myGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
-        //TODO: check logic on seeing if theres no more waves
-
-        return activeEnemies.size()==0;
+        return myWaveSpawner.isNoMoreEnemies();
     }
 
 
@@ -75,7 +80,6 @@ public class ActiveLevel extends Level implements Updatable {
 
     @Override
     public void update(double ms) {
-        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
