@@ -3,6 +3,7 @@ module AuthoringModel {
 
 
     requires Configurations;
+    requires DatabaseUtil;
     requires xstream;
     exports BackendExternalAPI;
 
