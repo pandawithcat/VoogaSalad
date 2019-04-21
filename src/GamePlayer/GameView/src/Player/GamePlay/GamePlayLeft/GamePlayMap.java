@@ -38,12 +38,7 @@ public class GamePlayMap extends Pane{
         layout();
 
         terrainList = myLogic.getLevelTerrain(width, height);
-        double meep = terrainList.get(40).getX();
-        double meep2 = terrainList.get(40).getY();
-        Node node = terrainList.get(40).getAsNode();
-        System.out.println("MEEP");
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        getChildren().add(new Rectangle(200,200, 100, 100));
         terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
 
 
