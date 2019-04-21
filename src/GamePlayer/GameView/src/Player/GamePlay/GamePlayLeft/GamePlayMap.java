@@ -37,15 +37,15 @@ public class GamePlayMap extends GridPane{
         applyCss();
         layout();
 
-        terrainList = myLogic.getLevelTerrain();
+        terrainList = myLogic.getLevelTerrain(width, height);
         double meep = terrainList.get(40).getX();
         double meep2 = terrainList.get(40).getY();
         Node node = terrainList.get(40).getAsNode();
         System.out.println("MEEP");
+        setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         getChildren().add(new Rectangle(0,0, 100, 100));
         terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
 
-        setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
 //        createFilledTestTerrain(width, height);
 //        createSquareTestTerrain(width, height);
