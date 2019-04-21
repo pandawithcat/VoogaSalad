@@ -1,7 +1,6 @@
 package BackendExternalAPI;
 
 import Configs.GamePackage.Game;
-import ExternalAPIs.AuthoringData;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -19,11 +18,10 @@ public class Model {
 
     private Game myNewGame;
     private String myXMLFileName;
-    private AuthoringData myAuthoringData;
 
 
     public Model(){
-        myAuthoringData = new AuthoringData();
+
     }
 
     public void saveToXML(Game newGame) {
@@ -36,14 +34,6 @@ public class Model {
             // TODO: For Testing Purposes
             e.printStackTrace();
         }
-    }
-
-    public boolean authenticateUser(String username, String password){
-        return myAuthoringData.authenticateUser(username, password);
-    }
-
-    public void createNewUser(String username, String password, String passwordRepeated){
-        myAuthoringData.createNewUser(username, password, passwordRepeated);
     }
 
     private void updatePropertiesFile() throws IOException{

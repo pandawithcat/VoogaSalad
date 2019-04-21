@@ -1,4 +1,0 @@
-module DatabaseUtil {
-
-    exports ExternalAPIs;
-}
