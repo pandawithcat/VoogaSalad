@@ -1,55 +1,13 @@
 <Configs.GamePackage.Game>
   <myConfiguration/>
-  <myTitle>new</myTitle>
-  <myDescription>newgame</myDescription>
-  <myThumbnail>thumbnail2.gif</myThumbnail>
+  <myTitle>urmom</myTitle>
+  <myDescription>meep</myDescription>
+  <myThumbnail>thumbnail1.gif</myThumbnail>
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myLabel>plzshow</myLabel>
-      <myWaves>
-        <Configs.Waves.Wave>
-          <myLevel reference="../../.."/>
-          <myLabel>Wave</myLabel>
-          <name>wave1</name>
-          <timeToReleaseInMs>1000.0</timeToReleaseInMs>
-          <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
-          <enemies>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <name>en1</name>
-              <myBehaviors/>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
-              <view>
-                <myConfiguration/>
-                <imagePath>thumbnail2.gif</imagePath>
-                <width>1</width>
-                <height>1</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-              <myConfiguration/>
-            </Configs.EnemyPackage.EnemyConfig>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <name>en2</name>
-              <myBehaviors/>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
-              <view>
-                <myConfiguration/>
-                <imagePath>thumbnail3.gif</imagePath>
-                <width>1</width>
-                <height>1</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-              <myConfiguration/>
-            </Configs.EnemyPackage.EnemyConfig>
-          </enemies>
-          <myWaveBehaviors/>
-          <myConfiguration/>
-          <currentEnemyIndex>0</currentEnemyIndex>
-          <isFinished>false</isFinished>
-        </Configs.Waves.Wave>
-      </myWaves>
+      <myLabel></myLabel>
+      <myWaves/>
       <myMap>
         <myTerrain>
           <Configs.MapPackage.Terrain>
@@ -5267,27 +5225,6 @@
       <myConfiguration/>
     </Configs.LevelPackage.Level>
   </levelList>
-  <myArsenal>
-    <allWeaponConfigOptions>
-      <Configs.ArsenalConfig.WeaponConfig>
-        <myConfiguration/>
-        <name>we1</name>
-        <behaviors/>
-        <view>
-          <myConfiguration/>
-          <imagePath>weapon.png</imagePath>
-          <width>1</width>
-          <height>1</height>
-          <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
-        </view>
-        <unlocked>true</unlocked>
-        <myArsenal reference="../../.."/>
-        <weaponId>0</weaponId>
-      </Configs.ArsenalConfig.WeaponConfig>
-    </allWeaponConfigOptions>
-    <myConfiguration/>
-    <myGame reference="../.."/>
-  </myArsenal>
   <currentLevelNumber>0</currentLevelNumber>
   <gameOver>false</gameOver>
   <currentLevelOver>false</currentLevelOver>

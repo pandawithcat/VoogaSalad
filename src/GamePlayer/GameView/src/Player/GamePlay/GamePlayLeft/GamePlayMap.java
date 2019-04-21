@@ -21,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlayMap extends GridPane{
+public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
     private Group mapRoot;
@@ -43,7 +43,7 @@ public class GamePlayMap extends GridPane{
         Node node = terrainList.get(40).getAsNode();
         System.out.println("MEEP");
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        getChildren().add(new Rectangle(0,0, 100, 100));
+        getChildren().add(new Rectangle(200,200, 100, 100));
         terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
 
 
