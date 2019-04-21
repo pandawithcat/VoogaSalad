@@ -51,7 +51,7 @@ public class Wave implements Updatable, Configurable {
 
     @Override
     public void update(double ms) {
-        if(ms>=timeToReleaseInMs && currentEnemyIndex==0) {
+        if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {
                 startTimes[i] = ms+(i*rateOfReleaseEnemiesPerMs);

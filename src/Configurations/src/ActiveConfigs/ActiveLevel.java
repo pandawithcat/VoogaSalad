@@ -58,7 +58,7 @@ public class ActiveLevel extends Level implements Updatable {
     public boolean noMoreEnemiesLeft() {
         //TODO: check logic on seeing if theres no more waves
 
-        return activeEnemies.size()==0;
+        return activeEnemies.isEmpty()&&wave.isFinished();
     }
 
 
@@ -81,7 +81,7 @@ public class ActiveLevel extends Level implements Updatable {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
-        updateActiveWave(ms);
+        updateWave(ms);
     }
 
     private void updateEnemies(double ms){
@@ -95,7 +95,7 @@ public class ActiveLevel extends Level implements Updatable {
         //ArrayAttributeManager.updateList(wave, ms); ??
     }
 
-    private void updateActiveWave(double ms){
+    private void updateWave(double ms){
         if (wave.isFinished()) {
             currentWave++;
             generateCurrentActiveWave();

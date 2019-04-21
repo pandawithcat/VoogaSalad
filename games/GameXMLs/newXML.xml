@@ -29,20 +29,20 @@
               </view>
               <myConfiguration/>
             </Configs.EnemyPackage.EnemyConfig>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <name>en2</name>
-              <myBehaviors/>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
-              <view>
-                <myConfiguration/>
-                <imagePath>thumbnail3.gif</imagePath>
-                <width>1</width>
-                <height>1</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-              <myConfiguration/>
-            </Configs.EnemyPackage.EnemyConfig>
+            <!--<Configs.EnemyPackage.EnemyConfig>-->
+              <!--<myWave reference="../../.."/>-->
+              <!--<name>en2</name>-->
+              <!--<myBehaviors/>-->
+              <!--<unitSpeedPerSecond>1</unitSpeedPerSecond>-->
+              <!--<view>-->
+                <!--<myConfiguration/>-->
+                <!--<imagePath>thumbnail3.gif</imagePath>-->
+                <!--<width>1</width>-->
+                <!--<height>1</height>-->
+                <!--<myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>-->
+              <!--</view>-->
+              <!--<myConfiguration/>-->
+            <!--</Configs.EnemyPackage.EnemyConfig>-->
           </enemies>
           <myWaveBehaviors/>
           <myConfiguration/>
