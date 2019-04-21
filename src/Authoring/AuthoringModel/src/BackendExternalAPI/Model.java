@@ -42,10 +42,6 @@ public class Model {
         return myAuthoringData.authenticateUser(username, password);
     }
 
-    public void createNewUser(String username, String password, String passwordRepeated){
-        myAuthoringData.createNewUser(username, password, passwordRepeated);
-    }
-
     private void updatePropertiesFile() throws IOException{
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();

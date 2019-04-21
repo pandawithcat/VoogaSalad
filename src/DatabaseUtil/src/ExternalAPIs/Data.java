@@ -3,27 +3,18 @@ package ExternalAPIs;
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.PrimitiveIterator;
-import java.util.Random;
-import java.util.regex.Pattern;
 
 public abstract class Data {
 
     private final int MAX_LOGIN_ATTEMPTS = 3;
     private final String HASHING_ALGORITHM = "MD5";
-    private final int MINIMUM_PASSWORD_LENGTH = 6;
-    private final String NUMBER_CHECKER = "[0-9]";
 
-    // TODO: Might store this in backend
     private String currentUserID;
     private int numberOfLoginAttempts;
-    private Random saltGenerator;
 
     public Data(){
         numberOfLoginAttempts = 0;
-        saltGenerator = new SecureRandom();
         // TODO: Set up connection with server here
     }
 
@@ -83,35 +74,5 @@ public abstract class Data {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public void createNewUser(String username, String password, String passwordRepeated){
-        checkArgumentLengths(username, password, passwordRepeated);
-        // TODO: Check if username already exists in database and change if statement
-        if (username.length() > 5){
-            throw new IllegalArgumentException("This username is already being used please try another");
-        }
-        passwordErrorChecking(password, passwordRepeated);
-        byte[] salt = new byte[16];
-        saltGenerator.nextBytes(salt);
-        byte[] hashedPassword = hashPassword(password, salt);
-        // TODO: add user info to database
-        currentUserID = "me";
-    }
-
-    private void checkArgumentLengths(String username, String password, String passwordRepeated){
-        checkArgumentLengths(username, password);
-        if (passwordRepeated.length() == 0){
-            throw new IllegalArgumentException("You must re-enter a password in the field provided");
-        }
-    }
-
-    private void passwordErrorChecking(String password, String passwordRepeated){
-        if (password.length() < MINIMUM_PASSWORD_LENGTH || !Pattern.compile(NUMBER_CHECKER).matcher(password).find()){
-            throw new IllegalArgumentException("Password must be at least 6 characters and contain a number");
-        }
-        else if (! password.equals(passwordRepeated)){
-            throw new IllegalArgumentException("Password and repeated password do not match");
-        }
     }
 }
