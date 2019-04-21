@@ -53,11 +53,11 @@ public class MapFeature {
     }
 
     public double getPixelXPos() {
-        return myImageView.getTranslateX();
+        return myImageView.getX();
     }
 
     public double getPixelYPos() {
-        return myImageView.getTranslateY();
+        return myImageView.getY();
     }
 
     public int getGridXPos() {
@@ -71,8 +71,8 @@ public class MapFeature {
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
         pixelXPos+=deltaPixelX;
         pixelYPos+=deltaPixelY;
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
+        myImageView.setX(pixelXPos);
+        myImageView.setY(pixelYPos);
         gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
         gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
     }
@@ -87,8 +87,8 @@ public class MapFeature {
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
+        myImageView.setX(pixelXPos);
+        myImageView.setY(pixelYPos);
         myImageView.setRotate(direction);
     }
 
@@ -106,8 +106,9 @@ public class MapFeature {
 
 
     public TransferImageView getImageView() {
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
+//        myImageView.setX(pixelXPos)
+        myImageView.setX(pixelXPos);
+        myImageView.setY(pixelYPos);
         myImageView.setRotate(displayDirection);
         return myImageView;
     }

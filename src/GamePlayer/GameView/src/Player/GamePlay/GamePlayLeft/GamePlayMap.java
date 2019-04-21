@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +38,12 @@ public class GamePlayMap extends GridPane{
         layout();
 
         terrainList = myLogic.getLevelTerrain();
-        terrainList.stream().forEach(img -> getChildren().add(img.getAsNode()));
+        double meep = terrainList.get(40).getX();
+        double meep2 = terrainList.get(40).getY();
+        Node node = terrainList.get(40).getAsNode();
+        System.out.println("MEEP");
+        getChildren().add(new Rectangle(0,0, 100, 100));
+        terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
 
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
