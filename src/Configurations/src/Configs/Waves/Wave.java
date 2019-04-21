@@ -61,7 +61,7 @@ public class Wave implements Updatable, Configurable {
             isFinished= true;
         }
 
-        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]>=ms) {
+        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
             int x = activeLevel.getMyMapConfig().getEnemyEnteringGridXPos();
             int y = activeLevel.getMyMapConfig().getEnemyEnteringGridYPos();

@@ -71,7 +71,7 @@ public class GamePlayMain extends Application {
         while(true){
             long currTime = System.currentTimeMillis();
             step(currTime-prevTime);
-            prevTime = currTime-prevTime;
+//            prevTime = currTime;
         }
     }
 
