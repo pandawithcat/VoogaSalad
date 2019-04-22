@@ -38,7 +38,7 @@ public class GameOutline extends Screen {
     private GameOutline gameOutline;
 
     public ImageView getMyImage(){
-        Image test = new Image(getClass().getResourceAsStream("/AuthoringResources/" +"Folder.png"));
+        Image test = new Image(getClass().getResourceAsStream("/resources/" +"Folder.png"));
         ImageView imageView = new ImageView(test);
         imageView.setFitWidth(25);
         imageView.setFitHeight(25);
