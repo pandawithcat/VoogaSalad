@@ -40,6 +40,7 @@ public class Game implements Updatable, Configurable {
     private WeaponConfig[] allWeaponConfigs;*/
     @XStreamOmitField
     private transient double paneWidth;
+    @XStreamOmitField
     private transient double paneHeight;
 
     private LevelSpawner myLevelSpawner;
