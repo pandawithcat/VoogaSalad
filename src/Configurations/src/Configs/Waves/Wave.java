@@ -85,8 +85,6 @@ public class Wave implements Updatable, Configurable {
             currentEnemyIndex++;
         }
 
-
-
 //        ArrayAttributeManager.updateArray(myWaveBehaviors, ms);
     }
 

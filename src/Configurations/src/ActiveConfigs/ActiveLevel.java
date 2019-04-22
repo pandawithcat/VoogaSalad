@@ -148,19 +148,19 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
-//
-//    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
-//        activeEnemies.remove(activeEnemy);
-//    }
+
+    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
+        activeEnemies.remove(activeEnemy);
+    }
 
     public void addToActiveProjectiles(ActiveProjectile activeProjectile) {
         activeProjectiles.add(activeProjectile);
     }
 
-//    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
-//        activeProjectiles.remove(activeProjectile);
-//
-//    }
+    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
+        activeProjectiles.remove(activeProjectile);
+
+    }
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
@@ -168,9 +168,9 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
-//    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
-//        activeWeapons.remove(activeWeapon);
-//    }
+    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
+        activeWeapons.remove(activeWeapon);
+    }
 
 
     public double getPaneHeight() {

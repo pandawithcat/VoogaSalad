@@ -71,7 +71,7 @@ public class MapFeature {
         setPixelPos(pixelXPos,pixelYPos,direction);
     }
 
-    private void setImage(View view) {
+    private void setImage(View view) throws IllegalStateException {
         try {
             myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
             myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
@@ -105,6 +105,17 @@ public class MapFeature {
         myImageView.setY(pixelYPos);
         gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
         gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
+    }
+
+    //TODO: this needs to be changed once enemy is moving based on pixel
+    public boolean isOutOfBounds(int x, int y) {
+        return (x<0||x>gridXSize||y<0||y>gridYPos);
+    }
+
+    public boolean isOutOfBoundsRelative(double deltaX, double deltaY) {
+        double currentX = deltaX+pixelXPos;
+        double currentY = deltaX+pixelXPos;
+        return (currentX>paneWidth||currentX<0||currentY>paneHeight||currentY<0);
     }
 
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
