@@ -128,12 +128,20 @@ public class GameController {
 
     private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
         List<Object> tempList = new ArrayList<>();
-        Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
+        String objectLabel = null;
+        try {
+            objectLabel = value.getComponentType().getDeclaredField("myLabel").get(null).toString();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        Label listLabel = new Label("Add new " + objectLabel + " here");
         VBox tempVBOx  = new VBox();
         tempVBOx.setSpacing(10);
         var buttonBar = new HBox();
         buttonBar.setSpacing(10);
-        Button addNew = new Button("Add new " + value.getComponentType().getSimpleName());
+        Button addNew = new Button("Add new " + objectLabel);
         Button confirmButton = new Button("Confirm");
         Button removeButton = new Button("Remove");
 
@@ -238,12 +246,12 @@ public class GameController {
 
     private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) throws NoSuchFieldException {
         Button myButton = null;
-        /*try {
+        try {
             myButton = new Button("Configure " + value.getDeclaredField("myLabel").get(null));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }*/
-        myButton = new Button("Configure " + value.getSimpleName());
+        }
+        /*myButton = new Button("Configure " + value.getSimpleName());*/
         myButton.setOnMouseClicked((new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
@@ -292,10 +300,10 @@ public class GameController {
 
 
     private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
+        //TODO get the label string from the properties file
         Label myLabel = new Label(key);
         TextField myTextField = new TextField();
         Button confirmButton = new Button("Confirm");
-
 
         var nameAndTfBar = new HBox();
         nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);

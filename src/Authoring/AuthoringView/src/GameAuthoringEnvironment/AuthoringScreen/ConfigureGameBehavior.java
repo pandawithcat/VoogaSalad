@@ -1,11 +1,7 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.input.DataFormat;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 

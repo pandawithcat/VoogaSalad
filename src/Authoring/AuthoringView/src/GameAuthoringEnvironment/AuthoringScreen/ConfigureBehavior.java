@@ -66,17 +66,20 @@ public class ConfigureBehavior {
         targetView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
-            public void handle(MouseEvent event) {
-                var selected = targetView.getSelectionModel().getSelectedItem();
-                    try {
-                        Class<?> cl = Class.forName(selected.getName());
-                        Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                        var object = cons.newInstance(myConfigurable);
-                        myGameController.createConfigurable((Configurable) object);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        var selected = targetView.getSelectionModel().getSelectedItem();
+                        try {
+                            Class<?> cl = Class.forName(selected.getName());
+                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                            var object = cons.newInstance(myConfigurable);
+                            myGameController.createConfigurable((Configurable) object);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
+                }}
         });
 
         setCellFactory();
