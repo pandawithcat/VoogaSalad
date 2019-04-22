@@ -23,7 +23,7 @@ public class TerrainTile extends ImageView {
         this.setFitHeight(20);
         this.imageView=new ImageView(image);
         isPath=false;
-        tileImString= "grass.jpg";
+        tileImString="grass.jpg";
 
 
 //        this.setOnMouseClicked(new EventHandler<MouseEvent>() {

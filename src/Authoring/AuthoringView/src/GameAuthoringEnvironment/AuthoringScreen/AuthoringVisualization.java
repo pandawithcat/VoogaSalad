@@ -2,7 +2,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.GamePackage.Game;
 import GameAuthoringEnvironment.AuthoringComponents.*;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,8 +15,6 @@ import javafx.stage.Stage;
 public class AuthoringVisualization {
 
     private String Title = "VoogaSalad";
-    private static final int FRAMES_PER_SECOND = 1;
-    private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
     private double screenWidth;
     private double screenHeight;
     private double screenMinX;
@@ -46,7 +43,7 @@ public class AuthoringVisualization {
         screenMinY = primaryScreenBounds.getMinY();
 
 
-        //TODO Refactor and don't use magic numbers
+        //TODO(Hyunjae) Refactor and don't use magic numbers
         gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
         VBox myGameOutline = gameOutline.getModule();
         //myGameOutline.setLayoutX();
@@ -54,16 +51,10 @@ public class AuthoringVisualization {
 
         TopMenuBar topMenuBar = new TopMenuBar(gameOutline);
 
-        //TODO Change this part - maybe even add the logo and logo also disappears
-        Text instructions = new Text("Write down instructions and make this text disappear once the user clicks new game button");
+        //TODO(Hyunjae) Change this part - add specific instructions on how to use the editor(make it fancy)
+        Text instructions = new Text("Write down instructions and make this look super fancy!");
         instructions.setX(300);
         instructions.setY(300);
-        instructions.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-               myContainer.getChildren().remove(instructions);
-            }
-        });
-
 
         myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), myGameOutline, instructions);
         myScene = new Scene(myContainer);
@@ -81,12 +72,10 @@ public class AuthoringVisualization {
 
     }
 
-
+    //TODO(Hyunjae) When ctrl+N is pressed, show a new screen
     private void handleKeyInput(KeyEvent e) {
         if (keyCombinationCommandN.match(e)) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.show();
-            // add shortcuts
+
         }
     }
 

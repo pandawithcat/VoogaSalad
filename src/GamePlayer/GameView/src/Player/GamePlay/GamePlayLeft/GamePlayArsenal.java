@@ -41,6 +41,12 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
+
+
+//    private Map <Integer, Info> myTestWeapons ;
+    private Map <Integer, Info> myTestObstacles ;
+
+
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
@@ -50,6 +56,8 @@ public class GamePlayArsenal extends VBox {
         myLogic = logic;
         myMap = map;
         myArsenal = logic.getMyArsenal();
+
+        System.out.println(weaponMap);
         myRoot = root;
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
@@ -72,127 +80,36 @@ public class GamePlayArsenal extends VBox {
     private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
             //creates internal mapping of weapon and id
-            arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
-//                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
-//                ImageView imageView = new ImageView(image);
-//                System.out.println(imageView);
-//                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
-//                imageView.setFitWidth(arsenalWidth / 2);
-//                imageView.setFitHeight(arsenalWidth / 2);
-
-                //what actually matters
-                arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
-                        myArsenal.get(id).getName()));
-//                weaponMap.put(.toString(), id);
+                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
+                ImageView imageView = new ImageView(image);
+                weaponMap.put(imageView.toString(), id);
+                System.out.println(imageView);
+                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
+                imageView.setFitWidth(arsenalWidth / 2);
+                imageView.setFitHeight(arsenalWidth / 2);
+                Tooltip t = new Tooltip("A Square");
+                Tooltip.install(imageView, t);
+                viewList.add(imageView);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
+        arsenalDisplay.setItems(items);
+
 
         arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
         myMap.setOnDragOver(event -> dragOver(event));
         myMap.setOnDragEntered(event -> dragEntered(event));
         myMap.setOnDragExited(event -> dragExited(event));
         myMap.setOnDragDropped(event -> dragDropped(event));
+
     }
 
-    private void dragDropped(DragEvent event){
-        Dragboard db = event.getDragboard();
-        boolean success = false;
-        if (db.hasString()) {
-            System.out.println("drag dropped");
-            myRoot.getChildren().remove(movingImage);
-            System.out.println(selectedImage.toString() + ", " + event.getX() + ", " + event.getY());
-            //TODO: add the check level end thing here before instantiating weapon
-            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY());
-            success = true;
-        }
-        event.setDropCompleted(success);
-        event.consume();
-    }
-
-    private void dragExited(DragEvent event){
-//        System.out.println("drag exited");
-        event.consume();
-    }
-
-    private void dragEntered(DragEvent event){
-        if (event.getGestureSource() != myMap &&
-                event.getDragboard().hasString()) {
-//            System.out.println("drag entered");
-        }
-        event.consume();
-    }
-
-    private void dragOver(DragEvent event){
-        movingImage.setTranslateX(event.getX());
-        movingImage.setTranslateY(event.getY());
-        if (event.getGestureSource() != myMap ) {
-            event.acceptTransferModes(TransferMode.COPY);
-        }
-        event.consume();
-    }
-
-    private void dragDetected(MouseEvent mouseEvent){
-        selectedImage = (ImageView)((Pair) arsenalDisplay.getSelectionModel().getSelectedItem()).getKey();
-        Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
-
-        //creates deepcopy of imageview
-        var imageCopy = selectedImage.getImage();
-        PixelReader pixelReader = imageCopy.getPixelReader();
-
-        int width = (int)imageCopy.getWidth();
-        int height = (int)imageCopy.getHeight();
-
-        WritableImage writableImage = new WritableImage(width, height);
-        PixelWriter pixelWriter = writableImage.getPixelWriter();
-
-        for (int y = 0; y < height; y++){
-            for (int x = 0; x < width; x++){
-                Color color = pixelReader.getColor(x, y);
-                pixelWriter.setColor(x, y, color);
-            }
-        }
-
-        movingImage = new ImageView();
-        movingImage.setImage(writableImage);
-        movingImage.setFitWidth(myMap.getGridSize());
-        movingImage.setFitHeight(myMap.getGridSize());
-
-        myRoot.getChildren().add(movingImage);
-        ClipboardContent content = new ClipboardContent();
-        content.putString(selectedImage.toString());
-        db.setContent(content);
-        mouseEvent.consume();
-    }
-
-    private static class ImageCell extends ListCell<Pair<ImageView, String>> {
-        @Override
-        public void updateItem(Pair<ImageView, String> item, boolean empty) {
-            super.updateItem(item, empty);
-            if(!empty) {
-                setGraphic(item.getKey());
-                Tooltip.install(this, new Tooltip(item.getValue()));
-            }
-        }
-    }
-
-    private static Pair<ImageView, String> loadImageWithCaption(String filename, String caption) {
-        try {
-            var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
-            image.setFitWidth(100);
-            image.setFitHeight(100);
-            return new Pair<>(image, caption);
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    //    private void switchWeaponDisplay(){
+//    private void switchWeaponDisplay(){
 //        if (!isWeapon) {
 //            //TODO: implement display switch
 //            viewList.clear();
@@ -231,6 +148,79 @@ public class GamePlayArsenal extends VBox {
 //        obstacles.add(obstacle3);
 //        return obstacles;
 //    }
+
+    private void dragDropped(DragEvent event){
+        System.out.println("inside drop");
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) {
+            myRoot.getChildren().remove(movingImage);
+            System.out.println("drag dropped");
+            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(),0);
+            success = true;
+        }
+        event.setDropCompleted(success);
+        event.consume();
+    }
+
+    private void dragExited(DragEvent event){
+        System.out.println("drag exited");
+        event.consume();
+    }
+
+    private void dragEntered(DragEvent event){
+        if (event.getGestureSource() != myMap &&
+                event.getDragboard().hasString()) {
+            System.out.println("drag entered");
+        }
+        event.consume();
+    }
+
+    private void dragOver(DragEvent event){
+        movingImage.setTranslateX(event.getX());
+        movingImage.setTranslateY(event.getY());
+        if (event.getGestureSource() != myMap ) {
+            event.acceptTransferModes(TransferMode.COPY);
+        }
+        event.consume();
+    }
+
+    private void dragDetected(MouseEvent mouseEvent){
+        selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+        Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
+
+        //creates deepcopy of imageview
+        var imageCopy = selectedImage.getImage();
+        PixelReader pixelReader = imageCopy.getPixelReader();
+
+        int width = (int)imageCopy.getWidth();
+        int height = (int)imageCopy.getHeight();
+
+        //Copy from source to destination pixel by pixel
+        WritableImage writableImage
+                = new WritableImage(width, height);
+        PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int y = 0; y < height; y++){
+            for (int x = 0; x < width; x++){
+                Color color = pixelReader.getColor(x, y);
+                pixelWriter.setColor(x, y, color);
+            }
+        }
+
+        movingImage = new ImageView();
+        movingImage.setImage(writableImage);
+        movingImage.setFitWidth(myMap.getGridSize());
+        movingImage.setFitHeight(myMap.getGridSize());
+
+        myRoot.getChildren().add(movingImage);
+        /* Put a string on a dragboard */
+        ClipboardContent content = new ClipboardContent();
+        content.putString(selectedImage.toString());
+//                content.put(DataFormat.IMAGE,selectedImage);
+        db.setContent(content);
+        mouseEvent.consume();
+    }
 
 //    //TEST DATA
 //    private void createTestWeaponArsenal(){

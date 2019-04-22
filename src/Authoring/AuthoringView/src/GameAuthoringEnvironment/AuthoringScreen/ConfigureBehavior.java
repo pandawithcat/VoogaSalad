@@ -34,6 +34,15 @@ public class ConfigureBehavior {
     private final BooleanProperty dragModeActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
+    GameOutline myGameOutline;
+
+    public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+        myGameOutline= gameOutline;
+        myConfigurable = configurable;
+        myList = behaviorList;
+        myMap = attributesMap;
+        setContent();
+    }
 
 
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
@@ -58,9 +67,7 @@ public class ConfigureBehavior {
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
 
 
-        //TODO Change the listview so that only the simple name shows up
         sourceView.getItems().addAll(myList);
-        System.out.println(sourceView.getItems().get(0).getClass() + "adjfhdalkfahdsjfk");
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -68,18 +75,25 @@ public class ConfigureBehavior {
         targetView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
             @Override
-            public void handle(MouseEvent event) {
-                var selected = targetView.getSelectionModel().getSelectedItem();
-                    try {
-                        Class<?> cl = Class.forName(selected.getName());
-                        Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                        var object = cons.newInstance(myConfigurable);
-                        myGameController.createConfigurable((Configurable) object);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        var selected = targetView.getSelectionModel().getSelectedItem();
+                        try {
+                            Class<?> cl = Class.forName(selected.getName());
+                            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+                            var object = cons.newInstance(myConfigurable);
+                            if(myGameController.equals(null)){
+                                myGameOutline.showTheScreen((Configurable) object);
+                            }else{
+                            myGameController.createConfigurable((Configurable) object);}
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-        });;
+                }}
+        });
 
         setCellFactory();
         // Create the GridPane

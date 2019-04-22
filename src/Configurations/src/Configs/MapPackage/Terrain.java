@@ -1,39 +1,40 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 
+
 public class Terrain implements Configurable, Viewable{
+    public static final int TERRAIN_SIZE = 4;
+
+    public static final String myLabel = "Terrain";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private View view;
-
     @Configure
-    private double gridBlockHeight;
+    private int gridBlockHeight;
     @Configure
-    private double gridBlockWidth;
+    private int gridBlockWidth;
     @Configure
     private boolean isPath;
     @Configure
     private int gridYPos;
     @Configure
     private int gridXPos;
-
-
-
-
-//    @Configure
-//    private TerrainBehavior[] terrainBehaviors;
+    @Configure
+    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-        view = new View(fileName,height, width);
+
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
+        view = new View(fileName,gridBlockHeight, gridBlockWidth);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;
         this.isPath = isPath;
@@ -43,11 +44,11 @@ public class Terrain implements Configurable, Viewable{
     }
 
     public int getGridXPos() {
-        return gridXPos;
+        return gridXPos*TERRAIN_SIZE;
     }
 
     public int getGridYPos() {
-        return gridYPos;
+        return gridYPos*TERRAIN_SIZE;
     }
 
     public double getGridBlockHeight() {
@@ -89,9 +90,10 @@ public class Terrain implements Configurable, Viewable{
 //        return terrainBehaviors;
 //    }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     //    @Override

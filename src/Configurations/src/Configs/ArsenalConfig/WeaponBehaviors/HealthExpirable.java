@@ -6,8 +6,7 @@ import Configs.ArsenalConfig.WeaponConfig;
 import java.util.List;
 
 public class HealthExpirable extends WeaponBehavior{
-    @Configure
-    private String myLabel;
+    public static final String myLabel = "Health-Expirable";
     @Configure
     protected int amountOfHealth;
 
@@ -20,14 +19,12 @@ public class HealthExpirable extends WeaponBehavior{
 
     @Override
     public void update(double ms) {
-
+        //TODO
     }
-
     @Override
-    public String getLabel() {
+    public String getName() {
         return myLabel;
     }
-
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;

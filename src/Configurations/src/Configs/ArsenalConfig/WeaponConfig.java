@@ -6,13 +6,13 @@ import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
+    public static final String myLabel= "Weapon";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure
     private View view;
-    //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;
 
@@ -25,7 +25,7 @@ public class WeaponConfig implements  Configurable, Viewable {
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
-        this.myLabel = weaponConfig.getLabel();
+        this.myName = weaponConfig.getName();
         this.behaviors = weaponConfig.getBehaviors();
         this.view = weaponConfig.getView();
     }
@@ -44,9 +44,10 @@ public class WeaponConfig implements  Configurable, Viewable {
     }
 
 
-    @Override
-    public String getLabel() {
-        return myLabel;
+
+        @Override
+    public String getName() {
+        return myName;
     }
 
     public WeaponBehavior[] getBehaviors() {

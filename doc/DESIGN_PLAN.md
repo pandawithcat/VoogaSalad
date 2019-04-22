@@ -73,7 +73,7 @@ The datahandler is pretty simple in that it is able to package and unpackage a G
 A level based game where enemies take a givne path at periodic intervals and new weapons are unlocked, and users can rebuild/rearrange weaponry between weapons and unlock certain things given the amount of money/score they've accumulated
 
 2) Defense competition (Waves)
-Something more like COD: Zombies, where given a specific map and finite resources, players can create a setup and see how many points/how long the setup can last versus a specific configuration of waveConfigs that continues until the defense is broken/a certain amount off enemies are in
+Something more like COD: Zombies, where given a specific map and finite resources, players can create a setup and see how many points/how double the setup can last versus a specific configuration of waveConfigs that continues until the defense is broken/a certain amount off enemies are in
 
 3) Creative Mode (FreeStyle)
 Users can create a setup for weaponry (NOT THE MAP! Map will be created in authoring environment) and  try to maximize the number of points they can get given a certain set of resources.

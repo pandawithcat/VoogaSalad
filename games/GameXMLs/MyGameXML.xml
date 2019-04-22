@@ -1,0 +1,140 @@
+<Configs.GamePackage.Game>
+  <myConfiguration>
+    <myAttributeTypes class="linked-hash-map">
+      <entry>
+        <string>myTitle</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>myDescription</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>myThumbnail</string>
+        <java-class>java.lang.String</java-class>
+      </entry>
+      <entry>
+        <string>levelList</string>
+        <java-class>[LConfigs.LevelPackage.Level;</java-class>
+      </entry>
+    </myAttributeTypes>
+    <myAttributes>
+      <entry>
+        <string>myDescription</string>
+        <string>adfdkafla</string>
+      </entry>
+      <entry>
+        <string>levelList</string>
+        <Configs.LevelPackage.Level-array>
+          <Configs.LevelPackage.Level>
+            <myGame reference="../../../../../.."/>
+            <myLabel>Level1</myLabel>
+            <myWaveConfigs/>
+            <levelBehaviors/>
+            <myConfiguration>
+              <myAttributeTypes class="linked-hash-map">
+                <entry>
+                  <string>myLabel</string>
+                  <java-class>java.lang.String</java-class>
+                </entry>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <java-class>[LConfigs.Waves.WaveConfig;</java-class>
+                </entry>
+                <entry>
+                  <string>myArsenal</string>
+                  <java-class>Configs.ArsenalConfig.Arsenal</java-class>
+                </entry>
+                <entry>
+                  <string>myMap</string>
+                  <java-class>Configs.MapPackage.MapConfig</java-class>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <java-class>[LConfigs.LevelPackage.LevelBehaviors.LevelBehavior;</java-class>
+                </entry>
+              </myAttributeTypes>
+              <myAttributes>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
+                </entry>
+                <entry>
+                  <string>myLabel</string>
+                  <string>Level1</string>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <Configs.LevelPackage.LevelBehaviors.LevelBehavior-array reference="../../../../levelBehaviors"/>
+                </entry>
+              </myAttributes>
+              <isComplete>true</isComplete>
+              <myConfigurable class="Configs.LevelPackage.Level" reference="../.."/>
+              <myConfigurableClass>Configs.LevelPackage.Level</myConfigurableClass>
+            </myConfiguration>
+          </Configs.LevelPackage.Level>
+          <Configs.LevelPackage.Level>
+            <myGame reference="../../../../../.."/>
+            <myLabel>level2</myLabel>
+            <myWaveConfigs/>
+            <levelBehaviors/>
+            <myConfiguration>
+              <myAttributeTypes class="linked-hash-map">
+                <entry>
+                  <string>myLabel</string>
+                  <java-class>java.lang.String</java-class>
+                </entry>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <java-class>[LConfigs.Waves.WaveConfig;</java-class>
+                </entry>
+                <entry>
+                  <string>myArsenal</string>
+                  <java-class>Configs.ArsenalConfig.Arsenal</java-class>
+                </entry>
+                <entry>
+                  <string>myMap</string>
+                  <java-class>Configs.MapPackage.MapConfig</java-class>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <java-class>[LConfigs.LevelPackage.LevelBehaviors.LevelBehavior;</java-class>
+                </entry>
+              </myAttributeTypes>
+              <myAttributes>
+                <entry>
+                  <string>myWaveConfigs</string>
+                  <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
+                </entry>
+                <entry>
+                  <string>myLabel</string>
+                  <string>level2</string>
+                </entry>
+                <entry>
+                  <string>levelBehaviors</string>
+                  <Configs.LevelPackage.LevelBehaviors.LevelBehavior-array reference="../../../../levelBehaviors"/>
+                </entry>
+              </myAttributes>
+              <isComplete>true</isComplete>
+              <myConfigurable class="Configs.LevelPackage.Level" reference="../.."/>
+              <myConfigurableClass>Configs.LevelPackage.Level</myConfigurableClass>
+            </myConfiguration>
+          </Configs.LevelPackage.Level>
+        </Configs.LevelPackage.Level-array>
+      </entry>
+      <entry>
+        <string>myTitle</string>
+        <string>MyGame</string>
+      </entry>
+    </myAttributes>
+    <isComplete>true</isComplete>
+    <myConfigurable class="Configs.GamePackage.Game" reference="../.."/>
+    <myConfigurableClass>Configs.GamePackage.Game</myConfigurableClass>
+  </myConfiguration>
+  <myTitle>MyGame</myTitle>
+  <myDescription>adfdkafla</myDescription>
+  <levelList reference="../myConfiguration/myAttributes/entry[2]/Configs.LevelPackage.Level-array"/>
+  <currentLevelNumber>0</currentLevelNumber>
+  <gameOver>false</gameOver>
+  <currentLevelOver>false</currentLevelOver>
+</Configs.GamePackage.Game>
