@@ -7,6 +7,7 @@ import Player.GamePlay.PlayInterface;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class ButtonPanel extends VBox {
 
@@ -14,7 +15,7 @@ public class ButtonPanel extends VBox {
     private FastFowardButton myFastFowardButton;
     private SettingsPanel mySettingsPanel;
 
-    public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward){
+    public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, Stage stage){
         setPadding(new Insets(0, 0, 20, 0));
         setId("HUD");
         setSpacing(1);
@@ -36,7 +37,7 @@ public class ButtonPanel extends VBox {
             changeToPlay(hbox);
             fastFoward.playButton();
         });
-        mySettingsPanel = new SettingsPanel(width, height/2);
+        mySettingsPanel = new SettingsPanel(width, height/2, stage);
         getChildren().add(mySettingsPanel);
         getChildren().add(hbox);
     }

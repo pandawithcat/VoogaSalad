@@ -5,6 +5,7 @@ import Player.GamePlay.GamePlayLeft.GamePlayLeftSide;
 import Player.GamePlay.GamePlayRight.GamePlayRightSide;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class GamePlayIDE extends HBox {
     public static final double LEFT_RATIO = 0.75;
@@ -13,12 +14,12 @@ public class GamePlayIDE extends HBox {
     public GamePlayRightSide myGameRight;
 
     public GamePlayIDE(double width, double height, Logic logic, PlayInterface method,
-                       PlayInterface fastFoward, Group root){
+                       PlayInterface fastFoward, Group root, Stage stage){
         setPrefWidth(width);
         setPrefHeight(height);
         myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
         myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward,
-                myGameLeft.getMap(), root);
+                myGameLeft.getMap(), root, stage);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
     public GamePlayLeftSide getLeft(){

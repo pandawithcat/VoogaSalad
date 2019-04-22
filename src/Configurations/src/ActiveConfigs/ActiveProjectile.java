@@ -20,7 +20,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         if(distanceLeft>0) {
             myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
@@ -47,7 +47,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
     }
-    private void move(double ms){
+    private void move(long ms){
         double velocityMs = getVelocityInSeconds()/1000;
         double distanceToTravel = velocityMs*ms;
         double changeX = distanceToTravel*Math.cos(myMapFeature.getTrigDirection());
