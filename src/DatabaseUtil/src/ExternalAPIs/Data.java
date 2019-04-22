@@ -5,6 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.List;
 import java.util.PrimitiveIterator;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -17,7 +18,7 @@ public abstract class Data {
     private final String NUMBER_CHECKER = "[0-9]";
 
     // TODO: Might store this in backend
-    private String currentUserID;
+    protected String currentUserID;
     private int numberOfLoginAttempts;
     private Random saltGenerator;
 
@@ -85,6 +86,12 @@ public abstract class Data {
         return null;
     }
 
+    /**
+     * Takes in new user information error checks it and stores it to the database
+     * @param username - Unique string to identify user
+     * @param password - chosen string to verify user identity
+     * @param passwordRepeated - repeated chosen string
+     */
     public void createNewUser(String username, String password, String passwordRepeated){
         checkArgumentLengths(username, password, passwordRepeated);
         // TODO: Check if username already exists in database and change if statement
@@ -114,4 +121,12 @@ public abstract class Data {
             throw new IllegalArgumentException("Password and repeated password do not match");
         }
     }
+
+    /**
+     * Provides basic information about each game to be displayed as the game library
+     * @return - List of GameInfo Objects containing basic information about created games
+     */
+    public abstract List<GameInfo> getAuthoredGames();
+
+
 }

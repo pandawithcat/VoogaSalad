@@ -1,4 +1,4 @@
-package BackendExternal;
+package ExternalAPIs;
 
 public class GameInfo {
 

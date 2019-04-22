@@ -3,8 +3,6 @@ package Player.GamePlay;
 import BackendExternal.GameInfo;
 import BackendExternal.Logic;
 import Player.ScreenSize;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,7 +12,6 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.File;
 
