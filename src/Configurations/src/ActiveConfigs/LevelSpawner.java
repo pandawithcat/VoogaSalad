@@ -1,5 +1,6 @@
 package ActiveConfigs;
 
+import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 import Configs.Updatable;
 
@@ -14,12 +15,14 @@ public class LevelSpawner implements Updatable {
     private int levelIndex;
     private Predicate<ActiveLevel> endLevelCondition;
     private boolean gameOver;
+    private Game myGame;
 
 
-    public LevelSpawner(int levelIndex, Level[] levels, Predicate<ActiveLevel> endCondition) {
-        myLevels = new ArrayList<>(Arrays.asList(levels));
+    public LevelSpawner(Game game, int levelIndex, Level[] levels, Predicate<ActiveLevel> endCondition) {
+        this.myGame = game;
         this.levelIndex = levelIndex;
-        currLevel = new ActiveLevel(levels[levelIndex]);
+        myLevels = new ArrayList<>(Arrays.asList(levels));
+        currLevel = new ActiveLevel(levels[levelIndex], game.getPaneWidth(), game.getPaneHeight());
         endLevelCondition = endCondition;
     }
 
@@ -38,7 +41,7 @@ public class LevelSpawner implements Updatable {
     public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         levelIndex++;
-        currLevel = new ActiveLevel(myLevels.get(levelIndex));
+        currLevel = new ActiveLevel(myLevels.get(levelIndex), myGame.getPaneWidth(), myGame.getPaneHeight());
         return levelIndex;
     }
 
