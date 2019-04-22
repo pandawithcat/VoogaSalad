@@ -35,6 +35,9 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private GameBehavior gameType;*/
     /*@Configure
     private WeaponConfig[] allWeaponConfigs;*/
+    @XStreamOmitField
+    private transient double paneWidth;
+    private transient double paneHeight;
 
     private ActiveLevel myActiveLevel;
     private int currentLevelNumber;
@@ -62,7 +65,7 @@ public class Game implements Updatable, EventHandlable, Configurable {
             }
             else {
                 currentLevelNumber++;
-                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber]);
+                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber], paneWidth, paneHeight);
             }
         }
     }
@@ -82,12 +85,14 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
 
-    public void startGame(int levelNumber) throws IllegalStateException{
+    public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
+        this.paneHeight = paneHeight;
+        this.paneWidth = paneWidth;
         currentLevelNumber = levelNumber;
-        setMyActiveLevel(levelNumber);//TODO check this logic
+        setMyActiveLevel(levelNumber, paneWidth, paneHeight);
 
     }
 
@@ -113,11 +118,11 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return myActiveLevel;
     }
 
-    public void setMyActiveLevel(int levelIndex) {
+    public void setMyActiveLevel(int levelIndex, double paneWidth, double paneHeight) {
         System.out.println(Arrays.toString(levelList));
         System.out.println(levelIndex);
         System.out.println(levelList[levelIndex]);
-        myActiveLevel = new ActiveLevel(levelList[levelIndex]);
+        myActiveLevel = new ActiveLevel(levelList[levelIndex], paneWidth, paneHeight);
 
     }
 
