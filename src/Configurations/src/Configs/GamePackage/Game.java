@@ -84,7 +84,7 @@ public class Game implements Updatable, Configurable {
         this.paneWidth = paneWidth;
         currentLevelNumber = levelNumber;
         // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
-        this.myLevelSpawner = new LevelSpawner(levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
+        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
 
     }
 
@@ -114,6 +114,13 @@ public class Game implements Updatable, Configurable {
         return myThumbnail;
     }
 
+    public double getPaneWidth() {
+        return paneWidth;
+    }
+
+    public double getPaneHeight() {
+        return paneHeight;
+    }
 
     @Override
     public String getName() {
