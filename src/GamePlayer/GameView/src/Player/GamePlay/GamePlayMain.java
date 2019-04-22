@@ -32,6 +32,7 @@ public class GamePlayMain extends Application {
     private Logic myLogic = new Logic();
     private GamePlayIDE myGameIDE;
     private Group root;
+    private MediaPlayer mediaPlayer;
     @Override
     public void start(Stage stage){
         try {
@@ -63,8 +64,9 @@ public class GamePlayMain extends Application {
 
     private MediaView createWelcomeMusic(){
         Media sound = new Media(new File(GAME_MUSIC).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(0.001);
         MediaView mediaView = new MediaView(mediaPlayer);
         return mediaView;
     }
