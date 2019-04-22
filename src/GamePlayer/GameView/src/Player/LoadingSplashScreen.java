@@ -5,11 +5,18 @@ import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -32,9 +39,9 @@ import java.io.File;
 public class LoadingSplashScreen extends Application{
 
     private final String WELCOME_MUSIC = "resources/gameMusic.mp3";
+    private final String TITLE_IMAGE = "title.png";
     private StackPane root;
-    private Rectangle rect;
-    private Text text;
+    private ImageView title;
     private Stage stage;
     private MediaPlayer mediaPlayer;
     @Override
@@ -58,9 +65,7 @@ public class LoadingSplashScreen extends Application{
         Button start = createStartButton("shiny-yelow", "Start", 0, 100);
         start.setOnAction(e -> transitionToLogIn(start));
         root.getChildren().add(start);
-        text = new Text("Tower Defense!");
-        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
-        root.getChildren().add(text);
+
     }
 
     private MediaView createWelcomeMusic(){
@@ -71,10 +76,12 @@ public class LoadingSplashScreen extends Application{
         return mediaView;
     }
 
-    private Rectangle createLogoBackground(){
-        rect = new Rectangle(500,100);
-        rect.getStyleClass().add("my-rect");
-        return rect;
+    private ImageView createLogoBackground(){
+        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(TITLE_IMAGE));
+        title = new ImageView(image);
+        title.setFitWidth(400);
+        title.setFitHeight(150);
+        return title;
     }
     private Button createStartButton(String id, String title, int x, int y){
         Button button = new Button(title);
@@ -83,30 +90,33 @@ public class LoadingSplashScreen extends Application{
         button.setTranslateX(x);
         return button;
     }
-    private TextField userLogIn(){
-        TextField logIn = new TextField();
-        logIn.setPromptText("Enter your Username: ");
-        logIn.setFocusTraversable(false);
-        logIn.setMaxWidth(200);
-        return logIn;
+    private GridPane userLogIn(){
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setVgap(10);
+        Label userName = new Label("User Name:");
+        grid.add(userName, 0, 1);
+        TextField userTextField = new TextField();
+        grid.add(userTextField, 1, 1);
+        Label pw = new Label("Password:");
+        grid.add(pw, 0, 2);
+        PasswordField pwBox = new PasswordField();
+        grid.add(pwBox, 1, 2);
+        grid.setAlignment(Pos.CENTER);
+        return grid;
     }
     private void transitionToLogIn(Button button){
         root.getChildren().remove(button);
 
-        ScaleTransition st = new ScaleTransition(Duration.millis(1000), rect);
-        ScaleTransition txt = new ScaleTransition(Duration.millis(1000), text);
-        txt.setByX(-0.5f);
-        txt.setByY(-0.5f);
-        txt.setCycleCount(1);
-
+        ScaleTransition st = new ScaleTransition(Duration.millis(1000), title);
         st.setByX(-0.5f);
         st.setByY(-0.5f);
         st.setCycleCount(1);
-
-        PathTransition bannerTransition = generatePathTransition(generatePath(250, 0), rect);
-        PathTransition textTransition = generatePathTransition(generatePath(220, -70), text);
+        int xPos = (int)Math.round(title.getX() + title.getBoundsInLocal().getWidth()/2);
+        PathTransition bannerTransition = generatePathTransition(generatePath(xPos, 0), title);
         ParallelTransition parallelTransition = new ParallelTransition();
-        parallelTransition.getChildren().addAll(st,txt,bannerTransition, textTransition);
+        parallelTransition.getChildren().addAll(st,bannerTransition);
         parallelTransition.play();
         parallelTransition.setOnFinished(e-> createSignInSettings());
     }
