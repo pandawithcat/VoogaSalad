@@ -1,6 +1,7 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.ImageView;
 
@@ -10,10 +11,11 @@ import java.io.File;
 public class Terrain implements Configurable, Viewable{
     public static final int TERRAIN_SIZE = 4;
 
-    private String myLabel;
+    public static final String myLabel = "Terrain";
+    @Configure
+    private String myName;
     @Configure
     private View view;
-
     @Configure
     private int gridBlockHeight;
     @Configure
@@ -24,12 +26,8 @@ public class Terrain implements Configurable, Viewable{
     private int gridYPos;
     @Configure
     private int gridXPos;
-
-
-
-
-//    @Configure
-//    private TerrainBehavior[] terrainBehaviors;
+    @Configure
+    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
@@ -92,9 +90,10 @@ public class Terrain implements Configurable, Viewable{
 //        return terrainBehaviors;
 //    }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     //    @Override

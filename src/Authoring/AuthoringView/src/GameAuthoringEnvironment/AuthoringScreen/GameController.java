@@ -28,7 +28,7 @@ public class GameController {
     private Game myGame;
     private Map<String, List<Object>> configuredObjects;
 
-    public GameController() {
+    public GameController() throws NoSuchFieldException {
         myGameController = this;
         myGame = new Game();
         configuredObjects = new HashMap<>();
@@ -40,7 +40,7 @@ public class GameController {
     }
 
 
-    public void createConfigurable(Configurable myConfigurable){
+    public void createConfigurable(Configurable myConfigurable) throws NoSuchFieldException {
 
         Stage popupwindow = new Stage();
 
@@ -64,7 +64,7 @@ public class GameController {
 
     }
 
-    private Map<String, Object> displayScreens(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, VBox layout) {
+    private Map<String, Object> displayScreens(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, VBox layout) throws NoSuchFieldException {
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
 
@@ -236,34 +236,51 @@ public class GameController {
         layout.getChildren().add(tempVBOx);
     }
 
-    private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
-        Button myButton = new Button("Configure " + value.getSimpleName());
-        myButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+    private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) throws NoSuchFieldException {
+        Button myButton = null;
+        /*try {
+            myButton = new Button("Configure " + value.getDeclaredField("myLabel").get(null));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }*/
+        myButton = new Button("Configure " + value.getSimpleName());
+        myButton.setOnMouseClicked((new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
                     Class<?> clazz = Class.forName(value.getName());
                     //special case: map
-                    if(clazz.getSimpleName().equals("MapConfig")) {
+                    if (clazz.getSimpleName().equals("MapConfig")) {
                         ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
                         configurableMap.setConfigurations();
-                    }
-                    else if(clazz.getSimpleName().equals("View")){
+                    } else if (clazz.getSimpleName().equals("View")) {
                         Constructor<?> cons = clazz.getConstructor(Configurable.class);
                         var object = cons.newInstance(myConfigurable);
                         createConfigurable((Configurable) object);
                         myAttributesMap.put(key, object);
-                    }
+                        //TODO Maybe a dropdown menu?
+                    } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
+                        if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
+                            System.out.println("GAME TYPE BEHAVIOR");
+                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                            List<Class> behaviorList = (List<Class>) myField.get(null);
+                            ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
 
-                    else{
-                        //TODO if clazz does not taken in myconfigurable as a parameter, then error
+                        }
+                        else{
+                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                            List<Class> behaviorList = (List<Class>) myField.get(null);
+                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                        }
+                    }
+                    else {
                         Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                         var object = cons.newInstance(myConfigurable);
                         createConfigurable((Configurable) object);
                         myAttributesMap.put(key, object);
                     }
 
-                } catch ( ClassNotFoundException|NoSuchMethodException|InstantiationException|IllegalAccessException| InvocationTargetException e) {
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
                     //TODO ErrorChecking
                     e.printStackTrace();
                 }
@@ -272,6 +289,7 @@ public class GameController {
         }));
         layout.getChildren().add(myButton);
     }
+
 
     private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
         Label myLabel = new Label(key);

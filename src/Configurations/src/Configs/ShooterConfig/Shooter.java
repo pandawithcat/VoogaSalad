@@ -5,20 +5,23 @@ import ActiveConfigs.ActiveProjectile;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.ProjectilePackage.ProjectileConfig;
+import Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior;
 
 public class Shooter implements Updatable , Configurable {
-    //TODO after demo: implement behaviors
 
     private Shootable myShootable;
 
+    public static final String myLabel="Shooter";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private double rateOfFire;
     @Configure
     private ProjectileConfig projectileConfig;
     @Configure
     private double shooterRange;
+    @Configure
+    private ShooterBehavior[] shooterBehaviors;
     private Configuration myConfiguration;
 
     public Shooter(Shootable shootable){
@@ -42,9 +45,10 @@ public class Shooter implements Updatable , Configurable {
         return rateOfFire;
     }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     @Override

@@ -7,7 +7,7 @@ import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
 
-    private String myLabel;
+    public static final String myLabel = "Shootable";
     @Configure
     private Shooter myShooter;
 
@@ -20,6 +20,11 @@ public class Shootable extends WeaponBehavior{
     }
 
     @Override
+    public String getName() {
+        return myLabel;
+    }
+
+    @Override
     public void update(double ms) {
         myShooter.update(ms);
     }
@@ -27,11 +32,6 @@ public class Shootable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
-    }
-
-    @Override
-    public String getLabel() {
-        return myLabel;
     }
 
     public WeaponConfig getWeaponConfig() {

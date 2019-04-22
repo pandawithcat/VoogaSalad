@@ -128,9 +128,6 @@ public class MapFeature {
         this.displayDirection = direction;
         pixelXPos = (paneWidth/gridXSize)*gridXPos;
         pixelYPos = (paneHeight/gridYSize)*gridYPos;
-//        System.out.println("HIDNFNLDJFLKJL");
-//        System.out.println(pixelXPos);
-//        System.out.println(pixelYPos);
         setImageView(pixelXPos,pixelYPos,direction);
     }
 

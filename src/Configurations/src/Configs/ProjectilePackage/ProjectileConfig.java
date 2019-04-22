@@ -8,9 +8,9 @@ public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
 
     Configuration myConfiguration;
-    private String myLabel;
+    public static final String myLabel="Projectile";
     @Configure
-    private String name;
+    private String myName;
     @Configure
     private View view;
     @Configure
@@ -44,9 +44,10 @@ public class ProjectileConfig implements Configurable, Viewable {
         return myBehaviors;
     }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     public Shooter getMyShooter() {

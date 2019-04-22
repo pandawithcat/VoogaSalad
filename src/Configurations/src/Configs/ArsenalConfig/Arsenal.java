@@ -2,6 +2,7 @@ package Configs.ArsenalConfig;
 
 import ActiveConfigs.ActiveWeapon;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponUnlockerBehaviors.ArsenalBehavior;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 
@@ -10,13 +11,11 @@ import java.util.*;
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal implements Configurable {
-    private String myLabel;
+    public static final String myLabel = "Arsenal";
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
-
-    //TODO: UNCOMMENT BELOW
-//    @Configure
-//    private WeaponUnlocker weponaUnlocker;
+    @Configure
+    private ArsenalBehavior arsenalBehavior;
 
     private Configuration myConfiguration;
     private Game myGame;
@@ -34,7 +33,7 @@ public class Arsenal implements Configurable {
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return myLabel;
     }
 
@@ -45,7 +44,7 @@ public class Arsenal implements Configurable {
 
 //        public Map<String, TransferImageView> getAllWeaponConfigOptions() {
 //        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
-//        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getLabel(), weapon->weapon.getImageView()));
+//        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getName(), weapon->weapon.getImageView()));
 //        return Collections.unmodifiableMap(myMap);
 //    }
 
@@ -54,7 +53,7 @@ public class Arsenal implements Configurable {
         WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< myWeaponConfigs.length; i++) {
-            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getLabel(), myWeaponConfigs[i].getImage()));
+            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImage()));
             myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);

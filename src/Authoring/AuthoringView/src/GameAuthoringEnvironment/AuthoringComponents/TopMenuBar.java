@@ -23,7 +23,11 @@ public class TopMenuBar {
         Button newGameButton = new Button("New Game");
         newGameButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                gameController = new GameController();
+                try {
+                    gameController = new GameController();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
