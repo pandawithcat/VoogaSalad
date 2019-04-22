@@ -54,10 +54,10 @@ public class Logic {
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
     // No Return Value
-    public void createGameInstance(GameInfo selectedGame){ //TODO: add these fieldss, double gridPixelHeight, double gridPixelWidth
+    public void createGameInstance(GameInfo selectedGame, double paneWidth, double paneHeight) {
         myGame = myGameLibrary.getGame(selectedGame);
         // TODO: Second sprint have the option of getting this from User Data (Previous Level)
-        myGame.startGame(DEFAULT_START_LEVEL);
+        myGame.startGame(DEFAULT_START_LEVEL, paneWidth, paneHeight);
     }
 
     // View calls to get the current level of the game when moving between levels
