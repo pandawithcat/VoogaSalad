@@ -1,7 +1,6 @@
 package ActiveConfigs;
 
 import Configs.*;
-import Configs.ArsenalConfig.WeaponConfig;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
@@ -10,46 +9,65 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
+
 public class ActiveLevel extends Level implements Updatable {
     public static final int DISTANCE_HEURISTIC = 1;
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
-    private ActiveWave activeWave;
     private Cell[][] myGrid;
     private int myScore;
     private int currentWave=0;
+    private double paneWidth;
+    private double paneHeight;
     private final int gridWidth;
     private final int gridHeight;
+    private WaveSpawner myWaveSpawner;
 
-    public ActiveLevel(Level level){//, MapFeature mapFeature) {
+    public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
-        //TODO: fix active wave to be a wave spawner
-        //TODO: COMMENTED OUT BELOW FOR TESTING
-        generateCurrentActiveWave();
-//        setMyGame(game);
-//        myMapFeature = mapFeature;
+        myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
+        recalculateMovementHeuristic();
+//        System.out.println("meep");
+        this.paneHeight = paneHeight;
+        this.paneWidth = paneWidth;
     }
 
     private Cell[][] createMyGrid(){
-        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridHeight()][getMyMapConfig().getGridWidth()];
-        for(Terrain t : getMyMapConfig().getTerrain()){
-            tempGrid[t.getGridYPos()][t.getGridXPos()] = new Cell();
-            tempGrid[t.getGridYPos()][t.getGridXPos()].setMyTerrain(t);
+        Cell[][] tempGrid = new Cell[getMyMapConfig().getGridWidth()][getMyMapConfig().getGridHeight()];//cell[row][col]
+        for(Terrain t: getMyMapConfig().getTerrain()) {
+            for (int x = 0; x < TERRAIN_SIZE; x++) {
+                for (int y = 0; y < TERRAIN_SIZE; y++) {
+                    tempGrid[t.getGridXPos() + x][t.getGridYPos() + y] = new Cell(t.getGridXPos() + x, t.getGridYPos() + y, t);
+                }
+            }
         }
-        return null;
+        
+        return tempGrid;
+    }
+
+    public void addToScore(int points) {
+        myScore+=points;
+    }
+
+    public int getScore() {
+        return myScore;
+    }
+
+    public Cell[][] getMyGrid() {
+        return myGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
-        //TODO: check logic on seeing if theres no more waves
+        return myWaveSpawner.isNoMoreEnemies();
 
-        return activeEnemies.size()==0;
     }
 
 
@@ -68,55 +86,29 @@ public class ActiveLevel extends Level implements Updatable {
 
     @Override
     public void update(double ms) {
-        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
-        updateActiveWave(ms);
+        myWaveSpawner.update(ms);
+
     }
 
     private void updateEnemies(double ms){
-
-        for(ActiveEnemy enemy : activeEnemies){
-//            activeEnemies.add(enemy);
-//            enemy.getMapFeature().setGridPos(50,50,0);
-            enemy.update(ms);
-        }
-        if (activeWave.isFinished()) currentWave++;
-        //ArrayAttributeManager.updateList(activeWave, ms); ??
+        activeEnemies.stream().forEach(enemy -> enemy.update(ms));
     }
 
-    private void updateActiveWave(double ms){
-        if (activeWave.isFinished()) {
-            currentWave++;
-            generateCurrentActiveWave();
-        }
-        activeWave.update(ms);
-    }
 
-    private void generateCurrentActiveWave(){
 
-        activeWave = new ActiveWave(getMyWaveConfigs()[currentWave], this);
-    }
 
     private void updateProjectiles(double ms){
-        for (ActiveProjectile projectile: activeProjectiles){
-            projectile.update(ms);
-        }
+        activeProjectiles.stream().forEach(projectile -> projectile.update(ms));
     }
 
     private void updateWeapons(double ms){
-        for (int id: activeWeapons.keySet()){
-            activeWeapons.get(id).update(ms);
-        }
+        activeWeapons.keySet().stream().forEach(id -> activeWeapons.get(id).update(ms));
     }
 
 
-    public boolean isValid(int x, int y, double weaponHeight, double weaponWidth){
-        //TODO
-        return false;
-
-    }
 
     private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
         if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
@@ -152,17 +144,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    //TODO: EventHandler for adding new weapon to map
-    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY){
-        WeaponConfig myWeaponConfig = getMyArsenal().getConfiguredWeapons()[ID-1];
-        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, 0, myWeaponConfig.getView(),gridHeight, gridWidth), this);
-        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
-        addToActiveWeapons(activeWeapon);
-        return activeWeapon.getMapFeature().getImageView();
-    }
-
-    //TODO  add EventHandler for isValid
-
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
@@ -181,46 +162,6 @@ public class ActiveLevel extends Level implements Updatable {
 //
 //    }
 
-
-    private void recalculateMovementHeuristic(){
-        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
-    }
-
-    private void astar(Cell startCell){
-        startCell.setMovementHeuristic(0);
-        LinkedList<Cell> stack = new LinkedList<>();
-        stack.addLast(startCell);
-        while(!stack.isEmpty()){
-            Cell expandedCell = stack.removeFirst();
-            int[]xAdditions = new int[]{0,0,-1,1};
-            int[]yAdditions = new int[]{1,-1,0,0};
-            for (int i = 0; i < 3; i++) {
-                int x = expandedCell.getX() + xAdditions[i];
-                int y = expandedCell.getY() + yAdditions[i];
-                if(isCellValid(x,y)){
-                    if (myGrid[x][y].getMyTerrain().getIfPath()){
-                        myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
-                    }
-                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
-                    if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
-                        myGrid[x][y].setMovementHeuristic(newHeuristic);
-                    }
-                }
-            }
-        }
-    }
-
-    private boolean isCellValid(int x, int y){
-        if (x<0|x>getMyMapConfig().getGridWidth()){
-            return false;
-        }
-        if (y<0|y>getMyMapConfig().getGridHeight()){
-            return false;
-        }
-        return true;
-    }
-
-
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
         recalculateMovementHeuristic();
@@ -230,4 +171,73 @@ public class ActiveLevel extends Level implements Updatable {
 //    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
 //        activeWeapons.remove(activeWeapon);
 //    }
+
+
+    public double getPaneHeight() {
+        return paneHeight;
+    }
+
+    public double getPaneWidth() {
+        return paneWidth;
+    }
+
+    private void recalculateMovementHeuristic(){
+        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
+    }
+
+    private void astar(Cell startCell){
+        startCell.setMovementHeuristic(0);
+        PriorityQueue<Cell> pq = new PriorityQueue<>();
+        pq.add(startCell);
+        while(!pq.isEmpty()){
+            Cell expandedCell = pq.remove();
+            int[]xAdditions = new int[]{0,0,-1,1};
+            int[]yAdditions = new int[]{1,-1,0,0};
+            for (int i = 0; i < 3; i++) {
+                int x = expandedCell.getX() + xAdditions[i];
+                int y = expandedCell.getY() + yAdditions[i];
+                if(isCellValid(x,y)){
+                    Cell inspectedCell = myGrid[x][y];
+                    if (!inspectedCell.getMyTerrain().getIfPath()){
+                        inspectedCell.setMovementHeuristic(Integer.MAX_VALUE);
+                        continue;
+                    }
+                    int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                    if (newHeuristic<inspectedCell.getMovementHeuristic()){
+                        inspectedCell.setMovementHeuristic(newHeuristic);
+                        pq.add(inspectedCell);
+                    }
+                }
+            }
+        }
+    }
+
+    private void popCellAndCalculateNeighborsHeuristic(LinkedList<Cell> stack) {
+        Cell expandedCell = stack.removeFirst();
+        int[]xAdditions = new int[]{0,0,-1,1};
+        int[]yAdditions = new int[]{1,-1,0,0};
+        for (int i = 0; i < 3; i++) {
+            int x = expandedCell.getX() + xAdditions[i];
+            int y = expandedCell.getY() + yAdditions[i];
+            if(isCellValid(x,y)){
+                if (myGrid[x][y].getMyTerrain().getIfPath()){
+                    myGrid[x][y].setMovementHeuristic(Integer.MAX_VALUE);
+                }
+                int newHeuristic = expandedCell.getMovementHeuristic() + DISTANCE_HEURISTIC;
+                if (newHeuristic<myGrid[x][y].getMovementHeuristic()){
+                    myGrid[x][y].setMovementHeuristic(newHeuristic);
+                }
+            }
+        }
+    }
+
+    private boolean isCellValid(int x, int y){
+        if (x<0|x>=getMyMapConfig().getGridWidth()){
+            return false;
+        }
+        return !(y < 0 | y >= getMyMapConfig().getGridHeight());
+    }
+
+
+
 }

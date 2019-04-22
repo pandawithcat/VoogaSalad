@@ -8,10 +8,13 @@ import Configs.MapPackage.Terrain;
 import java.util.Collection;
 import java.util.List;
 
+import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
+
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
+    public static final String myLabel = "Map";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private List<Terrain> myTerrain;
     @Configure
@@ -28,18 +31,20 @@ public class MapConfig implements Configurable {
     private int gridHeight;
     @Configure
     private int gridWidth;
-//    @Configure
-//    protected double gridPixelWidth;
-//    @Configure
-//    protected double gridPixelHeight;
+
 
     private Configuration configuration;
+    private Level myLevel;
 
-    public MapConfig() {
+    public MapConfig(Level level) {
         configuration = new Configuration(this);
-        //TODO FINISH
+        myLevel = level;
+
     }
 
+    public Level getLevel() {
+        return myLevel;
+    }
 
     public List<Terrain> getTerrain() {
         return myTerrain;
@@ -52,44 +57,37 @@ public class MapConfig implements Configurable {
     }
 
     public int getEnemyEnteringDirection() {
-        return enemyEnteringDirection;
+        return enemyEnteringDirection*TERRAIN_SIZE;
     }
 
     public int getEnemyEnteringGridXPos() {
-        return enemyEnteringGridXPos;
+        return enemyEnteringGridXPos*TERRAIN_SIZE;
     }
 
     public int getEnemyEnteringGridYPos() {
-        return enemyEnteringGridYPos;
+        return enemyEnteringGridYPos*TERRAIN_SIZE;
     }
 
     public int getEnemyExitGridXPos() {
-        return enemyExitGridXPos;
+        return enemyExitGridXPos*TERRAIN_SIZE;
     }
 
     public int getEnemyExitGridYPos() {
-        return enemyExitGridYPos;
+        return enemyExitGridYPos*TERRAIN_SIZE;
     }
 
     public int getGridHeight() {
-        return gridHeight;
+        return gridHeight*TERRAIN_SIZE;
     }
 
     public int getGridWidth() {
-
-        return gridWidth;
+        return gridWidth*TERRAIN_SIZE;
     }
 
-    public void setTerrainList(List<Terrain> terrain) {
-        myTerrain = terrain;
-        for(Terrain t : terrain) {
-
-        }
-    }
 
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
 }

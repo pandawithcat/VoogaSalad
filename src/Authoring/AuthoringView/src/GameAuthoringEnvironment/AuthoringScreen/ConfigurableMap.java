@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.Configuration;
+import Configs.LevelPackage.Level;
 import Configs.MapPackage.MapConfig;
 import Configs.MapPackage.Terrain;
 import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
@@ -29,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigurableMap {
+    public static final int GRID_WIDTH = 20;
+    public static final int GRID_HEIGHT = 20;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -44,11 +47,13 @@ public class ConfigurableMap {
     private Stage popUpWindow;
     private String mapName;
     private TextField nameTf;
+    private Configurable myLevel;
 
-    public ConfigurableMap(Map<String, Object> myAttributeMap){
+    public ConfigurableMap(Map<String, Object> myAttributeMap, Configurable level){
 
         System.out.println("this reached here");
         myMap = myAttributeMap;
+        myLevel = level;
     }
 
     public void setConfigurations(){
@@ -92,9 +97,8 @@ public class ConfigurableMap {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
             Image image = new Image(fis);
             map = new GridPane();
-            for (int r = 0; r < 20; r++) {
-                for (int c = 0; c < 20; c++) {
-                    MapConfig m = new MapConfig();
+            for (int r = 0; r < GRID_WIDTH; r++) {
+                for (int c = 0; c < GRID_HEIGHT; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
                     map.add(myTile, r, c);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
@@ -131,9 +135,9 @@ public class ConfigurableMap {
                 for(Node child: map.getChildren()){
                     terrainTileList.add((TerrainTile) child);
                 }
-                MapConfig m = new MapConfig();
+                MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m,t.getTileImString(),(int) t.getY(), (int) t.getX(),20,20,map.getHeight(),map.getWidth(),t.getIsPath());
+                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),Terrain.TERRAIN_SIZE,Terrain.TERRAIN_SIZE,t.getIsPath());
 
                     tileList.add(tile);
                 }
@@ -144,10 +148,10 @@ public class ConfigurableMap {
                 passedMap.put("enemyEnteringGridXPos", 0);
                 passedMap.put("enemyEnteringGridYPos", 0);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("enemyExitGridXPos",20);
-                passedMap.put("enemyExitGridYPos",20);
-                passedMap.put("gridHeight",(int)map.getHeight());
-                passedMap.put("gridWidth",(int)map.getWidth());
+                passedMap.put("enemyExitGridXPos",19);
+                passedMap.put("enemyExitGridYPos",19);
+                passedMap.put("gridHeight",GRID_HEIGHT);
+                passedMap.put("gridWidth",GRID_WIDTH);
 
                 m.getConfiguration().setAllAttributes(passedMap);
 
@@ -212,8 +216,8 @@ public class ConfigurableMap {
         //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
 
-        Integer col = map.getColumnIndex(source);
-        Integer row = map.getRowIndex(source);
+        Integer col = GridPane.getColumnIndex(source);
+        Integer row = GridPane.getRowIndex(source);
 
         System.out.println(col);
         System.out.println(row);

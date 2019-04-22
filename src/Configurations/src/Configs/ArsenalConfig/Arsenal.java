@@ -1,6 +1,9 @@
 package Configs.ArsenalConfig;
 
+import ActiveConfigs.ActiveWeapon;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponUnlockerBehaviors.ArsenalBehavior;
+import Configs.GamePackage.Game;
 import Configs.LevelPackage.Level;
 
 import java.util.*;
@@ -8,28 +11,29 @@ import java.util.*;
 
 //used to hold all of the possible weapons configured in the authoring environemnt
 public class Arsenal implements Configurable {
-    @Configure
-    private String myLabel;
+    public static final String myLabel = "Arsenal";
     @Configure
     private WeaponConfig[] allWeaponConfigOptions;
+    @Configure
+    private ArsenalBehavior arsenalBehavior;
 
     private Configuration myConfiguration;
-    private Level myLevel;
+    private Game myGame;
 
 
 //    private WeaponConfig[] unlockedWeapons;
 
-    public Arsenal(Level level) {
+    public Arsenal(Game game) {
         myConfiguration = new Configuration(this);
-        myLevel = level;
+        myGame = game;
     }
 
-    public Level getLevel() {
-        return myLevel;
+    public Game getGame() {
+        return myGame;
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return myLabel;
     }
 
@@ -38,9 +42,9 @@ public class Arsenal implements Configurable {
         return myConfiguration;
     }
 
-    //    public Map<String, TransferImageView> getAllWeaponConfigOptions() {
+//        public Map<String, TransferImageView> getAllWeaponConfigOptions() {
 //        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
-//        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getLabel(), weapon->weapon.getImageView()));
+//        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getName(), weapon->weapon.getImageView()));
 //        return Collections.unmodifiableMap(myMap);
 //    }
 
@@ -49,15 +53,24 @@ public class Arsenal implements Configurable {
         WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< myWeaponConfigs.length; i++) {
-            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getLabel(), myWeaponConfigs[i].getImage()));
+            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImage()));
             myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);
 
     }
 
+    //TODO: EventHandler for adding new weapon to map
+    public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY, int direction){
+        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID-1];
+        ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth()), myGame.getActiveLevel());
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
+        myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
+        return activeWeapon.getMapFeature().getImageView();
+    }
+
     public WeaponConfig[] getConfiguredWeapons() {
-        return (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
+        return allWeaponConfigOptions;
     }
 
     //TODO: ALLOW CHANGE OF DIRECTION

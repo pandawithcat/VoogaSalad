@@ -1,23 +1,19 @@
 package Configs.LevelPackage;
 
 import Configs.*;
-import Configs.ArsenalConfig.Arsenal;
 import Configs.GamePackage.Game;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
-import Configs.Waves.WaveConfig;
+import Configs.Waves.Wave;
 
-import java.util.Map;
 
 public class Level implements Configurable{
     private Game myGame;
-
+    public static final String myLabel = "Level";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
-    private WaveConfig[] myWaveConfigs;
-    @Configure
-    private Arsenal myArsenal;
+    private Wave[] myWaves;
     @Configure
     private MapConfig myMap;
 
@@ -25,25 +21,22 @@ public class Level implements Configurable{
     private LevelBehavior[] levelBehaviors;
     private Configuration myConfiguration;
 
-    public Level(Level level){
-        myWaveConfigs = level.getMyWaveConfigs();
-        myArsenal = level.getMyArsenal();
-        myMap = level.getMyMapConfig();
-        levelBehaviors = level.getLevelBehaviors();
+    public Level(Game game) {
+        myGame = game;
+        myConfiguration = new Configuration(this);
     }
 
-    public void setMyGame(Game myGame) {
-        this.myGame = myGame;
+    public Level(Level level){
+        myWaves = level.getMyWaves();
+        myMap = level.getMyMapConfig();
+        levelBehaviors = level.getLevelBehaviors();
+        myName = level.myName;
     }
 
     protected Game getMyGame() {
         return myGame;
     }
 
-
-    public Arsenal getMyArsenal() {
-        return myArsenal;
-    }
 
     private LevelBehavior[] getLevelBehaviors() {
         return levelBehaviors;
@@ -53,15 +46,14 @@ public class Level implements Configurable{
         return myMap;
     }
 
-    protected WaveConfig[] getMyWaveConfigs() {
-        return myWaveConfigs;
+    protected Wave[] getMyWaves() {
+        return myWaves;
     }
 
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
-
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
