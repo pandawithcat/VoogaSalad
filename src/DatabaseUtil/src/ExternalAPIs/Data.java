@@ -1,5 +1,6 @@
 package ExternalAPIs;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -19,6 +20,7 @@ public abstract class Data {
 
     // TODO: Might store this in backend
     protected String currentUserID;
+    protected String currentGameID;
     private int numberOfLoginAttempts;
     private Random saltGenerator;
 
@@ -127,6 +129,16 @@ public abstract class Data {
      * @return - List of GameInfo Objects containing basic information about created games
      */
     public abstract List<GameInfo> getAuthoredGames();
+
+    public File getGameFile(GameInfo chosenGameInfo){
+        currentGameID = "Selected Game";
+
+        return new File("Game");
+    }
+
+    // TODO: Method call that downloads the images of a game
+
+
 
 
 }

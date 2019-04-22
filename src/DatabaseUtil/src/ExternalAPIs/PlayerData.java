@@ -1,6 +1,7 @@
 package ExternalAPIs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlayerData extends Data{
@@ -23,7 +24,8 @@ public class PlayerData extends Data{
                 games.add(nextGame);
             }
             // TODO: Download Image files with matching IDs to the local machine to display
-            return games;
-        }
+            return Collections.unmodifiableList(games);
+    }
+
 
 }

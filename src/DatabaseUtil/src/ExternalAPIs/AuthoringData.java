@@ -1,6 +1,7 @@
 package ExternalAPIs;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AuthoringData extends Data{
@@ -25,8 +26,11 @@ public class AuthoringData extends Data{
             authoredGames.add(nextGame);
         }
         // TODO: Download Image files with matching IDs to the local machine to display
-        return authoredGames;
+        return Collections.unmodifiableList(authoredGames);
     }
+
+    // TODO: Override Data todo get images method and call one below as well
+    // TODO: Method call to download images with the standard flag selected
 
 
 }
