@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
+import Configs.MapPackage.MapConfig;
 import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -79,7 +80,9 @@ public class GameOutline extends Screen {
                 try {
                     TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
                     myConfigurable.getChildren().add(treeItem);
-                    createTreeView(treeItem);
+                    if(!key.toLowerCase().equals("mymap")){
+                        createTreeView(treeItem);
+                    }
                 } catch (Exception e) {
                     //TODO Handle Error
                     e.printStackTrace();
@@ -108,9 +111,16 @@ public class GameOutline extends Screen {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        setText(item.getClass().getSimpleName() + ": " + item.getName());
+                            try {
+                                setText(item.getClass().getDeclaredField("myLabel").get(null) + ": " + item.getName());
+                            } catch (IllegalAccessException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchFieldException e) {
+                                e.printStackTrace();
+                            }
                         setGraphic(getMyImage());
-                    }
+                        }
+
                 }
             };
             controlTreeCellMouseClick(cell);
@@ -305,8 +315,14 @@ public class GameOutline extends Screen {
                            Class<?> clazz = Class.forName(value.getName());
                            //special case: map TODO use reflection for this
                            if(clazz.getSimpleName().equals("MapConfig")) {
-                               ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
-                               configurableMap.setConfigurations();
+                               if(definedAttributesMap.keySet().contains(key)){
+                               MapConfig mapConfig = (MapConfig) definedAttributesMap.get(key);
+                               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, myAttributesMap, myConfigurable);
+                               configurableMap.resetConfigurations();}
+                               else{
+                                   ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+                                   configurableMap.setConfigurations();
+                               }
                            }
                            else if(clazz.getSimpleName().equals("View")){
                                Constructor<?> cons = clazz.getConstructor(Configurable.class);

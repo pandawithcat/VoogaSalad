@@ -48,17 +48,25 @@ public class ConfigurableMap {
     private String mapName;
     private TextField nameTf;
     private Configurable myLevel;
+    private Button nameButton;
+    private MapConfig myMapConfig;
 
     public ConfigurableMap(Map<String, Object> myAttributeMap, Configurable level){
 
-        System.out.println("this reached here");
         myMap = myAttributeMap;
         myLevel = level;
     }
 
-    public void setConfigurations(){
+    //Constructor for editing the map
+    //TODO Add a way to display the existing map
+    public ConfigurableMap(MapConfig mapConfig, Map<String, Object> myAttributeMap, Configurable level){
+        myMap = myAttributeMap;
+        myLevel = level;
+        myMapConfig = mapConfig;
+    }
+
+    public void resetConfigurations(){
         popUpWindow = new Stage();
-        System.out.println("this reached here1");
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
@@ -67,7 +75,60 @@ public class ConfigurableMap {
         VBox nameBox = new VBox(10);
         Label mapLbl = new Label("Map");
         nameTf = new TextField();
-        Button nameButton = new Button("Confirm");
+        nameButton = new Button("Confirm");
+        nameButton.setOnMouseClicked(this::handleConfirmButton);
+        nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
+
+        Label tileListLbl = new Label("Tiles");
+        Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
+        reinitMap();
+        initTileView();
+
+
+
+        // Add the Labels and Views to the Pane
+        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
+        addSubmit();
+
+        Scene scene= new Scene(layout, 800, 800);
+        popUpWindow.setScene(scene);
+        popUpWindow.showAndWait();
+    }
+
+    private void reinitMap(){
+        List<Terrain> existingTerrainList = myMapConfig.getTerrain();
+        map = new GridPane();
+
+
+        for(int r=0; r< GRID_WIDTH; r++){
+            for(int c=0; c<GRID_HEIGHT; c++){
+                Terrain myTerrain = existingTerrainList.get(r*GRID_WIDTH + c);
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream("resources/" + myTerrain.getView().getImage());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Image image = new Image(fis);
+                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage() );
+                map.add(myTile, r, c);
+            }
+        }
+        addGridEvent();
+
+    }
+
+    public void setConfigurations(){
+        popUpWindow = new Stage();
+        popUpWindow.initModality(Modality.APPLICATION_MODAL);
+        popUpWindow.setTitle("Map Editor");
+
+        layout = new VBox(10.00);
+
+        VBox nameBox = new VBox(10);
+        Label mapLbl = new Label("Map");
+        nameTf = new TextField();
+        nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
 
@@ -130,6 +191,7 @@ public class ConfigurableMap {
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                nameButton.fireEvent(mouseEvent);
                 terrainTileList=new ArrayList<>();
                 List<Terrain> tileList = new ArrayList<>();
                 for(Node child: map.getChildren()){
@@ -218,9 +280,6 @@ public class ConfigurableMap {
 
         Integer col = GridPane.getColumnIndex(source);
         Integer row = GridPane.getRowIndex(source);
-
-        System.out.println(col);
-        System.out.println(row);
 
         source.changeImage(currentTile);
 
