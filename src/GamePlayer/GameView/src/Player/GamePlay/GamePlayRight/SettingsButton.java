@@ -40,6 +40,8 @@ public class SettingsButton extends Button {
         sound.setShowTickMarks(true);
         sound.setBlockIncrement(10);
         Label l = new Label("Change the Music");
+        sound.setMajorTickUnit(0.25f);
+        sound.setBlockIncrement(0.1f);
         sound.valueProperty().addListener(
                 new ChangeListener<Number>() {
                     public void changed(ObservableValue<? extends Number >
@@ -47,9 +49,11 @@ public class SettingsButton extends Button {
                     {
                         double vol = newValue.doubleValue();
                         mediaPlayer.setVolume(vol);
+                        //TODO: doesn't completely work
+                        l.setText("Sound Level");
                     }
                 });
-        dialogPane.setContent(new VBox(20, musicInput,soundInput,sound));
+        dialogPane.setContent(new VBox(20,musicInput,soundInput, new Label("Sound Level"),  sound));
         dialog.show();
         Window window = dialog.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
