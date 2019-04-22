@@ -54,7 +54,7 @@ public class Logic {
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
     // No Return Value
-    public void createGameInstance(GameInfo selectedGame) {
+    public void createGameInstance(GameInfo selectedGame){ //TODO: add these fieldss, double gridPixelHeight, double gridPixelWidth
         myGame = myGameLibrary.getGame(selectedGame);
         // TODO: Second sprint have the option of getting this from User Data (Previous Level)
         myGame.startGame(DEFAULT_START_LEVEL);
@@ -64,7 +64,7 @@ public class Logic {
     // No Input
     // Return: integer Level number
     public int startNextLevel(){
-        return myGame.startNextLevel();
+        return myGame.getLevelSpawner().startNextLevel();
     }
 
 
@@ -72,13 +72,6 @@ public class Logic {
     // No Input
     // Return: List of Viewable instances of static level items
     public List<ImmutableImageView> getLevelTerrain(double screenWidth, double screenHeight){
-//        System.out.println(myGame
-//                .getActiveLevel()
-//                .getMyMapConfig()
-//                .getTerrain()
-//                .stream()
-//                .map(terrain -> getImageView(terrain))
-//                .collect(Collectors.toList()));
         return myGame
                 .getActiveLevel()
                 .getMyMapConfig()

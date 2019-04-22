@@ -12,9 +12,9 @@ import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
-    private String myLabel;
+    public static final String myLabel = "Map";
     @Configure
-    private String name;
+    private String myName;
     @Configure
     private List<Terrain> myTerrain;
     @Configure
@@ -32,10 +32,6 @@ public class MapConfig implements Configurable {
     @Configure
     private int gridWidth;
 
-//    @Configure
-//    protected double gridPixelWidth;
-//    @Configure
-//    protected double gridPixelHeight;
 
     private Configuration configuration;
     private Level myLevel;
@@ -81,33 +77,17 @@ public class MapConfig implements Configurable {
     }
 
     public int getGridHeight() {
-
-//        System.out.println("HEIGHT");
-//        System.out.println(gridHeight);
-
         return gridHeight*TERRAIN_SIZE;
     }
 
     public int getGridWidth() {
-//
-//        System.out.println("WIDTH");
-//        System.out.println(gridWidth);
-
-
-
         return gridWidth*TERRAIN_SIZE;
     }
 
-    public void setTerrainList(List<Terrain> terrain) {
-        myTerrain = terrain;
-        for(Terrain t : terrain) {
-
-        }
-    }
 
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
 }

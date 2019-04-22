@@ -113,7 +113,7 @@ public class GameOutline extends Screen {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        setText(item.getLabel());
+                        setText(item.getName());
                     }
                 }
             };
@@ -175,7 +175,7 @@ public class GameOutline extends Screen {
 
         Stage popupwindow = new Stage();
         popupwindow.initModality(Modality.APPLICATION_MODAL);
-        popupwindow.setTitle("Change " + selectedObject.getLabel() + " Settings");
+        popupwindow.setTitle("Change " + selectedObject.getName() + " Settings");
 
 
         VBox layout = new VBox(10.00);

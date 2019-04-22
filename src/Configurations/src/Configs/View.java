@@ -3,7 +3,7 @@ package Configs;
 public class View implements Configurable {
     private Configuration myConfiguration;
 
-    private String myLabel;
+    public static final String myLabel = "Display On Screen";
     @Configure
     private String imagePath;
     @Configure
@@ -25,15 +25,14 @@ public class View implements Configurable {
         this.height = height;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
     @Override
-    public String getLabel() {
+    public String getName() {
         return myLabel;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
 
     @Override
     public Configuration getConfiguration() {

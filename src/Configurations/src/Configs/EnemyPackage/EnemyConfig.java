@@ -6,9 +6,9 @@ import Configs.Waves.Wave;
 
 public class EnemyConfig implements Configurable, Viewable {
     private Wave myWave;
-    private String myLabel;
+    public static final String myLabel = "Enemy";
     @Configure
-    private String name;
+    private String myName;
     @Configure
     private EnemyBehavior[] myBehaviors;
     @Configure
@@ -51,9 +51,10 @@ public class EnemyConfig implements Configurable, Viewable {
         return view;
     }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     @Override

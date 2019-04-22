@@ -14,8 +14,7 @@ public class Info {
         return image;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-
 }

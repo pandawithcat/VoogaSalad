@@ -4,7 +4,6 @@ import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
-import Configs.Waves.Wave;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,20 +16,18 @@ public class ActiveLevel extends Level implements Updatable {
     private Map<Integer,ActiveWeapon> activeWeapons;
     private List<ActiveEnemy> activeEnemies;
     private List<ActiveProjectile> activeProjectiles;
-    private Wave wave;
     private Cell[][] myGrid;
     private int myScore;
-    private int currentWave=0;
     private final int gridWidth;
     private final int gridHeight;
+    private WaveSpawner myWaveSpawner;
 
     public ActiveLevel(Level level){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
         activeWeapons = new HashMap<>();
-        //TODO: fix active wave to be a wave spawner
-        generateCurrentActiveWave();
+        myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
@@ -51,14 +48,21 @@ public class ActiveLevel extends Level implements Updatable {
         return tempGrid;
     }
 
+    public void addToScore(int points) {
+        myScore+=points;
+    }
+
+    public int getScore() {
+        return myScore;
+    }
+
     public Cell[][] getMyGrid() {
         return myGrid;
     }
 
     public boolean noMoreEnemiesLeft() {
-        //TODO: check logic on seeing if theres no more waves
+        return myWaveSpawner.isNoMoreEnemies();
 
-        return activeEnemies.isEmpty()&&wave.isFinished();
     }
 
 
@@ -77,47 +81,26 @@ public class ActiveLevel extends Level implements Updatable {
 
     @Override
     public void update(double ms) {
-        //FIXME: ALL OF THESE METHODS SHOULD USE STREAM INSTEAD OF FOR LOOPS
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
-        updateWave(ms);
+        myWaveSpawner.update(ms);
+
     }
 
     private void updateEnemies(double ms){
-
-        for(ActiveEnemy enemy : activeEnemies){
-//            activeEnemies.add(enemy);
-//            enemy.getMapFeature().setGridPos(50,50,0);
-            enemy.update(ms);
-        }
-        if (wave.isFinished()) currentWave++;
-        //ArrayAttributeManager.updateList(wave, ms); ??
+        activeEnemies.stream().forEach(enemy -> enemy.update(ms));
     }
 
-    private void updateWave(double ms){
-        if (wave.isFinished()) {
-            currentWave++;
-            generateCurrentActiveWave();
-        }
-        wave.update(ms);
-    }
 
-    private void generateCurrentActiveWave(){
 
-        wave = getMyWaves()[currentWave];
-    }
 
     private void updateProjectiles(double ms){
-        for (ActiveProjectile projectile: activeProjectiles){
-            projectile.update(ms);
-        }
+        activeProjectiles.stream().forEach(projectile -> projectile.update(ms));
     }
 
     private void updateWeapons(double ms){
-        for (int id: activeWeapons.keySet()){
-            activeWeapons.get(id).update(ms);
-        }
+        activeWeapons.keySet().stream().forEach(id -> activeWeapons.get(id).update(ms));
     }
 
 
@@ -157,9 +140,6 @@ public class ActiveLevel extends Level implements Updatable {
 
 
 
-    //TODO  add EventHandler for isValid
-
-
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
@@ -175,6 +155,16 @@ public class ActiveLevel extends Level implements Updatable {
 //    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
 //        activeProjectiles.remove(activeProjectile);
 //
+//    }
+
+    public void addToActiveWeapons(ActiveWeapon activeWeapon) {
+        activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+        recalculateMovementHeuristic();
+
+    }
+
+//    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
+//        activeWeapons.remove(activeWeapon);
 //    }
 
 
@@ -236,13 +226,5 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    public void addToActiveWeapons(ActiveWeapon activeWeapon) {
-        activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
-        recalculateMovementHeuristic();
 
-    }
-
-//    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
-//        activeWeapons.remove(activeWeapon);
-//    }
 }
