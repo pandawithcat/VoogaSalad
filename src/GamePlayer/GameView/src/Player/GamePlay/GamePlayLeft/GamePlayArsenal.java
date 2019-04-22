@@ -91,15 +91,11 @@ public class GamePlayArsenal extends VBox {
                 imageView.setFitHeight(arsenalWidth / 2);
                 Tooltip t = new Tooltip("A Square");
                 Tooltip.install(imageView, t);
-                viewList.add(imageView);
+                viewList.add(new Pair(imageView,myArsenal.get(id).getName()));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
-        arsenalDisplay.setItems(items);
-
 
         arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
         myMap.setOnDragOver(event -> dragOver(event));
