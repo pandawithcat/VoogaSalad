@@ -37,7 +37,7 @@ public class GamePlayMap extends Pane{
         applyCss();
         layout();
 
-        terrainList = myLogic.getLevelTerrain(width, height);
+        terrainList = myLogic.getLevelTerrain(height, height);
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
 
@@ -61,7 +61,7 @@ public class GamePlayMap extends Pane{
         mapRoot.prefHeight(height);
     }
 
-    public void update(double elapsedTime){
+    public void update(long elapsedTime){
         //commenting out logic to hardcode animation
         myLogic.update(elapsedTime);
         List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();

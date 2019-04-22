@@ -11,12 +11,13 @@ public class Shootable extends WeaponBehavior{
     @Configure
     private Shooter myShooter;
 
-    Configuration myConfiguration;
+    private Configuration myConfiguration;
     private WeaponConfig weaponConfig;
 
     public Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
         myConfiguration = new Configuration(this);
+        this.weaponConfig = weaponConfig;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class Shootable extends WeaponBehavior{
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         myShooter.update(ms);
     }
 

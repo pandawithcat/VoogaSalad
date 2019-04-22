@@ -85,7 +85,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
@@ -93,18 +93,18 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
-    private void updateEnemies(double ms){
+    private void updateEnemies(long ms){
         activeEnemies.stream().forEach(enemy -> enemy.update(ms));
     }
 
 
 
 
-    private void updateProjectiles(double ms){
+    private void updateProjectiles(long ms){
         activeProjectiles.stream().forEach(projectile -> projectile.update(ms));
     }
 
-    private void updateWeapons(double ms){
+    private void updateWeapons(long ms){
         activeWeapons.keySet().stream().forEach(id -> activeWeapons.get(id).update(ms));
     }
 
@@ -148,19 +148,19 @@ public class ActiveLevel extends Level implements Updatable {
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
     }
-//
-//    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
-//        activeEnemies.remove(activeEnemy);
-//    }
+
+    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
+        activeEnemies.remove(activeEnemy);
+    }
 
     public void addToActiveProjectiles(ActiveProjectile activeProjectile) {
         activeProjectiles.add(activeProjectile);
     }
 
-//    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
-//        activeProjectiles.remove(activeProjectile);
-//
-//    }
+    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
+        activeProjectiles.remove(activeProjectile);
+
+    }
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
@@ -168,9 +168,9 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
-//    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
-//        activeWeapons.remove(activeWeapon);
-//    }
+    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
+        activeWeapons.remove(activeWeapon);
+    }
 
 
     public double getPaneHeight() {

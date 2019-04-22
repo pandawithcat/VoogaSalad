@@ -55,7 +55,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
@@ -66,7 +66,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         distance -= numMovements;
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection();
-            myMapFeature.setGridPos(myMapFeature.getGridXPos()+movementDirection.getX(), myMapFeature.getGridYPos()+movementDirection.getY(),movementDirection.getDirection());
+            int newX = myMapFeature.getGridXPos()+movementDirection.getX();
+            int newY = myMapFeature.getGridYPos()+movementDirection.getY();
+            //TODO: this needs to be in terms of pixels and the isoutofbounds should be changed to take in pixel location after this is implemented
+            if(myMapFeature.isOutOfBounds(newX,newY)) myActiveLevel.removeFromActiveEnemies(this);
+            else myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
     }
 

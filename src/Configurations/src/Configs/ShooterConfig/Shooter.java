@@ -22,6 +22,7 @@ public class Shooter implements Updatable , Configurable {
     private double shooterRange;
     @Configure
     private ShooterBehavior[] shooterBehaviors;
+
     private Configuration myConfiguration;
 
     public Shooter(Shootable shootable){
@@ -57,7 +58,7 @@ public class Shooter implements Updatable , Configurable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         //only shooting radially rn
         if(ms%getRateOfFire()==0) {
             ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();

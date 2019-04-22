@@ -75,6 +75,7 @@ public class ConfigurableMap {
         VBox nameBox = new VBox(10);
         Label mapLbl = new Label("Map");
         nameTf = new TextField();
+        nameTf.setText(myMapConfig.getName());
         nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
@@ -220,7 +221,6 @@ public class ConfigurableMap {
                 myMap.put("myMap", m);
 
                 popUpWindow.close();
-
             }
         });
         layout.getChildren().add(subButton);

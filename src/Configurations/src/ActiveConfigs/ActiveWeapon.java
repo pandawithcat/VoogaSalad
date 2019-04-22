@@ -23,7 +23,7 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         Arrays.stream(getBehaviors()).forEach(b -> b.update(ms));
 
         updateWeaponDisplayState();
