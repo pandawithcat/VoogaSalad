@@ -4,6 +4,7 @@ import BackendExternal.GameInfo;
 import BackendExternal.Logic;
 import Player.ScreenSize;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -32,16 +33,17 @@ public class GameSelection extends Application {
     public void start(Stage primaryStage) {
         scrollPane.setId("scrollpane");
         scrollPane.setPrefSize(width/2,height/2);
-        
         logic = new Logic();
         stage = primaryStage;
         stage.setX(width);
         stage.setY(height);
         root = new VBox();
+        root.setAlignment(Pos.CENTER);
         root.setId("pane");
         Label text = new Label("Select a Game");
         text.setPrefHeight(100);
         root.getChildren().add(text);
+        text.setLayoutX(ScreenSize.getWidth()/2);
         root.getChildren().add(scrollPane);
         var scene = new Scene(root, width, height);
         scene.getStylesheets().add("style.css");

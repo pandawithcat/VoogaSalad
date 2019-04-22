@@ -65,6 +65,13 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;
 }
+.label{
+    -fx-font-size: 100px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
 #green.button:pressed {
     -fx-background-color:
             linear-gradient(#eeffc9, #a4ff6a),
