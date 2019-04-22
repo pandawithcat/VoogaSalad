@@ -41,7 +41,7 @@ public class SettingsButton extends Button {
                     public void changed(ObservableValue<? extends Number >
                                                 observable, Number oldValue, Number newValue)
                     {
-
+                        System.out.println("New Value:" + newValue);
                         l.setText("Sound: " + newValue);
                     }
                 });
