@@ -2,12 +2,14 @@ package BackendExternalAPI;
 
 import Configs.GamePackage.Game;
 import ExternalAPIs.AuthoringData;
+import ExternalAPIs.GameInfo;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.io.*;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class Model {
@@ -38,12 +40,19 @@ public class Model {
         }
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
     public boolean authenticateUser(String username, String password){
         return myAuthoringData.authenticateUser(username, password);
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
     public void createNewUser(String username, String password, String passwordRepeated){
         myAuthoringData.createNewUser(username, password, passwordRepeated);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public List<GameInfo> getAuthoredGameLibrary(){
+        return myAuthoringData.getAuthoredGames();
     }
 
     private void updatePropertiesFile() throws IOException{

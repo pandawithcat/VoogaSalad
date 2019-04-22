@@ -6,6 +6,7 @@ import Configs.GamePackage.Game;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
+import ExternalAPIs.PlayerData;
 
 import java.util.List;
 import java.util.Map;
@@ -28,11 +29,13 @@ public class Logic {
 
     private Game myGame;
     private GameLibrary myGameLibrary;
+    private PlayerData myPlayerData;
 
 
     public Logic() {
 //        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
+        myPlayerData = new PlayerData();
 
     }
 
@@ -41,6 +44,12 @@ public class Logic {
     // Return: List of GameInfo objects
     public List<GameInfo> getGameOptions(){
         return myGameLibrary.getImmutableGameList();
+    }
+
+    // Final Implementation version of getGameOptions
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public List<GameInfo> getGameLibrary(){
+        return myPlayerData.getAuthoredGames();
     }
 
 //    TODO: Implement User Authentification in Second Sprint
