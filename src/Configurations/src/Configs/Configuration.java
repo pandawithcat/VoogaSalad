@@ -34,11 +34,11 @@ public class Configuration {
     }
 
     private void validateType(String attributeInput, Object value) throws IllegalArgumentException {
-        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+        /*if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
             System.out.println(value.getClass());
             System.out.println(myAttributeTypes.get(attributeInput));
             throw new IllegalArgumentException();
-        }
+        }*/
     }
 
 
