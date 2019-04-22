@@ -24,7 +24,7 @@ public class Wave implements Updatable, Configurable {
     private Configuration myConfiguration;
 
 
-
+    private boolean isActive = false;
     private double[] startTimes;
     private int currentEnemyIndex = 0;
     private boolean isFinished = false;
@@ -54,9 +54,16 @@ public class Wave implements Updatable, Configurable {
         return timeToReleaseInMs;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {
