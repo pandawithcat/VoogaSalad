@@ -143,7 +143,7 @@ public class ConfigurableMap {
                 }
 
                 passedMap=new HashMap<>();
-                passedMap.put("myLabel",mapName);
+                passedMap.put("myName",mapName);
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridXPos", 0);
                 passedMap.put("enemyEnteringGridYPos", 0);

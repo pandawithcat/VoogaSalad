@@ -3,7 +3,7 @@ package Configs;
 public class View implements Configurable {
     private Configuration myConfiguration;
 
-    public static final String myLabel = "Images";
+    public static final String myLabel = "Image";
     @Configure
     private String imagePath;
     @Configure
