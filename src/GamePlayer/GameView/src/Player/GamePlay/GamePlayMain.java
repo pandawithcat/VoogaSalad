@@ -78,7 +78,7 @@ public class GamePlayMain extends Application {
         }
     }
 
-    private void step(double elapsedTime){
+    private void step(long elapsedTime){
         //TODO: yeah idk if this is best design below
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
