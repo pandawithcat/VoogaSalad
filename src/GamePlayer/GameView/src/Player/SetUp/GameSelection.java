@@ -42,6 +42,7 @@ public class GameSelection extends Application {
         root.setId("pane");
         Label text = new Label("Select a Game");
         text.setPrefHeight(100);
+        text.setId("selectGame");
         root.getChildren().add(text);
         text.setLayoutX(ScreenSize.getWidth()/2);
         root.getChildren().add(scrollPane);
