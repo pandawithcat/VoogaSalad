@@ -4,6 +4,7 @@ import BackendExternalAPI.Model;
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
 import GameAuthoringEnvironment.AuthoringScreen.GameOutline;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -34,9 +35,22 @@ public class TopMenuBar {
         Button saveButton = new Button("Save");
         saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                myGameOutline.makeTreeView(gameController.getMyGame());
+                if(gameController == null){
+                    createAlert();}
+                else{
+                myGameOutline.makeTreeView(gameController.getMyGame());}
+            }
+        });
+
+
+        Button exportButton = new Button("Export");
+        exportButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                if(gameController == null){
+                    createAlert();}
+                else{
                 Model model = new Model();
-                model.saveToXML(gameController.getMyGame());
+                model.saveToXML(gameController.getMyGame());}
             }
         });
 
@@ -74,12 +88,22 @@ public class TopMenuBar {
         Button refreshButton = new Button("Refresh");
         refreshButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                //TODO This button refresh the game outline
-                myGameOutline.makeTreeView(gameController.getMyGame());
+                if(gameController == null){
+                    createAlert();
+                }else{
+                myGameOutline.makeTreeView(gameController.getMyGame());}
             }
         });
 
-        TopMenuBar.getChildren().addAll(newGameButton, saveButton, loadButton, refreshButton);
+        TopMenuBar.getChildren().addAll(newGameButton, saveButton, exportButton, loadButton, refreshButton);
+    }
+
+    private void createAlert() {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setContentText("Game does not exist");
+        alert.showAndWait();
     }
 
     public HBox getTopMenuBar(){

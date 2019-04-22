@@ -75,9 +75,7 @@ public class AuthoringVisualization {
     //TODO(Hyunjae) When ctrl+N is pressed, show a new screen
     private void handleKeyInput(KeyEvent e) {
         if (keyCombinationCommandN.match(e)) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.show();
-            // add shortcuts
+
         }
     }
 

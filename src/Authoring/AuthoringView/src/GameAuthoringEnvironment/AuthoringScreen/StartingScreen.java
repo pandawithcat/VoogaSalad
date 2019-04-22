@@ -1,9 +1,7 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -37,7 +35,7 @@ public class StartingScreen {
 
     private void setScene(){
         myContatiner = new VBox(10.00);
-        Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+ "logo" +".png"));
+        Image test = new Image(getClass().getResourceAsStream("/AuthoringImages/" + "logo" +".png"));
         ImageView imageView = new ImageView(test);
         idTf = new TextField();
         idTf.setText("Enter ID");
