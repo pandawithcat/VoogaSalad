@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class SettingsButton extends Button {
     private String icon = "settings.png";
@@ -49,7 +50,9 @@ public class SettingsButton extends Button {
                     }
                 });
         dialogPane.setContent(new VBox(20, musicInput,soundInput,sound));
-        dialog.showAndWait();
+        dialog.show();
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(event -> window.hide());
         return dialog;
     }
 }
