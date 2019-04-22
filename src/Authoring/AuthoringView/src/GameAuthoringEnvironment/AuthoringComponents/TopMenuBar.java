@@ -99,11 +99,7 @@ public class TopMenuBar {
     }
 
     private void createAlert() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setContentText("Game does not exist");
-        alert.showAndWait();
+        AlertScreen alertScreen = new AlertScreen();
     }
 
     public HBox getTopMenuBar(){

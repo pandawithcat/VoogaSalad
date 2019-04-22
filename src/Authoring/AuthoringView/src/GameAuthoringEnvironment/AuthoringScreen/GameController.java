@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
+import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -106,11 +107,7 @@ public class GameController {
             public void handle(MouseEvent event) {
                 //TODO(Hyunjae) Should tell the user what attribute is missing
                 if(!myConfigurable.getConfiguration().isConfigurationComplete()){
-                    Alert alert = new Alert(Alert.AlertType.NONE);
-                    alert.setAlertType(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning");
-                    alert.setContentText("Atrributtes not all filled out");
-                    alert.showAndWait();
+                    AlertScreen alertScreen = new AlertScreen();
                 }
                 else {
 
@@ -215,12 +212,11 @@ public class GameController {
                     }
                     myAttributesMap.put(key, ob);
                     List<Object> newObjects = Arrays.asList(ob);
-                    if(configuredObjects.get(key) != null){
+                    /*if(configuredObjects.get(key) != null){
                         configuredObjects.get(key).addAll(newObjects);
                     }else{
                         configuredObjects.put(key, newObjects);
-                    }
-                    System.out.println(configuredObjects.keySet());
+                    }*/
                 }
                 catch (ClassNotFoundException e){
                     //TODO(Hyunjae) Errorchecking

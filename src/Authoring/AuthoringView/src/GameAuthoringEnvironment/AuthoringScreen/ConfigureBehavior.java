@@ -34,6 +34,15 @@ public class ConfigureBehavior {
     private final BooleanProperty dragModeActiveProperty =
             new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
+    GameOutline myGameOutline;
+
+    public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+        myGameOutline= gameOutline;
+        myConfigurable = configurable;
+        myList = behaviorList;
+        myMap = attributesMap;
+        setContent();
+    }
 
 
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
@@ -74,7 +83,11 @@ public class ConfigureBehavior {
                             Class<?> cl = Class.forName(selected.getName());
                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                             var object = cons.newInstance(myConfigurable);
-                            myGameController.createConfigurable((Configurable) object);
+                            if(myGameController.equals(null)){
+                                myGameOutline.showTheScreen((Configurable) object);
+                            }else{
+                            myGameController.createConfigurable((Configurable) object);}
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
