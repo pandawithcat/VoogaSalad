@@ -18,6 +18,9 @@ import javafx.util.Duration;
 
 import java.io.File;
 
+import static Player.GamePlay.GamePlayIDE.LEFT_RATIO;
+import static Player.GamePlay.GamePlayLeft.GamePlayLeftSide.TOP_RATIO;
+
 public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
@@ -52,7 +55,7 @@ public class GamePlayMain extends Application {
         }
     }
     public void setGameInfo(GameInfo gameInfo){
-        myLogic.createGameInstance(gameInfo);
+        myLogic.createGameInstance(gameInfo, screenWidth*LEFT_RATIO, screenHeight* TOP_RATIO);
     }
     private void fastFoward(){
         FRAMES_PER_SECOND = 150;
