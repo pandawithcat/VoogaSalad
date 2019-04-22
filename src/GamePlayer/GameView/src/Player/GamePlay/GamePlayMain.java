@@ -28,7 +28,6 @@ public class GamePlayMain extends Application {
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
-    private static final int padding = 15;
     private Logic myLogic = new Logic();
     private GamePlayIDE myGameIDE;
     private Group root;
