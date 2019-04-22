@@ -7,14 +7,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class SettingsButton extends Button {
     private String icon = "settings.png";
     private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(icon));
     private ImageView imageView = new ImageView(image);
-    public SettingsButton(double width, double height){
+    private MediaPlayer mediaPlayer;
+    public SettingsButton(double width, double height, MediaPlayer mediaPlayer){
+        this.mediaPlayer = mediaPlayer;
         imageView.setFitWidth(width/3);
         imageView.setFitHeight(height/3);
         setGraphic(imageView);
@@ -41,12 +45,14 @@ public class SettingsButton extends Button {
                     public void changed(ObservableValue<? extends Number >
                                                 observable, Number oldValue, Number newValue)
                     {
-
-                        l.setText("Sound: " + newValue);
+                        double vol = newValue.doubleValue();
+                        mediaPlayer.setVolume(vol);
                     }
                 });
         dialogPane.setContent(new VBox(20, musicInput,soundInput,sound));
-        dialog.showAndWait();
+        dialog.show();
+        Window window = dialog.getDialogPane().getScene().getWindow();
+        window.setOnCloseRequest(event -> window.hide());
         return dialog;
     }
 }
