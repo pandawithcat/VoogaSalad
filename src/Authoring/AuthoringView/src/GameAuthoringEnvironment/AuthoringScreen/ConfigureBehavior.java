@@ -83,7 +83,7 @@ public class ConfigureBehavior {
                             Class<?> cl = Class.forName(selected.getName());
                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                             var object = cons.newInstance(myConfigurable);
-                            if(myGameController.equals(null)){
+                            if(!(myGameOutline == null)){
                                 myGameOutline.showTheScreen((Configurable) object);
                             }else{
                             myGameController.createConfigurable((Configurable) object);}
