@@ -62,6 +62,7 @@ public class ActiveLevel extends Level implements Updatable {
 
     public boolean noMoreEnemiesLeft() {
         return myWaveSpawner.isNoMoreEnemies();
+
     }
 
 
@@ -84,17 +85,15 @@ public class ActiveLevel extends Level implements Updatable {
         updateEnemies(ms);
         updateProjectiles(ms);
         myWaveSpawner.update(ms);
+
     }
 
     private void updateEnemies(double ms){
         activeEnemies.stream().forEach(enemy -> enemy.update(ms));
-
-//        for(ActiveEnemy enemy : activeEnemies){
-////            activeEnemies.add(enemy);
-////            enemy.getMapFeature().setGridPos(50,50,0);
-//            enemy.update(ms);
-//        }
     }
+
+
+
 
     private void updateProjectiles(double ms){
         activeProjectiles.stream().forEach(projectile -> projectile.update(ms));

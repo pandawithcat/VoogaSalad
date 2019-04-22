@@ -67,8 +67,11 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
+        long prevTime = System.currentTimeMillis();
         while(true){
-            step(System.currentTimeMillis());
+            long currTime = System.currentTimeMillis();
+            step(currTime-prevTime);
+//            prevTime = currTime;
         }
     }
 

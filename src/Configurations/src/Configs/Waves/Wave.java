@@ -57,7 +57,7 @@ public class Wave implements Updatable, Configurable {
 
     @Override
     public void update(double ms) {
-        if(ms>=timeToReleaseInMs && currentEnemyIndex==0) {
+        if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {
                 startTimes[i] = ms+(i*rateOfReleaseEnemiesPerMs);
@@ -67,7 +67,7 @@ public class Wave implements Updatable, Configurable {
             isFinished= true;
         }
 
-        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]>=ms) {
+        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
             int x = activeLevel.getMyMapConfig().getEnemyEnteringGridXPos();
             int y = activeLevel.getMyMapConfig().getEnemyEnteringGridYPos();

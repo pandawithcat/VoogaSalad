@@ -137,7 +137,7 @@ public class ConfigurableMap {
                 }
                 MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),2,2,t.getIsPath());
+                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),Terrain.TERRAIN_SIZE,Terrain.TERRAIN_SIZE,t.getIsPath());
 
                     tileList.add(tile);
                 }
