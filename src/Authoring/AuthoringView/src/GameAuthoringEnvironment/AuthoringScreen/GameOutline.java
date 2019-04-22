@@ -2,7 +2,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
-import Configs.LevelPackage.Level;
 import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,7 +23,6 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Paths;
 import java.util.*;
 
 //TODO Change all magic values
@@ -40,7 +38,7 @@ public class GameOutline extends Screen {
     private GameOutline gameOutline;
 
     public ImageView getMyImage(){
-        Image test = new Image(getClass().getResourceAsStream("/AuthoringImages/"+"Folder.png"));
+        Image test = new Image(getClass().getResourceAsStream("/AuthoringResources/" +"Folder.png"));
         ImageView imageView = new ImageView(test);
         imageView.setFitWidth(25);
         imageView.setFitHeight(25);

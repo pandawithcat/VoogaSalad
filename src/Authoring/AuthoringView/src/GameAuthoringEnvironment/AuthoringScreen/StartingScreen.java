@@ -35,7 +35,7 @@ public class StartingScreen {
 
     private void setScene(){
         myContatiner = new VBox(10.00);
-        Image test = new Image(getClass().getResourceAsStream("/AuthoringImages/" + "logo" +".png"));
+        Image test = new Image(getClass().getResourceAsStream("/AuthoringResources/" + "logo" +".png"));
         ImageView imageView = new ImageView(test);
         idTf = new TextField();
         idTf.setText("Enter ID");
