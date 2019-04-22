@@ -1,6 +1,7 @@
 package Player.SetUp;
 
 import Player.ScreenSize;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -16,12 +17,14 @@ public class LogInPreloader extends Application {
     public static final int MILLISECOND_DELAY = 150;
     private EventHandler eventHandler;
     private Timeline animation;
+    private StackPane root;
+    private String title;
         Stage stage;
         Text text = new Text("Loading ...");
         @Override
         public void start(Stage primaryStage){
             stage = primaryStage;
-            StackPane root = new StackPane();
+            root = new StackPane();
             root.setId("pane");
             root.getChildren().add(text);
             text.setFont(Font.font ("Verdana", 20));
@@ -37,7 +40,12 @@ public class LogInPreloader extends Application {
         public void setTransitionEvent(EventHandler eventHandler){
             this.eventHandler = eventHandler;
         }
-
+        public void setTitle(String text){
+            this.title = text;
+            Text t = new Text(title);
+            root.getChildren().add(t);
+            t.setTranslateY(-100);
+        }
         private void step() {
             if (text.getText().equals("Loading ...")) {
                 text.setText("Loading .. ");
@@ -46,6 +54,15 @@ public class LogInPreloader extends Application {
             } else {
                 text.setText("Loading ...");
             }
-            animation.setOnFinished(eventHandler);
+            animation.statusProperty().addListener((obs, oldStatus, newStatus) -> {
+                if (newStatus == Animation.Status.STOPPED) {
+                    animation.setOnFinished(eventHandler);
+                }
+            });
+            animation.statusProperty().addListener((obs, oldStatus, newStatus) -> {
+                if (newStatus == Animation.Status.STOPPED) {
+                    this.stage.close();
+                }
+            });
         }
 }

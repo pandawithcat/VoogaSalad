@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
+import javafx.util.Pair;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,14 +31,8 @@ public class GamePlayArsenal extends VBox {
 
     private Logic myLogic;
     private GamePlayArsenalSelector myArsenalSelector;
-    public static final String WEAPON_IMAGE = "weapon.png";
-    public static final String OBSTACLE_IMAGE = "obstacle.png";
-    private Image weaponImage;
-    private Image obstacleImage;
-    private ImageView weaponImageView;
-    private ImageView obstacleImageView;
     private boolean isWeapon;
-    private ArrayList<ImageView> viewList;
+    private ArrayList<Pair<ImageView, String>> viewList;
     private ListView arsenalDisplay;
     private double myArsenalWidth;
     private HBox arsenalSelector;
@@ -73,17 +69,10 @@ public class GamePlayArsenal extends VBox {
         viewList = new ArrayList<>();
         setArsenalDisplay(myArsenal,arsenalWidth);
 
-
-        //TODO: implement the hover shit when we set content
-//        rootItem.getChildren().addAll(myArsenal);
-//        arsenalView.setRoot(rootItem);
-
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-
         getChildren().addAll(arsenalDisplay);
 
-        //arsenal selector part
         myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
         getChildren().add(myArsenalSelector);
     }
