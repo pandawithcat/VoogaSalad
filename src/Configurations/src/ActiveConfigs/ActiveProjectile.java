@@ -25,7 +25,6 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
             myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
             checkforCollisions();
-
         }
         else {
             myMapFeature.setDisplayState(DisplayState.DIED);
@@ -52,9 +51,11 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         double distanceToTravel = velocityMs*ms;
         double changeX = distanceToTravel*Math.cos(myMapFeature.getTrigDirection());
         double changeY = distanceToTravel*Math.sin(myMapFeature.getTrigDirection());
-        myMapFeature.moveRelatively(changeX,changeY);
-        distanceLeft-=distanceToTravel;
-
+        if(myMapFeature.isOutOfBoundsRelative(changeX,changeY)) myActiveLevel.addToActiveProjectiles(this);
+        else {
+            myMapFeature.moveRelatively(changeX,changeY);
+            distanceLeft-=distanceToTravel;
+        }
     }
     @Override
     public MapFeature getMapFeature() {

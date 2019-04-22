@@ -22,6 +22,7 @@ public class Shooter implements Updatable , Configurable {
     private double shooterRange;
     @Configure
     private ShooterBehavior[] shooterBehaviors;
+
     private Configuration myConfiguration;
 
     public Shooter(Shootable shootable){
