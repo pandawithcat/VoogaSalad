@@ -158,7 +158,6 @@ public class ConfigurableMap {
                 myMap.put("myMap", m);
 
                 popUpWindow.close();
-
             }
         });
         layout.getChildren().add(subButton);
