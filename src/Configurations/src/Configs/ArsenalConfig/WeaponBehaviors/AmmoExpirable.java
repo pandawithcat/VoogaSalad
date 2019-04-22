@@ -17,7 +17,7 @@ public class AmmoExpirable extends WeaponBehavior {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         //TODO
     }
     @Override

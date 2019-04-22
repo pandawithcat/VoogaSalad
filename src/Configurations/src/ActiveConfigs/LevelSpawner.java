@@ -27,7 +27,7 @@ public class LevelSpawner implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(long ms) {
         if(endLevelCondition.test(currLevel)) {
             if(levelIndex==myLevels.size()) {
                 gameOver = true;
