@@ -1,6 +1,7 @@
 package Player;
 
 import Player.SetUp.GameSelection;
+import Player.SetUp.LogInPreloader;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
@@ -121,6 +122,13 @@ public class LoadingSplashScreen extends Application{
         parallelTransition.setOnFinished(e-> createSignInSettings());
     }
     private void createSignInSettings(){
+        Rectangle rect = new Rectangle();
+        rect.setWidth(300);
+        rect.setHeight(200);
+        rect.setArcWidth(20);
+        rect.setArcHeight(20);
+        rect.getStyleClass().add("my-rect");
+        root.getChildren().add(rect);
         root.getChildren().add(userLogIn());
         Button button = createStartButton("green","Log In", 0, 100);
         button.setOnAction(e-> availableGames());
@@ -129,8 +137,13 @@ public class LoadingSplashScreen extends Application{
     private void availableGames(){
         mediaPlayer.stop();
         this.stage.close();
-        GameSelection gameSelection = new GameSelection();
-        gameSelection.start(new Stage());
+        LogInPreloader logInPreloader = new LogInPreloader();
+        logInPreloader.start(new Stage());
+        logInPreloader.setTitle("Loading Available Games");
+        logInPreloader.setTransitionEvent(e -> {
+            GameSelection gameSelection = new GameSelection();
+            gameSelection.start(new Stage());
+        });
     }
     private Path generatePath(int x, int y)
     {

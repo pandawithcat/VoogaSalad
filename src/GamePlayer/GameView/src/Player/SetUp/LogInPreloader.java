@@ -17,13 +17,14 @@ public class LogInPreloader extends Application {
     public static final int MILLISECOND_DELAY = 150;
     private EventHandler eventHandler;
     private Timeline animation;
+    private StackPane root;
     private String title;
         Stage stage;
         Text text = new Text("Loading ...");
         @Override
         public void start(Stage primaryStage){
             stage = primaryStage;
-            StackPane root = new StackPane();
+            root = new StackPane();
             root.setId("pane");
             root.getChildren().add(text);
             text.setFont(Font.font ("Verdana", 20));
@@ -41,6 +42,9 @@ public class LogInPreloader extends Application {
         }
         public void setTitle(String text){
             this.title = text;
+            Text t = new Text(title);
+            root.getChildren().add(t);
+            t.setTranslateY(-100);
         }
         private void step() {
             if (text.getText().equals("Loading ...")) {
