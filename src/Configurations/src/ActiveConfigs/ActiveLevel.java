@@ -18,11 +18,14 @@ public class ActiveLevel extends Level implements Updatable {
     private List<ActiveProjectile> activeProjectiles;
     private Cell[][] myGrid;
     private int myScore;
+    private int currentWave=0;
+    private double paneWidth;
+    private double paneHeight;
     private final int gridWidth;
     private final int gridHeight;
     private WaveSpawner myWaveSpawner;
 
-    public ActiveLevel(Level level){//, MapFeature mapFeature) {
+    public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
@@ -32,7 +35,9 @@ public class ActiveLevel extends Level implements Updatable {
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
-        System.out.println("meep");
+//        System.out.println("meep");
+        this.paneHeight = paneHeight;
+        this.paneWidth = paneWidth;
     }
 
     private Cell[][] createMyGrid(){
@@ -167,6 +172,14 @@ public class ActiveLevel extends Level implements Updatable {
 //        activeWeapons.remove(activeWeapon);
 //    }
 
+
+    public double getPaneHeight() {
+        return paneHeight;
+    }
+
+    public double getPaneWidth() {
+        return paneWidth;
+    }
 
     private void recalculateMovementHeuristic(){
         astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);

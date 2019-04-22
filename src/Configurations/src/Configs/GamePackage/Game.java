@@ -38,6 +38,9 @@ public class Game implements Updatable, Configurable {
     private GameBehavior gameType;
     /*@Configure
     private WeaponConfig[] allWeaponConfigs;*/
+    @XStreamOmitField
+    private transient double paneWidth;
+    private transient double paneHeight;
 
     private LevelSpawner myLevelSpawner;
     private int currentLevelNumber;
@@ -72,10 +75,12 @@ public class Game implements Updatable, Configurable {
     }
 
 
-    public void startGame(int levelNumber) throws IllegalStateException{
+    public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
+        this.paneHeight = paneHeight;
+        this.paneWidth = paneWidth;
         currentLevelNumber = levelNumber;
         // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
         this.myLevelSpawner = new LevelSpawner(levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
