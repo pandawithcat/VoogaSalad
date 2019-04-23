@@ -60,8 +60,9 @@ public class Arsenal implements Configurable {
 
     }
 
-    //TODO: EventHandler for adding new weapon to map
     public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY, int direction){
+        System.out.println(ID);
+        System.out.println(getConfiguredWeapons());
         WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID-1];
         ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth()), myGame.getActiveLevel());
         activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);

@@ -18,7 +18,6 @@ public class ActiveLevel extends Level implements Updatable {
     private List<MapFeaturable> activeProjectiles;
     private Cell[][] myGrid;
     private int myScore;
-    private int currentWave=0;
     private double paneWidth;
     private double paneHeight;
     private final int gridWidth;
@@ -34,8 +33,6 @@ public class ActiveLevel extends Level implements Updatable {
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
-        System.out.println(gridHeight);
-        System.out.println(gridWidth);
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
