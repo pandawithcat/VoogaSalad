@@ -28,6 +28,13 @@ public class Model {
         myAuthoringData = new AuthoringData();
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void saveToXML2(Game newGame){
+        XStream mySerializer = new XStream(new DomDriver());
+        String gameString = mySerializer.toXML(newGame);
+        myAuthoringData.storeXML(gameString.getBytes());
+    }
+
     public void saveToXML(Game newGame) {
         myGame = newGame;
         try {
@@ -59,8 +66,8 @@ public class Model {
     public Game loadGameObject(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
         File xmlFile = myAuthoringData.getGameFile(selectedGame);
-        myGame =  (Game)serializer.fromXML(xmlFile);
-        return myGame;
+        Game loadedGame = (Game)serializer.fromXML(xmlFile);
+        return loadedGame;
     }
 
     private void updatePropertiesFile() throws IOException{

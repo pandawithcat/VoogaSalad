@@ -29,6 +29,12 @@ public class AuthoringData extends Data{
         return Collections.unmodifiableList(authoredGames);
     }
 
+    public void storeXML(byte[] gameBytes){
+        currentGameID = currentGameID;
+
+        // TODO: Store byte[] in table of currentGameID
+    }
+
     // TODO: Override Data todo get images method and call one below as well
     // TODO: Method call to download images with the standard flag selected
 
