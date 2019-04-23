@@ -39,7 +39,7 @@ public class GamePlayMap extends Pane{
 
         terrainList = myLogic.getLevelTerrain(height, height);
         setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-        terrainList.stream().forEach(img -> this.getChildren().add(img.getAsNode()));
+        terrainList.stream().forEach(img -> getChildren().add(img.getAsNode()));
 
 
 //        createFilledTestTerrain(width, height);
