@@ -43,9 +43,7 @@ public class WeaponConfig implements  Configurable, Viewable {
         return myConfiguration;
     }
 
-
-
-        @Override
+    @Override
     public String getName() {
         return myName;
     }
