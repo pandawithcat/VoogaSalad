@@ -16,7 +16,7 @@ public class LevelUnlockable extends ArsenalBehavior implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
 
     }
 
