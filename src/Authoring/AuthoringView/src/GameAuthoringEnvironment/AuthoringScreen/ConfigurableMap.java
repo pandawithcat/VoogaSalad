@@ -43,26 +43,25 @@ public class ConfigurableMap {
     private VBox layout;
     private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
-    private Map<String, Object> myMap;
+    private Map<String, Object> myAttributesMap;
     private Stage popUpWindow;
     private String mapName;
     private TextField nameTf;
     private Configurable myLevel;
     private Button nameButton;
-    private MapConfig myMapConfig;
+    private MapConfig myAttributesMapConfig;
 
-    public ConfigurableMap(Map<String, Object> myAttributeMap, Configurable level){
+    public ConfigurableMap(Map<String, Object> attributeMap, Configurable level){
 
-        myMap = myAttributeMap;
+        myAttributesMap = attributeMap;
         myLevel = level;
     }
 
     //Constructor for editing the map
-    //TODO Add a way to display the existing map
     public ConfigurableMap(MapConfig mapConfig, Map<String, Object> myAttributeMap, Configurable level){
-        myMap = myAttributeMap;
+        myAttributesMap = myAttributeMap;
         myLevel = level;
-        myMapConfig = mapConfig;
+        myAttributesMapConfig = mapConfig;
     }
 
     public void resetConfigurations(){
@@ -75,7 +74,7 @@ public class ConfigurableMap {
         VBox nameBox = new VBox(10);
         Label mapLbl = new Label("Map");
         nameTf = new TextField();
-        nameTf.setText(myMapConfig.getName());
+        nameTf.setText(myAttributesMapConfig.getName());
         nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
@@ -84,8 +83,6 @@ public class ConfigurableMap {
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         reinitMap();
         initTileView();
-
-
 
         // Add the Labels and Views to the Pane
         layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
@@ -97,9 +94,8 @@ public class ConfigurableMap {
     }
 
     private void reinitMap(){
-        List<Terrain> existingTerrainList = myMapConfig.getTerrain();
+        List<Terrain> existingTerrainList = myAttributesMapConfig.getTerrain();
         map = new GridPane();
-
 
         for(int r=0; r< GRID_WIDTH; r++){
             for(int c=0; c<GRID_HEIGHT; c++){
@@ -218,7 +214,8 @@ public class ConfigurableMap {
 
                 m.getConfiguration().setAllAttributes(passedMap);
 
-                myMap.put("myMap", m);
+
+                myAttributesMap.put("myMap", m);
 
                 popUpWindow.close();
             }
