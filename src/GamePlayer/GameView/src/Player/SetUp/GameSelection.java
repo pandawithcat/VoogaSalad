@@ -37,8 +37,8 @@ public class GameSelection extends Application {
     @Override
     public void start(Stage primaryStage) {
         scrollPane.setId("scrollpane");
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefSize(width/3,height);
-        scrollPane.setOpacity(0.8);
         logic = new Logic();
         stage = primaryStage;
         stage.setX(width);
@@ -49,6 +49,7 @@ public class GameSelection extends Application {
         text.setPrefHeight(100);
         text.setId("selectGame");
         VBox left = new VBox();
+        left.setAlignment(Pos.CENTER);
         left.getChildren().add(text);
         left.getChildren().add(scrollPane);
         root.getChildren().add(left);
@@ -70,22 +71,35 @@ public class GameSelection extends Application {
 
     private void createGameSelectionScreen() throws FileNotFoundException {
         VBox vBox = new VBox();
-        vBox.setPrefWidth(width/3);
+        vBox.setPrefWidth(width/3-10);
         vBox.setAlignment(Pos.CENTER);
         for(GameInfo gameInfo: uploadAvailableGames()){
-            Rectangle container = new Rectangle();
+            StackPane container = new StackPane();
+            container.setAlignment(Pos.CENTER);
+            Rectangle bkg = createBackdrop(scrollPane.getWidth() - 100,scrollPane.getWidth() - 100);
+            container.getChildren().add(bkg);
+            VBox gameLook = new VBox();
+            gameLook.setAlignment(Pos.CENTER);
             Text title = new Text(gameInfo.getGameTitle());
-            title.setX(300);
-            vBox.getChildren().add(title);
+            title.setId("gameTitle");
+            gameLook.getChildren().add(title);
             Image image = new Image(new FileInputStream(RESOURCES_PATH + gameInfo.getGameThumbnail()));
             ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(100);
-            imageView.setFitHeight(100);
-            imageView.setX(500);
+            imageView.setFitWidth(200);
+            imageView.setFitHeight(200);
             imageView.setOnMouseClicked(e -> startGame(gameInfo, image));
-            vBox.getChildren().add(imageView);
+            gameLook.getChildren().add(imageView);
+            container.getChildren().add(gameLook);
+            vBox.getChildren().add(container);
         }
         scrollPane.setContent(vBox);
+    }
+    private Rectangle createBackdrop(double width, double height){
+        Rectangle bkg = new Rectangle();
+        bkg.setStyle("-fx-fill: linear-gradient(#fffa70, #e4e6e1); -fx-stroke: green; -fx-stroke-width: 5; -fx-opacity: 1; -fx-border-radius: 10;");
+        bkg.setWidth(width);
+        bkg.setHeight(height);
+        return bkg;
     }
     private void startGame(GameInfo gameInfo, Image image){
         setTitle(gameInfo, image);
@@ -96,6 +110,8 @@ public class GameSelection extends Application {
         }
         gameStart = new StackPane();
         gameStart.setAlignment(Pos.CENTER);
+        Rectangle bkg = createBackdrop(gameStart.getWidth()/2, gameStart.getHeight()/2);
+        gameStart.getChildren().add(bkg);
         Text title = new Text(gameInfo.getGameTitle());
         title.setTranslateY(-100);
         Text subtitle = new Text(gameInfo.getGameDescription());

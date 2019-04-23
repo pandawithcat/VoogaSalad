@@ -10,12 +10,11 @@
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
-#logIn{
-    -fx-opacity: 1;
+#gameTitle{
+    -fx-font-size: 20;
 }
 .scroll-pane{
-    -fx-background-color: white;
-    -fx-opacity: 1;
+    -fx-background-color: transparent;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
 .scroll-pane > .viewport {
