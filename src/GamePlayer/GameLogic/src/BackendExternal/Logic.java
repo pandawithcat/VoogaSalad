@@ -77,7 +77,7 @@ public class Logic {
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridWidth(),myGame.getActiveLevel().getGridWidth()))
+                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
                 .collect(Collectors.toList());
 
     }
