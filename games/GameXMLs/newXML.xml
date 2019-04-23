@@ -22,8 +22,8 @@
               <view>
                 <myConfiguration/>
                 <imagePath>thumbnail2.gif</imagePath>
-                <width>1</width>
-                <height>1</height>
+                <width>3</width>
+                <height>3</height>
                 <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
               </view>
               <myConfiguration/>

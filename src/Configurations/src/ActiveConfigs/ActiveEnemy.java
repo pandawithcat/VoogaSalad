@@ -3,6 +3,11 @@ package ActiveConfigs;
 import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 
 public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
     public static final double CONVERSION_TO_SECONDS = .001;
@@ -11,7 +16,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private double distance = 0;
     private ActiveLevel myActiveLevel;
     private double startTime = -Integer.MAX_VALUE;
-    private double prevTime;
+    private LinkedList<Point> prevLocations = new LinkedList<>();
 
     enum MovementDirection {
         DOWN(0, 1, 0),
@@ -64,7 +69,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
         if (startTime == -Integer.MAX_VALUE){
             startTime = ms;
-            prevTime = ms;
+//            prevTime = ms;
         }
 
 //        distance += (ms-prevTime * getUnitSpeedPerSecond() * CONVERSION_TO_SECONDS);
@@ -75,6 +80,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             MovementDirection movementDirection = determineMovementDirection();
             int newX = myMapFeature.getGridXPos()+movementDirection.getX();
             int newY = myMapFeature.getGridYPos()+movementDirection.getY();
+            prevLocations.addFirst(new Point(newX, newY));
+            if (prevLocations.size()>5){
+                prevLocations.removeLast();
+            }
             //TODO: this needs to be in terms of pixels and the isoutofbounds should be changed to take in pixel location after this is implemented
             myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
@@ -87,13 +96,17 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         int[]yAdditions = new int[]{1,-1,0,0};
         int bestOption = 0;
         int bestOptionHeuristic =  Integer.MAX_VALUE;
-        for (int k = 0; k < 3; k++) {
+        for (int k = 0; k < 4; k++) {
             int totalHeuristic = -Integer.MAX_VALUE;
             singleDirection:
-            for (int y = myMapFeature.getGridYPos()+yAdditions[k]; y < getView().getHeight()+xAdditions[k]; y++) {
-                for (int x = myMapFeature.getGridXPos()+xAdditions[k]; x < getView().getWidth()+xAdditions[k]; x++) {
-                    if (isCellValid(x,y)){
-                        totalHeuristic+=myActiveLevel.getGridCell(x,y).getMovementHeuristic()/getView().getHeight()/getView().getWidth();
+            for (int i = 0; i < getView().getHeight(); i++) {
+                for (int j = 0; j < getView().getWidth(); j++) {
+                    int x = myMapFeature.getGridXPos()+xAdditions[k]+j;
+                    int y = myMapFeature.getGridYPos()+yAdditions[k]+i;
+                    Point newxy = new Point(x,y);
+                    if (isCellValid(x,y)&& !prevLocations.contains(newxy)){
+                        Cell myCell = myActiveLevel.getGridCell(x,y);
+                        totalHeuristic+=myCell.getMovementHeuristic()/getView().getHeight()/getView().getWidth();
                     }
                     else {
                         totalHeuristic = Integer.MAX_VALUE;
