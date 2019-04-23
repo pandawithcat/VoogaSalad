@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
+import Configs.MapPackage.MapConfig;
 import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,12 +29,13 @@ public class GameController {
     private GameController myGameController;
     private Game myGame;
     private Map<String, List<Object>> configuredObjects;
+    private Map<String, Object> definedAttributesMap;
 
     public GameController() throws NoSuchFieldException {
         myGameController = this;
         myGame = new Game();
         configuredObjects = new HashMap<>();
-        createConfigurable(myGame);
+        //createConfigurable(myGame);
     }
 
     public Game getMyGame(){
@@ -55,7 +57,7 @@ public class GameController {
 
         Map<String, Object> myAttributesMap = displayScreens(myConfigurable, popupwindow, allButton, layout);
 
-        Button setButton = setConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap);
+        Button setButton =  new ConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap).invoke();
 
         layout.getChildren().add(setButton);
 
@@ -68,6 +70,7 @@ public class GameController {
     private Map<String, Object> displayScreens(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, VBox layout) throws NoSuchFieldException {
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
+        definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
 
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
@@ -93,35 +96,12 @@ public class GameController {
             }
 
             //handle Array
-            else if(value.isArray() && value.getComponentType().getClass().isInstance(Configurable.class)) {
+            else{
                     handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value);
                 }
             }
 
         return myAttributesMap;
-    }
-
-    private Button setConfigureCompleteButton(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, Map<String, Object> myAttributesMap) {
-        Button setButton = new Button("This config completed");
-        setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //TODO(Hyunjae) Should tell the user what attribute is missing
-                if(!myConfigurable.getConfiguration().isConfigurationComplete()){
-                    AlertScreen alertScreen = new AlertScreen();
-                }
-                else {
-
-                    for (Button button : allButton) {
-                        button.fireEvent(event);
-                    }
-                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                    popupwindow.close();
-                }
-
-            }
-        }));
-        return setButton;
     }
 
     private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
@@ -134,26 +114,37 @@ public class GameController {
             e.printStackTrace();
         }
         Label listLabel = new Label("Add new " + objectLabel + " here");
-
         VBox tempVBOx  = new VBox();
         tempVBOx.setSpacing(10);
+
+        ListView sourceView = new ListView<>();
 
         var buttonBar = new HBox();
         buttonBar.setSpacing(10);
         Button addNew = new Button("Add new " + objectLabel);
         Button confirmButton = new Button("Confirm");
         Button removeButton = new Button("Remove");
+        Button bringExistingConfigButton = new Button("Use Existing " + objectLabel);
 
-        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton);
-        ListView sourceView = new ListView<>();
-        //TODO Give Users Previously Configured Options
-        /*if(configuredObjects.get(key) != null){
-            tempList.addAll(configuredObjects.get(key));
-            for(Object object: configuredObjects.get(key)){
-                Configurable temp = (Configurable) object;
-                sourceView.getItems().add(temp.getClass().getSimpleName());
+        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton, bringExistingConfigButton);
+        bringExistingConfigButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ExistingConfigurations existingConfigurations = new ExistingConfigurations(tempList, sourceView, configuredObjects.get(key));
+
             }
-        }*/
+        }));
+
+        if (definedAttributesMap.keySet().contains(key)) {
+            Object[] objects = (Object[]) definedAttributesMap.get(key);
+            for (Object object : objects) {
+                tempList.add(object);
+                //TODO Check if it is configurable?
+                Configurable temp = (Configurable) object;
+                sourceView.getItems().add(temp.getName());
+            }
+        }
+
         addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -204,11 +195,11 @@ public class GameController {
             }
             myAttributesMap.put(key, ob);
             List<Object> newObjects = Arrays.asList(ob);
-            /*if(configuredObjects.get(key) != null){
+            if(configuredObjects.get(key) != null){
                 configuredObjects.get(key).addAll(newObjects);
             }else{
                 configuredObjects.put(key, newObjects);
-            }*/
+            }
         }
         catch (ClassNotFoundException e){
             //TODO(Hyunjae) Errorchecking
@@ -264,8 +255,14 @@ public class GameController {
                     Class<?> clazz = Class.forName(value.getName());
                     //special case: map
                     if (clazz.getSimpleName().equals("MapConfig")) {
-                        ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
-                        configurableMap.setConfigurations();
+                        if (definedAttributesMap.keySet().contains(key)) {
+                            MapConfig mapConfig = (MapConfig) definedAttributesMap.get(key);
+                            ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, myAttributesMap, myConfigurable);
+                            configurableMap.resetConfigurations();
+                        } else {
+                            ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+                            configurableMap.setConfigurations();
+                        }
                     } else if (clazz.getSimpleName().equals("View")) {
                         Constructor<?> cons = clazz.getConstructor(Configurable.class);
                         var object = cons.newInstance(myConfigurable);
@@ -308,6 +305,9 @@ public class GameController {
         //TODO get the label string from the properties file
         Label myLabel = new Label(key);
         TextField myTextField = new TextField();
+        if (definedAttributesMap.keySet().contains(key)) {
+            myTextField.setText(definedAttributesMap.get(key).toString());
+        }
         Button confirmButton = new Button("Confirm");
 
         var nameAndTfBar = new HBox();
@@ -340,6 +340,9 @@ public class GameController {
     private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key) {
         Label myLabel = new Label(key);
         TextField myTextField = new TextField();
+        if (definedAttributesMap.keySet().contains(key)) {
+            myTextField.setText(definedAttributesMap.get(key).toString());
+        }
         Button chooseImageButton = new Button("Choose Image");
         Button confirmButton = new Button("Confirm");
 
@@ -372,6 +375,13 @@ public class GameController {
         Label myLabel = new Label(key);
         RadioButton trueButton = new RadioButton("True");
         RadioButton falseButton = new RadioButton("False");
+        if (definedAttributesMap.keySet().contains(key)) {
+            if (definedAttributesMap.get(key).equals(true)) {
+                trueButton.setSelected(true);
+            } else {
+                falseButton.setSelected(true);
+            }
+        }
         Button confirmButton = new Button("Confirm");
         box.getChildren().addAll(myLabel, trueButton, falseButton);
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
