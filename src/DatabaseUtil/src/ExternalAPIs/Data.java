@@ -1,6 +1,9 @@
 package ExternalAPIs;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -100,6 +103,7 @@ public abstract class Data {
         if (username.length() > 5){
             throw new IllegalArgumentException("This username is already being used please try another");
         }
+        // TODO: Enter Regex check
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];
         saltGenerator.nextBytes(salt);
@@ -130,10 +134,27 @@ public abstract class Data {
      */
     public abstract List<GameInfo> getAuthoredGames();
 
-    public File getGameFile(GameInfo chosenGameInfo){
-        currentGameID = "Selected Game";
+    /**
+     * Retrieves specified game XML from the database and returns it as a Java File Object
+     * @param chosenGameInfo - One of the game info objects selected from the provided list
+     * @return - Java File object containing the XML file of the selected game
+     */
 
-        return new File("Game");
+    public File getGameFile(GameInfo chosenGameInfo){
+        // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
+        currentGameID = chosenGameInfo.getGameTitle();
+        // TODO: Retrieve String of specific Games XML Bytes from the Database
+        byte[] gameBytes = new byte[0];
+        File gameXML = new File("");
+        try {
+            FileOutputStream fileOS = new FileOutputStream(gameXML);
+            fileOS.write(gameBytes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return gameXML;
     }
 
     // TODO: Method call that downloads the images of a game

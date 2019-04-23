@@ -7,7 +7,10 @@ import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
 import ExternalAPIs.PlayerData;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -56,6 +59,14 @@ public class Logic {
 //    UserData authenticateUser(String userName, String userPassword) throws IllegalAccessError{
 //
 //    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void createGameInstance2(GameInfo selectedGame){
+        XStream serializer = new XStream(new DomDriver());
+        File xmlFile = myPlayerData.getGameFile(selectedGame);
+        myGame =  (Game)serializer.fromXML(xmlFile);
+        myGame.startGame(DEFAULT_START_LEVEL);
+    }
 
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object

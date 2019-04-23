@@ -19,7 +19,7 @@ public class Model {
     private final String REGEX = "~";
     private final String XML_TAG = "XML.xml";
 
-    private Game myNewGame;
+    private Game myGame;
     private String myXMLFileName;
     private AuthoringData myAuthoringData;
 
@@ -29,7 +29,7 @@ public class Model {
     }
 
     public void saveToXML(Game newGame) {
-        myNewGame = newGame;
+        myGame = newGame;
         try {
             updatePropertiesFile();
             writeToXMLFile();
@@ -55,21 +55,29 @@ public class Model {
         return myAuthoringData.getAuthoredGames();
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public Game loadGameObject(GameInfo selectedGame){
+        XStream serializer = new XStream(new DomDriver());
+        File xmlFile = myAuthoringData.getGameFile(selectedGame);
+        myGame =  (Game)serializer.fromXML(xmlFile);
+        return myGame;
+    }
+
     private void updatePropertiesFile() throws IOException{
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();
         myGameDetails.load(propertiesIS);
-        myXMLFileName = myNewGame.getTitle() + XML_TAG;
-        String propertyValue = myNewGame.getThumbnail() + REGEX + myNewGame.getDescription() + REGEX + myXMLFileName;
+        myXMLFileName = myGame.getTitle() + XML_TAG;
+        String propertyValue = myGame.getThumbnail() + REGEX + myGame.getDescription() + REGEX + myXMLFileName;
         System.out.println(propertyValue);
-        myGameDetails.setProperty(myNewGame.getTitle(),propertyValue);
+        myGameDetails.setProperty(myGame.getTitle(),propertyValue);
         FileOutputStream propertiesOS = new FileOutputStream(PROPERTIES_FILE_PATH);
         myGameDetails.store(propertiesOS, null);
     }
 
     private void writeToXMLFile() throws IOException {
         XStream mySerializer = new XStream(new DomDriver());
-        String gameString = mySerializer.toXML(myNewGame);
+        String gameString = mySerializer.toXML(myGame);
         FileWriter xmlFW = new FileWriter(XML_FILE_PATH + myXMLFileName);
         xmlFW.write(gameString);
         xmlFW.close();
