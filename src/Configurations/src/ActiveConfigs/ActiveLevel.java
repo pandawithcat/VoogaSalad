@@ -74,7 +74,7 @@ public class ActiveLevel extends Level implements Updatable {
 
 
     public Cell getGridCell(int gridX, int gridY){
-        return myGrid[gridY][gridX];
+        return myGrid[gridX][gridY];
     }
 
     public int getGridWidth() {
