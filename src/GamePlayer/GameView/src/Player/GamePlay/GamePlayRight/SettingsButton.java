@@ -1,15 +1,10 @@
 package Player.GamePlay.GamePlayRight;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class SettingsButton extends Button {
@@ -36,27 +31,25 @@ public class SettingsButton extends Button {
         TextField musicInput = new TextField();
         TextField soundInput = new TextField();
         Slider sound = new Slider(0,1,0.5);
-        sound.setShowTickLabels(true);
-        sound.setShowTickMarks(true);
-        sound.setBlockIncrement(10);
-        Label l = new Label("Change the Music");
-        sound.setMajorTickUnit(0.25f);
-        sound.setBlockIncrement(0.1f);
-        sound.valueProperty().addListener(
-                new ChangeListener<Number>() {
-                    public void changed(ObservableValue<? extends Number >
-                                                observable, Number oldValue, Number newValue)
-                    {
-                        double vol = newValue.doubleValue();
-                        mediaPlayer.setVolume(vol);
-                        //TODO: doesn't completely work
-                        l.setText("Sound Level");
-                    }
-                });
+        setupTicker(sound);
+        sound.valueProperty().addListener((observable, oldValue, newValue) -> checkVolumeChange(newValue));
         dialogPane.setContent(new VBox(20,musicInput,soundInput, new Label("Sound Level"),  sound));
         dialog.show();
         Window window = dialog.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
         return dialog;
+    }
+
+    private void setupTicker(Slider sound){
+        sound.setShowTickLabels(true);
+        sound.setShowTickMarks(true);
+        sound.setBlockIncrement(10);
+        sound.setMajorTickUnit(0.25f);
+        sound.setBlockIncrement(0.1f);
+    }
+
+    private void checkVolumeChange(Number newValue){
+        double vol = newValue.doubleValue();
+        mediaPlayer.setVolume(vol);
     }
 }
