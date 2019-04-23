@@ -73,7 +73,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection();
-            myMapFeature.setGridPos(myMapFeature.getGridXPos()+movementDirection.getX(), myMapFeature.getGridYPos()+movementDirection.getY(),movementDirection.getDirection());
+            int newX = myMapFeature.getGridXPos()+movementDirection.getX();
+            int newY = myMapFeature.getGridYPos()+movementDirection.getY();
+            //TODO: this needs to be in terms of pixels and the isoutofbounds should be changed to take in pixel location after this is implemented
+            if(myMapFeature.isOutOfBounds(newX,newY)) myActiveLevel.removeFromActiveEnemies(this);
+            else myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
     }
 

@@ -81,7 +81,7 @@ public class LoadingSplashScreen extends Application{
         Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(TITLE_IMAGE));
         title = new ImageView(image);
         title.setFitWidth(400);
-        title.setFitHeight(150);
+        title.setFitHeight(200);
         return title;
     }
     private Button createStartButton(String id, String title, int x, int y){
