@@ -10,10 +10,12 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private Cell[][] activeMapGrid;
     private double distance = 0;
     private ActiveLevel myActiveLevel;
+    private double startTime = -Integer.MAX_VALUE;
+    private double prevTime;
 
     enum MovementDirection {
-        UP(0, 1, 0),
-        DOWN(0, -1, 180),
+        DOWN(0, 1, 0),
+        UP(0, -1, 180),
         LEFT(-1, 0, 270),
         RIGHT(1, 0, 90);
 
@@ -55,15 +57,20 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
 
-        myMapFeature.setDisplayState(DisplayState.PRESENT);
-        distance += ms* getUnitSpeedPerSecond()* CONVERSION_TO_SECONDS;
-        int numMovements = (int) distance;
-        distance -= numMovements;
+        if (startTime == -Integer.MAX_VALUE){
+            startTime = ms;
+            prevTime = ms;
+        }
+
+//        distance += (ms-prevTime * getUnitSpeedPerSecond() * CONVERSION_TO_SECONDS);
+        int numMovements = 1;//(int) distance;
+//        distance -= numMovements;
+
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection();
             myMapFeature.setGridPos(myMapFeature.getGridXPos()+movementDirection.getX(), myMapFeature.getGridYPos()+movementDirection.getY(),movementDirection.getDirection());
@@ -76,17 +83,32 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         int bestOption = 0;
         int bestOptionHeuristic =  Integer.MAX_VALUE;
         for (int k = 0; k < 3; k++) {
-            int totalHeuristic = 0;
-            for (int i = myMapFeature.getGridYPos()+yAdditions[k]; i < getView().getHeight()+xAdditions[k]; i++) {
-                for (int j = myMapFeature.getGridXPos()+xAdditions[k]; j < getView().getWidth()+xAdditions[k]; j++) {
-                    totalHeuristic+=myActiveLevel.getGridCell(i,j).getMovementHeuristic();
+            int totalHeuristic = -Integer.MAX_VALUE;
+            singleDirection:
+            for (int y = myMapFeature.getGridYPos()+yAdditions[k]; y < getView().getHeight()+xAdditions[k]; y++) {
+                for (int x = myMapFeature.getGridXPos()+xAdditions[k]; x < getView().getWidth()+xAdditions[k]; x++) {
+                    if (isCellValid(x,y)){
+                        totalHeuristic+=myActiveLevel.getGridCell(x,y).getMovementHeuristic()/getView().getHeight()/getView().getWidth();
+                    }
+                    else {
+                        totalHeuristic = Integer.MAX_VALUE;
+                        break singleDirection;
+                    }
                 }
             }
             if (totalHeuristic<bestOptionHeuristic){
                 bestOption = k;
+                bestOptionHeuristic = totalHeuristic;
             }
         }
         return MovementDirection.values()[bestOption];
+    }
+
+    private boolean isCellValid(int x, int y){
+        if (x<0|x>=myActiveLevel.getMyMapConfig().getGridWidth()){
+            return false;
+        }
+        return !(y < 0 | y >= myActiveLevel.getMyMapConfig().getGridHeight());
     }
 
     public void killMe(){

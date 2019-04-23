@@ -85,7 +85,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         updateWeapons(ms);
         updateEnemies(ms);
         updateProjectiles(ms);
@@ -93,18 +93,18 @@ public class ActiveLevel extends Level implements Updatable {
 
     }
 
-    private void updateEnemies(long ms){
+    private void updateEnemies(double ms){
         activeEnemies.stream().forEach(enemy -> enemy.update(ms));
     }
 
 
 
 
-    private void updateProjectiles(long ms){
+    private void updateProjectiles(double ms){
         activeProjectiles.stream().forEach(projectile -> projectile.update(ms));
     }
 
-    private void updateWeapons(long ms){
+    private void updateWeapons(double ms){
         activeWeapons.keySet().stream().forEach(id -> activeWeapons.get(id).update(ms));
     }
 
@@ -131,7 +131,20 @@ public class ActiveLevel extends Level implements Updatable {
     public List<ImmutableImageView> getViewsToBeAdded() {
         List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToAdd.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.NEW).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
+//        Stream<MapFeaturable> filteredFeatures = viewsToAdd.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.NEW);
+//        List<ImmutableImageView> retList = filteredFeatures
+//                .map(obj-> obj.getMapFeature().getImageView())
+//                .collect(Collectors.toList())
+//                ;
+//        filteredFeatures.forEach(obj->obj.getMapFeature().setDisplayState(DisplayState.PRESENT));
+        List<ImmutableImageView> retList = new ArrayList<>();
+        for(MapFeaturable mapFeaturable: viewsToAdd){//TODO MAKE STREAM
+            if (mapFeaturable.getMapFeature().getDisplayState()== DisplayState.NEW){
+                retList.add(mapFeaturable.getMapFeature().getImageView());
+                mapFeaturable.getMapFeature().setDisplayState(DisplayState.PRESENT);
+            }
+        }
+        return retList;
     }
 
 
@@ -147,6 +160,7 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
+
     }
 //
 //    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){

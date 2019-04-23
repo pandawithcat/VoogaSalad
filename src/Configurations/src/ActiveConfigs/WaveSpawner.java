@@ -18,13 +18,23 @@ public class WaveSpawner implements Updatable {
 
 
     @Override
-    public void update(long ms) {
-        myWaves.stream().forEach(wave -> {
-            if(wave.getTimeToReleaseInMs()>=ms) {
+    public void update(double ms) {
+//        myWaves.stream().forEach(wave -> {
+//            if(wave.getTimeToReleaseInMs()<=ms) {
+//                wave.update(ms);
+//            }
+//        });
+//        myWaves.stream().forEach(wave -> {
+//            if(wave.isFinished()) myWaves.remove(wave);
+//        });
+        for (Wave wave:myWaves){
+            if(wave.getTimeToReleaseInMs()<=ms) {
                 wave.update(ms);
             }
+        }
+        for (Wave wave:myWaves){
             if(wave.isFinished()) myWaves.remove(wave);
-        });
+        }
         if(myWaves.isEmpty()) noMoreEnemies = true;
     }
 

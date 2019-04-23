@@ -61,7 +61,7 @@ public class GamePlayMap extends Pane{
         mapRoot.prefHeight(height);
     }
 
-    public void update(long elapsedTime){
+    public void update(double elapsedTime){
         //commenting out logic to hardcode animation
         myLogic.update(elapsedTime);
         List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();

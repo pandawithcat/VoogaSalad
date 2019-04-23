@@ -63,15 +63,12 @@ public class Wave implements Updatable, Configurable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {
                 startTimes[i] = ms+(i*rateOfReleaseEnemiesPerMs);
             }
-        }
-        if(currentEnemyIndex>=enemies.length) {
-            isFinished= true;
         }
 
         while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
@@ -86,6 +83,9 @@ public class Wave implements Updatable, Configurable {
         }
 
 
+        if(currentEnemyIndex>=enemies.length) {
+            isFinished= true;
+        }
 
 //        ArrayAttributeManager.updateArray(myWaveBehaviors, ms);
     }
