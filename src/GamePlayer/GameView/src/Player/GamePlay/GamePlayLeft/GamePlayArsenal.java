@@ -94,8 +94,7 @@ public class GamePlayArsenal extends VBox {
 //                Tooltip.install(imageView, t);
 //                viewList.add(new Pair(imageView,myArsenal.get(id).getName()));
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
-                        myArsenal.get(id).getName()));
-
+                        myArsenal.get(id).getName(), weaponMap, id));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,6 +156,9 @@ public class GamePlayArsenal extends VBox {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
             myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(),0);
+            System.out.println("Image: " + selectedImage.toString());
+            System.out.println("X: " + event.getX());
+            System.out.println("Y: " + event.getY());
             success = true;
         }
         event.setDropCompleted(success);
@@ -233,9 +235,11 @@ public class GamePlayArsenal extends VBox {
         }
     }
 
-    private static Pair<ImageView, String> loadImageWithCaption(String filename, String caption) {
+    private static Pair<ImageView, String> loadImageWithCaption(String filename, String caption, Map <String,
+            Integer> weaponMap, Integer id) {
         try {
             var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
+            weaponMap.put(image.toString(), id);
             image.setFitWidth(100);
             image.setFitHeight(100);
             return new Pair<>(image, caption);
