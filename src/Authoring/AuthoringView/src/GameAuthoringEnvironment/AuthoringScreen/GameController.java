@@ -97,6 +97,7 @@ public class GameController {
                     handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value);
                 }
             }
+
         return myAttributesMap;
     }
 
@@ -128,14 +129,15 @@ public class GameController {
         String objectLabel = null;
         try {
             objectLabel = value.getComponentType().getDeclaredField("myLabel").get(null).toString();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            //TODO Error Catching
             e.printStackTrace();
         }
         Label listLabel = new Label("Add new " + objectLabel + " here");
+
         VBox tempVBOx  = new VBox();
         tempVBOx.setSpacing(10);
+
         var buttonBar = new HBox();
         buttonBar.setSpacing(10);
         Button addNew = new Button("Add new " + objectLabel);
@@ -144,100 +146,108 @@ public class GameController {
 
         buttonBar.getChildren().addAll(addNew, confirmButton, removeButton);
         ListView sourceView = new ListView<>();
-        if(configuredObjects.get(key) != null){
+        //TODO Give Users Previously Configured Options
+        /*if(configuredObjects.get(key) != null){
             tempList.addAll(configuredObjects.get(key));
             for(Object object: configuredObjects.get(key)){
                 Configurable temp = (Configurable) object;
                 sourceView.getItems().add(temp.getClass().getSimpleName());
             }
-        }
-
+        }*/
         addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //adds to the visual
-                sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
-                try {
-                    //adds to the list
-                    Class<?> cl = Class.forName(value.getComponentType().getName());
-                    Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                    var object = cons.newInstance(myConfigurable);
-                    tempList.add(object);
-
-                } catch (Exception e) {
-                    //TODO(Hyunjae) ErrorChecking
-
-                }
+                handleArrayAddnewButton(sourceView, value, myConfigurable, tempList);
 
             }
         }));
-
         sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                     if (mouseEvent.getClickCount() == 2) {
-                        try {
-
-                            Class<?> cl = Class.forName(value.getComponentType().getName());
-                            if(cl.getSimpleName().contains("Behavior")){
-                                Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
-                                List<Class> behaviorList = (List<Class>) myField.get(null);
-                                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-                            }
-                            else{
-                                createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
-                            }
-
-                        } catch (Exception e) {
-                            //TODO(Hyunjae) Errorchecking
-                            System.out.println(e);
-
-                        }
+                        handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView);
                     }
                 }
             }
         }));
-
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    Class c = Class.forName(value.getComponentType().getName());
-                    Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
-                    for(int a=0; a<tempList.size() ; a++){
-                        ob[a] = tempList.get(a);
-                    }
-                    myAttributesMap.put(key, ob);
-                    List<Object> newObjects = Arrays.asList(ob);
-                    /*if(configuredObjects.get(key) != null){
-                        configuredObjects.get(key).addAll(newObjects);
-                    }else{
-                        configuredObjects.put(key, newObjects);
-                    }*/
-                }
-                catch (ClassNotFoundException e){
-                    //TODO(Hyunjae) Errorchecking
-                }
+                handleArrayConfirmButton(value, tempList, myAttributesMap, key);
             }
         }));
-
         removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                    int index = sourceView.getSelectionModel().getSelectedIndex();
-                    sourceView.getItems().remove(index);
-                    tempList.remove(index);
+                handleArrayRemoveButton(sourceView, tempList);
 
             }
         }));
-
-
         allButton.add(confirmButton);
         tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
         layout.getChildren().add(tempVBOx);
+    }
+
+    private void handleArrayRemoveButton(ListView sourceView, List<Object> tempList) {
+        int index = sourceView.getSelectionModel().getSelectedIndex();
+        sourceView.getItems().remove(index);
+        tempList.remove(index);
+    }
+
+    private void handleArrayConfirmButton(Class value, List<Object> tempList, Map<String, Object> myAttributesMap, String key) {
+        try {
+            Class c = Class.forName(value.getComponentType().getName());
+            Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
+            for(int a=0; a<tempList.size() ; a++){
+                ob[a] = tempList.get(a);
+            }
+            myAttributesMap.put(key, ob);
+            List<Object> newObjects = Arrays.asList(ob);
+            /*if(configuredObjects.get(key) != null){
+                configuredObjects.get(key).addAll(newObjects);
+            }else{
+                configuredObjects.put(key, newObjects);
+            }*/
+        }
+        catch (ClassNotFoundException e){
+            //TODO(Hyunjae) Errorchecking
+        }
+    }
+
+    private void handleArraySourceView(Class value, Configurable myConfigurable, Map<String, Object> myAttributesMap, List<Object> tempList, ListView sourceView) {
+        try {
+            Class<?> cl = Class.forName(value.getComponentType().getName());
+            if(cl.getSimpleName().contains("Behavior")){
+                Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                List<Class> behaviorList = (List<Class>) myField.get(null);
+                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+            }
+            else{
+                createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
+            }
+
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            //TODO(Hyunjae) Errorchecking
+            System.out.println(e);
+
+        }
+    }
+
+    private void handleArrayAddnewButton(ListView sourceView, Class value, Configurable myConfigurable, List<Object> tempList) {
+        //adds to the visual
+        sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
+        try {
+            //adds to the list
+            Class<?> cl = Class.forName(value.getComponentType().getName());
+            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+            var object = cons.newInstance(myConfigurable);
+            tempList.add(object);
+
+        } catch (Exception  e) {
+            //TODO(Hyunjae) ErrorChecking
+
+        }
     }
 
     private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) throws NoSuchFieldException {
@@ -247,7 +257,6 @@ public class GameController {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        /*myButton = new Button("Configure " + value.getSimpleName());*/
         myButton.setOnMouseClicked((new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {

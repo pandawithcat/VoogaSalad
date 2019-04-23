@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -187,6 +186,7 @@ public class GameOutline extends Screen {
        Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
        Map<String, Object> definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
 
+       //Handle MapConfig
        if (myConfigurable.getClass().getSimpleName().toLowerCase().equals("mapconfig")) {
            if (!definedAttributesMap.keySet().equals(null)){
                MapConfig mapConfig = (MapConfig) myConfigurable;
@@ -196,7 +196,12 @@ public class GameOutline extends Screen {
                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
                configurableMap.setConfigurations();
            }
-       } else {
+
+
+
+       }
+       // Refactor using the existing method in the game controller class.
+       else {
            Stage popupwindow = new Stage();
 
            List<Button> allButton = new ArrayList<>();
