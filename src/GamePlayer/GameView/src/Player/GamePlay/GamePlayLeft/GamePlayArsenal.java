@@ -155,10 +155,11 @@ public class GamePlayArsenal extends VBox {
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
-//            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
-            myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),
-                    event.getY(), 0)).getAsNode());
-//            }
+
+            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
+            }
+
             System.out.println("Image: " + selectedImage.toString());
             System.out.println("X: " + event.getX());
             System.out.println("Y: " + event.getY());
