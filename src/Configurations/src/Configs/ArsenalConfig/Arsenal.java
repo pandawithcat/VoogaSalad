@@ -53,7 +53,7 @@ public class Arsenal implements Configurable {
         WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< myWeaponConfigs.length; i++) {
-            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImage()));
+            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImage(),myWeaponConfigs[i].getView().getHeight(),myWeaponConfigs[i].getView().getWidth()));
             myWeaponConfigs[i].setWeaponId(i+1);
         }
         return Collections.unmodifiableMap(weaponInfoMap);
@@ -61,11 +61,8 @@ public class Arsenal implements Configurable {
     }
 
     public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY, int direction){
-        System.out.println(ID);
-        System.out.println(getConfiguredWeapons());
         WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID-1];
         ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth()), myGame.getActiveLevel());
-        activeWeapon.getMapFeature().setDisplayState(DisplayState.NEW);
         myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
         return activeWeapon.getMapFeature().getImageView();
     }
