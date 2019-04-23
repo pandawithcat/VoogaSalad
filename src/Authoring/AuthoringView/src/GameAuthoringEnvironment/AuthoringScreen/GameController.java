@@ -3,7 +3,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
-import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -16,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
 import java.lang.reflect.*;
@@ -29,13 +27,11 @@ public class GameController {
     private GameController myGameController;
     private Game myGame;
     private Map<String, List<Object>> configuredObjects;
-    private Map<String, Object> definedAttributesMap;
 
-    public GameController() throws NoSuchFieldException {
+    public GameController() {
         myGameController = this;
         myGame = new Game();
         configuredObjects = new HashMap<>();
-        //createConfigurable(myGame);
     }
 
     public Game getMyGame(){
@@ -44,67 +40,60 @@ public class GameController {
 
 
     public void createConfigurable(Configurable myConfigurable) throws NoSuchFieldException {
-
         Stage popupwindow = new Stage();
-
         List<Button> allButton = new ArrayList<>();
-
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
-
         VBox layout = new VBox(10.00);
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
-
+        //recursion
         Map<String, Object> myAttributesMap = displayScreens(myConfigurable, popupwindow, allButton, layout);
-
         Button setButton =  new ConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap).invoke();
-
         layout.getChildren().add(setButton);
-
         Scene scene= new Scene(layout, 500, 500);
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
 
     }
 
+    //traversing through the tree
     private Map<String, Object> displayScreens(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, VBox layout) throws NoSuchFieldException {
         Map<String, Object> myAttributesMap = new HashMap<>();
         Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
-        definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
+        Map<String, Object> definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
 
         for (String key : attributesMap.keySet()) {
             var value = attributesMap.get(key);
 
             //handle booleans
             if(value.equals(boolean.class)){
-                handleBooleanField(allButton, layout, myAttributesMap, key);
+                handleBooleanField(allButton, layout, myAttributesMap, key, definedAttributesMap);
             }
 
             //handle special case: require image
             else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
-                handleImageField(popupwindow, allButton, layout, myAttributesMap, key);
+                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, definedAttributesMap);
 
             }
             //handle string and primitives except boolean
             else if(value.equals(String.class) || value.isPrimitive()){
-                handlePrimitivesAndString(allButton, layout, myAttributesMap, key, value);
+                handlePrimitivesAndString(allButton, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
             //handle single object
             else if(!value.isArray()){
-                handleSingleObject(myConfigurable, layout, myAttributesMap, key, value);
+                handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
             //handle Array
             else{
-                    handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value);
+                handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
                 }
             }
 
         return myAttributesMap;
     }
 
-    private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
+    private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
         List<Object> tempList = new ArrayList<>();
         String objectLabel = null;
         try {
@@ -135,6 +124,7 @@ public class GameController {
             }
         }));
 
+        //give pre configured options to the users
         if (definedAttributesMap.keySet().contains(key)) {
             Object[] objects = (Object[]) definedAttributesMap.get(key);
             for (Object object : objects) {
@@ -144,7 +134,6 @@ public class GameController {
                 sourceView.getItems().add(temp.getName());
             }
         }
-
         addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -194,7 +183,7 @@ public class GameController {
                 ob[a] = tempList.get(a);
             }
             myAttributesMap.put(key, ob);
-            List<Object> newObjects = Arrays.asList(ob);
+            List<Object> newObjects = new ArrayList<>(Arrays.asList(ob));
             if(configuredObjects.get(key) != null){
                 configuredObjects.get(key).addAll(newObjects);
             }else{
@@ -241,19 +230,25 @@ public class GameController {
         }
     }
 
-    private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) throws NoSuchFieldException {
+    private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String,Object> definedAttributesMap) throws NoSuchFieldException {
         Button myButton = null;
         try {
             myButton = new Button("Configure " + value.getDeclaredField("myLabel").get(null));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+        //TODO Should refactor
         myButton.setOnMouseClicked((new EventHandler<>() {
             @Override
             public void handle(MouseEvent event) {
+
                 try {
                     Class<?> clazz = Class.forName(value.getName());
-                    //special case: map
+
+                    if(definedAttributesMap.keySet().contains(key)){
+
+                    }
+                    //Special Case: Map
                     if (clazz.getSimpleName().equals("MapConfig")) {
                         if (definedAttributesMap.keySet().contains(key)) {
                             MapConfig mapConfig = (MapConfig) definedAttributesMap.get(key);
@@ -263,26 +258,30 @@ public class GameController {
                             ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
                             configurableMap.setConfigurations();
                         }
+
+                    //Special case : View because view is being used in multiple places
                     } else if (clazz.getSimpleName().equals("View")) {
                         Constructor<?> cons = clazz.getConstructor(Configurable.class);
                         var object = cons.newInstance(myConfigurable);
                         createConfigurable((Configurable) object);
                         myAttributesMap.put(key, object);
-                        //TODO Maybe a dropdown menu?
+                    //Speical case : Behavior is different since drag and drop is required
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
+                        //only one behavior allowed
                         if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
-                            System.out.println("GAME TYPE BEHAVIOR");
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
 
                         }
+                        //multiple behaviors allowed
                         else{
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
                         }
                     }
+                    //rest should follow this
                     else {
                         Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
                         var object = cons.newInstance(myConfigurable);
@@ -301,7 +300,7 @@ public class GameController {
     }
 
 
-    private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value) {
+    private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
         //TODO get the label string from the properties file
         Label myLabel = new Label(key);
         TextField myTextField = new TextField();
@@ -337,7 +336,7 @@ public class GameController {
         layout.getChildren().addAll(nameAndTfBar);
     }
 
-    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key) {
+    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
         Label myLabel = new Label(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
@@ -370,7 +369,7 @@ public class GameController {
         layout.getChildren().addAll(nameAndTfBar);
     }
 
-    private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key) {
+    private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
         HBox box = new HBox(10);
         Label myLabel = new Label(key);
         RadioButton trueButton = new RadioButton("True");

@@ -43,63 +43,76 @@ public class ConfigurableMap {
     private VBox layout;
     private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
-    private Map<String, Object> myMap;
+    private Map<String, Object> myAttributesMap;
     private Stage popUpWindow;
     private String mapName;
     private TextField nameTf;
     private Configurable myLevel;
     private Button nameButton;
-    private MapConfig myMapConfig;
+    private MapConfig myAttributesMapConfig;
+    private VBox nameBox;
+    private Label mapLbl, tileListLbl, messageLbl;
+    private Scene scene;
 
-    public ConfigurableMap(Map<String, Object> myAttributeMap, Configurable level){
+    public ConfigurableMap(Map<String, Object> attributeMap, Configurable level){
 
-        myMap = myAttributeMap;
+        myAttributesMap = attributeMap;
         myLevel = level;
     }
 
     //Constructor for editing the map
-    //TODO Add a way to display the existing map
     public ConfigurableMap(MapConfig mapConfig, Map<String, Object> myAttributeMap, Configurable level){
-        myMap = myAttributeMap;
+        myAttributesMap = myAttributeMap;
         myLevel = level;
-        myMapConfig = mapConfig;
+        myAttributesMapConfig = mapConfig;
+    }
+
+    public void setConfigurations(){
+        setUpBasicScreen();
+        initMap();
+        addComponentToScreen();
     }
 
     public void resetConfigurations(){
+        setUpBasicScreen();
+        reinitMap();
+        addComponentToScreen();
+    }
+
+    private void addComponentToScreen() {
+        initTileView();
+        // Add the Labels and Views to the Pane
+        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
+        addSubmit();
+
+        scene= new Scene(layout, 800, 800);
+        popUpWindow.setScene(scene);
+        popUpWindow.showAndWait();
+    }
+
+    private void setUpBasicScreen() {
         popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
         layout = new VBox(10.00);
 
-        VBox nameBox = new VBox(10);
-        Label mapLbl = new Label("Map");
+        nameBox = new VBox(10);
+        mapLbl = new Label("Map");
         nameTf = new TextField();
-        nameTf.setText(myMapConfig.getName());
+        if(myAttributesMapConfig != null){
+        nameTf.setText(myAttributesMapConfig.getName());}
         nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
 
-        Label tileListLbl = new Label("Tiles");
-        Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
-        reinitMap();
-        initTileView();
-
-
-
-        // Add the Labels and Views to the Pane
-        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
-        addSubmit();
-
-        Scene scene= new Scene(layout, 800, 800);
-        popUpWindow.setScene(scene);
-        popUpWindow.showAndWait();
+        tileListLbl = new Label("Tiles");
+        messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
     }
 
     private void reinitMap(){
-        List<Terrain> existingTerrainList = myMapConfig.getTerrain();
+        List<Terrain> existingTerrainList = myAttributesMapConfig.getTerrain();
         map = new GridPane();
-
 
         for(int r=0; r< GRID_WIDTH; r++){
             for(int c=0; c<GRID_HEIGHT; c++){
@@ -119,36 +132,6 @@ public class ConfigurableMap {
 
     }
 
-    public void setConfigurations(){
-        popUpWindow = new Stage();
-        popUpWindow.initModality(Modality.APPLICATION_MODAL);
-        popUpWindow.setTitle("Map Editor");
-
-        layout = new VBox(10.00);
-
-        VBox nameBox = new VBox(10);
-        Label mapLbl = new Label("Map");
-        nameTf = new TextField();
-        nameButton = new Button("Confirm");
-        nameButton.setOnMouseClicked(this::handleConfirmButton);
-        nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
-
-        Label tileListLbl = new Label("Tiles");
-        Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
-        initMap();
-        initTileView();
-
-
-
-        // Add the Labels and Views to the Pane
-        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
-        addSubmit();
-
-        Scene scene= new Scene(layout, 800, 800);
-        popUpWindow.setScene(scene);
-        popUpWindow.showAndWait();
-
-    }
 
     public void handleConfirmButton(MouseEvent event){
         mapName = nameTf.getText();
@@ -188,6 +171,7 @@ public class ConfigurableMap {
         });
     }
     private void addSubmit(){
+        //TODO Refactor
         Button subButton = new Button("Submit Map");
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -218,7 +202,8 @@ public class ConfigurableMap {
 
                 m.getConfiguration().setAllAttributes(passedMap);
 
-                myMap.put("myMap", m);
+
+                myAttributesMap.put("myMap", m);
 
                 popUpWindow.close();
             }

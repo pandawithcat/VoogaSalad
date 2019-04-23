@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 
 public class GamePlayLeftSide extends VBox {
     public static final double TOP_RATIO = 0.8;
+    public static final double BOTTOM_RATIO = 0.2;
     public GamePlayMap myMap;
     public GamePlaySettingsBar mySettings;
 
@@ -14,7 +15,7 @@ public class GamePlayLeftSide extends VBox {
         setPrefWidth(width);
         setPrefHeight(height);
         myMap = new GamePlayMap(width,height * TOP_RATIO, logic);
-        mySettings = new GamePlaySettingsBar(width,height * 2/ 10);
+        mySettings = new GamePlaySettingsBar(width,height * BOTTOM_RATIO);
         getChildren().addAll(myMap, mySettings);
     }
 
