@@ -21,7 +21,7 @@ public class Shooter implements Updatable , Configurable {
     @Configure
     private double shooterRange;
     @Configure
-    private ShooterBehavior[] shooterBehaviors;
+    private ShooterBehavior shooterBehavior;
 
     private Configuration myConfiguration;
 
@@ -58,26 +58,8 @@ public class Shooter implements Updatable , Configurable {
     }
 
     @Override
-    public void update(long ms) {
-        //only shooting radially rn
-        if(ms%getRateOfFire()==0) {
-            ActiveLevel myActiveLevel =  getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();
-            int weaponId = getMyShootable().getWeaponConfig().getWeaponId();
-            MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
-            double weaponX = myShooterMapFeature.getPixelXPos();
-            double weaponY = myShooterMapFeature.getPixelYPos();
-            View view = myActiveLevel.getActiveWeapon(weaponId).getView();
+    public void update(double ms) {
+        shooterBehavior.update(ms);
 
-            double width = view.getWidth();
-            double height = view.getHeight();
-            double projectileStartXPos = weaponX + width/2;
-            double projectileStartYPos = weaponY + height/2;
-            for(int i = 0 ;i<6;i++) {
-                double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getProjectileConfig().getView(), myShootable.getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneWidth(), myShootable.getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneHeight(), myShootable.getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth(), myShootable.getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth());
-                ActiveProjectile activeProjectile = new ActiveProjectile(getProjectileConfig(), projectileMapFeature, getShooterRange(), myActiveLevel);
-                myActiveLevel.addToActiveProjectiles(activeProjectile);
-            }
-        }
     }
 }

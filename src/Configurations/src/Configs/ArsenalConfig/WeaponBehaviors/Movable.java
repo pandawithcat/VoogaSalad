@@ -21,7 +21,7 @@ public class Movable extends WeaponBehavior{
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         //TODO
     }
 

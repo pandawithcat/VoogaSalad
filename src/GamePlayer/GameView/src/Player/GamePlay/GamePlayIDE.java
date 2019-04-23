@@ -3,8 +3,10 @@ package Player.GamePlay;
 import BackendExternal.Logic;
 import Player.GamePlay.GamePlayLeft.GamePlayLeftSide;
 import Player.GamePlay.GamePlayRight.GamePlayRightSide;
+import Player.ScreenSize;
 import javafx.scene.Group;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 public class GamePlayIDE extends HBox {
@@ -13,13 +15,12 @@ public class GamePlayIDE extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayIDE(double width, double height, Logic logic, PlayInterface method,
-                       PlayInterface fastFoward, Group root, Stage stage){
-        setPrefWidth(width);
-        setPrefHeight(height);
-        myGameLeft = new GamePlayLeftSide(width * LEFT_RATIO, height, logic);
-        myGameRight = new GamePlayRightSide(width * RIGHT_RATIO, height, logic, method, fastFoward,
-                myGameLeft.getMap(), root, stage);
+    public GamePlayIDE(Logic logic, PlayInterface method, PlayInterface fastFoward, Group root, Stage stage, MediaPlayer mediaPlayer){
+        setPrefWidth(ScreenSize.getWidth());
+        setPrefHeight(ScreenSize.getHeight());
+        myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic);
+        myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, method, fastFoward,
+                myGameLeft.getMap(), root, stage, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
     public GamePlayLeftSide getLeft(){

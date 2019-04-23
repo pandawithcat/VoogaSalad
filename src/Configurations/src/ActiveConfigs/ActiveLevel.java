@@ -13,12 +13,11 @@ import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class ActiveLevel extends Level implements Updatable {
     public static final int DISTANCE_HEURISTIC = 1;
-    private Map<Integer,ActiveWeapon> activeWeapons;
-    private List<ActiveEnemy> activeEnemies;
-    private List<ActiveProjectile> activeProjectiles;
+    private List<MapFeaturable> activeWeapons;
+    private List<MapFeaturable> activeEnemies;
+    private List<MapFeaturable> activeProjectiles;
     private Cell[][] myGrid;
     private int myScore;
-    private int currentWave=0;
     private double paneWidth;
     private double paneHeight;
     private final int gridWidth;
@@ -29,13 +28,12 @@ public class ActiveLevel extends Level implements Updatable {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
-        activeWeapons = new HashMap<>();
+        activeWeapons = new ArrayList<>();
         myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
-//        System.out.println("meep");
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
     }
@@ -66,7 +64,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     public boolean noMoreEnemiesLeft() {
-        return myWaveSpawner.isNoMoreEnemies();
+        return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
 
     }
 
@@ -85,27 +83,20 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(long ms) {
-        updateWeapons(ms);
-        updateEnemies(ms);
-        updateProjectiles(ms);
+    public void update(double ms) {
+        updateActive(ms, activeEnemies);
+        updateActive(ms, activeProjectiles);
+        updateActive(ms, activeWeapons);
         myWaveSpawner.update(ms);
-
     }
 
-    private void updateEnemies(long ms){
-        activeEnemies.stream().forEach(enemy -> enemy.update(ms));
-    }
-
-
-
-
-    private void updateProjectiles(long ms){
-        activeProjectiles.stream().forEach(projectile -> projectile.update(ms));
-    }
-
-    private void updateWeapons(long ms){
-        activeWeapons.keySet().stream().forEach(id -> activeWeapons.get(id).update(ms));
+    private void updateActive(double ms, List<MapFeaturable> activeList) {
+        List<MapFeaturable> activeToRemove = new ArrayList<>();
+        activeList.stream().forEach(active -> {
+            ((Updatable)active).update(ms);
+            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) activeToRemove.add(active);
+        });
+        activeList.removeAll(activeToRemove);
     }
 
 
@@ -119,7 +110,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     public List<ImmutableImageView> getViewsToBeRemoved() {
-        List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
+        List<MapFeaturable> viewsToRemove =Stream.of(activeWeapons, activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
         return viewsToRemove.stream()
                 .filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.DIED)
@@ -129,14 +120,30 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     public List<ImmutableImageView> getViewsToBeAdded() {
-        List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons.values(), activeEnemies, activeProjectiles)
+        List<MapFeaturable> viewsToAdd =Stream.of(activeWeapons, activeEnemies, activeProjectiles)
                 .flatMap(Collection::stream).collect(Collectors.toList());
-        return viewsToAdd.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.NEW).map(obj-> obj.getMapFeature().getImageView()).collect(Collectors.toList());
+//        Stream<MapFeaturable> filteredFeatures = viewsToAdd.stream().filter(obj -> obj.getMapFeature().getDisplayState()==DisplayState.NEW);
+//        List<ImmutableImageView> retList = filteredFeatures
+//                .map(obj-> obj.getMapFeature().getImageView())
+//                .collect(Collectors.toList())
+//                ;
+//        filteredFeatures.forEach(obj->obj.getMapFeature().setDisplayState(DisplayState.PRESENT));
+        List<ImmutableImageView> retList = new ArrayList<>();
+        for(MapFeaturable mapFeaturable: viewsToAdd){//TODO MAKE STREAM
+            if (mapFeaturable.getMapFeature().getDisplayState()== DisplayState.NEW){
+                retList.add(mapFeaturable.getMapFeature().getImageView());
+                mapFeaturable.getMapFeature().setDisplayState(DisplayState.PRESENT);
+            }
+        }
+        return retList;
     }
 
 
-    public ActiveWeapon getActiveWeapon(int id) {
-        return activeWeapons.get(id);
+    public ActiveWeapon getActiveWeapon(int id) throws IllegalStateException{
+        for(MapFeaturable weapon: activeWeapons) {
+            if(((ActiveWeapon)weapon).getWeaponId()==id) return (ActiveWeapon) weapon;
+        }
+        throw new IllegalStateException();
     }
 
     public int getMyScore() {
@@ -147,30 +154,22 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
         activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
+
     }
 
-    public void removeFromActiveEnemies(ActiveEnemy activeEnemy){
-        activeEnemies.remove(activeEnemy);
-    }
 
     public void addToActiveProjectiles(ActiveProjectile activeProjectile) {
         activeProjectiles.add(activeProjectile);
     }
 
-    public void removeFromActiveProjectiles(ActiveProjectile activeProjectile){
-        activeProjectiles.remove(activeProjectile);
 
-    }
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
-        activeWeapons.put(activeWeapon.getWeaponId(), activeWeapon);
+        activeWeapons.add(activeWeapon);
         recalculateMovementHeuristic();
 
     }
 
-    public void removeFromActiveWeapons(ActiveWeapon activeWeapon){
-        activeWeapons.remove(activeWeapon);
-    }
 
 
     public double getPaneHeight() {

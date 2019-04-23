@@ -1,23 +1,22 @@
 <Configs.GamePackage.Game>
   <myConfiguration/>
-  <myTitle>new</myTitle>
+  <myName>new</myName>
   <myDescription>newgame</myDescription>
   <myThumbnail>thumbnail2.gif</myThumbnail>
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myLabel>plzshow</myLabel>
+      <myName>plzshow</myName>
       <myWaves>
         <Configs.Waves.Wave>
           <myLevel reference="../../.."/>
-          <myLabel>Wave</myLabel>
-          <name>wave1</name>
-          <timeToReleaseInMs>1000.0</timeToReleaseInMs>
+          <myName>wave1</myName>
+          <timeToReleaseInMs>10.0</timeToReleaseInMs>
           <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
           <enemies>
             <Configs.EnemyPackage.EnemyConfig>
               <myWave reference="../../.."/>
-              <name>en1</name>
+              <myName>en1</myName>
               <myBehaviors/>
               <unitSpeedPerSecond>1</unitSpeedPerSecond>
               <view>
@@ -31,7 +30,7 @@
             </Configs.EnemyPackage.EnemyConfig>
             <!--<Configs.EnemyPackage.EnemyConfig>-->
               <!--<myWave reference="../../.."/>-->
-              <!--<name>en2</name>-->
+              <!--<myName>en2</name>-->
               <!--<myBehaviors/>-->
               <!--<unitSpeedPerSecond>1</unitSpeedPerSecond>-->
               <!--<view>-->
@@ -5271,7 +5270,7 @@
     <allWeaponConfigOptions>
       <Configs.ArsenalConfig.WeaponConfig>
         <myConfiguration/>
-        <name>we1</name>
+        <myName>we1</myName>
         <behaviors/>
         <view>
           <myConfiguration/>

@@ -7,6 +7,7 @@ import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import Player.GamePlay.PlayInterface;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -18,11 +19,12 @@ public class GamePlayRightSide extends VBox {
     public static final double BUTTON_RATIO = 0.25;
     private GamePlayArsenal myGameArsenal;
     private ButtonPanel myButtonPanel;
-
+    private MediaPlayer mediaPlayer;
 
 
     public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward
-            , GamePlayMap myMap, Group root, Stage stage){
+            , GamePlayMap myMap, Group root, Stage stage, MediaPlayer mediaPlayer){
+        this.mediaPlayer = mediaPlayer;
         setPrefWidth(width);
         setPrefHeight(height);
         try {
@@ -34,7 +36,7 @@ public class GamePlayRightSide extends VBox {
     }
 
     private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, Stage stage){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, stage);
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, stage, mediaPlayer);
         return myButtonPanel;
     }
 
