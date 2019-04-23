@@ -77,7 +77,7 @@ public class Logic {
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridWidth(),myGame.getActiveLevel().getGridWidth()))
+                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
                 .collect(Collectors.toList());
 
     }
@@ -144,7 +144,7 @@ public class Logic {
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
-    public boolean checkPlacementLocation(int weaponId, int x, int y, int direction){
+    public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
         View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
         int height;
         int width;
@@ -157,6 +157,12 @@ public class Logic {
             width = weaponView.getHeight();
         }
         Cell[][] grid = myGame.getActiveLevel().getMyGrid();
+
+
+
+        int x = (int) (xPixel/(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
+        int y = (int) (yPixel/(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
+
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
                 if (!grid[row][col].isValidWeaponPlacement()) return false;

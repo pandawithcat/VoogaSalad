@@ -22,21 +22,10 @@ public class MapFeature {
     private double trigDirection;
     @XStreamOmitField
     private TransferImageView myImageView;
-    private View view;
     private DisplayState displayState;
     private double heightInGridUnits;
     private double widthInGridUnits;
 
-
-
-    @Deprecated
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
-        setImage(view);
-        this.heightInGridUnits = view.getHeight();
-        this.widthInGridUnits = view.getWidth();
-        setGridPos(gridXPos,gridYPos,displayDirection);
-        displayState = DisplayState.NEW;
-    }
 
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
@@ -50,14 +39,6 @@ public class MapFeature {
         setGridPos(gridXPos, gridYPos, displayDirection);
     }
 
-    @Deprecated
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
-        this.heightInGridUnits = view.getHeight();
-        this.widthInGridUnits = view.getWidth();
-        setImage(view);
-        setPixelPos(pixelXPos,pixelYPos,direction);
-        displayState = DisplayState.NEW;
-    }
 
     public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
@@ -82,6 +63,7 @@ public class MapFeature {
         }
     }
 
+
     public double getPixelXPos() {
         return myImageView.getX();
     }
@@ -101,30 +83,35 @@ public class MapFeature {
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
         pixelXPos+=deltaPixelX;
         pixelYPos+=deltaPixelY;
-        myImageView.setX(pixelXPos);
-        myImageView.setY(pixelYPos);
-        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
-        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
+        else {
+            myImageView.setX(pixelXPos);
+            myImageView.setY(pixelYPos);
+            gridXPos = (int) (pixelXPos*paneWidth/widthInGridUnits);
+            gridYPos = (int) (pixelYPos*paneHeight/heightInGridUnits);
+        }
     }
 
-    //TODO: this needs to be changed once enemy is moving based on pixel
-    public boolean isOutOfBounds(int x, int y) {
-        return (x<0||x>gridXSize||y<0||y>gridYPos);
+    private boolean isOutOfBounds(int x, int y) {
+        return x<0||x>=gridXSize||y<0||y>=gridYSize;
     }
 
-    public boolean isOutOfBoundsRelative(double deltaX, double deltaY) {
-        double currentX = deltaX+pixelXPos;
-        double currentY = deltaX+pixelXPos;
-        return (currentX>paneWidth||currentX<0||currentY>paneHeight||currentY<0);
+    private boolean isOutOfBoundsPixel(double xPixel, double yPixel) {
+        return (xPixel>paneWidth||xPixel<0||yPixel>paneHeight||yPixel<0);
     }
+
 
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
-        this.pixelYPos = pixelYPos;
-        this.pixelXPos = pixelXPos;
-        this.displayDirection = direction;
-        this.gridXPos = (int) (pixelXPos/(widthInGridUnits/Game.gridPixelWidth));
-        this.gridYPos = (int) (pixelYPos/(heightInGridUnits/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,direction);
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
+        else {
+            this.pixelYPos = pixelYPos;
+            this.pixelXPos = pixelXPos;
+            this.displayDirection = direction;
+            this.gridXPos = (int) (pixelXPos/(widthInGridUnits/paneWidth));
+            this.gridYPos = (int) (pixelYPos/(heightInGridUnits/paneHeight));
+            setImageView(pixelXPos,pixelYPos,direction);
+        }
+
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
@@ -134,17 +121,22 @@ public class MapFeature {
     }
 
     public void setGridPos(int gridXPos, int gridYPos, double direction) {
-        this.gridXPos = gridXPos;
-        this.gridYPos = gridYPos;
-        this.displayDirection = direction;
-        pixelXPos = (paneWidth/gridXSize)*gridXPos;
-        pixelYPos = (paneHeight/gridYSize)*gridYPos;
-        setImageView(pixelXPos,pixelYPos,direction);
+        if(isOutOfBounds(gridXPos,gridYPos)) {
+            displayState = DisplayState.DIED;
+        }
+        else {
+            this.gridXPos = gridXPos;
+            this.gridYPos = gridYPos;
+            this.displayDirection = direction;
+            pixelXPos = (paneWidth/gridXSize)*gridXPos;
+            pixelYPos = (paneHeight/gridYSize)*gridYPos;
+            setImageView(pixelXPos,pixelYPos,direction);
+        }
+
     }
 
 
     public TransferImageView getImageView() {
-//        myImageView.setX(pixelXPos)
         setImageView(pixelXPos, pixelYPos, displayDirection);
         return myImageView;
     }
