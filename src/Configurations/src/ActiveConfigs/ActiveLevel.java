@@ -94,7 +94,7 @@ public class ActiveLevel extends Level implements Updatable {
         List<MapFeaturable> activeToRemove = new ArrayList<>();
         activeList.stream().forEach(active -> {
             ((Updatable)active).update(ms);
-            if(active.getMapFeature().isOutOfBounds()) activeToRemove.add(active);
+            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) activeToRemove.add(active);
         });
         activeList.removeAll(activeToRemove);
     }
