@@ -15,7 +15,6 @@ import java.util.*;
 public class GameOutline extends Screen {
 
     private Pane myContent;
-    private ImageView myImage;
     private int myHeight;
     private int myWidth;
     private TreeView<Configurable> myTreeView = new TreeView<>();
@@ -37,7 +36,6 @@ public class GameOutline extends Screen {
         myHeight = height;
         myWidth = width;
         myContent = getContent();
-        Game myGame = new Game();
     }
 
 

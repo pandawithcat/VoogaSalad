@@ -15,7 +15,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.File;
 import java.lang.reflect.*;
@@ -184,7 +183,7 @@ public class GameController {
                 ob[a] = tempList.get(a);
             }
             myAttributesMap.put(key, ob);
-            List<Object> newObjects = Arrays.asList(ob);
+            List<Object> newObjects = new ArrayList<>(Arrays.asList(ob));
             if(configuredObjects.get(key) != null){
                 configuredObjects.get(key).addAll(newObjects);
             }else{
