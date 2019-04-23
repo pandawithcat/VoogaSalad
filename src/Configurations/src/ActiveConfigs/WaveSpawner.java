@@ -9,6 +9,7 @@ import java.util.List;
 
 public class WaveSpawner implements Updatable {
     private List<Wave> myWaves;
+    private List<Wave> myWavesToRemove = new ArrayList<>();
     private boolean noMoreEnemies;
 
     public WaveSpawner(Wave[] waves) {
@@ -18,13 +19,17 @@ public class WaveSpawner implements Updatable {
 
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         myWaves.stream().forEach(wave -> {
-            if(wave.getTimeToReleaseInMs()>=ms) {
+            if(wave.getTimeToReleaseInMs()<=ms) {
                 wave.update(ms);
             }
-            if(wave.isFinished()) myWaves.remove(wave);
+            if(wave.isFinished()) myWavesToRemove.add(wave);
         });
+        myWavesToRemove.stream().forEach(wave ->
+            myWaves.remove(wave)
+        );
+        myWavesToRemove.clear();
         if(myWaves.isEmpty()) noMoreEnemies = true;
     }
 

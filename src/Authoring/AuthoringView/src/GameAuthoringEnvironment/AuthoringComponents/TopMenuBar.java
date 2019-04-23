@@ -26,6 +26,7 @@ public class TopMenuBar {
             public void handle(MouseEvent event) {
                 try {
                     gameController = new GameController();
+                    gameController.createConfigurable(gameController.getMyGame());
                 } catch (NoSuchFieldException e) {
                     e.printStackTrace();
                 }

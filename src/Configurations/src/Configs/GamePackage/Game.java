@@ -58,7 +58,7 @@ public class Game implements Updatable, Configurable {
     }
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         if(myLevelSpawner.isGameOver()) gameOver = true;
         else {
             myLevelSpawner.update(ms);
