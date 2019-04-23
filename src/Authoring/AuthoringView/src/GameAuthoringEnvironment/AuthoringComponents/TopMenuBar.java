@@ -28,7 +28,7 @@ public class TopMenuBar {
                     gameController = new GameController();
                     gameController.createConfigurable(gameController.getMyGame());
                 } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
+                    //TODO Error checking
                 }
             }
         });
@@ -36,7 +36,7 @@ public class TopMenuBar {
         Button saveButton = new Button("Save");
         saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                if(gameController == null){
+                if(gameController == null || gameController.getMyGame() == null){
                     createAlert();}
                 else{
                 myGameOutline.makeTreeView(gameController.getMyGame());}
