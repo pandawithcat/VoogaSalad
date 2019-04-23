@@ -16,7 +16,6 @@ public class PlayButton extends Button {
         setPrefWidth(width/3);
         setPrefHeight(height);
         setId("playButton");
-        System.out.println(width);
         setPrefHeight(height);
 
     }
