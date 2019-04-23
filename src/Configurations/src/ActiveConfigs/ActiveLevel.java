@@ -66,7 +66,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     public boolean noMoreEnemiesLeft() {
-        return myWaveSpawner.isNoMoreEnemies();
+        return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
 
     }
 
