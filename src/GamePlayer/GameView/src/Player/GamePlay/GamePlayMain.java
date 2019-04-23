@@ -56,7 +56,6 @@ public class GamePlayMain extends Application {
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
-            animation.play();
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
