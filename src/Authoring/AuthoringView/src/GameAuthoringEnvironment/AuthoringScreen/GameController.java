@@ -93,7 +93,7 @@ public class GameController {
             }
 
             //handle Array
-            else if(value.isArray() && value.getComponentType().getClass().isInstance(Configurable.class)) {
+            else{
                     handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value);
                 }
             }
@@ -111,7 +111,6 @@ public class GameController {
                     AlertScreen alertScreen = new AlertScreen();
                 }
                 else {
-
                     for (Button button : allButton) {
                         button.fireEvent(event);
                     }
@@ -143,17 +142,19 @@ public class GameController {
         Button addNew = new Button("Add new " + objectLabel);
         Button confirmButton = new Button("Confirm");
         Button removeButton = new Button("Remove");
+        Button bringExistingConfigButton = new Button("Use Existing " + objectLabel);
 
-        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton);
+        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton, bringExistingConfigButton);
         ListView sourceView = new ListView<>();
         //TODO Give Users Previously Configured Options
-        /*if(configuredObjects.get(key) != null){
-            tempList.addAll(configuredObjects.get(key));
-            for(Object object: configuredObjects.get(key)){
-                Configurable temp = (Configurable) object;
-                sourceView.getItems().add(temp.getClass().getSimpleName());
+        bringExistingConfigButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ExistingConfigurations existingConfigurations = new ExistingConfigurations(tempList, sourceView, configuredObjects.get(key));
+
             }
-        }*/
+        }));
+
         addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -204,11 +205,11 @@ public class GameController {
             }
             myAttributesMap.put(key, ob);
             List<Object> newObjects = Arrays.asList(ob);
-            /*if(configuredObjects.get(key) != null){
+            if(configuredObjects.get(key) != null){
                 configuredObjects.get(key).addAll(newObjects);
             }else{
                 configuredObjects.put(key, newObjects);
-            }*/
+            }
         }
         catch (ClassNotFoundException e){
             //TODO(Hyunjae) Errorchecking
