@@ -42,11 +42,6 @@ public class GamePlayArsenal extends VBox {
     private Group myRoot;
     private Map <String, Integer> weaponMap;
 
-
-//    private Map <Integer, Info> myTestWeapons ;
-    private Map <Integer, Info> myTestObstacles ;
-
-
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
@@ -63,9 +58,6 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
 
-        //START TEST STUFF
-//        createTestWeaponArsenal();
-//        createTestObstacleArsenal();
         viewList = new ArrayList<>();
         setArsenalDisplay(myArsenal,arsenalWidth);
 
@@ -124,28 +116,6 @@ public class GamePlayArsenal extends VBox {
 //            setArsenalDisplay(myTestObstacles, myArsenalWidth);
 //            isWeapon = false;
 //        }
-//    }
-
-
-//    private ArrayList<TreeItem> getWeapons(List arsenal){
-//        ArrayList<TreeItem> weapons = new ArrayList<>();
-//        for (int i = 0; i < arsenal.size(); i++){
-////            String weaponName = arsenal.get(i).get;
-////            TreeItem tower = new TreeItem(weaponName);
-////            weapons.add(tower);
-//        }
-//        return weapons;
-//    }
-//
-//    private ArrayList<TreeItem> getObstacles(){
-//        ArrayList<TreeItem> obstacles = new ArrayList<>();
-//        TreeItem obstacle1 = new TreeItem("barrier");
-//        TreeItem obstacle2 = new TreeItem("yikes");
-//        TreeItem obstacle3 = new TreeItem("gang");
-//        obstacles.add(obstacle1);
-//        obstacles.add(obstacle2);
-//        obstacles.add(obstacle3);
-//        return obstacles;
 //    }
 
     private void dragDropped(DragEvent event){
@@ -253,22 +223,4 @@ public class GamePlayArsenal extends VBox {
         }
         return null;
     }
-
-
-//    //TEST DATA
-//    private void createTestWeaponArsenal(){
-//        Info testInfo = new Info("test", "weapon.png");
-//        myTestWeapons = new HashMap<>();
-//        for (int i = 0; i < 5; i++) {
-//            myTestWeapons.put(i, testInfo);
-//        }
-//    }
-//
-//    private void createTestObstacleArsenal(){
-//        Info testInfo = new Info("test", "obstacle.png");
-//        myTestObstacles = new HashMap<>();
-//        for (int i = 0; i < 5; i++) {
-//            myTestObstacles.put(i, testInfo);
-//        }
-//    }
 }
