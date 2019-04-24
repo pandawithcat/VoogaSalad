@@ -165,7 +165,7 @@ public class Logic {
         }
         return true;
     }
-    
+
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
