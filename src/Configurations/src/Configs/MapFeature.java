@@ -28,6 +28,16 @@ public class MapFeature {
     private boolean isOutOfBounds;
 
 
+    @Deprecated
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
+        setImage(view);
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
+        setGridPos(gridXPos,gridYPos,displayDirection);
+        displayState = DisplayState.NEW;
+    }
+
+
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
         this.widthInGridUnits = view.getWidth();
@@ -38,6 +48,15 @@ public class MapFeature {
         displayState = DisplayState.NEW;
         setImage(view);
         setGridPos(gridXPos, gridYPos, displayDirection);
+    }
+
+    @Deprecated
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
+        setImage(view);
+        setPixelPos(pixelXPos,pixelYPos,direction);
+        displayState = DisplayState.NEW;
     }
 
 
