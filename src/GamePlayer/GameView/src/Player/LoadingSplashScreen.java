@@ -52,7 +52,6 @@ public class LoadingSplashScreen extends Application{
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth()));
         stage.setY((primScreenBounds.getHeight()));
-
         var scene = new Scene(background, primScreenBounds.getWidth(), primScreenBounds.getHeight());
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
@@ -62,7 +61,6 @@ public class LoadingSplashScreen extends Application{
         Button start = createStartButton("shiny-yelow", "Start", 0, 150);
         start.setOnAction(e -> transitionToLogIn(start));
         root.getChildren().add(start);
-
     }
 
     private MediaView createWelcomeMusic(){
