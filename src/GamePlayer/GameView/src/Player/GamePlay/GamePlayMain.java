@@ -26,7 +26,7 @@ public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
     public static int FRAMES_PER_SECOND = 3;
-    public static final int MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
+    public static int MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0/FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
@@ -37,7 +37,7 @@ public class GamePlayMain extends Application {
     private Group root;
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
-    
+    private KeyFrame frame;
     @Override
     public void start(Stage stage){
         try {
@@ -51,7 +51,7 @@ public class GamePlayMain extends Application {
             root.getChildren().add(music);
             myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), root, stage, mediaPlayer);
             root.getChildren().add(myGameIDE);
-            var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
+            frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
@@ -67,7 +67,8 @@ public class GamePlayMain extends Application {
         myLogic.createGameInstance(gameInfo, screenWidth*LEFT_RATIO, screenHeight* TOP_RATIO);
     }
     private void fastFoward(){
-        FRAMES_PER_SECOND = 150;
+        animation.setRate(2.5);
+        System.out.println("Fast forward");
     }
 
     private MediaView createWelcomeMusic(){
@@ -97,6 +98,7 @@ public class GamePlayMain extends Application {
 //                }
 //            }
 //        }
+        animation.setRate(1);
         animation.play();
     }
 

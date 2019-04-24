@@ -8,6 +8,10 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -46,6 +50,12 @@ public class LogInPreloader extends Application {
             root.getChildren().add(t);
             t.setTranslateY(-100);
         }
+//        private Path createCirclePath(){
+//            Path path = new Path();
+//            path.getElements().add(new MoveTo(x , y));
+//            path.getElements().add(new );
+//            return path;
+//        }
         private void step() {
             if (text.getText().equals("Loading ...")) {
                 text.setText("Loading .. ");
