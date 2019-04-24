@@ -16,6 +16,7 @@ public class LevelSpawner implements Updatable {
     private Predicate<ActiveLevel> endLevelCondition;
     private boolean gameOver;
     private Game myGame;
+    private boolean levelOver;
 
 
     public LevelSpawner(Game game, int levelIndex, Level[] levels, Predicate<ActiveLevel> endCondition) {
@@ -24,11 +25,14 @@ public class LevelSpawner implements Updatable {
         myLevels = new ArrayList<>(Arrays.asList(levels));
         currLevel = new ActiveLevel(levels[levelIndex], game.getPaneWidth(), game.getPaneHeight());
         endLevelCondition = endCondition;
+        levelOver = false;
+        gameOver = false;
     }
 
     @Override
     public void update(double ms) {
         if(endLevelCondition.test(currLevel)) {
+            levelOver = true;
             if(levelIndex==myLevels.size()) {
                 gameOver = true;
             }
@@ -36,6 +40,10 @@ public class LevelSpawner implements Updatable {
         else {
             currLevel.update(ms);
         }
+    }
+
+    public boolean isLevelOver() {
+        return levelOver;
     }
 
     public int startNextLevel() throws IllegalStateException{
@@ -53,4 +61,7 @@ public class LevelSpawner implements Updatable {
         return gameOver;
     }
 
+    public int getLevelIndex() {
+        return levelIndex;
+    }
 }

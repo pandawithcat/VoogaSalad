@@ -178,7 +178,7 @@ public class Logic {
     // No input
     // Return: Boolean value indicating the status of the running level
     boolean checkIfLevelEnd(){
-        return myGame.isLevelOver();
+        return myGame.getLevelSpawner().isLevelOver();
     }
 
     boolean checkIfGameEnd(){

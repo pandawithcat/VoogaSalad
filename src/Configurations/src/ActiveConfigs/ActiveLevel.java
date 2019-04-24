@@ -36,16 +36,24 @@ public class ActiveLevel extends Level implements Updatable {
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
+        myScore = 0;
     }
 
     private Cell[][] createMyGrid(){
         Cell[][] tempGrid = new Cell[getMyMapConfig().getGridWidth()][getMyMapConfig().getGridHeight()];//cell[row][col]
-        System.out.println(getMyMapConfig().getGridWidth());
         for(Terrain t: getMyMapConfig().getTerrain()) {
-            tempGrid[t.getGridXPos()][t.getGridYPos()] = new Cell(t.getGridXPos()*TERRAIN_SIZE, t.getGridYPos()*TERRAIN_SIZE, t);
+            for (int x = 0; x < TERRAIN_SIZE; x++) {
+                for (int y = 0; y < TERRAIN_SIZE; y++) {
+                    tempGrid[t.getGridXPos() + x][t.getGridYPos() + y] = new Cell(t.getGridXPos() + x, t.getGridYPos() + y, t);
+                }
+            }
         }
-        
+
         return tempGrid;
+    }
+
+    public void setScore(int score) {
+        this.myScore = score;
     }
 
     public void addToScore(int points) {
