@@ -2,6 +2,7 @@ package Configs.GamePackage;
 
 import ActiveConfigs.ActiveLevel;
 import ActiveConfigs.ActiveWeapon;
+import ActiveConfigs.LevelSpawner;
 import Configs.*;
 import Configs.ArsenalConfig.Arsenal;
 import Configs.ArsenalConfig.WeaponConfig;
@@ -14,15 +15,17 @@ import org.w3c.dom.events.Event;
 import java.util.Arrays;
 
 
-public class Game implements Updatable, EventHandlable, Configurable {
+public class Game implements Updatable, Configurable {
 
     public static final double gridPixelWidth = 585;
     public static final double gridPixelHeight = 585;
 
     private Configuration myConfiguration;
 
+    public static final String myLabel = "Game";
+
     @Configure
-    private String myTitle;
+    private String myName;
     @Configure
     private String myDescription;
     @Configure
@@ -31,20 +34,23 @@ public class Game implements Updatable, EventHandlable, Configurable {
     private Level[] levelList;
     @Configure
     private Arsenal myArsenal;
-    /*@Configure
-    private GameBehavior[] gameType;*/
-    /*@Configure
-    private WeaponConfig[] allWeaponConfigs;*/
+//    @Configure
+//    private GameBehavior gameType;
 
-    private ActiveLevel myActiveLevel;
+    @XStreamOmitField
+    private transient double paneWidth;
+    @XStreamOmitField
+    private transient double paneHeight;
+
+    private LevelSpawner myLevelSpawner;
     private int currentLevelNumber;
     private boolean gameOver;
     private boolean currentLevelOver;
 
+
     public Game(){
         myConfiguration = new Configuration(this);
         gameOver = false;
-        currentLevelNumber=0;
     }
 
     public Arsenal getArsenal() {
@@ -53,57 +59,33 @@ public class Game implements Updatable, EventHandlable, Configurable {
 
     @Override
     public void update(double ms) {
-        myActiveLevel.update(ms);
-        if(myActiveLevel.noMoreEnemiesLeft()) {
-            currentLevelOver = true;
-            currentLevelNumber++;
-            if(currentLevelNumber==levelList.length) {
-                gameOver = true;
-            }
-            else {
-                myActiveLevel = new ActiveLevel(levelList[currentLevelNumber-1]);
-            }
+        if(myLevelSpawner.isGameOver()) gameOver = true;
+        else {
+            myLevelSpawner.update(ms);
         }
-
-
     }
 
-
-
-    public Level[] getLevelList() {
-        return levelList;
-    }
 
     public boolean isGameOver() {
         return gameOver;
     }
 
-    public boolean isLevelOver() {
-        return currentLevelOver;
-    }
 
 
-    public void startGame(int levelNumber) throws IllegalStateException{
+    public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
         }
-        currentLevelNumber = levelNumber;
-        setMyActiveLevel(levelNumber);//TODO check this logic
-
+        this.paneHeight = paneHeight;
+        this.paneWidth = paneWidth;
+        // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
+        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
     }
 
-    public int startNextLevel() throws IllegalStateException{
-        if(gameOver) throw new IllegalStateException();
-        currentLevelNumber++;
-        currentLevelOver = false;
-        return currentLevelNumber;
+    public LevelSpawner getLevelSpawner() {
+        return myLevelSpawner;
     }
 
-
-    @Override
-    public void handleEvent(Event e) {
-
-    }
 
     @Override
     public Configuration getConfiguration() {
@@ -111,19 +93,11 @@ public class Game implements Updatable, EventHandlable, Configurable {
     }
 
     public ActiveLevel getActiveLevel() {
-        return myActiveLevel;
-    }
-
-    public void setMyActiveLevel(int levelIndex) {
-        System.out.println(Arrays.toString(levelList));
-        System.out.println(levelIndex);
-        System.out.println(levelList[levelIndex]);
-        myActiveLevel = new ActiveLevel(levelList[levelIndex]);
-
+        return myLevelSpawner.getCurrLevel();
     }
 
     public String getTitle(){
-        return myTitle;
+        return myName;
     }
 
     public String getDescription(){
@@ -134,8 +108,16 @@ public class Game implements Updatable, EventHandlable, Configurable {
         return myThumbnail;
     }
 
+    public double getPaneWidth() {
+        return paneWidth;
+    }
+
+    public double getPaneHeight() {
+        return paneHeight;
+    }
+
     @Override
-    public String getLabel() {
-        return myTitle;
+    public String getName() {
+        return myName;
     }
 }

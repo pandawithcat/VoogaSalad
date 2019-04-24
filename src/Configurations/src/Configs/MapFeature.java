@@ -12,52 +12,64 @@ public class MapFeature {
 
     private int gridXPos;
     private int gridYPos;
+    private int gridXSize;
+    private int gridYSize;
     private double pixelXPos;
     private double pixelYPos;
+    private double paneWidth;
+    private double paneHeight;
     private double displayDirection;
     private double trigDirection;
     @XStreamOmitField
     private TransferImageView myImageView;
-    private View view;
     private DisplayState displayState;
     private double heightInGridUnits;
     private double widthInGridUnits;
 
 
-    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
-        setImage(view);
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
         this.widthInGridUnits = view.getWidth();
-        setGridPos(gridXPos,gridYPos,displayDirection);
+        this.paneWidth = paneWidth;
+        this.paneHeight = paneHeight;
+        this.gridXSize = gridXSize;
+        this.gridYSize = gridYSize;
         displayState = DisplayState.NEW;
-
+        setImage(view);
+        setGridPos(gridXPos, gridYPos, displayDirection);
     }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
-        setImage(view);
+
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
         this.widthInGridUnits = view.getWidth();
+        displayState = DisplayState.NEW;
+        this.paneWidth = paneWidth;
+        this.paneHeight = paneHeight;
+        this.gridXSize = gridXSize;
+        this.gridYSize = gridYSize;
+        setImage(view);
         setPixelPos(pixelXPos,pixelYPos,direction);
-        displayState = DisplayState.NEW;
     }
 
-    private void setImage(View view) {
+    private void setImage(View view) throws IllegalStateException {
         try {
             myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
-            myImageView.setFitHeight(view.getHeight());
-            myImageView.setFitWidth(view.getWidth());
+            myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
+            myImageView.setFitWidth(paneWidth/gridXSize* widthInGridUnits);
         }
         catch (FileNotFoundException e) {
             throw new IllegalStateException();
         }
     }
 
+
     public double getPixelXPos() {
-        return myImageView.getTranslateX();
+        return myImageView.getX();
     }
 
     public double getPixelYPos() {
-        return myImageView.getTranslateY();
+        return myImageView.getY();
     }
 
     public int getGridXPos() {
@@ -71,44 +83,61 @@ public class MapFeature {
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
         pixelXPos+=deltaPixelX;
         pixelYPos+=deltaPixelY;
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
-        gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
-        gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
+        else {
+            myImageView.setX(pixelXPos);
+            myImageView.setY(pixelYPos);
+            gridXPos = (int) (pixelXPos*paneWidth/widthInGridUnits);
+            gridYPos = (int) (pixelYPos*paneHeight/heightInGridUnits);
+        }
     }
 
+    private boolean isOutOfBounds(int x, int y) {
+        return x<0||x>=gridXSize||y<0||y>=gridYSize;
+    }
+
+    private boolean isOutOfBoundsPixel(double xPixel, double yPixel) {
+        return (xPixel>paneWidth||xPixel<0||yPixel>paneHeight||yPixel<0);
+    }
+
+
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
-        this.pixelYPos = pixelYPos;
-        this.pixelXPos = pixelXPos;
-        this.displayDirection = direction;
-        this.gridXPos = (int) (pixelXPos/(widthInGridUnits/Game.gridPixelWidth));
-        this.gridYPos = (int) (pixelYPos/(heightInGridUnits/Game.gridPixelHeight));
-        setImageView(pixelXPos,pixelYPos,direction);
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
+        else {
+            this.pixelYPos = pixelYPos;
+            this.pixelXPos = pixelXPos;
+            this.displayDirection = direction;
+            this.gridXPos = (int) (pixelXPos/(widthInGridUnits/paneWidth));
+            this.gridYPos = (int) (pixelYPos/(heightInGridUnits/paneHeight));
+            setImageView(pixelXPos,pixelYPos,direction);
+        }
+
     }
 
     private void setImageView(double pixelXPos, double pixelYPos, double direction) {
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
+        myImageView.setX(pixelXPos);
+        myImageView.setY(pixelYPos);
         myImageView.setRotate(direction);
     }
 
     public void setGridPos(int gridXPos, int gridYPos, double direction) {
-        this.gridXPos = gridXPos;
-        this.gridYPos = gridYPos;
-        this.displayDirection = direction;
-        pixelXPos = (Game.gridPixelWidth/widthInGridUnits)*gridXPos;
-        pixelYPos = (Game.gridPixelHeight/heightInGridUnits)*gridYPos;
-        System.out.println("HIDNFNLDJFLKJL");
-        System.out.println(pixelXPos);
-        System.out.println(pixelYPos);
-        setImageView(pixelXPos,pixelYPos,direction);
+        if(isOutOfBounds(gridXPos,gridYPos)) {
+            displayState = DisplayState.DIED;
+        }
+        else {
+            this.gridXPos = gridXPos;
+            this.gridYPos = gridYPos;
+            this.displayDirection = direction;
+            pixelXPos = (paneWidth/gridXSize)*gridXPos;
+            pixelYPos = (paneHeight/gridYSize)*gridYPos;
+            setImageView(pixelXPos,pixelYPos,direction);
+        }
+
     }
 
 
     public TransferImageView getImageView() {
-        myImageView.setTranslateX(pixelXPos);
-        myImageView.setTranslateY(pixelYPos);
-        myImageView.setRotate(displayDirection);
+        setImageView(pixelXPos, pixelYPos, displayDirection);
         return myImageView;
     }
 

@@ -15,17 +15,26 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+import static Player.GamePlay.GamePlayIDE.LEFT_RATIO;
+import static Player.GamePlay.GamePlayLeft.GamePlayLeftSide.TOP_RATIO;
+
+
 public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
-    public static long FRAMES_PER_SECOND = 60;
+    public static int FRAMES_PER_SECOND = 3;
+    public static int MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
+    public static final double SECOND_DELAY = 1.0/FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
-    private static final int padding = 15;
     private Logic myLogic = new Logic();
+    private Timeline animation;
     private GamePlayIDE myGameIDE;
     private Group root;
+    private double currMilliSecond = 0;
+    private MediaPlayer mediaPlayer;
+    private KeyFrame frame;
     @Override
     public void start(Stage stage){
         try {
@@ -35,41 +44,62 @@ public class GamePlayMain extends Application {
             primaryStage.setY(screenHeight);
             var startScreen = new Scene(root, screenWidth, screenHeight,backgroundColor);
             startScreen.getStylesheets().add("gameplay.css");
-            myGameIDE = new GamePlayIDE(screenWidth, screenHeight, myLogic, () -> startLoop(), () -> fastFoward(),
-                    root);
+            MediaView music = createWelcomeMusic();
+            root.getChildren().add(music);
+            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), root, stage, mediaPlayer);
             root.getChildren().add(myGameIDE);
+            frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
+            animation = new Timeline();
+            animation.setCycleCount(Timeline.INDEFINITE);
+            animation.getKeyFrames().add(frame);
             primaryStage.setScene(startScreen);
             primaryStage.setTitle(Title);
             primaryStage.show();
-            MediaView music = createWelcomeMusic();
-            root.getChildren().add(music);
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
     public void setGameInfo(GameInfo gameInfo){
-        myLogic.createGameInstance(gameInfo);
+        myLogic.createGameInstance(gameInfo, screenWidth*LEFT_RATIO, screenHeight* TOP_RATIO);
     }
     private void fastFoward(){
-        FRAMES_PER_SECOND = 150;
+        animation.setRate(2.5);
+        System.out.println("Fast forward");
     }
 
     private MediaView createWelcomeMusic(){
         Media sound = new Media(new File(GAME_MUSIC).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.setAutoPlay(true);
         MediaView mediaView = new MediaView(mediaPlayer);
         return mediaView;
     }
 
     private void startLoop(){
-        while(true){
-            step(System.currentTimeMillis());
-        }
+//        long starttime = System.currentTimeMillis();
+//        long prevTime = -1000;
+//        while(true){
+//            long currTime = System.currentTimeMillis();
+//            long newtime = currTime-starttime;
+//            if (newtime - prevTime>50) {
+//                step(newtime);
+//                prevTime = newtime;
+//            }
+//            else{
+//                try {
+//                    Thread.sleep(50);
+//                }
+//                catch (InterruptedException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+        animation.setRate(1);
+        animation.play();
     }
 
-    private void step(double elapsedTime){
+    private void step(){
         //TODO: yeah idk if this is best design below
         //TODO: if the level end is true stop the game loop
         //TODO: dynamically update views with methods below
@@ -80,6 +110,8 @@ public class GamePlayMain extends Application {
         //getViewsToBeAdded
         //getRemovedImageViews
         //
-        myGameIDE.getLeft().getMap().update(elapsedTime);
+        myGameIDE.getLeft().getMap().update(currMilliSecond);
+        currMilliSecond+=MILLISECOND_DELAY;
+//        System.out.println(currMilliSecond);
     }
 }

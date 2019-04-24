@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
+import javafx.util.Pair;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,14 +31,8 @@ public class GamePlayArsenal extends VBox {
 
     private Logic myLogic;
     private GamePlayArsenalSelector myArsenalSelector;
-    public static final String WEAPON_IMAGE = "weapon.png";
-    public static final String OBSTACLE_IMAGE = "obstacle.png";
-    private Image weaponImage;
-    private Image obstacleImage;
-    private ImageView weaponImageView;
-    private ImageView obstacleImageView;
     private boolean isWeapon;
-    private ArrayList<ImageView> viewList;
+    private ArrayList<Pair<ImageView, String>> viewList;
     private ListView arsenalDisplay;
     private double myArsenalWidth;
     private HBox arsenalSelector;
@@ -73,17 +69,10 @@ public class GamePlayArsenal extends VBox {
         viewList = new ArrayList<>();
         setArsenalDisplay(myArsenal,arsenalWidth);
 
-
-        //TODO: implement the hover shit when we set content
-//        rootItem.getChildren().addAll(myArsenal);
-//        arsenalView.setRoot(rootItem);
-
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-
         getChildren().addAll(arsenalDisplay);
 
-        //arsenal selector part
         myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
         getChildren().add(myArsenalSelector);
     }
@@ -91,26 +80,25 @@ public class GamePlayArsenal extends VBox {
     private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
         try {
             //creates internal mapping of weapon and id
+            arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
-                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
-                ImageView imageView = new ImageView(image);
-                weaponMap.put(imageView.toString(), id);
-                System.out.println(imageView);
-                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
-                imageView.setFitWidth(arsenalWidth / 2);
-                imageView.setFitHeight(arsenalWidth / 2);
-                Tooltip t = new Tooltip("A Square");
-                Tooltip.install(imageView, t);
-                viewList.add(imageView);
+//                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
+//                ImageView imageView = new ImageView(image);
+//                weaponMap.put(imageView.toString(), id);
+//                System.out.println(imageView);
+//                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
+//                imageView.setFitWidth(arsenalWidth / 2);
+//                imageView.setFitHeight(arsenalWidth / 2);
+//                Tooltip t = new Tooltip("A Square");
+//                Tooltip.install(imageView, t);
+//                viewList.add(new Pair(imageView,myArsenal.get(id).getName()));
+                arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
+                        myArsenal.get(id).getName(), weaponMap, id));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ObservableList<ImageView> items = FXCollections.observableArrayList(viewList);
-        arsenalDisplay.setItems(items);
-
 
         arsenalDisplay.setOnDragDetected(mouseEvent -> dragDetected(mouseEvent));
         myMap.setOnDragOver(event -> dragOver(event));
@@ -167,7 +155,14 @@ public class GamePlayArsenal extends VBox {
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
-            myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(),0);
+
+            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
+            }
+
+            System.out.println("Image: " + selectedImage.toString());
+            System.out.println("X: " + event.getX());
+            System.out.println("Y: " + event.getY());
             success = true;
         }
         event.setDropCompleted(success);
@@ -197,7 +192,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragDetected(MouseEvent mouseEvent){
-        selectedImage = (ImageView) arsenalDisplay.getSelectionModel().getSelectedItem();
+        selectedImage = (ImageView)((Pair) arsenalDisplay.getSelectionModel().getSelectedItem()).getKey();
         Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
 
         //creates deepcopy of imageview
@@ -232,6 +227,33 @@ public class GamePlayArsenal extends VBox {
         db.setContent(content);
         mouseEvent.consume();
     }
+
+    private static class ImageCell extends ListCell<Pair<ImageView, String>> {
+        @Override
+        public void updateItem(Pair<ImageView, String> item, boolean empty) {
+            super.updateItem(item, empty);
+            if(!empty) {
+                setGraphic(item.getKey());
+                Tooltip.install(this, new Tooltip(item.getValue()));
+            }
+        }
+    }
+
+    private static Pair<ImageView, String> loadImageWithCaption(String filename, String caption, Map <String,
+            Integer> weaponMap, Integer id) {
+        try {
+            var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
+            weaponMap.put(image.toString(), id);
+            image.setFitWidth(100);
+            image.setFitHeight(100);
+            return new Pair<>(image, caption);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 //    //TEST DATA
 //    private void createTestWeaponArsenal(){

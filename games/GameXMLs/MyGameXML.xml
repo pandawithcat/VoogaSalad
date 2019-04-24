@@ -57,7 +57,7 @@
               <myAttributes>
                 <entry>
                   <string>myWaveConfigs</string>
-                  <Configs.Waves.WaveConfig-array reference="../../../../myWaveConfigs"/>
+                  <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
                 </entry>
                 <entry>
                   <string>myLabel</string>
@@ -104,7 +104,7 @@
               <myAttributes>
                 <entry>
                   <string>myWaveConfigs</string>
-                  <Configs.Waves.WaveConfig-array reference="../../../../myWaveConfigs"/>
+                  <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
                 </entry>
                 <entry>
                   <string>myLabel</string>

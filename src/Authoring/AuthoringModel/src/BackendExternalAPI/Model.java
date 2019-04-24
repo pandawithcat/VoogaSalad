@@ -88,35 +88,7 @@ public class Model {
         xmlFW.write(gameString);
         xmlFW.close();
 
-
-        //for testingvv
-        String gameXMLFileName = "wtfXML.xml";
-        System.out.println("Loading Game XML File: " + gameXMLFileName);
-        File xmlFile = new File("games/GameXMLs/" + gameXMLFileName);
-        System.out.println("Un-Serializing Game XML File");
-        Game g = (Game)(mySerializer.fromXML(xmlFile));
-        System.out.println("LEVEL LIST:" + Arrays.asList(g.getLevelList()));
-        System.out.println("LEVEL LABEL" + g.getLevelList()[0].getLabel());
-        System.out.println("LEVEL MAP" + g.getLevelList()[0].getMyMapConfig());
-
-
-
-        //for testing^^
-
-
     }
-
-//    public static void main (String[] args) {
-//        Model m = new Model();
-//        Game g = new Game();
-//        g.setName("name");
-//        g.setMyDescription("description");
-//        g.setThumbnail("thumbnail.gif");
-//        m.saveToXML(g);
-//
-//
-//
-//    }
 
 
 }

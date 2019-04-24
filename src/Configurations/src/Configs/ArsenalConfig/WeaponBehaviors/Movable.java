@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Movable extends WeaponBehavior{
-    private String myLabel;
+    public static final String myLabel = "Movable";
     @Configure
     protected double movingSpeed;
     @Configure
@@ -22,11 +22,11 @@ public class Movable extends WeaponBehavior{
 
     @Override
     public void update(double ms) {
-
+        //TODO
     }
 
     @Override
-    public String getLabel() {
+    public String getName() {
         return myLabel;
     }
 

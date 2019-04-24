@@ -27,19 +27,22 @@ import java.util.stream.Collectors;
 public class Logic {
 
     private static final int DEFAULT_START_LEVEL = 0;
-//     TODO: Second Sprint
-//     private UserAuthenticator myUserAuthenticator;
-//     private myUserGameData;
+    private final double PANE_WIDTH;
+    private final double PANE_HEIGHT;
+
+
 
     private Game myGame;
     private GameLibrary myGameLibrary;
     private PlayerData myPlayerData;
 
 
-    public Logic() {
+    public Logic(double paneWidth, double paneHeight) {
 //        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
         myPlayerData = new PlayerData();
+        PANE_WIDTH = paneWidth;
+        PANE_HEIGHT = paneHeight;
 
     }
 
@@ -66,10 +69,6 @@ public class Logic {
         return myPlayerData.getAuthoredGames();
     }
 
-//    TODO: Implement User Authentification in Second Sprint
-//    UserData authenticateUser(String userName, String userPassword) throws IllegalAccessError{
-//
-//    }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void createGameInstance2(GameInfo selectedGame){
@@ -81,53 +80,47 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
-        myGame.startGame(gameState.getMyCurrentLevel());
+        myGame.getActiveLevel().setScore(gameState.getMyCurrentScore());
+        myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void startAtDefaultState(){
-        myGame.startGame(DEFAULT_START_LEVEL);
+        myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
     }
 
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
     // No Return Value
-    public void createGameInstance(GameInfo selectedGame) {
+    public void createGameInstance(GameInfo selectedGame, double paneWidth, double paneHeight) {
         myGame = myGameLibrary.getGame(selectedGame);
         // TODO: Second sprint have the option of getting this from User Data (Previous Level)
-        myGame.startGame(DEFAULT_START_LEVEL);
+        myGame.startGame(DEFAULT_START_LEVEL, paneWidth, paneHeight);
     }
 
     // View calls to get the current level of the game when moving between levels
     // No Input
     // Return: integer Level number
     public int startNextLevel(){
-        return myGame.startNextLevel();
+        return myGame.getLevelSpawner().startNextLevel();
     }
 
 
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
-    public List<ImmutableImageView> getLevelTerrain(){
+    public List<ImmutableImageView> getLevelTerrain(double screenWidth, double screenHeight){
         return myGame
                 .getActiveLevel()
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> getImageView(terrain))
+                .map(terrain -> terrain.getImageView(screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
                 .collect(Collectors.toList());
 
     }
 
-    private ImmutableImageView getImageView(Terrain t) {
 
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());
-
-            return mapFeature.getImageView();
-//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
-
-    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
@@ -182,7 +175,7 @@ public class Logic {
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
-    public boolean checkPlacementLocation(int weaponId, int x, int y, int direction){
+    public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
         View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
         int height;
         int width;
@@ -195,6 +188,12 @@ public class Logic {
             width = weaponView.getHeight();
         }
         Cell[][] grid = myGame.getActiveLevel().getMyGrid();
+
+
+
+        int x = (int) (xPixel/(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
+        int y = (int) (yPixel/(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
+
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
                 if (!grid[row][col].isValidWeaponPlacement()) return false;
@@ -217,17 +216,18 @@ public class Logic {
     // No input
     // Return: Boolean value indicating the status of the running level
     boolean checkIfLevelEnd(){
-        return myGame.isLevelOver();
+        return myGame.getLevelSpawner().isLevelOver();
     }
 
     boolean checkIfGameEnd(){
         return myGame.isGameOver();
     }
 
-//    public void saveGameState(){
-//        UserState currentUserState = new UserState(myGame.getLevelSpa)
-//        myPlayerData.saveUserState(new UserState());
-//    }
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void saveGameState(){
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        myPlayerData.saveUserState(currentUserState);
+    }
 
 
 }

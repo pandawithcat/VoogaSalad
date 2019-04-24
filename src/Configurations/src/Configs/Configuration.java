@@ -7,15 +7,15 @@ import java.util.*;
 
 public class Configuration {
     @XStreamOmitField
-    private Map<String,Class> myAttributeTypes;
+    private transient Map<String,Class> myAttributeTypes;
     @XStreamOmitField
-    private Map<String,Object> myAttributes = new HashMap<>();
+    private transient Map<String,Object> myAttributes = new HashMap<>();
     @XStreamOmitField
-    private boolean isComplete = true;
+    private transient boolean isComplete = true;
     @XStreamOmitField
-    private Configurable myConfigurable;
+    private transient Configurable myConfigurable;
     @XStreamOmitField
-    private Class myConfigurableClass;
+    private transient Class myConfigurableClass;
 
     public Configuration(Configurable configurable) {
         myConfigurable = configurable;
@@ -34,11 +34,11 @@ public class Configuration {
     }
 
     private void validateType(String attributeInput, Object value) throws IllegalArgumentException {
-        if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
+        /*if (value.getClass()!=myAttributeTypes.get(attributeInput)) {
             System.out.println(value.getClass());
             System.out.println(myAttributeTypes.get(attributeInput));
             throw new IllegalArgumentException();
-        }
+        }*/
     }
 
 
@@ -55,8 +55,8 @@ public class Configuration {
 //            if(attributes.get(key) instanceof Behavior[]) {
 //                attributes.put(key,new BehaviorManager(new ArrayList<>(Arrays.asList(attributes.get(key)))));
 //            }
-//            if(attributes.get(key) instanceof WaveConfig[]) {
-//                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((WaveConfig[]) attributes.get(key)))));
+//            if(attributes.get(key) instanceof Wave[]) {
+//                attributes.put(key,new WaveSpawner(new ArrayList<>(Arrays.asList((Wave[]) attributes.get(key)))));
 //            }
         myAttributes = attributes;
         setAttributesInConfigurable();
@@ -101,7 +101,7 @@ public class Configuration {
 
     public Map<String,Object> getDefinedAttributes() throws IllegalStateException {
        /* if (!isComplete) throw new IllegalStateException();*/
-        return Collections.unmodifiableMap(myAttributes);
+        return myAttributes;
     }
 
 }

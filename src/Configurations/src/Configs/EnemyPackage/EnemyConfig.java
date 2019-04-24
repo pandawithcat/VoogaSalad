@@ -1,15 +1,14 @@
 package Configs.EnemyPackage;
 
 import Configs.*;
-import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
-import Configs.Waves.WaveConfig;
+import Configs.Waves.Wave;
 
 public class EnemyConfig implements Configurable, Viewable {
-    private WaveConfig myWaveConfig;
-    private String myLabel;
+    private Wave myWave;
+    public static final String myLabel = "Enemy";
     @Configure
-    private String name;
+    private String myName;
     @Configure
     private EnemyBehavior[] myBehaviors;
     @Configure
@@ -19,20 +18,20 @@ public class EnemyConfig implements Configurable, Viewable {
 
     private Configuration myConfiguration;
 
-    public EnemyConfig(WaveConfig waveConfig) {
-        myWaveConfig = waveConfig;
+    public EnemyConfig(Wave wave) {
+        myWave = wave;
         myConfiguration = new Configuration(this);
     }
 
     public EnemyConfig(EnemyConfig enemyConfig){
         myBehaviors = enemyConfig.getMyBehaviors();
-        myWaveConfig = enemyConfig.getMyWaveConfig();
+        myWave = enemyConfig.getMyWave();
         unitSpeedPerSecond = enemyConfig.getUnitSpeedPerSecond();
         view = enemyConfig.getView();
     }
 
-    public WaveConfig getMyWaveConfig() {
-        return myWaveConfig;
+    public Wave getMyWave() {
+        return myWave;
     }
 
     //    public void setMyBehaviors(List<Behavior<EnemyConfig>> behavior) {
@@ -52,9 +51,10 @@ public class EnemyConfig implements Configurable, Viewable {
         return view;
     }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class EnemyConfig implements Configurable, Viewable {
         return myConfiguration;
     }
 
-//    public WaveConfig getMyWaveConfig() {
-//        return myWaveConfig;
+//    public Wave getMyWave() {
+//        return myWave;
 //    }
 }

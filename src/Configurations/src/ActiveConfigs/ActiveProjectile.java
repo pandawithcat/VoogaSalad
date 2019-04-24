@@ -22,10 +22,9 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     @Override
     public void update(double ms) {
         if(distanceLeft>0) {
-            myMapFeature.setDisplayState(DisplayState.PRESENT);
+//            myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
             checkforCollisions();
-
         }
         else {
             myMapFeature.setDisplayState(DisplayState.DIED);
@@ -54,7 +53,6 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         double changeY = distanceToTravel*Math.sin(myMapFeature.getTrigDirection());
         myMapFeature.moveRelatively(changeX,changeY);
         distanceLeft-=distanceToTravel;
-
     }
     @Override
     public MapFeature getMapFeature() {
