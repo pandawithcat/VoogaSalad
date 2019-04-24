@@ -27,5 +27,38 @@ public class PlayerData extends Data{
             return Collections.unmodifiableList(games);
     }
 
+    /**
+     * Uses the user ID and current game to query the database for the level and score where the user left off
+     * @return - User state object corresponding to current user and game
+     */
+    public UserState getCurrentUserState(){
+        currentUserID = currentUserID;
+        currentGameID = currentGameID;
+        // TODO: Use these to query into user set and games played
+        int currentLevel = 0;
+        int currentScore = 0;
+
+        UserState playerState = new UserState(currentLevel, currentScore);
+
+        return playerState;
+    }
+
+    /**
+     * Stores the current level and score of the user when they exit the game
+     * @param savingState - User state object corresponding to current user and game
+     */
+    public void saveUserState(UserState savingState){
+        currentUserID = currentUserID;
+        currentGameID = currentGameID;
+        // TODO: Use these to query into user set and games played
+
+        int currentLevel = savingState.getMyCurrentLevel();
+        int currentScore = savingState.getMyCurrentScore();
+
+        // TODO: Store Data in database
+
+
+    }
+
 
 }

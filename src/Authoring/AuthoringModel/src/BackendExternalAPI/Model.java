@@ -31,8 +31,8 @@ public class Model {
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveToXML2(Game newGame){
         XStream mySerializer = new XStream(new DomDriver());
-        String gameString = mySerializer.toXML(newGame);
-        myAuthoringData.storeXML(gameString.getBytes());
+        String gameXMLString = mySerializer.toXML(newGame);
+        myAuthoringData.storeXML(gameXMLString);
     }
 
     public void saveToXML(Game newGame) {
@@ -65,9 +65,8 @@ public class Model {
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public Game loadGameObject(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
-        File xmlFile = myAuthoringData.getGameFile(selectedGame);
-        Game loadedGame = (Game)serializer.fromXML(xmlFile);
-        return loadedGame;
+        String gameXMLString = myAuthoringData.getGameFile(selectedGame);
+        return (Game)serializer.fromXML(gameXMLString);
     }
 
     private void updatePropertiesFile() throws IOException{

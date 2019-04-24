@@ -7,6 +7,7 @@ import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
 import ExternalAPIs.PlayerData;
+import ExternalAPIs.UserState;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -42,6 +43,16 @@ public class Logic {
 
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public boolean authenticateUser(String username, String password){
+        return myPlayerData.authenticateUser(username, password);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void createNewUser(String username, String password, String passwordRepeated){
+        myPlayerData.createNewUser(username, password, passwordRepeated);
+    }
+
     // View will call this first to get the name and thumbnail file name of each game
     // No Input
     // Return: List of GameInfo objects
@@ -51,7 +62,7 @@ public class Logic {
 
     // Final Implementation version of getGameOptions
     // Do Not Call Yet !!!!!!!!!!!!!!!
-    public List<GameInfo> getGameLibrary(){
+    public List<GameInfo> getGameOptions2(){
         return myPlayerData.getAuthoredGames();
     }
 
@@ -63,8 +74,18 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void createGameInstance2(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
-        File xmlFile = myPlayerData.getGameFile(selectedGame);
-        myGame =  (Game)serializer.fromXML(xmlFile);
+        String gameXMLString = myPlayerData.getGameFile(selectedGame);
+        myGame =  (Game)serializer.fromXML(gameXMLString);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void startAtUserState(){
+        UserState gameState = myPlayerData.getCurrentUserState();
+        myGame.startGame(gameState.getMyCurrentLevel());
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL);
     }
 
@@ -202,6 +223,11 @@ public class Logic {
     boolean checkIfGameEnd(){
         return myGame.isGameOver();
     }
+
+//    public void saveGameState(){
+//        UserState currentUserState = new UserState(myGame.getLevelSpa)
+//        myPlayerData.saveUserState(new UserState());
+//    }
 
 
 }

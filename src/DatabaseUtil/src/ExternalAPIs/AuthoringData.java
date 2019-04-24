@@ -29,7 +29,8 @@ public class AuthoringData extends Data{
         return Collections.unmodifiableList(authoredGames);
     }
 
-    public void storeXML(byte[] gameBytes){
+    public void storeXML(String gameXMLString){
+        byte[] gameBytes = gameXMLString.getBytes();
         currentGameID = currentGameID;
 
         // TODO: Store byte[] in table of currentGameID

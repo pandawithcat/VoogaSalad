@@ -140,21 +140,12 @@ public abstract class Data {
      * @return - Java File object containing the XML file of the selected game
      */
 
-    public File getGameFile(GameInfo chosenGameInfo){
+    public String getGameFile(GameInfo chosenGameInfo){
         // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
         currentGameID = chosenGameInfo.getGameTitle();
         // TODO: Retrieve String of specific Games XML Bytes from the Database
         byte[] gameBytes = new byte[0];
-        File gameXML = new File("");
-        try {
-            FileOutputStream fileOS = new FileOutputStream(gameXML);
-            fileOS.write(gameBytes);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return gameXML;
+        return new String(gameBytes);
     }
 
     // TODO: Method call that downloads the images of a game
