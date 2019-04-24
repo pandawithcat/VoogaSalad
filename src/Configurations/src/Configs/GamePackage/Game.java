@@ -43,7 +43,10 @@ public class Game implements Updatable, Configurable {
     private transient double paneHeight;
 
     private LevelSpawner myLevelSpawner;
+    private int currentLevelNumber;
     private boolean gameOver;
+    private boolean currentLevelOver;
+
 
     public Game(){
         myConfiguration = new Configuration(this);
