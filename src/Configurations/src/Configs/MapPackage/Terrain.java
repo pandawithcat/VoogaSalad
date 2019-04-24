@@ -9,7 +9,8 @@ import java.io.File;
 
 
 public class Terrain implements Configurable, Viewable{
-    public static final int TERRAIN_SIZE = 4;
+    //TODO: change back, for testing
+    public static final int TERRAIN_SIZE = 25;
 
     public static final String myLabel = "Terrain";
     @Configure
@@ -31,16 +32,20 @@ public class Terrain implements Configurable, Viewable{
 
 
     private Configuration myConfiguration;
+    private MapConfig myMapConfig;
 
 
     public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
-        view = new View(fileName,gridBlockHeight, gridBlockWidth);
+        //TODO: change back, for testing
+        view = new View(fileName,20,20);
+        //        view = new View(fileName,gridBlockWidth,gridBlockHeight);
         this.gridBlockHeight = gridBlockHeight;
         this.gridBlockWidth = gridBlockWidth;
         this.isPath = isPath;
         this.gridYPos = gridYPos;
         this.gridXPos = gridXPos;
         myConfiguration = new Configuration(this);
+        myMapConfig = mapConfig;
     }
 
     public int getGridXPos() {
@@ -51,17 +56,14 @@ public class Terrain implements Configurable, Viewable{
         return gridYPos*TERRAIN_SIZE;
     }
 
-    public double getGridBlockHeight() {
-        return gridBlockHeight;
-    }
-
-    public double getGridBlockWidth() {
-        return gridBlockWidth;
-    }
-
     @Override
     public View getView() {
         return view;
+    }
+
+    public ImmutableImageView getImageView(double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+        MapFeature mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight);
+        return mapFeature.getImageView();
     }
 
 
@@ -72,14 +74,6 @@ public class Terrain implements Configurable, Viewable{
 
     public boolean getIfPath() {
         return isPath;
-    }
-
-    public double getHeight() {
-        return view.getHeight();
-    }
-
-    public double getWidth() {
-        return view.getWidth();
     }
 
     public boolean isPath() {

@@ -77,19 +77,12 @@ public class Logic {
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
+                .map(terrain -> terrain.getImageView(screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
                 .collect(Collectors.toList());
 
     }
 
-    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
 
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
-
-            return mapFeature.getImageView();
-//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
-
-    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
@@ -185,7 +178,7 @@ public class Logic {
     // No input
     // Return: Boolean value indicating the status of the running level
     boolean checkIfLevelEnd(){
-        return myGame.isLevelOver();
+        return myGame.getLevelSpawner().isLevelOver();
     }
 
     boolean checkIfGameEnd(){
