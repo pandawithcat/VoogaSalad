@@ -29,6 +29,10 @@ public class AuthoringData extends Data{
         return Collections.unmodifiableList(authoredGames);
     }
 
+    /**
+     * Converts game XML String to byte array to store in the database
+     * @param gameXMLString - string produced by putting Game object through Xstream
+     */
     public void storeXML(String gameXMLString){
         byte[] gameBytes = gameXMLString.getBytes();
         currentGameID = currentGameID;
