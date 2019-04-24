@@ -30,6 +30,19 @@ public class AuthoringData extends Data{
     }
 
     /**
+     * Stores the basic information and imageIDs pertaining to a created game to the database
+     * @param savingInfo - GameInfo Object containing the basic info of the game being saved
+     * @param usedImagesIDs - List of image IDs corresponding to the images being used in the game
+     */
+    public void storeBasicInfo(GameInfo savingInfo, List<String> usedImagesIDs){
+        String title = savingInfo.getGameTitle();
+        String description = savingInfo.getGameDescription();
+        String gameThumbnailID = savingInfo.getGameThumbnail();
+
+        // TODO: Save this information to the game library using game PrimaryKey or create a new one if value is null
+    }
+
+    /**
      * Converts game XML String to byte array to store in the database
      * @param gameXMLString - string produced by putting Game object through Xstream
      */

@@ -3,12 +3,12 @@ package ExternalAPIs;
 public class GameInfo {
 
     private String myGameTitle;
-    private String myGameThumbnail;
+    private String myGameThumbnailID;
     private String myGameDescription;
 
     public GameInfo(String title, String thumbnail, String description){
         myGameTitle = title;
-        myGameThumbnail = thumbnail;
+        myGameThumbnailID = thumbnail;
         myGameDescription = description;
     }
 
@@ -17,7 +17,7 @@ public class GameInfo {
     }
 
     public String getGameThumbnail(){
-        return myGameThumbnail;
+        return myGameThumbnailID;
     }
 
     public String getGameDescription(){

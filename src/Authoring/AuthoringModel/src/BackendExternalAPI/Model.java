@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import java.io.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
@@ -30,9 +31,18 @@ public class Model {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveToXML2(Game newGame){
+
         XStream mySerializer = new XStream(new DomDriver());
         String gameXMLString = mySerializer.toXML(newGame);
         myAuthoringData.storeXML(gameXMLString);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!!
+    private void saveBasicInfo(Game savingGame){
+        GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
+        // TODO: have a get method for the image ids used in the specific game
+        ArrayList<String> imageIDs = new ArrayList<>();
+        myAuthoringData.storeBasicInfo(savingInfo, imageIDs);
     }
 
     public void saveToXML(Game newGame) {
