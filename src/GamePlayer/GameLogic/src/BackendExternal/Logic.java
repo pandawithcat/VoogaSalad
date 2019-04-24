@@ -2,6 +2,7 @@ package BackendExternal;
 
 import ActiveConfigs.Cell;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
@@ -138,7 +139,8 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
-        View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
+        WeaponConfig weapon = myGame.getArsenal().getConfiguredWeapons()[weaponId-1];
+        View weaponView = weapon.getView();
         int height;
         int width;
         if(direction==90||direction==270) {
@@ -158,13 +160,12 @@ public class Logic {
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-                if (!grid[row][col].isValidWeaponPlacement()) return false;
+                if (!grid[row][col].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }
         }
         return true;
     }
-
-
+    
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate

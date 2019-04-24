@@ -71,7 +71,6 @@ public class Game implements Updatable, Configurable {
     }
 
 
-
     public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
             throw new IllegalStateException();
