@@ -18,9 +18,7 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
         myActiveLevel = activeLevel;
     }
 
-    public boolean isPathWeapon() {
-        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
-    }
+
 
     @Override
     public void update(double ms) {

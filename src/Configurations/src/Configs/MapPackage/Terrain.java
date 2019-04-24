@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Terrain implements Configurable, Viewable{
     //TODO: change back, for testing
-    public static final int TERRAIN_SIZE = 25;
+    public static final int TERRAIN_SIZE = 50;
 
     public static final String myLabel = "Terrain";
     @Configure
@@ -35,12 +35,8 @@ public class Terrain implements Configurable, Viewable{
     private MapConfig myMapConfig;
 
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
-        //TODO: change back, for testing
-        view = new View(fileName,20,20);
-        //        view = new View(fileName,gridBlockWidth,gridBlockHeight);
-        this.gridBlockHeight = gridBlockHeight;
-        this.gridBlockWidth = gridBlockWidth;
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
+        view = new View(fileName,TERRAIN_SIZE,TERRAIN_SIZE);
         this.isPath = isPath;
         this.gridYPos = gridYPos;
         this.gridXPos = gridXPos;
