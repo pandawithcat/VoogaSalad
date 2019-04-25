@@ -131,6 +131,7 @@ public class LoadingSplashScreen extends Application{
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setHgap(10);
         grid.setVgap(10);
+
         final Label userName = new Label("User Name:");
         grid.add(userName, 0, 1);
         final TextField userTextField = new TextField();

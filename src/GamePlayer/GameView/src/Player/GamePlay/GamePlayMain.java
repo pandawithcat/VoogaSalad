@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-import static Player.GamePlay.GamePlayIDE.LEFT_RATIO;
+import static Player.GamePlay.GamePlayGUI.LEFT_RATIO;
 import static Player.GamePlay.GamePlayLeft.GamePlayLeftSide.TOP_RATIO;
 
 
@@ -33,7 +33,7 @@ public class GamePlayMain extends Application {
     private double screenHeight = ScreenSize.getHeight();
     private Logic myLogic = new Logic();
     private Timeline animation;
-    private GamePlayIDE myGameIDE;
+    private GamePlayGUI myGameIDE;
     private Group root;
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
@@ -51,7 +51,7 @@ public class GamePlayMain extends Application {
             startScreen.getStylesheets().add("gameplay.css");
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
+            myGameIDE = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
                     () -> closeStage(),
                     root,
                     stage,
