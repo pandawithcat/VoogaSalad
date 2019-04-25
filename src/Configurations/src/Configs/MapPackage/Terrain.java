@@ -1,66 +1,65 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
 
+
 public class Terrain implements Configurable, Viewable{
+    //TODO: change back, for testing
+    public static final int TERRAIN_SIZE = 50;
+
+    public static final String myLabel = "Terrain";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private View view;
-
     @Configure
-    private double gridBlockHeight;
+    private int gridBlockHeight;
     @Configure
-    private double gridBlockWidth;
+    private int gridBlockWidth;
     @Configure
     private boolean isPath;
     @Configure
     private int gridYPos;
     @Configure
     private int gridXPos;
-
-
-
-
-//    @Configure
-//    private TerrainBehavior[] terrainBehaviors;
+    @Configure
+    private TerrainBehavior[] terrainBehaviors;
 
 
     private Configuration myConfiguration;
+    private MapConfig myMapConfig;
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, double height, double width, double gridBlockHeight, double gridBlockWidth, boolean isPath){
-        view = new View(fileName,height, width);
-        this.gridBlockHeight = gridBlockHeight;
-        this.gridBlockWidth = gridBlockWidth;
+
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
+        view = new View(fileName,TERRAIN_SIZE,TERRAIN_SIZE);
         this.isPath = isPath;
         this.gridYPos = gridYPos;
         this.gridXPos = gridXPos;
         myConfiguration = new Configuration(this);
+        myMapConfig = mapConfig;
     }
 
     public int getGridXPos() {
-        return gridXPos;
+        return gridXPos*TERRAIN_SIZE;
     }
 
     public int getGridYPos() {
-        return gridYPos;
-    }
-
-    public double getGridBlockHeight() {
-        return gridBlockHeight;
-    }
-
-    public double getGridBlockWidth() {
-        return gridBlockWidth;
+        return gridYPos*TERRAIN_SIZE;
     }
 
     @Override
     public View getView() {
         return view;
+    }
+
+    public ImmutableImageView getImageView(double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+        MapFeature mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight);
+        return mapFeature.getImageView();
     }
 
 
@@ -73,14 +72,6 @@ public class Terrain implements Configurable, Viewable{
         return isPath;
     }
 
-    public double getHeight() {
-        return view.getHeight();
-    }
-
-    public double getWidth() {
-        return view.getWidth();
-    }
-
     public boolean isPath() {
         return isPath;
     }
@@ -89,9 +80,10 @@ public class Terrain implements Configurable, Viewable{
 //        return terrainBehaviors;
 //    }
 
+
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     //    @Override

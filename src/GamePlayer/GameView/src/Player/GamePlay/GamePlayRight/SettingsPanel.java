@@ -2,8 +2,11 @@ package Player.GamePlay.GamePlayRight;
 
 import Player.GamePlay.Buttons.HomeButton;
 import Player.GamePlay.Buttons.SaveButton;
+import Player.SetUp.GameSelection;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.MediaPlayer;
+import javafx.stage.Stage;
 
 public class SettingsPanel extends HBox {
 
@@ -11,13 +14,18 @@ public class SettingsPanel extends HBox {
     private SettingsButton settingsButton;
     private SaveButton saveButton;
 
-    public SettingsPanel(double width, double height){
+    public SettingsPanel(double width, double height, Stage stage, MediaPlayer mediaPlayer){
         setPadding(new Insets(10, 10, 10, 10));
         setSpacing(10);
         setPrefHeight(height);
         setPrefWidth(width);
         homeButton = new HomeButton(width/3,height);
-        settingsButton = new SettingsButton(width/3,height);
+        homeButton.setOnAction(e->{
+            stage.close();
+            GameSelection gameSelection = new GameSelection();
+            gameSelection.start(new Stage());
+        });
+        settingsButton = new SettingsButton(width/3,height, mediaPlayer);
         saveButton = new SaveButton(width/3,height);
         getChildren().addAll(homeButton, settingsButton, saveButton);
     }

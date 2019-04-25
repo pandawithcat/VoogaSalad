@@ -30,7 +30,7 @@ Maybe Focus Areas:
 
 -map logic of unlockables to portions of the serialized game file
 
--move enemies along their path based on AI
+-move enemies adouble their path based on AI
 
 -implement towers shooting one type of projectileConfig (arrow) in either radial or straight
 

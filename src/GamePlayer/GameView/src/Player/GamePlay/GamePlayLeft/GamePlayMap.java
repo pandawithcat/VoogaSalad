@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,7 +21,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GamePlayMap extends GridPane{
+public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
     private Group mapRoot;
@@ -36,10 +37,10 @@ public class GamePlayMap extends GridPane{
         applyCss();
         layout();
 
-        terrainList = myLogic.getLevelTerrain();
+        terrainList = myLogic.getLevelTerrain(width, height);
+        setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
         terrainList.stream().forEach(img -> getChildren().add(img.getAsNode()));
 
-        setBackground(new Background(new BackgroundFill(Color.DARKGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
 
 //        createFilledTestTerrain(width, height);
 //        createSquareTestTerrain(width, height);
@@ -68,6 +69,10 @@ public class GamePlayMap extends GridPane{
 
         imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
         imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
+    }
+
+    public double getGridSize(){
+        return terrainList.get(0).getAsNode().getBoundsInParent().getWidth();
     }
 
 //    //NOT yet used

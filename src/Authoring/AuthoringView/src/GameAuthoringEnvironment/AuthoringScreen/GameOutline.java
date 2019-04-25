@@ -2,110 +2,114 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import Configs.GamePackage.Game;
-import javafx.scene.Group;
-import javafx.scene.Node;
+import Configs.MapPackage.MapConfig;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-//import javafx.scene.input.MouseEvent;
+import javafx.scene.input.MouseButton;;
 import javafx.scene.layout.Pane;
-
-import java.io.File;
-import java.lang.reflect.Array;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //TODO Change all magic values
 
-public class GameOutline extends Screen{
+public class GameOutline extends Screen {
 
     private Pane myContent;
-    private ImageView myImage;
     private int myHeight;
     private int myWidth;
     private TreeView<Configurable> myTreeView = new TreeView<>();
+    private Game myGame;
+    private GameOutline gameOutline;
 
-    public GameOutline(int width, int height){
+    public ImageView getMyImage(){
+        Image test = new Image(getClass().getResourceAsStream("/resources/" +"Folder.png"));
+        ImageView imageView = new ImageView(test);
+        imageView.setFitWidth(25);
+        imageView.setFitHeight(25);
+
+        return imageView;
+    }
+
+    public GameOutline(int width, int height) {
         super(width, height);
+        gameOutline = this;
         myHeight = height;
         myWidth = width;
         myContent = getContent();
-        Game myGame = new Game();
-        setContent(myGame);
     }
 
 
-
-    public void setContent(Game game) {
-
-       /* Image test = new Image(getClass().getResourceAsStream("/ButtonImages/"+"Folder.png"));
-        myImage = new ImageView(test);
-        //TODO magic numbers should be changed based on the screensize
-        myImage.setFitHeight(50);
-        myImage.setFitWidth(50);*/
-    }
-
-    public void makeTreeView(Game game){
+    public void makeTreeView(Game game) {
+        myContent.getChildren().remove(myTreeView);
+        myGame = game;
         TreeItem<Configurable> myRoot = new TreeItem<>(game);
-        createRecursion(myRoot);
+        createTreeView(myRoot);
         myTreeView.setRoot(myRoot);
         setCellFactory();
         myContent.getChildren().add(myTreeView);
     }
 
-    //recursively create a treeview
-    private void createRecursion(TreeItem<Configurable> myConfigurable) {
+    //recursively creates a treeview - only creates something that has been defined
+    private void createTreeView(TreeItem<Configurable> myConfigurable) {
 
 
         Map<String, Object> myMap = myConfigurable.getValue().getConfiguration().getDefinedAttributes();
 
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
-            if (!value.getClass().isArray()  && value.getClass().isInstance(Configurable.class)) {
+            //value is not an array, just a single object
+            if (value instanceof Configurable) {
                 try {
                     TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
                     myConfigurable.getChildren().add(treeItem);
-                    createRecursion(treeItem);
+                    //don't create  additional treeitem for mymap
+                    if(!key.toLowerCase().equals("mymap")){
+                        createTreeView(treeItem);
+                    }
                 } catch (Exception e) {
                     //TODO Handle Error
                     e.printStackTrace();
                 }
-            }else if(value.getClass().isArray()){
+            //value is an array
+            } else if (value.getClass().isArray()) {
 
                 Object[] valueArray = (Object[]) value;
-                for(int b=0; b<valueArray.length ; b++){
-                    Configurable configurable = (Configurable) valueArray[b];
-                    TreeItem<Configurable> treeItem = new TreeItem<>(configurable);
-                    myConfigurable.getChildren().add(treeItem);
-                    createRecursion(treeItem);
+                for (Object object : valueArray) {
+                    if(object instanceof Configurable) {
+                        TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) object);
+                        myConfigurable.getChildren().add(treeItem);
+                        createTreeView(treeItem);
+                    }
                 }
             }
         }
     }
 
-    private void setCellFactory(){
+    private void setCellFactory() {
 
         myTreeView.setCellFactory(tree -> {
             //TODO Set Images Accordingly
             TreeCell<Configurable> cell = new TreeCell<>() {
                 @Override
                 public void updateItem(Configurable item, boolean empty) {
-                    super.updateItem(item, empty) ;
+                    super.updateItem(item, empty);
                     if (empty) {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        setText(item.getLabel());
-                    }
+                            try {
+                                setText(item.getClass().getDeclaredField("myLabel").get(null) + ": " + item.getName());
+                            } catch (IllegalAccessException | NoSuchFieldException e) {
+                                //TODO Error checking
+                                e.printStackTrace();
+                            }
+                        setGraphic(getMyImage());
+                        }
+
                 }
             };
-            //controlTreeCellMouseClick(cell);
-            return cell ;
+            controlTreeCellMouseClick(cell);
+            return cell;
         });
     }
 
@@ -113,15 +117,79 @@ public class GameOutline extends Screen{
     private void controlTreeCellMouseClick(TreeCell<Configurable> cell) {
 
         cell.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                if (mouseEvent.getClickCount() == 2) {
-                    //TODO Implement reflection here
-
+            if (mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+                Object object = cell.getTreeItem().getValue();
+                try {
+                    findMyClass(object, myGame);
+                } catch (NoSuchFieldException e) {
+                    //TODO Error checking
                 }
             }
         });
+    }
 
+    //recursively search the right class
+    private void findMyClass(Object myObject, Configurable configurable) throws NoSuchFieldException {
+
+        //if myobject is myGame
+        if (myObject.equals(configurable)) {
+            showTheScreen((Configurable) myObject);
+        }
+
+        Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
+        System.out.println(myMap);
+        for (String key : myMap.keySet()) {
+            var value = myMap.get(key);
+            //base case
+            if (value.equals(myObject)) {
+                showTheScreen((Configurable) value);
+            }
+            // if value configurable recurse!
+            else if (!value.getClass().isArray() && value instanceof Configurable) {
+                Configurable temp = (Configurable) value;
+                findMyClass(myObject, temp);
+                // if value is an array
+            } else if (value.getClass().isArray()) {
+
+                Object[] valueArray = (Object[]) value;
+                for (int b = 0; b < valueArray.length; b++) {
+                    if (valueArray[b].equals(myObject)) {
+                        showTheScreen((Configurable) valueArray[b]);
+                    } else {
+                        Configurable myConfigurable = (Configurable) valueArray[b];
+                        findMyClass(myObject, myConfigurable);
+                    }
+                }
+            }
+        }
     }
 
 
+   public void showTheScreen(Configurable myConfigurable) throws NoSuchFieldException {
+
+       Map<String, Object> myAttributesMap = new HashMap<>();
+       Map<String, Object> definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
+
+       //Handle MapConfig
+       if (myConfigurable.getClass().getSimpleName().toLowerCase().equals("mapconfig")) {
+           if (!definedAttributesMap.keySet().equals(null)) {
+               MapConfig mapConfig = (MapConfig) myConfigurable;
+               Map<String, Object> levelMap = mapConfig.getLevel().getConfiguration().getDefinedAttributes();
+               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, levelMap, ((MapConfig) myConfigurable).getLevel());
+               configurableMap.resetConfigurations();
+           } else {
+               ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+               configurableMap.setConfigurations();
+           }
+
+
+       }
+       else {
+           GameController gameController = new GameController();
+           gameController.createConfigurable(myConfigurable);
+       }
+   }
+
+
 }
+

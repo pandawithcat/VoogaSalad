@@ -1,19 +1,8 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
-import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
-import Configs.Behaviors.Behavior;
 import Configs.Configurable;
-import Configs.Configuration;
-import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.GamePackage.Game;
-import Configs.GamePackage.GameBehaviors.GameBehavior;
-import Configs.LevelPackage.Level;
-import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
-import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
-import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,38 +10,28 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.*;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.List;
 
 
 public class GameController {
 
-    private Stage popupwindow;
     private GameController myGameController;
     private Game myGame;
-    AuthoringVisualization myAuthoringVisualization;
+    private Map<String, List<Object>> configuredObjects;
 
     public GameController() {
         myGameController = this;
         myGame = new Game();
-        createConfigurable(myGame);
+        configuredObjects = new HashMap<>();
     }
 
     public Game getMyGame(){
@@ -60,273 +39,365 @@ public class GameController {
     }
 
 
-    public void createConfigurable(Configurable myConfigurable){
-
+    public void createConfigurable(Configurable myConfigurable) throws NoSuchFieldException {
         Stage popupwindow = new Stage();
-
         List<Button> allButton = new ArrayList<>();
-
-        popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
-
-        Map<String, Object> myAttributesMap = new HashMap<>();
-        Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
-
         VBox layout = new VBox(10.00);
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
-
-        for (String key : attributesMap.keySet()) {
-            var value = attributesMap.get(key);
-
-            //handle primitives
-            System.out.println("These are the values" + key);
-            if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
-                Label myLabel = new Label(key);
-                TextField myTextField = new TextField();
-                Button chooseImageButton = new Button("Choose Image");
-
-                var nameAndTfBar = new HBox();
-                nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton);
-                chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                    //TODO DO Errorchecking/Refactor
-                    @Override
-                    public void handle(MouseEvent event) {
-                        System.out.println(value.getName());
-                        FileChooser fileChooser = new FileChooser();
-                        File selectedFile = fileChooser.showOpenDialog(popupwindow);
-                        String filepath = selectedFile.toString();
-                        myTextField.setText(filepath);
-                        myAttributesMap.put(key, filepath);
-
-                    }
-                }));
-                layout.getChildren().addAll(nameAndTfBar);
-
-            }
-            else if(value.equals(java.lang.String.class) || value.isPrimitive()){
-                Label myLabel = new Label(key);
-                TextField myTextField = new TextField();
-                Button confirmButton = new Button("Confirm");
-
-
-                var nameAndTfBar = new HBox();
-                nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
-                confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                    //TODO DO Errorchecking/Refactor
-                    @Override
-                    public void handle(MouseEvent event) {
-                        System.out.println(value.getName());
-                        System.out.println(value + "xxxxxxxxxxxxxxxxxxxx");
-                        if(value.getName().equals("int")){
-                            myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
-                        }
-                        else if(value.getName().equals("long")){
-                            myAttributesMap.put(key, Long.parseLong(myTextField.getText()));
-                        }
-                        else if(value.getName().equals("double")){
-                            myAttributesMap.put(key, Double.parseDouble(myTextField.getText()));
-                        }
-                        else if(value.getName().equals("boolean")){
-                            myAttributesMap.put(key, Boolean.parseBoolean(myTextField.getText()));
-                        }
-                        else{
-                            myAttributesMap.put(key, myTextField.getText());
-                        }
-                    }
-                }));
-                allButton.add(confirmButton);
-                layout.getChildren().addAll(nameAndTfBar);
-            }
-
-            //Handle Paths
-            else if(value.isInstance(Paths.class)){
-
-                Button fileUploadButton = new Button("Upload Image");
-                FileChooser fileChooser = new FileChooser();
-                fileUploadButton.setOnMouseClicked(e -> {
-
-                    File selectedFile = fileChooser.showOpenDialog(popupwindow);
-                    if (selectedFile != null) {
-                        myAttributesMap.put(key, selectedFile);
-                    }
-                });
-                layout.getChildren().add(fileUploadButton);
-
-            }
-
-            //handle single object
-            //this single object is a link to others so it doesn't save anything to the myAttributesMap
-            else if(!value.isArray()){
-
-                Button myButton = new Button("Configure " + value.getSimpleName());
-                myButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        try {
-                            Class<?> clazz = Class.forName(value.getName());
-                            //special case: map TODO use reflection for this
-                            if(clazz.getSimpleName().equals("MapConfig")) {
-                                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap);
-                                configurableMap.setConfigurations();
-                                System.out.println(myAttributesMap);
-                            }
-                            else if(clazz.getSimpleName().equals("View")){
-//                                FileChooser fileChooser = new FileChooser();
-//                                File selectedFile = fileChooser.showOpenDialog(popupwindow);
-//                                String filepath = selectedFile.toString();
-//                                myAttributesMap.put(key, filepath);
-                                Constructor<?> cons = clazz.getConstructor(Configurable.class);
-                                var object = cons.newInstance(myConfigurable);
-                                System.out.println(object.getClass());
-                                createConfigurable((Configurable) object);
-                            }
-
-                            else{
-                                //TODO idf clazz does not taken in myconfigurable as a parameter, then error
-                                Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
-                                var object = cons.newInstance(myConfigurable);
-                                System.out.println(object.getClass());
-                                createConfigurable((Configurable) object);}
-                        } catch ( ClassNotFoundException|NoSuchMethodException|InstantiationException|IllegalAccessException|InvocationTargetException e) {
-                            //TODO ErrorChecking
-                            e.printStackTrace();
-                        }
-
-                    }
-                }));
-                layout.getChildren().add(myButton);
-            }
-
-            //handle list
-            else if(value.isArray() ) {
-                if(value.getComponentType().getClass().isInstance(Configurable.class)) {
-
-                    List<Object> tempList = new ArrayList<>();
-                    Label listLabel = new Label("Add new " + value.getComponentType().getSimpleName() + " here");
-                    VBox tempVBOx  = new VBox();
-                    tempVBOx.setSpacing(10);
-                    var buttonBar = new HBox();
-                    buttonBar.setSpacing(10);
-                    Button addNew = new Button("add new " + value.getComponentType().getSimpleName());
-                    Button confirmButton = new Button("Confirm");
-
-                    buttonBar.getChildren().addAll(addNew, confirmButton);
-                    ListView sourceView = new ListView<>();
-
-                    addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            //adds to the visual
-                            sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
-                            try {
-                                //adds to the list
-                                Class<?> cl = Class.forName(value.getComponentType().getName());
-                                Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
-                                var object = cons.newInstance(myConfigurable);
-                                tempList.add(object);
-
-                            } catch (Exception e) {
-
-                            }
-
-                        }
-                    }));
-
-                    sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
-
-                        @Override
-                        public void handle(MouseEvent mouseEvent) {
-                            if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                                if (mouseEvent.getClickCount() == 2) {
-                                    try {
-
-                                        Class<?> cl = Class.forName(value.getComponentType().getName());
-                                        //TODO Use reflection to check this
-                                        if(cl.getSimpleName().contains("Behavior")){
-                                            Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
-                                            List<Class> behaviorList = (List<Class>) myField.get(null);
-                                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-                                        }
-                                        else{
-                                            createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
-                                        }
-
-                                    } catch (Exception e) {
-                                        //TODO Errorchecking
-                                        System.out.println(e);
-
-                                    }
-                                }
-                            }
-                        }
-                    }));
-
-                    confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-
-                        @Override
-                        public void handle(MouseEvent event) {
-                            System.out.println("dfadafadss");
-                            try {
-                                Class c = Class.forName(value.getComponentType().getName());
-//                                System.out.println(c.getClass().getName());
-                                Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
-//                                System.out.println(ob.getClass().getName());
-                                System.out.println("HYASFFDSHUALUKHDFASLUHKADFSLHUKDAHLUKFHLUKALHSDF");
-                                System.out.println(myConfigurable);
-                                if (myConfigurable instanceof Level){
-                                    System.out.println(((Level) myConfigurable).getMyMapConfig());
-                                }
-                                for(int a=0; a<tempList.size() ; a++){
-                                    ob[a] =(Object) tempList.get(a);
-                                }
-                                myAttributesMap.put(key, ob);
-                            }
-                            catch (ClassNotFoundException e){
-
-                            }
-                        }
-                    }));
-                    allButton.add(confirmButton);
-                    tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
-                    layout.getChildren().add(tempVBOx);
-                }
-            }
-        }
-
-        Button setButton = new Button("This config completed");
-        setButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //TODO Should close the screen but shows that game configuration is not complete
-                /*if(!myConfigurable.getConfiguration().isConfigurationComplete()){
-                    System.out.println(myAttributesMap);
-                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                    Alert alert = new Alert(Alert.AlertType.NONE);
-                    alert.setAlertType(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning");
-                    alert.setContentText("Atrributtes not all filled out");
-                    alert.showAndWait();
-                }
-                else {*/
-//                    System.out.println(myAttributesMap);
-//                    System.out.println(myConfigurable.getConfiguration().getAttributes());
-                    for(Button button: allButton){
-                        button.fireEvent(event);
-                    }
-                    myConfigurable.getConfiguration().setAllAttributes(myAttributesMap);
-                    popupwindow.close();
-
-            }
-        }));
-
+        //recursion
+        Map<String, Object> myAttributesMap = displayScreens(myConfigurable, popupwindow, allButton, layout);
+        Button setButton =  new ConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap).invoke();
         layout.getChildren().add(setButton);
-
         Scene scene= new Scene(layout, 500, 500);
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
 
     }
 
+    //traversing through the tree
+    private Map<String, Object> displayScreens(Configurable myConfigurable, Stage popupwindow, List<Button> allButton, VBox layout) throws NoSuchFieldException {
+        Map<String, Object> myAttributesMap = new HashMap<>();
+        Map<String, Class> attributesMap = myConfigurable.getConfiguration().getAttributes();
+        Map<String, Object> definedAttributesMap = myConfigurable.getConfiguration().getDefinedAttributes();
+
+        for (String key : attributesMap.keySet()) {
+            var value = attributesMap.get(key);
+
+            //handle booleans
+            if(value.equals(boolean.class)){
+                handleBooleanField(allButton, layout, myAttributesMap, key, definedAttributesMap);
+            }
+
+            //handle special case: require image
+            else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
+                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, definedAttributesMap);
+
+            }
+            //handle string and primitives except boolean
+            else if(value.equals(String.class) || value.isPrimitive()){
+                handlePrimitivesAndString(allButton, layout, myAttributesMap, key, value, definedAttributesMap);
+            }
+
+            //handle single object
+            else if(!value.isArray()){
+                handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
+            }
+
+            //handle Array
+            else{
+                handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
+                }
+            }
+
+        return myAttributesMap;
+    }
+
+    private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
+        List<Object> tempList = new ArrayList<>();
+        String objectLabel = null;
+        try {
+            objectLabel = value.getComponentType().getDeclaredField("myLabel").get(null).toString();
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            //TODO Error Catching
+            e.printStackTrace();
+        }
+        Label listLabel = new Label("Add new " + objectLabel + " here");
+        VBox tempVBOx  = new VBox();
+        tempVBOx.setSpacing(10);
+
+        ListView sourceView = new ListView<>();
+
+        var buttonBar = new HBox();
+        buttonBar.setSpacing(10);
+        Button addNew = new Button("Add new " + objectLabel);
+        Button confirmButton = new Button("Confirm");
+        Button removeButton = new Button("Remove");
+        Button bringExistingConfigButton = new Button("Use Existing " + objectLabel);
+
+        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton, bringExistingConfigButton);
+        bringExistingConfigButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ExistingConfigurations existingConfigurations = new ExistingConfigurations(tempList, sourceView, configuredObjects.get(key));
+
+            }
+        }));
+
+        //give pre configured options to the users
+        if (definedAttributesMap.keySet().contains(key)) {
+            Object[] objects = (Object[]) definedAttributesMap.get(key);
+            for (Object object : objects) {
+                tempList.add(object);
+                //TODO Check if it is configurable?
+                Configurable temp = (Configurable) object;
+                sourceView.getItems().add(temp.getName());
+            }
+        }
+        addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                handleArrayAddnewButton(sourceView, value, myConfigurable, tempList);
+
+            }
+        }));
+        sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView);
+                    }
+                }
+            }
+        }));
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                handleArrayConfirmButton(value, tempList, myAttributesMap, key);
+            }
+        }));
+        removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                handleArrayRemoveButton(sourceView, tempList);
+
+            }
+        }));
+        allButton.add(confirmButton);
+        tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
+        layout.getChildren().add(tempVBOx);
+    }
+
+    private void handleArrayRemoveButton(ListView sourceView, List<Object> tempList) {
+        int index = sourceView.getSelectionModel().getSelectedIndex();
+        sourceView.getItems().remove(index);
+        tempList.remove(index);
+    }
+
+    private void handleArrayConfirmButton(Class value, List<Object> tempList, Map<String, Object> myAttributesMap, String key) {
+        try {
+            Class c = Class.forName(value.getComponentType().getName());
+            Object[] ob = (Object[]) Array.newInstance(c, tempList.size());
+            for(int a=0; a<tempList.size() ; a++){
+                ob[a] = tempList.get(a);
+            }
+            myAttributesMap.put(key, ob);
+            List<Object> newObjects = new ArrayList<>(Arrays.asList(ob));
+            if(configuredObjects.get(key) != null){
+                configuredObjects.get(key).addAll(newObjects);
+            }else{
+                configuredObjects.put(key, newObjects);
+            }
+        }
+        catch (ClassNotFoundException e){
+            //TODO(Hyunjae) Errorchecking
+        }
+    }
+
+    private void handleArraySourceView(Class value, Configurable myConfigurable, Map<String, Object> myAttributesMap, List<Object> tempList, ListView sourceView) {
+        try {
+            Class<?> cl = Class.forName(value.getComponentType().getName());
+            if(cl.getSimpleName().contains("Behavior")){
+                Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                List<Class> behaviorList = (List<Class>) myField.get(null);
+                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+            }
+            else{
+                createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
+            }
+
+        } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            //TODO(Hyunjae) Errorchecking
+            System.out.println(e);
+
+        }
+    }
+
+    private void handleArrayAddnewButton(ListView sourceView, Class value, Configurable myConfigurable, List<Object> tempList) {
+        //adds to the visual
+        sourceView.getItems().add(value.getComponentType().getSimpleName() + (sourceView.getItems().size() + 1));
+        try {
+            //adds to the list
+            Class<?> cl = Class.forName(value.getComponentType().getName());
+            Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
+            var object = cons.newInstance(myConfigurable);
+            tempList.add(object);
+
+        } catch (Exception  e) {
+            //TODO(Hyunjae) ErrorChecking
+
+        }
+    }
+
+    private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String,Object> definedAttributesMap) throws NoSuchFieldException {
+        Button myButton = null;
+        try {
+            myButton = new Button("Configure " + value.getDeclaredField("myLabel").get(null));
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        //TODO Should refactor
+        myButton.setOnMouseClicked((new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                try {
+                    Class<?> clazz = Class.forName(value.getName());
+
+                    if(definedAttributesMap.keySet().contains(key)){
+
+                    }
+                    //Special Case: Map
+                    if (clazz.getSimpleName().equals("MapConfig")) {
+                        if (definedAttributesMap.keySet().contains(key)) {
+                            MapConfig mapConfig = (MapConfig) definedAttributesMap.get(key);
+                            ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, myAttributesMap, myConfigurable);
+                            configurableMap.resetConfigurations();
+                        } else {
+                            ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+                            configurableMap.setConfigurations();
+                        }
+
+                    //Special case : View because view is being used in multiple places
+                    } else if (clazz.getSimpleName().equals("View")) {
+                        Constructor<?> cons = clazz.getConstructor(Configurable.class);
+                        var object = cons.newInstance(myConfigurable);
+                        createConfigurable((Configurable) object);
+                        myAttributesMap.put(key, object);
+                    //Speical case : Behavior is different since drag and drop is required
+                    } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
+                        //only one behavior allowed
+                        if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
+                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                            List<Class> behaviorList = (List<Class>) myField.get(null);
+                            ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+
+                        }
+                        //multiple behaviors allowed
+                        else{
+                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                            List<Class> behaviorList = (List<Class>) myField.get(null);
+                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                        }
+                    }
+                    //rest should follow this
+                    else {
+                        Constructor<?> cons = clazz.getConstructor(myConfigurable.getClass());
+                        var object = cons.newInstance(myConfigurable);
+                        createConfigurable((Configurable) object);
+                        myAttributesMap.put(key, object);
+                    }
+
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
+                    //TODO ErrorChecking
+                    e.printStackTrace();
+                }
+
+            }
+        }));
+        layout.getChildren().add(myButton);
+    }
+
+
+    private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
+        //TODO get the label string from the properties file
+        Label myLabel = new Label(key);
+        TextField myTextField = new TextField();
+        if (definedAttributesMap.keySet().contains(key)) {
+            myTextField.setText(definedAttributesMap.get(key).toString());
+        }
+        Button confirmButton = new Button("Confirm");
+
+        var nameAndTfBar = new HBox();
+        nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            //TODO DO Errorchecking/Refactor
+            @Override
+            public void handle(MouseEvent event) {
+                if(value.getName().equals("int")){
+                    Integer a = Integer.parseInt(myTextField.getText());
+                    myAttributesMap.put(key, a.intValue());
+                }
+                else if(value.getName().equals("long")){
+                    Long b = Long.parseLong(myTextField.getText());
+                    myAttributesMap.put(key, b.longValue());
+                }
+                else if(value.getName().equals("double")){
+                    Double c =Double.parseDouble(myTextField.getText());
+                    myAttributesMap.put(key, c.doubleValue());
+                }
+                else{
+                    myAttributesMap.put(key, myTextField.getText());
+                }
+            }
+        }));
+        allButton.add(confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
+    }
+
+    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
+        Label myLabel = new Label(key);
+        TextField myTextField = new TextField();
+        if (definedAttributesMap.keySet().contains(key)) {
+            myTextField.setText(definedAttributesMap.get(key).toString());
+        }
+        Button chooseImageButton = new Button("Choose Image");
+        Button confirmButton = new Button("Confirm");
+
+        var nameAndTfBar = new HBox();
+        nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton, confirmButton);
+        chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            //TODO(Louis) Change this so that image is called in from the server
+            @Override
+            public void handle(MouseEvent event) {
+                FileChooser fileChooser = new FileChooser();
+                File selectedFile = fileChooser.showOpenDialog(popupwindow);
+                String filepath = selectedFile.toString();
+                myTextField.setText(filepath);
+            }
+        }));
+
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                myAttributesMap.put(key, myTextField.getText());
+            }
+        }));
+
+        allButton.add(confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
+    }
+
+    private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
+        HBox box = new HBox(10);
+        Label myLabel = new Label(key);
+        RadioButton trueButton = new RadioButton("True");
+        RadioButton falseButton = new RadioButton("False");
+        if (definedAttributesMap.keySet().contains(key)) {
+            if (definedAttributesMap.get(key).equals(true)) {
+                trueButton.setSelected(true);
+            } else {
+                falseButton.setSelected(true);
+            }
+        }
+        Button confirmButton = new Button("Confirm");
+        box.getChildren().addAll(myLabel, trueButton, falseButton);
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                    if(trueButton.isSelected()) {
+                        myAttributesMap.put(key, true);
+                    }
+                    else {
+                        myAttributesMap.put(key, false);
+                    }
+
+            }
+        }));
+        allButton.add(confirmButton);
+        layout.getChildren().add(box);
+    }
 
 
 }

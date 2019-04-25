@@ -1,23 +1,28 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
-import ActiveConfigs.Shooter;
+
+import Configs.ShooterConfig.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
-import Configs.Configurable;
 import Configs.Configuration;
 
 public class Shootable extends WeaponBehavior{
 
+    public static final String myLabel = "Shootable";
     @Configure
-    private String myLabel;
-    @Configure
-    protected Shooter myShooter;
+    private Shooter myShooter;
 
-    Configuration myConfiguration;
+    private Configuration myConfiguration;
     private WeaponConfig weaponConfig;
 
     public Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
         myConfiguration = new Configuration(this);
+        this.weaponConfig = weaponConfig;
+    }
+
+    @Override
+    public String getName() {
+        return myLabel;
     }
 
     @Override
@@ -28,11 +33,6 @@ public class Shootable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
-    }
-
-    @Override
-    public String getLabel() {
-        return myLabel;
     }
 
     public WeaponConfig getWeaponConfig() {

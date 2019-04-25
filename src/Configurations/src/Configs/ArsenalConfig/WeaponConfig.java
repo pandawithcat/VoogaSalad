@@ -1,18 +1,21 @@
 package Configs.ArsenalConfig;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.PlaceableOnPath;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
+
+import java.util.Arrays;
 
 
 public class WeaponConfig implements  Configurable, Viewable {
     Configuration myConfiguration;
+    public static final String myLabel= "Weapon";
     @Configure
-    private String myLabel;
+    private String myName;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure
     private View view;
-    //because the user needs to configure this part and this is the only way to pass in that information
     @Configure
     private boolean unlocked;
 
@@ -25,9 +28,13 @@ public class WeaponConfig implements  Configurable, Viewable {
     }
 
     public WeaponConfig(WeaponConfig weaponConfig) {
-        this.myLabel = weaponConfig.getLabel();
+        this.myName = weaponConfig.getName();
         this.behaviors = weaponConfig.getBehaviors();
         this.view = weaponConfig.getView();
+    }
+
+    public boolean isPathWeapon() {
+        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
     }
 
     public void setWeaponId(int weaponId) {
@@ -43,10 +50,9 @@ public class WeaponConfig implements  Configurable, Viewable {
         return myConfiguration;
     }
 
-
     @Override
-    public String getLabel() {
-        return myLabel;
+    public String getName() {
+        return myName;
     }
 
     public WeaponBehavior[] getBehaviors() {

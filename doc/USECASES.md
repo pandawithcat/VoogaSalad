@@ -42,7 +42,7 @@ set preferences specific to each game played: If a user wants a "hard" preferenc
 Brian's Use Cases (7):
 
 Adding a level:
-    While using the game authoring environment to create a new game, the user will likely want to create multiple levels for a game.  This will require a displayed list of levels created in the authoring environment along with a button to create a new level.  When creating a new level, there will need to be a level display window that outlines the map of the level and gives the user the ability to add objects to the map.  In the backend of the game authoring environment, the new level will need to be added to a list data strucutre holding information about each level.
+    While using the game authoring environment to create a new game, the user will likely want to create multiple levels for a game.  This will require a displayed list of levels created in the authoring environment adouble with a button to create a new level.  When creating a new level, there will need to be a level display window that outlines the map of the level and gives the user the ability to add objects to the map.  In the backend of the game authoring environment, the new level will need to be added to a list data strucutre holding information about each level.
     
 <<<<<<< HEAD
 Formatting a projectile:
@@ -59,7 +59,7 @@ Set Destroy Animation of Tower:
     When a user is going through the process of creating a tower, each of the design aspects of the object that the user needs to decide upon must be displayed in a box within the authoring environment.  In the case of a tower, one of these attributes will be the destruction animation of the tower.  When the user clicks to set the attribute, a list of options should appear that can be selected from.  In the backend, this would come in the form of a set list of animation files that the user has access to choosing and the name of this file being set as a string attribute within the new tower config object being created.
     
 Set Number of Enemies in a Wave:
-    Part of a level in tower defense will be waveConfigs of enemies that will move from one part of the screen to another.  A level will have a list of waveConfigs and an attribute of a waveConfig will be the number of enemies in the waveConfig.  This could be set by the user as an input text box in the frontend that the user will type a number into.  This would then translate to the setting of an attribute within the waveConfig config object to the number of enemies value passed from the frontend.
+    Part of a level in tower defense will be waveConfigs of enemies that will move from one part of the screen to another.  A level will have a list of waveConfigs and an attribute of a wave will be the number of enemies in the wave.  This could be set by the user as an input text box in the frontend that the user will type a number into.  This would then translate to the setting of an attribute within the wave config object to the number of enemies value passed from the frontend.
     
 Changing the Image Size of a Game Element:
     When adding elements to a level in the authoring environment, a user might want to change the size of the element being added to the map.  One way a user should be able to do this is through a text input of a height and width value.  This will be stored in the backend as atribute values stored in the config object of the element.  Another way this could be edited by the game designer is by using click and drag size adjustment similar to image modification in powerpoint for example.  When the user ends the drag, the new height and width attribute will automatically be passed to save in the config object in the same way.
@@ -85,7 +85,7 @@ Christina's use cases (6):
 
 ### Authoring Environment
 
-* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, along with other setters, will be called so that the object will contain an instance variable of the value `5`.
+* **Adding an enemyConfig that enters the map at a certain rate:** In the GUI, the user will be able to define when enemies enter the screen. If they define a certain enemyConfig to enter the screen every 2 seconds, they will be able to type in that value. When this is sent to the backend, a new `EnemyConfig` (implements `EnemyConfigInterface`) object will be created. Then a `setEnteringRate(int ms)`, adouble with other setters, will be called so that the object will contain an instance variable of the value `5`.
 
 * **Add new tower types:** New tower types will be created by creating a new TowerConfig object, and setting the image, towertype, weapon type, and name of the object. This new tower may only be available on certain terrain types. This towerconfig will then be packaged with the game xml object and used by the game player to display all of the tower options available to the user. 
 
