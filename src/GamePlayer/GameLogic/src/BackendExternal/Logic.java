@@ -6,6 +6,7 @@ import Configs.GamePackage.Game;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
+import ExternalAPIs.LeaderBoardEntry;
 import ExternalAPIs.PlayerData;
 import ExternalAPIs.UserState;
 import com.thoughtworks.xstream.XStream;
@@ -69,6 +70,11 @@ public class Logic {
         return myPlayerData.getAuthoredGames();
     }
 
+    // Returns the highest scores recorded of the number of specified players
+    public List<LeaderBoardEntry> getLeaderBoardEntries(int numberOfEntries){
+        return myPlayerData.compileLeaderboardEntries(numberOfEntries);
+    }
+
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void createGameInstance2(GameInfo selectedGame){
@@ -88,6 +94,13 @@ public class Logic {
     public void startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
     }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void saveGameState(){
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        myPlayerData.saveUserState(currentUserState);
+    }
+
 
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
@@ -221,12 +234,6 @@ public class Logic {
 
     boolean checkIfGameEnd(){
         return myGame.isGameOver();
-    }
-
-    // Do Not Call Yet !!!!!!!!!!!!!!!
-    public void saveGameState(){
-        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
-        myPlayerData.saveUserState(currentUserState);
     }
 
 

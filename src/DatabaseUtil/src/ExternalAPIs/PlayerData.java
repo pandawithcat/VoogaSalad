@@ -55,9 +55,47 @@ public class PlayerData extends Data{
         int currentLevel = savingState.getMyCurrentLevel();
         int currentScore = savingState.getMyCurrentScore();
 
+        updateLeaderBoard(currentScore);
+
         // TODO: Store Data in database
 
 
+    }
+
+    private void updateLeaderBoard(int score){
+        currentUserID = currentUserID;
+        currentGameID = currentGameID;
+        // TODO: Use this info to query into database to update the specified users high score in the leaderboard if it
+        // is greater than the current saved entry
+        // TODO: If the user is not in the leaderboard create an entry for them
+
+        int prevHighScore = 0;
+
+        if (score > prevHighScore){
+            // TODO: Replace saved score with new one
+        }
+    }
+
+    /**
+     * Retrieves the specified number of leaders from the database for a particular game and passes their information in
+     * a list of LeaderBoardEntry Objects
+     * @param numberOfEntries - number of leaders to retrieve
+     * @return - unmodifiable list of LeaderBoardEntry objects
+     */
+    public List<LeaderBoardEntry> compileLeaderboardEntries(int numberOfEntries){
+        currentGameID = currentGameID;
+        // TODO: using current game ID query for the highest "numberOfEntries" leader information
+        ArrayList<LeaderBoardEntry> leaderInfo = new ArrayList<>();
+
+        for (int i = 0; i < numberOfEntries; i++){
+            String userName = new String();
+            int score = 0;
+
+            LeaderBoardEntry newEntry = new LeaderBoardEntry(i + 1, userName, score);
+            leaderInfo.add(newEntry);
+        }
+
+        return Collections.unmodifiableList(leaderInfo);
     }
 
 
