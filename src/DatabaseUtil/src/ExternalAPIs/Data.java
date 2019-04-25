@@ -1,5 +1,7 @@
 package ExternalAPIs;
 
+import Internal.Authentification;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,12 +16,11 @@ import java.util.PrimitiveIterator;
 import java.util.Random;
 import java.util.regex.Pattern;
 
+import static Internal.Authentification.*;
+
 public abstract class Data {
 
     private final int MAX_LOGIN_ATTEMPTS = 3;
-    private final String HASHING_ALGORITHM = "MD5";
-    private final int MINIMUM_PASSWORD_LENGTH = 6;
-    private final String NUMBER_CHECKER = "[0-9]";
 
     // TODO: Might store this in backend
     protected String currentUserID;
@@ -67,30 +68,6 @@ public abstract class Data {
         }
     }
 
-    private void checkArgumentLengths(String username, String password){
-        if (username.length() == 0){
-            throw new IllegalArgumentException("You must enter a username in the field provided");
-        }
-        if (password.length() == 0){
-            throw new IllegalArgumentException("You must enter a password in the field provided");
-        }
-    }
-
-    private byte[] hashPassword(String password, byte[] salt){
-        byte[] passwordBytes = password.getBytes();
-        byte[] plainTextBytes = new byte[passwordBytes.length + salt.length];
-        System.arraycopy(passwordBytes, 0, plainTextBytes, 0, passwordBytes.length);
-        System.arraycopy(salt, 0, plainTextBytes, passwordBytes.length, salt.length);
-        try {
-            MessageDigest passwordDigest = MessageDigest.getInstance(HASHING_ALGORITHM);
-            passwordDigest.update(plainTextBytes);
-            return passwordDigest.digest();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     /**
      * Takes in new user information error checks it and stores it to the database
      * @param username - Unique string to identify user
@@ -112,22 +89,6 @@ public abstract class Data {
         currentUserID = "me";
     }
 
-    private void checkArgumentLengths(String username, String password, String passwordRepeated){
-        checkArgumentLengths(username, password);
-        if (passwordRepeated.length() == 0){
-            throw new IllegalArgumentException("You must re-enter a password in the field provided");
-        }
-    }
-
-    private void passwordErrorChecking(String password, String passwordRepeated){
-        if (password.length() < MINIMUM_PASSWORD_LENGTH || !Pattern.compile(NUMBER_CHECKER).matcher(password).find()){
-            throw new IllegalArgumentException("Password must be at least 6 characters and contain a number");
-        }
-        else if (! password.equals(passwordRepeated)){
-            throw new IllegalArgumentException("Password and repeated password do not match");
-        }
-    }
-
     /**
      * Provides basic information about each game to be displayed as the game library
      * @return - List of GameInfo Objects containing basic information about created games
@@ -139,7 +100,6 @@ public abstract class Data {
      * @param chosenGameInfo - One of the game info objects selected from the provided list
      * @return - Java File object containing the XML file of the selected game
      */
-
     public String getGameFile(GameInfo chosenGameInfo){
         // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
         currentGameID = chosenGameInfo.getGameTitle();
