@@ -17,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -108,12 +109,54 @@ public class LoadingSplashScreen extends Application{
         rect.setArcHeight(20);
         rect.getStyleClass().add("my-rect");
         final Button button = createStartButton("green","Log In", 0, 100);
+        final Button newAccount = createStartButton("green","Create New Account", 0, 100);
         button.setOnAction(e-> availableGames());
         GridPane gridPane = userLogIn();
         background.getChildren().add(rect);
         background.getChildren().add(gridPane);
-        background.getChildren().add(button);
+        HBox signInOptions = new HBox(button,newAccount);
+        newAccount.setOnAction(e -> createAccount(gridPane, signInOptions));
+        signInOptions.setSpacing(15);
+        background.getChildren().add(signInOptions);
     }
+
+    private void createAccount(GridPane gridPane, HBox signInOptions){
+        //TODO: ADD ERROR CHECKING TO SEE IF USERNAME ALREADY TAKEN
+        background.getChildren().remove(gridPane);
+        background.getChildren().remove(signInOptions);
+        final GridPane grid = new GridPane();
+        grid.setId("login");
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setHgap(10);
+        grid.setVgap(10);
+
+        final Label userName = new Label("User Name:");
+        grid.add(userName, 0, 1);
+        final TextField userTextField = new TextField();
+        grid.add(userTextField, 1, 1);
+
+        final Label pw = new Label("Password:");
+        grid.add(pw, 0, 2);
+        final TextField pwTextField = new TextField();
+        grid.add(pwTextField, 1, 2);
+
+        final Label pwConfirm = new Label("Confirm Password:");
+        grid.add(pwConfirm, 0, 3);
+        final PasswordField pwBox = new PasswordField();
+        grid.add(pwBox, 1, 3);
+
+        //TODO: help mark this throws off the formatting
+        final Button button = createStartButton("green","Create Account", 0, 50);
+        grid.add(button,0,4);
+        button.setOnAction(e -> {
+            background.getChildren().remove(grid);
+            background.getChildren().add(gridPane);
+            background.getChildren().add(signInOptions);
+        });
+        grid.setAlignment(Pos.CENTER);
+        background.getChildren().add(grid);
+    }
+
     private GridPane userLogIn(){
         final GridPane grid = new GridPane();
         grid.setId("login");
