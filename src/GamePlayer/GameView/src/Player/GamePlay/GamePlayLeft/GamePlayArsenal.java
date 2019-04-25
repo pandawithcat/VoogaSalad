@@ -75,16 +75,6 @@ public class GamePlayArsenal extends VBox {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
-//                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
-//                ImageView imageView = new ImageView(image);
-//                weaponMap.put(imageView.toString(), id);
-//                System.out.println(imageView);
-//                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
-//                imageView.setFitWidth(arsenalWidth / 2);
-//                imageView.setFitHeight(arsenalWidth / 2);
-//                Tooltip t = new Tooltip("A Square");
-//                Tooltip.install(imageView, t);
-//                viewList.add(new Pair(imageView,myArsenal.get(id).getName()));
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
             }
@@ -125,8 +115,11 @@ public class GamePlayArsenal extends VBox {
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
+            myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
 
+            //if is always false
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                System.out.println("location valid");
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
             }
 

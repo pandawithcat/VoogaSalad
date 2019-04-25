@@ -38,10 +38,12 @@ public class GamePlayMain extends Application {
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
     private KeyFrame frame;
+    private boolean gameOver;
+    private Stage primaryStage;
     @Override
     public void start(Stage stage){
         try {
-            Stage primaryStage = stage;
+            primaryStage = stage;
             root = new Group();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
@@ -49,7 +51,11 @@ public class GamePlayMain extends Application {
             startScreen.getStylesheets().add("gameplay.css");
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), root, stage, mediaPlayer);
+            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
+                    () -> closeStage(),
+                    root,
+                    stage,
+                    mediaPlayer);
             root.getChildren().add(myGameIDE);
             frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
             animation = new Timeline();
@@ -103,18 +109,19 @@ public class GamePlayMain extends Application {
     }
 
     private void step(){
-        //TODO: yeah idk if this is best design below
-        //TODO: if the level end is true stop the game loop
-        //TODO: dynamically update views with methods below
-        //TODO: changelistener for dragging objects
-        //TODO: render method
-        //TODO: dynamically update views with methods below
-        //TODO: change all the scores and lives and
-        //getViewsToBeAdded
-        //getRemovedImageViews
-        //
-        myGameIDE.getLeft().getMap().update(currMilliSecond);
-        currMilliSecond+=MILLISECOND_DELAY;
+        if (!gameOver) {
+            myGameIDE.getLeft().getMap().update(currMilliSecond);
+            currMilliSecond += MILLISECOND_DELAY;
 //        System.out.println(currMilliSecond);
+        }
     }
+
+    public void endLoop(){
+        gameOver = true;
+    }
+
+    private void closeStage(){
+        primaryStage.close();
+    }
+
 }

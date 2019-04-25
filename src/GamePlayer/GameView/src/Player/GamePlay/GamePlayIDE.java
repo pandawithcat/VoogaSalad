@@ -15,10 +15,16 @@ public class GamePlayIDE extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayIDE(Logic logic, PlayInterface method, PlayInterface fastFoward, Group root, Stage stage, MediaPlayer mediaPlayer){
+    public GamePlayIDE(Logic logic, PlayInterface method, PlayInterface fastFoward, EndLoopInterface endLoop,
+                       SelectionInterface home,
+                       Group root,
+                       Stage stage,
+                       MediaPlayer mediaPlayer){
         setPrefWidth(ScreenSize.getWidth());
         setPrefHeight(ScreenSize.getHeight());
-        myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic);
+        myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic, endLoop,
+                home,
+                stage);
         myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, method, fastFoward,
                 myGameLeft.getMap(), root, stage, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);
