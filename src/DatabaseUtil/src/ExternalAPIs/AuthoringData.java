@@ -6,6 +6,11 @@ import java.util.List;
 
 public class AuthoringData extends Data{
 
+    public enum ImageType {
+        // TODO: Add any other image types to this list
+        TERRAIN, WEAPON, PROJECTILE, ENEMY;
+    }
+
     public AuthoringData(){
         super();
     }
@@ -52,6 +57,23 @@ public class AuthoringData extends Data{
 
         // TODO: Store byte[] in table of currentGameID
     }
+
+    /**
+     * Returns a list of the image ids of the images saved in the database with the corresponding tag
+     * @param imageType - Enum value denoting the type of image
+     * @return - List of image ids corresponding to the specific type
+     */
+    public List<Integer> getImages(ImageType imageType){
+        ArrayList<Integer> imageIDs = new ArrayList<>();
+        String type = imageType.toString();
+        // TODO: Use this string to query the database image library for image ids that match this type
+        int i = 138;
+        imageIDs.add(i);
+
+        return imageIDs;
+    }
+
+
 
     // TODO: Override Data todo get images method and call one below as well
     // TODO: Method call to download images with the standard flag selected

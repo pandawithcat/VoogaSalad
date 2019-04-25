@@ -79,6 +79,11 @@ public class Model {
         return (Game)serializer.fromXML(gameXMLString);
     }
 
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public List<Integer> getImageOptions(AuthoringData.ImageType type){
+        return myAuthoringData.getImages(type);
+    }
+
     private void updatePropertiesFile() throws IOException{
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();
