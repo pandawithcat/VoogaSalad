@@ -44,7 +44,7 @@ public class MapFeature {
 
     private void setImage(View view) {
         try {
-            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
+            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+ view.getImage())));
             myImageView.setFitHeight(view.getHeight());
             myImageView.setFitWidth(view.getWidth());
         }
@@ -99,9 +99,6 @@ public class MapFeature {
         this.displayDirection = direction;
         pixelXPos = (Game.gridPixelWidth/gridWidth)*gridXPos;
         pixelYPos = (Game.gridPixelHeight/gridWidth)*gridYPos;
-        System.out.println("HIDNFNLDJFLKJL");
-        System.out.println(pixelXPos);
-        System.out.println(pixelYPos);
         setImageView(pixelXPos,pixelYPos,direction);
     }
 

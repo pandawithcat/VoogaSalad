@@ -55,7 +55,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     @Override
-    public void update(long ms) {
+    public void update(double ms) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
