@@ -48,7 +48,10 @@ public class ConfigurableMap {
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
+    private List<Point> exitPointsList = new ArrayList<>();
+    private List<Point> enterPointsList = new ArrayList<>();
     private ListView<String> tileView = new ListView<>();
+    private ListView<Point> enterPosView, exitPosView;
     private String currentTile = "Grass";
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
@@ -122,14 +125,19 @@ public class ConfigurableMap {
 
     private VBox createEnterView(){
         VBox myVbox = new VBox(10);
-        ListView<Point> enterPosView = new ListView();
-
+        Label enterPosLabel = new Label("Enter Positions");
+        enterPosView = new ListView();
+        enterPosView.getItems().addAll(enterPointsList);
+        myVbox.getChildren().addAll(enterPosLabel, enterPosView);
         return myVbox;
     }
 
     private VBox createExitView(){
         VBox myVbox = new VBox(10);
-
+        Label exitPosLabel = new Label("Exit Positions");
+        exitPosView = new ListView();
+        exitPosView.getItems().addAll(exitPointsList);
+        myVbox.getChildren().addAll(exitPosLabel, exitPosView);
         return myVbox;
     }
 
@@ -202,6 +210,7 @@ public class ConfigurableMap {
         VBox myBox = new VBox(10);
 
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
+        //TODO Change this so that no specific tiles are made
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");
@@ -218,7 +227,9 @@ public class ConfigurableMap {
         addTileImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                //TODO Create Pop up screen that can configure Tile
+                //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
+                ConfigureTile configureTile = new ConfigureTile();
+
             }
         });
 
@@ -244,16 +255,17 @@ public class ConfigurableMap {
                     tileList.add(tile);
                 }
 
+
+                enterPointsList = enterPosView.getItems();
+                exitPointsList = exitPosView.getItems();
+                //TODO Need to clean this up
                 passedMap=new HashMap<>();
                 passedMap.put("myName",mapName);
                 passedMap.put("myTerrain",tileList);
-                passedMap.put("enemyEnteringGridXPos", 0);
-                passedMap.put("enemyEnteringGridYPos", 0);
+                passedMap.put("enemyEnteringGridPosList", enterPointsList);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("enemyExitGridXPos",19);
-                passedMap.put("enemyExitGridYPos",19);
-                passedMap.put("gridHeight",GRID_HEIGHT);
-                passedMap.put("gridWidth",GRID_WIDTH);
+                passedMap.put("enemyExitGridYPos",exitPointsList);
+
 
                 m.getConfiguration().setAllAttributes(passedMap);
 
@@ -266,38 +278,8 @@ public class ConfigurableMap {
        return subButton;
     }
 
-    //    private void addSizeLabel(){
-//
-//        TextField txt = new TextField();
-//        txt.setPromptText("Size of Tile to Modify");
-//        Button sub = new Button("Submit");
-//        Label lab = new Label();
-//
-//        sub.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                if(txt.getText()!=null&&!txt.getText().isEmpty()&&Integer.parseInt(txt.getText())<6){
-//                    modTileSize=Integer.parseInt(txt.getText());
-//                    lab.setText("");
-//                    System.out.println(modTileSize);
-//                }
-//                else{
-//                    lab.setText("Invalid Input");
-//                }
-//
-//            }
-//        });
-//        .addRow(3,txt,sub);
-//
-//    }
-
 
     private void addGridEvent(){
-        ContextMenu contextMenu = new ContextMenu();
-        MenuItem menuItem1 = new MenuItem("Set as Enter Pos");
-        MenuItem menuItem2 = new MenuItem("Set as Exit Pos");
-        contextMenu.getItems().addAll(menuItem1, menuItem2);
-
 
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -311,7 +293,27 @@ public class ConfigurableMap {
                         item.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                             @Override
                             public void handle(ContextMenuEvent event) {
+                                ContextMenu contextMenu = new ContextMenu();
+                                MenuItem menuItem1 = new MenuItem("Set as Enter Pos");
+                                menuItem1.setOnAction(new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent t) {
+                                        TerrainTile terrainTile = (TerrainTile) item;
+                                        Point enterPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
+                                        enterPosView.getItems().add(enterPoint);
+                                    }
+                                });
+
+                                MenuItem menuItem2 = new MenuItem("Set as Exit Pos");
+                                menuItem2.setOnAction(new EventHandler<ActionEvent>() {
+                                    public void handle(ActionEvent t) {
+                                        TerrainTile terrainTile = (TerrainTile) item;
+                                        Point exitPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
+                                        exitPosView.getItems().add(exitPoint);
+                                    }
+                                });
+                                contextMenu.getItems().addAll(menuItem1, menuItem2);
                                 contextMenu.show(map, event.getScreenX(), event.getScreenY());
+
                             }
                         });
 
@@ -324,19 +326,8 @@ public class ConfigurableMap {
     }
 
     public void updateCell(MouseEvent mouseEvent){
-        //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
-
-        Integer col = GridPane.getColumnIndex(source);
-        Integer row = GridPane.getRowIndex(source);
-
         source.changeImage(currentTile);
 
-
-
-
-
-
     }
-
 }
