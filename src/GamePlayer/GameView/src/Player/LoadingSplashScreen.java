@@ -112,19 +112,20 @@ public class LoadingSplashScreen extends Application{
         rect.getStyleClass().add("my-rect");
         final Button button = createStartButton("green","Log In", 0, 100);
         final Button newAccount = createStartButton("green","Create New Account", 0, 100);
-        newAccount.setOnAction(e -> createAccount());
         button.setOnAction(e-> availableGames());
         GridPane gridPane = userLogIn();
         background.getChildren().add(rect);
         background.getChildren().add(gridPane);
         HBox signInOptions = new HBox(button,newAccount);
+        newAccount.setOnAction(e -> createAccount(gridPane, signInOptions));
         signInOptions.setSpacing(15);
         background.getChildren().add(signInOptions);
-
     }
 
-    private GridPane createAccount(){
+    private void createAccount(GridPane gridPane, HBox signInOptions){
         //TODO: ADD ERROR CHECKING TO SEE IF USERNAME ALREADY TAKEN
+        background.getChildren().remove(gridPane);
+        background.getChildren().remove(signInOptions);
         final GridPane grid = new GridPane();
         grid.setId("login");
         grid.setPadding(new Insets(25, 25, 25, 25));
@@ -134,17 +135,29 @@ public class LoadingSplashScreen extends Application{
         grid.add(userName, 0, 1);
         final TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
+
         final Label pw = new Label("Password:");
-        grid.add(userName, 0, 2);
+        grid.add(pw, 0, 2);
         final TextField pwTextField = new TextField();
         grid.add(pwTextField, 1, 2);
+
         final Label pwConfirm = new Label("Confirm Password:");
-        grid.add(pw, 0, 3);
+        grid.add(pwConfirm, 0, 3);
         final PasswordField pwBox = new PasswordField();
-        grid.add(pwConfirm, 1, 3);
+        grid.add(pwBox, 1, 3);
+
+        //TODO: help mark this throws off the formatting
+        final Button button = createStartButton("green","Create Account", 0, 50);
+        grid.add(button,0,4);
+        button.setOnAction(e -> {
+            background.getChildren().remove(grid);
+            background.getChildren().add(gridPane);
+            background.getChildren().add(signInOptions);
+        });
         grid.setAlignment(Pos.CENTER);
-        return grid;
+        background.getChildren().add(grid);
     }
+
     private GridPane userLogIn(){
         final GridPane grid = new GridPane();
         grid.setId("login");
