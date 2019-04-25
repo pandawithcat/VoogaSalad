@@ -8,19 +8,30 @@ import Configs.MapPackage.Terrain;
 import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.text.TabExpander;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -30,8 +41,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigurableMap {
-    public static final int GRID_WIDTH = 20;
-    public static final int GRID_HEIGHT = 20;
+
+
+    public static final int GRID_WIDTH = 64;
+    public static final int GRID_HEIGHT = 40;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -40,7 +53,6 @@ public class ConfigurableMap {
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
     private String grassTileImage="grass.jpg";
-    private VBox layout;
     private final int tileViewWidth = 400;
     private final int tileViewHeight = 400;
     private Map<String, Object> myAttributesMap;
@@ -48,10 +60,8 @@ public class ConfigurableMap {
     private String mapName;
     private TextField nameTf;
     private Configurable myLevel;
-    private Button nameButton;
+    private Button nameButton, chooseTileImageButton;
     private MapConfig myAttributesMapConfig;
-    private VBox nameBox;
-    private Label mapLbl, tileListLbl, messageLbl;
     private Scene scene;
 
     public ConfigurableMap(Map<String, Object> attributeMap, Configurable level){
@@ -68,48 +78,73 @@ public class ConfigurableMap {
     }
 
     public void setConfigurations(){
-        setUpBasicScreen();
         initMap();
         addComponentToScreen();
     }
 
     public void resetConfigurations(){
-        setUpBasicScreen();
         reinitMap();
         addComponentToScreen();
     }
 
     private void addComponentToScreen() {
-        initTileView();
-        // Add the Labels and Views to the Pane
-        layout.getChildren().addAll(messageLbl, nameBox, tileListLbl, map, tileView);
-        addSubmit();
 
-        scene= new Scene(layout, 800, 800);
-        popUpWindow.setScene(scene);
-        popUpWindow.showAndWait();
-    }
-
-    private void setUpBasicScreen() {
         popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
 
-        layout = new VBox(10.00);
+        Group allLayout = new Group();
+        VBox tileViewBox = createTileView();
+        VBox nameBox = createNameBox();
+        VBox enterViewBox = createEnterView();
+        VBox exitViewBox = createExitView();
+        VBox otherLayout = new VBox();
+        //otherLayout.setLayoutX();
+        //otherLayout.setLayoutY();
 
-        nameBox = new VBox(10);
-        mapLbl = new Label("Map");
-        nameTf = new TextField();
-        if(myAttributesMapConfig != null){
-        nameTf.setText(myAttributesMapConfig.getName());}
-        nameButton = new Button("Confirm");
-        nameButton.setOnMouseClicked(this::handleConfirmButton);
-        nameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
 
-        tileListLbl = new Label("Tiles");
-        messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
+
+        otherLayout.getChildren().addAll(nameBox, tileViewBox, enterViewBox, exitViewBox);
+        Button submitButton = addSubmit();
+        allLayout.getChildren().addAll(map, otherLayout, submitButton);
+
+
+
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        double screenHeight = primaryScreenBounds.getHeight();
+        double screenWidth = primaryScreenBounds.getWidth();
+
+        scene= new Scene(allLayout, screenWidth, screenHeight );
+        popUpWindow.setScene(scene);
+        popUpWindow.showAndWait();
     }
 
+    private VBox createEnterView(){
+        VBox myVbox = new VBox(10);
+        ListView<Point> enterPosView = new ListView();
+
+        return myVbox;
+    }
+
+    private VBox createExitView(){
+        VBox myVbox = new VBox(10);
+
+        return myVbox;
+    }
+
+    private VBox createNameBox(){
+        VBox myNameBox = new VBox(10);
+        Label mapLbl = new Label("Map Name");
+        TextField nameTf = new TextField();
+        if(myAttributesMapConfig != null){
+            nameTf.setText(myAttributesMapConfig.getName());}
+        Button nameButton = new Button("Confirm");
+        nameButton.setOnMouseClicked(this::handleConfirmButton);
+        myNameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
+
+        return myNameBox;
+    }
     private void reinitMap(){
         List<Terrain> existingTerrainList = myAttributesMapConfig.getTerrain();
         map = new GridPane();
@@ -130,6 +165,8 @@ public class ConfigurableMap {
         }
         addGridEvent();
 
+        //map.setLayoutX();
+        //map.setLayoutY();
     }
 
 
@@ -154,10 +191,17 @@ public class ConfigurableMap {
         }catch (FileNotFoundException e){
 
         }
+
+
+        //map.setLayoutX();
+        //map.setLayoutY();
     }
 
-    public void initTileView(){
-        tileView.setPrefSize(tileViewWidth, tileViewHeight);
+    public VBox createTileView(){
+        //tileView.setPrefSize(tileViewWidth, tileViewHeight);
+        VBox myBox = new VBox(10);
+
+        Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");
@@ -169,8 +213,19 @@ public class ConfigurableMap {
                 //System.out.println(currentTile);
             }
         });
+
+        Button addTileImageButton = new Button("Add New Tile");
+        addTileImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //TODO Create Pop up screen that can configure Tile
+            }
+        });
+
+        myBox.getChildren().addAll(messageLbl, tileView, addTileImageButton);
+        return  myBox;
     }
-    private void addSubmit(){
+    private Button addSubmit(){
         //TODO Refactor
         Button subButton = new Button("Submit Map");
         subButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -208,8 +263,7 @@ public class ConfigurableMap {
                 popUpWindow.close();
             }
         });
-        layout.getChildren().add(subButton);
-
+       return subButton;
     }
 
     //    private void addSizeLabel(){
@@ -236,29 +290,39 @@ public class ConfigurableMap {
 //        .addRow(3,txt,sub);
 //
 //    }
-    private void addEnemEnterPosButton(){
-        TextField enemEnterX = new TextField();
-        Button confirmEnemEnterX = new Button("Confirm");
-        TextField enemEnterY = new TextField();
-        Button confirmEnemEnterY = new Button("Confirm");
-        TextField enemExitX = new TextField();
-        Button confirmEnemExitX = new Button("Confirm");
-        TextField enemExitY = new TextField();
-        Button confirmEnemExitY = new Button("Confirm ");
 
-    }
 
     private void addGridEvent(){
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItem1 = new MenuItem("Set as Enter Pos");
+        MenuItem menuItem2 = new MenuItem("Set as Exit Pos");
+        contextMenu.getItems().addAll(menuItem1, menuItem2);
+
+
         map.getChildren().forEach(item-> {
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    updateCell(mouseEvent);
+                    MouseButton button = mouseEvent.getButton();
+                    if(button == MouseButton.PRIMARY){
+                        updateCell(mouseEvent);
+                    }
+                    else if(button == MouseButton.SECONDARY){
+                        item.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+                            @Override
+                            public void handle(ContextMenuEvent event) {
+                                contextMenu.show(map, event.getScreenX(), event.getScreenY());
+                            }
+                        });
+
+                    }
                 }
             });
 
         });
+
     }
+
     public void updateCell(MouseEvent mouseEvent){
         //System.out.println("HELLO");
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
