@@ -134,15 +134,21 @@ public class GameSelection extends Application {
         root.getChildren().add(gameStart);
     }
 
+    //TODO: Mark fix formatting
     private void displayGameOptions(StackPane selection, GameInfo gameInfo){
         root.getChildren().remove(selection);
         StackPane options = new StackPane();
         options.applyCss();
-        gameStart.setAlignment(Pos.CENTER);
+        options.layout();
+        options.setAlignment(Pos.CENTER);
         Text choice = new Text("Would you like to start from your saved progress?");
         options.getChildren().add(choice);
         Button fromStart = new Button("No, start over");
+        fromStart.setTranslateX(0);
+        fromStart.setTranslateY(100);
         Button fromSaved = new Button("Yes");
+        fromSaved.setTranslateX(0);
+        fromSaved.setTranslateY(100);
         options.getChildren().add(fromStart);
         options.getChildren().add(fromSaved);
         fromStart.setOnAction(e -> startGame(gameInfo));
