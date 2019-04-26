@@ -34,7 +34,7 @@ public class GamePlayMain extends Application {
     // Added by Brian
     private Logic myLogic = new Logic(screenWidth, screenHeight);
     private Timeline animation;
-    private GamePlayGUI myGameIDE;
+    private GamePlayGUI myGameGUI;
     private Group root;
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
@@ -52,12 +52,11 @@ public class GamePlayMain extends Application {
             startScreen.getStylesheets().add("gameplay.css");
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            myGameIDE = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
+            myGameGUI = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
                     () -> closeStage(),
                     root,
-                    stage,
                     mediaPlayer);
-            root.getChildren().add(myGameIDE);
+            root.getChildren().add(myGameGUI);
             frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
@@ -111,7 +110,7 @@ public class GamePlayMain extends Application {
 
     private void step(){
         if (!gameOver) {
-            myGameIDE.getLeft().getMap().update(currMilliSecond);
+            myGameGUI.getLeft().getMap().update(currMilliSecond);
             currMilliSecond += MILLISECOND_DELAY;
 //        System.out.println(currMilliSecond);
         }
