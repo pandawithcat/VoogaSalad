@@ -9,18 +9,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-public class GamePlayIDE extends HBox {
+public class GamePlayGUI extends HBox {
     public static final double LEFT_RATIO = 0.75;
     public static final double RIGHT_RATIO = 0.25;
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayIDE(Logic logic, PlayInterface method, PlayInterface fastFoward, Group root, Stage stage, MediaPlayer mediaPlayer){
+    public GamePlayGUI(Logic logic, PlayInterface method, PlayInterface fastFoward, EndLoopInterface endLoop,
+                       SelectionInterface home,
+                       Group root,
+                       MediaPlayer mediaPlayer){
         setPrefWidth(ScreenSize.getWidth());
         setPrefHeight(ScreenSize.getHeight());
-        myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic);
+        myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic, endLoop,
+                home);
         myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, method, fastFoward,
-                myGameLeft.getMap(), root, stage, mediaPlayer);
+                myGameLeft.getMap(), root, home, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
     public GamePlayLeftSide getLeft(){

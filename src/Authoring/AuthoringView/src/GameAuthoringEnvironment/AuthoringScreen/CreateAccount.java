@@ -22,6 +22,7 @@ public class CreateAccount {
         setContent();
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
         Scene scene= new Scene(layout, 500, 500);
+        scene.getStylesheets().add("authoring_style.css");
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
     }
