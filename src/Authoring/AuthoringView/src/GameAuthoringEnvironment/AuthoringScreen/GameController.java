@@ -50,6 +50,7 @@ public class GameController {
         Button setButton =  new ConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap).invoke();
         layout.getChildren().add(setButton);
         Scene scene= new Scene(layout, 500, 500);
+        scene.getStylesheets().add("authoring_style.css");
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
 

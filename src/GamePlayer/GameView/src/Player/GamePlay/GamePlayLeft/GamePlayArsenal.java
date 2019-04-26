@@ -42,11 +42,6 @@ public class GamePlayArsenal extends VBox {
     private Group myRoot;
     private Map <String, Integer> weaponMap;
 
-
-//    private Map <Integer, Info> myTestWeapons ;
-    private Map <Integer, Info> myTestObstacles ;
-
-
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
 
@@ -63,9 +58,6 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
 
-        //START TEST STUFF
-//        createTestWeaponArsenal();
-//        createTestObstacleArsenal();
         viewList = new ArrayList<>();
         setArsenalDisplay(myArsenal,arsenalWidth);
 
@@ -83,16 +75,6 @@ public class GamePlayArsenal extends VBox {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
-//                Image image = new Image(new FileInputStream("resources/" + myArsenal.get(id).getImage()));
-//                ImageView imageView = new ImageView(image);
-//                weaponMap.put(imageView.toString(), id);
-//                System.out.println(imageView);
-//                System.out.println("  ID: " + weaponMap.get(imageView.toString()));
-//                imageView.setFitWidth(arsenalWidth / 2);
-//                imageView.setFitHeight(arsenalWidth / 2);
-//                Tooltip t = new Tooltip("A Square");
-//                Tooltip.install(imageView, t);
-//                viewList.add(new Pair(imageView,myArsenal.get(id).getName()));
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
             }
@@ -126,28 +108,6 @@ public class GamePlayArsenal extends VBox {
 //        }
 //    }
 
-
-//    private ArrayList<TreeItem> getWeapons(List arsenal){
-//        ArrayList<TreeItem> weapons = new ArrayList<>();
-//        for (int i = 0; i < arsenal.size(); i++){
-////            String weaponName = arsenal.get(i).get;
-////            TreeItem tower = new TreeItem(weaponName);
-////            weapons.add(tower);
-//        }
-//        return weapons;
-//    }
-//
-//    private ArrayList<TreeItem> getObstacles(){
-//        ArrayList<TreeItem> obstacles = new ArrayList<>();
-//        TreeItem obstacle1 = new TreeItem("barrier");
-//        TreeItem obstacle2 = new TreeItem("yikes");
-//        TreeItem obstacle3 = new TreeItem("gang");
-//        obstacles.add(obstacle1);
-//        obstacles.add(obstacle2);
-//        obstacles.add(obstacle3);
-//        return obstacles;
-//    }
-
     private void dragDropped(DragEvent event){
         System.out.println("inside drop");
         Dragboard db = event.getDragboard();
@@ -155,8 +115,11 @@ public class GamePlayArsenal extends VBox {
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             System.out.println("drag dropped");
+            myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
 
+            //if is always false
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                System.out.println("location valid");
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
             }
 
@@ -253,22 +216,4 @@ public class GamePlayArsenal extends VBox {
         }
         return null;
     }
-
-
-//    //TEST DATA
-//    private void createTestWeaponArsenal(){
-//        Info testInfo = new Info("test", "weapon.png");
-//        myTestWeapons = new HashMap<>();
-//        for (int i = 0; i < 5; i++) {
-//            myTestWeapons.put(i, testInfo);
-//        }
-//    }
-//
-//    private void createTestObstacleArsenal(){
-//        Info testInfo = new Info("test", "obstacle.png");
-//        myTestObstacles = new HashMap<>();
-//        for (int i = 0; i < 5; i++) {
-//            myTestObstacles.put(i, testInfo);
-//        }
-//    }
 }
