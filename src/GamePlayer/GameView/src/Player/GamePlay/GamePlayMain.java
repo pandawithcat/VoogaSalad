@@ -55,7 +55,6 @@ public class GamePlayMain extends Application {
             myGameIDE = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
                     () -> closeStage(),
                     root,
-                    stage,
                     mediaPlayer);
             root.getChildren().add(myGameIDE);
             frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
