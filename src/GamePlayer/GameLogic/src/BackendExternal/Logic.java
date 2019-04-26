@@ -2,6 +2,7 @@ package BackendExternal;
 
 import ActiveConfigs.Cell;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
@@ -77,19 +78,12 @@ public class Logic {
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> getImageView(terrain, screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
+                .map(terrain -> terrain.getImageView(screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
                 .collect(Collectors.toList());
 
     }
 
-    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
 
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
-
-            return mapFeature.getImageView();
-//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
-
-    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
@@ -145,7 +139,8 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
-        View weaponView = myGame.getArsenal().getConfiguredWeapons()[weaponId-1].getView();
+        WeaponConfig weapon = myGame.getArsenal().getConfiguredWeapons()[weaponId-1];
+        View weaponView = weapon.getView();
         int height;
         int width;
         if(direction==90||direction==270) {
@@ -165,12 +160,11 @@ public class Logic {
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-                if (!grid[row][col].isValidWeaponPlacement()) return false;
+                if (!grid[row][col].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }
         }
         return true;
     }
-
 
 
     // View calls to move a dynamic object that has already been instantiated
@@ -184,8 +178,8 @@ public class Logic {
     // View calls this in game Loop to check if the level has ended
     // No input
     // Return: Boolean value indicating the status of the running level
-    public boolean checkIfLevelEnd(){
-        return myGame.isLevelOver();
+    boolean checkIfLevelEnd(){
+        return myGame.getLevelSpawner().isLevelOver();
     }
 
     public boolean checkIfGameEnd(){

@@ -47,10 +47,10 @@ public class Game implements Updatable, Configurable {
     private boolean gameOver;
     private boolean currentLevelOver;
 
+
     public Game(){
         myConfiguration = new Configuration(this);
         gameOver = false;
-        currentLevelNumber=0;
     }
 
     public Arsenal getArsenal() {
@@ -70,10 +70,6 @@ public class Game implements Updatable, Configurable {
         return gameOver;
     }
 
-    public boolean isLevelOver() {
-        return currentLevelOver;
-    }
-
 
     public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
@@ -81,10 +77,8 @@ public class Game implements Updatable, Configurable {
         }
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        currentLevelNumber = levelNumber;
         // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
         this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
-
     }
 
     public LevelSpawner getLevelSpawner() {

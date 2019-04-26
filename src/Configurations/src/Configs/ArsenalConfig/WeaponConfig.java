@@ -1,7 +1,10 @@
 package Configs.ArsenalConfig;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.PlaceableOnPath;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
+
+import java.util.Arrays;
 
 
 public class WeaponConfig implements  Configurable, Viewable {
@@ -28,6 +31,10 @@ public class WeaponConfig implements  Configurable, Viewable {
         this.myName = weaponConfig.getName();
         this.behaviors = weaponConfig.getBehaviors();
         this.view = weaponConfig.getView();
+    }
+
+    public boolean isPathWeapon() {
+        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
     }
 
     public void setWeaponId(int weaponId) {

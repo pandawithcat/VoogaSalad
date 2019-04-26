@@ -36,11 +36,9 @@ public class Cell implements Comparable{
         movementHeuristic = Integer.MAX_VALUE;
     }
 
-    public boolean isValidWeaponPlacement() {
-        return myWeaponConfig==null&&(myWeaponConfig.isPathWeapon() == myTerrain.isPath());
+    public boolean isValidWeaponPlacement(boolean isPathWeapon) {
+        return myWeaponConfig==null&&(isPathWeapon == myTerrain.isPath());
     }
-
-
 
     public ActiveWeapon getMyWeaponConfig() {
         return myWeaponConfig;

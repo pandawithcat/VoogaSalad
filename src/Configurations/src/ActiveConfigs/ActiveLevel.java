@@ -36,6 +36,7 @@ public class ActiveLevel extends Level implements Updatable {
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
+        myScore = 0;
     }
 
     private Cell[][] createMyGrid(){
@@ -47,8 +48,12 @@ public class ActiveLevel extends Level implements Updatable {
                 }
             }
         }
-        
+
         return tempGrid;
+    }
+
+    public void setScore(int score) {
+        this.myScore = score;
     }
 
     public void addToScore(int points) {
