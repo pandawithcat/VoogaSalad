@@ -1,7 +1,7 @@
 package Player.SetUp;
 
-import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import ExternalAPIs.GameInfo;
 import Player.GamePlay.GamePlayMain;
 import Player.ScreenSize;
 import javafx.application.Application;
@@ -40,7 +40,8 @@ public class GameSelection extends Application {
         scrollPane.setId("scrollpane");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefSize(width/3,height);
-        logic = new Logic();
+        // Changed by Brian
+        logic = new Logic(width, height);
         stage = primaryStage;
         stage.setX(width);
         stage.setY(height);

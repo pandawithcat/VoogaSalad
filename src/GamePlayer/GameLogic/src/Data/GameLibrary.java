@@ -1,7 +1,7 @@
 package Data;
 
-import BackendExternal.GameInfo;
 import Configs.GamePackage.Game;
+import ExternalAPIs.GameInfo;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -47,9 +47,9 @@ public class GameLibrary {
         myGameDetails.load(propertiesIS);
         for (String s : myGameDetails.stringPropertyNames()){
             String[] gameDetails = myGameDetails.getProperty(s).split(REGEX);
-            GameInfo newGameInfo = new GameInfo(s, gameDetails[0], gameDetails[1]);
+           // GameInfo newGameInfo = new GameInfo(s, gameDetails[0], gameDetails[1]);
             myXMLFileNames.put(s,gameDetails[2]);
-            myGames.add(newGameInfo);
+           // myGames.add(newGameInfo);
         }
     }
 

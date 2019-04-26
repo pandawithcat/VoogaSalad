@@ -1,23 +1,28 @@
-package BackendExternal;
+package ExternalAPIs;
 
 public class GameInfo {
 
+    private String myGameID;
     private String myGameTitle;
-    private String myGameThumbnail;
+    private int myGameThumbnailID;
     private String myGameDescription;
 
-    public GameInfo(String title, String thumbnail, String description){
+    public GameInfo(String title, int thumbnail, String description){
         myGameTitle = title;
-        myGameThumbnail = thumbnail;
+        myGameThumbnailID = thumbnail;
         myGameDescription = description;
+    }
+
+    public String getGameID() {
+        return myGameID;
     }
 
     public String getGameTitle(){
         return myGameTitle;
     }
 
-    public String getGameThumbnail(){
-        return myGameThumbnail;
+    public int getGameThumbnail(){
+        return myGameThumbnailID;
     }
 
     public String getGameDescription(){
