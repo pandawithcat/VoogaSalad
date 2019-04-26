@@ -1,8 +1,11 @@
 package ExternalAPIs;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javafx.scene.image.Image;
 
 public class PlayerData extends Data{
 

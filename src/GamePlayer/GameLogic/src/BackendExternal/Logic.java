@@ -11,6 +11,7 @@ import ExternalAPIs.PlayerData;
 import ExternalAPIs.UserState;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import javafx.scene.image.Image;
 
 import java.io.File;
 import java.util.List;
@@ -79,7 +80,7 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void createGameInstance2(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
-        String gameXMLString = myPlayerData.getGameFile(selectedGame);
+        String gameXMLString = myPlayerData.getGameString(selectedGame);
         myGame =  (Game)serializer.fromXML(gameXMLString);
     }
 
@@ -93,6 +94,11 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public Image getImage(int imageID){
+        return myPlayerData.getImage(imageID);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!

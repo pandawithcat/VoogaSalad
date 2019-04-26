@@ -1,11 +1,9 @@
 package ExternalAPIs;
 
 import Internal.Authentification;
+import javafx.scene.image.Image;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -100,12 +98,24 @@ public abstract class Data {
      * @param chosenGameInfo - One of the game info objects selected from the provided list
      * @return - Java File object containing the XML file of the selected game
      */
-    public String getGameFile(GameInfo chosenGameInfo){
+    public String getGameString(GameInfo chosenGameInfo){
         // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
         currentGameID = chosenGameInfo.getGameTitle();
         // TODO: Retrieve String of specific Games XML Bytes from the Database
         byte[] gameBytes = new byte[0];
         return new String(gameBytes);
+    }
+
+    /**
+     * Retrieves the byte array corresponding to the imageID and converts it into a java Image Object to use by the frontend
+     * @param imageID - integer value corresponding to the specific image in the database
+     * @return - Java image object requested
+     */
+    public Image getImage(int imageID){
+        // TODO: use imageID to get image file byte array
+        byte[] imageBytes = new byte[0];
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
     // TODO: Method call that downloads the images of a game

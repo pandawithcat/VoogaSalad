@@ -73,6 +73,19 @@ public class AuthoringData extends Data{
         return imageIDs;
     }
 
+    /**
+     * Stores byte array and image type enum of an image in the database image library and returns the Primary Key of the table
+     * @param imageBytes - byte array of image file
+     * @param imageType - enum corresponding to image being saved
+     * @return - Primary key of the image in the database to be referenced later
+     */
+    public int storeImage(byte[] imageBytes, ImageType imageType){
+        // TODO: Add image bytes and imageType to image library and get the Primary key of the image table
+
+        int imagePrimaryKey = 0;
+        return imagePrimaryKey;
+    }
+
 
 
     // TODO: Override Data todo get images method and call one below as well
