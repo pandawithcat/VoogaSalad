@@ -6,6 +6,7 @@ module DatabaseUtil {
     requires javafx.controls;
     requires java.desktop;
     requires javafx.web;
+    requires java.xml;
 
     exports ExternalAPIs;
 }

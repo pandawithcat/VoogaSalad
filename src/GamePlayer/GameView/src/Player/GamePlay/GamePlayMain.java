@@ -1,8 +1,10 @@
 package Player.GamePlay;
 
-import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import ExternalAPIs.GameInfo;
 import Player.ScreenSize;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,6 +14,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -28,7 +31,8 @@ public class GamePlayMain extends Application {
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
-    private Logic myLogic = new Logic();
+    // Added by Brian
+    private Logic myLogic = new Logic(screenWidth, screenHeight);
     private Timeline animation;
     private GamePlayIDE myGameIDE;
     private Group root;

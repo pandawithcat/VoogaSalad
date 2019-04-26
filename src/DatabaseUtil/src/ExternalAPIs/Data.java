@@ -100,7 +100,7 @@ public abstract class Data {
      */
     public String getGameString(GameInfo chosenGameInfo){
         // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
-        currentGameID = chosenGameInfo.getGameTitle();
+        currentGameID = chosenGameInfo.getGameID();
         // TODO: Retrieve String of specific Games XML Bytes from the Database
         byte[] gameBytes = new byte[0];
         return new String(gameBytes);

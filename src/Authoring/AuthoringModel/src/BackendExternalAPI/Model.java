@@ -42,10 +42,11 @@ public class Model {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!!
     private void saveBasicInfo(Game savingGame){
-        GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
+        // TODO: Uncomment when game class thumbnail is changed to integer
+        //GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
         // TODO: have a get method for the image ids used in the specific game
-        ArrayList<String> imageIDs = new ArrayList<>();
-        myAuthoringData.storeBasicInfo(savingInfo, imageIDs);
+        ArrayList<Integer> imageIDs = new ArrayList<>();
+        //myAuthoringData.storeBasicInfo(savingInfo, imageIDs);
     }
 
     public void saveToXML(Game newGame) {
@@ -92,7 +93,7 @@ public class Model {
     public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
         // TODO: Check length of image file and throw exception if too large
         int fileSize = (int) newImageFile.length();
-
+        checkFileSize(fileSize);
         byte[] fileBytes = new byte[fileSize];
         InputStream imageIS = new FileInputStream(newImageFile);
         imageIS.read(fileBytes);

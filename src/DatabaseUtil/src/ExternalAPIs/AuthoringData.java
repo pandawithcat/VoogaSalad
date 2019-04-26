@@ -1,5 +1,8 @@
 package ExternalAPIs;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,7 +30,7 @@ public class AuthoringData extends Data{
         // TODO: Change loop to go through authored games list
         for (int i = 0; i < 1; i++){
             // TODO: Fetch game info - title, thumbnail imageID, description
-            GameInfo nextGame = new GameInfo("Title", "Thumbnail.jpeg", "Description");
+            GameInfo nextGame = new GameInfo("Title", 8, "Description");
             authoredGames.add(nextGame);
         }
         // TODO: Download Image files with matching IDs to the local machine to display
@@ -39,10 +42,10 @@ public class AuthoringData extends Data{
      * @param savingInfo - GameInfo Object containing the basic info of the game being saved
      * @param usedImagesIDs - List of image IDs corresponding to the images being used in the game
      */
-    public void storeBasicInfo(GameInfo savingInfo, List<String> usedImagesIDs){
+    public void storeBasicInfo(GameInfo savingInfo, List<Integer> usedImagesIDs){
         String title = savingInfo.getGameTitle();
         String description = savingInfo.getGameDescription();
-        String gameThumbnailID = savingInfo.getGameThumbnail();
+        int gameThumbnailID = savingInfo.getGameThumbnail();
 
         // TODO: Save this information to the game library using game PrimaryKey or create a new one if value is null
     }
@@ -86,10 +89,16 @@ public class AuthoringData extends Data{
         return imagePrimaryKey;
     }
 
+    // Just for testing Purposes
 
-
-    // TODO: Override Data todo get images method and call one below as well
-    // TODO: Method call to download images with the standard flag selected
+    public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
+        // TODO: Check length of image file and throw exception if too large
+        int fileSize = (int) newImageFile.length();
+        byte[] fileBytes = new byte[fileSize];
+        InputStream imageIS = new FileInputStream(newImageFile);
+        imageIS.read(fileBytes);
+        return storeImage(fileBytes, imageType);
+    }
 
 
 }
