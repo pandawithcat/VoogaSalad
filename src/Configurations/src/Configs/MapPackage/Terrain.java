@@ -9,7 +9,6 @@ import java.io.File;
 
 
 public class Terrain implements Configurable, Viewable{
-    //TODO: change back, for testing
     public static final int TERRAIN_SIZE = 50;
 
     public static final String DISPLAY_LABEL = "Terrain";
@@ -31,7 +30,7 @@ public class Terrain implements Configurable, Viewable{
     private TerrainBehavior[] terrainBehaviors;
 
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
     private MapConfig myMapConfig;
 
 

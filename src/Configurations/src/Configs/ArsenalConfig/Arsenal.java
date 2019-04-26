@@ -2,30 +2,35 @@ package Configs.ArsenalConfig;
 
 import ActiveConfigs.ActiveWeapon;
 import Configs.*;
-import Configs.ArsenalConfig.WeaponUnlockerBehaviors.ArsenalBehavior;
 import Configs.GamePackage.Game;
-import Configs.LevelPackage.Level;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.*;
 
 
 //used to hold all of the possible weapons configured in the authoring environemnt
-public class Arsenal implements Configurable {
+public class Arsenal implements Configurable, Updatable {
     public static final String DISPLAY_LABEL = "Arsenal";
-    @Configure
-    private WeaponConfig[] allWeaponConfigOptions;
-    @Configure
-    private ArsenalBehavior arsenalBehavior;
-
-    private Configuration myConfiguration;
     private Game myGame;
+    @Configure
+    private WeaponConfig[] defaultWeapons;
+    @Configure
+    private WeaponWave[] unlockableWeapons;
 
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
+    @XStreamOmitField
+    private transient List<WeaponConfig> unlockedWeapons;
+    @XStreamOmitField
+    private transient List<WeaponConfig> newUnlockedWeapons;
 
 //    private WeaponConfig[] unlockedWeapons;
 
     public Arsenal(Game game) {
         myConfiguration = new Configuration(this);
         myGame = game;
+        unlockedWeapons = new ArrayList<>();
+        newUnlockedWeapons = new ArrayList<>();
     }
 
     public Game getGame() {
@@ -38,40 +43,47 @@ public class Arsenal implements Configurable {
     }
 
     @Override
+    public void update(double ms, Updatable parent) {
+        //parent is Game
+        Arrays.asList(unlockableWeapons).stream().filter(weaponWave -> !weaponWave.isUnlocked()).forEach(weaponWave -> weaponWave.update(ms, this));
+    }
+
+    public WeaponConfig getWeapon(int id) {
+        return unlockedWeapons.get(id-1);
+    }
+
+
+    public void addToUnlockedWeapons(List<WeaponConfig> weaponConfigs) {
+        newUnlockedWeapons.addAll(weaponConfigs);
+    }
+
+    @Override
     public Configuration getConfiguration() {
         return myConfiguration;
     }
 
-//        public Map<String, TransferImageView> getAllWeaponConfigOptions() {
-//        WeaponConfig[] myWeapons = (WeaponConfig[]) myConfiguration.getDefinedAttributes().get(allWeaponConfigOptions.toString());
-//        Map<String, TransferImageView> myMap = new ArrayList<>(Arrays.asList(myWeapons)).stream().collect(Collectors.toMap(weapon->weapon.getName(), weapon->weapon.getImageView()));
-//        return Collections.unmodifiableMap(myMap);
-//    }
 
     //note: ID is the index of the weapon+1
-    public Map<Integer, Info> getAllWeaponConfigOptions() {
-        WeaponConfig[] myWeaponConfigs = getConfiguredWeapons();
-        Map<Integer, Info> weaponInfoMap = new HashMap<>();
-        for(int i = 0; i< myWeaponConfigs.length; i++) {
-            weaponInfoMap.put(i+1, new Info(myWeaponConfigs[i].getName(), myWeaponConfigs[i].getImage(),myWeaponConfigs[i].getView().getHeight(),myWeaponConfigs[i].getView().getWidth()));
-            myWeaponConfigs[i].setWeaponId(i+1);
+    public Map<Integer, Info> getAllNewWeaponConfigOptions() {
+        if(unlockedWeapons.isEmpty()) {
+            newUnlockedWeapons.addAll(Arrays.asList(defaultWeapons));
         }
+        Map<Integer, Info> weaponInfoMap = new HashMap<>();
+        for(int i = 0; i< newUnlockedWeapons.size(); i++) {
+            weaponInfoMap.put(unlockedWeapons.size()+1, newUnlockedWeapons.get(i));
+            newUnlockedWeapons.get(i).setWeaponId(unlockedWeapons.size()+1);
+        }
+        unlockedWeapons.addAll(newUnlockedWeapons);
+        newUnlockedWeapons.clear();
         return Collections.unmodifiableMap(weaponInfoMap);
-
     }
 
     public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY, int direction){
-        WeaponConfig myWeaponConfig = getConfiguredWeapons()[ID-1];
+        WeaponConfig myWeaponConfig = unlockedWeapons.get(ID-1);
         ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth()), myGame.getActiveLevel());
         myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
         return activeWeapon.getMapFeature().getImageView();
     }
 
-    public WeaponConfig[] getConfiguredWeapons() {
-        return allWeaponConfigOptions;
-    }
-
-    //TODO: ALLOW CHANGE OF DIRECTION
-//    public WeaponConfig generateNewWeapon(int ID, double pixelX, double pixelY, double direction){
 
 }

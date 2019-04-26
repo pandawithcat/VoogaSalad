@@ -5,6 +5,7 @@ import Configs.GamePackage.Game;
 import Configs.LevelPackage.LevelBehaviors.LevelBehavior;
 import Configs.MapPackage.MapConfig;
 import Configs.Waves.Wave;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 
 public class Level implements Configurable{
@@ -19,7 +20,8 @@ public class Level implements Configurable{
 
     @Configure
     private LevelBehavior[] levelBehaviors;
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public Level(Game game) {
         myGame = game;
@@ -32,11 +34,6 @@ public class Level implements Configurable{
         levelBehaviors = level.getLevelBehaviors();
         myName = level.myName;
     }
-
-    protected Game getMyGame() {
-        return myGame;
-    }
-
 
     private LevelBehavior[] getLevelBehaviors() {
         return levelBehaviors;

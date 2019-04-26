@@ -1,8 +1,11 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.Configurable;
 import Configs.Configuration;
 import Configs.ImmutableImageView;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,18 +15,20 @@ public class PlaceableOnPath extends WeaponBehavior {
     @Configure
     protected int rangeOnPath;
 
-    Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
-    public PlaceableOnPath(WeaponConfig weaponConfig, Optional<Integer> rangeOnPath){
+    public PlaceableOnPath(WeaponConfig weaponConfig){
         super(weaponConfig);
         myConfiguration = new Configuration(this);
-        this.rangeOnPath = rangeOnPath.get();
     }
 
     @Override
     public void update(double ms, Updatable parent) {
-        //TODO
+        //TODO: does anything even have to be in here?
     }
+
+
 
     @Override
     public String getName() {

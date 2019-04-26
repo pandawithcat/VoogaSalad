@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class WeaponBehavior implements Behavior<WeaponConfig> {
     public static final String DISPLAY_LABEL = "Weapon Behavior";
 
-    WeaponConfig myWeaponConfig;
+    private WeaponConfig myWeaponConfig;
 
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of(
             AmmoExpirable.class,

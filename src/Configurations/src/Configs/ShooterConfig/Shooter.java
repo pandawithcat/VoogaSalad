@@ -22,7 +22,7 @@ public class Shooter implements Updatable , Configurable {
     @Configure
     private ShooterBehavior shooterBehavior;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
     @XStreamOmitField
     private transient int projectilesFired;
 
@@ -69,7 +69,7 @@ public class Shooter implements Updatable , Configurable {
 
     @Override
     public void update(double ms, Updatable parent) {
-        shooterBehavior.update(ms, this);
+        shooterBehavior.update(ms, parent);
 
     }
 }

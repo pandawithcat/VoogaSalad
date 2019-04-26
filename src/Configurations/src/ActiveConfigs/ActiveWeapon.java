@@ -21,7 +21,9 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
         myActiveLevel = activeLevel;
     }
 
-
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
+    }
 
     @Override
     public void update(double ms, Updatable parent) {

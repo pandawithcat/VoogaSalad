@@ -46,7 +46,6 @@ public class Logic {
         myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
-
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
@@ -145,7 +144,7 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-        return myGame.getArsenal().getAllWeaponConfigOptions();
+        return myGame.getArsenal().getAllNewWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
@@ -159,7 +158,7 @@ public class Logic {
     // Input: Time the method is called
     // No Return
     public void update(double currentTime){
-        myGame.update(currentTime);
+        myGame.update(currentTime, null);
     }
 
     // View calls to get objects to add to the view
@@ -196,7 +195,7 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
-        WeaponConfig weapon = myGame.getArsenal().getConfiguredWeapons()[weaponId-1];
+        WeaponConfig weapon = myGame.getArsenal().getWeapon(weaponId);
         View weaponView = weapon.getView();
         int height;
         int width;

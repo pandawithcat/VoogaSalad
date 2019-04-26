@@ -4,6 +4,7 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.awt.*;
 import java.util.List;
@@ -14,7 +15,8 @@ public class Movable extends WeaponBehavior{
     protected double movingSpeed;
     @Configure
     protected Point[] movingPattern;
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public Movable(WeaponConfig weaponConfig){
         super(weaponConfig);

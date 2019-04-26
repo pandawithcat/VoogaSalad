@@ -2,12 +2,13 @@ package Configs.ShooterConfig.ShooterBehaviors;
 
 import ActiveConfigs.ActiveLevel;
 import ActiveConfigs.ActiveProjectile;
+import ActiveConfigs.ActiveWeapon;
 import Configs.*;
 import Configs.ShooterConfig.Shooter;
 
 public class Radial implements Updatable, Configurable {
     public static final String DISPLAY_LABEL = "Radial Shooting";
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
     private Shooter myShooter;
 
     public Radial(Shooter shooter){
@@ -27,13 +28,13 @@ public class Radial implements Updatable, Configurable {
 
     @Override
     public void update(double ms, Updatable parent) {
+        //NOTE: parent is the actual active weapon
         if(ms%myShooter.getRateOfFire()==0) {
-            ActiveLevel myActiveLevel =  myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();
-            int weaponId = myShooter.getMyShootable().getWeaponConfig().getWeaponId();
-            MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
+            ActiveLevel myActiveLevel =  ((ActiveWeapon) parent).getActiveLevel();
+            MapFeature myShooterMapFeature = ((ActiveWeapon) parent).getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();
             double weaponY = myShooterMapFeature.getPixelYPos();
-            View view = myActiveLevel.getActiveWeapon(weaponId).getView();
+            View view = ((ActiveWeapon) parent).getView();
 
             double width = view.getWidth();
             double height = view.getHeight();

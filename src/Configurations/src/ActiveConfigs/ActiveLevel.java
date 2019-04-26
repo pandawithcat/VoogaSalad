@@ -23,6 +23,7 @@ public class ActiveLevel extends Level implements Updatable {
     private final int gridWidth;
     private final int gridHeight;
     private WaveSpawner myWaveSpawner;
+    private int escapedEnemies;
 
     public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
         super(level);
@@ -70,7 +71,6 @@ public class ActiveLevel extends Level implements Updatable {
 
     public boolean noMoreEnemiesLeft() {
         return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
-
     }
 
 
@@ -99,12 +99,17 @@ public class ActiveLevel extends Level implements Updatable {
         List<MapFeaturable> activeToRemove = new ArrayList<>();
         activeList.stream().forEach(active -> {
             ((Updatable)active).update(ms, this);
-            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) activeToRemove.add(active);
+            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) {
+                if(active instanceof ActiveEnemy) escapedEnemies++;
+                activeToRemove.add(active);
+            }
         });
         activeList.removeAll(activeToRemove);
     }
 
-
+    public int getEscapedEnemies() {
+        return escapedEnemies;
+    }
 
     private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
         if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
@@ -143,13 +148,6 @@ public class ActiveLevel extends Level implements Updatable {
         return retList;
     }
 
-
-    public ActiveWeapon getActiveWeapon(int id) throws IllegalStateException{
-        for(MapFeaturable weapon: activeWeapons) {
-            if(((ActiveWeapon)weapon).getWeaponId()==id) return (ActiveWeapon) weapon;
-        }
-        throw new IllegalStateException();
-    }
 
     public int getMyScore() {
         return myScore;

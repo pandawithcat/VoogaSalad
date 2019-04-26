@@ -15,8 +15,8 @@ public class ProjectileConfig implements Configurable, Viewable {
     private View view;
     @Configure
     private double velocityInSeconds;
-
-    //TODO: after first sprint implement behaviors
+    @Configure
+    private double strength;
     @Configure
     private ProjectileBehavior[] myBehaviors;
 
@@ -27,8 +27,12 @@ public class ProjectileConfig implements Configurable, Viewable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
-//        myBehaviors = projectileConfig.getMyBehaviors();
+        myBehaviors = projectileConfig.getMyBehaviors();
         myShooter = projectileConfig.getMyShooter();
+        myName = projectileConfig.myName;
+        view = projectileConfig.view;
+        velocityInSeconds = projectileConfig.velocityInSeconds;
+        strength = projectileConfig.strength;
     }
 
     @Override
@@ -44,6 +48,9 @@ public class ProjectileConfig implements Configurable, Viewable {
         return myBehaviors;
     }
 
+    public double getStrength() {
+        return strength;
+    }
 
     @Override
     public String getName() {

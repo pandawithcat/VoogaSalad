@@ -16,7 +16,7 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private View view;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
     public EnemyConfig(Wave wave) {
         myWave = wave;

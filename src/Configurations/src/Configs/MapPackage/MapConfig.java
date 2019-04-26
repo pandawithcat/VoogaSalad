@@ -4,6 +4,7 @@ import Configs.Configurable;
 import Configs.Configuration;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,8 @@ public class MapConfig implements Configurable {
     private int gridWidth;
 
 
-    private Configuration configuration;
+    @XStreamOmitField
+    private transient Configuration configuration;
     private Level myLevel;
 
     public MapConfig(Level level) {

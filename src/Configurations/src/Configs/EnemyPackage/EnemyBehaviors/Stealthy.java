@@ -5,12 +5,13 @@ package Configs.EnemyPackage.EnemyBehaviors;
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.ProjectilePackage.ProjectileConfig;
+import Configs.Updatable;
 
 public class Stealthy extends EnemyBehavior{
     public static final String DISPLAY_LABEL = "Stealthy";
     @Configure
     ProjectileConfig[] projectilesThatCanAttackMe;
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
     Stealthy(EnemyConfig enemyConfig){
         super(enemyConfig);

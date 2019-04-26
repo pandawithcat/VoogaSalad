@@ -5,13 +5,15 @@ import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.DisplayState;
 import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class AmmoExpirable extends WeaponBehavior {
     public static final String DISPLAY_LABEL = "Ammo-Expirable";
     @Configure
     private int ammoLimit;
 
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public AmmoExpirable(WeaponConfig weaponConfig){
         super(weaponConfig);

@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Configurable;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.DisplayState;
@@ -10,12 +11,13 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.Arrays;
 import java.util.List;
 
-public class HealthExpirable extends WeaponBehavior{
+public class HealthExpirable extends WeaponBehavior {
     public static final String DISPLAY_LABEL = "Health-Expirable";
     @Configure
     protected int amountOfHealth;
 
-    Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
     @XStreamOmitField
     private transient int damage;
 

@@ -4,6 +4,8 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 import Configs.ShooterConfig.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Shootable extends WeaponBehavior{
 
@@ -11,7 +13,8 @@ public class Shootable extends WeaponBehavior{
     @Configure
     private Shooter myShooter;
 
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
     private WeaponConfig weaponConfig;
 
     public Shootable(WeaponConfig weaponConfig){
@@ -27,7 +30,7 @@ public class Shootable extends WeaponBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        myShooter.update(ms, this);
+        myShooter.update(ms, parent);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class Game implements Updatable, Configurable {
     public static final double gridPixelWidth = 585;
     public static final double gridPixelHeight = 585;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
     public static final String DISPLAY_LABEL = "Game";
 
@@ -34,18 +34,20 @@ public class Game implements Updatable, Configurable {
     private Level[] levelList;
     @Configure
     private Arsenal myArsenal;
-//    @Configure
-//    private GameBehavior gameType;
+    @Configure
+    private GameBehavior gameType;
 
     @XStreamOmitField
     private transient double paneWidth;
     @XStreamOmitField
     private transient double paneHeight;
 
-    private LevelSpawner myLevelSpawner;
-    private int currentLevelNumber;
-    private boolean gameOver;
-    private boolean currentLevelOver;
+    @XStreamOmitField
+    private transient LevelSpawner myLevelSpawner;
+    @XStreamOmitField
+    private transient boolean gameOver;
+    @XStreamOmitField
+    private transient boolean gameWon;
 
 
     public Game(){
@@ -66,6 +68,18 @@ public class Game implements Updatable, Configurable {
     }
 
 
+    public void setGameOver() {
+        gameOver = true;
+    }
+
+    public void setGameWon(boolean gameWon) {
+        this.gameWon = gameWon;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
+    }
+
     public boolean isGameOver() {
         return gameOver;
     }
@@ -77,7 +91,6 @@ public class Game implements Updatable, Configurable {
         }
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
         this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
     }
 

@@ -1,8 +1,12 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import ActiveConfigs.ActiveWeapon;
 import Configs.Configuration;
+import Configs.DisplayState;
 import Configs.ImmutableImageView;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.List;
 
@@ -11,7 +15,8 @@ public class TimeExpirable extends WeaponBehavior{
     @Configure
     private double timeAlive;
 
-    Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public TimeExpirable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -20,7 +25,9 @@ public class TimeExpirable extends WeaponBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        //TODO
+        if(ms>=timeAlive) {
+            ((ActiveWeapon) parent).getMapFeature().setDisplayState(DisplayState.DIED);
+        }
     }
 
     @Override
