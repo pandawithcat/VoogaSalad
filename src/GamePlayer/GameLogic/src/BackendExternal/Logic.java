@@ -6,11 +6,15 @@ import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
+import ExternalAPIs.GameInfo;
+import ExternalAPIs.LeaderBoardEntry;
+import ExternalAPIs.PlayerData;
+import ExternalAPIs.UserState;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.EventObject;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,18 +30,33 @@ import java.util.stream.Collectors;
 public class Logic {
 
     private static final int DEFAULT_START_LEVEL = 0;
-//     TODO: Second Sprint
-//     private UserAuthenticator myUserAuthenticator;
-//     private myUserGameData;
+    private final double PANE_WIDTH;
+    private final double PANE_HEIGHT;
+
+
 
     private Game myGame;
     private GameLibrary myGameLibrary;
+    private PlayerData myPlayerData;
 
 
-    public Logic() {
+    public Logic(double paneWidth, double paneHeight) {
 //        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
+        myPlayerData = new PlayerData();
+        PANE_WIDTH = paneWidth;
+        PANE_HEIGHT = paneHeight;
 
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public boolean authenticateUser(String username, String password){
+        return myPlayerData.authenticateUser(username, password);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void createNewUser(String username, String password, String passwordRepeated){
+        myPlayerData.createNewUser(username, password, passwordRepeated);
     }
 
     // View will call this first to get the name and thumbnail file name of each game
@@ -47,10 +66,48 @@ public class Logic {
         return myGameLibrary.getImmutableGameList();
     }
 
-//    TODO: Implement User Authentification in Second Sprint
-//    UserData authenticateUser(String userName, String userPassword) throws IllegalAccessError{
-//
-//    }
+    // Final Implementation version of getGameOptions
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public List<GameInfo> getGameOptions2(){
+        return myPlayerData.getAuthoredGames();
+    }
+
+    // Returns the highest scores recorded of the number of specified players
+    public List<LeaderBoardEntry> getLeaderBoardEntries(int numberOfEntries){
+        return myPlayerData.compileLeaderboardEntries(numberOfEntries);
+    }
+
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void createGameInstance2(GameInfo selectedGame){
+        XStream serializer = new XStream(new DomDriver());
+        String gameXMLString = myPlayerData.getGameString(selectedGame);
+        myGame =  (Game)serializer.fromXML(gameXMLString);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void startAtUserState(){
+        UserState gameState = myPlayerData.getCurrentUserState();
+        myGame.getActiveLevel().setScore(gameState.getMyCurrentScore());
+        myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public void startAtDefaultState(){
+        myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    public Image getImage(int imageID){
+        return myPlayerData.getImage(imageID);
+    }
+
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+    public void saveGameState(){
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        myPlayerData.saveUserState(currentUserState);
+    }
+
 
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
