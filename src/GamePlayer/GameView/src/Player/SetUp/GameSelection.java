@@ -144,7 +144,7 @@ public class GameSelection extends Application {
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.setWidth(400);
-        rect.setHeight(200);
+        rect.setHeight(150);
         rect.getStyleClass().add("my-rect");
         Text choice = new Text("Would you like to start from your saved progress?");
         Button fromSaved = new Button("Yes");

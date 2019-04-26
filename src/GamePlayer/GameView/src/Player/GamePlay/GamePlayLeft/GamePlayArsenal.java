@@ -50,16 +50,14 @@ public class GamePlayArsenal extends VBox {
         isWeapon = true;
         myLogic = logic;
         myMap = map;
-        myArsenal = logic.getMyArsenal();
-
-        System.out.println(weaponMap);
         myRoot = root;
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
 
+        myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
-        setArsenalDisplay(myArsenal,arsenalWidth);
+        setArsenalDisplay(myArsenal);
 
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
@@ -69,7 +67,11 @@ public class GamePlayArsenal extends VBox {
         getChildren().add(myArsenalSelector);
     }
 
-    private void setArsenalDisplay(Map<Integer, Info> arsenal, double arsenalWidth) {
+    public void recreateArsenal(){
+        setArsenalDisplay(myLogic.getMyArsenal());
+    }
+
+    private void setArsenalDisplay(Map<Integer, Info> arsenal) {
         try {
             //creates internal mapping of weapon and id
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
@@ -90,42 +92,17 @@ public class GamePlayArsenal extends VBox {
 
     }
 
-//    private void switchWeaponDisplay(){
-//        if (!isWeapon) {
-//            //TODO: implement display switch
-//            viewList.clear();
-//            setArsenalDisplay(myTestWeapons, myArsenalWidth);
-//            isWeapon = true;
-//        }
-//    }
-//
-//    private void switchObstacleDisplay(){
-//        if (isWeapon) {
-//            //TODO: implement display switch
-//            viewList.clear();
-//            setArsenalDisplay(myTestObstacles, myArsenalWidth);
-//            isWeapon = false;
-//        }
-//    }
-
     private void dragDropped(DragEvent event){
-        System.out.println("inside drop");
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
-            System.out.println("drag dropped");
             myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
 
             //if is always false
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
-                System.out.println("location valid");
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
             }
-
-            System.out.println("Image: " + selectedImage.toString());
-            System.out.println("X: " + event.getX());
-            System.out.println("Y: " + event.getY());
             success = true;
         }
         event.setDropCompleted(success);
@@ -140,7 +117,6 @@ public class GamePlayArsenal extends VBox {
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
-            System.out.println("drag entered");
         }
         event.consume();
     }

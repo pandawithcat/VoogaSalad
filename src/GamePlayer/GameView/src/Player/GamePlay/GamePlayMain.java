@@ -86,33 +86,14 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
-//        long starttime = System.currentTimeMillis();
-//        long prevTime = -1000;
-//        while(true){
-//            long currTime = System.currentTimeMillis();
-//            long newtime = currTime-starttime;
-//            if (newtime - prevTime>50) {
-//                step(newtime);
-//                prevTime = newtime;
-//            }
-//            else{
-//                try {
-//                    Thread.sleep(50);
-//                }
-//                catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
         animation.setRate(1);
         animation.play();
     }
 
     private void step(){
         if (!gameOver) {
-            myGameGUI.getLeft().getMap().update(currMilliSecond);
+            myGameGUI.update(currMilliSecond);
             currMilliSecond += MILLISECOND_DELAY;
-//        System.out.println(currMilliSecond);
         }
     }
 
