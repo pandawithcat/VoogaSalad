@@ -45,7 +45,8 @@ public class AuthoringData extends Data{
     public void storeBasicInfo(GameInfo savingInfo, List<Integer> usedImagesIDs){
         String title = savingInfo.getGameTitle();
         String description = savingInfo.getGameDescription();
-        int gameThumbnailID = savingInfo.getGameThumbnail();
+        // TODO: Change this method call when database is working
+        int gameThumbnailID = savingInfo.getGameThumbnailNew();
 
         // TODO: Save this information to the game library using game PrimaryKey or create a new one if value is null
     }
