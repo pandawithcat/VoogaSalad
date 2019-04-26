@@ -179,7 +179,7 @@ public class LoadingSplashScreen extends Application{
         login.setId("green");
         login.setOnAction(e-> availableGames());
         grid.add(login, 0, 4);
-        Button newAccount = new Button("Create Account");
+        Button newAccount = new Button("Create New Account");
         grid.add(newAccount, 1, 4);
         newAccount.setId("green");
         newAccount.setOnAction(e->createAccount(grid));
