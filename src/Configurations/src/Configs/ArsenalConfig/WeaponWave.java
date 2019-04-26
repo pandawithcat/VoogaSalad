@@ -1,13 +1,14 @@
 package Configs.ArsenalConfig;
 
 import Configs.ArsenalConfig.WeaponWaveBehaviors.WeaponWaveBehavior;
-import Configs.Configurable.Configure;
+import Configs.Configurable;
+import Configs.Configuration;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Arrays;
 
-public class WeaponWave implements Updatable {
+public class WeaponWave implements Updatable, Configurable {
     public static final String DISPLAY_LABEL = "Weapon Group";
     @Configure
     private WeaponConfig[] weaponOptions;
@@ -16,11 +17,14 @@ public class WeaponWave implements Updatable {
 
     private transient Arsenal myArsenal;
     @XStreamOmitField
-    private boolean unlocked;
+    private transient boolean unlocked;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public WeaponWave(Arsenal arsenal) {
         myArsenal = arsenal;
         unlocked = false;
+        myConfiguration = new Configuration(this);
     }
 
     @Override
@@ -43,5 +47,15 @@ public class WeaponWave implements Updatable {
     public void unlock() {
         unlocked = true;
 
+    }
+
+    @Override
+    public Configuration getConfiguration() {
+        return myConfiguration;
+    }
+
+    @Override
+    public String getName() {
+        return DISPLAY_LABEL;
     }
 }

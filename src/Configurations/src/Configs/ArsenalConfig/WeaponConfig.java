@@ -22,8 +22,6 @@ public class WeaponConfig implements  Configurable, Viewable, Info {
     private WeaponBehavior[] behaviors;
     @Configure
     private View view;
-    @Configure
-    private int damage;
 
     private Arsenal myArsenal;
     @XStreamOmitField

@@ -13,7 +13,7 @@ import java.util.Optional;
 public class PlaceableOnPath extends WeaponBehavior {
     public static final String DISPLAY_LABEL = "Placeable On Path";
     @Configure
-    protected int rangeOnPath;
+    protected int damage;
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
@@ -28,7 +28,9 @@ public class PlaceableOnPath extends WeaponBehavior {
         //TODO: does anything even have to be in here?
     }
 
-
+    public int getDamage() {
+        return damage;
+    }
 
     @Override
     public String getName() {
