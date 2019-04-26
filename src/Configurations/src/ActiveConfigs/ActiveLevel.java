@@ -88,17 +88,17 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         updateActive(ms, activeEnemies);
         updateActive(ms, activeProjectiles);
         updateActive(ms, activeWeapons);
-        myWaveSpawner.update(ms);
+        myWaveSpawner.update(ms, this);
     }
 
     private void updateActive(double ms, List<MapFeaturable> activeList) {
         List<MapFeaturable> activeToRemove = new ArrayList<>();
         activeList.stream().forEach(active -> {
-            ((Updatable)active).update(ms);
+            ((Updatable)active).update(ms, this);
             if(active.getMapFeature().getDisplayState()==DisplayState.DIED) activeToRemove.add(active);
         });
         activeList.removeAll(activeToRemove);

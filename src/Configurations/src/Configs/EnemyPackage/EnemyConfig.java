@@ -6,7 +6,7 @@ import Configs.Waves.Wave;
 
 public class EnemyConfig implements Configurable, Viewable {
     private Wave myWave;
-    public static final String myLabel = "Enemy";
+    public static final String DISPLAY_LABEL = "Enemy";
     @Configure
     private String myName;
     @Configure

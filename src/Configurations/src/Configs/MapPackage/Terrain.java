@@ -12,7 +12,7 @@ public class Terrain implements Configurable, Viewable{
     //TODO: change back, for testing
     public static final int TERRAIN_SIZE = 50;
 
-    public static final String myLabel = "Terrain";
+    public static final String DISPLAY_LABEL = "Terrain";
     @Configure
     private String myName;
     @Configure

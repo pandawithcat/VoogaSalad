@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
+public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable, Attackable {
     public static final double CONVERSION_TO_SECONDS = .001;
     private MapFeature myMapFeature;
     private Cell[][] activeMapGrid;
@@ -54,6 +54,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myActiveLevel = activeLevel;
     }
 
+    @Override
+    public void attack(int damage) {
+        //TODO: FINISH
+    }
 
     @Override
     public MapFeature getMapFeature() {
@@ -62,7 +66,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature

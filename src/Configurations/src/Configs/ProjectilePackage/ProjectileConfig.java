@@ -8,7 +8,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
 
     Configuration myConfiguration;
-    public static final String myLabel="Projectile";
+    public static final String DISPLAY_LABEL="Projectile";
     @Configure
     private String myName;
     @Configure

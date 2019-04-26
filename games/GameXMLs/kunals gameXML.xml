@@ -6,7 +6,7 @@
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myLabel>round1</myLabel>
+      <DISPLAY_LABEL>round1</DISPLAY_LABEL>
       <myWaveConfigs>
         <Configs.Waves.Wave>
           <myLevel reference="../../.."/>

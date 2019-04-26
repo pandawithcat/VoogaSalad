@@ -22,7 +22,7 @@ public class Game implements Updatable, Configurable {
 
     private Configuration myConfiguration;
 
-    public static final String myLabel = "Game";
+    public static final String DISPLAY_LABEL = "Game";
 
     @Configure
     private String myName;
@@ -58,10 +58,10 @@ public class Game implements Updatable, Configurable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         if(myLevelSpawner.isGameOver()) gameOver = true;
         else {
-            myLevelSpawner.update(ms);
+            myLevelSpawner.update(ms, this);
         }
     }
 

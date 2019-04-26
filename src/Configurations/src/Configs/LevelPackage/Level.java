@@ -9,7 +9,7 @@ import Configs.Waves.Wave;
 
 public class Level implements Configurable{
     private Game myGame;
-    public static final String myLabel = "Level";
+    public static final String DISPLAY_LABEL = "Level";
     @Configure
     private String myName;
     @Configure

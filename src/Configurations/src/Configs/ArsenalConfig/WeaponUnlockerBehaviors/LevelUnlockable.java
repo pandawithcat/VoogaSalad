@@ -6,7 +6,7 @@ import Configs.Configuration;
 import Configs.Updatable;
 
 public class LevelUnlockable extends ArsenalBehavior implements Updatable {
-    public static final String myLabel = "Level-Unlockable";
+    public static final String DISPLAY_LABEL = "Level-Unlockable";
     private Arsenal myArsenal;
     private Configuration myConfiguration;
 
@@ -16,13 +16,13 @@ public class LevelUnlockable extends ArsenalBehavior implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
 
     }
 
     @Override
     public String getName() {
-        return myLabel;
+        return DISPLAY_LABEL;
     }
 
 

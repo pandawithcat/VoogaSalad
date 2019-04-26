@@ -7,15 +7,15 @@ import javafx.scene.layout.VBox;
 
 public class PrimitiveContainer {
 
-    Label myLabel;
+    Label DISPLAY_LABEL;
     TextField myTextField;
     Button confirmButton;
 
     public PrimitiveContainer(String key, VBox layout){
-        myLabel = new Label(key);
+        DISPLAY_LABEL = new Label(key);
         myTextField = new TextField();
         confirmButton = new Button("Confirm");
-        layout.getChildren().addAll(myLabel, myTextField, confirmButton);
+        layout.getChildren().addAll(DISPLAY_LABEL, myTextField, confirmButton);
     }
 
     public String getUserInput(){

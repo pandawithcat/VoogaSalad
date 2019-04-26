@@ -20,7 +20,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         if(distanceLeft>0) {
 //            myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);

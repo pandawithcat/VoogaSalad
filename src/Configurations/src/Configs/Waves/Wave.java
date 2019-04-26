@@ -9,7 +9,7 @@ import Configs.Waves.WaveBehaviors.WaveBehavior;
 
 public class Wave implements Updatable, Configurable {
     private Level myLevel;
-    public static final String myLabel = "Wave";
+    public static final String DISPLAY_LABEL = "Wave";
     @Configure
     private String myName;
     @Configure
@@ -54,7 +54,7 @@ public class Wave implements Updatable, Configurable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {

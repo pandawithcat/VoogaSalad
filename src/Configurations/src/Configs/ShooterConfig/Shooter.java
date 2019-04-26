@@ -1,17 +1,16 @@
 package Configs.ShooterConfig;
 
-import ActiveConfigs.ActiveLevel;
-import ActiveConfigs.ActiveProjectile;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Shooter implements Updatable , Configurable {
 
     private Shootable myShootable;
 
-    public static final String myLabel="Shooter";
+    public static final String DISPLAY_LABEL="Shooter";
     @Configure
     private String myName;
     @Configure
@@ -24,10 +23,21 @@ public class Shooter implements Updatable , Configurable {
     private ShooterBehavior shooterBehavior;
 
     private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient int projectilesFired;
 
     public Shooter(Shootable shootable){
         myShootable = shootable;
         myConfiguration = new Configuration(this);
+        projectilesFired = 0;
+    }
+
+    public void addToProjectilesFired(int shots) {
+        projectilesFired+=shots;
+    }
+
+    public int getProjectilesFired() {
+        return projectilesFired;
     }
 
     public Shootable getMyShootable() {
@@ -58,8 +68,8 @@ public class Shooter implements Updatable , Configurable {
     }
 
     @Override
-    public void update(double ms) {
-        shooterBehavior.update(ms);
+    public void update(double ms, Updatable parent) {
+        shooterBehavior.update(ms, this);
 
     }
 }
