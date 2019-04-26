@@ -23,8 +23,7 @@ public class GamePlayGUI extends HBox {
         setPrefWidth(ScreenSize.getWidth());
         setPrefHeight(ScreenSize.getHeight());
         myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic, endLoop,
-                home,
-                stage);
+                home);
         myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, method, fastFoward,
                 myGameLeft.getMap(), root, stage, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);

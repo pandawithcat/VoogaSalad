@@ -14,7 +14,7 @@ public class GamePlayLeftSide extends VBox {
     public GamePlaySettingsBar mySettings;
 
     public GamePlayLeftSide(double width, double height, Logic logic, EndLoopInterface endLoop,
-                            SelectionInterface home, Stage stage){
+                            SelectionInterface home){
         setPrefWidth(width);
         setPrefHeight(height);
         myMap = new GamePlayMap(width,height * TOP_RATIO, logic, endLoop, home);
