@@ -41,6 +41,7 @@ public class LoadingSplashScreen extends Application{
     private Stage stage;
     private MediaPlayer mediaPlayer;
     private StackPane background;
+    private Rectangle rect;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -50,10 +51,9 @@ public class LoadingSplashScreen extends Application{
         root.setId("pane");
         root.applyCss();
         root.layout();
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth()));
-        stage.setY((primScreenBounds.getHeight()));
-        var scene = new Scene(background, primScreenBounds.getWidth(), primScreenBounds.getHeight());
+        stage.setX(ScreenSize.getWidth());
+        stage.setY(ScreenSize.getHeight());
+        var scene = new Scene(background, ScreenSize.getWidth(), ScreenSize.getHeight());
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -102,29 +102,22 @@ public class LoadingSplashScreen extends Application{
     }
     private void createSignInSettings(){
         root.setStyle("-fx-opacity: 0.6; -fx-background-color: black;");
-        Rectangle rect = new Rectangle();
-        rect.setWidth(300);
+        rect = new Rectangle();
+        rect.setWidth(400);
         rect.setHeight(200);
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.getStyleClass().add("my-rect");
-        final Button button = createStartButton("green","Log In", 0, 100);
-        final Button newAccount = createStartButton("green","Create New Account", 0, 100);
-        button.setOnAction(e-> availableGames());
         GridPane gridPane = userLogIn();
         background.getChildren().add(rect);
         background.getChildren().add(gridPane);
-        HBox signInOptions = new HBox(button,newAccount);
-        newAccount.setOnAction(e -> createAccount(gridPane, signInOptions));
-        signInOptions.setSpacing(15);
-        background.getChildren().add(signInOptions);
     }
 
-    private void createAccount(GridPane gridPane, HBox signInOptions){
+    private void createAccount(GridPane gridPane){
         //TODO: ADD ERROR CHECKING TO SEE IF USERNAME ALREADY TAKEN
         background.getChildren().remove(gridPane);
-        background.getChildren().remove(signInOptions);
-        final GridPane grid = new GridPane();
+        rect.setWidth(500);
+        GridPane grid = new GridPane();
         grid.setId("login");
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setHgap(10);
@@ -144,16 +137,8 @@ public class LoadingSplashScreen extends Application{
         grid.add(pwConfirm, 0, 3);
         final PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 3);
-
-        //TODO: help mark this throws off the formatting
-        final Button button = createStartButton("green","Create Account", 0, 50);
-        grid.add(button,0,4);
-        button.setOnAction(e -> {
-            background.getChildren().remove(grid);
-            background.getChildren().add(gridPane);
-            background.getChildren().add(signInOptions);
-        });
         grid.setAlignment(Pos.CENTER);
+        loginButtonPanel(grid);
         background.getChildren().add(grid);
     }
 
@@ -163,14 +148,15 @@ public class LoadingSplashScreen extends Application{
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setHgap(10);
         grid.setVgap(10);
-        final Label userName = new Label("User Name:");
+        Label userName = new Label("User Name:");
         grid.add(userName, 0, 1);
-        final TextField userTextField = new TextField();
+        TextField userTextField = new TextField();
         grid.add(userTextField, 1, 1);
-        final Label pw = new Label("Password:");
+        Label pw = new Label("Password:");
         grid.add(pw, 0, 2);
-        final PasswordField pwBox = new PasswordField();
+        PasswordField pwBox = new PasswordField();
         grid.add(pwBox, 1, 2);
+        loginButtonPanel(grid);
         grid.setAlignment(Pos.CENTER);
         return grid;
     }
@@ -187,6 +173,16 @@ public class LoadingSplashScreen extends Application{
             GameSelection gameSelection = new GameSelection();
             gameSelection.start(new Stage());
         });
+    }
+    private void loginButtonPanel(GridPane grid){
+        Button login = new Button("Log In");
+        login.setId("green");
+        login.setOnAction(e-> availableGames());
+        grid.add(login, 0, 4);
+        Button newAccount = new Button("Create Account");
+        grid.add(newAccount, 1, 4);
+        newAccount.setId("green");
+        newAccount.setOnAction(e->createAccount(grid));
     }
     private Path generatePath(int x, int y, int newY)
     {

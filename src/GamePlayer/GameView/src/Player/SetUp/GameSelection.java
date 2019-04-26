@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -128,34 +129,37 @@ public class GameSelection extends Application {
         play.setTranslateX(0);
         play.setTranslateY(100);
         gameStart.getChildren().add(play);
-//        play.setOnAction(e-> startGame(gameInfo));
-        play.setOnAction(e-> displayGameOptions(gameStart, gameInfo));
+        play.setOnAction(e-> displayGameOptions(gameInfo));
         gameStart.setPrefWidth(width* 2 /3);
         root.getChildren().add(gameStart);
     }
 
     //TODO: Mark fix formatting
-    private void displayGameOptions(StackPane selection, GameInfo gameInfo){
-        root.getChildren().remove(selection);
-        StackPane options = new StackPane();
-        options.applyCss();
-        options.layout();
-        options.setAlignment(Pos.CENTER);
+    private void displayGameOptions(GameInfo gameInfo){
+        root.setStyle("-fx-opacity: 0.8; -fx-background-color: black;");
+        Stage stage = new Stage();
+        StackPane grid = new StackPane();
+        var scene = new Scene(grid, ScreenSize.getWidth()/4, ScreenSize.getWidth()/4);
+        stage.setScene(scene);
+        stage.show();
         Text choice = new Text("Would you like to start from your saved progress?");
-        options.getChildren().add(choice);
-        Button fromStart = new Button("No, start over");
-        fromStart.setTranslateX(0);
-        fromStart.setTranslateY(100);
         Button fromSaved = new Button("Yes");
-        fromSaved.setTranslateX(0);
-        fromSaved.setTranslateY(100);
-        options.getChildren().add(fromStart);
-        options.getChildren().add(fromSaved);
-        fromStart.setOnAction(e -> startGame(gameInfo));
-        fromSaved.setOnAction(e-> System.out.println("play saved version"));
-        root.getChildren().add(options);
+        fromSaved.setOnAction(e->startGame(gameInfo, stage));
+        Button fromStart = new Button("No, start over");
+        fromStart.setOnAction(e->startGame(gameInfo, stage));
+        HBox hbox = new HBox();
+        hbox.setSpacing(5);
+        hbox.getChildren().addAll(fromSaved, fromStart);
+        hbox.setMaxWidth(ScreenSize.getWidth()/4);
+        hbox.setMaxHeight(ScreenSize.getWidth()/4);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setTranslateY(50);
+        grid.getChildren().add(choice);
+        grid.getChildren().add(hbox);
+
     }
-    private void startGame(GameInfo gameInfo){
+    private void startGame(GameInfo gameInfo, Stage popup){
+        popup.close();
         this.stage.close();
         LogInPreloader logInPreloader = new LogInPreloader();
         logInPreloader.start(new Stage());
