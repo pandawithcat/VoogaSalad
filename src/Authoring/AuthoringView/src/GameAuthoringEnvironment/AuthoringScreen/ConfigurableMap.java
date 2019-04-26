@@ -48,6 +48,7 @@ public class ConfigurableMap {
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
+    private List<TerrainTile> myTerrainTileList;
     private List<Point> exitPointsList = new ArrayList<>();
     private List<Point> enterPointsList = new ArrayList<>();
     private ListView<String> tileView = new ListView<>();
@@ -210,16 +211,21 @@ public class ConfigurableMap {
         VBox myBox = new VBox(10);
 
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
-        //TODO Change this so that no specific tiles are made
+        //TODO Change this so that no specific tiles are made(and definitely not just my images)
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tileView.getItems().add(0,"Grass");
-        tileView.getItems().add(1,"Water");
+        tileView.getItems().add(1,"Water");//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent mouseEvent) {
+//                System.out.println("HELLO I AM COL");
+//                imageView=new ImageView(getNewImage(type));
+//            }
+//        });
         tileView.getItems().add(2,"Dirt");
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 currentTile=tileView.getSelectionModel().getSelectedItem();
-                //System.out.println(currentTile);
             }
         });
 
@@ -228,7 +234,8 @@ public class ConfigurableMap {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile();
+                ConfigureTile configureTile = new ConfigureTile(tileView, myTerrainTileList);
+
 
             }
         });

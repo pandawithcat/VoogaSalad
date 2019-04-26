@@ -25,14 +25,6 @@ public class TerrainTile extends ImageView {
         isPath=false;
         tileImString="grass.jpg";
 
-
-//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                System.out.println("HELLO I AM COL");
-//                imageView=new ImageView(getNewImage(type));
-//            }
-//        });
     }
 
     public Image getNewImage(String type){
