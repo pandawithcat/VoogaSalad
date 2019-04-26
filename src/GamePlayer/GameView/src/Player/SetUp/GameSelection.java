@@ -67,8 +67,7 @@ public class GameSelection extends Application {
         }
     }
     private List<GameInfo> uploadAvailableGames(){
-        List<GameInfo> gameInfoList= logic.getGameOptions();
-        return gameInfoList;
+        return logic.getGameOptions();
     }
 
     private void createGameSelectionScreen() throws FileNotFoundException {
