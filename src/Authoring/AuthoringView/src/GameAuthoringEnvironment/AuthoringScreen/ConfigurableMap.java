@@ -369,7 +369,7 @@ public class ConfigurableMap {
 
     public void updateCell(DragEvent mouseEvent){
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
-        //source.changeImage(currentTile);
+        source.changeImage(currentTile);
 
     }
 }

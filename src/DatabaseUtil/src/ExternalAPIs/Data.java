@@ -36,7 +36,7 @@ public abstract class Data {
      * Reads in the provided information from the user to cross check with the user data in the database
      * @param username - Unique string to identify user
      * @param password - chosen string to verify user identity
-     * @return boolean indicating if existing user credentials were matched
+     * @return - boolean indicating if existing user credentials were matched
      */
     public boolean authenticateUser(String username, String password) throws IllegalArgumentException, IllegalAccessError{
         checkArgumentLengths(username, password);
