@@ -47,6 +47,7 @@ public class Game implements Updatable, Configurable {
     @XStreamOmitField
     private transient GameStatus gameStatus;
     private int myScore;
+    private double myCash;
 
 
     public Game(){
@@ -126,6 +127,9 @@ public class Game implements Updatable, Configurable {
     public double getPaneHeight() {
         return paneHeight;
     }
+
+    public double getCash(){return myCash;}
+    public void addToCash(double newCash){myCash = myCash+newCash;}
 
     @Override
     public String getName() {

@@ -151,8 +151,11 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
+        if (myGame.getCash()>0){//TODO: Check for price of weapon
         return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
+        }
+        else throw new NotEnoughCashException("Not Enough Cash");
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -183,6 +186,8 @@ public class Logic {
         return myGame.getScore();
     }
 
+    //view calls to check the current amount of cash
+    public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives

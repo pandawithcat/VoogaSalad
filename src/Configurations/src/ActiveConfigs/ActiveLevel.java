@@ -36,7 +36,7 @@ public class ActiveLevel extends Level implements Updatable {
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        myScore = 0;
+        int myScore = 0;
     }
 
     private Cell[][] createMyGrid(){
@@ -172,7 +172,12 @@ public class ActiveLevel extends Level implements Updatable {
     private void recalculateMovementHeuristic(){
         //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
-
+    public void addGameCash(double amt){
+        getGame().addToCash(amt);
+    }
+    public void addGameScore(int amt){
+        getGame().addToScore(amt);
+    }
     private void astar(Cell startCell){
         startCell.setMovementHeuristic(0);
         PriorityQueue<Cell> pq = new PriorityQueue<>();
