@@ -8,6 +8,7 @@ import Configs.MapPackage.Terrain;
 import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -41,8 +43,10 @@ import java.util.Map;
 public class ConfigurableMap {
 
 
-    public static final int GRID_WIDTH = 64;
-    public static final int GRID_HEIGHT = 40;
+//    public static final int GRID_WIDTH = 64;
+//    public static final int GRID_HEIGHT = 40;
+public static final int GRID_WIDTH = 25;
+    public static final int GRID_HEIGHT = 20;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -103,12 +107,19 @@ public class ConfigurableMap {
         VBox otherLayout = new VBox();
         //otherLayout.setLayoutX();
         //otherLayout.setLayoutY();
+        VBox mapLayout = new VBox();
+
+        HBox mapHBox = new HBox();
+        mapHBox.getChildren().add(map);
+
+        mapHBox.setAlignment(Pos.BASELINE_RIGHT);
+        mapLayout.getChildren().add(mapHBox);
 
 
 
         otherLayout.getChildren().addAll(nameBox, tileViewBox, enterViewBox, exitViewBox);
         Button submitButton = addSubmit();
-        allLayout.getChildren().addAll(map, otherLayout, submitButton);
+        allLayout.getChildren().addAll(mapLayout, otherLayout, submitButton);
 
 
 
@@ -213,15 +224,8 @@ public class ConfigurableMap {
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                System.out.println("HELLO I AM COL");
-//                imageView=new ImageView(getNewImage(type));
-//            }
-//        });
+
         tileView.getItems().add(2,"Dirt");
-//        tileView.getItems().add(3,"EnemyEntering");
-//        tileView.getItems().add(4,"EnemyExiting");
 
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
