@@ -263,20 +263,21 @@ public class ConfigurableMap {
                 }
 
 
-                enterPointsList = enterPosView.getItems();
-                exitPointsList = exitPosView.getItems();
+                enterPointsList = new ArrayList<>();
+                enterPosView.getItems().stream().forEach(obj->enterPointsList.add(obj));
+
+                exitPointsList = new ArrayList<>();
+                exitPosView.getItems().stream().forEach(obj->exitPointsList.add(obj));
                 //TODO Need to clean this up
                 passedMap=new HashMap<>();
                 passedMap.put("myName",mapName);
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridPosList", enterPointsList);
-                passedMap.put("enemyEnteringDirection",90);
                 passedMap.put("enemyExitGridPosList",exitPointsList);
+                passedMap.put("enemyEnteringDirection",90);
 
 
                 m.getConfiguration().setAllAttributes(passedMap);
-
-
                 myAttributesMap.put("myMap", m);
 
                 popUpWindow.close();
