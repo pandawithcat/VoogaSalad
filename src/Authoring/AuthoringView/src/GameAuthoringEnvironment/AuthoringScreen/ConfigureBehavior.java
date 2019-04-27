@@ -35,6 +35,7 @@ public class ConfigureBehavior {
             new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
     GameOutline myGameOutline;
+    String myKey;
 
     public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameOutline= gameOutline;
@@ -45,7 +46,8 @@ public class ConfigureBehavior {
     }
 
 
-    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key) {
+        myKey = key;
         myGameController = gameController;
         myConfigurable = configurable;
         myList = behaviorList;
@@ -62,6 +64,8 @@ public class ConfigureBehavior {
         Label sourceListLbl = new Label("Available Behaviors: ");
         Label targetListLbl = new Label("Selected Behaviors: ");
         Label messageLbl = new Label("Drag and drop behaviors. Some behaviors require further configuration");
+
+        List<Object> selectedBehaviors = new ArrayList<>();
 
         sourceView.setPrefSize(sourceViewWidth, sourceViewHeight);
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
@@ -83,10 +87,13 @@ public class ConfigureBehavior {
                             Class<?> cl = Class.forName(selected.getName());
                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                             var object = cons.newInstance(myConfigurable);
+                            // For making outline
                             if(!(myGameOutline == null)){
                                 myGameOutline.showTheScreen((Configurable) object);
                             }else{
-                            myGameController.createConfigurable((Configurable) object);}
+                                myGameController.createConfigurable((Configurable) object);
+                                selectedBehaviors.add(object);
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -122,9 +129,7 @@ public class ConfigureBehavior {
                 }
                 else {
                     //TODO Add THE TARGETVIEW LIST TO THE ATTRIBUTES BUT HOW?
-                    List<Class> selectedBehaviors = targetView.getItems();
-
-                    myConfigurable.getConfiguration().setAllAttributes(myMap);
+                    myConfigurable.getConfiguration().setOneAttribute(myKey, selectedBehaviors);
                     popUpWindow.close();
                 }
             }
