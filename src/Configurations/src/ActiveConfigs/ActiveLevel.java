@@ -65,8 +65,6 @@ public class ActiveLevel extends Level implements Updatable {
         return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
     }
 
-
-
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridX][gridY];
     }
