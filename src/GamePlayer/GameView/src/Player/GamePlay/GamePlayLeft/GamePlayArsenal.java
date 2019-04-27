@@ -3,11 +3,16 @@ package Player.GamePlay.GamePlayLeft;
 import BackendExternal.Logic;
 import BackendExternal.NotEnoughCashException;
 import Configs.Info;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.effect.Effect;
@@ -21,7 +26,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.FileInputStream;
@@ -31,6 +39,7 @@ import java.util.*;
 public class GamePlayArsenal extends VBox {
 
     public static final double ARSENAL_RATIO = 1.00;
+    public static final double DISPLAY_SECOND_DELAY = 2;
 
     private Logic myLogic;
     private boolean isWeapon;
@@ -96,6 +105,18 @@ public class GamePlayArsenal extends VBox {
 
     }
 
+    private void displayNotEnoughCash(String message){
+        Stage cashDisplay = new Stage();
+        Group root = new Group();
+        Scene scene = new Scene(root);
+        cashDisplay.setScene(scene);
+        Text cash = new Text(message);
+        root.getChildren().add(cash);
+        PauseTransition delay = new PauseTransition(Duration.seconds(DISPLAY_SECOND_DELAY));
+        delay.setOnFinished( event -> cashDisplay.close() );
+        delay.play();
+    }
+
     private void dragDropped(DragEvent event){
         Dragboard db = event.getDragboard();
         boolean success = false;
@@ -105,7 +126,7 @@ public class GamePlayArsenal extends VBox {
                 try {
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
                 }catch (NotEnoughCashException e){
-                    e.printStackTrace();
+                    displayNotEnoughCash(e.getMessage());
                 }
             }
             success = true;
@@ -113,6 +134,7 @@ public class GamePlayArsenal extends VBox {
         event.setDropCompleted(success);
         event.consume();
     }
+
 
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
