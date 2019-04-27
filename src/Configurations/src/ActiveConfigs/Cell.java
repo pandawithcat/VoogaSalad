@@ -14,6 +14,7 @@ public class Cell implements Comparable{
     private int shortestDistanceHeuristic;
     private int shortestDistanceHeuristicIgnorePath;
     private int shortestDistanceHeuristicAvoidWeapons;
+    private int shortestDistanceHeuristicAvoidWeaponsIgnorePath;
     private boolean cellBlocked;
     private int weaponCoverage;
 
@@ -37,6 +38,7 @@ public class Cell implements Comparable{
         myEnemies = new ArrayList<>();
         myWeaponConfig = null;
         shortestDistanceHeuristic = Integer.MAX_VALUE;
+        shortestDistanceHeuristicAvoidWeapons
     }
 
     public boolean isValidWeaponPlacement() {
@@ -105,6 +107,14 @@ public class Cell implements Comparable{
 
     public void setWeaponCoverage(int weaponCoverage) {
         this.weaponCoverage = weaponCoverage;
+    }
+
+    public void setShortestDistanceHeuristicAvoidWeaponsIgnorePath(int shortestDistanceHeuristicAvoidWeaponsIgnorePath) {
+        this.shortestDistanceHeuristicAvoidWeaponsIgnorePath = shortestDistanceHeuristicAvoidWeaponsIgnorePath;
+    }
+
+    public int getShortestDistanceHeuristicAvoidWeaponsIgnorePath() {
+        return shortestDistanceHeuristicAvoidWeaponsIgnorePath;
     }
 }
 

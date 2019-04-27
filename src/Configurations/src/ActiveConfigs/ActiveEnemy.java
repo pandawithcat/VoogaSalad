@@ -89,7 +89,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     private MovementDirection determineMovementDirection(){
-        return moveShortestDistance();
+        return moveShortestDistance(AITypes.SHORTEST_IGNORE_PATH);
     }
 
     private MovementDirection moveShortestDistance(AITypes aiTypes) {
@@ -110,9 +110,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
                         if (aiTypes == AITypes.SHORTEST_PATH) {
                             totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
                         }
-                        if (aiTypes == AITypes.SHORTEST_PATH) {
-                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
-                        }
                         if (aiTypes == AITypes.SHORTEST_IGNORE_PATH) {
                             totalHeuristic += myCell.getShortestDistanceHeuristicIgnorePath() / getView().getHeight() / getView().getWidth();
                         }
@@ -120,7 +117,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
                             totalHeuristic += myCell.getShortestDistanceHeuristicAvoidWeapons() / getView().getHeight() / getView().getWidth();
                         }
                         if (aiTypes == AITypes.SHORTEST_IGNORE_PATH_AVOID_WEAPON) {
-                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
+                            totalHeuristic += myCell.getShortestDistanceHeuristicAvoidWeaponsIgnorePath() / getView().getHeight() / getView().getWidth();
                         }
                     }
                     else {

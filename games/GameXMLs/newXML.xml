@@ -5255,8 +5255,8 @@
         <enemyEnteringGridXPos>0</enemyEnteringGridXPos>
         <enemyEnteringGridYPos>0</enemyEnteringGridYPos>
         <enemyEnteringDirection>90</enemyEnteringDirection>
-        <enemyExitGridXPos>19</enemyExitGridXPos>
-        <enemyExitGridYPos>19</enemyExitGridYPos>
+        <enemyExitGridXPos>18</enemyExitGridXPos>
+        <enemyExitGridYPos>18</enemyExitGridYPos>
         <gridHeight>20</gridHeight>
         <gridWidth>20</gridWidth>
         <configuration/>
