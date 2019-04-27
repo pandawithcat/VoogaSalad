@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 
 public class WeaponConfig implements  Configurable, Viewable {
+
     Configuration myConfiguration;
     public static final String myLabel= "Weapon";
     @Configure
