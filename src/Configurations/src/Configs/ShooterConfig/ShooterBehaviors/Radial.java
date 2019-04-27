@@ -41,7 +41,7 @@ public class Radial extends ShooterBehavior {
             double projectileStartYPos = weaponY + height/2;
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getMyShooter().getProjectileConfig().getView(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneHeight(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth());
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getMyShooter().getProjectileConfig().getView(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneWidth(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneHeight(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth());
                 ActiveProjectile activeProjectile = new ActiveProjectile(getMyShooter().getProjectileConfig(), projectileMapFeature, getMyShooter().getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
                 ((Shooter) parent).addToProjectilesFired(1);
