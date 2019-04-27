@@ -1,6 +1,7 @@
 package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
+import BackendExternal.NotEnoughCashException;
 import Configs.Info;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -95,7 +96,11 @@ public class GamePlayArsenal extends VBox {
 
 
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                try {
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
+                }catch (NotEnoughCashException e){
+                    e.printStackTrace();
+                }
             }
             success = true;
         }

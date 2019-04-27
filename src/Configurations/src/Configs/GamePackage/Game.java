@@ -46,7 +46,8 @@ public class Game implements Updatable, Configurable {
     private transient LevelSpawner myLevelSpawner;
     @XStreamOmitField
     private transient GameStatus gameStatus;
-    private int myScore=0;
+    private int myScore = 0;
+    private double myCash = 0;
 
     public Game(){
         myConfiguration = new Configuration(this);
@@ -123,6 +124,9 @@ public class Game implements Updatable, Configurable {
     public double getPaneHeight() {
         return paneHeight;
     }
+
+    public double getCash(){return myCash;}
+    public void addToCash(double newCash){myCash = myCash+newCash;}
 
     @Override
     public String getName() {

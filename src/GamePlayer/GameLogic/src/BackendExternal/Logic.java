@@ -15,7 +15,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -140,10 +142,12 @@ public class Logic {
     /**
      * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
      * @param imageID - integer value corresponding to the specific image in the database
-     * @return
+     * @return - Java image object requested
      */
     public Image getImage(int imageID){
-        return myPlayerData.getImage(imageID);
+        byte[] imageBytes = myPlayerData.getImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
@@ -221,8 +225,11 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
+        if (myGame.getCash()>0){//TODO: Check for price of weapon
         return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
+        }
+        else throw new NotEnoughCashException("Not Enough Cash");
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -253,6 +260,8 @@ public class Logic {
         return myGame.getScore();
     }
 
+    //view calls to check the current amount of cash
+    public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
