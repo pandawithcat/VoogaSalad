@@ -45,7 +45,7 @@ public class Logic {
 
     public Logic(double paneWidth, double paneHeight) {
         myGameLibrary = new GameLibrary();
-//        myPlayerData = new PlayerData();
+    //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
@@ -202,8 +202,13 @@ public class Logic {
 
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
-
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+        return mapFeature.getImageView();
+
+    }
+
+    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
     }
 
