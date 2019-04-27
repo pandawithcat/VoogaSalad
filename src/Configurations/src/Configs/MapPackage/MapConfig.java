@@ -13,8 +13,9 @@ import java.util.List;
 import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class MapConfig implements Configurable {
-    //for the game player frontend to easily display terrain
     public static final String DISPLAY_LABEL = "Map";
+    public static final int GRID_HEIGHT = 40;
+    public static final int GRID_WIDTH = 64;
     @Configure
     private String myName;
     @Configure
@@ -25,10 +26,7 @@ public class MapConfig implements Configurable {
     private int enemyEnteringDirection;
     @Configure
     private List<Point> enemyExitGridPosList;
-    @Configure
-    private int gridHeight;
-    @Configure
-    private int gridWidth;
+
 
 
     @XStreamOmitField
@@ -80,11 +78,11 @@ public class MapConfig implements Configurable {
 
 
     public int getGridHeight() {
-        return gridHeight*TERRAIN_SIZE;
+        return GRID_HEIGHT*TERRAIN_SIZE;
     }
 
     public int getGridWidth() {
-        return gridWidth*TERRAIN_SIZE;
+        return GRID_WIDTH*TERRAIN_SIZE;
     }
 
 
