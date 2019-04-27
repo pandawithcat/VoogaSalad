@@ -85,7 +85,7 @@ public class LoadingSplashScreen extends Application{
 
     private void transitionToLogIn(Button button){
         root.getChildren().remove(button);
-        ScaleTransition st = new ScaleTransition(Duration.millis(1000), title);
+        ScaleTransition st = new ScaleTransition(Duration.seconds(0.8), title);
         st.setByX(-0.6f);
         st.setByY(-0.6f);
         st.setCycleCount(1);
@@ -179,7 +179,7 @@ public class LoadingSplashScreen extends Application{
         this.stage.close();
         LogInPreloader logInPreloader = new LogInPreloader();
         logInPreloader.start(new Stage());
-        logInPreloader.setTitle("Loading Available Games");
+        logInPreloader.setTitle("We're loading your \n available games!!!");
         logInPreloader.setTransitionEvent(e -> {
             GameSelection gameSelection = new GameSelection();
             gameSelection.start(new Stage());
