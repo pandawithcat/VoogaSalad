@@ -13,7 +13,6 @@ import java.util.List;
 import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class MapConfig implements Configurable {
-    //for the game player frontend to easily display terrain
     public static final String DISPLAY_LABEL = "Map";
     public static final int GRID_HEIGHT = 40;
     public static final int GRID_WIDTH = 64;

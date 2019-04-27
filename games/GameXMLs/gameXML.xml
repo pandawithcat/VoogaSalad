@@ -1,0 +1,12 @@
+<Configs.GamePackage.Game>
+  <myName>game</myName>
+  <myDescription>testing</myDescription>
+  <myThumbnail>thumbnail1.gif</myThumbnail>
+  <levelList/>
+  <gameType class="Configs.GamePackage.GameBehaviors.Lives">
+    <myGame reference="../.."/>
+    <numEnemies>10</numEnemies>
+  </gameType>
+  <myScore>0</myScore>
+  <myCash>0.0</myCash>
+</Configs.GamePackage.Game>
