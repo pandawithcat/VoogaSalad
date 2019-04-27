@@ -34,7 +34,8 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new ArrayList<>();
         myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
-        goalPositions.add(new Point(getMyMapConfig().getEnemyExitGridXPos(),getMyMapConfig().getEnemyExitGridYPos()));
+        getMyMapConfig().getEnemyExitGridPosList().stream().forEach(obj->goalPositions.add(obj));
+//        goalPositions.add(new Point(getMyMapConfig().getEnemyExitGridXPos(),getMyMapConfig().getEnemyExitGridYPos()));
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
@@ -173,16 +174,12 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void recalculateMovementHeuristic(){
-<<<<<<< src/Configurations/src/ActiveConfigs/ActiveLevel.java
         for (Point goal:goalPositions) {
             astar(myGrid,goal.x,goal.y, "short");
             astar(myGrid,goal.x,goal.y, "shortIgnorePath");
             astar(myGrid,goal.x,goal.y, "shortAvoidWeapons");
             astar(myGrid,goal.x,goal.y, "shortAvoidWeaponsIgnorePath");
         }
-=======
-        //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
->>>>>>> src/Configurations/src/ActiveConfigs/ActiveLevel.java
     }
 
     private void astar(Cell[][] grid, int startX, int startY, String heuristicType){
