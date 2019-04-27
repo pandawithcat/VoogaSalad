@@ -15,7 +15,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -140,10 +142,12 @@ public class Logic {
     /**
      * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
      * @param imageID - integer value corresponding to the specific image in the database
-     * @return
+     * @return - Java image object requested
      */
     public Image getImage(int imageID){
-        return myPlayerData.getImage(imageID);
+        byte[] imageBytes = myPlayerData.getImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
