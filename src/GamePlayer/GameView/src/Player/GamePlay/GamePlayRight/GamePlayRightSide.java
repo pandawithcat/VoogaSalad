@@ -5,6 +5,7 @@ import Player.GamePlay.GamePlayLeft.ButtonPanel;
 import Player.GamePlay.GamePlayLeft.GamePlayArsenal;
 import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import Player.GamePlay.PlayInterface;
+import Player.GamePlay.SelectionInterface;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -23,7 +24,7 @@ public class GamePlayRightSide extends VBox {
 
 
     public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward
-            , GamePlayMap myMap, Group root, Stage stage, MediaPlayer mediaPlayer){
+            , GamePlayMap myMap, Group root, SelectionInterface home, MediaPlayer mediaPlayer){
         this.mediaPlayer = mediaPlayer;
         setPrefWidth(width);
         setPrefHeight(height);
@@ -32,11 +33,11 @@ public class GamePlayRightSide extends VBox {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, stage));
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, home));
     }
 
-    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, Stage stage){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, stage, mediaPlayer);
+    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, SelectionInterface home){
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer);
         return myButtonPanel;
     }
 

@@ -1,7 +1,7 @@
 package Player.SetUp;
 
-import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import ExternalAPIs.GameInfo;
 import Player.GamePlay.GamePlayMain;
 import Player.ScreenSize;
 import javafx.application.Application;
@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -34,16 +35,20 @@ public class GameSelection extends Application {
     private double height = ScreenSize.getHeight();
     private Logic logic;
     private StackPane gameStart;
+    private StackPane totalBackground;
     @Override
     public void start(Stage primaryStage) {
+        totalBackground = new StackPane();
         scrollPane.setId("scrollpane");
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefSize(width/3,height);
-        logic = new Logic();
+        // Changed by Brian
+        logic = new Logic(width, height);
         stage = primaryStage;
         stage.setX(width);
         stage.setY(height);
         root = new HBox();
+        totalBackground.getChildren().add(root);
         root.setId("pane");
         Label text = new Label("Select a Game");
         text.setPrefHeight(100);
@@ -54,7 +59,7 @@ public class GameSelection extends Application {
         left.getChildren().add(scrollPane);
         root.getChildren().add(left);
         text.setLayoutX(ScreenSize.getWidth()/2);
-        var scene = new Scene(root, width, height);
+        var scene = new Scene(totalBackground, width, height);
         scene.getStylesheets().add("style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -65,8 +70,7 @@ public class GameSelection extends Application {
         }
     }
     private List<GameInfo> uploadAvailableGames(){
-        List<GameInfo> gameInfoList= logic.getGameOptions();
-        return gameInfoList;
+        return logic.getGameOptions();
     }
 
     private void createGameSelectionScreen() throws FileNotFoundException {
@@ -128,9 +132,36 @@ public class GameSelection extends Application {
         play.setTranslateX(0);
         play.setTranslateY(100);
         gameStart.getChildren().add(play);
-        play.setOnAction(e-> startGame(gameInfo));
+        play.setOnAction(e-> displayGameOptions(gameInfo));
         gameStart.setPrefWidth(width* 2 /3);
         root.getChildren().add(gameStart);
+    }
+
+    //TODO: Mark fix formatting
+    private void displayGameOptions(GameInfo gameInfo){
+        root.setStyle("-fx-opacity: 0.9; -fx-background-color: black;");
+        Rectangle rect = new Rectangle();
+        rect.setArcWidth(20);
+        rect.setArcHeight(20);
+        rect.setWidth(400);
+        rect.setHeight(200);
+        rect.getStyleClass().add("my-rect");
+        Text choice = new Text("Would you like to start from your saved progress?");
+        Button fromSaved = new Button("Yes");
+        fromSaved.setId("smallerButton");
+        fromSaved.setOnAction(e->startGame(gameInfo));
+        Button fromStart = new Button("No, start over");
+        fromStart.setId("smallerButton");
+        fromStart.setOnAction(e->startGame(gameInfo));
+        HBox hbox = new HBox();
+        hbox.setSpacing(5);
+        hbox.getChildren().addAll(fromSaved, fromStart);
+        hbox.setMaxWidth(ScreenSize.getWidth()/4);
+        hbox.setMaxHeight(ScreenSize.getWidth()/4);
+        hbox.setAlignment(Pos.CENTER);
+        hbox.setTranslateY(50);
+        totalBackground.getChildren().add(rect);
+        totalBackground.getChildren().addAll(choice,hbox);
     }
     private void startGame(GameInfo gameInfo){
         this.stage.close();

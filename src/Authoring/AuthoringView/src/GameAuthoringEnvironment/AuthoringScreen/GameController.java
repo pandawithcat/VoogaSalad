@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
@@ -27,11 +28,20 @@ public class GameController {
     private GameController myGameController;
     private Game myGame;
     private Map<String, List<Object>> configuredObjects;
+    private Properties authoringProps = new Properties();
 
     public GameController() {
         myGameController = this;
         myGame = new Game();
         configuredObjects = new HashMap<>();
+        try{
+             File propFile = new File("./src/Authoring/AuthoringView/resources/authoringvars.properties");
+            //System.out.println(new File("").getAbsolutePath());//System.out.println(getClass().getResourceAsStream());
+            //System.out.println(getClass().getResourceAsStream("resources/authoringvars.properties").toString());
+        authoringProps.load(new FileInputStream(propFile.getPath()));
+     }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Game getMyGame(){
@@ -50,6 +60,7 @@ public class GameController {
         Button setButton =  new ConfigureCompleteButton(myConfigurable, popupwindow, allButton, myAttributesMap).invoke();
         layout.getChildren().add(setButton);
         Scene scene= new Scene(layout, 500, 500);
+        scene.getStylesheets().add("authoring_style.css");
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
 
@@ -106,7 +117,7 @@ public class GameController {
         List<Object> tempList = new ArrayList<>();
         String objectLabel = null;
         try {
-            objectLabel = value.getComponentType().getDeclaredField("myLabel").get(null).toString();
+            objectLabel = value.getComponentType().getDeclaredField("myLabel").get(key).toString();
         } catch (IllegalAccessException | NoSuchFieldException e) {
             //TODO Error Catching
             e.printStackTrace();
@@ -311,7 +322,8 @@ public class GameController {
 
     private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
         //TODO get the label string from the properties file
-        Label myLabel = new Label(key);
+        Label myLabel = new Label(authoringProps.getProperty(key));
+        //Label myLabel = new Label(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -346,7 +358,8 @@ public class GameController {
     }
 
     private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
-        Label myLabel = new Label(key);
+        Label myLabel = new Label(authoringProps.getProperty(key));
+        //Label myLabel = new Label(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -380,7 +393,8 @@ public class GameController {
 
     private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
         HBox box = new HBox(10);
-        Label myLabel = new Label(key);
+        Label myLabel = new Label(authoringProps.getProperty(key));
+        //Label myLabel = new Label(key);
         RadioButton trueButton = new RadioButton("True");
         RadioButton falseButton = new RadioButton("False");
         if (definedAttributesMap.keySet().contains(key)) {
