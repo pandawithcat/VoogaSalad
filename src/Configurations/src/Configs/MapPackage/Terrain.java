@@ -53,13 +53,7 @@ public class Terrain implements Configurable, Viewable{
     }
 
     public ImmutableImageView getImageView(double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
-        System.out.println(screenHeight);
-        System.out.println(screenWidth);
-        System.out.println(gridWidth);
-        System.out.println(gridHeight);
         MapFeature mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight);
-        System.out.println(mapFeature.getImageView().getFitHeight());
-        System.out.println(mapFeature.getImageView().getFitWidth());
         return mapFeature.getImageView();
     }
 
