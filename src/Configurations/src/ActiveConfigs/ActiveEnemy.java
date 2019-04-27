@@ -89,7 +89,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     private MovementDirection determineMovementDirection(){
-        return moveShortestDistance(AITypes.SHORTEST_IGNORE_PATH);
+        return moveShortestDistance(AITypes.SHORTEST_PATH);
     }
 
     private MovementDirection moveShortestDistance(AITypes aiTypes) {
@@ -129,6 +129,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             if (totalHeuristic<bestOptionHeuristic){
                 bestOption = k;
                 bestOptionHeuristic = totalHeuristic;
+            }
+            if (totalHeuristic==bestOptionHeuristic){
+//                bestOption = k;
+//                bestOptionHeuristic = totalHeuristic;
+//                TODO logic to randomize if equal
             }
         }
         return MovementDirection.values()[bestOption];
