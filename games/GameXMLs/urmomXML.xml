@@ -6,7 +6,7 @@
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myLabel></myLabel>
+      <DISPLAY_LABEL></DISPLAY_LABEL>
       <myWaves/>
       <myMap>
         <myTerrain>

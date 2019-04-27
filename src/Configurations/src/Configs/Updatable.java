@@ -1,5 +1,5 @@
 package Configs;
 
 public interface Updatable {
-    void update(double ms);
+    void update(double ms, Updatable parent);
 }

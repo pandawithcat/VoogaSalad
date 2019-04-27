@@ -33,16 +33,56 @@ public class TerrainTile extends ImageView {
 
 
 
-    /*public void changeTile(TerrainTile terrainTile){
-        try {
+    public void changeImage(String type){
+        if(type.equals("Grass")){
+            changeToGrass();
+        }
+        else if(type.equals("Water")){
+            changeToWater();
+        }
+        else if(type.equals("Dirt")){
+            changeToDirt();
+        }
 
-            this.setImage(new Image(new FileInputStream("resources/" + type.toLowerCase() + ".jpg")));
+
+    }
+
+    public void changeToWater(){
+        try {
+            this.setImage(new Image(new FileInputStream("resources/water.jpg")));
         }
         catch(FileNotFoundException f){
+            System.out.println(f);
+
+        }
+        tileImString="resources/water.jpg";
+        isPath=true;
+
+    }
+    public void changeToDirt(){
+        try {
+            this.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+        }
+        catch(FileNotFoundException f){
+            System.out.println(f);
+
+        }
+        tileImString="resources/dirt.jpg";
+        isPath=true;
+    }
+
+
+
+    public void changeToGrass() {
+        try {
+
+            this.setImage(new Image(new FileInputStream("resources/" + "grass" + ".jpg")));
+        } catch (FileNotFoundException f) {
             //TODO Exception! NO such file found
         }
-        tileImString = type.toLowerCase() + ".jpg";
-    }*/
+        tileImString = "resources/grass.jpg";
+        isPath=false;
+    }
 
     public ImageView getImageView(){
         return imageView;

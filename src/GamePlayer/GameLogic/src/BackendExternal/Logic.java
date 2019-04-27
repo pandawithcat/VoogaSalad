@@ -4,6 +4,7 @@ import ActiveConfigs.Cell;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameStatus;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
@@ -41,20 +42,32 @@ public class Logic {
 
 
     public Logic(double paneWidth, double paneHeight) {
-//        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
-//        myPlayerData = new PlayerData();
+    //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
-
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Receives user login input from the front-end and passes it to the database module to check against server data
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @return - boolean indicating if existing user credentials were matched
+     */
     public boolean authenticateUser(String username, String password){
         return myPlayerData.authenticateUser(username, password);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Receives user create account input from the front-end and passes it to save in the database
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @param passwordRepeated - User input for chosen string repeated to verify user identity
+     */
     public void createNewUser(String username, String password, String passwordRepeated){
         myPlayerData.createNewUser(username, password, passwordRepeated);
     }
@@ -68,17 +81,34 @@ public class Logic {
 
     // Final Implementation version of getGameOptions
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Polls the database to return the list of games that can be played by the user.
+     * @return - List of GameInfo Objects containing basic information about created games
+     */
     public List<GameInfo> getGameOptions2(){
         return myPlayerData.getAuthoredGames();
     }
 
     // Returns the highest scores recorded of the number of specified players
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Polls the database to return the list of score leaders for the current game
+     * @param numberOfEntries - number of leaders to retrieve
+     * @return - unmodifiable list of LeaderBoardEntry objects
+     */
     public List<LeaderBoardEntry> getLeaderBoardEntries(int numberOfEntries){
         return myPlayerData.compileLeaderboardEntries(numberOfEntries);
     }
 
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Retrieves the selected games XML string from the database and deserializes it into the specific game object
+     * @param selectedGame - One of the game info objects selected from the provided list
+     */
     public void createGameInstance2(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
         String gameXMLString = myPlayerData.getGameString(selectedGame);
@@ -86,25 +116,39 @@ public class Logic {
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Begins the game at the state that the current user left off at when they previously played
+     */
     public void startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
-        myGame.getActiveLevel().setScore(gameState.getMyCurrentScore());
+        myGame.setScore(gameState.getMyCurrentScore());
         myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Begins the game at the default state
+     */
     public void startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
+     * @param imageID - integer value corresponding to the specific image in the database
+     * @return
+     */
     public Image getImage(int imageID){
         return myPlayerData.getImage(imageID);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveGameState(){
-        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getScore());
         myPlayerData.saveUserState(currentUserState);
     }
 
@@ -125,6 +169,18 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
+    @Deprecated
+    public List<ImmutableImageView> getLevelTerrain(){
+        return myGame
+                .getActiveLevel()
+                .getMyMapConfig()
+                .getTerrain()
+                .stream()
+                .map(terrain -> getImageView(terrain))
+                .collect(Collectors.toList());
+
+    }
+
 
     // View calls this when the user presses play or level is over
     // No Input
@@ -140,26 +196,44 @@ public class Logic {
 
     }
 
+    @Deprecated
+    private ImmutableImageView getImageView(Terrain t) {
 
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+        return mapFeature.getImageView();
+
+    }
+
+    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
+
+        return mapFeature.getImageView();
+//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
+
+    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-        return myGame.getArsenal().getAllWeaponConfigOptions();
+        return myGame.getArsenal().getAllNewWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
+        if (myGame.getCash()>0){//TODO: Check for price of weapon
         return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
+        }
+        else throw new NotEnoughCashException("Not Enough Cash");
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
     // No Return
     public void update(double currentTime){
-        myGame.update(currentTime);
+        myGame.update(currentTime, null);
     }
 
     // View calls to get objects to add to the view
@@ -180,9 +254,11 @@ public class Logic {
     // No Input
     // Return: integer score
     public int getScore(){
-        return myGame.getActiveLevel().getMyScore();
+        return myGame.getScore();
     }
 
+    //view calls to check the current amount of cash
+    public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
@@ -196,7 +272,7 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
-        WeaponConfig weapon = myGame.getArsenal().getConfiguredWeapons()[weaponId-1];
+        WeaponConfig weapon = myGame.getArsenal().getWeapon(weaponId);
         View weaponView = weapon.getView();
         int height;
         int width;
@@ -223,6 +299,10 @@ public class Logic {
         return true;
     }
 
+    public GameStatus getGameStatus(){
+        return myGame.getGameStatus();
+    }
+
 
     // View calls to move a dynamic object that has already been instantiated
     // Input: WeaponInfo object, x and y coordinate
@@ -239,8 +319,10 @@ public class Logic {
         return myGame.getLevelSpawner().isLevelOver();
     }
 
+    //TODO: i changed the status of the game into an enum so this should get the actual enum value instead of just if its over
+    // for example, the time expirable game mode is only based on if the game is over or not, but everything else has a lost or won status
     public boolean checkIfGameEnd(){
-        return myGame.isGameOver();
+        return myGame.getGameStatus()== GameStatus.OVER;
     }
 
 
