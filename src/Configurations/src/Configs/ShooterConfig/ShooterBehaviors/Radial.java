@@ -11,6 +11,8 @@ public class Radial extends ShooterBehavior {
     public static final String DISPLAY_LABEL = "Radial Shooting";
     @XStreamOmitField
     private transient Configuration myConfiguration;
+    private int startRound;
+
 
     public Radial(Shooter shooter){
         super(shooter);
@@ -31,7 +33,8 @@ public class Radial extends ShooterBehavior {
     public void update(double ms, Updatable parent) {
         //NOTE: parent is the Shooter
         Shooter shooter = (Shooter) parent;
-        if(ms%shooter.getRateOfFire()==0) {
+        if((int)(ms/(1000/shooter.getRateOfFire()))>startRound) {
+            startRound = (int)(ms/(1000/shooter.getRateOfFire()));
             ActiveWeapon activeWeapon = shooter.getMyShootable().getActiveWeapon();
             ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
             MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
