@@ -93,10 +93,6 @@ public class GameController {
                 handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
-            /*else if(key.toLowerCase().contains("weaponconfig")){
-                handleWeaponConfig(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
-            }*/
-
             //handle Array
             else{
                 handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
