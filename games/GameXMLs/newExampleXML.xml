@@ -5269,5 +5269,7 @@
         <unlocked>false</unlocked>
       </Configs.ArsenalConfig.WeaponWave>
     </unlockableWeapons>
+    <unlockedWeapons></unlockedWeapons>
+    <newUnlockedWeapons></newUnlockedWeapons>
   </myArsenal>
 </Configs.GamePackage.Game>

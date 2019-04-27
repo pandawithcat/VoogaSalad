@@ -93,6 +93,7 @@ public class ActiveLevel extends Level implements Updatable {
         updateActive(ms, activeProjectiles);
         updateActive(ms, activeWeapons);
         myWaveSpawner.update(ms, this);
+        System.out.println(activeWeapons);
     }
 
     private void updateActive(double ms, List<MapFeaturable> activeList) {

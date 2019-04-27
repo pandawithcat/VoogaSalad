@@ -42,8 +42,8 @@ public class GamePlayMap extends Pane{
     }
 
     public void update(double elapsedTime){
-//        if (myLogic.checkIfGameEnd()){
-            if (true){
+        if (myLogic.checkIfGameEnd()){
+//            if (true){
                 displayGameOver();
             }
             else {

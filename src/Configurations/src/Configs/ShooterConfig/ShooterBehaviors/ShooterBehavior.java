@@ -14,7 +14,9 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
         myShooter = shooter;
     }
 
-
+    public Shooter getMyShooter() {
+        return myShooter;
+    }
 
     @Override
     public List<Class> getBehaviorOptions() {

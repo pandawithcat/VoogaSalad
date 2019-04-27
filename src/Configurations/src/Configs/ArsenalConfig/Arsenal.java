@@ -19,12 +19,9 @@ public class Arsenal implements Configurable, Updatable {
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
-    @XStreamOmitField
-    private transient List<WeaponConfig> unlockedWeapons;
-    @XStreamOmitField
-    private transient List<WeaponConfig> newUnlockedWeapons;
+    private List<WeaponConfig> unlockedWeapons;
+    private List<WeaponConfig> newUnlockedWeapons;
 
-//    private WeaponConfig[] unlockedWeapons;
 
     public Arsenal(Game game) {
         myConfiguration = new Configuration(this);

@@ -15,9 +15,8 @@ public class WeaponWave implements Updatable, Configurable {
     @Configure
     private WeaponWaveBehavior weaponWaveBehavior;
 
-    private transient Arsenal myArsenal;
-    @XStreamOmitField
-    private transient boolean unlocked;
+    private Arsenal myArsenal;
+    private boolean unlocked;
     @XStreamOmitField
     private transient Configuration myConfiguration;
 
