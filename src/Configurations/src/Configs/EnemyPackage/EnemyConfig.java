@@ -50,6 +50,10 @@ public class EnemyConfig implements Configurable, Viewable {
         return unitSpeedPerSecond;
     }
 
+    public void setUnitSpeedPerSecond(int speed){
+        unitSpeedPerSecond = speed;
+    }
+
     @Override
     public View getView() {
         return view;
