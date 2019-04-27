@@ -45,6 +45,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         }
     }
 
+    enum AITypes{
+        SHORTEST_PATH,
+        SHORTEST_IGNORE_PATH,
+        SHORTEST_PATH_AVOID_WEAPON,
+        SHORTEST_IGNORE_PATH_AVOID_WEAPON,
+    }
+
 
     public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
         super(enemyConfig);
@@ -85,7 +92,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         return moveShortestDistance();
     }
 
-    private MovementDirection moveShortestDistance() {
+    private MovementDirection moveShortestDistance(AITypes aiTypes) {
         int[]xAdditions = new int[]{0,0,-1,1};
         int[]yAdditions = new int[]{1,-1,0,0};
         int bestOption = 0;
@@ -100,7 +107,21 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
                     Point newxy = new Point(x,y);
                     if (isCellValid(x,y)&& !prevLocations.contains(newxy)){
                         Cell myCell = myActiveLevel.getGridCell(x,y);
-                        totalHeuristic+=myCell.getShortestDistanceHeuristic()/getView().getHeight()/getView().getWidth();
+                        if (aiTypes == AITypes.SHORTEST_PATH) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_PATH) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_IGNORE_PATH) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristicIgnorePath() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_PATH_AVOID_WEAPON) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristicAvoidWeapons() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_IGNORE_PATH_AVOID_WEAPON) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
+                        }
                     }
                     else {
                         totalHeuristic = Integer.MAX_VALUE;

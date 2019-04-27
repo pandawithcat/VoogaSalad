@@ -218,7 +218,7 @@ public class ActiveLevel extends Level implements Updatable {
                     calculateShortestDistanceHeuristicIgnorePath(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristicIgnorePath() + DISTANCE_HEURISTIC);
                 }
                 if (heuristicType.equals("shortAvoidWeapons")){
-                    calculateShortestDistanceHeuristic(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
+                    calculateShortestDistanceHeuristicWeapons(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
                 }
                 if (heuristicType.equals("shortAvoidWeaponsIgnorePath")){
                     calculateShortestDistanceHeuristicIgnorePath(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristicIgnorePath() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
@@ -232,10 +232,22 @@ public class ActiveLevel extends Level implements Updatable {
             inspectedCell.setShortestDistanceHeuristic(Integer.MAX_VALUE);
             return;
         }
-//        int temp = inspectedCell.getShortestDistanceHeuristicIgnorePath();
         setShortestDistanceHeuristic(pq, expandedCell, inspectedCell, newHeuristic);
-//        inspectedCell.setShortestDistanceHeuristic(inspectedCell.getShortestDistanceHeuristicIgnorePath());
-//        inspectedCell.setShortestDistanceHeuristicIgnorePath(temp);
+    }
+
+    private void calculateShortestDistanceHeuristicWeapons(PriorityQueue<Cell> pq, Cell expandedCell, Cell inspectedCell, int newHeuristic) {
+        if (!inspectedCell.getMyTerrain().getIfPath()){
+            inspectedCell.setShortestDistanceHeuristic(Integer.MAX_VALUE);
+            return;
+        }
+        setShortestDistanceHeuristicWeapon(pq, expandedCell, inspectedCell, newHeuristic);
+    }
+
+    private void setShortestDistanceHeuristicWeapon(PriorityQueue<Cell> pq, Cell expandedCell, Cell inspectedCell, int newHeuristic) {
+        if (newHeuristic<inspectedCell.getShortestDistanceHeuristic()){
+            inspectedCell.setShortestDistanceHeuristic(newHeuristic);
+            pq.add(inspectedCell);
+        }
     }
 
     private void setShortestDistanceHeuristic(PriorityQueue<Cell> pq, Cell expandedCell, Cell inspectedCell, int newHeuristic) {
