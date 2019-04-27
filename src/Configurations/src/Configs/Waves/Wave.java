@@ -64,12 +64,12 @@ public class Wave implements Updatable, Configurable {
 
         while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
-            int x = activeLevel.getMyMapConfig().getEnemyEnteringGridXPos();
-            int y = activeLevel.getMyMapConfig().getEnemyEnteringGridYPos();
+            //int x = activeLevel.getMyMapConfig().getEnemyEnteringGridXPos();
+            //int y = activeLevel.getMyMapConfig().getEnemyEnteringGridYPos();
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
-            MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth());
-            activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
+            //MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth());
+            //activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
             currentEnemyIndex++;
         }
 

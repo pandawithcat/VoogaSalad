@@ -186,7 +186,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void recalculateMovementHeuristic(){
-        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
+        //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
 
     private void astar(Cell startCell){
