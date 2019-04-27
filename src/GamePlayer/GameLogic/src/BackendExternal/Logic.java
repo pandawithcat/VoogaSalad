@@ -15,7 +15,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,7 +45,7 @@ public class Logic {
 
     public Logic(double paneWidth, double paneHeight) {
         myGameLibrary = new GameLibrary();
-//        myPlayerData = new PlayerData();
+    //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
@@ -83,21 +85,32 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!
 
     /**
-     *
-     * @return -
+     * Polls the database to return the list of games that can be played by the user.
+     * @return - List of GameInfo Objects containing basic information about created games
      */
-
     public List<GameInfo> getGameOptions2(){
         return myPlayerData.getAuthoredGames();
     }
 
     // Returns the highest scores recorded of the number of specified players
+    // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Polls the database to return the list of score leaders for the current game
+     * @param numberOfEntries - number of leaders to retrieve
+     * @return - unmodifiable list of LeaderBoardEntry objects
+     */
     public List<LeaderBoardEntry> getLeaderBoardEntries(int numberOfEntries){
         return myPlayerData.compileLeaderboardEntries(numberOfEntries);
     }
 
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Retrieves the selected games XML string from the database and deserializes it into the specific game object
+     * @param selectedGame - One of the game info objects selected from the provided list
+     */
     public void createGameInstance2(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
         String gameXMLString = myPlayerData.getGameString(selectedGame);
@@ -105,6 +118,10 @@ public class Logic {
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Begins the game at the state that the current user left off at when they previously played
+     */
     public void startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
         myGame.setScore(gameState.getMyCurrentScore());
@@ -112,13 +129,25 @@ public class Logic {
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Begins the game at the default state
+     */
     public void startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
+
+    /**
+     * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
+     * @param imageID - integer value corresponding to the specific image in the database
+     * @return - Java image object requested
+     */
     public Image getImage(int imageID){
-        return myPlayerData.getImage(imageID);
+        byte[] imageBytes = myPlayerData.getImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
@@ -173,18 +202,14 @@ public class Logic {
 
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+        return mapFeature.getImageView();
 
-            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
-
-
+    }
 
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
-
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
-
         return mapFeature.getImageView();
-//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
-
     }
 
     // View call this when the user presses play or a level is over
@@ -196,8 +221,11 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
-    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction){
+    public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
+        if (myGame.getCash()>0){//TODO: Check for price of weapon
         return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
+        }
+        else throw new NotEnoughCashException("Not Enough Cash");
     }
 
     // View calls to update the state of the Dynamic parts of the level in the game loop
@@ -228,6 +256,8 @@ public class Logic {
         return myGame.getScore();
     }
 
+    //view calls to check the current amount of cash
+    public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives

@@ -79,6 +79,7 @@ public class Arsenal implements Configurable, Updatable {
         WeaponConfig myWeaponConfig = unlockedWeapons.get(ID-1);
         ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth()), myGame.getActiveLevel());
         myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
+        myGame.addToCash(-1);//TODO: DO THIS BASED ON HOW MUCH THE WEAPON COSTS
         return activeWeapon.getMapFeature().getImageView();
     }
 

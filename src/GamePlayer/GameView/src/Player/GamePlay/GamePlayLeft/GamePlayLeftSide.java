@@ -5,7 +5,6 @@ import Player.GamePlay.EndLoopInterface;
 import Player.GamePlay.GamePlayRight.GamePlaySettingsBar;
 import Player.GamePlay.SelectionInterface;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class GamePlayLeftSide extends VBox {
     public static final double TOP_RATIO = 0.8;

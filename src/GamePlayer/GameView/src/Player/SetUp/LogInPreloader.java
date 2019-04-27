@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LogInPreloader extends Application {
-    public static final int MILLISECOND_DELAY = 80;
+    public static final int MILLISECOND_DELAY = 50;
     private EventHandler eventHandler;
     private Image characterImage = new Image(this.getClass().getClassLoader().getResourceAsStream("character.png"));
     private Image cloudImage = new Image(this.getClass().getClassLoader().getResourceAsStream("cloud.png"));
@@ -73,13 +73,6 @@ public class LogInPreloader extends Application {
             return loading;
         }
         private void step() {
-//            if (text.getText().equals("Loading ...")) {
-//                text.setText("Loading .. ");
-//            } else if (text.getText().equals("Loading .. ")) {
-//                text.setText("Loading .  ");
-//            } else {
-//                text.setText("Loading ...");
-//            }
             loading.setWidth(loading.getWidth() + 10);
             animation.statusProperty().addListener((obs, oldStatus, newStatus) -> {
                 if (newStatus == Animation.Status.STOPPED) {

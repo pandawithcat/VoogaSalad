@@ -41,6 +41,8 @@ public class ActiveLevel extends Level implements Updatable {
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
+
+        int myScore = 0;
     }
 
     private Cell[][] createMyGrid(){
@@ -178,6 +180,12 @@ public class ActiveLevel extends Level implements Updatable {
             astar(myGrid,goal.x,goal.y, "shortAvoidWeapons");
             astar(myGrid,goal.x,goal.y, "shortAvoidWeaponsIgnorePath");
         }
+    }
+    public void addGameCash(double amt){
+        getGame().addToCash(amt);
+    }
+    public void addGameScore(int amt){
+        getGame().addToScore(amt);
     }
 
     private void astar(Cell[][] grid, int startX, int startY, String heuristicType){

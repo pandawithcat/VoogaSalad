@@ -45,6 +45,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
         myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
+
     }
     private void move(double ms){
         double velocityMs = getVelocityInSeconds()/1000;
