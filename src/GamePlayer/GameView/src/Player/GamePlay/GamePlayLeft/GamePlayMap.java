@@ -1,6 +1,7 @@
 package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
+import Configs.GamePackage.GameStatus;
 import Configs.ImmutableImageView;
 import Player.GamePlay.EndLoopInterface;
 import Player.GamePlay.SelectionInterface;
@@ -15,12 +16,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 
+import static Configs.GamePackage.GameStatus.LOST;
+
 public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
     private Group mapRoot;
     private EndLoopInterface endGame;
     private SelectionInterface homeStage;
+    private GameStatus gameStatus;
 
     public GamePlayMap(double width, double height, Logic logic, EndLoopInterface endLoop,
                        SelectionInterface stage) {
@@ -42,10 +46,19 @@ public class GamePlayMap extends Pane{
     }
 
     public void update(double elapsedTime){
-        if (myLogic.checkIfGameEnd()){
+        gameStatus = myLogic.getGameStatus();
+        switch (gameStatus){
+            case OVER:
                 displayGameOver();
-            }
-            else {
+                break;
+            case LOST:
+                //TODO: DISPLAY LOSE?
+                displayGameOver();
+                break;
+            case WON:
+                //TODO:DISPLAY GAME WON
+                break;
+            case PLAYING:
                 if (myLogic.checkIfLevelEnd()) {
                     myLogic.startNextLevel();
                 }
@@ -55,7 +68,8 @@ public class GamePlayMap extends Pane{
                 List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
                 imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
                 imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
-            }
+                break;
+        }
     }
 
     public double getGridSize(){
