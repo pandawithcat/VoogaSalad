@@ -4,6 +4,7 @@ import Configs.MapPackage.Terrain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.IntSupplier;
 
 public class Cell implements Comparable{
     private int X;
@@ -38,7 +39,9 @@ public class Cell implements Comparable{
         myEnemies = new ArrayList<>();
         myWeaponConfig = null;
         shortestDistanceHeuristic = Integer.MAX_VALUE;
-        shortestDistanceHeuristicAvoidWeapons
+        shortestDistanceHeuristicAvoidWeapons = Integer.MAX_VALUE;
+        shortestDistanceHeuristicAvoidWeaponsIgnorePath = Integer.MAX_VALUE;
+        shortestDistanceHeuristicIgnorePath = Integer.MAX_VALUE;
     }
 
     public boolean isValidWeaponPlacement() {
