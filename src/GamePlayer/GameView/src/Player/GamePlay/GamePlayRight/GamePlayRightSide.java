@@ -35,6 +35,9 @@ public class GamePlayRightSide extends VBox {
         }
         this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, home));
     }
+    public void update(){
+        myGameArsenal.recreateArsenal();
+    }
 
     private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, SelectionInterface home){
         myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer);

@@ -43,13 +43,12 @@ public class GamePlayMap extends Pane{
 
     public void update(double elapsedTime){
         if (myLogic.checkIfGameEnd()){
-//            if (true){
                 displayGameOver();
             }
             else {
-//                if (myLogic.checkIfLevelEnd()) {
-//                    myLogic.startNextLevel();
-//                }
+                if (myLogic.checkIfLevelEnd()) {
+                    myLogic.startNextLevel();
+                }
                 //commenting out logic to hardcode animation
                 myLogic.update(elapsedTime);
                 List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
