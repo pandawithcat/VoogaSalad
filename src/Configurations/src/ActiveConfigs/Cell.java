@@ -1,7 +1,5 @@
 package ActiveConfigs;
 
-import Configs.EnemyPackage.EnemyConfig;
-import Configs.ArsenalConfig.WeaponConfig;
 import Configs.MapPackage.Terrain;
 
 import java.util.ArrayList;
@@ -13,7 +11,12 @@ public class Cell implements Comparable{
     private ActiveWeapon myWeaponConfig;
     private Terrain myTerrain;
     private List<ActiveEnemy> myEnemies;
-    private int movementHeuristic;
+    private int shortestDistanceHeuristic;
+    private int shortestDistanceHeuristicIgnorePath;
+    private int shortestDistanceHeuristicAvoidWeapons;
+    private boolean cellBlocked;
+    private int weaponCoverage;
+
 
 //    public Cell(){
 //
@@ -22,7 +25,7 @@ public class Cell implements Comparable{
     @Override
     public int compareTo(Object o) {
         if (o instanceof Cell){
-            return this.getMovementHeuristic() - ((Cell) o).getMovementHeuristic();
+            return this.getShortestDistanceHeuristic() - ((Cell) o).getShortestDistanceHeuristic();
         }
         return 0;
     }
@@ -33,7 +36,7 @@ public class Cell implements Comparable{
         myTerrain = t;
         myEnemies = new ArrayList<>();
         myWeaponConfig = null;
-        movementHeuristic = Integer.MAX_VALUE;
+        shortestDistanceHeuristic = Integer.MAX_VALUE;
     }
 
     public boolean isValidWeaponPlacement() {
@@ -72,12 +75,36 @@ public class Cell implements Comparable{
         this.myEnemies = myEnemies;
     }
 
-    public void setMovementHeuristic(int movementHeuristic) {
-        this.movementHeuristic = movementHeuristic;
+    public void setShortestDistanceHeuristic(int movementHeuristic) {
+        this.shortestDistanceHeuristic = movementHeuristic;
     }
 
-    public int getMovementHeuristic() {
-        return movementHeuristic;
+    public int getShortestDistanceHeuristic() {
+        return shortestDistanceHeuristic;
+    }
+
+    public int getShortestDistanceHeuristicAvoidWeapons() {
+        return shortestDistanceHeuristicAvoidWeapons;
+    }
+
+    public int getShortestDistanceHeuristicIgnorePath() {
+        return shortestDistanceHeuristicIgnorePath;
+    }
+
+    public void setShortestDistanceHeuristicAvoidWeapons(int shortestDistanceHeuristicAvoidWeapons) {
+        this.shortestDistanceHeuristicAvoidWeapons = shortestDistanceHeuristicAvoidWeapons;
+    }
+
+    public void setShortestDistanceHeuristicIgnorePath(int shortestDistanceHeuristicIgnorePath) {
+        this.shortestDistanceHeuristicIgnorePath = shortestDistanceHeuristicIgnorePath;
+    }
+
+    public int getWeaponCoverage() {
+        return weaponCoverage;
+    }
+
+    public void setWeaponCoverage(int weaponCoverage) {
+        this.weaponCoverage = weaponCoverage;
     }
 }
 

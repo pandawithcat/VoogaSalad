@@ -4,9 +4,7 @@ import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
@@ -63,18 +61,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     @Override
     public void update(double ms) {
-        //get x, y from myMapFeature and do logic using the map within the activeLevel
-//        if
-        //dont forget to update state to PRESENT or DIED in myMapFeature
-
         if (startTime == -Integer.MAX_VALUE){
             startTime = ms;
-//            prevTime = ms;
         }
 
-//        distance += (ms-prevTime * getUnitSpeedPerSecond() * CONVERSION_TO_SECONDS);
-        int numMovements = 1;//(int) distance;
-//        distance -= numMovements;
+        int numMovements = 1;
 
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection();
@@ -84,7 +75,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             if (prevLocations.size()>5){
                 prevLocations.removeLast();
             }
-            //TODO: this needs to be in terms of pixels and the isoutofbounds should be changed to take in pixel location after this is implemented
             myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
     }
@@ -92,6 +82,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     private MovementDirection determineMovementDirection(){
+        return moveShortestDistance();
+    }
+
+    private MovementDirection moveShortestDistance() {
         int[]xAdditions = new int[]{0,0,-1,1};
         int[]yAdditions = new int[]{1,-1,0,0};
         int bestOption = 0;
@@ -106,7 +100,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
                     Point newxy = new Point(x,y);
                     if (isCellValid(x,y)&& !prevLocations.contains(newxy)){
                         Cell myCell = myActiveLevel.getGridCell(x,y);
-                        totalHeuristic+=myCell.getMovementHeuristic()/getView().getHeight()/getView().getWidth();
+                        totalHeuristic+=myCell.getShortestDistanceHeuristic()/getView().getHeight()/getView().getWidth();
                     }
                     else {
                         totalHeuristic = Integer.MAX_VALUE;

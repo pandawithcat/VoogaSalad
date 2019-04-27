@@ -3,14 +3,14 @@ package Configs.EnemyPackage.EnemyBehaviors;
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
 
-public class ShortestPathAI extends EnemyBehavior {
-    public static final String myLabel = "ShortestPathAI";
+public class AI extends EnemyBehavior {
+    public static final String myLabel = "AI";
     @Configure
     private int speed;
 
     private Configuration myConfiguration;
 
-    public ShortestPathAI(EnemyConfig enemyConfig){
+    public AI(EnemyConfig enemyConfig){
         super(enemyConfig);
         myConfiguration = new Configuration(this);
     }
@@ -29,4 +29,6 @@ public class ShortestPathAI extends EnemyBehavior {
     public void update(double ms) {
 
     }
+
+
 }
