@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -34,6 +35,7 @@ public class StartingScreen {
     private double height = ScreenSize.getHeight() * 0.75;
     private Button loginButton;
     private Button createIDButton;
+    private Model myModel;
 
     public void start (Stage stage) {
         myStage = stage;
@@ -41,6 +43,7 @@ public class StartingScreen {
         setStage();
     }
     private void setScene(){
+        //myModel = new Model();
         myContatiner = new VBox();
         myContatiner.setSpacing(padding);
         myContatiner.setId("backdrop");
@@ -75,16 +78,20 @@ public class StartingScreen {
 
     private void handleCreateAccount(MouseEvent event){
         //TODO Complete this part
-        CreateAccount createAccount = new CreateAccount(this);
+        CreateAccount createAccount = new CreateAccount(this, myModel);
     }
 
     private void handleLogin(MouseEvent event){
         //TODO Call APIs to confirm password
-        //if(log in successful)
+        //if(myModel.authenticateUser(idTf.getText(), pwTf.getText())){
         Text instructions = new Text("Now Click New Game to make a new Game or click import Game to import a existing game");
         instructions.setStyle("-fx-font-size: 10");
         myContatiner.getChildren().removeAll(idTf, pwTf, loginButton, createIDButton, loginDescription);
         myContatiner.getChildren().addAll(newGameButton, importGameButton, instructions);
+        /*    }
+        else{
+            //TODO Alert error
+        }*/
     }
 
     private void makeGame(Game game){
