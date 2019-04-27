@@ -2,16 +2,18 @@ package Configs.ShooterConfig.ShooterBehaviors;
 
 import ActiveConfigs.ActiveLevel;
 import ActiveConfigs.ActiveProjectile;
+import ActiveConfigs.ActiveWeapon;
 import Configs.*;
 import Configs.ShooterConfig.Shooter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-public class Radial implements Updatable, Configurable {
-    public static final String myLabel = "Radial Shooting";
-    private Configuration myConfiguration;
-    private Shooter myShooter;
+public class Radial extends ShooterBehavior {
+    public static final String DISPLAY_LABEL = "Radial Shooting";
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public Radial(Shooter shooter){
-        myShooter = shooter;
+        super(shooter);
         myConfiguration = new Configuration(this);
     }
 
@@ -22,18 +24,20 @@ public class Radial implements Updatable, Configurable {
 
     @Override
     public String getName() {
-        return myLabel;
+        return DISPLAY_LABEL;
     }
 
     @Override
-    public void update(double ms) {
-        if(ms%myShooter.getRateOfFire()==0) {
-            ActiveLevel myActiveLevel =  myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel();
-            int weaponId = myShooter.getMyShootable().getWeaponConfig().getWeaponId();
-            MapFeature myShooterMapFeature = myActiveLevel.getActiveWeapon(weaponId).getMapFeature();
+    public void update(double ms, Updatable parent) {
+        //NOTE: parent is the Shooter
+        Shooter shooter = (Shooter) parent;
+        if(ms%shooter.getRateOfFire()==0) {
+            ActiveWeapon activeWeapon = shooter.getMyShootable().getActiveWeapon();
+            ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
+            MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();
             double weaponY = myShooterMapFeature.getPixelYPos();
-            View view = myActiveLevel.getActiveWeapon(weaponId).getView();
+            View view = activeWeapon.getView();
 
             double width = view.getWidth();
             double height = view.getHeight();
@@ -41,9 +45,10 @@ public class Radial implements Updatable, Configurable {
             double projectileStartYPos = weaponY + height/2;
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, myShooter.getProjectileConfig().getView(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneHeight(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth());
-                ActiveProjectile activeProjectile = new ActiveProjectile(myShooter.getProjectileConfig(), projectileMapFeature, myShooter.getShooterRange(), myActiveLevel);
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, shooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth());
+                ActiveProjectile activeProjectile = new ActiveProjectile(shooter.getProjectileConfig(), projectileMapFeature, shooter.getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
+                ((Shooter) parent).addToProjectilesFired(1);
             }
         }
     }

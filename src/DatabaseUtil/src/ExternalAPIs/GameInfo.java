@@ -4,12 +4,19 @@ public class GameInfo {
 
     private String myGameID;
     private String myGameTitle;
-    private int myGameThumbnailID;
+    private String myGameThumbnailID;
+    private int myGameThumbnailIDNew;
     private String myGameDescription;
+
+    public GameInfo(String title, String thumbnail, String description){
+        myGameTitle = title;
+        myGameThumbnailID = thumbnail;
+        myGameDescription = description;
+    }
 
     public GameInfo(String title, int thumbnail, String description){
         myGameTitle = title;
-        myGameThumbnailID = thumbnail;
+        myGameThumbnailIDNew = thumbnail;
         myGameDescription = description;
     }
 
@@ -21,9 +28,11 @@ public class GameInfo {
         return myGameTitle;
     }
 
-    public int getGameThumbnail(){
+    public String getGameThumbnail(){
         return myGameThumbnailID;
     }
+
+    public int getGameThumbnailNew(){ return myGameThumbnailIDNew;}
 
     public String getGameDescription(){
         return myGameDescription;

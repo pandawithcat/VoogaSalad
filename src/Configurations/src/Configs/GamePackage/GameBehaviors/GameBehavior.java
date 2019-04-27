@@ -7,9 +7,9 @@ import Configs.GamePackage.Game;
 import java.util.List;
 
 public abstract class GameBehavior implements Behavior<Game> {
-    Game myGame;
-    public static final String myLabel = "Game Behavior";
-    public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of();
+    private Game myGame;
+    public static final String DISPLAY_LABEL = "Game Behavior";
+    public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of(Lives.class);
 
     public GameBehavior(Game game){
         myGame = game;

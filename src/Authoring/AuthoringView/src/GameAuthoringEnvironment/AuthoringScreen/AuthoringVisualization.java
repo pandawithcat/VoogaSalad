@@ -7,6 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
@@ -20,16 +21,14 @@ public class AuthoringVisualization {
     private double screenMinX;
     private double screenMinY;
     private Scene myScene;
-    private Group myContainer;
+    private VBox myContainer;
     private GameOutline gameOutline;
     private static final KeyCombination keyCombinationCommandN = new KeyCodeCombination(KeyCode.ESCAPE);
     private Game myGame;
 
-
     public AuthoringVisualization(Game game){
         myGame = game;
-        var root = new Group();
-        myContainer = root;
+        myContainer = new VBox();
         setScene();
     }
 
@@ -45,20 +44,23 @@ public class AuthoringVisualization {
 
         //TODO(Hyunjae) Refactor and don't use magic numbers
         gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
+        StackPane background = new StackPane();
         VBox myGameOutline = gameOutline.getModule();
+        myGameOutline.setId("image_backdrop");
         //myGameOutline.setLayoutX();
-        myGameOutline.setLayoutY(25);
+        myGameOutline.setLayoutY(40);
+        background.getChildren().add(myGameOutline);
+
 
         TopMenuBar topMenuBar = new TopMenuBar(gameOutline);
-
-        //TODO(Hyunjae) Change this part - add specific instructions on how to use the editor(make it fancy)
-        Text instructions = new Text("Write down instructions and make this look super fancy!");
-        instructions.setX(300);
-        instructions.setY(300);
-
-        myContainer.getChildren().addAll(topMenuBar.getTopMenuBar(), myGameOutline, instructions);
+        StackPane menu = new StackPane();
+        StackPane colored = new StackPane();
+        colored.setStyle("-fx-background-color: linear-gradient(rgb(90, 253, 255), rgb(98, 222, 230)); -fx-opacity: 0.4;");
+        menu.getChildren().add(colored);
+        menu.getChildren().add(topMenuBar.getTopMenuBar());
+        myContainer.getChildren().addAll(menu, background);
         myScene = new Scene(myContainer);
-
+        myScene.getStylesheets().add("authoring_style.css");
 
         Stage myStage = new Stage();
         myStage.setScene(myScene);

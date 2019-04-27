@@ -30,7 +30,7 @@ public class LevelSpawner implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         if(endLevelCondition.test(currLevel)) {
             levelOver = true;
             if(levelIndex==myLevels.size()) {
@@ -38,7 +38,7 @@ public class LevelSpawner implements Updatable {
             }
         }
         else {
-            currLevel.update(ms);
+            currLevel.update(ms, this);
         }
     }
 

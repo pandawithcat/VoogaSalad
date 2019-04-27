@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-import static Player.GamePlay.GamePlayIDE.LEFT_RATIO;
+import static Player.GamePlay.GamePlayGUI.LEFT_RATIO;
 import static Player.GamePlay.GamePlayLeft.GamePlayLeftSide.TOP_RATIO;
 
 
@@ -34,15 +34,17 @@ public class GamePlayMain extends Application {
     // Added by Brian
     private Logic myLogic = new Logic(screenWidth, screenHeight);
     private Timeline animation;
-    private GamePlayIDE myGameIDE;
+    private GamePlayGUI myGameGUI;
     private Group root;
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
     private KeyFrame frame;
+    private boolean gameOver;
+    private Stage primaryStage;
     @Override
     public void start(Stage stage){
         try {
-            Stage primaryStage = stage;
+            primaryStage = stage;
             root = new Group();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
@@ -50,8 +52,11 @@ public class GamePlayMain extends Application {
             startScreen.getStylesheets().add("gameplay.css");
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), root, stage, mediaPlayer);
-            root.getChildren().add(myGameIDE);
+            myGameGUI = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
+                    () -> closeStage(),
+                    root,
+                    mediaPlayer);
+            root.getChildren().add(myGameGUI);
             frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
@@ -81,41 +86,23 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
-//        long starttime = System.currentTimeMillis();
-//        long prevTime = -1000;
-//        while(true){
-//            long currTime = System.currentTimeMillis();
-//            long newtime = currTime-starttime;
-//            if (newtime - prevTime>50) {
-//                step(newtime);
-//                prevTime = newtime;
-//            }
-//            else{
-//                try {
-//                    Thread.sleep(50);
-//                }
-//                catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
         animation.setRate(1);
         animation.play();
     }
 
     private void step(){
-        //TODO: yeah idk if this is best design below
-        //TODO: if the level end is true stop the game loop
-        //TODO: dynamically update views with methods below
-        //TODO: changelistener for dragging objects
-        //TODO: render method
-        //TODO: dynamically update views with methods below
-        //TODO: change all the scores and lives and
-        //getViewsToBeAdded
-        //getRemovedImageViews
-        //
-        myGameIDE.getLeft().getMap().update(currMilliSecond);
-        currMilliSecond+=MILLISECOND_DELAY;
-//        System.out.println(currMilliSecond);
+        if (!gameOver) {
+            myGameGUI.update(currMilliSecond);
+            currMilliSecond += MILLISECOND_DELAY;
+        }
     }
+
+    public void endLoop(){
+        gameOver = true;
+    }
+
+    private void closeStage(){
+        primaryStage.close();
+    }
+
 }

@@ -18,11 +18,11 @@ public class WaveSpawner implements Updatable {
 
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         List<Wave> myWavesToRemove = new ArrayList<>();
         myWaves.stream().forEach(wave -> {
             if(wave.getTimeToReleaseInMs()<=ms) {
-                wave.update(ms);
+                wave.update(ms, this);
             }
             if(wave.isFinished()) myWavesToRemove.add(wave);
         });

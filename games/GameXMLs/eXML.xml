@@ -28,11 +28,11 @@
         <Configs.LevelPackage.Level-array>
           <Configs.LevelPackage.Level>
             <myGame reference="../../../../../.."/>
-            <myLabel>x</myLabel>
+            <DISPLAY_LABEL>x</DISPLAY_LABEL>
             <myConfiguration>
               <myAttributeTypes class="linked-hash-map">
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <java-class>java.lang.String</java-class>
                 </entry>
                 <entry>
@@ -54,7 +54,7 @@
               </myAttributeTypes>
               <myAttributes>
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <string>x</string>
                 </entry>
               </myAttributes>

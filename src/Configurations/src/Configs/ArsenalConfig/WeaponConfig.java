@@ -1,25 +1,30 @@
 package Configs.ArsenalConfig;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.HealthExpirable;
 import Configs.ArsenalConfig.WeaponBehaviors.PlaceableOnPath;
+import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
+import Configs.ShooterConfig.Shooter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 
-public class WeaponConfig implements  Configurable, Viewable {
-    Configuration myConfiguration;
-    public static final String myLabel= "Weapon";
+public class WeaponConfig implements  Configurable, Viewable, Info {
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
+    public static final String DISPLAY_LABEL= "Weapon";
     @Configure
     private String myName;
     @Configure
     private WeaponBehavior[] behaviors;
     @Configure
     private View view;
-    @Configure
-    private boolean unlocked;
 
     private Arsenal myArsenal;
+    @XStreamOmitField
     private int weaponId;
 
     public WeaponConfig(Arsenal myArsenal) {
@@ -37,6 +42,26 @@ public class WeaponConfig implements  Configurable, Viewable {
         return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
     }
 
+    @Override
+    public String getImage() {return view.getImage();}
+
+    @Override
+    public String getName() {return myName;}
+
+    @Override
+    public double getWidth() {return view.getWidth();}
+
+    @Override
+    public double getHeight() {return view.getHeight();}
+
+    public Shooter getShooter() throws IllegalStateException {
+        return new Shooter(new Shootable(this));
+//        if (Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof Shootable)) {
+//            return ((Shootable) Arrays.asList(getBehaviors()).stream().filter(behavior -> behavior instanceof Shootable).collect(Collectors.toList()).get(0)).getShooter();
+//        }
+//        else throw new IllegalStateException();
+    }
+
     public void setWeaponId(int weaponId) {
         this.weaponId = weaponId;
     }
@@ -50,11 +75,6 @@ public class WeaponConfig implements  Configurable, Viewable {
         return myConfiguration;
     }
 
-    @Override
-    public String getName() {
-        return myName;
-    }
-
     public WeaponBehavior[] getBehaviors() {
         return behaviors;
     }
@@ -62,10 +82,6 @@ public class WeaponConfig implements  Configurable, Viewable {
     @Override
     public View getView() {
         return view;
-    }
-
-    public String getImage() {
-        return view.getImagePath();
     }
 
     public Arsenal getMyArsenal() {

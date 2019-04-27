@@ -17,12 +17,12 @@ public class ActiveLevel extends Level implements Updatable {
     private List<MapFeaturable> activeEnemies;
     private List<MapFeaturable> activeProjectiles;
     private Cell[][] myGrid;
-    private int myScore;
     private double paneWidth;
     private double paneHeight;
     private final int gridWidth;
     private final int gridHeight;
     private WaveSpawner myWaveSpawner;
+    private int escapedEnemies;
 
     public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
         super(level);
@@ -36,7 +36,6 @@ public class ActiveLevel extends Level implements Updatable {
         recalculateMovementHeuristic();
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        myScore = 0;
     }
 
     private Cell[][] createMyGrid(){
@@ -52,17 +51,6 @@ public class ActiveLevel extends Level implements Updatable {
         return tempGrid;
     }
 
-    public void setScore(int score) {
-        this.myScore = score;
-    }
-
-    public void addToScore(int points) {
-        myScore+=points;
-    }
-
-    public int getScore() {
-        return myScore;
-    }
 
     public Cell[][] getMyGrid() {
         return myGrid;
@@ -70,7 +58,6 @@ public class ActiveLevel extends Level implements Updatable {
 
     public boolean noMoreEnemiesLeft() {
         return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
-
     }
 
 
@@ -88,23 +75,29 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         updateActive(ms, activeEnemies);
         updateActive(ms, activeProjectiles);
         updateActive(ms, activeWeapons);
-        myWaveSpawner.update(ms);
+        myWaveSpawner.update(ms, this);
+        System.out.println(activeWeapons);
     }
 
     private void updateActive(double ms, List<MapFeaturable> activeList) {
         List<MapFeaturable> activeToRemove = new ArrayList<>();
         activeList.stream().forEach(active -> {
-            ((Updatable)active).update(ms);
-            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) activeToRemove.add(active);
+            ((Updatable)active).update(ms, this);
+            if(active.getMapFeature().getDisplayState()==DisplayState.DIED) {
+                if(active instanceof ActiveEnemy) escapedEnemies++;
+                activeToRemove.add(active);
+            }
         });
         activeList.removeAll(activeToRemove);
     }
 
-
+    public int getEscapedEnemies() {
+        return escapedEnemies;
+    }
 
     private ImmutableImageView evaluateViewToBeRemoved(MapFeaturable feature) {
         if(feature instanceof ActiveWeapon) activeWeapons.remove(feature);
@@ -144,16 +137,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    public ActiveWeapon getActiveWeapon(int id) throws IllegalStateException{
-        for(MapFeaturable weapon: activeWeapons) {
-            if(((ActiveWeapon)weapon).getWeaponId()==id) return (ActiveWeapon) weapon;
-        }
-        throw new IllegalStateException();
-    }
-
-    public int getMyScore() {
-        return myScore;
-    }
 
 
 
@@ -186,7 +169,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void recalculateMovementHeuristic(){
-        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
+        //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
 
     private void astar(Cell startCell){
