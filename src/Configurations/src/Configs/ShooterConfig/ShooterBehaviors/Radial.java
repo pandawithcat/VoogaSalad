@@ -33,8 +33,8 @@ public class Radial extends ShooterBehavior {
     public void update(double ms, Updatable parent) {
         //NOTE: parent is the Shooter
         Shooter shooter = (Shooter) parent;
-        if((int)(ms/shooter.getRateOfFire())>startRound) {
-            startRound = (int)(ms/shooter.getRateOfFire());
+        if((int)(ms/(1000/shooter.getRateOfFire()))>startRound) {
+            startRound = (int)(ms/(1000/shooter.getRateOfFire()));
             ActiveWeapon activeWeapon = shooter.getMyShootable().getActiveWeapon();
             ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
             MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
