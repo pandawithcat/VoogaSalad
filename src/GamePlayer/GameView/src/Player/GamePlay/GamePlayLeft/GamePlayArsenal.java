@@ -9,6 +9,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Background;
@@ -40,6 +43,7 @@ public class GamePlayArsenal extends VBox {
     private Group myRoot;
     private Map <String, Integer> weaponMap;
     private double defaultOpacity;
+    private Effect defaultEffect;
 
 
 
@@ -109,6 +113,7 @@ public class GamePlayArsenal extends VBox {
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
         myMap.setOpacity(defaultOpacity);
+        selectedImage.setEffect(defaultEffect);
         event.consume();
     }
 
@@ -116,7 +121,16 @@ public class GamePlayArsenal extends VBox {
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
+
             myMap.setOpacity(0.1);
+
+            Lighting lighting = new Lighting();
+            lighting.setDiffuseConstant(1.0);
+            lighting.setSpecularConstant(0.0);
+            lighting.setSpecularExponent(0.0);
+            lighting.setSurfaceScale(0.0);
+            lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
+            selectedImage.setEffect(lighting);
         }
         event.consume();
     }
@@ -133,6 +147,7 @@ public class GamePlayArsenal extends VBox {
     private void dragDetected(MouseEvent mouseEvent){
         selectedImage = (ImageView)((Pair) arsenalDisplay.getSelectionModel().getSelectedItem()).getKey();
         Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
+        defaultEffect = selectedImage.getEffect();
 
         //creates deepcopy of imageview
         var imageCopy = selectedImage.getImage();

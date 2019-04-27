@@ -61,7 +61,6 @@ public class GamePlayMap extends Pane{
                 if (myLogic.checkIfLevelEnd()) {
                     myLogic.startNextLevel();
                 }
-                //commenting out logic to hardcode animation
                 myLogic.update(elapsedTime);
                 List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
                 List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
