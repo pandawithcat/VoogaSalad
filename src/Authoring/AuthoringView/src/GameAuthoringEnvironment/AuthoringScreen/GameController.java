@@ -129,7 +129,7 @@ public class GameController {
                         Class<?> cl = Class.forName(value.getComponentType().getName());
                         Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                         List<Class> behaviorList = (List<Class>) myField.get(null);
-                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key);
+                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
                     } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
                         //TODO(Hyunjae) Errorchecking
                         System.out.println(e);
@@ -237,7 +237,7 @@ public class GameController {
             if(cl.getSimpleName().contains("Behavior")){
                 Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                 List<Class> behaviorList = (List<Class>) myField.get(null);
-                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key);
+                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
             }
             else{
                 createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
@@ -304,18 +304,16 @@ public class GameController {
                     //Speical case : Behavior is different since drag and drop is required
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
                         //only one behavior allowed
-                        if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
-                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                        //if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
+                           /* Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-
-                        }
+*/
+                        //}
                         //multiple behaviors allowed
-                        else{
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
-                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key);
-                        }
+                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz);
                     }
                     //rest should follow this
                     else {

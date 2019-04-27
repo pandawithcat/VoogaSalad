@@ -42,7 +42,6 @@ public class Logic {
 
 
     public Logic(double paneWidth, double paneHeight) {
-//        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
 //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
@@ -50,11 +49,25 @@ public class Logic {
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Receives user login input from the front-end and passes it to the database module to check against server data
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @return - boolean indicating if existing user credentials were matched
+     */
     public boolean authenticateUser(String username, String password){
         return myPlayerData.authenticateUser(username, password);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     * Receives user create account input from the front-end and passes it to save in the database
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @param passwordRepeated - User input for chosen string repeated to verify user identity
+     */
     public void createNewUser(String username, String password, String passwordRepeated){
         myPlayerData.createNewUser(username, password, passwordRepeated);
     }
@@ -68,6 +81,12 @@ public class Logic {
 
     // Final Implementation version of getGameOptions
     // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     *
+     * @return -
+     */
+
     public List<GameInfo> getGameOptions2(){
         return myPlayerData.getAuthoredGames();
     }
@@ -125,6 +144,18 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
+    @Deprecated
+    public List<ImmutableImageView> getLevelTerrain(){
+        return myGame
+                .getActiveLevel()
+                .getMyMapConfig()
+                .getTerrain()
+                .stream()
+                .map(terrain -> getImageView(terrain))
+                .collect(Collectors.toList());
+
+    }
+
 
     // View calls this when the user presses play or level is over
     // No Input
@@ -140,7 +171,21 @@ public class Logic {
 
     }
 
+    @Deprecated
+    private ImmutableImageView getImageView(Terrain t) {
 
+            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+
+
+
+    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
+
+        return mapFeature.getImageView();
+//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
+
+    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
@@ -226,6 +271,10 @@ public class Logic {
             }
         }
         return true;
+    }
+
+    public GameStatus getGameStatus(){
+        return myGame.getGameStatus();
     }
 
 

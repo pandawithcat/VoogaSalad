@@ -46,9 +46,8 @@ public class Game implements Updatable, Configurable {
     private transient LevelSpawner myLevelSpawner;
     @XStreamOmitField
     private transient GameStatus gameStatus;
-    private int myScore;
-    private double myCash;
-
+    private int myScore = 0;
+    private double myCash = 0;
 
     public Game(){
         myConfiguration = new Configuration(this);
@@ -75,7 +74,6 @@ public class Game implements Updatable, Configurable {
         myLevelSpawner.update(ms, this);
     }
 
-
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
@@ -90,14 +88,13 @@ public class Game implements Updatable, Configurable {
         }
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
+        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList);
         gameStatus = GameStatus.PLAYING;
     }
 
     public LevelSpawner getLevelSpawner() {
         return myLevelSpawner;
     }
-
 
     @Override
     public Configuration getConfiguration() {
