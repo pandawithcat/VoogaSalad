@@ -2,6 +2,7 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.Updatable;
 
 public class AI extends EnemyBehavior {
     public static final String myLabel = "AI";
@@ -26,7 +27,7 @@ public class AI extends EnemyBehavior {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
 
     }
 

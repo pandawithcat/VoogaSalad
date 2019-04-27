@@ -34,7 +34,8 @@ public class ActiveLevel extends Level implements Updatable {
         activeWeapons = new ArrayList<>();
         myWaveSpawner = new WaveSpawner(getMyWaves());
         myGrid = createMyGrid();
-        goalPositions.add(new Point(getMyMapConfig().getEnemyExitGridXPos(),getMyMapConfig().getEnemyExitGridYPos()));
+        getMyMapConfig().getEnemyExitGridPosList().stream().forEach(obj->goalPositions.add(obj));
+//        goalPositions.add(new Point(getMyMapConfig().getEnemyExitGridXPos(),getMyMapConfig().getEnemyExitGridYPos()));
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
@@ -63,8 +64,6 @@ public class ActiveLevel extends Level implements Updatable {
     public boolean noMoreEnemiesLeft() {
         return myWaveSpawner.isNoMoreEnemies()&&activeEnemies.isEmpty();
     }
-
-
 
     public Cell getGridCell(int gridX, int gridY){
         return myGrid[gridX][gridY];
