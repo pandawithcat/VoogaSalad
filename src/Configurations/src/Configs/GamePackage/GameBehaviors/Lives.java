@@ -7,6 +7,7 @@ import Configs.GamePackage.GameStatus;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import java.awt.*;
 import java.util.function.Predicate;
 
 public class Lives extends GameBehavior{
@@ -16,6 +17,7 @@ public class Lives extends GameBehavior{
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
+    Point point = new Point(0,0);
 
 
     public Lives(Game game) {

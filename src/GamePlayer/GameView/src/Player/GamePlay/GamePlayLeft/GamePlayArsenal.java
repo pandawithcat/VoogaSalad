@@ -3,13 +3,21 @@ package Player.GamePlay.GamePlayLeft;
 import BackendExternal.Logic;
 import BackendExternal.NotEnoughCashException;
 import Configs.Info;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Background;
@@ -18,7 +26,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 import java.io.FileInputStream;
@@ -28,6 +39,7 @@ import java.util.*;
 public class GamePlayArsenal extends VBox {
 
     public static final double ARSENAL_RATIO = 1.00;
+    public static final double DISPLAY_SECOND_DELAY = 2;
 
     private Logic myLogic;
     private boolean isWeapon;
@@ -40,6 +52,10 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
+    private double defaultOpacity;
+    private Effect defaultEffect;
+
+
 
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
@@ -53,6 +69,7 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
+        defaultOpacity = myMap.getOpacity();
 
         myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
@@ -88,18 +105,28 @@ public class GamePlayArsenal extends VBox {
 
     }
 
+    private void displayNotEnoughCash(String message){
+        Stage cashDisplay = new Stage();
+        Group root = new Group();
+        Scene scene = new Scene(root);
+        cashDisplay.setScene(scene);
+        Text cash = new Text(message);
+        root.getChildren().add(cash);
+        PauseTransition delay = new PauseTransition(Duration.seconds(DISPLAY_SECOND_DELAY));
+        delay.setOnFinished( event -> cashDisplay.close() );
+        delay.play();
+    }
+
     private void dragDropped(DragEvent event){
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
-
-
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
                 try {
                 myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
                 }catch (NotEnoughCashException e){
-                    e.printStackTrace();
+                    displayNotEnoughCash(e.getMessage());
                 }
             }
             success = true;
@@ -108,14 +135,28 @@ public class GamePlayArsenal extends VBox {
         event.consume();
     }
 
+
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
+        myMap.setOpacity(defaultOpacity);
+        selectedImage.setEffect(defaultEffect);
         event.consume();
     }
 
+    //0 is transparent
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
+
+            myMap.setOpacity(0.1);
+
+            Lighting lighting = new Lighting();
+            lighting.setDiffuseConstant(1.0);
+            lighting.setSpecularConstant(0.0);
+            lighting.setSpecularExponent(0.0);
+            lighting.setSurfaceScale(0.0);
+            lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
+            selectedImage.setEffect(lighting);
         }
         event.consume();
     }
@@ -132,6 +173,7 @@ public class GamePlayArsenal extends VBox {
     private void dragDetected(MouseEvent mouseEvent){
         selectedImage = (ImageView)((Pair) arsenalDisplay.getSelectionModel().getSelectedItem()).getKey();
         Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
+        defaultEffect = selectedImage.getEffect();
 
         //creates deepcopy of imageview
         var imageCopy = selectedImage.getImage();

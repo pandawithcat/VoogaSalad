@@ -108,7 +108,9 @@ public class Model {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public Image getImage(int imageID){
-        return myAuthoringData.getImage(imageID);
+        byte[] imageBytes = myAuthoringData.getImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
     private void updatePropertiesFile() throws IOException{
