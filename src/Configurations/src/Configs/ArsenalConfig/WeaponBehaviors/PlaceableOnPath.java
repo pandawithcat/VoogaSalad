@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public class PlaceableOnPath extends WeaponBehavior {
     public static final String DISPLAY_LABEL = "Placeable On Path";
+    @Slider(min = 50,max = 10000)
     @Configure
     protected int damage;
 
