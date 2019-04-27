@@ -9,8 +9,8 @@ public interface Configurable {
 
     @Retention(RetentionPolicy.RUNTIME)
     @interface Slider{
-        int min();
-        int max();
+        double min();
+        double max();
     }
 
     Configuration getConfiguration();
