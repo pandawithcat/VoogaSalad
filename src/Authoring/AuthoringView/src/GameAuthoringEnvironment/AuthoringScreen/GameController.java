@@ -84,6 +84,10 @@ public class GameController {
                 handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
+            else if(key.toLowerCase().contains("weaponconfig")){
+                handleWeaponConfig(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
+            }
+
             //handle Array
             else{
                 handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
@@ -91,6 +95,11 @@ public class GameController {
             }
 
         return myAttributesMap;
+    }
+
+    private void handleWeaponConfig(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String,Object> definedAttributesMap){
+        key
+
     }
 
     private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
