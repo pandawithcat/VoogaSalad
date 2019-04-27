@@ -121,7 +121,6 @@ public class GameController {
 
         //weapon behavior is a special case
         if(value.getComponentType().getSimpleName().toLowerCase().contains("weaponbehavior")) {
-
             Button chooseWeaponBehavior = new Button("Choose Weapon Behavior");
             chooseWeaponBehavior.setOnMouseClicked((new EventHandler<MouseEvent>() {
                 @Override
@@ -130,7 +129,7 @@ public class GameController {
                         Class<?> cl = Class.forName(value.getComponentType().getName());
                         Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                         List<Class> behaviorList = (List<Class>) myField.get(null);
-                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
                     } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
                         //TODO(Hyunjae) Errorchecking
                         System.out.println(e);
@@ -182,7 +181,7 @@ public class GameController {
                 public void handle(MouseEvent mouseEvent) {
                     if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
                         if (mouseEvent.getClickCount() == 2) {
-                            handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView);
+                            handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView, key);
                         }
                     }
                 }
@@ -232,13 +231,13 @@ public class GameController {
         }
     }
 
-    private void handleArraySourceView(Class value, Configurable myConfigurable, Map<String, Object> myAttributesMap, List<Object> tempList, ListView sourceView) {
+    private void handleArraySourceView(Class value, Configurable myConfigurable, Map<String, Object> myAttributesMap, List<Object> tempList, ListView sourceView, String key) {
         try {
             Class<?> cl = Class.forName(value.getComponentType().getName());
             if(cl.getSimpleName().contains("Behavior")){
                 Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                 List<Class> behaviorList = (List<Class>) myField.get(null);
-                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
             }
             else{
                 createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
@@ -306,16 +305,17 @@ public class GameController {
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
                         //only one behavior allowed
                         if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
-                            Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                           /* Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-
+*/
                         }
                         //multiple behaviors allowed
                         else{
+
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
-                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz);
                         }
                     }
                     //rest should follow this

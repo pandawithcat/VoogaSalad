@@ -5,6 +5,7 @@ import Configs.Configurable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -13,8 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -35,17 +38,25 @@ public class ConfigureBehavior {
             new SimpleBooleanProperty(this, "dragModeActive", true);
     GameController myGameController;
     GameOutline myGameOutline;
+    String myKey;
+    Class myType;
+    Object[] selectedBehavior;
+    List<Object> tempList;
 
-    public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+    /*public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameOutline= gameOutline;
         myConfigurable = configurable;
         myList = behaviorList;
         myMap = attributesMap;
         setContent();
-    }
+    }*/
 
 
-    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key, Class clazz) {
+        myType = clazz;
+        selectedBehavior = (Object[]) Array.newInstance(myType, 0);
+        tempList = new ArrayList<>(Arrays.asList(selectedBehavior));
+        myKey = key;
         myGameController = gameController;
         myConfigurable = configurable;
         myList = behaviorList;
@@ -62,6 +73,7 @@ public class ConfigureBehavior {
         Label sourceListLbl = new Label("Available Behaviors: ");
         Label targetListLbl = new Label("Selected Behaviors: ");
         Label messageLbl = new Label("Drag and drop behaviors. Some behaviors require further configuration");
+
 
         sourceView.setPrefSize(sourceViewWidth, sourceViewHeight);
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
@@ -83,10 +95,13 @@ public class ConfigureBehavior {
                             Class<?> cl = Class.forName(selected.getName());
                             Constructor<?> cons = cl.getConstructor(myConfigurable.getClass());
                             var object = cons.newInstance(myConfigurable);
+                            // For making outline
                             if(!(myGameOutline == null)){
                                 myGameOutline.showTheScreen((Configurable) object);
                             }else{
-                            myGameController.createConfigurable((Configurable) object);}
+                                myGameController.createConfigurable((Configurable) object);
+                                tempList.add(object);
+                            }
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -95,7 +110,8 @@ public class ConfigureBehavior {
                 }}
         });
 
-        setCellFactory();
+        setCellFactory(sourceView);
+        setCellFactory(targetView);
         // Create the GridPane
         GridPane pane = new GridPane();
         pane.setHgap(viewGap);
@@ -105,7 +121,6 @@ public class ConfigureBehavior {
         pane.addRow(1, sourceListLbl, targetListLbl);
         pane.addRow(2, sourceView, targetView);
 
-        //setDragAndDrop();
         VBox root = new VBox();
         root.getChildren().addAll(pane);
 
@@ -122,15 +137,18 @@ public class ConfigureBehavior {
                 }
                 else {
                     //TODO Add THE TARGETVIEW LIST TO THE ATTRIBUTES BUT HOW?
-                    List<Class> selectedBehaviors = targetView.getItems();
-
-                    myConfigurable.getConfiguration().setAllAttributes(myMap);
+                    Object[] ob = (Object[]) Array.newInstance(myType, tempList.size());
+                    for(int a=0; a<tempList.size(); a++){
+                        ob[a] = tempList.get(a);
+                    }
+                    myMap.put(myKey, ob);
                     popUpWindow.close();
                 }
             }
         }));
 
-        setDragAndDrop();
+        setDragAndDrop(sourceView);
+        setDragAndDrop(targetView);
         layout.getChildren().addAll(root, setButton);
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
@@ -147,42 +165,23 @@ public class ConfigureBehavior {
     }
 
     //TODO This can be refactord to a separate class
-    private void setDragAndDrop() {
+    private void setDragAndDrop(ListView listView) {
 
-        sourceView.setOnDragDetected(new EventHandler<MouseEvent>() {
+        listView.setOnDragDetected(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
                 dragDetected(event, sourceView);
             }
         });
 
-        sourceView.setOnDragOver(new EventHandler<DragEvent>() {
+        listView.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 dragOver(event, sourceView);
             }
         });
 
-        sourceView.setOnDragDone(new EventHandler<DragEvent>() {
+        listView.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
                 dragDone(event, targetView, sourceView);
-            }
-        });
-
-        // Add mouse event handlers for the target
-        targetView.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                dragDetected(event, targetView);
-            }
-        });
-
-        targetView.setOnDragOver(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                dragOver(event, targetView);
-            }
-        });
-
-        targetView.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                dragDone(event,sourceView, targetView);
             }
         });
     }
@@ -269,31 +268,14 @@ public class ConfigureBehavior {
     }
 
 
-    private void setCellFactory(){
-        sourceView.setCellFactory(list -> {
-            //TODO Set Images Accordingly
-            ListCell<Class> cell = new ListCell<>() {
-                @Override
-                public void updateItem(Class item, boolean empty) {
-                    super.updateItem(item, empty) ;
-                    if (empty) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        setText(item.getSimpleName());
-                    }
-                }
-            };
-            //controlTreeCellMouseClick(cell);
-            return cell ;
-        });
+    private void setCellFactory(ListView listView) {
 
-        targetView.setCellFactory(list -> {
+        listView.setCellFactory(list -> {
             //TODO Set Images Accordingly
             ListCell<Class> cell = new ListCell<>() {
                 @Override
                 public void updateItem(Class item, boolean empty) {
-                    super.updateItem(item, empty) ;
+                    super.updateItem(item, empty);
                     if (empty) {
                         setText(null);
                         setGraphic(null);
@@ -303,8 +285,7 @@ public class ConfigureBehavior {
                 }
             };
             //controlTreeCellMouseClick(cell);
-            return cell ;
+            return cell;
         });
     }
-
 }
