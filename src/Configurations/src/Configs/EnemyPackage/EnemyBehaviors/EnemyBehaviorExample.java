@@ -2,6 +2,7 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.Updatable;
 
 public class EnemyBehaviorExample extends EnemyBehavior {
     public static final String myLabel = "<insert class name here>";
@@ -26,7 +27,7 @@ public class EnemyBehaviorExample extends EnemyBehavior {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
 
     }
 }

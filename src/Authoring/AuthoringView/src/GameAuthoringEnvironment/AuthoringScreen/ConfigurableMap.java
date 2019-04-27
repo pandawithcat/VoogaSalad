@@ -143,10 +143,10 @@ public class ConfigurableMap {
     private VBox createNameBox(){
         VBox myNameBox = new VBox(10);
         Label mapLbl = new Label("Map Name");
-        TextField nameTf = new TextField();
+        nameTf = new TextField();
         if(myAttributesMapConfig != null){
             nameTf.setText(myAttributesMapConfig.getName());}
-        Button nameButton = new Button("Confirm");
+        nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         myNameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
 
@@ -271,7 +271,7 @@ public class ConfigurableMap {
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridPosList", enterPointsList);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("enemyExitGridYPos",exitPointsList);
+                passedMap.put("enemyExitGridPosList",exitPointsList);
 
 
                 m.getConfiguration().setAllAttributes(passedMap);
