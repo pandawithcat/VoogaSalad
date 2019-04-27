@@ -14,8 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -37,17 +39,23 @@ public class ConfigureBehavior {
     GameController myGameController;
     GameOutline myGameOutline;
     String myKey;
+    Class myType;
+    Object[] selectedBehavior;
+    List<Object> tempList;
 
-    public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
+    /*public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameOutline= gameOutline;
         myConfigurable = configurable;
         myList = behaviorList;
         myMap = attributesMap;
         setContent();
-    }
+    }*/
 
 
-    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key) {
+    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key, Class clazz) {
+        myType = clazz;
+        selectedBehavior = (Object[]) Array.newInstance(myType, 0);
+        tempList = new ArrayList<>(Arrays.asList(selectedBehavior));
         myKey = key;
         myGameController = gameController;
         myConfigurable = configurable;
@@ -66,7 +74,6 @@ public class ConfigureBehavior {
         Label targetListLbl = new Label("Selected Behaviors: ");
         Label messageLbl = new Label("Drag and drop behaviors. Some behaviors require further configuration");
 
-        List<Object> selectedBehaviors = new ArrayList<>();
 
         sourceView.setPrefSize(sourceViewWidth, sourceViewHeight);
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
@@ -93,7 +100,7 @@ public class ConfigureBehavior {
                                 myGameOutline.showTheScreen((Configurable) object);
                             }else{
                                 myGameController.createConfigurable((Configurable) object);
-                                selectedBehaviors.add(object);
+                                tempList.add(object);
                             }
 
                         } catch (Exception e) {
@@ -130,7 +137,11 @@ public class ConfigureBehavior {
                 }
                 else {
                     //TODO Add THE TARGETVIEW LIST TO THE ATTRIBUTES BUT HOW?
-                    myMap.put(myKey, selectedBehaviors);
+                    Object[] ob = (Object[]) Array.newInstance(myType, tempList.size());
+                    for(int a=0; a<tempList.size(); a++){
+                        ob[a] = tempList.get(a);
+                    }
+                    myMap.put(myKey, ob);
                     popUpWindow.close();
                 }
             }
