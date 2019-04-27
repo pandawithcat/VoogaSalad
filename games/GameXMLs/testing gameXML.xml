@@ -1,0 +1,25 @@
+<Configs.GamePackage.Game>
+  <myName>testing game</myName>
+  <myDescription>new game</myDescription>
+  <myThumbnail>thumbnail1.gif</myThumbnail>
+  <levelList/>
+  <myArsenal>
+    <myGame reference="../.."/>
+    <defaultWeapons>
+      <Configs.ArsenalConfig.WeaponConfig>
+        <myName>weapon1</myName>
+        <view>
+          <imagePath>thumbnail3.gif</imagePath>
+          <width>15</width>
+          <height>15</height>
+          <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
+        </view>
+        <myArsenal reference="../../.."/>
+        <weaponId>0</weaponId>
+      </Configs.ArsenalConfig.WeaponConfig>
+    </defaultWeapons>
+    <unlockableWeapons/>
+    <unlockedWeapons/>
+    <newUnlockedWeapons/>
+  </myArsenal>
+</Configs.GamePackage.Game>

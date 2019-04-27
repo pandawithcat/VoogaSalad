@@ -3,7 +3,6 @@ package Configs.ShooterConfig;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.Shootable;
 import Configs.ProjectilePackage.ProjectileConfig;
-import Configs.ShooterConfig.ShooterBehaviors.Radial;
 import Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -15,11 +14,11 @@ public class Shooter implements Updatable , Configurable {
     @Configure
     private String myName;
     @Configure
-    private double rateOfFire = 4;
+    private double rateOfFire;
     @Configure
-    private ProjectileConfig projectileConfig = new ProjectileConfig(this);
+    private ProjectileConfig projectileConfig;
     @Configure
-    private double shooterRange = 30;
+    private double shooterRange;
     @Configure
     private ShooterBehavior shooterBehavior;
 
@@ -70,6 +69,6 @@ public class Shooter implements Updatable , Configurable {
 
     @Override
     public void update(double ms, Updatable parent) {
-        shooterBehavior.update(ms, parent);
+        shooterBehavior.update(ms, this);
     }
 }

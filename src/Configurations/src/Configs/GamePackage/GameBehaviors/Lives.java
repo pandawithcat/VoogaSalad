@@ -3,6 +3,7 @@ package Configs.GamePackage.GameBehaviors;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameStatus;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -23,11 +24,10 @@ public class Lives extends GameBehavior{
     @Override
     public void update(double ms, Updatable parent) {
         if (getMyGame().getActiveLevel().getEscapedEnemies()>=numEnemies) {
-            getMyGame().setGameOver();
+            getMyGame().setGameStatus(GameStatus.LOST);
         }
-        if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
-            getMyGame().setGameOver();
-            getMyGame().setGameWon(true);
+        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
+            getMyGame().setGameStatus(GameStatus.WON);
         }
     }
 

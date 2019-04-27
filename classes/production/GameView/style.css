@@ -50,6 +50,23 @@
     -fx-padding: 10 20 10 20;
     -fx-opacity: 1;
 }
+#createAccount.button{
+    -fx-font-size: 20px;
+}
+#createAccount.button:pressed{
+    -fx-font-size: 20px;
+}
+
+#smallerButton.button{
+    -fx-font-size: 10px;
+}
+#smallerButton.button:pressed{
+    -fx-font-size: 10px;
+}
+#back:pressed{
+    -fx-opacity: 0.7;
+}
+
 .my-rect {
     -fx-fill:
             linear-gradient(#fffa70, #e4e6e1);

@@ -25,80 +25,24 @@ public class TerrainTile extends ImageView {
         isPath=false;
         tileImString="grass.jpg";
 
-
-//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                System.out.println("HELLO I AM COL");
-//                imageView=new ImageView(getNewImage(type));
-//            }
-//        });
     }
 
     public Image getNewImage(String type){
-        if(type.equals("Grass")){
-            return new Image(this.getClass().getClassLoader().getResourceAsStream("grass.jpg"));
-        }
-        else if(type.equals("Water")){
-            return new Image(this.getClass().getClassLoader().getResourceAsStream("water.jpg"));
-
-        }
-        else if(type.equals("Dirt")){
-            return new Image(this.getClass().getClassLoader().getResourceAsStream("dirt.jpg"));
-        }
-        else{
-            return null;
-        }
+        return new Image(this.getClass().getClassLoader().getResourceAsStream(type.toLowerCase() + ".jpg"));
     }
 
 
 
-    public void changeImage(String type){
-        if(type.equals("Grass")){
-            changeToGrass();
-        }
-        else if(type.equals("Water")){
-            changeToWater();
-        }
-        else if(type.equals("Dirt")){
-            changeToDirt();
-        }
-
-    }
-
-    public void changeToGrass(){
+    /*public void changeTile(TerrainTile terrainTile){
         try {
 
-            this.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+            this.setImage(new Image(new FileInputStream("resources/" + type.toLowerCase() + ".jpg")));
         }
         catch(FileNotFoundException f){
-            System.out.println(f);
+            //TODO Exception! NO such file found
         }
-        isPath=false;
-        tileImString="grass.jpg";
-    }
-
-    public void changeToWater(){
-        try {
-            this.setImage(new Image(new FileInputStream("resources/water.jpg")));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-        }
-        isPath=true;
-        tileImString="water.jpg";
-
-    }
-    public void changeToDirt(){
-        try {
-            this.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-        }
-        isPath=true;
-        tileImString="dirt.jpg";
-    }
+        tileImString = type.toLowerCase() + ".jpg";
+    }*/
 
     public ImageView getImageView(){
         return imageView;

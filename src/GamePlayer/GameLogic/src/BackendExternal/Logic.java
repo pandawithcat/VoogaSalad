@@ -4,6 +4,7 @@ import ActiveConfigs.Cell;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameStatus;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
@@ -43,7 +44,7 @@ public class Logic {
     public Logic(double paneWidth, double paneHeight) {
 //        myUserAuthenticator = new UserAuthenticator();
         myGameLibrary = new GameLibrary();
-        myPlayerData = new PlayerData();
+//        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
@@ -87,7 +88,7 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
-        myGame.getActiveLevel().setScore(gameState.getMyCurrentScore());
+        myGame.setScore(gameState.getMyCurrentScore());
         myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
     }
 
@@ -103,7 +104,7 @@ public class Logic {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveGameState(){
-        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getScore());
         myPlayerData.saveUserState(currentUserState);
     }
 
@@ -179,7 +180,7 @@ public class Logic {
     // No Input
     // Return: integer score
     public int getScore(){
-        return myGame.getActiveLevel().getMyScore();
+        return myGame.getScore();
     }
 
     // View calls to check the current lives of the game in the game loop
@@ -238,8 +239,10 @@ public class Logic {
         return myGame.getLevelSpawner().isLevelOver();
     }
 
+    //TODO: i changed the status of the game into an enum so this should get the actual enum value instead of just if its over
+    // for example, the time expirable game mode is only based on if the game is over or not, but everything else has a lost or won status
     public boolean checkIfGameEnd(){
-        return myGame.isGameOver();
+        return myGame.getGameStatus()== GameStatus.OVER;
     }
 
 

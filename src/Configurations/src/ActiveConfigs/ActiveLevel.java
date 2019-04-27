@@ -17,7 +17,6 @@ public class ActiveLevel extends Level implements Updatable {
     private List<MapFeaturable> activeEnemies;
     private List<MapFeaturable> activeProjectiles;
     private Cell[][] myGrid;
-    private int myScore;
     private double paneWidth;
     private double paneHeight;
     private final int gridWidth;
@@ -53,17 +52,6 @@ public class ActiveLevel extends Level implements Updatable {
         return tempGrid;
     }
 
-    public void setScore(int score) {
-        this.myScore = score;
-    }
-
-    public void addToScore(int points) {
-        myScore+=points;
-    }
-
-    public int getScore() {
-        return myScore;
-    }
 
     public Cell[][] getMyGrid() {
         return myGrid;
@@ -150,9 +138,6 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
 
-    public int getMyScore() {
-        return myScore;
-    }
 
 
 
@@ -185,7 +170,7 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void recalculateMovementHeuristic(){
-        astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
+        //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
     }
 
     private void astar(Cell startCell){

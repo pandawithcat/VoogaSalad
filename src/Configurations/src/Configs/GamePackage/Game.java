@@ -45,45 +45,43 @@ public class Game implements Updatable, Configurable {
     @XStreamOmitField
     private transient LevelSpawner myLevelSpawner;
     @XStreamOmitField
-    private transient boolean gameOver;
-    @XStreamOmitField
-    private transient boolean gameWon;
+    private transient GameStatus gameStatus;
+    private int myScore;
 
 
     public Game(){
         myConfiguration = new Configuration(this);
-        gameOver = false;
     }
 
     public Arsenal getArsenal() {
         return myArsenal;
     }
 
+    public void setScore(int score) {
+        this.myScore = score;
+    }
+
+    public void addToScore(int points) {
+        myScore+=points;
+    }
+
+    public int getScore() {
+        return myScore;
+    }
+
     @Override
     public void update(double ms, Updatable parent) {
-        if(myLevelSpawner.isGameOver()) gameOver = true;
-        else {
-            myLevelSpawner.update(ms, this);
-        }
+        myLevelSpawner.update(ms, this);
     }
 
 
-    public void setGameOver() {
-        gameOver = true;
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 
-    public void setGameWon(boolean gameWon) {
-        this.gameWon = gameWon;
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
-
-    public boolean isGameWon() {
-        return gameWon;
-    }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
 
     public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
@@ -92,6 +90,7 @@ public class Game implements Updatable, Configurable {
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
         this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
+        gameStatus = GameStatus.PLAYING;
     }
 
     public LevelSpawner getLevelSpawner() {

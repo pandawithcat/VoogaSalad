@@ -27,13 +27,15 @@ public class Radial extends ShooterBehavior {
 
     @Override
     public void update(double ms, Updatable parent) {
-        //NOTE: parent is the actual active weapon
-        if(ms%getMyShooter().getRateOfFire()==0) {
-            ActiveLevel myActiveLevel =  ((ActiveWeapon) parent).getActiveLevel();
-            MapFeature myShooterMapFeature = ((ActiveWeapon) parent).getMapFeature();
+        //NOTE: parent is the Shooter
+        Shooter shooter = (Shooter) parent;
+        if(ms%shooter.getRateOfFire()==0) {
+            ActiveWeapon activeWeapon = shooter.getMyShootable().getActiveWeapon();
+            ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
+            MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
             double weaponX = myShooterMapFeature.getPixelXPos();
             double weaponY = myShooterMapFeature.getPixelYPos();
-            View view = ((ActiveWeapon) parent).getView();
+            View view = activeWeapon.getView();
 
             double width = view.getWidth();
             double height = view.getHeight();
@@ -41,8 +43,8 @@ public class Radial extends ShooterBehavior {
             double projectileStartYPos = weaponY + height/2;
             for(int i = 0 ;i<6;i++) {
                 double direction = 60*i;
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, getMyShooter().getProjectileConfig().getView(), getMyShooter().getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getPaneHeight(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth(), myShooter.getMyShootable().getWeaponConfig().getMyArsenal().getGame().getActiveLevel().getGridWidth());
-                ActiveProjectile activeProjectile = new ActiveProjectile(getMyShooter().getProjectileConfig(), projectileMapFeature, getMyShooter().getShooterRange(), myActiveLevel);
+                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,direction, shooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth());
+                ActiveProjectile activeProjectile = new ActiveProjectile(shooter.getProjectileConfig(), projectileMapFeature, shooter.getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
                 ((Shooter) parent).addToProjectilesFired(1);
             }
