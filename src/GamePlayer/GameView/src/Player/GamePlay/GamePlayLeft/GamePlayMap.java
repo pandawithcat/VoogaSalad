@@ -47,17 +47,17 @@ public class GamePlayMap extends Pane{
 
     public void update(double elapsedTime){
         gameStatus = myLogic.getGameStatus();
-        switch (gameStatus){
-            case OVER:
-                displayGameOver("Game Over! ");
-                break;
-            case LOST:
-                displayGameOver("You Lost!");
-                break;
-            case WON:
-                displayGameOver("You Won!");
-                break;
-            case PLAYING:
+//        switch (gameStatus){
+//            case OVER:
+//                displayGameOver("Game Over! ");
+//                break;
+//            case LOST:
+//                displayGameOver("You Lost!");
+//                break;
+//            case WON:
+//                displayGameOver("You Won!");
+//                break;
+//            case PLAYING:
                 if (myLogic.checkIfLevelEnd()) {
                     myLogic.startNextLevel();
                 }
@@ -66,8 +66,8 @@ public class GamePlayMap extends Pane{
                 List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
                 imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
                 imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
-                break;
-        }
+//                break;
+//        }
     }
 
     public double getGridSize(){
