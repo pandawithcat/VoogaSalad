@@ -13,8 +13,10 @@ public class ProjectileConfig implements Configurable, Viewable {
     private String myName;
     @Configure
     private View view;
+    @Slider(min = 5, max = 20)
     @Configure
     private double velocityInSeconds;
+    @Slider(min = 50, max = 10000)
     @Configure
     private double strength;
     @Configure

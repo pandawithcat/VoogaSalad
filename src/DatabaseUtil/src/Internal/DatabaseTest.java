@@ -150,6 +150,7 @@ public class DatabaseTest extends Application {
     // TODO: Test get Image
 
     private static void testGetImage(){
+
 //        System.out.println("Testing Get Image:");
 //
 //        int imageID = 1;
@@ -160,6 +161,15 @@ public class DatabaseTest extends Application {
 //        myRoot.getChildren().add(imageView);
 //
 //        System.out.println("Done Get Image");
+        System.out.println("Testing Get Image:");
+/*
+        int imageID = 1;
+
+//        ImageView imageView = new ImageView(image);
+//        myRoot.getChildren().add(imageView);
+
+        System.out.println("Done Get Image");*/
+
     }
 
     // AuthoringData Class
