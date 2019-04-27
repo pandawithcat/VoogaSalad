@@ -173,16 +173,12 @@ public class ActiveLevel extends Level implements Updatable {
     }
 
     private void recalculateMovementHeuristic(){
-<<<<<<< src/Configurations/src/ActiveConfigs/ActiveLevel.java
         for (Point goal:goalPositions) {
             astar(myGrid,goal.x,goal.y, "short");
             astar(myGrid,goal.x,goal.y, "shortIgnorePath");
             astar(myGrid,goal.x,goal.y, "shortAvoidWeapons");
             astar(myGrid,goal.x,goal.y, "shortAvoidWeaponsIgnorePath");
         }
-=======
-        //astar(myGrid[getMyMapConfig().getEnemyExitGridXPos()][getMyMapConfig().getEnemyExitGridYPos()]);
->>>>>>> src/Configurations/src/ActiveConfigs/ActiveLevel.java
     }
 
     private void astar(Cell[][] grid, int startX, int startY, String heuristicType){
