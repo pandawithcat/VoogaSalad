@@ -129,7 +129,7 @@ public class GameController {
                         Class<?> cl = Class.forName(value.getComponentType().getName());
                         Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                         List<Class> behaviorList = (List<Class>) myField.get(null);
-                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
+                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl, true);
                     } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
                         //TODO(Hyunjae) Errorchecking
                         System.out.println(e);
@@ -237,7 +237,7 @@ public class GameController {
             if(cl.getSimpleName().contains("Behavior")){
                 Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                 List<Class> behaviorList = (List<Class>) myField.get(null);
-                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl);
+                ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl, true);
             }
             else{
                 createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
@@ -313,7 +313,7 @@ public class GameController {
                         //multiple behaviors allowed
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
-                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz);
+                            ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz, false);
                     }
                     //rest should follow this
                     else {
