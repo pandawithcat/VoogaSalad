@@ -125,6 +125,18 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
+    @Deprecated
+    public List<ImmutableImageView> getLevelTerrain(){
+        return myGame
+                .getActiveLevel()
+                .getMyMapConfig()
+                .getTerrain()
+                .stream()
+                .map(terrain -> getImageView(terrain))
+                .collect(Collectors.toList());
+
+    }
+
 
     // View calls this when the user presses play or level is over
     // No Input
@@ -140,7 +152,21 @@ public class Logic {
 
     }
 
+    @Deprecated
+    private ImmutableImageView getImageView(Terrain t) {
 
+            MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+
+
+
+    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
+
+        return mapFeature.getImageView();
+//            ImmutableImageView iv = new TransferImageView(new Image(new FileInputStream("resources/"+t.getView().getImage())));
+
+    }
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
