@@ -34,8 +34,8 @@ public class Game implements Updatable, Configurable {
     private Level[] levelList;
     @Configure
     private Arsenal myArsenal;
-//    @Configure
-//    private GameBehavior gameType;
+    @Configure
+    private GameBehavior gameType;
 
     @XStreamOmitField
     private transient double paneWidth;
