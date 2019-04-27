@@ -4,6 +4,7 @@ import Configs.Configurable;
 import Configs.Configuration;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.awt.*;
 import java.util.Collection;
@@ -13,7 +14,7 @@ import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class MapConfig implements Configurable {
     //for the game player frontend to easily display terrain
-    public static final String myLabel = "Map";
+    public static final String DISPLAY_LABEL = "Map";
     @Configure
     private String myName;
     @Configure
@@ -30,7 +31,8 @@ public class MapConfig implements Configurable {
     private int gridWidth;
 
 
-    private Configuration configuration;
+    @XStreamOmitField
+    private transient Configuration configuration;
     private Level myLevel;
 
     public MapConfig(Level level) {

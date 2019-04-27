@@ -1,12 +1,12 @@
-package Configs.ArsenalConfig.WeaponUnlockerBehaviors;
+package Configs.ArsenalConfig.WeaponWaveBehaviors;
 
-import Configs.ArsenalConfig.Arsenal;
+import Configs.ArsenalConfig.WeaponWave;
 import Configs.Behaviors.Behavior;
 
 import java.util.List;
 
-public abstract class ArsenalBehavior implements Behavior<Arsenal> {
-    public static final String myLabel = "Arsenal Behavior";
+public abstract class WeaponWaveBehavior implements Behavior<WeaponWave> {
+    public static final String DISPLAY_LABEL = "Arsenal Behavior";
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of(
             LevelUnlockable.class);
 

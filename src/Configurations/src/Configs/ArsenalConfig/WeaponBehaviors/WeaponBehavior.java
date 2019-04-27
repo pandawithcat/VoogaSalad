@@ -2,14 +2,13 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
-import Configs.Updatable;
 
 import java.util.List;
 
 public abstract class WeaponBehavior implements Behavior<WeaponConfig> {
-    public static final String myLabel = "Weapon Behavior";
+    public static final String DISPLAY_LABEL = "Weapon Behavior";
 
-    WeaponConfig myWeaponConfig;
+    private WeaponConfig myWeaponConfig;
 
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of(
             AmmoExpirable.class,

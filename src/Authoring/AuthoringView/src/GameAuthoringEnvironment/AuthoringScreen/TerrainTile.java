@@ -33,7 +33,28 @@ public class TerrainTile extends ImageView {
 
 
 
-    /*public void changeTile(TerrainTile terrainTile){
+    public void changeImage(String type){
+        if(type.equals("Grass")){
+            changeToGrass();
+        }
+        else if(type.equals("Water")){
+            changeToWater();
+        }
+        else if(type.equals("Dirt")){
+            changeToDirt();
+        }
+        else if(type.equals("EnemyEntering")){
+            changeToEnter();
+        }
+        else if(type.equals("EnemyExiting")){
+            changeToExit();
+        }
+
+    }
+
+    
+
+    public void changeToGrass(){
         try {
 
             this.setImage(new Image(new FileInputStream("resources/" + type.toLowerCase() + ".jpg")));

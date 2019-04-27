@@ -43,7 +43,7 @@ public class ExistingConfigurations {
         popUpWindow.setTitle("Behavior Editor");
         layout = new VBox(10.00);
 
-        Label myLabel = new Label("Double Click what you want to use");
+        Label DISPLAY_LABEL = new Label("Double Click what you want to use");
         sourceView = new ListView<>();
         sourceView.setPrefSize(sourceViewWidth, sourceViewHeight);
         for(Object e: myList){
@@ -83,7 +83,7 @@ public class ExistingConfigurations {
         });
 
 
-        layout.getChildren().addAll(myLabel, sourceView );
+        layout.getChildren().addAll(DISPLAY_LABEL, sourceView );
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
         popUpWindow.show();

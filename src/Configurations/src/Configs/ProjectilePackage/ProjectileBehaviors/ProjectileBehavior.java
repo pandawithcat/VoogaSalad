@@ -7,7 +7,7 @@ import Configs.ProjectilePackage.ProjectileConfig;
 import java.util.List;
 
 public abstract class ProjectileBehavior implements Behavior<ProjectileConfig> {
-    public static final String myLabel = "Projectile Behavior";
+    public static final String DISPLAY_LABEL = "Projectile Behavior";
     ProjectileConfig myProjectileConfig;
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of();
 

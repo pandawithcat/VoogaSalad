@@ -20,12 +20,14 @@ public class GameOutline extends Screen {
     private TreeView<Configurable> myTreeView = new TreeView<>();
     private Game myGame;
     private GameOutline gameOutline;
+    private double IMAGEVIEW_WIDTH = 25;
+    private double IMAGEVIEW_HEIGHT=25;
 
     public ImageView getMyImage(){
         Image test = new Image(getClass().getResourceAsStream("/resources/" +"Folder.png"));
         ImageView imageView = new ImageView(test);
-        imageView.setFitWidth(25);
-        imageView.setFitHeight(25);
+        imageView.setFitWidth(IMAGEVIEW_WIDTH);
+        imageView.setFitHeight(IMAGEVIEW_HEIGHT);
 
         return imageView;
     }
@@ -98,7 +100,7 @@ public class GameOutline extends Screen {
                         setGraphic(null);
                     } else {
                             try {
-                                setText(item.getClass().getDeclaredField("myLabel").get(null) + ": " + item.getName());
+                                setText(item.getClass().getDeclaredField("DISPLAY_LABEL").get(null) + ": " + item.getName());
                             } catch (IllegalAccessException | NoSuchFieldException e) {
                                 //TODO Error checking
                                 e.printStackTrace();

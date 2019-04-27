@@ -19,9 +19,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -222,6 +220,9 @@ public class ConfigurableMap {
 //            }
 //        });
         tileView.getItems().add(2,"Dirt");
+//        tileView.getItems().add(3,"EnemyEntering");
+//        tileView.getItems().add(4,"EnemyExiting");
+
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -234,8 +235,7 @@ public class ConfigurableMap {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile(tileView, myTerrainTileList);
-
+                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList);
 
             }
         });
@@ -294,8 +294,10 @@ public class ConfigurableMap {
                 public void handle(MouseEvent mouseEvent) {
                     MouseButton button = mouseEvent.getButton();
                     if(button == MouseButton.PRIMARY){
-                        updateCell(mouseEvent);
+                        //updateCell(mouseEvent);
+
                     }
+
                     else if(button == MouseButton.SECONDARY){
                         item.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
                             @Override
@@ -307,6 +309,13 @@ public class ConfigurableMap {
                                         TerrainTile terrainTile = (TerrainTile) item;
                                         Point enterPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         enterPosView.getItems().add(enterPoint);
+                                        try{
+                                            terrainTile.setImage(new Image(new FileInputStream("resources/enter.jpg")));
+                                        }
+                                        catch(FileNotFoundException f){
+                                            System.out.println(f);
+                                        }
+
                                     }
                                 });
 
@@ -316,6 +325,13 @@ public class ConfigurableMap {
                                         TerrainTile terrainTile = (TerrainTile) item;
                                         Point exitPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         exitPosView.getItems().add(exitPoint);
+                                        try{
+                                            terrainTile.setImage(new Image(new FileInputStream("resources/exit.jpg")));
+                                        }
+                                        catch(FileNotFoundException f){
+                                            System.out.println(f);
+
+                                        }
                                     }
                                 });
                                 contextMenu.getItems().addAll(menuItem1, menuItem2);
@@ -327,12 +343,31 @@ public class ConfigurableMap {
                     }
                 }
             });
+            item.setOnDragDetected(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    System.out.println("DRAGDETECTEDDDD");
+                    Dragboard db = item.startDragAndDrop(TransferMode.ANY);
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(currentTile);
+                    db.setContent(content);
+                    mouseEvent.consume();
+                }
+            });
+            item.setOnDragOver(new EventHandler<DragEvent>() {
+                @Override
+                public void handle(DragEvent dragEvent) {
+                    dragEvent.acceptTransferModes(TransferMode.ANY);
+                    updateCell(dragEvent);
+                    System.out.println("DRAGGINGGGGGG");
+                }
+            });
 
         });
 
     }
 
-    public void updateCell(MouseEvent mouseEvent){
+    public void updateCell(DragEvent mouseEvent){
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
         //source.changeImage(currentTile);
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 //ideas for wave behavior - every enemy in a wave is stronger or colored differently, every
 public abstract class WaveBehavior implements Behavior<Wave> {
-    public static final String myLabel = "Wave Behavior";
+    public static final String DISPLAY_LABEL = "Wave Behavior";
     Wave myWave;
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of();
 
