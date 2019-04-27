@@ -1,11 +1,17 @@
 package Configs.MapPackage.TerrainBehaviors;
 
+import ActiveConfigs.ActiveEnemy;
+import ActiveConfigs.ActiveLevel;
+import ActiveConfigs.Cell;
 import Configs.Configuration;
 import Configs.MapPackage.Terrain;
 import Configs.Updatable;
 
+import java.util.List;
+
 public class SpeedModifier extends TerrainBehavior{
     private transient Configuration myConfiguration;
+    private ActiveLevel myActiveLevel;
 
     private final String DISPLAY_LABEL = "Modify Enemy Speed";
     public SpeedModifier(Terrain terrain){
@@ -14,7 +20,9 @@ public class SpeedModifier extends TerrainBehavior{
     }
     @Override
     public void update(double ms, Updatable parent) {
-        //TODO
+        for (ActiveEnemy ae : getEnemiesOnMyCell()){
+
+        }
     }
 
     @Override

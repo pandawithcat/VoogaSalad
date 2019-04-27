@@ -1,6 +1,7 @@
 package Configs.MapPackage;
 
 import Configs.*;
+import Configs.GamePackage.Game;
 import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.ImageView;
@@ -32,6 +33,7 @@ public class Terrain implements Configurable, Viewable{
 
     private transient Configuration myConfiguration;
     private MapConfig myMapConfig;
+    private Game myGame;
 
 
     public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
@@ -41,6 +43,7 @@ public class Terrain implements Configurable, Viewable{
         this.gridXPos = gridXPos;
         myConfiguration = new Configuration(this);
         myMapConfig = mapConfig;
+        myGame = myMapConfig.getLevel().getGame();
     }
 
     public int getGridXPos() {
@@ -50,7 +53,9 @@ public class Terrain implements Configurable, Viewable{
     public int getGridYPos() {
         return gridYPos*TERRAIN_SIZE;
     }
-
+    public Game getMyGame(){
+        return myGame;
+    }
     @Override
     public View getView() {
         return view;
@@ -75,9 +80,9 @@ public class Terrain implements Configurable, Viewable{
         return isPath;
     }
 
-//    public TerrainBehavior[] getTerrainBehaviors() {
-//        return terrainBehaviors;
-//    }
+    public TerrainBehavior[] getTerrainBehaviors() {
+        return terrainBehaviors;
+    }
 
 
     @Override

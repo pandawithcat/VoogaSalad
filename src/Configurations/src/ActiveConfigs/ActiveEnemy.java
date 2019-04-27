@@ -1,9 +1,14 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.MapPackage.Terrain;
+import Configs.MapPackage.TerrainBehaviors.SpeedModifier;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 
@@ -72,6 +77,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     @Override
     public void update(double ms, Updatable parent) {
+
+        //ArrayList<Behavior<Terrain>> behaviorsList = new ArrayList<>(Arrays.asList(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors()));
+//        for (Behavior b : behaviorsList){
+//            if (b.getClass() == SpeedModifier.class){
+//
+//            }
+//        }
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
