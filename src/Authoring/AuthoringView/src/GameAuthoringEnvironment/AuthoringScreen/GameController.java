@@ -304,19 +304,16 @@ public class GameController {
                     //Speical case : Behavior is different since drag and drop is required
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
                         //only one behavior allowed
-                        if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
+                        //if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
                            /* Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
 */
-                        }
+                        //}
                         //multiple behaviors allowed
-                        else{
-
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz);
-                        }
                     }
                     //rest should follow this
                     else {
