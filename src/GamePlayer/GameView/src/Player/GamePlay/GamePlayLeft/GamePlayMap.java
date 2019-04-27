@@ -49,14 +49,13 @@ public class GamePlayMap extends Pane{
         gameStatus = myLogic.getGameStatus();
         switch (gameStatus){
             case OVER:
-                displayGameOver();
+                displayGameOver("Game Over! ");
                 break;
             case LOST:
-                //TODO: DISPLAY LOSE?
-                displayGameOver();
+                displayGameOver("You Lost!");
                 break;
             case WON:
-                //TODO:DISPLAY GAME WON
+                displayGameOver("You Won!");
                 break;
             case PLAYING:
                 if (myLogic.checkIfLevelEnd()) {
@@ -76,12 +75,12 @@ public class GamePlayMap extends Pane{
         return terrainList.get(0).getAsNode().getBoundsInParent().getWidth();
     }
 
-    private void displayGameOver(){
+    private void displayGameOver(String result){
         endGame.endLoop();
         Stage gameOver = new Stage();
         Group root = new Group();
         Scene overScene = new Scene(root,200,200);
-        Text text = new Text("Game Over!");
+        Text text = new Text(result);
         Button quit = new Button("Quit Game");
         quit.setOnAction(e -> closeStages(gameOver,homeStage));
         Button goHome = new Button("Return to Home");
