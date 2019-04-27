@@ -242,7 +242,8 @@ public class Logic {
         return true;
     }
 
-    public boolean getGameStatus(){
+    public GameStatus getGameStatus(){
+        return myGame.getGameStatus();
     }
 
 
