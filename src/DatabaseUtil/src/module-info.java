@@ -1,5 +1,4 @@
-module GameLogic {
-    exports BackendExternal;
+module DatabaseUtil {
 
     requires javafx.graphics;
     requires javafx.media;
@@ -7,8 +6,7 @@ module GameLogic {
     requires javafx.controls;
     requires java.desktop;
     requires javafx.web;
-    requires Configurations;
-    requires DatabaseUtil;
-    requires xstream;
+    requires java.xml;
 
+    exports ExternalAPIs;
 }

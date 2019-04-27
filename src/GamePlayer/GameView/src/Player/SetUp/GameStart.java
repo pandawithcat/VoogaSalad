@@ -1,6 +1,5 @@
 package Player.SetUp;
 
-import BackendExternal.GameInfo;
 import Player.GamePlay.GamePlayMain;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
