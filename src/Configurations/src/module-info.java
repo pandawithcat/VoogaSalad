@@ -14,7 +14,7 @@ module Configurations {
     exports Configs.EnemyPackage.EnemyBehaviors;
     exports Configs.EnemyPackage;
     exports Configs.GamePackage;
-//    exports Configs.GamePackage.GameBehaviors;
+    exports Configs.GamePackage.GameBehaviors;
     exports Configs.LevelPackage.LevelBehaviors;
     exports Configs.LevelPackage;
     exports Configs.MapPackage;
@@ -25,5 +25,4 @@ module Configurations {
     exports Configs.Waves;
     exports ActiveConfigs;
 
-    exports Configs.GamePackage.GameBehaviors;
 }

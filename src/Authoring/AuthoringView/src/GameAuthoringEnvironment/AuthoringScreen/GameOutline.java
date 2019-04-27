@@ -15,18 +15,19 @@ import java.util.*;
 public class GameOutline extends Screen {
 
     private Pane myContent;
-    private ImageView myImage;
     private int myHeight;
     private int myWidth;
     private TreeView<Configurable> myTreeView = new TreeView<>();
     private Game myGame;
     private GameOutline gameOutline;
+    private double IMAGEVIEW_WIDTH = 25;
+    private double IMAGEVIEW_HEIGHT=25;
 
     public ImageView getMyImage(){
         Image test = new Image(getClass().getResourceAsStream("/resources/" +"Folder.png"));
         ImageView imageView = new ImageView(test);
-        imageView.setFitWidth(25);
-        imageView.setFitHeight(25);
+        imageView.setFitWidth(IMAGEVIEW_WIDTH);
+        imageView.setFitHeight(IMAGEVIEW_HEIGHT);
 
         return imageView;
     }
@@ -37,7 +38,6 @@ public class GameOutline extends Screen {
         myHeight = height;
         myWidth = width;
         myContent = getContent();
-        Game myGame = new Game();
     }
 
 
@@ -59,11 +59,12 @@ public class GameOutline extends Screen {
 
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
-            //value is not an array, just an object
+            //value is not an array, just a single object
             if (value instanceof Configurable) {
                 try {
                     TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) value);
                     myConfigurable.getChildren().add(treeItem);
+                    //don't create  additional treeitem for mymap
                     if(!key.toLowerCase().equals("mymap")){
                         createTreeView(treeItem);
                     }
@@ -71,13 +72,16 @@ public class GameOutline extends Screen {
                     //TODO Handle Error
                     e.printStackTrace();
                 }
+            //value is an array
             } else if (value.getClass().isArray()) {
 
                 Object[] valueArray = (Object[]) value;
                 for (Object object : valueArray) {
-                    TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) object);
-                    myConfigurable.getChildren().add(treeItem);
-                    createTreeView(treeItem);
+                    if(object instanceof Configurable) {
+                        TreeItem<Configurable> treeItem = new TreeItem<>((Configurable) object);
+                        myConfigurable.getChildren().add(treeItem);
+                        createTreeView(treeItem);
+                    }
                 }
             }
         }
@@ -96,10 +100,9 @@ public class GameOutline extends Screen {
                         setGraphic(null);
                     } else {
                             try {
-                                setText(item.getClass().getDeclaredField("myLabel").get(null) + ": " + item.getName());
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
-                            } catch (NoSuchFieldException e) {
+                                setText(item.getClass().getDeclaredField("DISPLAY_LABEL").get(null) + ": " + item.getName());
+                            } catch (IllegalAccessException | NoSuchFieldException e) {
+                                //TODO Error checking
                                 e.printStackTrace();
                             }
                         setGraphic(getMyImage());
@@ -121,11 +124,10 @@ public class GameOutline extends Screen {
                 try {
                     findMyClass(object, myGame);
                 } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
+                    //TODO Error checking
                 }
             }
         });
-
     }
 
     //recursively search the right class
@@ -174,7 +176,8 @@ public class GameOutline extends Screen {
        if (myConfigurable.getClass().getSimpleName().toLowerCase().equals("mapconfig")) {
            if (!definedAttributesMap.keySet().equals(null)) {
                MapConfig mapConfig = (MapConfig) myConfigurable;
-               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, myAttributesMap, ((MapConfig) myConfigurable).getLevel());
+               Map<String, Object> levelMap = mapConfig.getLevel().getConfiguration().getDefinedAttributes();
+               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, levelMap, ((MapConfig) myConfigurable).getLevel());
                configurableMap.resetConfigurations();
            } else {
                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);

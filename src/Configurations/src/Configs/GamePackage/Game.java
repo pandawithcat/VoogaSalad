@@ -20,9 +20,9 @@ public class Game implements Updatable, Configurable {
     public static final double gridPixelWidth = 585;
     public static final double gridPixelHeight = 585;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
-    public static final String myLabel = "Game";
+    public static final String DISPLAY_LABEL = "Game";
 
     @Configure
     private String myName;
@@ -34,46 +34,52 @@ public class Game implements Updatable, Configurable {
     private Level[] levelList;
     @Configure
     private Arsenal myArsenal;
-//    @Configure
-//    private GameBehavior gameType;
+    @Configure
+    private GameBehavior gameType;
 
     @XStreamOmitField
     private transient double paneWidth;
     @XStreamOmitField
     private transient double paneHeight;
 
-    private LevelSpawner myLevelSpawner;
-    private int currentLevelNumber;
-    private boolean gameOver;
-    private boolean currentLevelOver;
+    @XStreamOmitField
+    private transient LevelSpawner myLevelSpawner;
+    @XStreamOmitField
+    private transient GameStatus gameStatus;
+    private int myScore=0;
 
     public Game(){
         myConfiguration = new Configuration(this);
-        gameOver = false;
-        currentLevelNumber=0;
     }
 
     public Arsenal getArsenal() {
         return myArsenal;
     }
 
+    public void setScore(int score) {
+        this.myScore = score;
+    }
+
+    public void addToScore(int points) {
+        myScore+=points;
+    }
+
+    public int getScore() {
+        return myScore;
+    }
+
     @Override
-    public void update(double ms) {
-        if(myLevelSpawner.isGameOver()) gameOver = true;
-        else {
-            myLevelSpawner.update(ms);
-        }
+    public void update(double ms, Updatable parent) {
+        myLevelSpawner.update(ms, this);
     }
 
-
-    public boolean isGameOver() {
-        return gameOver;
+    public void setGameStatus(GameStatus gameStatus) {
+        this.gameStatus = gameStatus;
     }
 
-    public boolean isLevelOver() {
-        return currentLevelOver;
+    public GameStatus getGameStatus() {
+        return gameStatus;
     }
-
 
     public void startGame(int levelNumber, double paneWidth, double paneHeight) throws IllegalStateException{
         if(levelNumber>=levelList.length) {
@@ -81,16 +87,13 @@ public class Game implements Updatable, Configurable {
         }
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        currentLevelNumber = levelNumber;
-        // TODO: CHANGE LAMBDA BASED ON THE GAME MODE
         this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
-
+        gameStatus = GameStatus.PLAYING;
     }
 
     public LevelSpawner getLevelSpawner() {
         return myLevelSpawner;
     }
-
 
     @Override
     public Configuration getConfiguration() {

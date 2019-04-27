@@ -1,14 +1,17 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.HealthExpirable;
 import Configs.ArsenalConfig.WeaponBehaviors.PlaceableOnPath;
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Behaviors.Behavior;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturable {
+public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturable,Attackable {
     private MapFeature myMapFeature;
     private ActiveLevel myActiveLevel;
 
@@ -18,25 +21,28 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
         myActiveLevel = activeLevel;
     }
 
-    public boolean isPathWeapon() {
-        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof PlaceableOnPath);
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
     }
 
     @Override
-    public void update(double ms) {
-        Arrays.stream(getBehaviors()).forEach(b -> b.update(ms));
-
-        updateWeaponDisplayState();
-
-        //dont forget to update state to 1 or 2(died) in myMapFeature
+    public void update(double ms, Updatable parent) {
+        Arrays.stream(getBehaviors()).forEach(b -> b.update(ms, this));
     }
 
-    private void updateWeaponDisplayState(){
-        if(false){
-            myMapFeature.setDisplayState(DisplayState.DIED);
+    @Override
+    public void attack(int damage) {
+        if(isHealthExpirable()) {
+            HealthExpirable healthExpirable = (HealthExpirable) Arrays.asList(getBehaviors()).stream().filter(behavior -> behavior instanceof HealthExpirable).collect(Collectors.toList()).get(0);
+            healthExpirable.damage(damage);
         }
-//        myMapFeature.setDisplayState(DisplayState.PRESENT);
     }
+
+    private boolean isHealthExpirable() {
+        return Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof HealthExpirable);
+    }
+
+
     @Override
     public MapFeature getMapFeature() {
         return myMapFeature;

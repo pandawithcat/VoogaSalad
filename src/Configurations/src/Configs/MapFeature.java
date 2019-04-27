@@ -25,7 +25,6 @@ public class MapFeature {
     private DisplayState displayState;
     private double heightInGridUnits;
     private double widthInGridUnits;
-    private boolean isOutOfBounds;
 
 
     @Deprecated
@@ -83,6 +82,7 @@ public class MapFeature {
         }
     }
 
+
     public double getPixelXPos() {
         return myImageView.getX();
     }
@@ -102,12 +102,12 @@ public class MapFeature {
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
         pixelXPos+=deltaPixelX;
         pixelYPos+=deltaPixelY;
-        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) isOutOfBounds = true;
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
         else {
             myImageView.setX(pixelXPos);
             myImageView.setY(pixelYPos);
-            gridXPos = (int) (pixelXPos*Game.gridPixelWidth/widthInGridUnits);
-            gridYPos = (int) (pixelYPos*Game.gridPixelHeight/heightInGridUnits);
+            gridXPos = (int) (pixelXPos*paneWidth/widthInGridUnits);
+            gridYPos = (int) (pixelYPos*paneHeight/heightInGridUnits);
         }
     }
 
@@ -119,18 +119,15 @@ public class MapFeature {
         return (xPixel>paneWidth||xPixel<0||yPixel>paneHeight||yPixel<0);
     }
 
-    public boolean isOutOfBounds() {
-        return isOutOfBounds;
-    }
 
     private void setPixelPos(double pixelXPos, double pixelYPos, double direction) {
-        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) isOutOfBounds = true;
+        if(isOutOfBoundsPixel(pixelXPos,pixelYPos)) displayState = DisplayState.DIED;
         else {
             this.pixelYPos = pixelYPos;
             this.pixelXPos = pixelXPos;
             this.displayDirection = direction;
-            this.gridXPos = (int) (pixelXPos/(widthInGridUnits/Game.gridPixelWidth));
-            this.gridYPos = (int) (pixelYPos/(heightInGridUnits/Game.gridPixelHeight));
+            this.gridXPos = (int) (pixelXPos/(widthInGridUnits/paneWidth));
+            this.gridYPos = (int) (pixelYPos/(heightInGridUnits/paneHeight));
             setImageView(pixelXPos,pixelYPos,direction);
         }
 
@@ -144,7 +141,7 @@ public class MapFeature {
 
     public void setGridPos(int gridXPos, int gridYPos, double direction) {
         if(isOutOfBounds(gridXPos,gridYPos)) {
-            isOutOfBounds = true;
+            displayState = DisplayState.DIED;
         }
         else {
             this.gridXPos = gridXPos;

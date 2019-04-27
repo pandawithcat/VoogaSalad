@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class EnemyBehavior implements Behavior<EnemyConfig>{
     public static final List<Class> IMPLEMENTING_BEHAVIORS = List.of(Stealthy.class);
     private EnemyConfig myEnemyConfig;
-    public static final String myLabel = "Enemy Behavior";
+    public static final String DISPLAY_LABEL = "Enemy Behavior";
 
     EnemyBehavior(EnemyConfig enemyConfig){
         myEnemyConfig = enemyConfig;

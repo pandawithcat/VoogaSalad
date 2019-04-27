@@ -9,9 +9,9 @@ import java.io.File;
 
 
 public class Terrain implements Configurable, Viewable{
-    public static final int TERRAIN_SIZE = 4;
+    public static final int TERRAIN_SIZE = 50;
 
-    public static final String myLabel = "Terrain";
+    public static final String DISPLAY_LABEL = "Terrain";
     @Configure
     private String myName;
     @Configure
@@ -30,17 +30,17 @@ public class Terrain implements Configurable, Viewable{
     private TerrainBehavior[] terrainBehaviors;
 
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
+    private MapConfig myMapConfig;
 
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, int gridBlockHeight, int gridBlockWidth, boolean isPath){
-        view = new View(fileName,gridBlockHeight, gridBlockWidth);
-        this.gridBlockHeight = gridBlockHeight;
-        this.gridBlockWidth = gridBlockWidth;
+    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
+        view = new View(fileName,TERRAIN_SIZE,TERRAIN_SIZE);
         this.isPath = isPath;
         this.gridYPos = gridYPos;
         this.gridXPos = gridXPos;
         myConfiguration = new Configuration(this);
+        myMapConfig = mapConfig;
     }
 
     public int getGridXPos() {
@@ -51,17 +51,14 @@ public class Terrain implements Configurable, Viewable{
         return gridYPos*TERRAIN_SIZE;
     }
 
-    public double getGridBlockHeight() {
-        return gridBlockHeight;
-    }
-
-    public double getGridBlockWidth() {
-        return gridBlockWidth;
-    }
-
     @Override
     public View getView() {
         return view;
+    }
+
+    public ImmutableImageView getImageView(double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+        MapFeature mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight);
+        return mapFeature.getImageView();
     }
 
 
@@ -72,14 +69,6 @@ public class Terrain implements Configurable, Viewable{
 
     public boolean getIfPath() {
         return isPath;
-    }
-
-    public double getHeight() {
-        return view.getHeight();
-    }
-
-    public double getWidth() {
-        return view.getWidth();
     }
 
     public boolean isPath() {

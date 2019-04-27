@@ -1,7 +1,7 @@
 package Player.GamePlay;
 
-import BackendExternal.GameInfo;
 import BackendExternal.Logic;
+import ExternalAPIs.GameInfo;
 import Player.ScreenSize;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-import static Player.GamePlay.GamePlayIDE.LEFT_RATIO;
+import static Player.GamePlay.GamePlayGUI.LEFT_RATIO;
 import static Player.GamePlay.GamePlayLeft.GamePlayLeftSide.TOP_RATIO;
 
 
@@ -26,23 +26,25 @@ public class GamePlayMain extends Application {
     private String Title = "VoogaSalad Game";
     private String GAME_MUSIC = "resources/gameMusic.mp3";
     public static int FRAMES_PER_SECOND = 3;
-    public static final int MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
+    public static int MILLISECOND_DELAY = 1000/FRAMES_PER_SECOND;
     public static final double SECOND_DELAY = 1.0/FRAMES_PER_SECOND;
     private static final Paint backgroundColor = Color.NAVY;
     private double screenWidth = ScreenSize.getWidth();
     private double screenHeight = ScreenSize.getHeight();
-    private static final int padding = 15;
-    private Logic myLogic = new Logic();
+    // Added by Brian
+    private Logic myLogic = new Logic(screenWidth, screenHeight);
     private Timeline animation;
-    private GamePlayIDE myGameIDE;
+    private GamePlayGUI myGameGUI;
     private Group root;
     private double currMilliSecond = 0;
     private MediaPlayer mediaPlayer;
-    
+    private KeyFrame frame;
+    private boolean gameOver;
+    private Stage primaryStage;
     @Override
     public void start(Stage stage){
         try {
-            Stage primaryStage = stage;
+            primaryStage = stage;
             root = new Group();
             primaryStage.setX(screenWidth);
             primaryStage.setY(screenHeight);
@@ -50,9 +52,12 @@ public class GamePlayMain extends Application {
             startScreen.getStylesheets().add("gameplay.css");
             MediaView music = createWelcomeMusic();
             root.getChildren().add(music);
-            myGameIDE = new GamePlayIDE(myLogic, () -> startLoop(), () -> fastFoward(), root, stage, mediaPlayer);
-            root.getChildren().add(myGameIDE);
-            var frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
+            myGameGUI = new GamePlayGUI(myLogic, () -> startLoop(), () -> fastFoward(), () -> endLoop(),
+                    () -> closeStage(),
+                    root,
+                    mediaPlayer);
+            root.getChildren().add(myGameGUI);
+            frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY), event -> step());
             animation = new Timeline();
             animation.setCycleCount(Timeline.INDEFINITE);
             animation.getKeyFrames().add(frame);
@@ -68,7 +73,8 @@ public class GamePlayMain extends Application {
         myLogic.createGameInstance(gameInfo, screenWidth*LEFT_RATIO, screenHeight* TOP_RATIO);
     }
     private void fastFoward(){
-        FRAMES_PER_SECOND = 150;
+        animation.setRate(2.5);
+        System.out.println("Fast forward");
     }
 
     private MediaView createWelcomeMusic(){
@@ -80,40 +86,23 @@ public class GamePlayMain extends Application {
     }
 
     private void startLoop(){
-//        long starttime = System.currentTimeMillis();
-//        long prevTime = -1000;
-//        while(true){
-//            long currTime = System.currentTimeMillis();
-//            long newtime = currTime-starttime;
-//            if (newtime - prevTime>50) {
-//                step(newtime);
-//                prevTime = newtime;
-//            }
-//            else{
-//                try {
-//                    Thread.sleep(50);
-//                }
-//                catch (InterruptedException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
+        animation.setRate(1);
         animation.play();
     }
 
     private void step(){
-        //TODO: yeah idk if this is best design below
-        //TODO: if the level end is true stop the game loop
-        //TODO: dynamically update views with methods below
-        //TODO: changelistener for dragging objects
-        //TODO: render method
-        //TODO: dynamically update views with methods below
-        //TODO: change all the scores and lives and
-        //getViewsToBeAdded
-        //getRemovedImageViews
-        //
-        myGameIDE.getLeft().getMap().update(currMilliSecond);
-        currMilliSecond+=MILLISECOND_DELAY;
-//        System.out.println(currMilliSecond);
+        if (!gameOver) {
+            myGameGUI.update(currMilliSecond);
+            currMilliSecond += MILLISECOND_DELAY;
+        }
     }
+
+    public void endLoop(){
+        gameOver = true;
+    }
+
+    private void closeStage(){
+        primaryStage.close();
+    }
+
 }

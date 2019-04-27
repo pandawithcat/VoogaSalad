@@ -1,20 +1,12 @@
 package Configs;
 
-public class Info {
+public interface Info {
 
-    private String name;
-    private String image;
+    String getImage();
 
-    public Info(String name, String image) {
-        this.name = name;
-        this.image = image;
-    }
+    String getName();
 
-    public String getImage(){
-        return image;
-    }
+    double getWidth();
 
-    public String getName() {
-        return name;
-    }
+    double getHeight();
 }
