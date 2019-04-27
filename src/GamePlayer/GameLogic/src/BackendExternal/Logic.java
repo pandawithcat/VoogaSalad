@@ -261,8 +261,9 @@ public class Logic {
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
+
 //    public int getNumLives(){
-//        return myGame.getActiveLevel().ge;
+//        return myGame.getActiveLevel().get;
 //    }
 
 
