@@ -46,8 +46,7 @@ public class Game implements Updatable, Configurable {
     private transient LevelSpawner myLevelSpawner;
     @XStreamOmitField
     private transient GameStatus gameStatus;
-    private int myScore;
-
+    private int myScore=0;
 
     public Game(){
         myConfiguration = new Configuration(this);
@@ -74,7 +73,6 @@ public class Game implements Updatable, Configurable {
         myLevelSpawner.update(ms, this);
     }
 
-
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
@@ -96,7 +94,6 @@ public class Game implements Updatable, Configurable {
     public LevelSpawner getLevelSpawner() {
         return myLevelSpawner;
     }
-
 
     @Override
     public Configuration getConfiguration() {

@@ -5,9 +5,11 @@ import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
 import Configs.*;
 import Configs.ShooterConfig.Shooter;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Radial extends ShooterBehavior {
     public static final String DISPLAY_LABEL = "Radial Shooting";
+    @XStreamOmitField
     private transient Configuration myConfiguration;
 
     public Radial(Shooter shooter){
