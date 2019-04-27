@@ -4,6 +4,7 @@ import ActiveConfigs.Cell;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameStatus;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
 import ExternalAPIs.GameInfo;
@@ -46,7 +47,6 @@ public class Logic {
 //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
-
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
@@ -88,7 +88,7 @@ public class Logic {
     // Do Not Call Yet !!!!!!!!!!!!!!!!
     public void startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
-        myGame.getActiveLevel().setScore(gameState.getMyCurrentScore());
+        myGame.setScore(gameState.getMyCurrentScore());
         myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
     }
 
@@ -104,7 +104,7 @@ public class Logic {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveGameState(){
-        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getActiveLevel().getScore());
+        UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getScore());
         myPlayerData.saveUserState(currentUserState);
     }
 
@@ -145,7 +145,7 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     public Map<Integer, Info> getMyArsenal(){
-        return myGame.getArsenal().getAllWeaponConfigOptions();
+        return myGame.getArsenal().getAllNewWeaponConfigOptions();
     }
 
     // View calls this when a weapon is placed onto the map
@@ -159,7 +159,7 @@ public class Logic {
     // Input: Time the method is called
     // No Return
     public void update(double currentTime){
-        myGame.update(currentTime);
+        myGame.update(currentTime, null);
     }
 
     // View calls to get objects to add to the view
@@ -180,7 +180,7 @@ public class Logic {
     // No Input
     // Return: integer score
     public int getScore(){
-        return myGame.getActiveLevel().getMyScore();
+        return myGame.getScore();
     }
 
     // View calls to check the current lives of the game in the game loop
@@ -196,7 +196,7 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
-        WeaponConfig weapon = myGame.getArsenal().getConfiguredWeapons()[weaponId-1];
+        WeaponConfig weapon = myGame.getArsenal().getWeapon(weaponId);
         View weaponView = weapon.getView();
         int height;
         int width;
@@ -239,8 +239,10 @@ public class Logic {
         return myGame.getLevelSpawner().isLevelOver();
     }
 
+    //TODO: i changed the status of the game into an enum so this should get the actual enum value instead of just if its over
+    // for example, the time expirable game mode is only based on if the game is over or not, but everything else has a lost or won status
     public boolean checkIfGameEnd(){
-        return myGame.isGameOver();
+        return myGame.getGameStatus()== GameStatus.OVER;
     }
 
 

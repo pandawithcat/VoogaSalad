@@ -32,23 +32,23 @@
         <Configs.LevelPackage.Level-array>
           <Configs.LevelPackage.Level>
             <myGame reference="../../../../../.."/>
-            <myLabel>lev1</myLabel>
+            <DISPLAY_LABEL>lev1</DISPLAY_LABEL>
             <myWaveConfigs>
               <Configs.Waves.Wave>
                 <myLevel reference="../../.."/>
-                <myLabel>mama</myLabel>
+                <DISPLAY_LABEL>mama</DISPLAY_LABEL>
                 <timeToReleaseInMs>1000</timeToReleaseInMs>
                 <rateOfReleaseEnemiesPerMs>1</rateOfReleaseEnemiesPerMs>
                 <enemies>
                   <Configs.EnemyPackage.EnemyConfig>
                     <myWave reference="../../.."/>
-                    <myLabel>rcd</myLabel>
+                    <DISPLAY_LABEL>rcd</DISPLAY_LABEL>
                     <myBehaviors/>
                     <unitSpeedPerSecond>1</unitSpeedPerSecond>
                     <myConfiguration>
                       <myAttributeTypes class="linked-hash-map">
                         <entry>
-                          <string>myLabel</string>
+                          <string>DISPLAY_LABEL</string>
                           <java-class>java.lang.String</java-class>
                         </entry>
                         <entry>
@@ -70,7 +70,7 @@
                           <Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior-array reference="../../../../myBehaviors"/>
                         </entry>
                         <entry>
-                          <string>myLabel</string>
+                          <string>DISPLAY_LABEL</string>
                           <string>rcd</string>
                         </entry>
                         <entry>
@@ -88,7 +88,7 @@
                 <myConfiguration>
                   <myAttributeTypes class="linked-hash-map">
                     <entry>
-                      <string>myLabel</string>
+                      <string>DISPLAY_LABEL</string>
                       <java-class>java.lang.String</java-class>
                     </entry>
                     <entry>
@@ -114,7 +114,7 @@
                       <long>1000</long>
                     </entry>
                     <entry>
-                      <string>myLabel</string>
+                      <string>DISPLAY_LABEL</string>
                       <string>mama</string>
                     </entry>
                     <entry>
@@ -7353,7 +7353,7 @@
                     <int>400</int>
                   </entry>
                   <entry>
-                    <string>myLabel</string>
+                    <string>DISPLAY_LABEL</string>
                     <null/>
                   </entry>
                   <entry>
@@ -7395,7 +7395,7 @@
             <myConfiguration>
               <myAttributeTypes class="linked-hash-map">
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <java-class>java.lang.String</java-class>
                 </entry>
                 <entry>
@@ -7417,7 +7417,7 @@
                   <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
                 </entry>
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <string>lev1</string>
                 </entry>
                 <entry>

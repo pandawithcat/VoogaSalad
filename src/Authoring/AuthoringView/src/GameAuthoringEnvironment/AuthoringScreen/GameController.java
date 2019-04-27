@@ -110,7 +110,7 @@ public class GameController {
         List<Object> tempList = new ArrayList<>();
         String objectLabel = null;
         try {
-            objectLabel = value.getComponentType().getDeclaredField("myLabel").get(key).toString();
+            objectLabel = value.getComponentType().getDeclaredField("DISPLAY_LABEL").get(null).toString();
         } catch (IllegalAccessException | NoSuchFieldException e) {
             //TODO Error Catching
             e.printStackTrace();
@@ -269,7 +269,7 @@ public class GameController {
     private void handleSingleObject(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String,Object> definedAttributesMap) throws NoSuchFieldException {
         Button myButton = null;
         try {
-            myButton = new Button("Configure " + value.getDeclaredField("myLabel").get(null));
+            myButton = new Button("Configure " + value.getDeclaredField("DISPLAY_LABEL").get(null));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -336,8 +336,7 @@ public class GameController {
 
     private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
         //TODO get the label string from the properties file
-        Label myLabel = new Label(authoringProps.getProperty(key));
-        //Label myLabel = new Label(key);
+        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -345,7 +344,7 @@ public class GameController {
         Button confirmButton = new Button("Confirm");
 
         var nameAndTfBar = new HBox();
-        nameAndTfBar.getChildren().addAll(myLabel, myTextField, confirmButton);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, myTextField, confirmButton);
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             //TODO DO Errorchecking/Refactor
             @Override
@@ -372,8 +371,7 @@ public class GameController {
     }
 
     private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
-        Label myLabel = new Label(authoringProps.getProperty(key));
-        //Label myLabel = new Label(key);
+        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -382,7 +380,7 @@ public class GameController {
         Button confirmButton = new Button("Confirm");
 
         var nameAndTfBar = new HBox();
-        nameAndTfBar.getChildren().addAll(myLabel, myTextField, chooseImageButton, confirmButton);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, myTextField, chooseImageButton, confirmButton);
         chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             //TODO(Louis) Change this so that image is called in from the server
             @Override
@@ -407,8 +405,7 @@ public class GameController {
 
     private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
         HBox box = new HBox(10);
-        Label myLabel = new Label(authoringProps.getProperty(key));
-        //Label myLabel = new Label(key);
+        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
         RadioButton trueButton = new RadioButton("True");
         RadioButton falseButton = new RadioButton("False");
         if (definedAttributesMap.keySet().contains(key)) {
@@ -419,7 +416,7 @@ public class GameController {
             }
         }
         Button confirmButton = new Button("Confirm");
-        box.getChildren().addAll(myLabel, trueButton, falseButton);
+        box.getChildren().addAll(DISPLAY_LABEL, trueButton, falseButton);
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
