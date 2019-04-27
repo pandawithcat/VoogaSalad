@@ -294,7 +294,7 @@ public class ConfigurableMap {
                 public void handle(MouseEvent mouseEvent) {
                     MouseButton button = mouseEvent.getButton();
                     if(button == MouseButton.PRIMARY){
-                        //updateCell(mouseEvent);
+                        updateCellMouse(mouseEvent);
 
                     }
 
@@ -368,6 +368,12 @@ public class ConfigurableMap {
     }
 
     public void updateCell(DragEvent mouseEvent){
+        TerrainTile source = (TerrainTile) mouseEvent.getSource();
+        source.changeImage(currentTile);
+
+    }
+
+    public void updateCellMouse(MouseEvent mouseEvent){
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
         source.changeImage(currentTile);
 
