@@ -26,11 +26,9 @@ import java.util.*;
 
 public class GamePlayArsenal extends VBox {
 
-    public static final double ARSENAL_RATIO = 0.90;
-    public static final double SELECTOR_RATIO = 0.10;
+    public static final double ARSENAL_RATIO = 1.00;
 
     private Logic myLogic;
-    private GamePlayArsenalSelector myArsenalSelector;
     private boolean isWeapon;
     private ArrayList<Pair<ImageView, String>> viewList;
     private ListView arsenalDisplay;
@@ -62,9 +60,6 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
         getChildren().addAll(arsenalDisplay);
-
-        myArsenalSelector = new GamePlayArsenalSelector(arsenalWidth,arsenalHeight * SELECTOR_RATIO);
-        getChildren().add(myArsenalSelector);
     }
 
     public void recreateArsenal(){
