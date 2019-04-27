@@ -72,28 +72,7 @@ public class TerrainTile extends ImageView {
 
     }
 
-    public void changeToExit(){
-        try{
-            this.setImage(new Image(new FileInputStream("resources/exit.jpg")));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-
-        }
-        isPath=true;
-        tileImString="exit.jpg";
-    }
-
-    public void changeToEnter(){
-        try{
-            this.setImage(new Image(new FileInputStream("resources/enter.jpg")));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-        }
-        isPath=true;
-        tileImString="enter.jpg";
-    }
+    
 
     public void changeToGrass(){
         try {
