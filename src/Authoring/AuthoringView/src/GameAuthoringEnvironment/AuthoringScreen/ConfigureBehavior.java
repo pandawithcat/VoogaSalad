@@ -42,6 +42,7 @@ public class ConfigureBehavior {
     Class myType;
     Object[] selectedBehavior;
     List<Object> tempList;
+    boolean myBoolean;
 
     /*public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameOutline= gameOutline;
@@ -52,7 +53,7 @@ public class ConfigureBehavior {
     }*/
 
 
-    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key, Class clazz) {
+    public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key, Class clazz, Boolean isArray) {
         myType = clazz;
         selectedBehavior = (Object[]) Array.newInstance(myType, 0);
         tempList = new ArrayList<>(Arrays.asList(selectedBehavior));
@@ -61,6 +62,7 @@ public class ConfigureBehavior {
         myConfigurable = configurable;
         myList = behaviorList;
         myMap = attributesMap;
+        myBoolean = isArray;
         setContent();
     }
 
@@ -141,7 +143,11 @@ public class ConfigureBehavior {
                     for(int a=0; a<tempList.size(); a++){
                         ob[a] = tempList.get(a);
                     }
-                    myMap.put(myKey, ob);
+                    if(myBoolean == true){
+                    myMap.put(myKey, ob);}
+                    else{
+                        myMap.put(myKey,ob[0]);
+                    }
                     popUpWindow.close();
                 }
             }
