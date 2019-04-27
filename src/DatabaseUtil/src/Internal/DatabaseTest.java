@@ -151,15 +151,15 @@ public class DatabaseTest extends Application {
 
     private static void testGetImage(){
         System.out.println("Testing Get Image:");
-
+/*
         int imageID = 1;
 
-        Image image = myAuthoringData.getImage(imageID);
+        //Image image = myAuthoringData.getImage(imageID);
 
         ImageView imageView = new ImageView(image);
         myRoot.getChildren().add(imageView);
 
-        System.out.println("Done Get Image");
+        System.out.println("Done Get Image");*/
     }
 
     // AuthoringData Class
