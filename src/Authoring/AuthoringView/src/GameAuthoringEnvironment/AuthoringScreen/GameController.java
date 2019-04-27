@@ -36,8 +36,6 @@ public class GameController {
         configuredObjects = new HashMap<>();
         try{
              File propFile = new File("./src/Authoring/AuthoringView/resources/authoringvars.properties");
-            //System.out.println(new File("").getAbsolutePath());//System.out.println(getClass().getResourceAsStream());
-            //System.out.println(getClass().getResourceAsStream("resources/authoringvars.properties").toString());
         authoringProps.load(new FileInputStream(propFile.getPath()));
      }catch (Exception e){
             e.printStackTrace();
@@ -95,9 +93,9 @@ public class GameController {
                 handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
-            else if(key.toLowerCase().contains("weaponconfig")){
-                handleWeaponConfig(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
-            }
+            /*else if(key.toLowerCase().contains("weaponconfig")){
+                handleWeaponConfig(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
+            }*/
 
             //handle Array
             else{
@@ -106,11 +104,6 @@ public class GameController {
             }
 
         return myAttributesMap;
-    }
-
-    private void handleWeaponConfig(Configurable myConfigurable, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String,Object> definedAttributesMap){
-        key
-
     }
 
     private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
@@ -126,67 +119,91 @@ public class GameController {
         VBox tempVBOx  = new VBox();
         tempVBOx.setSpacing(10);
 
-        ListView sourceView = new ListView<>();
+        //weapon behavior is a special case
+        if(value.getComponentType().getSimpleName().toLowerCase().contains("weaponbehavior")) {
 
-        var buttonBar = new HBox();
-        buttonBar.setSpacing(10);
-        Button addNew = new Button("Add new " + objectLabel);
-        Button confirmButton = new Button("Confirm");
-        Button removeButton = new Button("Remove");
-        Button bringExistingConfigButton = new Button("Use Existing " + objectLabel);
-
-        buttonBar.getChildren().addAll(addNew, confirmButton, removeButton, bringExistingConfigButton);
-        bringExistingConfigButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                ExistingConfigurations existingConfigurations = new ExistingConfigurations(tempList, sourceView, configuredObjects.get(key));
-
-            }
-        }));
-
-        //give pre configured options to the users
-        if (definedAttributesMap.keySet().contains(key)) {
-            Object[] objects = (Object[]) definedAttributesMap.get(key);
-            for (Object object : objects) {
-                tempList.add(object);
-                //TODO Check if it is configurable?
-                Configurable temp = (Configurable) object;
-                sourceView.getItems().add(temp.getName());
-            }
-        }
-        addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                handleArrayAddnewButton(sourceView, value, myConfigurable, tempList);
-
-            }
-        }));
-        sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
-                    if (mouseEvent.getClickCount() == 2) {
-                        handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView);
+            Button chooseWeaponBehavior = new Button("Choose Weapon Behavior");
+            chooseWeaponBehavior.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        Class<?> cl = Class.forName(value.getComponentType().getName());
+                        Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
+                        List<Class> behaviorList = (List<Class>) myField.get(null);
+                        ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
+                    } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+                        //TODO(Hyunjae) Errorchecking
+                        System.out.println(e);
                     }
                 }
-            }
-        }));
-        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                handleArrayConfirmButton(value, tempList, myAttributesMap, key);
-            }
-        }));
-        removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                handleArrayRemoveButton(sourceView, tempList);
+            }));
+            tempVBOx.getChildren().addAll(listLabel, chooseWeaponBehavior);
+            layout.getChildren().add(tempVBOx);
+        }
+        else{
 
+            ListView sourceView = new ListView<>();
+
+            var buttonBar = new HBox();
+            buttonBar.setSpacing(10);
+            Button addNew = new Button("Add new " + objectLabel);
+            Button confirmButton = new Button("Confirm");
+            Button removeButton = new Button("Remove");
+            Button bringExistingConfigButton = new Button("Use Existing " + objectLabel);
+
+            buttonBar.getChildren().addAll(addNew, confirmButton, removeButton, bringExistingConfigButton);
+            bringExistingConfigButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    ExistingConfigurations existingConfigurations = new ExistingConfigurations(tempList, sourceView, configuredObjects.get(key));
+
+                }
+            }));
+
+            //give pre configured options to the users
+            if (definedAttributesMap.keySet().contains(key)) {
+                Object[] objects = (Object[]) definedAttributesMap.get(key);
+                for (Object object : objects) {
+                    tempList.add(object);
+                    //TODO Check if it is configurable?
+                    Configurable temp = (Configurable) object;
+                    sourceView.getItems().add(temp.getName());
+                }
             }
-        }));
-        allButton.add(confirmButton);
-        tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
-        layout.getChildren().add(tempVBOx);
+            addNew.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    handleArrayAddnewButton(sourceView, value, myConfigurable, tempList);
+
+                }
+            }));
+            sourceView.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                        if (mouseEvent.getClickCount() == 2) {
+                            handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView);
+                        }
+                    }
+                }
+            }));
+            confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    handleArrayConfirmButton(value, tempList, myAttributesMap, key);
+                }
+            }));
+            removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    handleArrayRemoveButton(sourceView, tempList);
+
+                }
+            }));
+            allButton.add(confirmButton);
+            tempVBOx.getChildren().addAll(listLabel, sourceView, buttonBar);
+            layout.getChildren().add(tempVBOx);
+        }
     }
 
     private void handleArrayRemoveButton(ListView sourceView, List<Object> tempList) {

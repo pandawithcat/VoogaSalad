@@ -33,7 +33,7 @@ public class TerrainTile extends ImageView {
 
 
 
-    public void changeTile(TerrainTile terrainTile){
+    /*public void changeTile(TerrainTile terrainTile){
         try {
 
             this.setImage(new Image(new FileInputStream("resources/" + type.toLowerCase() + ".jpg")));
@@ -42,7 +42,7 @@ public class TerrainTile extends ImageView {
             //TODO Exception! NO such file found
         }
         tileImString = type.toLowerCase() + ".jpg";
-    }
+    }*/
 
     public ImageView getImageView(){
         return imageView;
