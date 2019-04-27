@@ -6,6 +6,7 @@ import Player.GamePlay.GamePlayRight.SettingsPanel;
 import Player.GamePlay.PlayInterface;
 import Player.GamePlay.SelectionInterface;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
@@ -18,38 +19,35 @@ public class ButtonPanel extends VBox {
     private SettingsPanel mySettingsPanel;
 
     public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, SelectionInterface home, MediaPlayer mediaPlayer){
-        setPadding(new Insets(0, 0, 20, 0));
+        setPadding(new Insets(0, 0, 30, 0));
         setId("HUD");
         setSpacing(1);
+        setAlignment(Pos.CENTER);
         myPlayButton = new PlayButton(width, height* 0.4);
-        HBox hbox = new HBox();
-        hbox.setPadding(new Insets(0, 0, 10, 15));
-        hbox.setSpacing(10);
-        hbox.getChildren().add(myPlayButton);
         myFastFowardButton = new FastFowardButton(width, height * 0.4);
         myPlayButton.setOnAction(e-> {
                     try {
-                        changeToFastFoward(hbox);
+                        changeToFastFoward();
                         method.playButton();
                     } catch (Exception error) {
                         error.printStackTrace();
                     }
                 });
         myFastFowardButton.setOnAction(e->{
-            changeToPlay(hbox);
+            changeToPlay();
             fastFoward.playButton();
         });
         mySettingsPanel = new SettingsPanel(width, height/2, home, mediaPlayer);
         getChildren().add(mySettingsPanel);
-        getChildren().add(hbox);
+        getChildren().add(myPlayButton);
     }
 
-    private void changeToPlay(HBox hbox){
-        hbox.getChildren().remove(myFastFowardButton);
-        hbox.getChildren().add(myPlayButton);
+    private void changeToPlay(){
+        getChildren().remove(myFastFowardButton);
+        getChildren().add(myPlayButton);
     }
-    private void changeToFastFoward(HBox hbox){
-        hbox.getChildren().remove(myPlayButton);
-        hbox.getChildren().add(myFastFowardButton);
+    private void changeToFastFoward(){
+        getChildren().remove(myPlayButton);
+        getChildren().add(myFastFowardButton);
     }
 }
