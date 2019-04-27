@@ -1,7 +1,7 @@
 package Data;
 
-import BackendExternal.GameInfo;
 import Configs.GamePackage.Game;
+import ExternalAPIs.GameInfo;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 

@@ -1,0 +1,57 @@
+#backdrop{
+    -fx-background-color: linear-gradient(rgb(112, 255, 50), rgb(209, 230, 201)),
+    linear-gradient(rgb(253, 255, 240), rgb(229, 242, 215)),
+    linear-gradient(rgb(179, 255, 162), rgb(160, 239, 129));
+}
+#image_backdrop{
+    -fx-background-color: linear-gradient(rgb(112, 255, 50), rgb(209, 230, 201)),
+    linear-gradient(rgb(253, 255, 240), rgb(229, 242, 215)),
+    linear-gradient(rgb(179, 255, 162), rgb(160, 239, 129));
+    -fx-background-image: url("background.jpg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
+#colored_backdrop{
+    -fx-background-color: linear-gradient(rgb(90, 253, 255), rgb(98, 222, 230));
+}
+.button {
+    -fx-background-color:
+            linear-gradient(#ffd65b, #e68400),
+            linear-gradient(#ffef84, #f2ba44),
+            linear-gradient(#ffea6a, #efaa22),
+            linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-padding: 10 20 10 20;
+    -fx-opacity: 1;
+}
+.button:pressed {
+    -fx-background-color:
+            linear-gradient(#fff7a4, #e5e6a1),
+            linear-gradient(#fffcde, #f2edd3),
+            linear-gradient(#ffea6a, #efeac9),
+            linear-gradient(#ffffd8 0%, #f7f8cd 50%, #eeeab1 100%),
+            linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,2,3,0;
+    -fx-text-fill: #654b00;
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-padding: 10 20 10 20;
+    -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-border-color: grey;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+}
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}

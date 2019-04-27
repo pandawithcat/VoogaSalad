@@ -8,6 +8,7 @@ module GameView {
     requires javafx.web;
     requires GameLogic;
     requires Configurations;
+    requires DatabaseUtil;
 
     exports Player;
 }

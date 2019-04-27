@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,13 +16,16 @@ public class CreateAccount {
     private TextField newIDTf, pwTf, confirmPwTf;
     private Button makeAccountButton;
     private Stage popupwindow;
+    private Model myModel;
 
-    public CreateAccount(StartingScreen startingScreen){
+    public CreateAccount(StartingScreen startingScreen, Model model){
+        myModel = model;
         popupwindow = new Stage();
         layout = new VBox(10.00);
         setContent();
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
         Scene scene= new Scene(layout, 500, 500);
+        scene.getStylesheets().add("authoring_style.css");
         popupwindow.setScene(scene);
         popupwindow.showAndWait();
     }
@@ -43,11 +47,12 @@ public class CreateAccount {
         //if(true)
         if(pwTf.getText().equals(confirmPwTf.getText())){
             //TODO USE regex to check the id, pw etc
+            myModel.createNewUser(newIDTf.getText(), pwTf.getText(), confirmPwTf.getText());
             popupwindow.close();
-
         }
-
-        //if(false) - alert
+        else{
+            //TODO Create Alert
+        }
     }
 
 }
