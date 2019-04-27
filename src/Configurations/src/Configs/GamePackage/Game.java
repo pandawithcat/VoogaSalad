@@ -87,7 +87,7 @@ public class Game implements Updatable, Configurable {
         }
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList, activeLevel -> activeLevel.noMoreEnemiesLeft());
+        this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList);
         gameStatus = GameStatus.PLAYING;
     }
 

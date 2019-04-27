@@ -1,10 +1,13 @@
 package Configs.GamePackage.GameBehaviors;
 
+import ActiveConfigs.ActiveLevel;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
 import Configs.GamePackage.GameStatus;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import java.util.function.Predicate;
 
 public class TimeExpirable extends GameBehavior{
     public static final String DISPLAY_LABEL = "Beat the Timer";
@@ -26,6 +29,7 @@ public class TimeExpirable extends GameBehavior{
             getMyGame().setGameStatus(GameStatus.OVER);
         }
     }
+
 
     @Override
     public Configuration getConfiguration() {
