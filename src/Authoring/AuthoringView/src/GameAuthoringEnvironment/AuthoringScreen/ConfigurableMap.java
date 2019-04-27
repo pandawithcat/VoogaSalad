@@ -364,7 +364,6 @@ public class ConfigurableMap {
             });
 
         });
-
     }
 
     public void updateCell(DragEvent mouseEvent){
