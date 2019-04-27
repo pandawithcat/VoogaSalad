@@ -39,6 +39,9 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
+    private double defaultOpacity;
+
+
 
     //list of WeaponInfo objects which has ID and an imageview
     private Map<Integer, Info> myArsenal;
@@ -52,6 +55,7 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
+        defaultOpacity = myMap.getOpacity();
 
         myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
@@ -104,12 +108,15 @@ public class GamePlayArsenal extends VBox {
 
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
+        myMap.setOpacity(defaultOpacity);
         event.consume();
     }
 
+    //0 is transparent
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
+            myMap.setOpacity(0.1);
         }
         event.consume();
     }
