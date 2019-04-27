@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.Logic;
 import Player.SetUp.GameSelection;
 import Player.SetUp.LogInPreloader;
 import javafx.animation.*;
@@ -41,9 +42,11 @@ public class LoadingSplashScreen extends Application{
     private VBox accountGrid;
     private LogInGrid logInGrid;
     private CreateAccount createAccountGrid;
+    private Logic logic;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
+        logic = new Logic(ScreenSize.getWidth(), ScreenSize.getHeight());
         background = new StackPane();
         root = new StackPane();
         background.getChildren().add(root);
@@ -112,6 +115,7 @@ public class LoadingSplashScreen extends Application{
         }
         rect.setWidth(400);
         rect.setHeight(200);
+
         VBox logInScreen = userLogIn();
         logInScreen.setMaxWidth(rect.getWidth());
         logInScreen.setMaxHeight(rect.getHeight());
@@ -130,10 +134,8 @@ public class LoadingSplashScreen extends Application{
         hBox.setSpacing(10);
         Button login = new Button("Log In");
         login.setId("green");
-        login.setOnAction(e-> startGame());
-//        grid.add(login, 0, 4);
+        login.setOnAction(e-> startGame(vbox));
         Button newAccount = new Button("Sign Up");
-//        grid.add(newAccount, 1, 4);
         newAccount.setId("green");
         newAccount.setOnAction(e->switchToCreateAccountGrid(vbox));
         hBox.getChildren().addAll(login,newAccount);
@@ -189,16 +191,22 @@ public class LoadingSplashScreen extends Application{
         logInPreloader.start(new Stage());
         logInPreloader.setTitle("We're loading your \n available games!!!");
         logInPreloader.setTransitionEvent(e -> {
-            GameSelection gameSelection = new GameSelection();
+            GameSelection gameSelection = new GameSelection(logic);
             gameSelection.start(new Stage());
         });
     }
-    private void startGame(){
-        logInGrid.getUserName();
-        logInGrid.getPassword();
+    private void startGame(VBox vBox){
+//        Text text = new Text("*User does not exist");
+//        text.setFill(Color.RED);
+//        vBox.setAlignment(Pos.CENTER);
+//        vBox.getChildren().add(text);
+        //logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword());
+//        logInGrid.getUserName();
+//        logInGrid.getPassword();
         availableGames();
     }
     private void createAccount(){
+        // logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
         createAccountGrid.getUserName();
         createAccountGrid.getPasswordField();
         createAccountGrid.getPasswordCheck();
