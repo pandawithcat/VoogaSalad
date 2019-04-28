@@ -39,6 +39,13 @@ public class GameSelection extends Application {
     private Logic logic;
     private StackPane gameStart;
     private StackPane totalBackground;
+    public GameSelection(){
+        super();
+    }
+    public GameSelection(Logic logic){
+        super();
+        this.logic = logic;
+    }
     @Override
     public void start(Stage primaryStage) {
         totalBackground = new StackPane();
@@ -46,7 +53,6 @@ public class GameSelection extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefSize(width/3,height);
         // Changed by Brian
-        logic = new Logic(width, height);
         stage = primaryStage;
         stage.setX(width);
         stage.setY(height);

@@ -8,6 +8,7 @@ import Configs.MapPackage.Terrain;
 import GameAuthoringEnvironment.AuthoringScreen.TerrainTile;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -21,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -30,6 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.TabExpander;
 import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -44,6 +47,11 @@ import static Configs.MapPackage.MapConfig.GRID_WIDTH;
 public class ConfigurableMap {
 
 
+    public static final int GRID_WIDTH = 32;
+    public static final int GRID_HEIGHT = 20;
+//public static final int GRID_WIDTH = 32;
+//    public static final int GRID_HEIGHT = 20;
+    Map<String,String> typeToImagePathMap;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -104,12 +112,19 @@ public class ConfigurableMap {
         VBox otherLayout = new VBox();
         //otherLayout.setLayoutX();
         //otherLayout.setLayoutY();
+        VBox mapLayout = new VBox();
+
+        HBox mapHBox = new HBox();
+        mapHBox.getChildren().add(map);
+
+        mapHBox.setLayoutX(450);
+        mapLayout.getChildren().add(mapHBox);
 
 
 
         otherLayout.getChildren().addAll(nameBox, tileViewBox, enterViewBox, exitViewBox);
         Button submitButton = addSubmit();
-        allLayout.getChildren().addAll(map, otherLayout, submitButton);
+        allLayout.getChildren().addAll(mapHBox, otherLayout, submitButton);
 
 
 
@@ -190,7 +205,11 @@ public class ConfigurableMap {
             for (int r = 0; r < GRID_HEIGHT; r++) {
                 for (int c = 0; c < GRID_WIDTH; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
+//                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
+//                    Tooltip.install(myTile,tooltip);
+                    map.setStyle("-fx-background-color: white;");
                     map.add(myTile, r, c);
+                    map.setGridLinesVisible(false);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
                 }
 
@@ -206,23 +225,61 @@ public class ConfigurableMap {
     }
 
     public VBox createTileView(){
+        typeToImagePathMap = new HashMap<>();
+        typeToImagePathMap.put("Grass","resources/grass.jpg");
+        typeToImagePathMap.put("Water","resources/water.jpg");
+        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
         //tileView.setPrefSize(tileViewWidth, tileViewHeight);
         VBox myBox = new VBox(10);
 
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         //TODO Change this so that no specific tiles are made(and definitely not just my images)
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent mouseEvent) {
-//                System.out.println("HELLO I AM COL");
-//                imageView=new ImageView(getNewImage(type));
-//            }
-//        });
+
         tileView.getItems().add(2,"Dirt");
-//        tileView.getItems().add(3,"EnemyEntering");
-//        tileView.getItems().add(4,"EnemyExiting");
+        tileView.setCellFactory(param->new ListCell<String>(){
+            private ImageView image = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty){
+                super.updateItem(name,empty);
+                if(empty){
+                    setText(null);
+                    setGraphic(null);
+                }
+                else{
+//                    for(String s : typeToImagePathMap.keySet()) {
+//                        try {
+//                            image.setFitHeight(20);
+//                            image.setFitWidth(20);
+//                            image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+//                        }
+//                        catch(FileNotFoundException f){
+//                            System.out.println(f);
+//                        }
+//                    }
+                    try {
+                        image.setFitHeight(20);
+                        image.setFitWidth(20);
+                        if (name.equals("Grass"))
+                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+                        else if (name.equals("Water"))
+                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
+                        else if (name.equals("Dirt"))
+                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+
+                    }
+                    catch(FileNotFoundException f){
+                        System.out.println(f);
+                    }
+                    setText(name);
+                    setGraphic(image);
+                }
+            }
+        });
 
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -230,6 +287,7 @@ public class ConfigurableMap {
                 currentTile=tileView.getSelectionModel().getSelectedItem();
             }
         });
+
 
         Button addTileImageButton = new Button("Add New Tile");
         addTileImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -291,12 +349,20 @@ public class ConfigurableMap {
     private void addGridEvent(){
 
         map.getChildren().forEach(item-> {
+            item.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Tooltip toolTip = new Tooltip();
+                    toolTip.setText(((TerrainTile)item).getType()+" "+((TerrainTile)item).getPathString());
+                    Tooltip.install(item,toolTip);
+                }
+            });
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     MouseButton button = mouseEvent.getButton();
                     if(button == MouseButton.PRIMARY){
-                        //updateCell(mouseEvent);
+                        updateCellMouse(mouseEvent);
 
                     }
 
@@ -309,6 +375,7 @@ public class ConfigurableMap {
                                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                     public void handle(ActionEvent t) {
                                         TerrainTile terrainTile = (TerrainTile) item;
+                                        terrainTile.setPath();
                                         Point enterPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         enterPosView.getItems().add(enterPoint);
                                         try{
@@ -327,6 +394,8 @@ public class ConfigurableMap {
                                         TerrainTile terrainTile = (TerrainTile) item;
                                         Point exitPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         exitPosView.getItems().add(exitPoint);
+                                        terrainTile.setPath();
+
                                         try{
                                             terrainTile.setImage(new Image(new FileInputStream("resources/exit.jpg")));
                                         }
@@ -369,6 +438,12 @@ public class ConfigurableMap {
     }
 
     public void updateCell(DragEvent mouseEvent){
+        TerrainTile source = (TerrainTile) mouseEvent.getSource();
+        source.changeImage(currentTile);
+
+    }
+
+    public void updateCellMouse(MouseEvent mouseEvent){
         TerrainTile source = (TerrainTile) mouseEvent.getSource();
         source.changeImage(currentTile);
 

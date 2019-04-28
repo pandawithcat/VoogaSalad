@@ -32,23 +32,19 @@ public class Model {
         myAuthoringData = new AuthoringData();
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     * Takes in a configured game object, converts it to an XML string and extracts basic info to create GameInfo object to pass to database module
+     * @param newGame - Game object created in authoring environment
+     */
+    // TODO: Make this the called method
     public void saveToXML2(Game newGame){
-
         XStream mySerializer = new XStream(new DomDriver());
         String gameXMLString = mySerializer.toXML(newGame);
-        myAuthoringData.storeXML(gameXMLString);
+        GameInfo savingInfo = new GameInfo(newGame.getTitle(), newGame.getThumbnailID(), newGame.getDescription());
+        myAuthoringData.saveGame(gameXMLString, savingInfo);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!!!
-    private void saveBasicInfo(Game savingGame){
-        // TODO: Uncomment when game class thumbnail is changed to integer
-        //GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
-        // TODO: have a get method for the image ids used in the specific game
-        ArrayList<Integer> imageIDs = new ArrayList<>();
-        //myAuthoringData.storeBasicInfo(savingInfo, imageIDs);
-    }
-
+    // TODO: Remove this method and use one above
     public void saveToXML(Game newGame) {
         myGame = newGame;
         try {
@@ -61,7 +57,12 @@ public class Model {
         }
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     * Takes in user input from the login screen and passes it to database module to check validity
+     * @param username -
+     * @param password
+     * @return
+     */
     public boolean authenticateUser(String username, String password){
         return myAuthoringData.authenticateUser(username, password);
     }
