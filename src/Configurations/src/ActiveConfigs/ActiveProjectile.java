@@ -1,6 +1,8 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
+import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.text.AttributedCharacterIterator;
@@ -24,6 +26,12 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         if(distanceLeft>0) {
 //            myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
+
+            if (getMyBehaviors()!=null) {
+                for (ProjectileBehavior b : getMyBehaviors()) {
+                    b.update(ms, this);
+                }
+            }
             checkforCollisions();
         }
         else {
@@ -43,6 +51,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
 
     private void handleEnemyCollision(Cell myCell){
         //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
+
         myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
 
