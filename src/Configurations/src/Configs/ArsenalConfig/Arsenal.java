@@ -78,7 +78,7 @@ public class Arsenal implements Configurable, Updatable {
     public TransferImageView generateNewWeapon(int ID, double pixelX, double pixelY, int direction){
         WeaponConfig myWeaponConfig = unlockedWeapons.get(ID-1);
         ActiveWeapon activeWeapon = new ActiveWeapon(myWeaponConfig, myGame.getActiveLevel());
-        MapFeature mapFeature = new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridWidth(), activeWeapon);
+        MapFeature mapFeature = new MapFeature(pixelX, pixelY, direction, myWeaponConfig.getView(), myGame.getActiveLevel().getPaneWidth(), myGame.getActiveLevel().getPaneHeight(), myGame.getActiveLevel().getGridWidth(), myGame.getActiveLevel().getGridHeight(), activeWeapon);
         activeWeapon.setMyMapFeature(mapFeature);
         myGame.getActiveLevel().addToActiveWeapons(activeWeapon);
         myGame.addToCash(-1);//TODO: DO THIS BASED ON HOW MUCH THE WEAPON COSTS

@@ -148,6 +148,7 @@ public class GamePlayArsenal extends VBox {
             lighting.setSpecularConstant(0.0);
             lighting.setSpecularExponent(0.0);
             lighting.setSurfaceScale(0.0);
+
             System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
                 myMap.setOpacity(1);
