@@ -5,6 +5,8 @@ import Player.GamePlay.Buttons.SaveButton;
 import Player.GamePlay.SelectionInterface;
 import Player.SetUp.GameSelection;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -22,9 +24,7 @@ public class SettingsPanel extends HBox {
         setPrefWidth(width);
         homeButton = new HomeButton(width/3,height);
         homeButton.setOnAction(e->{
-            home.closeStage();
-            GameSelection gameSelection = new GameSelection();
-            gameSelection.start(new Stage());
+            QuitConfirmation quit = new QuitConfirmation(home);
         });
         settingsButton = new SettingsButton(width/3,height, mediaPlayer);
         saveButton = new SaveButton(width/3,height);
