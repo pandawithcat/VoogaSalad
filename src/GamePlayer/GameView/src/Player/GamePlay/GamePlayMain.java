@@ -74,7 +74,6 @@ public class GamePlayMain extends Application {
     }
     private void fastFoward(){
         animation.setRate(2.5);
-        System.out.println("Fast forward");
     }
 
     private MediaView createWelcomeMusic(){
