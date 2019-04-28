@@ -73,7 +73,7 @@ public class GameData extends DBUtil {
                 int imageID = results.getInt("thumbnailID");
                 String description = results.getString("description");
                 String title = results.getString("title");
-                game = new GameInfo(gameID, imageID, authorID, title, description, binary);
+                game = new GameInfo(title,imageID,description,gameID,authorID,binary);
             }
             results.close();
             statement.close();

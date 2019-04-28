@@ -14,7 +14,6 @@ public abstract class Data {
 
     private final int MAX_LOGIN_ATTEMPTS = 3;
 
-    // TODO: Might store this in backend
     protected int currentUserID;
     protected int currentGameID;
     private int numberOfLoginAttempts;
@@ -37,19 +36,19 @@ public abstract class Data {
         imageData = new ImageData();
     }
 
-    public UserData getUserData() {
+    protected UserData getUserData() {
         return userData;
     }
 
-    public GameData getGameData() {
+    protected GameData getGameData() {
         return gameData;
     }
 
-    public SessionData getSessionData() {
+    protected SessionData getSessionData() {
         return sessionData;
     }
     
-    public ImageData getImageData() {
+    protected ImageData getImageData() {
         return imageData;
     }
 
@@ -87,7 +86,6 @@ public abstract class Data {
      */
     public void createNewUser(String username, String password, String passwordRepeated){
         checkArgumentLengths(username, password, passwordRepeated);
-        // TODO: Enter Regex check
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];
         saltGenerator.nextBytes(salt);
@@ -104,7 +102,7 @@ public abstract class Data {
     /**
      * Retrieves specified game XML from the database and returns it as a Java File Object
      * @param chosenGameInfo - One of the game info objects selected from the provided list
-     * @return - Java File object containing the XML file of the selected game
+     * @return - String containing the XML file of the selected game
      */
     public String getGameString(GameInfo chosenGameInfo){
         currentGameID = chosenGameInfo.getGameID();

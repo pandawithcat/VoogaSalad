@@ -6,18 +6,31 @@ public class GameInfo {
 
     private int gameID;
     private int authorID;
+    // TODO: Remove this variable
+    private String thumbnail;
     private int thumbnailID;
     private String title;
     private String description;
     private InputStream binary;
 
-    public GameInfo(int gameId, int thumbnailID, int authorID, String title, String description, InputStream binary) {
-        this.title = title;
-        this.description = description;
-        this.thumbnailID = thumbnailID;
+    public GameInfo(String title, int thumbnailID, String description, int gameId, int authorID,InputStream binary) {
+        this(title,thumbnailID,description);
         this.gameID = gameId;
         this.authorID = authorID;
         this.binary = binary;
+    }
+
+    public GameInfo(String title, int thumbnailID, String description){
+        this.title = title;
+        this.description = description;
+        this.thumbnailID = thumbnailID;
+    }
+
+    // TODO: Remove this constructor
+    public GameInfo(String title, String thumbnail, String description){
+        this.title = title;
+        this.description = description;
+        this.thumbnail = thumbnail;
     }
 
     public int getGameID() { return gameID; }

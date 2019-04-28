@@ -33,7 +33,11 @@ public class AuthoringData extends Data{
         return gameInfos;
     }
 
-
+    /**
+     * Converts gameXMLString to byte array, extracts information from GameInfo and calls method to add game to the database
+     * @param gameXMLString - String containing XML File of the Game being saved
+     * @param newGame - GameInfo object containing the basic info about the Game being saved
+     */
     public void saveGame(String gameXMLString, GameInfo newGame){
         byte[] gameByteArray = gameXMLString.getBytes();
         String title = newGame.getGameTitle();
@@ -60,10 +64,11 @@ public class AuthoringData extends Data{
      * @return - Primary key of the image in the database to be referenced later
      */
     public int storeImage(byte[] imageBytes, ImageType imageType){
-        return getImageData().addImage(imageBytes, imageType.toString());
+        return getImageData().addImage(imageBytes, imageType.name());
     }
 
     // Just for testing Purposes
+    // TODO: REMOVE BEFORE SUBMITTING
 
     public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
         // TODO: Check length of image file and throw exception if too large

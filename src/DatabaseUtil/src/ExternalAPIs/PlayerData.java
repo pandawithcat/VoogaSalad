@@ -30,8 +30,6 @@ public class PlayerData extends Data{
      * @return - User state object corresponding to current user and game
      */
     public UserState getCurrentUserState(){
-        currentUserID = currentUserID;
-        currentGameID = currentGameID;
         return getSessionData().getMostRecentSessionForGame(currentUserID, currentGameID).getState();
     }
 
