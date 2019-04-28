@@ -50,7 +50,6 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
-    private double defaultOpacity;
     private Effect defaultEffect;
 
 
@@ -65,10 +64,10 @@ public class GamePlayArsenal extends VBox {
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-        defaultOpacity = myMap.getOpacity();
 
         myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
+        weaponMap = new HashMap<>();
         setArsenalDisplay(myArsenal);
 
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
@@ -83,7 +82,6 @@ public class GamePlayArsenal extends VBox {
     private void setArsenalDisplay(Map<Integer, Info> arsenal) {
         try {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
-            weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
@@ -113,13 +111,14 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragDropped(DragEvent event){
+        System.out.println(weaponMap);
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
                 try {
-                myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
+                    myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
                 }catch (NotEnoughCashException e){
                     displayNotEnoughCash(e.getMessage());
                 }
@@ -133,13 +132,15 @@ public class GamePlayArsenal extends VBox {
 
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
-        myMap.setOpacity(defaultOpacity);
         selectedImage.setEffect(defaultEffect);
         event.consume();
     }
 
     private void dragEntered(DragEvent event){
         System.out.println("drag entered");
+        System.out.println("Map: " + (event.getGestureSource() != myMap));
+        System.out.println("event: " + (event.getDragboard().hasString()));
+
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
             Lighting lighting = new Lighting();
@@ -147,9 +148,10 @@ public class GamePlayArsenal extends VBox {
             lighting.setSpecularConstant(0.0);
             lighting.setSpecularExponent(0.0);
             lighting.setSurfaceScale(0.0);
+            System.out.println(weaponMap);
             System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
-                myMap.setOpacity(1);
+                System.out.println(weaponMap);
                 lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
             }
             else{
