@@ -75,7 +75,7 @@ public class Game implements Updatable, Configurable {
     public int getScore() {
         return myScore;
     }
-    
+
 
     @Override
     public void update(double ms, Updatable parent) {
