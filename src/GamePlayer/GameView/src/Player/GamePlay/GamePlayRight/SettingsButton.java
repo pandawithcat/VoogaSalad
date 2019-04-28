@@ -38,12 +38,13 @@ public class SettingsButton extends Button {
         dialog.setHeaderText("Adjust Game Settings Below");
         DialogPane dialogPane = dialog.getDialogPane();
         Button musicInput = new Button("Sound Off");
-        musicInput.setAlignment(Pos.CENTER);
         musicInput.setOnAction(e -> switchSound(musicInput));
         Slider sound = new Slider(0,1,0.5);
         setupTicker(sound);
         sound.valueProperty().addListener((observable, oldValue, newValue) -> checkVolumeChange(newValue));
-        dialogPane.setContent(new VBox(20,musicInput, new Label("Sound Level"),  sound));
+        VBox settings = new VBox(20,musicInput, new Label("Sound Level"),  sound);
+        settings.setAlignment(Pos.CENTER);
+        dialogPane.setContent(settings);
         dialog.show();
         Window window = dialog.getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());

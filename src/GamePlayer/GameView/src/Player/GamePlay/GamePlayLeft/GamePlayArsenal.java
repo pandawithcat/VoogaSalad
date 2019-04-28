@@ -113,7 +113,7 @@ public class GamePlayArsenal extends VBox {
         Text cash = new Text(message);
         root.getChildren().add(cash);
         PauseTransition delay = new PauseTransition(Duration.seconds(DISPLAY_SECOND_DELAY));
-        delay.setOnFinished( event -> cashDisplay.close() );
+        delay.setOnFinished(event -> cashDisplay.close() );
         delay.play();
     }
 
@@ -148,15 +148,20 @@ public class GamePlayArsenal extends VBox {
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
 
-            myMap.setOpacity(0.1);
-
+            myMap.setOpacity(0.5);
             Lighting lighting = new Lighting();
             lighting.setDiffuseConstant(1.0);
             lighting.setSpecularConstant(0.0);
             lighting.setSpecularExponent(0.0);
             lighting.setSurfaceScale(0.0);
-            lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
-            selectedImage.setEffect(lighting);
+
+            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
+            }
+            else{
+                lighting.setLight(new Light.Distant(45, 45, Color.RED));
+            }
+            movingImage.setEffect(lighting);
         }
         event.consume();
     }
