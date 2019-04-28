@@ -33,8 +33,13 @@ public class Shooter implements Updatable , Configurable {
         projectilesFired = 0;
     }
 
-    public Shooter(Shooter shooter){
-
+    public Shooter(Shooter shooter, Shootable shootable){
+        shooterRange = shooter.shooterRange;
+        myShootable=shootable;
+        projectileConfig = shooter.projectileConfig;
+        rateOfFire = shooter.rateOfFire;
+        shooterBehavior = (ShooterBehavior) shooter.shooterBehavior.copy();
+        myName = shooter.myName;
     }
 
     public void addToProjectilesFired(int shots) {

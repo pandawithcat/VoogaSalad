@@ -42,7 +42,7 @@ public class Lives extends GameBehavior{
     }
 
     @Override
-    public Behavior copy(Updatable updatable) {
+    public Behavior copy() {
         Lives ret = new Lives(getMyGame());
         ret.numEnemies = numEnemies;
         return ret;

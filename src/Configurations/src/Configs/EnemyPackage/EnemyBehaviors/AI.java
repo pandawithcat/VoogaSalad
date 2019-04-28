@@ -33,8 +33,8 @@ public class AI extends EnemyBehavior {
     }
 
     @Override
-    public Behavior copy(Updatable updatable) {
-        AI ret = new AI((EnemyConfig) updatable);
+    public Behavior copy() {
+        AI ret = new AI(getMyEnemyConfig());
         ret.speed = speed;
         return ret;
     }

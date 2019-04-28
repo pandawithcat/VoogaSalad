@@ -28,8 +28,7 @@ public class Homing extends ProjectileBehavior{
     }
 
     @Override
-    public Behavior copy(Updatable updatable) {
-        Homing ret = new Homing((ProjectileConfig) updatable);
-        return ret;
+    public Behavior copy() {
+        return new Homing(getMyProjectileConfig());
     }
 }

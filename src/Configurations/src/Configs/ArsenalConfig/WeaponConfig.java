@@ -8,7 +8,10 @@ import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.ShooterConfig.Shooter;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -19,7 +22,7 @@ public class WeaponConfig implements  Configurable, Viewable, Info {
     @Configure
     private String myName;
     @Configure
-    private WeaponBehavior[] behaviors;
+    private WeaponBehavior[] behaviors = new WeaponBehavior[0];
     @Configure
     private View view;
 
@@ -34,7 +37,13 @@ public class WeaponConfig implements  Configurable, Viewable, Info {
 
     public WeaponConfig(WeaponConfig weaponConfig) {
         this.myName = weaponConfig.getName();
-        this.behaviors = weaponConfig.getBehaviors();
+        List<WeaponBehavior> arrayList= Arrays.stream(weaponConfig.getBehaviors())
+                .map(behavior->(WeaponBehavior) behavior.copy())
+                .collect(Collectors.toList());
+        behaviors = new WeaponBehavior[arrayList.size()];
+        for (int i=0; i<arrayList.size(); i++){
+            behaviors[i] = arrayList.get(i);
+        }
         this.view = weaponConfig.getView();
     }
 

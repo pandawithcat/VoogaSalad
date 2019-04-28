@@ -24,7 +24,7 @@ public class Terrain implements Configurable, Viewable{
     @Configure
     private int gridXPos;
     @Configure
-    private TerrainBehavior[] terrainBehaviors;
+    private TerrainBehavior[] terrainBehaviors = new TerrainBehavior[0];
 
 
     private transient Configuration myConfiguration;

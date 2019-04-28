@@ -2,13 +2,16 @@ package Configs.Waves;
 
 import ActiveConfigs.ActiveLevel;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.Waves.WaveBehaviors.WaveBehavior;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class Wave implements Updatable, Configurable {
@@ -21,9 +24,9 @@ public class Wave implements Updatable, Configurable {
     @Configure
     private double rateOfReleaseEnemiesPerMs;
     @Configure
-    private EnemyConfig[] enemies;
+    private EnemyConfig[] enemies = new EnemyConfig[0];
     @Configure
-    private WaveBehavior[] myWaveBehaviors;
+    private WaveBehavior[] myWaveBehaviors = new WaveBehavior[0];
 
     private transient Configuration myConfiguration;
 
@@ -35,6 +38,20 @@ public class Wave implements Updatable, Configurable {
     public Wave(Level level) {
         myLevel = level;
         myConfiguration = new Configuration(this);
+    }
+
+    public Wave(Wave wave){
+        myName = wave.myName;
+        timeToReleaseInMs = wave.timeToReleaseInMs;
+        rateOfReleaseEnemiesPerMs = wave.rateOfReleaseEnemiesPerMs;
+        enemies = wave.enemies;
+        List<WaveBehavior> arrayList= Arrays.stream(myWaveBehaviors)
+                .map(behavior->(WaveBehavior) behavior.copy())
+                .collect(Collectors.toList());
+        myWaveBehaviors = new WaveBehavior[arrayList.size()];
+        for (int i=0; i<arrayList.size(); i++){
+            myWaveBehaviors[i] = arrayList.get(i);
+        }
     }
 
 

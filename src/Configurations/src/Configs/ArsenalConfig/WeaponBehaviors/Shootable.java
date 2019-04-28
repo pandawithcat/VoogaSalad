@@ -53,10 +53,9 @@ public class Shootable extends WeaponBehavior{
     }
 
     @Override
-    public Behavior copy(Updatable updatable) {
-            Shootable ret = new Shootable((WeaponConfig) updatable){
-
-        }
-        return null;
+    public Behavior copy() {
+        Shootable ret = new Shootable(getWeaponConfig());
+        ret.myShooter = new Shooter(myShooter, ret);
+        return ret;
     }
 }

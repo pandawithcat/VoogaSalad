@@ -31,7 +31,7 @@ public class Game implements Updatable, Configurable {
     @Configure
     private String myThumbnail;
     @Configure
-    private Level[] levelList;
+    private Level[] levelList = new Level[0];
     @Configure
     private Arsenal myArsenal;
     @Configure

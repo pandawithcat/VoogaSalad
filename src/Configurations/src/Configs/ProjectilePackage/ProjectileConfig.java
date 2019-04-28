@@ -1,8 +1,13 @@
 package Configs.ProjectilePackage;
 
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.ShooterConfig.Shooter;
 import Configs.*;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
@@ -20,7 +25,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     @Configure
     private double strength;
     @Configure
-    private ProjectileBehavior[] myBehaviors;
+    private ProjectileBehavior[] myBehaviors = new ProjectileBehavior[0];
 
 
     public ProjectileConfig(Shooter shooter) {
@@ -29,7 +34,13 @@ public class ProjectileConfig implements Configurable, Viewable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
-        myBehaviors = projectileConfig.getMyBehaviors();
+        List<ProjectileBehavior> arrayList= Arrays.stream(projectileConfig.getMyBehaviors())
+                .map(behavior->(ProjectileBehavior) behavior.copy())
+                .collect(Collectors.toList());
+        myBehaviors = new ProjectileBehavior[arrayList.size()];
+        for (int i=0; i<arrayList.size(); i++){
+            myBehaviors[i] = arrayList.get(i);
+        }
         myShooter = projectileConfig.getMyShooter();
         myName = projectileConfig.myName;
         view = projectileConfig.view;
