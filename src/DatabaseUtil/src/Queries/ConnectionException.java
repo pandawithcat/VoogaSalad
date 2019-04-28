@@ -1,3 +1,5 @@
+package Queries;
+
 public class ConnectionException extends RuntimeException{
     public ConnectionException(){
         super("Connection to database failed");
