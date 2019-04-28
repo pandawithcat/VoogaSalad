@@ -69,7 +69,7 @@ public class LogInPreloader extends Application {
         private Rectangle createInitialLoadingBar(){
             loading = new Rectangle();
             loading.setStyle("-fx-fill: linear-gradient(yellow, lightyellow);");
-            loading.setHeight(text.getBoundsInParent().getHeight());
+            loading.setHeight(text.getBoundsInParent().getHeight() * 2);
             return loading;
         }
         private void step() {
