@@ -21,15 +21,22 @@ public class EnemyConfig implements Configurable, Viewable {
     private int health;
     @Slider(min=1,max=10)
     @Configure
-    private int unitSpeedPerSecond;
+    private double unitSpeedPerSecond;
     @Configure
     private View view;
+
+    private double speedModifier;
 
     private transient Configuration myConfiguration;
 
     public EnemyConfig(Wave wave) {
         myWave = wave;
         myConfiguration = new Configuration(this);
+        speedModifier = 1;
+    }
+
+    public void setSpeedModifier(double modifier) {
+        speedModifier = modifier;
     }
 
     public EnemyConfig(EnemyConfig enemyConfig){
@@ -59,12 +66,8 @@ public class EnemyConfig implements Configurable, Viewable {
         return myBehaviors;
     }
 
-    public int getUnitSpeedPerSecond() {
-        return unitSpeedPerSecond;
-    }
-
-    public void setUnitSpeedPerSecond(int speed){
-        unitSpeedPerSecond = speed;
+    public double getUnitSpeedPerSecond() {
+        return unitSpeedPerSecond*speedModifier;
     }
 
     @Override
