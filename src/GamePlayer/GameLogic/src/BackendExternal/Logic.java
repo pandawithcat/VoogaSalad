@@ -288,8 +288,8 @@ public class Logic {
 
 
 
-        int x = (int) (xPixel/(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
-        int y = (int) (yPixel/(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
+        int x = (int) (xPixel*(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
+        int y = (int) (yPixel*(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
