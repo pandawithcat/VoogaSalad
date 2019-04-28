@@ -61,7 +61,6 @@ public class GamePlaySettingsBar extends StackPane {
         liveScore.setText("Score: " + myLogic.getScore());
 //        numLives.setText("Lives: " + myLogic.getLives());
         myMoney.setText("Money: " + myLogic.getCash());
-//        myLevel.setText("Level: " + myLogic.getLevel);
     }
 
     public void updateLevel(int currLevel){

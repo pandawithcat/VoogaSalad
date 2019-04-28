@@ -58,7 +58,7 @@ public class SettingsButton extends Button {
             soundOn = false;
         }
         else {
-            music.setText("Sound Offs");
+            music.setText("Sound Off");
             mediaPlayer.setVolume(savedVolume);
             soundOn = true;
         }
