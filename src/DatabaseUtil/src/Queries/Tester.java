@@ -14,7 +14,7 @@ public class Tester {
         //UserData users = new UserData();
         //System.out.println(users.login("stacy","barker"));
 
-        File file = new File(this.getClass().getClassLoader().getResource("ReactionTime5.png").getFile());
+        File file = new File(this.getClass().getClassLoader().getResource("water.jpg").getFile());
         ImageData data = new ImageData();
         int id = data.addImage(file, ""+ (int)(Math.random()*10));
         System.out.println(data.fetchImage(id));
