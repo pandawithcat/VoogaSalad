@@ -30,8 +30,8 @@ public class Explosive extends ProjectileBehavior{
     }
 
     @Override
-    public Behavior copy(Updatable updatable) {
-        return new Explosive((ProjectileConfig)updatable);
+    public Behavior copy() {
+        return new Explosive(getMyProjectileConfig());
 
     }
 

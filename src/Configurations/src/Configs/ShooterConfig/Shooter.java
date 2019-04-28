@@ -33,7 +33,6 @@ public class Shooter implements Updatable , Configurable {
         projectilesFired = 0;
     }
 
-<<<<<<< src/Configurations/src/Configs/ShooterConfig/Shooter.java
     public Shooter(Shooter shooter, Shootable shootable){
         shooterRange = shooter.shooterRange;
         myShootable=shootable;
