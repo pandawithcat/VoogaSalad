@@ -39,7 +39,11 @@ public class GameInfo {
         return authorID;
     }
 
-    public int getGameThumbnail() { return thumbnailID; }
+    public int getGameThumbnailID() { return thumbnailID; }
+
+    public String getGameThumbnail(){
+        return thumbnail;
+    }
 
     public String getGameTitle() {
         return title;
