@@ -1,6 +1,7 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,11 @@ public class TerrainTile extends ImageView {
         this.imageView=new ImageView(image);
         isPath=false;
         tileImString="grass.jpg";
+        Tooltip tooltip = new Tooltip(tileImString);
+        Tooltip.install(imageView,tooltip);
+
+
+
 
     }
 

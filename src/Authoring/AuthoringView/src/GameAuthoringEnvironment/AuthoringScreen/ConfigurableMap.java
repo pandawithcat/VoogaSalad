@@ -200,6 +200,8 @@ public static final int GRID_WIDTH = 32;
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
+//                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
+//                    Tooltip.install(myTile,tooltip);
                     map.add(myTile, r, c);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
                 }
