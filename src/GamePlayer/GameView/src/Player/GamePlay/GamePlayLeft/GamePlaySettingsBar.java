@@ -64,4 +64,8 @@ public class GamePlaySettingsBar extends StackPane {
 //        myLevel.setText("Level: " + myLogic.getLevel);
     }
 
+    public void updateLevel(int currLevel){
+        myLevel.setText("Level: " + currLevel);
+    }
+
 }
