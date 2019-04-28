@@ -63,7 +63,7 @@ public class TerrainTile extends ImageView {
             System.out.println(f);
 
         }
-        tileImString="resources/water.jpg";
+        tileImString="water.jpg";
         isPath=true;
         type="Water";
 
@@ -76,7 +76,7 @@ public class TerrainTile extends ImageView {
             System.out.println(f);
 
         }
-        tileImString="resources/dirt.jpg";
+        tileImString="dirt.jpg";
         isPath=true;
         type="Dirt";
     }
@@ -86,11 +86,11 @@ public class TerrainTile extends ImageView {
     public void changeToGrass() {
         try {
 
-            this.setImage(new Image(new FileInputStream("resources/" + "grass" + ".jpg")));
+            this.setImage(new Image(new FileInputStream("resources/grass.jpg")));
         } catch (FileNotFoundException f) {
             //TODO Exception! NO such file found
         }
-        tileImString = "resources/grass.jpg";
+        tileImString = "grass.jpg";
         isPath=false;
         type="Grass";
     }

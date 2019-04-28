@@ -3,17 +3,20 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.awt.*;
 import java.util.List;
 
 public class Movable extends WeaponBehavior{
-    public static final String myLabel = "Movable";
+    public static final String DISPLAY_LABEL = "Movable";
     @Configure
     protected double movingSpeed;
     @Configure
     protected Point[] movingPattern;
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public Movable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -21,13 +24,13 @@ public class Movable extends WeaponBehavior{
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         //TODO
     }
 
     @Override
     public String getName() {
-        return myLabel;
+        return DISPLAY_LABEL;
     }
 
     @Override

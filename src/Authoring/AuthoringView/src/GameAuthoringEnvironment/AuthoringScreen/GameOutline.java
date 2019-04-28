@@ -100,7 +100,7 @@ public class GameOutline extends Screen {
                         setGraphic(null);
                     } else {
                             try {
-                                setText(item.getClass().getDeclaredField("myLabel").get(null) + ": " + item.getName());
+                                setText(item.getClass().getDeclaredField("DISPLAY_LABEL").get(null) + ": " + item.getName());
                             } catch (IllegalAccessException | NoSuchFieldException e) {
                                 //TODO Error checking
                                 e.printStackTrace();

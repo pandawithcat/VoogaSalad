@@ -1,15 +1,19 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.MapPackage.Terrain;
+import Configs.MapPackage.TerrainBehaviors.SpeedModifier;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
 
-public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable {
+public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable, Attackable {
     public static final double CONVERSION_TO_SECONDS = .001;
     private MapFeature myMapFeature;
     private Cell[][] activeMapGrid;
@@ -17,6 +21,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private ActiveLevel myActiveLevel;
     private double startTime = -Integer.MAX_VALUE;
     private LinkedList<Point> prevLocations = new LinkedList<>();
+    private double effectiveSpeed;
 
     enum MovementDirection {
         DOWN(0, 1, 0),
@@ -47,6 +52,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         }
     }
 
+    enum AITypes{
+        SHORTEST_PATH,
+        SHORTEST_IGNORE_PATH,
+        SHORTEST_PATH_AVOID_WEAPON,
+        SHORTEST_IGNORE_PATH_AVOID_WEAPON,
+    }
+
 
     public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
         super(enemyConfig);
@@ -54,6 +66,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myActiveLevel = activeLevel;
     }
 
+    @Override
+    public void attack(int damage) {
+        //TODO: FINISH
+    }
 
     @Override
     public MapFeature getMapFeature() {
@@ -62,19 +78,35 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
+        TerrainBehavior[] tbs = myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors() ;
+        if (tbs!=null) {
+            ArrayList<TerrainBehavior> behaviorsList = new ArrayList<TerrainBehavior>(Arrays.asList(tbs));
+            for (TerrainBehavior b : behaviorsList) {
+                if (b.getClass() == SpeedModifier.class) {
+                    effectiveSpeed = this.getUnitSpeedPerSecond() * ((SpeedModifier) (b)).getSpeedMultiplier();
+                    break;
+                }
+                effectiveSpeed = this.getUnitSpeedPerSecond();
+            }
+        }
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
 
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristic());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicIgnorePath());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeapons());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeaponsIgnorePath());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).);
+
+
         if (startTime == -Integer.MAX_VALUE){
             startTime = ms;
-//            prevTime = ms;
         }
 
-//        distance += (ms-prevTime * getUnitSpeedPerSecond() * CONVERSION_TO_SECONDS);
-        int numMovements = 1;//(int) distance;
-//        distance -= numMovements;
+        int numMovements = 1;
 
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection();
@@ -84,7 +116,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             if (prevLocations.size()>5){
                 prevLocations.removeLast();
             }
-            //TODO: this needs to be in terms of pixels and the isoutofbounds should be changed to take in pixel location after this is implemented
             myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
     }
@@ -92,6 +123,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
 
     private MovementDirection determineMovementDirection(){
+        return moveShortestDistance(AITypes.SHORTEST_PATH);
+    }
+
+    private MovementDirection moveShortestDistance(AITypes aiTypes) {
         int[]xAdditions = new int[]{0,0,-1,1};
         int[]yAdditions = new int[]{1,-1,0,0};
         int bestOption = 0;
@@ -106,7 +141,18 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
                     Point newxy = new Point(x,y);
                     if (isCellValid(x,y)&& !prevLocations.contains(newxy)){
                         Cell myCell = myActiveLevel.getGridCell(x,y);
-                        totalHeuristic+=myCell.getMovementHeuristic()/getView().getHeight()/getView().getWidth();
+                        if (aiTypes == AITypes.SHORTEST_PATH) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristic() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_IGNORE_PATH) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristicIgnorePath() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_PATH_AVOID_WEAPON) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristicAvoidWeapons() / getView().getHeight() / getView().getWidth();
+                        }
+                        if (aiTypes == AITypes.SHORTEST_IGNORE_PATH_AVOID_WEAPON) {
+                            totalHeuristic += myCell.getShortestDistanceHeuristicAvoidWeaponsIgnorePath() / getView().getHeight() / getView().getWidth();
+                        }
                     }
                     else {
                         totalHeuristic = Integer.MAX_VALUE;
@@ -117,6 +163,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             if (totalHeuristic<bestOptionHeuristic){
                 bestOption = k;
                 bestOptionHeuristic = totalHeuristic;
+            }
+            if (totalHeuristic==bestOptionHeuristic){
+//                bestOption = k;
+//                bestOptionHeuristic = totalHeuristic;
+//                TODO logic to randomize if equal
             }
         }
         return MovementDirection.values()[bestOption];
@@ -131,5 +182,8 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     public void killMe(){
         myMapFeature.setDisplayState(DisplayState.DIED);
+        //TODO: Make these magic numbers reference the qualities of the enemy
+        myActiveLevel.addGameCash(1);
+        myActiveLevel.addGameScore(5);
     }
 }

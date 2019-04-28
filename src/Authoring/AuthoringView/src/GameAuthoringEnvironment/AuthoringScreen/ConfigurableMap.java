@@ -41,6 +41,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Configs.MapPackage.MapConfig.GRID_HEIGHT;
+import static Configs.MapPackage.MapConfig.GRID_WIDTH;
+
 public class ConfigurableMap {
 
 
@@ -156,10 +159,10 @@ public class ConfigurableMap {
     private VBox createNameBox(){
         VBox myNameBox = new VBox(10);
         Label mapLbl = new Label("Map Name");
-        TextField nameTf = new TextField();
+        nameTf = new TextField();
         if(myAttributesMapConfig != null){
             nameTf.setText(myAttributesMapConfig.getName());}
-        Button nameButton = new Button("Confirm");
+        nameButton = new Button("Confirm");
         nameButton.setOnMouseClicked(this::handleConfirmButton);
         myNameBox.getChildren().addAll(mapLbl, nameTf, nameButton);
 
@@ -319,20 +322,21 @@ public class ConfigurableMap {
                 }
 
 
-                enterPointsList = enterPosView.getItems();
-                exitPointsList = exitPosView.getItems();
+                enterPointsList = new ArrayList<>();
+                enterPosView.getItems().stream().forEach(obj->enterPointsList.add(obj));
+
+                exitPointsList = new ArrayList<>();
+                exitPosView.getItems().stream().forEach(obj->exitPointsList.add(obj));
                 //TODO Need to clean this up
                 passedMap=new HashMap<>();
                 passedMap.put("myName",mapName);
                 passedMap.put("myTerrain",tileList);
                 passedMap.put("enemyEnteringGridPosList", enterPointsList);
+                passedMap.put("enemyExitGridPosList",exitPointsList);
                 passedMap.put("enemyEnteringDirection",90);
-                passedMap.put("enemyExitGridYPos",exitPointsList);
 
 
                 m.getConfiguration().setAllAttributes(passedMap);
-
-
                 myAttributesMap.put("myMap", m);
 
                 popUpWindow.close();
@@ -431,7 +435,6 @@ public class ConfigurableMap {
             });
 
         });
-
     }
 
     public void updateCell(DragEvent mouseEvent){

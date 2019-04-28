@@ -27,6 +27,16 @@ public class MapFeature {
     private double widthInGridUnits;
 
 
+    @Deprecated
+    public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
+        setImage(view);
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
+        setGridPos(gridXPos,gridYPos,displayDirection);
+        displayState = DisplayState.NEW;
+    }
+
+
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
         this.heightInGridUnits = view.getHeight();
         this.widthInGridUnits = view.getWidth();
@@ -37,6 +47,15 @@ public class MapFeature {
         displayState = DisplayState.NEW;
         setImage(view);
         setGridPos(gridXPos, gridYPos, displayDirection);
+    }
+
+    @Deprecated
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
+        setImage(view);
+        setPixelPos(pixelXPos,pixelYPos,direction);
+        displayState = DisplayState.NEW;
     }
 
 
@@ -63,6 +82,15 @@ public class MapFeature {
         }
     }
 
+    public double getPixelHeight(){
+        return myImageView.getFitHeight();
+    }
+
+    public double getPixelWidth(){
+        return myImageView.getFitWidth();
+    }
+
+
 
     public double getPixelXPos() {
         return myImageView.getX();
@@ -87,8 +115,8 @@ public class MapFeature {
         else {
             myImageView.setX(pixelXPos);
             myImageView.setY(pixelYPos);
-            gridXPos = (int) (pixelXPos*paneWidth/widthInGridUnits);
-            gridYPos = (int) (pixelYPos*paneHeight/heightInGridUnits);
+            this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
+            this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
         }
     }
 
@@ -107,8 +135,8 @@ public class MapFeature {
             this.pixelYPos = pixelYPos;
             this.pixelXPos = pixelXPos;
             this.displayDirection = direction;
-            this.gridXPos = (int) (pixelXPos/(widthInGridUnits/paneWidth));
-            this.gridYPos = (int) (pixelYPos/(heightInGridUnits/paneHeight));
+            this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
+            this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
             setImageView(pixelXPos,pixelYPos,direction);
         }
 

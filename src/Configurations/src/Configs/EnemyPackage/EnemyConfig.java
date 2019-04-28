@@ -6,17 +6,21 @@ import Configs.Waves.Wave;
 
 public class EnemyConfig implements Configurable, Viewable {
     private Wave myWave;
-    public static final String myLabel = "Enemy";
+    public static final String DISPLAY_LABEL = "Enemy";
     @Configure
     private String myName;
     @Configure
     private EnemyBehavior[] myBehaviors;
+    @Slider(min = 50, max = 10000)
+    @Configure
+    private int health;
+    @Slider(min=1,max=10)
     @Configure
     private int unitSpeedPerSecond;
     @Configure
     private View view;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
     public EnemyConfig(Wave wave) {
         myWave = wave;
@@ -44,6 +48,10 @@ public class EnemyConfig implements Configurable, Viewable {
 
     public int getUnitSpeedPerSecond() {
         return unitSpeedPerSecond;
+    }
+
+    public void setUnitSpeedPerSecond(int speed){
+        unitSpeedPerSecond = speed;
     }
 
     @Override
