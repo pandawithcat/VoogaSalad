@@ -43,7 +43,7 @@ public class StartingScreen {
         setStage();
     }
     private void setScene(){
-        //myModel = new Model();
+        myModel = new Model();
         myContatiner = new VBox();
         myContatiner.setSpacing(padding);
         myContatiner.setId("backdrop");
@@ -83,15 +83,15 @@ public class StartingScreen {
 
     private void handleLogin(MouseEvent event){
         //TODO Call APIs to confirm password
-        //if(myModel.authenticateUser(idTf.getText(), pwTf.getText())){
+        if(myModel.authenticateUser(idTf.getText(), pwTf.getText())){
         Text instructions = new Text("Now Click New Game to make a new Game or click import Game to import a existing game");
         instructions.setStyle("-fx-font-size: 10");
         myContatiner.getChildren().removeAll(idTf, pwTf, loginButton, createIDButton, loginDescription);
         myContatiner.getChildren().addAll(newGameButton, importGameButton, instructions);
-        /*    }
+         }
         else{
             //TODO Alert error
-        }*/
+        }
     }
 
     private void makeGame(Game game){
