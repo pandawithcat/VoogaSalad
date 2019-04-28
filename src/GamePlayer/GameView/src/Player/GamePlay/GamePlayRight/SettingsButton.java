@@ -1,5 +1,6 @@
 package Player.GamePlay.GamePlayRight;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,7 @@ public class SettingsButton extends Button {
         dialog.setHeaderText("Adjust Game Settings Below");
         DialogPane dialogPane = dialog.getDialogPane();
         Button musicInput = new Button("Sound Off");
+        musicInput.setAlignment(Pos.CENTER);
         musicInput.setOnAction(e -> switchSound(musicInput));
         Slider sound = new Slider(0,1,0.5);
         setupTicker(sound);
