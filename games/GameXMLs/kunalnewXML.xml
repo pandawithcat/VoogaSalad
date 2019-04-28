@@ -21,8 +21,8 @@
               <unitSpeedPerSecond>1.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail2.gif</imagePath>
-                <width>4</width>
-                <height>4</height>
+                <width>50</width>
+                <height>50</height>
                 <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
               </view>
             </Configs.EnemyPackage.EnemyConfig>
@@ -34,8 +34,8 @@
               <unitSpeedPerSecond>2.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail3.gif</imagePath>
-                <width>3</width>
-                <height>3</height>
+                <width>40</width>
+                <height>40</height>
                 <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
               </view>
             </Configs.EnemyPackage.EnemyConfig>
