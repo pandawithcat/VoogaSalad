@@ -187,8 +187,8 @@ public class ConfigurableMap {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
             Image image = new Image(fis);
             map = new GridPane();
-            for (int r = 0; r < GRID_WIDTH; r++) {
-                for (int c = 0; c < GRID_HEIGHT; c++) {
+            for (int r = 0; r < GRID_HEIGHT; r++) {
+                for (int c = 0; c < GRID_WIDTH; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
                     map.add(myTile, r, c);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);

@@ -4,6 +4,7 @@ import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -16,10 +17,7 @@ import javafx.stage.Stage;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigureBehavior {
 
@@ -40,6 +38,7 @@ public class ConfigureBehavior {
     GameOutline myGameOutline;
     String myKey;
     Class myType;
+    List<Class> myList2;
     Object[] selectedBehavior;
     List<Object> tempList;
     boolean myBoolean;
@@ -61,6 +60,7 @@ public class ConfigureBehavior {
         myGameController = gameController;
         myConfigurable = configurable;
         myList = behaviorList;
+        myList2 = Collections.unmodifiableList(myList);
         myMap = attributesMap;
         myBoolean = isArray;
         setContent();
@@ -81,7 +81,7 @@ public class ConfigureBehavior {
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
 
 
-        sourceView.getItems().addAll(myList);
+        sourceView.getItems().addAll(myList2);
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -119,9 +119,24 @@ public class ConfigureBehavior {
         pane.setHgap(viewGap);
         pane.setVgap(viewGap);
 
+
+        Button removeButton = new Button("Remove Behavior");
+        removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int index = targetView.getSelectionModel().getSelectedIndex();
+                if(!(targetView.getItems().size() == tempList.size())){
+                    targetView.getItems().remove(index);
+                }
+                else{
+                targetView.getItems().remove(index);
+                tempList.remove(index);}
+            }
+        }));
         pane.addRow(0, messageLbl);
         pane.addRow(1, sourceListLbl, targetListLbl);
         pane.addRow(2, sourceView, targetView);
+        pane.addRow(3, removeButton);
 
         VBox root = new VBox();
         root.getChildren().addAll(pane);
@@ -155,6 +170,7 @@ public class ConfigureBehavior {
 
         setDragAndDrop(sourceView);
         setDragAndDrop(targetView);
+
         layout.getChildren().addAll(root, setButton);
         Scene scene= new Scene(layout, 800, 800);
         popUpWindow.setScene(scene);
