@@ -25,9 +25,11 @@ public class GamePlayMap extends Pane{
     private EndLoopInterface endGame;
     private SelectionInterface homeStage;
     private GameStatus gameStatus;
+    private GamePlaySettingsBar myData;
 
     public GamePlayMap(double width, double height, Logic logic, EndLoopInterface endLoop,
-                       SelectionInterface stage) {
+                       SelectionInterface stage, GamePlaySettingsBar data) {
+        myData = data;
         homeStage = stage;
         endGame = endLoop;
         myLogic = logic;
@@ -59,7 +61,7 @@ public class GamePlayMap extends Pane{
 //                break;
 //            case PLAYING:
                 if (myLogic.checkIfLevelEnd()) {
-                    myLogic.startNextLevel();
+                    myData.updateLevel(myLogic.startNextLevel());
                 }
                 myLogic.update(elapsedTime);
                 List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
