@@ -46,7 +46,7 @@ public class ProjectileConfig implements Configurable, Viewable {
         return velocityInSeconds;
     }
 
-    private ProjectileBehavior[] getMyBehaviors() {
+    protected ProjectileBehavior[] getMyBehaviors() {
         return myBehaviors;
     }
 
@@ -62,6 +62,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     public Shooter getMyShooter() {
         return myShooter;
     }
+
 
     @Override
     public Configuration getConfiguration() {

@@ -1,9 +1,15 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.MapPackage.Terrain;
+import Configs.MapPackage.TerrainBehaviors.SpeedModifier;
+import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 
@@ -15,6 +21,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private ActiveLevel myActiveLevel;
     private double startTime = -Integer.MAX_VALUE;
     private LinkedList<Point> prevLocations = new LinkedList<>();
+    private double effectiveSpeed;
 
     enum MovementDirection {
         DOWN(0, 1, 0),
@@ -72,6 +79,17 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     @Override
     public void update(double ms, Updatable parent) {
+        TerrainBehavior[] tbs = myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors() ;
+        if (tbs!=null) {
+            ArrayList<TerrainBehavior> behaviorsList = new ArrayList<TerrainBehavior>(Arrays.asList(tbs));
+            for (TerrainBehavior b : behaviorsList) {
+                if (b.getClass() == SpeedModifier.class) {
+                    effectiveSpeed = this.getUnitSpeedPerSecond() * ((SpeedModifier) (b)).getSpeedMultiplier();
+                    break;
+                }
+                effectiveSpeed = this.getUnitSpeedPerSecond();
+            }
+        }
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
