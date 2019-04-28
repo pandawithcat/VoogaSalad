@@ -1,3 +1,5 @@
+package Queries;
+
 import java.io.InputStream;
 
 public class GameInfo {
