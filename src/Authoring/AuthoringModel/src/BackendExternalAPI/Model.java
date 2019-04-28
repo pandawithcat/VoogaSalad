@@ -34,16 +34,16 @@ public class Model {
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     public void saveToXML2(Game newGame){
-
         XStream mySerializer = new XStream(new DomDriver());
         String gameXMLString = mySerializer.toXML(newGame);
-        myAuthoringData.storeXML(gameXMLString);
+        GameInfo savingInfo = new GameInfo(newGame.getTitle(), newGame.getThumbnail(), newGame.getDescription());
+        myAuthoringData.saveGame(gameXMLString, savingInfo);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!!!
     private void saveBasicInfo(Game savingGame){
         // TODO: Uncomment when game class thumbnail is changed to integer
-        //GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
+        GameInfo savingInfo = new GameInfo(savingGame.getTitle(), savingGame.getThumbnail(), savingGame.getDescription());
         // TODO: have a get method for the image ids used in the specific game
         ArrayList<Integer> imageIDs = new ArrayList<>();
         //myAuthoringData.storeBasicInfo(savingInfo, imageIDs);

@@ -1,20 +1,11 @@
 package ExternalAPIs;
 
-import Internal.Authentification;
-import javafx.scene.image.Image;
-
-import java.io.*;
-import java.lang.reflect.Array;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.List;
-import java.util.PrimitiveIterator;
 import java.util.Random;
-import java.util.regex.Pattern;
 
-import static Internal.Authentification.*;
+import static Internal.Authentication.*;
 
 public abstract class Data {
 

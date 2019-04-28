@@ -11,7 +11,7 @@ public class AuthoringData extends Data{
 
     public enum ImageType {
         // TODO: Add any other image types to this list
-        TERRAIN, WEAPON, PROJECTILE, ENEMY;
+        TERRAIN, WEAPON, PROJECTILE, ENEMY, THUMBNAIL;
     }
 
     public AuthoringData(){
@@ -60,6 +60,17 @@ public class AuthoringData extends Data{
         currentGameID = currentGameID;
 
         // TODO: Store byte[] in table of currentGameID
+    }
+
+    public void saveGame(String gameXMLString, GameInfo newGame){
+        currentUserID = currentUserID;
+        byte[] gameByteArray = gameXMLString.getBytes();
+        String title = newGame.getGameTitle();
+        int thumbnail = newGame.getGameThumbnailNew();
+        String description = newGame.getGameDescription();
+
+        // TODO: Save this to database!
+
     }
 
     /**

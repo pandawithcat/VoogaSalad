@@ -154,10 +154,10 @@ public class DatabaseTest extends Application {
 
         int imageID = 1;
 
-        Image image = myAuthoringData.getImage(imageID);
+    //    Image image = myAuthoringData.getImage(imageID);
 
-        ImageView imageView = new ImageView(image);
-        myRoot.getChildren().add(imageView);
+      //  ImageView imageView = new ImageView(image);
+      //  myRoot.getChildren().add(imageView);
 
         System.out.println("Done Get Image");
     }
