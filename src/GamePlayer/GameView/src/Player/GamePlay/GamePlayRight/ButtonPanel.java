@@ -1,5 +1,6 @@
 package Player.GamePlay.GamePlayRight;
 
+import BackendExternal.Logic;
 import Player.GamePlay.Buttons.FastFowardButton;
 import Player.GamePlay.Buttons.PlayButton;
 import Player.GamePlay.GamePlayRight.SettingsPanel;
