@@ -1,18 +1,24 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 
+import ActiveConfigs.ActiveWeapon;
 import Configs.ShooterConfig.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Shootable extends WeaponBehavior{
 
-    public static final String myLabel = "Shootable";
+    public static final String DISPLAY_LABEL = "Shootable";
     @Configure
     private Shooter myShooter;
 
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
     private WeaponConfig weaponConfig;
+    @XStreamOmitField
+    private ActiveWeapon activeWeapon;
 
     public Shootable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -22,12 +28,18 @@ public class Shootable extends WeaponBehavior{
 
     @Override
     public String getName() {
-        return myLabel;
+        return DISPLAY_LABEL;
     }
 
     @Override
-    public void update(double ms) {
-        myShooter.update(ms);
+    public void update(double ms, Updatable parent) {
+        if(activeWeapon==null) activeWeapon = (ActiveWeapon) parent;
+
+        myShooter.update(ms, this);
+    }
+
+    public Shooter getShooter() {
+        return myShooter;
     }
 
     @Override
@@ -37,5 +49,9 @@ public class Shootable extends WeaponBehavior{
 
     public WeaponConfig getWeaponConfig() {
         return weaponConfig;
+    }
+
+    public ActiveWeapon getActiveWeapon() {
+        return activeWeapon;
     }
 }

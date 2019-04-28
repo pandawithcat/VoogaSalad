@@ -1,6 +1,7 @@
 package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
+import Configs.GamePackage.GameStatus;
 import Configs.ImmutableImageView;
 import Player.GamePlay.EndLoopInterface;
 import Player.GamePlay.SelectionInterface;
@@ -15,12 +16,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 
+import static Configs.GamePackage.GameStatus.LOST;
+
 public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
     private Group mapRoot;
     private EndLoopInterface endGame;
     private SelectionInterface homeStage;
+    private GameStatus gameStatus;
 
     public GamePlayMap(double width, double height, Logic logic, EndLoopInterface endLoop,
                        SelectionInterface stage) {
@@ -42,32 +46,40 @@ public class GamePlayMap extends Pane{
     }
 
     public void update(double elapsedTime){
-        if (myLogic.checkIfGameEnd()){
-                displayGameOver();
-            }
-            else {
+        gameStatus = myLogic.getGameStatus();
+//        switch (gameStatus){
+//            case OVER:
+//                displayGameOver("Game Over! ");
+//                break;
+//            case LOST:
+//                displayGameOver("You Lost!");
+//                break;
+//            case WON:
+//                displayGameOver("You Won!");
+//                break;
+//            case PLAYING:
                 if (myLogic.checkIfLevelEnd()) {
                     myLogic.startNextLevel();
                 }
-                //commenting out logic to hardcode animation
                 myLogic.update(elapsedTime);
                 List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
                 List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
                 imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
                 imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
-            }
+//                break;
+//        }
     }
 
     public double getGridSize(){
         return terrainList.get(0).getAsNode().getBoundsInParent().getWidth();
     }
 
-    private void displayGameOver(){
+    private void displayGameOver(String result){
         endGame.endLoop();
         Stage gameOver = new Stage();
         Group root = new Group();
         Scene overScene = new Scene(root,200,200);
-        Text text = new Text("Game Over!");
+        Text text = new Text(result);
         Button quit = new Button("Quit Game");
         quit.setOnAction(e -> closeStages(gameOver,homeStage));
         Button goHome = new Button("Return to Home");

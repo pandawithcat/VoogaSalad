@@ -8,15 +8,17 @@ public class ProjectileConfig implements Configurable, Viewable {
     private Shooter myShooter;
 
     Configuration myConfiguration;
-    public static final String myLabel="Projectile";
+    public static final String DISPLAY_LABEL="Projectile";
     @Configure
     private String myName;
     @Configure
     private View view;
+    @Slider(min = 5, max = 20)
     @Configure
     private double velocityInSeconds;
-
-    //TODO: after first sprint implement behaviors
+    @Slider(min = 50, max = 10000)
+    @Configure
+    private double strength;
     @Configure
     private ProjectileBehavior[] myBehaviors;
 
@@ -27,8 +29,12 @@ public class ProjectileConfig implements Configurable, Viewable {
     }
 
     public ProjectileConfig(ProjectileConfig projectileConfig){
-//        myBehaviors = projectileConfig.getMyBehaviors();
+        myBehaviors = projectileConfig.getMyBehaviors();
         myShooter = projectileConfig.getMyShooter();
+        myName = projectileConfig.myName;
+        view = projectileConfig.view;
+        velocityInSeconds = projectileConfig.velocityInSeconds;
+        strength = projectileConfig.strength;
     }
 
     @Override
@@ -40,10 +46,13 @@ public class ProjectileConfig implements Configurable, Viewable {
         return velocityInSeconds;
     }
 
-    private ProjectileBehavior[] getMyBehaviors() {
+    protected ProjectileBehavior[] getMyBehaviors() {
         return myBehaviors;
     }
 
+    public double getStrength() {
+        return strength;
+    }
 
     @Override
     public String getName() {
@@ -53,6 +62,7 @@ public class ProjectileConfig implements Configurable, Viewable {
     public Shooter getMyShooter() {
         return myShooter;
     }
+
 
     @Override
     public Configuration getConfiguration() {

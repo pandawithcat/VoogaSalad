@@ -1,15 +1,19 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
-import Configs.Configurable;
+import ActiveConfigs.ActiveWeapon;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
+import Configs.DisplayState;
+import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class AmmoExpirable extends WeaponBehavior {
-    public static final String myLabel = "Ammo-Expirable";
+    public static final String DISPLAY_LABEL = "Ammo-Expirable";
     @Configure
-    private int numberOfEnemiesPossibleToKill;
+    private int ammoLimit;
 
-    private Configuration myConfiguration;
+    @XStreamOmitField
+    private transient Configuration myConfiguration;
 
     public AmmoExpirable(WeaponConfig weaponConfig){
         super(weaponConfig);
@@ -17,12 +21,19 @@ public class AmmoExpirable extends WeaponBehavior {
     }
 
     @Override
-    public void update(double ms) {
-        //TODO
+    public void update(double ms, Updatable parent) {
+        try {
+            System.out.println(((ActiveWeapon)parent).getShooter().getProjectilesFired());
+            if (((ActiveWeapon)parent).getShooter().getProjectilesFired()>=ammoLimit) ((ActiveWeapon)parent).getMapFeature().setDisplayState(DisplayState.DIED);
+        }
+        catch (IllegalStateException e) {
+            //Do nothing if there is no shooter
+            //User shouldn't be able to configure ammoexpirable if there's no shooter
+        }
     }
     @Override
     public String getName() {
-        return myLabel;
+        return DISPLAY_LABEL;
     }
 
     @Override

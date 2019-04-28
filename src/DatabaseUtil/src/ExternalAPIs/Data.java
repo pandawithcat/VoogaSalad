@@ -36,7 +36,7 @@ public abstract class Data {
      * Reads in the provided information from the user to cross check with the user data in the database
      * @param username - Unique string to identify user
      * @param password - chosen string to verify user identity
-     * @return boolean indicating if existing user credentials were matched
+     * @return - boolean indicating if existing user credentials were matched
      */
     public boolean authenticateUser(String username, String password) throws IllegalArgumentException, IllegalAccessError{
         checkArgumentLengths(username, password);
@@ -107,20 +107,13 @@ public abstract class Data {
     }
 
     /**
-     * Retrieves the byte array corresponding to the imageID and converts it into a java Image Object to use by the frontend
+     * Retrieves the byte array corresponding to the specific imageID
      * @param imageID - integer value corresponding to the specific image in the database
-     * @return - Java image object requested
+     * @return - byte array of requested image
      */
-    public Image getImage(int imageID){
+    public byte[] getImage(int imageID){
         // TODO: use imageID to get image file byte array
-        byte[] imageBytes = new byte[0];
-        InputStream byteIS = new ByteArrayInputStream(imageBytes);
-        return new Image(byteIS);
+        return new byte[0];
     }
-
-    // TODO: Method call that downloads the images of a game
-
-
-
 
 }

@@ -45,16 +45,28 @@ public class TerrainTile extends ImageView {
 
 
 
-    public void changeImage(String type){
-        if(type.equals("Grass")){
-            changeToGrass();
+    public void changeImage(String myType){
+//        if(type.equals("Grass")){
+//            changeToGrass();
+//        }
+//        else if(type.equals("Water")){
+//            changeToWater();
+//        }
+//        else if(type.equals("Dirt")){
+//            changeToDirt();
+//        }
+        try {
+            this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
         }
-        else if(type.equals("Water")){
-            changeToWater();
+        catch(FileNotFoundException f){
+            System.out.println(f);
         }
-        else if(type.equals("Dirt")){
-            changeToDirt();
+        if(!type.equals("Grass")){
+            setPath();
         }
+        type=myType;
+        tileImString=typeToImageMap.get(myType);
+
 
 
     }

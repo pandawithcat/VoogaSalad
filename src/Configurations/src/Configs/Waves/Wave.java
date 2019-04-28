@@ -6,10 +6,14 @@ import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.Waves.WaveBehaviors.WaveBehavior;
 
+import java.awt.Point;
+import java.util.List;
+import java.util.Random;
+
 
 public class Wave implements Updatable, Configurable {
     private Level myLevel;
-    public static final String myLabel = "Wave";
+    public static final String DISPLAY_LABEL = "Wave";
     @Configure
     private String myName;
     @Configure
@@ -21,7 +25,7 @@ public class Wave implements Updatable, Configurable {
     @Configure
     private WaveBehavior[] myWaveBehaviors;
 
-    private Configuration myConfiguration;
+    private transient Configuration myConfiguration;
 
 
     private double[] startTimes;
@@ -54,7 +58,7 @@ public class Wave implements Updatable, Configurable {
     }
 
     @Override
-    public void update(double ms) {
+    public void update(double ms, Updatable parent) {
         if(startTimes == null) {
             startTimes = new double[enemies.length];
             for(int i = 0;i<startTimes.length;i++) {
@@ -64,15 +68,15 @@ public class Wave implements Updatable, Configurable {
 
         while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
-            //int x = activeLevel.getMyMapConfig().getEnemyEnteringGridXPos();
-            //int y = activeLevel.getMyMapConfig().getEnemyEnteringGridYPos();
+            List<Point> enterPositions = activeLevel.getMyMapConfig().getEnemyEnteringGridPosList();
+            Random random = new Random();
+            Point point = enterPositions.get(random.nextInt(enterPositions.size()));
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
-            //MapFeature newMapFeature = new MapFeature(x, y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth());
-            //activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
+            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth());
+            activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
             currentEnemyIndex++;
         }
-
 
         if(currentEnemyIndex>=enemies.length) {
             isFinished= true;

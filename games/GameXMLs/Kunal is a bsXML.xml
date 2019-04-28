@@ -32,7 +32,7 @@
         <Configs.LevelPackage.Level-array>
           <Configs.LevelPackage.Level>
             <myGame reference="../../../../../.."/>
-            <myLabel>ahah</myLabel>
+            <DISPLAY_LABEL>ahah</DISPLAY_LABEL>
             <myWaveConfigs/>
             <myMap>
               <myTerrain>
@@ -7251,7 +7251,7 @@
                     <int>400</int>
                   </entry>
                   <entry>
-                    <string>myLabel</string>
+                    <string>DISPLAY_LABEL</string>
                     <null/>
                   </entry>
                   <entry>
@@ -7293,7 +7293,7 @@
             <myConfiguration>
               <myAttributeTypes class="linked-hash-map">
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <java-class>java.lang.String</java-class>
                 </entry>
                 <entry>
@@ -7315,7 +7315,7 @@
                   <Configs.Waves.Wave-array reference="../../../../myWaveConfigs"/>
                 </entry>
                 <entry>
-                  <string>myLabel</string>
+                  <string>DISPLAY_LABEL</string>
                   <string>ahah</string>
                 </entry>
                 <entry>
