@@ -7,6 +7,7 @@ import Configs.Behaviors.Behavior;
 import Configs.MapFeature;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.ShooterConfig.Shooter;
+import Configs.Updatable;
 import Configs.View;
 
 import java.util.Arrays;
@@ -31,8 +32,8 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
         return IMPLEMENTING_BEHAVIORS;
     }
 
-    protected void shoot(double... direction){
-        ActiveWeapon activeWeapon = myShooter.getMyShootable().getActiveWeapon();
+    protected void shoot(Updatable parent, double... direction){
+        ActiveWeapon activeWeapon = ((Shooter) parent).getMyShootable().getActiveWeapon();
         ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
         MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
         double weaponX = myShooterMapFeature.getPixelXPos();
