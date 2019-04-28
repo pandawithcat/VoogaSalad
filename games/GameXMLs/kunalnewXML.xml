@@ -7783,7 +7783,7 @@
               </projectileConfig>
               <shooterRange>400.0</shooterRange>
               <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
-                <myShooter reference="../.."/>f
+                <myShooter reference="../.."/>
                 <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
               </shooterBehavior>
               <projectilesFired>0</projectilesFired>
