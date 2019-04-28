@@ -2,59 +2,73 @@ package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+import java.util.ArrayList;
+
 public class GamePlaySettingsBar extends StackPane {
 
     private static final int DEFAULT_SCORE = 0;
-
+    private Image scoreImage = new Image(this.getClass().getClassLoader().getResourceAsStream("scoreboard.png"));
     private Text liveScore;
     private Text numLives;
     private Text myMoney;
     private Text myLevel;
     private Logic myLogic;
-
+    private int padding;
     public GamePlaySettingsBar(double width, double height, Logic logic){
         myLogic = logic;
+        padding = 8;
         setPrefHeight(height);
         setId("HUD");
         setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
         setPadding(new Insets(0,0,10,0));
 
-        Rectangle rect1 = new Rectangle(width/8,height/2);
-        rect1.getStyleClass().add("my-rect");
-        rect1.setTranslateX(- width *2/6);
+        HBox scoreHBox = new HBox();
 
-        Rectangle rect2 = new Rectangle(width/8,height/2);
-        rect2.getStyleClass().add("my-rect");
-        rect2.setTranslateX(- width / 6);
+        ImageView scoreImageView = new ImageView(scoreImage);
+        ImageView livesImageView = new ImageView(scoreImage);
+        ImageView moneyImageView = new ImageView(scoreImage);
+        ImageView levelImageView = new ImageView(scoreImage);
 
-        Rectangle rect3 = new Rectangle(width/8,height/2);
-        rect3.getStyleClass().add("my-rect");
-        rect3.setTranslateX(width /6);
+        scoreImageView.setPreserveRatio(true);
+        scoreImageView.setFitWidth(width/4 - padding);
 
-        Rectangle rect4 = new Rectangle(width/8,height/2);
-        rect4.getStyleClass().add("my-rect");
-        rect4.setTranslateX(width *2/6);
+        livesImageView.setPreserveRatio(true);
+        livesImageView.setFitWidth(width/4  - padding);
 
-        getChildren().addAll(rect1,rect2,rect3,rect4);
+        moneyImageView.setPreserveRatio(true);
+        moneyImageView.setFitWidth(width/4 - padding) ;
 
+        levelImageView.setPreserveRatio(true);
+        levelImageView.setFitWidth(width/4 - padding);
+
+
+        scoreHBox.setSpacing(8);
+        scoreHBox.setAlignment(Pos.CENTER_LEFT);
+        scoreHBox.getChildren().addAll(scoreImageView, livesImageView, moneyImageView, levelImageView);
+        scoreHBox.setMaxHeight(height);
+        scoreHBox.setMaxWidth(width);
+        getChildren().add(scoreHBox);
+        createText(width);
+    }
+    private void createText(double width){
+        HBox textHBox = new HBox();
+        textHBox.setAlignment(Pos.CENTER);
         liveScore = new Text("Score: ");
-        liveScore.setTranslateX(rect1.getTranslateX());
-
         numLives = new Text("Lives: ");
-        numLives.setTranslateX(rect2.getTranslateX());
-
         myMoney = new Text("Money: ");
-        myMoney.setTranslateX(rect3.getTranslateX());
-
         myLevel = new Text("Level: ");
-        myLevel.setTranslateX(rect4.getTranslateX());
-
-        getChildren().addAll(liveScore,numLives,myMoney,myLevel);
+        textHBox.getChildren().addAll(liveScore, numLives, myMoney, myLevel);
+        double spacing = (width - 4 * (liveScore.getBoundsInLocal().getWidth()))/4;
+        textHBox.setSpacing(spacing);
+        getChildren().add(textHBox);
     }
 
     public void updateVariables(){
