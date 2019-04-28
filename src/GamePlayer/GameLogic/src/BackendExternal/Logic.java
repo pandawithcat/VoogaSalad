@@ -165,6 +165,7 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
+    // TODO: Remove this method call
     @Deprecated
     public List<ImmutableImageView> getLevelTerrain(){
         return myGame
@@ -181,6 +182,13 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
+
+    /**
+     * Returns the list of initial map features to be added to the root in the visualization side
+     * @param screenWidth
+     * @param screenHeight
+     * @return
+     */
     public List<ImmutableImageView> getLevelTerrain(double screenWidth, double screenHeight){
         return myGame
                 .getActiveLevel()
