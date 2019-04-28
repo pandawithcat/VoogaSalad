@@ -56,6 +56,7 @@ public class TerrainTile extends ImageView {
 //            changeToDirt();
 //        }
         try {
+            System.out.println(typeToImageMap.get(myType));
             this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
         }
         catch(FileNotFoundException f){

@@ -196,6 +196,10 @@ public class ConfigurableMap {
     }
 
     public void initMap() {
+        typeToImagePathMap = new HashMap<>();
+        typeToImagePathMap.put("Grass","resources/grass.jpg");
+        typeToImagePathMap.put("Water","resources/water.jpg");
+        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
         Image image;
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
@@ -228,10 +232,7 @@ public class ConfigurableMap {
 
 
     public VBox createTileView(){
-        typeToImagePathMap = new HashMap<>();
-        typeToImagePathMap.put("Grass","resources/grass.jpg");
-        typeToImagePathMap.put("Water","resources/water.jpg");
-        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
+
         //tileView.setPrefSize(tileViewWidth, tileViewHeight);
         VBox myBox = new VBox(10);
 
