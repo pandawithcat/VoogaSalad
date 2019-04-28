@@ -11,7 +11,7 @@
           <myLevel reference="../../.."/>
           <myName>wavey</myName>
           <timeToReleaseInMs>10.0</timeToReleaseInMs>
-          <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
+          <rateOfReleaseEnemiesPerMs>4000.0</rateOfReleaseEnemiesPerMs>
           <enemies>
             <Configs.EnemyPackage.EnemyConfig>
               <myWave reference="../../.."/>
