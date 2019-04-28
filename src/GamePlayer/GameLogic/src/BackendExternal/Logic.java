@@ -50,8 +50,6 @@ public class Logic {
         PANE_HEIGHT = paneHeight;
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
-
     /**
      * Receives user login input from the front-end and passes it to the database module to check against server data
      * @param username - User input for unique string to identify user
@@ -61,8 +59,6 @@ public class Logic {
     public boolean authenticateUser(String username, String password){
         return myPlayerData.authenticateUser(username, password);
     }
-
-    // Do Not Call Yet !!!!!!!!!!!!!!!
 
     /**
      * Receives user create account input from the front-end and passes it to save in the database
@@ -77,12 +73,10 @@ public class Logic {
     // View will call this first to get the name and thumbnail file name of each game
     // No Input
     // Return: List of GameInfo objects
+    // TODO: Remove this method call
     public List<GameInfo> getGameOptions(){
         return myGameLibrary.getImmutableGameList();
     }
-
-    // Final Implementation version of getGameOptions
-    // Do Not Call Yet !!!!!!!!!!!!!!!
 
     /**
      * Polls the database to return the list of games that can be played by the user.
@@ -92,9 +86,6 @@ public class Logic {
         return myPlayerData.getAuthoredGames();
     }
 
-    // Returns the highest scores recorded of the number of specified players
-    // Do Not Call Yet !!!!!!!!!!!!!!!
-
     /**
      * Polls the database to return the list of score leaders for the current game
      * @param numberOfEntries - number of leaders to retrieve
@@ -103,9 +94,6 @@ public class Logic {
     public List<LeaderBoardEntry> getLeaderBoardEntries(int numberOfEntries){
         return myPlayerData.compileLeaderboardEntries(numberOfEntries);
     }
-
-
-    // Do Not Call Yet !!!!!!!!!!!!!!!!
 
     /**
      * Retrieves the selected games XML string from the database and deserializes it into the specific game object
@@ -117,27 +105,24 @@ public class Logic {
         myGame =  (Game)serializer.fromXML(gameXMLString);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!!
-
     /**
      * Begins the game at the state that the current user left off at when they previously played
      */
-    public void startAtUserState(){
+    public int startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
-        myGame.setScore(gameState.getMyCurrentScore());
-        myGame.startGame(gameState.getMyCurrentLevel(), PANE_WIDTH, PANE_HEIGHT);
+        int levelIndex = gameState.getMyCurrentScore();
+        myGame.setScore(levelIndex);
+        myGame.startGame(levelIndex, PANE_WIDTH, PANE_HEIGHT);
+        return levelIndex + 1;
     }
-
-    // Do Not Call Yet !!!!!!!!!!!!!!!!
 
     /**
      * Begins the game at the default state
      */
-    public void startAtDefaultState(){
+    public int  startAtDefaultState(){
         myGame.startGame(DEFAULT_START_LEVEL, PANE_WIDTH, PANE_HEIGHT);
+        return DEFAULT_START_LEVEL + 1;
     }
-
-    // Do Not Call Yet !!!!!!!!!!!!!!!!
 
     /**
      * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
@@ -150,7 +135,9 @@ public class Logic {
         return new Image(byteIS);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     * Gets current user game session level index and score to pass to the database to store
+     */
     public void saveGameState(){
         UserState currentUserState = new UserState(myGame.getLevelSpawner().getLevelIndex(), myGame.getScore());
         myPlayerData.saveUserState(currentUserState);
@@ -160,15 +147,20 @@ public class Logic {
     // View calls this when user select a game to play
     // Input: Selected GameInfo Object
     // No Return Value
+    // TODO: Remove this method call
     public void createGameInstance(GameInfo selectedGame, double paneWidth, double paneHeight) {
         myGame = myGameLibrary.getGame(selectedGame);
-        // TODO: Second sprint have the option of getting this from User Data (Previous Level)
         myGame.startGame(DEFAULT_START_LEVEL, paneWidth, paneHeight);
     }
 
     // View calls to get the current level of the game when moving between levels
     // No Input
     // Return: integer Level number
+
+    /**
+     * Calls method in Game object to begin the next level
+     * @return - int level index
+     */
     public int startNextLevel(){
         return myGame.getLevelSpawner().startNextLevel();
     }

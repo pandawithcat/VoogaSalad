@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
-public class Authentification {
+public class Authentication {
 
     private static final String HASHING_ALGORITHM = "MD5";
     private static final int MINIMUM_PASSWORD_LENGTH = 6;
