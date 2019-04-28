@@ -25,7 +25,7 @@ public class TerrainTile extends ImageView {
         this.setX(x);
         this.setY(y);
         this.setFitWidth(25);
-        this.setFitHeight(30);
+        this.setFitHeight(25);
         this.imageView=new ImageView(image);
         this.type="Grass";
         isPath=false;
@@ -56,7 +56,6 @@ public class TerrainTile extends ImageView {
 //            changeToDirt();
 //        }
         try {
-            System.out.println(typeToImageMap.get(myType));
             this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
         }
         catch(FileNotFoundException f){

@@ -268,12 +268,17 @@ public class ConfigurableMap {
                     try {
                         image.setFitHeight(20);
                         image.setFitWidth(20);
-                        if (name.equals("Grass"))
-                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
-                        else if (name.equals("Water"))
-                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
-                        else if (name.equals("Dirt"))
-                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+//                        if (name.equals("Grass"))
+//                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+//                        else if (name.equals("Water"))
+//                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
+//                        else if (name.equals("Dirt"))
+//                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+                        for(String s : typeToImagePathMap.keySet()){
+                            if(name.equals(s)){
+                                image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+                            }
+                        }
 
                     }
                     catch(FileNotFoundException f){
@@ -298,7 +303,7 @@ public class ConfigurableMap {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList);
+                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList,typeToImagePathMap);
 
             }
         });
