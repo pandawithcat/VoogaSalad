@@ -60,10 +60,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     }
 
 
-    public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
+    public ActiveEnemy(EnemyConfig enemyConfig,ActiveLevel activeLevel) {
         super(enemyConfig);
-        myMapFeature = mapFeature;
         myActiveLevel = activeLevel;
+    }
+
+    public void setMyMapFeature(MapFeature mapFeature) {
+        this.myMapFeature = mapFeature;
     }
 
     @Override
@@ -185,5 +188,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //TODO: Make these magic numbers reference the qualities of the enemy
         myActiveLevel.addGameCash(1);
         myActiveLevel.addGameScore(5);
+    }
+
+    @Override
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
     }
 }

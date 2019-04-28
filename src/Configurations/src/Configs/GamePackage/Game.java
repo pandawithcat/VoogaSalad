@@ -34,6 +34,7 @@ public class Game implements Updatable, Configurable {
     // TODO: Uncomment this new variable
 //    @Configure
 //    private int myThumbnailID:
+
     @Configure
     private Level[] levelList;
     @Configure
@@ -74,6 +75,7 @@ public class Game implements Updatable, Configurable {
     public int getScore() {
         return myScore;
     }
+    
 
     @Override
     public void update(double ms, Updatable parent) {

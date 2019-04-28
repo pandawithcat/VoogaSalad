@@ -136,8 +136,8 @@ public class ActiveLevel extends Level implements Updatable {
 
 
 
-    public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
-        activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
+    public void addToActiveEnemies(ActiveEnemy activeEnemy) {
+        activeEnemies.add(activeEnemy);
 
     }
 
