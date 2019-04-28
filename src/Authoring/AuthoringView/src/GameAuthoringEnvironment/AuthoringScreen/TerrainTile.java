@@ -10,14 +10,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TerrainTile extends ImageView {
-    ImageView imageView;
-    boolean isPath;
-    String tileImString;
-    String type;
+    private Map<String, String> typeToImageMap;
+    private ImageView imageView;
+    private boolean isPath;
+    private String tileImString;
+    private String type;
 
-    public TerrainTile(int x, int y, Image image, String type){
+    public TerrainTile(int x, int y, Image image, String type, Map<String, String> map){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -29,6 +32,7 @@ public class TerrainTile extends ImageView {
         tileImString="resources/grass.jpg";
 //        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
 //        Tooltip.install(this,tooltip);
+        typeToImageMap=map;
     }
     public TerrainTile(Image image){
         super(image);
