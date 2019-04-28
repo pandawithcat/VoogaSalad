@@ -45,7 +45,7 @@ public class Logic {
 
     public Logic(double paneWidth, double paneHeight) {
         myGameLibrary = new GameLibrary();
-    //        myPlayerData = new PlayerData();
+            myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
