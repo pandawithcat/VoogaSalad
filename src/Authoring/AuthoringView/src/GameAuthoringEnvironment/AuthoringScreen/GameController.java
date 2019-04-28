@@ -93,10 +93,6 @@ public class GameController {
                 handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
             }
 
-            /*else if(key.toLowerCase().contains("weaponconfig")){
-                handleWeaponConfig(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
-            }*/
-
             //handle Array
             else{
                 handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
@@ -336,7 +332,7 @@ public class GameController {
 
     private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
         //TODO get the label string from the properties file
-        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
+        Label DISPLAY_LABEL = getLabel(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -370,8 +366,15 @@ public class GameController {
         layout.getChildren().addAll(nameAndTfBar);
     }
 
+    private Label getLabel(String key) {
+        if (authoringProps.getProperty(key)==null){
+            System.out.println("LABEL NOT DEFINED: "+key);
+        }
+        return new Label(authoringProps.getProperty(key));
+    }
+
     private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
-        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
+        Label DISPLAY_LABEL = getLabel(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
             myTextField.setText(definedAttributesMap.get(key).toString());
@@ -405,7 +408,7 @@ public class GameController {
 
     private void handleBooleanField(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
         HBox box = new HBox(10);
-        Label DISPLAY_LABEL = new Label(authoringProps.getProperty(key));
+        Label DISPLAY_LABEL = getLabel(key);
         RadioButton trueButton = new RadioButton("True");
         RadioButton falseButton = new RadioButton("False");
         if (definedAttributesMap.keySet().contains(key)) {
