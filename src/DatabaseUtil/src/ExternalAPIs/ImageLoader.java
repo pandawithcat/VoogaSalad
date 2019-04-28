@@ -3,6 +3,7 @@ package ExternalAPIs;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,6 +26,7 @@ public class ImageLoader extends Application {
     public static final String TITLE = "Image Uploader";
     public static final String DEFAULT_FILE_TEXT = "Select a File to Upload";
     public static final String DEFAULT_TYPE_TEXT = "Select an Image Type";
+    public static final String SAVE_BUTTON_TXT = "Save Image File";
 
     private static AuthoringData myAuthoringData;
 
@@ -38,11 +41,16 @@ public class ImageLoader extends Application {
     private File myImageFile;
     private AuthoringData.ImageType myImageType;
 
-    public static void main (String[] args){launch(args);}
+    private static int imageID;
+
+    public static int main (String[] args){
+        launch(args);
+        return imageID;
+    }
 
     @Override
     public void start(Stage stage){
-      //  myAuthoringData = new AuthoringData();
+        myAuthoringData = new AuthoringData();
         myFileChooser = new FileChooser();
 
         myStage = stage;
@@ -124,16 +132,14 @@ public class ImageLoader extends Application {
 
     private void testStoreImage(){
         try {
-            myAuthoringData.uploadImage(myImageFile,myImageType);
+            imageID = myAuthoringData.uploadImage(myImageFile,myImageType);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Done storing image file");
     }
 
     private static Button makeButton(EventHandler<ActionEvent> handler){
-        var newButton = new Button("Select Image File");
+        var newButton = new Button(SAVE_BUTTON_TXT);
         newButton.setOnAction(handler);
         return newButton;
     }

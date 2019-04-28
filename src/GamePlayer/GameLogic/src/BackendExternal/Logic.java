@@ -200,6 +200,7 @@ public class Logic {
 
     }
 
+    // TODO: Remove this method call
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
@@ -207,6 +208,7 @@ public class Logic {
 
     }
 
+    // TODO: Remove this method call, Nothing is using it
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
@@ -214,6 +216,7 @@ public class Logic {
 
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
+    // TODO: Change Info to return an integer rather than a string file path
     public Map<Integer, Info> getMyArsenal(){
         return myGame.getArsenal().getAllNewWeaponConfigOptions();
     }
