@@ -1,6 +1,8 @@
-package Queries;
+package Queries.DataQueries;
 
-public class LeaderboardData extends DBUtil{
+import Queries.DataQueries.DBUtil;
+
+public class LeaderboardData extends DBUtil {
 
 
     //    public GameInfo fetchGame(int gameID){

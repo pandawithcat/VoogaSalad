@@ -1,4 +1,6 @@
-package Queries;
+package Queries.DataQueries;
+
+import Queries.ConnectionException;
 
 import java.sql.*;
 

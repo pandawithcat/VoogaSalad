@@ -1,4 +1,4 @@
-package Queries;
+package Queries.Results;
 
 public class GameSession {
 

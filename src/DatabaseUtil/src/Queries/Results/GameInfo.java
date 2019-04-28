@@ -1,4 +1,4 @@
-package Queries;
+package Queries.Results;
 
 import java.io.InputStream;
 

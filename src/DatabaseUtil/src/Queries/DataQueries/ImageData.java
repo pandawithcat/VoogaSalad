@@ -1,17 +1,17 @@
-package Queries;
+package Queries.DataQueries;
+
+import Queries.ConnectionException;
+import Queries.DataQueries.DBUtil;
 
 import javax.sql.rowset.serial.SerialBlob;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ImageData extends DBUtil{
+public class ImageData extends DBUtil {
 
     /**
      * @param image The file associated with the image to be uploaded
@@ -36,7 +36,6 @@ public class ImageData extends DBUtil{
             throw new ConnectionException(e.toString());
         }
     }
-
 
     /**
      * @param tag The tag associated with the desired list of images, null if querying all tags
@@ -74,7 +73,7 @@ public class ImageData extends DBUtil{
      * @param imageID The imageID corresponding to the desired image
      * @return an InputStream corresponding to the image's binary
      */
-    public InputStream fetchImage(int imageID){
+    public byte[] fetchImage(int imageID){
         String selectionQuery =
                 "select image " +
                         "from images where imageID = (?)";
@@ -88,11 +87,15 @@ public class ImageData extends DBUtil{
             }
             results.close();
             statement.close();
-            return image;
+            return image.readAllBytes();
         }
         catch (SQLException e){
             closeConnection();
             throw new ConnectionException(e.toString());
+        }
+        catch (IOException e){
+            closeConnection();
+            throw new ConnectionException("Unable to fetch image");
         }
     }
 
@@ -100,8 +103,8 @@ public class ImageData extends DBUtil{
      * @param imageIDs The the list of imageIDs corresponding to the desired images
      * @return an ArrayList of InputStreams corresponding to the images' binaries
      */
-    public ArrayList<InputStream> fetchImages(int... imageIDs){
-        ArrayList<InputStream> images = new ArrayList<>();
+    public ArrayList<byte[]> fetchImages(int... imageIDs){
+        ArrayList<byte[]> images = new ArrayList<>();
         Arrays.stream(imageIDs).forEach(id -> images.add(fetchImage(id)));
         return images;
     }

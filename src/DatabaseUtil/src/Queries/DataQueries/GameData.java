@@ -1,4 +1,7 @@
-package Queries;
+package Queries.DataQueries;
+
+import Queries.ConnectionException;
+import Queries.Results.GameInfo;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.InputStream;

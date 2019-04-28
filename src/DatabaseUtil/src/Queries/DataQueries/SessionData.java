@@ -1,11 +1,14 @@
-package Queries;
+package Queries.DataQueries;
+
+import Queries.ConnectionException;
+import Queries.Results.GameSession;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SessionData extends DBUtil{
+public class SessionData extends DBUtil {
 
     /**
      * @param level the level achieved

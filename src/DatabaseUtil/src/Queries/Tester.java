@@ -1,9 +1,12 @@
 package Queries;
 
+import Queries.DataQueries.GameData;
+import Queries.DataQueries.ImageData;
+import Queries.DataQueries.SessionData;
+import Queries.DataQueries.UserData;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,6 +61,7 @@ public class Tester{
     }
 
     @Test
+    @Disabled
     public void addImage(){
         imageData.addImage(image, "TREE");
     }

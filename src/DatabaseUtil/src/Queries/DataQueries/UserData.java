@@ -1,4 +1,7 @@
-package Queries;
+package Queries.DataQueries;
+
+import Queries.ConnectionException;
+import Queries.DataQueries.DBUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
-public class UserData extends DBUtil{
+public class UserData extends DBUtil {
 
     /**
      * @param username The desired username
@@ -83,6 +86,29 @@ public class UserData extends DBUtil{
             results.close();
             statement.close();
             return IDList;
+        }
+        catch (SQLException e){
+            closeConnection();
+            throw new ConnectionException(e.toString());
+        }
+    }
+
+    public String getSalt(int userID){
+        String selectionQuery = "select salt from users where authorID = (?)";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
+            statement.setInt(1,userID);
+            ResultSet results = statement.executeQuery();
+            String salt = null;
+            if(results.next()){
+                salt = results.getString("salt");
+            }
+            else{
+                throw new ConnectionException("User "+userID+" does not have salt");
+            }
+            results.close();
+            statement.close();
+            return salt;
         }
         catch (SQLException e){
             closeConnection();
