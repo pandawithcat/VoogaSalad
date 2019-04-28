@@ -1,5 +1,6 @@
 package Configs.ProjectilePackage.ProjectileBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.Updatable;
@@ -26,4 +27,8 @@ public class Homing extends ProjectileBehavior{
 
     }
 
+    @Override
+    public Behavior copy() {
+        return new Homing(getMyProjectileConfig());
+    }
 }

@@ -1,4 +1,4 @@
-package Configs.MapPackage.TerrainBehaviors;
-
-public class EnemyDamage {
-}
+//package Configs.MapPackage.TerrainBehaviors;
+//
+//public class EnemyDamage {
+//}

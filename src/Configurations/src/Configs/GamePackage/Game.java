@@ -36,7 +36,7 @@ public class Game implements Updatable, Configurable {
 //    private int myThumbnailID:
 
     @Configure
-    private Level[] levelList;
+    private Level[] levelList = new Level[0];
     @Configure
     private Arsenal myArsenal;
     @Configure

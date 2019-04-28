@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponWaveBehaviors;
 
 import Configs.ArsenalConfig.WeaponWave;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.Updatable;
 
@@ -30,6 +31,12 @@ public class LevelUnlockable extends WeaponWaveBehavior {
         return DISPLAY_LABEL;
     }
 
+    @Override
+    public Behavior copy() {
+        LevelUnlockable ret = new LevelUnlockable(myWeaponWave);
+        ret.levelToBeUnlocked = levelToBeUnlocked;
+        return ret;
+    }
 
     @Override
     public Configuration getConfiguration() {

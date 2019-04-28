@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
@@ -14,7 +15,7 @@ import java.util.List;
 public class HealthExpirable extends WeaponBehavior {
     public static final String DISPLAY_LABEL = "Health-Expirable";
     @Configure
-    protected int amountOfHealth;
+    private int amountOfHealth;
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
@@ -44,5 +45,11 @@ public class HealthExpirable extends WeaponBehavior {
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+    @Override
+    public Behavior copy() {
+        HealthExpirable ret = new HealthExpirable(getMyWeaponConfig());
+        ret.amountOfHealth = amountOfHealth;
+        return ret;
     }
 }
