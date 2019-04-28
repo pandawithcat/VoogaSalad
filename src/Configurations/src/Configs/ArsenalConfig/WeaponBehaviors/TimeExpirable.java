@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.util.List;
 
 public class TimeExpirable extends WeaponBehavior{
-    public static final String DISPLAY_LABEL= "Time-Expirable";
+    public static final String DISPLAY_LABEL= "Time-Expirable (in ms)";
     @Configure
     private double timeAlive;
 
