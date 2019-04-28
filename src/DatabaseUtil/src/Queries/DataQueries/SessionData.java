@@ -1,5 +1,6 @@
 package Queries.DataQueries;
 
+import ExternalAPIs.LeaderBoardEntry;
 import Queries.ConnectionException;
 import Queries.Results.GameSession;
 
@@ -41,7 +42,7 @@ public class SessionData extends DBUtil {
      * @param userID The userID of the requested user
      * @return The GameSessions corresponding to the given user
      */
-    public ArrayList<GameSession> getSavedSessions(int userID){
+    public ArrayList<GameSession> getSessions(int userID){
         String selectionQuery = "select * from gameSessions where playerID = (?)";
         try {
             PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
@@ -64,5 +65,67 @@ public class SessionData extends DBUtil {
             closeConnection();
             throw new ConnectionException(e.toString());
         }
+    }
+
+    /**
+     * @param userID The userID of the requested user
+     * @param gameID the gameID of the requested game
+     * @return The most recent saved session for the user playing the given game
+     */
+    public GameSession getMostRecentSessionForGame(int userID, int gameID){
+        String selectionQuery =
+                "select * from gameSessions " +
+                        "where playerID = (?) and gameID = (?)" +
+                        " order by score DESC";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
+            statement.setInt(1, userID);
+            statement.setInt(2, gameID);
+
+            ResultSet results = statement.executeQuery();
+            GameSession session = null;
+            if(results.next()){
+                int sessionID = results.getInt("sessionID");
+                int level = results.getInt("level");
+                int score = results.getInt("score");
+                session = new GameSession(level, score, gameID, sessionID);
+            }
+            results.close();
+            statement.close();
+            return session;
+        }
+        catch (SQLException e){
+            closeConnection();
+            throw new ConnectionException(e.toString());
+        }
+    }
+
+
+
+
+    public ArrayList<LeaderBoardEntry> getHighScoresForGame(int gameID, int maxCount){
+        String selectionQuery = " select * from gameSessions where gameID = (?) order by score DESC ";//  DESC limit (?);";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
+            statement.setInt(1, gameID);
+            ResultSet results = statement.executeQuery();
+            ArrayList<LeaderBoardEntry> entriesList = new ArrayList<>();
+            int rank = 1;
+            while(results.next() && rank < maxCount+1){
+                String username = new UserData().getUsername(results.getInt("playerID"));
+                int level = results.getInt("level");
+                int score = results.getInt("score");
+                entriesList.add(new LeaderBoardEntry(rank, username, score, level));
+                rank+=1;
+            }
+            results.close();
+            statement.close();
+            return entriesList;
+        }
+        catch (SQLException e){
+            closeConnection();
+            throw new ConnectionException(e.toString());
+        }
+
     }
 }

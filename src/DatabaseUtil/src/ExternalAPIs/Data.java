@@ -23,7 +23,6 @@ public abstract class Data {
     private UserData userData;
     private GameData gameData;
     private SessionData sessionData;
-    private LeaderboardData leaderboardData;
     private ImageData imageData;
 
 
@@ -35,7 +34,6 @@ public abstract class Data {
         userData = new UserData();
         gameData = new GameData();
         sessionData = new SessionData();
-        leaderboardData = new LeaderboardData();
         imageData = new ImageData();
     }
 
@@ -50,11 +48,7 @@ public abstract class Data {
     public SessionData getSessionData() {
         return sessionData;
     }
-
-    public LeaderboardData getLeaderboardData() {
-        return leaderboardData;
-    }
-
+    
     public ImageData getImageData() {
         return imageData;
     }

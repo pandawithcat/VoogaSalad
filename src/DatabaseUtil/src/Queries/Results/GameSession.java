@@ -1,5 +1,7 @@
 package Queries.Results;
 
+import ExternalAPIs.UserState;
+
 public class GameSession {
 
     private int currentLevel;
@@ -28,5 +30,12 @@ public class GameSession {
 
     public int getSessionID(){
         return sessionID;
+    }
+
+    public UserState getState(){return new UserState(currentLevel, currentScore);}
+
+    @Override
+    public String toString(){
+        return String.format("Level: %s, Score: %s",currentLevel, currentScore);
     }
 }

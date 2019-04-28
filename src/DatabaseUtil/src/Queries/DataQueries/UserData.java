@@ -115,4 +115,27 @@ public class UserData extends DBUtil {
             throw new ConnectionException(e.toString());
         }
     }
+
+    public String getUsername(int userID){
+        String selectionQuery = "select username from users where userID = (?)";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
+            statement.setInt(1, userID);
+            ResultSet results = statement.executeQuery();
+            String username = null;
+            if(results.next()){
+                username = results.getString("username");
+            }
+            else{
+                throw new ConnectionException("Could not find username");
+            }
+            results.close();
+            statement.close();
+            return username;
+        }
+        catch (SQLException e){
+            closeConnection();
+            throw new ConnectionException(e.toString());
+        }
+    }
 }
