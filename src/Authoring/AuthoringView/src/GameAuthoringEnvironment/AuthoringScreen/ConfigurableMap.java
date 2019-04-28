@@ -32,10 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.TabExpander;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +71,7 @@ public class ConfigurableMap {
     private Button nameButton, chooseTileImageButton;
     private MapConfig myAttributesMapConfig;
     private Scene scene;
+    private AlertFactory myAlertFactory = new AlertFactory();
 
     public ConfigurableMap(Map<String, Object> attributeMap, Configurable level){
 
@@ -198,9 +196,16 @@ public class ConfigurableMap {
     }
 
     public void initMap() {
+        Image image;
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
-            Image image = new Image(fis);
+            image = new Image(fis);
+        }
+            catch (FileNotFoundException e){
+                myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
+                image = new Image(InputStream.nullInputStream());
+
+            }
             map = new GridPane();
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
@@ -215,14 +220,12 @@ public class ConfigurableMap {
 
             }
             addGridEvent();
-        }catch (FileNotFoundException e){
-
         }
 
 
         //map.setLayoutX();
         //map.setLayoutY();
-    }
+
 
     public VBox createTileView(){
         typeToImagePathMap = new HashMap<>();
@@ -417,7 +420,7 @@ public class ConfigurableMap {
             item.setOnDragDetected(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    System.out.println("DRAGDETECTEDDDD");
+                    //System.out.println("DRAGDETECTEDDDD");
                     Dragboard db = item.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     content.putString(currentTile);
@@ -430,7 +433,7 @@ public class ConfigurableMap {
                 public void handle(DragEvent dragEvent) {
                     dragEvent.acceptTransferModes(TransferMode.ANY);
                     updateCell(dragEvent);
-                    System.out.println("DRAGGINGGGGGG");
+                    //System.out.println("DRAGGINGGGGGG");
                 }
             });
 
