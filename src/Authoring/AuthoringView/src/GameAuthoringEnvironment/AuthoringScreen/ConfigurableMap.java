@@ -32,6 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.TabExpander;
 import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,10 +44,11 @@ import java.util.Map;
 public class ConfigurableMap {
 
 
-    public static final int GRID_WIDTH = 64;
-    public static final int GRID_HEIGHT = 40;
+    public static final int GRID_WIDTH = 32;
+    public static final int GRID_HEIGHT = 20;
 //public static final int GRID_WIDTH = 32;
 //    public static final int GRID_HEIGHT = 20;
+    Map<String,String> typeToImagePathMap;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -220,16 +222,59 @@ public class ConfigurableMap {
     }
 
     public VBox createTileView(){
+        typeToImagePathMap = new HashMap<>();
+        typeToImagePathMap.put("Grass","resources/grass.jpg");
+        typeToImagePathMap.put("Water","resources/water.jpg");
+        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
         //tileView.setPrefSize(tileViewWidth, tileViewHeight);
         VBox myBox = new VBox(10);
 
         Label messageLbl = new Label("Select tiles from the given list, click tile on map to change to selected tile type");
         //TODO Change this so that no specific tiles are made(and definitely not just my images)
         tileView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
         tileView.getItems().add(0,"Grass");
         tileView.getItems().add(1,"Water");//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
         tileView.getItems().add(2,"Dirt");
+        tileView.setCellFactory(param->new ListCell<String>(){
+            private ImageView image = new ImageView();
+            @Override
+            public void updateItem(String name, boolean empty){
+                super.updateItem(name,empty);
+                if(empty){
+                    setText(null);
+                    setGraphic(null);
+                }
+                else{
+//                    for(String s : typeToImagePathMap.keySet()) {
+//                        try {
+//                            image.setFitHeight(20);
+//                            image.setFitWidth(20);
+//                            image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+//                        }
+//                        catch(FileNotFoundException f){
+//                            System.out.println(f);
+//                        }
+//                    }
+                    try {
+                        if (name.equals("Grass"))
+                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+                        else if (name.equals("Water"))
+                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
+                        else if (name.equals("Dirt"))
+                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+
+                    }
+                    catch(FileNotFoundException f){
+                        System.out.println(f);
+                    }
+                    setText(name);
+                    setGraphic(image);
+                }
+            }
+        });
 
         tileView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -237,6 +282,7 @@ public class ConfigurableMap {
                 currentTile=tileView.getSelectionModel().getSelectedItem();
             }
         });
+
 
         Button addTileImageButton = new Button("Add New Tile");
         addTileImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
