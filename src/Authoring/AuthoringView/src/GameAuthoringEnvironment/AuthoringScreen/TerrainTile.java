@@ -1,6 +1,7 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -14,17 +15,24 @@ public class TerrainTile extends ImageView {
     ImageView imageView;
     boolean isPath;
     String tileImString;
+    String type;
 
     public TerrainTile(int x, int y, Image image, String type){
         super(image);
         this.setX(x);
         this.setY(y);
-        this.setFitWidth(20);
-        this.setFitHeight(20);
+        this.setFitWidth(25);
+        this.setFitHeight(30);
         this.imageView=new ImageView(image);
+        this.type="Grass";
         isPath=false;
-        tileImString="grass.jpg";
-
+        tileImString="resources/grass.jpg";
+//        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
+//        Tooltip.install(this,tooltip);
+    }
+    public TerrainTile(Image image){
+        super(image);
+        this.imageView=new ImageView(image);
     }
 
     public Image getNewImage(String type){
@@ -55,8 +63,9 @@ public class TerrainTile extends ImageView {
             System.out.println(f);
 
         }
-        tileImString="resources/water.jpg";
+        tileImString="water.jpg";
         isPath=true;
+        type="Water";
 
     }
     public void changeToDirt(){
@@ -67,8 +76,9 @@ public class TerrainTile extends ImageView {
             System.out.println(f);
 
         }
-        tileImString="resources/dirt.jpg";
+        tileImString="dirt.jpg";
         isPath=true;
+        type="Dirt";
     }
 
 
@@ -76,12 +86,13 @@ public class TerrainTile extends ImageView {
     public void changeToGrass() {
         try {
 
-            this.setImage(new Image(new FileInputStream("resources/" + "grass" + ".jpg")));
+            this.setImage(new Image(new FileInputStream("resources/grass.jpg")));
         } catch (FileNotFoundException f) {
             //TODO Exception! NO such file found
         }
-        tileImString = "resources/grass.jpg";
+        tileImString = "grass.jpg";
         isPath=false;
+        type="Grass";
     }
 
     public ImageView getImageView(){
@@ -93,6 +104,20 @@ public class TerrainTile extends ImageView {
     }
     public boolean getIsPath(){
         return isPath;
+    }
+    public void setPath(){
+        isPath=true;
+    }
+    public String getPathString(){
+        if(this.isPath){
+            return "Is a path";
+        }
+        else{
+            return "Is not a path";
+        }
+    }
+    public String getType(){
+        return type;
     }
 
 }

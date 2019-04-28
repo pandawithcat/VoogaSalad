@@ -1,17 +1,13 @@
 package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
-import Player.GamePlay.GamePlayLeft.ButtonPanel;
-import Player.GamePlay.GamePlayLeft.GamePlayArsenal;
 import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import Player.GamePlay.PlayInterface;
 import Player.GamePlay.SelectionInterface;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class GamePlayRightSide extends VBox {
@@ -33,14 +29,15 @@ public class GamePlayRightSide extends VBox {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, home));
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, home, logic));
     }
     public void update(){
         myGameArsenal.recreateArsenal();
     }
 
-    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, SelectionInterface home){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer);
+    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward,
+                                   SelectionInterface home, Logic logic){
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer, logic);
         return myButtonPanel;
     }
 

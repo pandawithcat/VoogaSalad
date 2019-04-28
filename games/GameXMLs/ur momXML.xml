@@ -1,6 +1,6 @@
 <Configs.GamePackage.Game>
-  <myName>mama</myName>
-  <myDescription>maam</myDescription>
+  <myName>ur mom</myName>
+  <myDescription>luuuuis</myDescription>
   <myThumbnail>thumbnail2.gif</myThumbnail>
   <levelList>
     <Configs.LevelPackage.Level>
@@ -16756,13 +16756,13 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
             <gridBlockHeight>0</gridBlockHeight>
             <gridBlockWidth>0</gridBlockWidth>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>32</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -17276,13 +17276,13 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
             <gridBlockHeight>0</gridBlockHeight>
             <gridBlockWidth>0</gridBlockWidth>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>33</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -17796,13 +17796,13 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
             <gridBlockHeight>0</gridBlockHeight>
             <gridBlockWidth>0</gridBlockWidth>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>34</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -18316,13 +18316,13 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
             <gridBlockHeight>0</gridBlockHeight>
             <gridBlockWidth>0</gridBlockWidth>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>35</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -18836,13 +18836,13 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
             <gridBlockHeight>0</gridBlockHeight>
             <gridBlockWidth>0</gridBlockWidth>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>36</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -33291,7 +33291,19 @@
             <myMapConfig reference="../../.."/>
           </Configs.MapPackage.Terrain>
         </myTerrain>
+        <enemyEnteringGridPosList>
+          <java.awt.Point>
+            <x>32</x>
+            <y>8</y>
+          </java.awt.Point>
+        </enemyEnteringGridPosList>
         <enemyEnteringDirection>90</enemyEnteringDirection>
+        <enemyExitGridPosList>
+          <java.awt.Point>
+            <x>36</x>
+            <y>8</y>
+          </java.awt.Point>
+        </enemyExitGridPosList>
         <gridHeight>0</gridHeight>
         <gridWidth>0</gridWidth>
         <myLevel reference="../.."/>
