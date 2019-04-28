@@ -2,7 +2,6 @@ package Player.GamePlay.GamePlayLeft;
 
 import BackendExternal.Logic;
 import Player.GamePlay.EndLoopInterface;
-import Player.GamePlay.GamePlayRight.GamePlaySettingsBar;
 import Player.GamePlay.SelectionInterface;
 import javafx.scene.layout.VBox;
 
@@ -17,7 +16,7 @@ public class GamePlayLeftSide extends VBox {
         setPrefWidth(width);
         setPrefHeight(height);
         myMap = new GamePlayMap(width,height * TOP_RATIO, logic, endLoop, home);
-        mySettings = new GamePlaySettingsBar(width,height * BOTTOM_RATIO);
+        mySettings = new GamePlaySettingsBar(width,height * BOTTOM_RATIO, logic);
         getChildren().addAll(myMap, mySettings);
     }
 

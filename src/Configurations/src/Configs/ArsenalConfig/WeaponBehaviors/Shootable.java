@@ -38,6 +38,10 @@ public class Shootable extends WeaponBehavior{
         myShooter.update(ms, this);
     }
 
+    public Shooter getShooter() {
+        return myShooter;
+    }
+
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;

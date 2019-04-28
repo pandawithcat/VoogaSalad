@@ -94,6 +94,7 @@ public class GamePlayMain extends Application {
         if (!gameOver) {
             myGameGUI.update(currMilliSecond);
             currMilliSecond += MILLISECOND_DELAY;
+
         }
     }
 

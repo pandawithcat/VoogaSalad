@@ -1,4 +1,4 @@
-package Player.GamePlay.GamePlayLeft;
+package Player.GamePlay.GamePlayRight;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;

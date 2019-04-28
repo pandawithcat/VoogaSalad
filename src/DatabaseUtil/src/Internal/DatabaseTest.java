@@ -169,9 +169,6 @@ public class DatabaseTest extends Application {
 
 //        ImageView imageView = new ImageView(image);
 //        myRoot.getChildren().add(imageView);
-//        ImageView imageView = new ImageView(image);
-//        myRoot.getChildren().add(imageView);
-
         System.out.println("Done Get Image");*/
 
     }
