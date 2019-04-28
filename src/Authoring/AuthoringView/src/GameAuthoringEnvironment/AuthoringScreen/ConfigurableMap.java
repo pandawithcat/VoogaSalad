@@ -45,7 +45,7 @@ public class ConfigurableMap {
 
 //    public static final int GRID_WIDTH = 64;
 //    public static final int GRID_HEIGHT = 40;
-public static final int GRID_WIDTH = 25;
+public static final int GRID_WIDTH = 32;
     public static final int GRID_HEIGHT = 20;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
@@ -112,14 +112,14 @@ public static final int GRID_WIDTH = 25;
         HBox mapHBox = new HBox();
         mapHBox.getChildren().add(map);
 
-        mapHBox.setAlignment(Pos.BASELINE_RIGHT);
+        mapHBox.setLayoutX(450);
         mapLayout.getChildren().add(mapHBox);
 
 
 
         otherLayout.getChildren().addAll(nameBox, tileViewBox, enterViewBox, exitViewBox);
         Button submitButton = addSubmit();
-        allLayout.getChildren().addAll(mapLayout, otherLayout, submitButton);
+        allLayout.getChildren().addAll(mapHBox, otherLayout, submitButton);
 
 
 

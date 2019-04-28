@@ -19,8 +19,8 @@ public class TerrainTile extends ImageView {
         super(image);
         this.setX(x);
         this.setY(y);
-        this.setFitWidth(20);
-        this.setFitHeight(20);
+        this.setFitWidth(25);
+        this.setFitHeight(30);
         this.imageView=new ImageView(image);
         isPath=false;
         tileImString="grass.jpg";
