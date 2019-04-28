@@ -76,7 +76,7 @@ public class ActiveLevel extends Level implements Updatable {
 
     public int getGridWidth() {
         return gridWidth;
-    }
+    }ImageView@7ddbc782[styleClass=image-view]
 
     public int getGridHeight() {
         return gridHeight;
@@ -150,7 +150,7 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.add(activeWeapon);
-        recalculateMovementHeuristic();
+//        recalculateMovementHeuristic();
 
     }
 
