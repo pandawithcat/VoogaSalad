@@ -2,18 +2,23 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Behaviors.Behavior;
 import Configs.Configurable;
+import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -21,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class ConfigureBehavior {
+public class ConfigureBehavior extends Application {
 
     List<Class> myList;
     Map<String, Object> myMap;
@@ -43,7 +48,7 @@ public class ConfigureBehavior {
     Object[] selectedBehavior;
     List<Object> tempList;
     boolean myBoolean;
-
+    private int PADDING = 20;
     /*public ConfigureBehavior(GameOutline gameOutline, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList) {
         myGameOutline= gameOutline;
         myConfigurable = configurable;
@@ -52,7 +57,17 @@ public class ConfigureBehavior {
         setContent();
     }*/
 
-
+    @Override
+    public void start(Stage stage){
+        popUpWindow = stage;
+        popUpWindow.setTitle("Behavior Editor");
+        Scene scene= new Scene(layout, 800, 800);
+        scene.getStylesheets().add("authoring_style.css");
+        layout.setAlignment(Pos.CENTER);
+        layout.setSpacing(PADDING);
+        popUpWindow.setScene(scene);
+        popUpWindow.show();
+    }
     public ConfigureBehavior(GameController gameController, Configurable configurable, Map<String, Object> attributesMap, List<Class> behaviorList, String key, Class clazz, Boolean isArray) {
         myType = clazz;
         selectedBehavior = (Object[]) Array.newInstance(myType, 0);
@@ -67,9 +82,8 @@ public class ConfigureBehavior {
     }
 
     private void setContent() {
-        popUpWindow = new Stage();
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
-        popUpWindow.setTitle("Behavior Editor");
+
         layout = new VBox(10.00);
 
         Label sourceListLbl = new Label("Available Behaviors: ");
@@ -122,8 +136,9 @@ public class ConfigureBehavior {
         pane.addRow(0, messageLbl);
         pane.addRow(1, sourceListLbl, targetListLbl);
         pane.addRow(2, sourceView, targetView);
-
+        pane.setAlignment(Pos.CENTER);
         VBox root = new VBox();
+        root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(pane);
 
         Button setButton = new Button("This config completed");
@@ -156,10 +171,6 @@ public class ConfigureBehavior {
         setDragAndDrop(sourceView);
         setDragAndDrop(targetView);
         layout.getChildren().addAll(root, setButton);
-        Scene scene= new Scene(layout, 800, 800);
-        popUpWindow.setScene(scene);
-        popUpWindow.show();
-
     }
 
     public ListView<Class> getTargetView() {

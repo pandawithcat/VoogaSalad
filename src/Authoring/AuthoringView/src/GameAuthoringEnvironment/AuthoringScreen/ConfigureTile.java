@@ -1,6 +1,7 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
+import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -14,15 +15,18 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Map;
 
 public class ConfigureTile {
 
     private ListView myListView;
     private List<TerrainTile> myTerrainTileList;
+    private Map<String, String> typeToImageMap;
 
-    public ConfigureTile(ListView<String> listview, List<TerrainTile> terrainTileList){
+    public ConfigureTile(ListView<String> listview, List<TerrainTile> terrainTileList, Map<String, String> map){
         myTerrainTileList = terrainTileList;
         myListView = listview;
+        typeToImageMap=map;
         Stage popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
@@ -60,9 +64,15 @@ public class ConfigureTile {
             public void handle(MouseEvent mouseEvent) {
                 //TODO ADD the new terrain tile to the listview and terraintilelist.
                 //TerrainTile newTile = new TerrainTile(new Image());
-                if(tf.getText()!=null)
+                if(tf.getText()!=null && imageTextField.getText()!=null) {
                     myListView.getItems().add(tf.getText());
+                    typeToImageMap.put(tf.getText(),imageTextField.getText());
                     popUpWindow.close();
+                }
+                else{
+                    System.out.println("HELLO I AM ALERTING IN CONFIGURE TILE");
+                    AlertScreen alert = new AlertScreen();
+                }
             }
         });
 

@@ -32,10 +32,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.TabExpander;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +71,7 @@ public class ConfigurableMap {
     private Button nameButton, chooseTileImageButton;
     private MapConfig myAttributesMapConfig;
     private Scene scene;
+    private AlertFactory myAlertFactory = new AlertFactory();
 
     public ConfigurableMap(Map<String, Object> attributeMap, Configurable level){
 
@@ -182,7 +180,7 @@ public class ConfigurableMap {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage() );
+                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap);
                 map.add(myTile, r, c);
             }
         }
@@ -198,13 +196,18 @@ public class ConfigurableMap {
     }
 
     public void initMap() {
+        typeToImagePathMap = new HashMap<>();
+        typeToImagePathMap.put("Grass","resources/grass.jpg");
+        typeToImagePathMap.put("Water","resources/water.jpg");
+        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
+        Image image;
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
-            Image image = new Image(fis);
+            image = new Image(fis);
             map = new GridPane();
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
+                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -215,20 +218,19 @@ public class ConfigurableMap {
 
             }
             addGridEvent();
-        }catch (FileNotFoundException e){
-
+        }
+            catch (FileNotFoundException e){
+                myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
+            }
         }
 
 
         //map.setLayoutX();
         //map.setLayoutY();
-    }
+
 
     public VBox createTileView(){
-        typeToImagePathMap = new HashMap<>();
-        typeToImagePathMap.put("Grass","resources/grass.jpg");
-        typeToImagePathMap.put("Water","resources/water.jpg");
-        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
+
         //tileView.setPrefSize(tileViewWidth, tileViewHeight);
         VBox myBox = new VBox(10);
 
@@ -264,12 +266,17 @@ public class ConfigurableMap {
                     try {
                         image.setFitHeight(20);
                         image.setFitWidth(20);
-                        if (name.equals("Grass"))
-                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
-                        else if (name.equals("Water"))
-                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
-                        else if (name.equals("Dirt"))
-                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+//                        if (name.equals("Grass"))
+//                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+//                        else if (name.equals("Water"))
+//                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
+//                        else if (name.equals("Dirt"))
+//                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+                        for(String s : typeToImagePathMap.keySet()){
+                            if(name.equals(s)){
+                                image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+                            }
+                        }
 
                     }
                     catch(FileNotFoundException f){
@@ -294,7 +301,7 @@ public class ConfigurableMap {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList);
+                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList,typeToImagePathMap);
 
             }
         });
@@ -417,7 +424,7 @@ public class ConfigurableMap {
             item.setOnDragDetected(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    System.out.println("DRAGDETECTEDDDD");
+                    //System.out.println("DRAGDETECTEDDDD");
                     Dragboard db = item.startDragAndDrop(TransferMode.ANY);
                     ClipboardContent content = new ClipboardContent();
                     content.putString(currentTile);
@@ -430,7 +437,7 @@ public class ConfigurableMap {
                 public void handle(DragEvent dragEvent) {
                     dragEvent.acceptTransferModes(TransferMode.ANY);
                     updateCell(dragEvent);
-                    System.out.println("DRAGGINGGGGGG");
+                    //System.out.println("DRAGGINGGGGGG");
                 }
             });
 

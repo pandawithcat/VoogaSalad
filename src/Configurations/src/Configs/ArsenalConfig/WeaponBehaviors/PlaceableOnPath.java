@@ -1,5 +1,6 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.ImmutableImageView;
@@ -42,5 +43,12 @@ public class PlaceableOnPath extends WeaponBehavior {
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        PlaceableOnPath ret = new PlaceableOnPath(getMyWeaponConfig());
+        ret.damage = damage;
+        return ret;
     }
 }

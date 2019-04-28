@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Updatable;
@@ -12,9 +13,9 @@ import java.util.List;
 public class Movable extends WeaponBehavior{
     public static final String DISPLAY_LABEL = "Movable";
     @Configure
-    protected double movingSpeed;
+    private double movingSpeed;
     @Configure
-    protected Point[] movingPattern;
+    private Point[] movingPattern;
     @XStreamOmitField
     private transient Configuration myConfiguration;
 
@@ -36,5 +37,13 @@ public class Movable extends WeaponBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        Movable ret = new Movable(getMyWeaponConfig());
+        ret.movingPattern = movingPattern;
+        ret.movingSpeed = movingSpeed;
+        return ret;
     }
 }

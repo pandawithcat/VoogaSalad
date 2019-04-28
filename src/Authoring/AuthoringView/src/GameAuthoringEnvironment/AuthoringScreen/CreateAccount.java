@@ -1,16 +1,23 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import BackendExternalAPI.Model;
+import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CreateAccount {
+public class CreateAccount extends Application {
 
     private VBox layout;
     private TextField newIDTf, pwTf, confirmPwTf;
@@ -19,27 +26,45 @@ public class CreateAccount {
     private Model myModel;
 
     public CreateAccount(StartingScreen startingScreen, Model model){
+        super();
         myModel = model;
-        popupwindow = new Stage();
         layout = new VBox(10.00);
+        layout.setMaxWidth(250);
+        layout.setId("backdrop");
+        layout.setAlignment(Pos.CENTER);
         setContent();
-        VBox.setMargin(layout, new Insets(20, 20, 20, 20));
+    }
+    @Override
+    public void start(Stage stage){
+        popupwindow = new Stage();
         Scene scene= new Scene(layout, 500, 500);
         scene.getStylesheets().add("authoring_style.css");
         popupwindow.setScene(scene);
-        popupwindow.showAndWait();
+        popupwindow.show();
     }
 
-
     private void setContent(){
-
-        newIDTf = new TextField("Enter New ID");
-        pwTf = new TextField("Enter Password");
-        confirmPwTf = new TextField("Re-enter Password");
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
+        Text text = new Text("Create Your New Account!");
+        text.setFont(Font.font("Veranda", FontWeight.BOLD, 20));
+        newIDTf = new TextField();
+        newIDTf.setPromptText("Enter ID");
+        newIDTf.setMaxWidth(250);
+        pwTf = new TextField();
+        pwTf.setPromptText("Enter Password");
+        pwTf.setMaxWidth(250);
+        confirmPwTf = new TextField();
+        confirmPwTf.setMaxWidth(250);
+        confirmPwTf.setPromptText("Re-enter Password");
         makeAccountButton = new Button("Create Account");
         makeAccountButton.setOnMouseClicked(this::handleMakeAccountButton);
-
-        layout.getChildren().addAll(newIDTf, pwTf, confirmPwTf, makeAccountButton);
+        layout.getChildren().addAll(text, newIDTf, pwTf, confirmPwTf, makeAccountButton);
+        newIDTf.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
+            if(newValue && firstTime.get()){
+                layout.requestFocus(); // Delegate the focus to container
+                firstTime.setValue(false); // Variable value changed for future references
+            }
+        });
     }
 
     private void handleMakeAccountButton(MouseEvent event){
