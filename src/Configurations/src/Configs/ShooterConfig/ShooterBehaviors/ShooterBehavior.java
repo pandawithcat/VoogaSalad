@@ -44,7 +44,7 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
                 MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,dir, myShooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth());
                 ActiveProjectile activeProjectile = new ActiveProjectile(myShooter.getProjectileConfig(), projectileMapFeature, myShooter.getShooterRange(), myActiveLevel);
                 myActiveLevel.addToActiveProjectiles(activeProjectile);
-                myShooter.addToProjectilesFired(1);
+                myShooter.addToProjectilesFired();
             }
 
     }

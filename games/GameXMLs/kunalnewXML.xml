@@ -7773,7 +7773,7 @@
                   <height>25</height>
                   <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
                 </view>
-                <velocityInSeconds>10.0</velocityInSeconds>
+                <velocityInSeconds>100.0</velocityInSeconds>
                 <strength>10.0</strength>
                 <myBehaviors/>
               </projectileConfig>
@@ -7783,6 +7783,7 @@
                 <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
                 <startRound>0</startRound>
               </shooterBehavior>
+              <projectilesFired>0</projectilesFired>
             </myShooter>
             <weaponConfig reference="../../.."/>
           </Configs.ArsenalConfig.WeaponBehaviors.Shootable>

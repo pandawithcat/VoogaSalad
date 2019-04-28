@@ -36,7 +36,7 @@ public class Radial extends ShooterBehavior {
     public void update(double ms, Updatable parent) {
         if(ms>=startRound * ((1000/getMyShooter().getRateOfFire()))) {
             startRound++;
-            shoot(0,60,120,180,240,300,360);
+            shoot(0,60,120,180,240,300);
         }
         //NOTE: parent is the Shooter
 //        Shooter shooter = (Shooter) parent;
