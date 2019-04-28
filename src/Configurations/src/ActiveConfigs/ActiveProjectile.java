@@ -70,8 +70,8 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
             distanceToTravel = distanceLeft%distanceLeft;
         }
         previousMs = ms;
-        double changeX = distanceToTravel*Math.cos(myMapFeature.getTrigDirection());
-        double changeY = distanceToTravel*Math.sin(myMapFeature.getTrigDirection());
+        double changeX = distanceToTravel*Math.cos(Math.toRadians(myMapFeature.getTrigDirection()));
+        double changeY = distanceToTravel*Math.sin(Math.toRadians(myMapFeature.getTrigDirection()));
         myMapFeature.moveRelatively(changeX,changeY);
         distanceLeft-=distanceToTravel;
     }

@@ -30,7 +30,9 @@ public class Lives extends GameBehavior{
             getMyGame().setGameStatus(GameStatus.LOST);
         }
         else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
-            getMyGame().setGameStatus(GameStatus.WON);
+            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.WON);
+            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
+
         }
     }
 

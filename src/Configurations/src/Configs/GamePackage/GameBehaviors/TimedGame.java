@@ -27,8 +27,12 @@ public class TimedGame extends GameBehavior{
     @Override
     public void update(double ms, Updatable parent) {
         if(ms>=totalTimeInSec*1000) {
-            getMyGame().setGameStatus(GameStatus.OVER);
+            if(getMyGame().isLastLevel()) {
+                getMyGame().setGameStatus(GameStatus.OVER);
+            }
+            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
         }
+
     }
 
     @Override
