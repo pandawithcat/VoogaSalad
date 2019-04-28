@@ -79,17 +79,26 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     @Override
     public void update(double ms, Updatable parent) {
 
-        ArrayList<Behavior<Terrain>> behaviorsList = new ArrayList<>(Arrays.asList(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors()));
-        for (Behavior b : behaviorsList){
-            if (b.getClass() == SpeedModifier.class){
-                effectiveSpeed = this.getUnitSpeedPerSecond() * ((SpeedModifier)(b)).getSpeedMultiplier();
-                break;
-            }
-            effectiveSpeed = this.getUnitSpeedPerSecond();
-        }
+//        ArrayList<Behavior<Terrain>> behaviorsList = new ArrayList<>(Arrays.asList(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors()));
+//        for (Behavior b : behaviorsList){
+//            if (b.getClass() == SpeedModifier.class){
+//                effectiveSpeed = this.getUnitSpeedPerSecond() * ((SpeedModifier)(b)).getSpeedMultiplier();
+//                break;
+//            }
+//            effectiveSpeed = this.getUnitSpeedPerSecond();
+//        }
+
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
+
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristic());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicIgnorePath());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeapons());
+        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeaponsIgnorePath());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).);
+
 
         if (startTime == -Integer.MAX_VALUE){
             startTime = ms;
