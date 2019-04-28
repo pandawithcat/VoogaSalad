@@ -121,24 +121,32 @@ public class MapFeature {
         return myImageView.getFitWidth();
     }
 
-    private void setInCell(int row, int col) {
-        //note: indexing by col row
-        if(parent instanceof ActiveEnemy) {
-            parent.getActiveLevel().getMyGrid()[col][row].addEnemy((ActiveEnemy) parent);
+    private void setInCell(int yPos, int xPos) {
+        for(int x = 0 ;x<widthInGridUnits;x++) {
+            for(int y = 0; y<heightInGridUnits;y++) {
+                Cell cell = parent.getActiveLevel().getMyGrid()[xPos+x][yPos+y];
+                if(parent instanceof ActiveEnemy) {
+                    cell.addEnemy((ActiveEnemy) parent);
 
-        }
-        else if (parent instanceof ActiveWeapon) {
-            parent.getActiveLevel().getMyGrid()[col][row].setWeapon((ActiveWeapon) parent);
+                }
+                else if (parent instanceof ActiveWeapon) {
+                    cell.setWeapon((ActiveWeapon) parent);
+                }
+            }
         }
     }
 
     private void removeFromCell() {
-        Cell cell = parent.getActiveLevel().getMyGrid()[gridXPos][gridYPos];
-        if(parent instanceof ActiveWeapon) {
-            cell.removeWeapon();
-        }
-        else if (parent instanceof ActiveEnemy) {
-            cell.removeEnemy((ActiveEnemy) parent);
+        for(int x = 0 ;x<widthInGridUnits;x++) {
+            for(int y = 0; y<heightInGridUnits;y++) {
+                Cell cell = parent.getActiveLevel().getMyGrid()[gridXPos+x][gridYPos+y];
+                if(parent instanceof ActiveWeapon) {
+                    cell.removeWeapon();
+                }
+                else if (parent instanceof ActiveEnemy) {
+                    cell.removeEnemy((ActiveEnemy) parent);
+                }
+            }
         }
     }
 
@@ -223,6 +231,7 @@ public class MapFeature {
 
     public double getTrigDirection() {
         trigDirection = (360-getDirection()+90)%360;
+        System.out.println(trigDirection);
         return trigDirection;
     }
 

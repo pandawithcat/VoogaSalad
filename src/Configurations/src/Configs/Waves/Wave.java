@@ -8,6 +8,7 @@ import Configs.LevelPackage.Level;
 import Configs.Waves.WaveBehaviors.WaveBehavior;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -67,7 +68,7 @@ public class Wave implements Updatable, Configurable {
             }
         }
 
-        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
+        if(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
             List<Point> enterPositions = activeLevel.getMyMapConfig().getEnemyEnteringGridPosList();
             Random random = new Random();
@@ -75,6 +76,9 @@ public class Wave implements Updatable, Configurable {
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
             ActiveEnemy activeEnemy = new ActiveEnemy(enemyConfig, activeLevel);
+            System.out.println(Arrays.asList(startTimes));
+            System.out.println(enterPositions);
+            System.out.println(point);
             MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth(), activeEnemy);
             activeEnemy.setMyMapFeature(newMapFeature);
             activeLevel.addToActiveEnemies(activeEnemy);
