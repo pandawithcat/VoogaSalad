@@ -1,5 +1,6 @@
 package Configs.GamePackage.GameBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
@@ -17,8 +18,6 @@ public class Lives extends GameBehavior{
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
-    Point point = new Point(0,0);
-
 
     public Lives(Game game) {
         super(game);
@@ -40,6 +39,13 @@ public class Lives extends GameBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        Lives ret = new Lives(getMyGame());
+        ret.numEnemies = numEnemies;
+        return ret;
     }
 
     @Override

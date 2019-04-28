@@ -41,6 +41,7 @@ public class GamePlayArsenal extends VBox {
 
     public static final double ARSENAL_RATIO = 1.00;
     public static final double DISPLAY_SECOND_DELAY = 2;
+    private static final double DEFAULT_OPACITY = 0.9;
 
     private Logic myLogic;
     private ArrayList<Pair<ImageView, String>> viewList;
@@ -50,8 +51,8 @@ public class GamePlayArsenal extends VBox {
     private GamePlayMap myMap;
     private Group myRoot;
     private Map <String, Integer> weaponMap;
-    private double defaultOpacity;
     private Effect defaultEffect;
+    private double defaultOpacity;
 
 
 
@@ -59,16 +60,18 @@ public class GamePlayArsenal extends VBox {
     private Map<Integer, Info> myArsenal;
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map, Group root) throws FileNotFoundException {
+        setStyle("-fx-border-width: 10; -fx-border-color: blue;");
         myLogic = logic;
         myMap = map;
         myRoot = root;
         arsenalDisplay = new ListView();
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
         arsenalDisplay.setPrefWidth(arsenalWidth);
-        defaultOpacity = myMap.getOpacity();
 
         myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
+        weaponMap = new HashMap<>();
+        defaultOpacity = myMap.getOpacity();
         setArsenalDisplay(myArsenal);
 
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
@@ -83,7 +86,6 @@ public class GamePlayArsenal extends VBox {
     private void setArsenalDisplay(Map<Integer, Info> arsenal) {
         try {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
-            weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
@@ -113,13 +115,15 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragDropped(DragEvent event){
+//        System.out.println("Drag Dropped");
+//        System.out.println(weaponMap);
         Dragboard db = event.getDragboard();
         boolean success = false;
         if (db.hasString()) {
             myRoot.getChildren().remove(movingImage);
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
                 try {
-                myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
+                    myRoot.getChildren().add((myLogic.instantiateWeapon(weaponMap.get(selectedImage.toString()), event.getX(),event.getY(), 0)).getAsNode());
                 }catch (NotEnoughCashException e){
                     displayNotEnoughCash(e.getMessage());
                 }
@@ -132,33 +136,17 @@ public class GamePlayArsenal extends VBox {
 
 
     private void dragExited(DragEvent event){
-        System.out.println("drag exited");
         myMap.setOpacity(defaultOpacity);
+        getChildren().removeAll();
         selectedImage.setEffect(defaultEffect);
         event.consume();
     }
 
     private void dragEntered(DragEvent event){
-        System.out.println("drag entered");
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
-            Lighting lighting = new Lighting();
-            lighting.setDiffuseConstant(1.0);
-            lighting.setSpecularConstant(0.0);
-            lighting.setSpecularExponent(0.0);
-            lighting.setSurfaceScale(0.0);
-
-            System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
-            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
-                myMap.setOpacity(1);
-                lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
-            }
-            else{
-                lighting.setLight(new Light.Distant(45, 45, Color.RED));
-            }
-            movingImage.setEffect(lighting);
+            myMap.setOpacity(DEFAULT_OPACITY);
         }
-        System.out.println("no problem");
         event.consume();
     }
 
@@ -167,6 +155,21 @@ public class GamePlayArsenal extends VBox {
         movingImage.setTranslateX(event.getX());
         movingImage.setTranslateY(event.getY());
         if (event.getGestureSource() != myMap ) {
+            Lighting lighting = new Lighting();
+            lighting.setDiffuseConstant(1.0);
+            lighting.setSpecularConstant(0.0);
+            lighting.setSpecularExponent(0.0);
+            lighting.setSurfaceScale(0.0);
+//            System.out.println(weaponMap);
+//            System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
+            if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+//                System.out.println(weaponMap);
+                lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
+            }
+            else{
+                lighting.setLight(new Light.Distant(45, 45, Color.RED));
+            }
+            movingImage.setEffect(lighting);
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();

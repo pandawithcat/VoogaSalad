@@ -7,7 +7,7 @@
     -fx-background-color: linear-gradient(rgb(112, 255, 50), rgb(209, 230, 201)),
     linear-gradient(rgb(253, 255, 240), rgb(229, 242, 215)),
     linear-gradient(rgb(179, 255, 162), rgb(160, 239, 129));
-    -fx-background-image: url("background.jpg");
+    -fx-background-image: url("background1.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: cover;
     -fx-background-position: center center;

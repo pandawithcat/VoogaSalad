@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.DisplayState;
 import Configs.ImmutableImageView;
@@ -36,6 +37,12 @@ public class TimeExpirable extends WeaponBehavior{
     }
 
 
+    @Override
+    public Behavior copy() {
+        TimeExpirable ret = new TimeExpirable(getMyWeaponConfig());
+        ret.timeAlive = timeAlive;
+        return ret;
+    }
 
     @Override
     public Configuration getConfiguration() {
