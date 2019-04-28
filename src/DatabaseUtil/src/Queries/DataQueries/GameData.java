@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class GameData extends DBUtil {
 
@@ -32,6 +33,29 @@ public class GameData extends DBUtil {
             closeConnection();
             throw new ConnectionException(e.toString());
         }
+    }
+
+
+    public ArrayList<Integer> getAllGameIDs(){
+        String selectionQuery =
+                "select gameID " +
+                        "from games";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
+            ResultSet results = statement.executeQuery();
+            ArrayList<Integer> ids = new ArrayList<>();
+            while (results.next()){
+              ids.add(results.getInt("gameID"));
+            }
+            results.close();
+            statement.close();
+            return ids;
+        }
+        catch (SQLException e){
+            closeConnection();
+            throw new ConnectionException(e.toString());
+        }
+
     }
 
     public GameInfo fetchGame(int gameID){

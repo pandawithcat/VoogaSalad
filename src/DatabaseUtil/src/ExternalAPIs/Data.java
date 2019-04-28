@@ -1,5 +1,8 @@
 package ExternalAPIs;
 
+import Queries.ConnectionException;
+import Queries.DataQueries.*;
+
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.List;
@@ -17,10 +20,43 @@ public abstract class Data {
     private int numberOfLoginAttempts;
     private Random saltGenerator;
 
+    private UserData userData;
+    private GameData gameData;
+    private SessionData sessionData;
+    private LeaderboardData leaderboardData;
+    private ImageData imageData;
+
+
+
     public Data(){
         numberOfLoginAttempts = 0;
         saltGenerator = new SecureRandom();
-        // TODO: Set up connection with server here
+
+        userData = new UserData();
+        gameData = new GameData();
+        sessionData = new SessionData();
+        leaderboardData = new LeaderboardData();
+        imageData = new ImageData();
+    }
+
+    public UserData getUserData() {
+        return userData;
+    }
+
+    public GameData getGameData() {
+        return gameData;
+    }
+
+    public SessionData getSessionData() {
+        return sessionData;
+    }
+
+    public LeaderboardData getLeaderboardData() {
+        return leaderboardData;
+    }
+
+    public ImageData getImageData() {
+        return imageData;
     }
 
     /**
@@ -35,25 +71,17 @@ public abstract class Data {
         if (numberOfLoginAttempts > MAX_LOGIN_ATTEMPTS){
             throw new IllegalAccessError("You have used up all of your login attempts");
         }
-        // TODO: Check if username is in database and change if statement
-        if (username.length() > 5){
-            // TODO: Get password salt byte array
-            byte[] salt = new byte[0];
-            byte[] hashedPassword = hashPassword(password, salt);
-            // TODO: Get database password
-            byte[] savedPasswordHash = new byte[0];
-            if (MessageDigest.isEqual(hashedPassword, savedPasswordHash)){
-                // TODO: Get User ID
-                currentUserID = "me";
-                numberOfLoginAttempts = 0;
-                return true;
-            }
-            else{
-                return false;
-            }
+
+        byte[] salt = userData.getSalt(username).getBytes();
+        String hashedPass =  new String(hashPassword(password, salt));
+
+        try {
+            currentUserID = userData.login(username, hashedPass);
+            numberOfLoginAttempts = 0;
+            return true;
         }
-        else {
-            throw new IllegalArgumentException("Account with this username has not yet been created");
+        catch (ConnectionException e){
+            return false;
         }
     }
 
@@ -65,17 +93,12 @@ public abstract class Data {
      */
     public void createNewUser(String username, String password, String passwordRepeated){
         checkArgumentLengths(username, password, passwordRepeated);
-        // TODO: Check if username already exists in database and change if statement
-        if (username.length() > 5){
-            throw new IllegalArgumentException("This username is already being used please try another");
-        }
         // TODO: Enter Regex check
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];
         saltGenerator.nextBytes(salt);
         byte[] hashedPassword = hashPassword(password, salt);
-        // TODO: add user info to database
-        currentUserID = "me";
+        currentUserID = userData.addUser(username, new String(hashedPassword), new String(salt));
     }
 
     /**
@@ -90,11 +113,8 @@ public abstract class Data {
      * @return - Java File object containing the XML file of the selected game
      */
     public String getGameString(GameInfo chosenGameInfo){
-        // TODO: Potentially create interface for GameInfo so only Database module can edit LocalKey of game
         currentGameID = chosenGameInfo.getGameID();
-        // TODO: Retrieve String of specific Games XML Bytes from the Database
-        byte[] gameBytes = new byte[0];
-        return new String(gameBytes);
+        return new String(chosenGameInfo.getBinary());
     }
 
     /**
@@ -103,8 +123,7 @@ public abstract class Data {
      * @return - byte array of requested image
      */
     public byte[] getImage(int imageID){
-        // TODO: use imageID to get image file byte array
-        return new byte[0];
+        return getImage(imageID);
     }
 
 }

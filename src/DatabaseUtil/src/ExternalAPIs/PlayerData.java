@@ -18,15 +18,11 @@ public class PlayerData extends Data{
      */
     @Override
     public List<GameInfo> getAuthoredGames() {
-            List<GameInfo> games = new ArrayList<>();
-            // TODO: Change loop to go through all games list
-            for (int i = 0; i < 1; i++){
-                // TODO: Fetch game info - title, thumbnail imageID, description
-                GameInfo nextGame = new GameInfo("Title", 8, "Description");
-                games.add(nextGame);
-            }
-            // TODO: Download Image files with matching IDs to the local machine to display
-            return Collections.unmodifiableList(games);
+            List<GameInfo> gameInfos = new ArrayList<>();
+            getGameData().getAllGameIDs().stream().forEach(
+                    (id) -> {gameInfos.add(getGameData().fetchGame(id));}
+            );
+            return gameInfos;
     }
 
     /**
