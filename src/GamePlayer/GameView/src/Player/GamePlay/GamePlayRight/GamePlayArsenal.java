@@ -86,8 +86,12 @@ public class GamePlayArsenal extends VBox {
         try {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             for (Integer id: arsenal.keySet()) {
+                System.out.println("ID: " + id);
+
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
+//                arsenalDisplay.getItems().add(loadImageWithCaption(myLogimyArsenal.get(id).getImage(),
+//                        myArsenal.get(id).getName(), weaponMap, id));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -216,10 +220,14 @@ public class GamePlayArsenal extends VBox {
         }
     }
 
-    private static Pair<ImageView, String> loadImageWithCaption(String filename, String caption, Map <String,
+    //TODO: change filename param to INT
+    private Pair<ImageView, String> loadImageWithCaption(String filename, String caption, Map <String,
             Integer> weaponMap, Integer id) {
         try {
             var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
+
+            //TODO: USE BELOW WHEN INFO IS CHANGED
+//            var image2 = new ImageView(myLogic.getImage(filename));
             weaponMap.put(image.toString(), id);
             image.setFitWidth(100);
             image.setFitHeight(100);

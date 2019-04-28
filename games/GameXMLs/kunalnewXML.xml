@@ -7783,7 +7783,7 @@
               </projectileConfig>
               <shooterRange>400.0</shooterRange>
               <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
-                <myShooter reference="../.."/>f
+                <myShooter reference="../.."/>
                 <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
               </shooterBehavior>
               <projectilesFired>0</projectilesFired>
@@ -7851,6 +7851,10 @@
     <unlockedWeapons/>
     <newUnlockedWeapons/>
   </myArsenal>
+  <gameType class="Configs.GamePackage.GameBehaviors.Lives">
+    <myGame reference="../.."/>
+    <numEnemies>5</numEnemies>
+  </gameType>
   <myScore>0</myScore>
   <myCash>100000.0</myCash>
 </Configs.GamePackage.Game>
