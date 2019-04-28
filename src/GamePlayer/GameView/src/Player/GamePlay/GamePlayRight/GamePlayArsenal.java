@@ -59,6 +59,7 @@ public class GamePlayArsenal extends VBox {
     private Map<Integer, Info> myArsenal;
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map, Group root) throws FileNotFoundException {
+        setStyle("-fx-border-width: 10; -fx-border-color: blue;");
         myLogic = logic;
         myMap = map;
         myRoot = root;

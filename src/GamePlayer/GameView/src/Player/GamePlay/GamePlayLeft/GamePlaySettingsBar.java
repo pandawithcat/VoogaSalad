@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -67,19 +68,19 @@ public class GamePlaySettingsBar extends StackPane {
         scoreHBox.setMaxHeight(height);
         scoreHBox.setMaxWidth(width);
         getChildren().add(scoreHBox);
-        createLabels(scoreImageView.getBoundsInLocal().getWidth(),scoreImageView.getBoundsInLocal().getHeight());
+        createLabels(scoreImageView.getBoundsInLocal().getHeight());
     }
-    private void createLabels(double imageWidth, double imageHeight){
+    private void createLabels(double imageHeight){
         HBox textHBox = new HBox();
         textHBox.setAlignment(Pos.CENTER);
         liveScore = new Text("100");
         numLives = new Text("100");
         myMoney = new Text("100");
         myLevel = new Text("100");
-        VBox score = createLabelVBox(scoreImage, imageWidth, imageHeight, liveScore);
-        VBox level = createLabelVBox(levelImage, imageWidth, imageHeight, myLevel);
-        VBox money = createLabelVBox(moneyImage, imageWidth, imageHeight, myMoney);
-        VBox lives = createLabelVBox(livesImage, imageWidth, imageHeight, numLives);
+        StackPane score = createLabelVBox(scoreImage, imageHeight, liveScore);
+        StackPane level = createLabelVBox(levelImage, imageHeight, myLevel);
+        StackPane money = createLabelVBox(moneyImage, imageHeight, myMoney);
+        StackPane lives = createLabelVBox(livesImage, imageHeight, numLives);
 
         textHBox.getChildren().addAll(score, level, money, lives);
         textHBox.setSpacing(padding);
@@ -87,14 +88,18 @@ public class GamePlaySettingsBar extends StackPane {
         textHBox.setMaxHeight(height);
         getChildren().add(textHBox);
     }
-    private VBox createLabelVBox(Image image, double imageWidth, double imageHeight, Text text){
+    private StackPane createLabelVBox(Image image, double imageHeight, Text text){
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
-        imageView.setFitWidth((width/4  - padding)/2);
-        VBox vBox = new VBox();
+        imageView.setFitWidth((width/4  - padding)/2 - padding);
+        text.setFill(Color.WHITE);
+        text.setStyle("-fx-font-size: 18");
+        StackPane vBox = new StackPane();
         vBox.setMaxHeight(height);
         vBox.setPrefWidth(width/4  - padding);
         vBox.getChildren().addAll(imageView, text);
+        imageView.setTranslateY(-imageHeight/5);
+        text.setTranslateY(imageHeight/5);
         vBox.setAlignment(Pos.CENTER);
         return vBox;
     }
