@@ -139,6 +139,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragEntered(DragEvent event){
+        System.out.println("drag entered");
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
             Lighting lighting = new Lighting();
@@ -156,10 +157,12 @@ public class GamePlayArsenal extends VBox {
             }
             movingImage.setEffect(lighting);
         }
+        System.out.println("no problem");
         event.consume();
     }
 
     private void dragOver(DragEvent event){
+        System.out.println("drag over");
         movingImage.setTranslateX(event.getX());
         movingImage.setTranslateY(event.getY());
         if (event.getGestureSource() != myMap ) {
