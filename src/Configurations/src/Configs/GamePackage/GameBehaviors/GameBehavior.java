@@ -1,11 +1,9 @@
 package Configs.GamePackage.GameBehaviors;
 
 import Configs.Behaviors.Behavior;
-import Configs.EnemyPackage.EnemyBehaviors.Stealthy;
 import Configs.GamePackage.Game;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 public abstract class GameBehavior implements Behavior<Game> {
     private Game myGame;

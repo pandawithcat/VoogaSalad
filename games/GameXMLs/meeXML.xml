@@ -1,50 +1,12 @@
 <Configs.GamePackage.Game>
-  <myName>kunalnew</myName>
-  <myDescription>meepmeep</myDescription>
+  <myName>mee</myName>
+  <myDescription>me</myDescription>
   <myThumbnail>thumbnail1.gif</myThumbnail>
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myName>mama</myName>
-      <myWaves>
-        <Configs.Waves.Wave>
-          <myLevel reference="../../.."/>
-          <myName>wavey</myName>
-          <timeToReleaseInMs>10.0</timeToReleaseInMs>
-          <rateOfReleaseEnemiesPerMs>4000.0</rateOfReleaseEnemiesPerMs>
-          <enemies>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <myName>rcd</myName>
-              <myBehaviors/>
-              <health>1000</health>
-              <unitSpeedPerSecond>1.0</unitSpeedPerSecond>
-              <view>
-                <imagePath>thumbnail2.gif</imagePath>
-                <width>4</width>
-                <height>4</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-            </Configs.EnemyPackage.EnemyConfig>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <myName>rcd2</myName>
-              <myBehaviors/>
-              <health>100</health>
-              <unitSpeedPerSecond>2.0</unitSpeedPerSecond>
-              <view>
-                <imagePath>thumbnail3.gif</imagePath>
-                <width>3</width>
-                <height>3</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-            </Configs.EnemyPackage.EnemyConfig>
-          </enemies>
-          <myWaveBehaviors/>
-          <currentEnemyIndex>0</currentEnemyIndex>
-          <isFinished>false</isFinished>
-        </Configs.Waves.Wave>
-      </myWaves>
+      <myName></myName>
+      <myWaves/>
       <myMap>
         <myName></myName>
         <myTerrain>
@@ -7751,61 +7713,6 @@
       <levelBehaviors/>
     </Configs.LevelPackage.Level>
   </levelList>
-  <myArsenal>
-    <myGame reference="../.."/>
-    <defaultWeapons>
-      <Configs.ArsenalConfig.WeaponConfig>
-        <myName>weapon</myName>
-        <behaviors>
-          <Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
-            <myWeaponConfig reference="../../.."/>
-            <ammoLimit>36</ammoLimit>
-          </Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
-          <Configs.ArsenalConfig.WeaponBehaviors.Shootable>
-            <myWeaponConfig reference="../../.."/>
-            <myShooter>
-              <myShootable reference="../.."/>
-              <myName>shooter</myName>
-              <rateOfFire>0.5</rateOfFire>
-              <projectileConfig>
-                <myShooter reference="../.."/>
-                <myConfiguration/>
-                <myName>projectile</myName>
-                <view>
-                  <imagePath>thumbnail1.gif</imagePath>
-                  <width>25</width>
-                  <height>25</height>
-                  <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
-                </view>
-                <velocityInSeconds>100.0</velocityInSeconds>
-                <strength>10.0</strength>
-                <myBehaviors/>
-              </projectileConfig>
-              <shooterRange>400.0</shooterRange>
-              <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
-                <myShooter reference="../.."/>
-                <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
-                <startRound>0</startRound>
-              </shooterBehavior>
-              <projectilesFired>0</projectilesFired>
-            </myShooter>
-            <weaponConfig reference="../../.."/>
-          </Configs.ArsenalConfig.WeaponBehaviors.Shootable>
-        </behaviors>
-        <view>
-          <imagePath>thumbnail1.gif</imagePath>
-          <width>50</width>
-          <height>50</height>
-          <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
-        </view>
-        <myArsenal reference="../../.."/>
-        <weaponId>0</weaponId>
-      </Configs.ArsenalConfig.WeaponConfig>
-    </defaultWeapons>
-    <unlockableWeapons/>
-    <unlockedWeapons/>
-    <newUnlockedWeapons/>
-  </myArsenal>
   <myScore>0</myScore>
   <myCash>100000.0</myCash>
 </Configs.GamePackage.Game>

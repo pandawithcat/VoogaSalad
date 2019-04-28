@@ -79,6 +79,7 @@ public class StartingScreen {
     private void handleCreateAccount(MouseEvent event){
         //TODO Complete this part
         CreateAccount createAccount = new CreateAccount(this, myModel);
+        createAccount.start(new Stage());
     }
 
     private void handleLogin(MouseEvent event){
@@ -96,6 +97,7 @@ public class StartingScreen {
 
     private void makeGame(Game game){
         AuthoringVisualization authoringVisualization = new AuthoringVisualization(game);
+        authoringVisualization.start(new Stage());
         myStage.close();
     }
 

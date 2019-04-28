@@ -1,5 +1,6 @@
 package Configs.EnemyPackage.EnemyBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.Updatable;
@@ -29,5 +30,10 @@ public class EnemyBehaviorExample extends EnemyBehavior {
     @Override
     public void update(double ms, Updatable parent) {
 
+    }
+
+    @Override
+    public Behavior copy() {
+        return null;
     }
 }
