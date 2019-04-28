@@ -1,3 +1,5 @@
+package Queries;
+
 public class GameSession {
 
     private int currentLevel;
