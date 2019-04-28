@@ -1,5 +1,6 @@
 package Configs.ProjectilePackage.ProjectileBehaviors;
 
+import ActiveConfigs.ActiveProjectile;
 import Configs.Configuration;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.Updatable;
@@ -20,6 +21,7 @@ public class Explosive extends ProjectileBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
+        ((ActiveProjectile) parent).getMyShooter().getShooterRange()
 //TODO: FILL IN
     }
 

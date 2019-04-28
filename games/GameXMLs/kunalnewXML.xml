@@ -7791,7 +7791,7 @@
         <view>
           <imagePath>thumbnail1.gif</imagePath>
           <width>50</width>
-          <height>100</height>
+          <height>50</height>
           <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
         </view>
         <myArsenal reference="../../.."/>
