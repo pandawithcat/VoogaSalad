@@ -15,14 +15,19 @@ public class ActiveWeapon extends WeaponConfig implements Updatable, MapFeaturab
     private MapFeature myMapFeature;
     private ActiveLevel myActiveLevel;
 
-    public ActiveWeapon(WeaponConfig weaponConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
+    public ActiveWeapon(WeaponConfig weaponConfig,ActiveLevel activeLevel) {
         super(weaponConfig);
-        myMapFeature = mapFeature;
         myActiveLevel = activeLevel;
     }
 
+    @Override
     public ActiveLevel getActiveLevel() {
         return myActiveLevel;
+    }
+
+    @Override
+    public void setMyMapFeature(MapFeature myMapFeature) {
+        this.myMapFeature = myMapFeature;
     }
 
     @Override

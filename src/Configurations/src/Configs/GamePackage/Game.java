@@ -30,6 +30,8 @@ public class Game implements Updatable, Configurable {
     private String myDescription;
     @Configure
     private String myThumbnail;
+    //@Configure
+    //private Integer myThumbnailId
     @Configure
     private Level[] levelList;
     @Configure
@@ -69,6 +71,11 @@ public class Game implements Updatable, Configurable {
 
     public int getScore() {
         return myScore;
+    }
+
+    public Integer getThumbanilId() {
+        //TODO: implement
+        return 1;
     }
 
     @Override

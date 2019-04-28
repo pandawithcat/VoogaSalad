@@ -207,6 +207,7 @@ public class Logic {
 
     }
 
+    @Deprecated
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
@@ -293,7 +294,9 @@ public class Logic {
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-                if (!grid[row][col].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
+                System.out.println(col);
+                System.out.println(row);
+                if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }
         }
         return true;
