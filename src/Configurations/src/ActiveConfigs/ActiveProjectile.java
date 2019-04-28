@@ -6,6 +6,7 @@ import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.text.AttributedCharacterIterator;
+import java.util.List;
 
 public class ActiveProjectile extends ProjectileConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
@@ -49,15 +50,17 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
         return myActiveLevel;
     }
 
+    /**
+     * check each cell that the projectile is on for enemies
+     */
     private void checkforCollisions(){
-
-        int myGridX = myMapFeature.getGridXPos();
-        int myGridY = myMapFeature.getGridYPos();
-        Cell myCell = myActiveLevel.getGridCell(myGridX, myGridY);
-        if (myCell.getMyEnemies().size()>0){
-            handleEnemyCollision(myCell);
+        for (Cell c:myMapFeature.getMyCells())
+        if (c.getMyEnemies().size()>0){
+            handleEnemyCollision(c);
+            }
         }
-    }
+
+
 
     private void handleEnemyCollision(Cell myCell){
         myCell.getMyEnemies().forEach(e -> e.killMe());

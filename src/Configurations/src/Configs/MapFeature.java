@@ -1,6 +1,7 @@
 package Configs;
 
 import ActiveConfigs.ActiveEnemy;
+import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
 import ActiveConfigs.Cell;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -8,7 +9,7 @@ import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Set;
+import java.util.*;
 
 public class MapFeature {
 
@@ -16,6 +17,8 @@ public class MapFeature {
     private int gridYPos;
     private int gridXSize;
     private int gridYSize;
+    private double safeBoxMinGridX, safeBoxMaxGridX, safeBoxMinGridY, safeBoxMaxGridY;
+    private double hypotenuse;
     private double pixelXPos;
     private double pixelYPos;
     private double paneWidth;
@@ -29,11 +32,15 @@ public class MapFeature {
     private double widthInGridUnits;
     private MapFeaturable parent;
 
+
+    private Set<Cell> myCells = new HashSet<>();
+
     @Deprecated
     public MapFeature(int gridXPos, int gridYPos, double displayDirection, View view) {
         setImage(view);
         this.heightInGridUnits = view.getHeight();
         this.widthInGridUnits = view.getWidth();
+        hypotenuse = Math.sqrt(Math.pow(widthInGridUnits/2, 2) + Math.pow(heightInGridUnits/2, 2));
         setGridPos(gridXPos,gridYPos,displayDirection);
         displayState = DisplayState.NEW;
     }
@@ -66,42 +73,45 @@ public class MapFeature {
         setGridPos(gridXPos, gridYPos, displayDirection);
     }
 
-    @Deprecated
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view) {
-        this.heightInGridUnits = view.getHeight();
-        this.widthInGridUnits = view.getWidth();
-        setImage(view);
-        setPixelPos(pixelXPos,pixelYPos,direction);
-        displayState = DisplayState.NEW;
-    }
 
     @Deprecated
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize) {
-        this.heightInGridUnits = view.getHeight();
-        this.widthInGridUnits = view.getWidth();
-        displayState = DisplayState.NEW;
-        this.paneWidth = paneWidth;
-        this.paneHeight = paneHeight;
-        this.gridXSize = gridXSize;
-        this.gridYSize = gridYSize;
-        setImage(view);
-        setPixelPos(pixelXPos,pixelYPos,direction);
-    }
+    public MapFeature( double pixelXPos, double pixelYPos, double direction, View view){
+            this.heightInGridUnits = view.getHeight();
+            this.widthInGridUnits = view.getWidth();
+            setImage(view);
+            setPixelPos(pixelXPos, pixelYPos, direction);
+            displayState = DisplayState.NEW;
+        }
 
-    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize, MapFeaturable parent) {
-        this.heightInGridUnits = view.getHeight();
-        this.widthInGridUnits = view.getWidth();
-        displayState = DisplayState.NEW;
-        this.paneWidth = paneWidth;
-        this.paneHeight = paneHeight;
-        this.gridXSize = gridXSize;
-        this.gridYSize = gridYSize;
-        this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
-        this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
-        this.parent = parent;
-        setImage(view);
-        setPixelPos(pixelXPos,pixelYPos,direction);
-    }
+    @Deprecated
+    public MapFeature( double pixelXPos, double pixelYPos, double direction, View view,double paneWidth,
+        double paneHeight, int gridXSize, int gridYSize){
+            this.heightInGridUnits = view.getHeight();
+            this.widthInGridUnits = view.getWidth();
+            displayState = DisplayState.NEW;
+            this.paneWidth = paneWidth;
+            this.paneHeight = paneHeight;
+            this.gridXSize = gridXSize;
+            this.gridYSize = gridYSize;
+            setImage(view);
+            setPixelPos(pixelXPos, pixelYPos, direction);
+        }
+
+
+    public MapFeature( double pixelXPos, double pixelYPos, double direction, View view,double paneWidth, double paneHeight, int gridXSize, int gridYSize, MapFeaturable parent){
+            this.heightInGridUnits = view.getHeight();
+            this.widthInGridUnits = view.getWidth();
+            displayState = DisplayState.NEW;
+            this.paneWidth = paneWidth;
+            this.paneHeight = paneHeight;
+            this.gridXSize = gridXSize;
+            this.gridYSize = gridYSize;
+            this.gridXPos = (int) (pixelXPos * (widthInGridUnits / paneWidth));
+            this.gridYPos = (int) (pixelYPos * (heightInGridUnits / paneHeight));
+            this.parent = parent;
+            setImage(view);
+            setPixelPos(pixelXPos, pixelYPos, direction);
+        }
 
     private void setImage(View view) throws IllegalStateException {
         try {
@@ -126,9 +136,9 @@ public class MapFeature {
         for(int x = 0 ;x<widthInGridUnits;x++) {
             for(int y = 0; y<heightInGridUnits;y++) {
                 Cell cell = parent.getActiveLevel().getMyGrid()[xPos+x][yPos+y];
+                myCells.add(cell);
                 if(parent instanceof ActiveEnemy) {
                     cell.addEnemy((ActiveEnemy) parent);
-
                 }
                 else if (parent instanceof ActiveWeapon) {
                     cell.setWeapon((ActiveWeapon) parent);
@@ -141,6 +151,7 @@ public class MapFeature {
         for(int x = 0 ;x<widthInGridUnits;x++) {
             for(int y = 0; y<heightInGridUnits;y++) {
                 Cell cell = parent.getActiveLevel().getMyGrid()[gridXPos+x][gridYPos+y];
+                myCells.remove(cell);
                 if(parent instanceof ActiveWeapon) {
                     cell.removeWeapon();
                 }
@@ -150,6 +161,7 @@ public class MapFeature {
             }
         }
     }
+
 
 
 
@@ -169,17 +181,15 @@ public class MapFeature {
         return gridYPos;
     }
 
-    public double[] getSafeBoxBounds(){
-        double hypotenuse = Math.sqrt(Math.pow(widthInGridUnits/2, 2) + Math.pow(heightInGridUnits/2, 2));
-        double safeBoxMinGridX = getGridXPos()+widthInGridUnits/2 -  hypotenuse;
+    public void updateSafeBoxBounds(){
+        safeBoxMinGridX = getGridXPos()+widthInGridUnits/2 -  hypotenuse;
         safeBoxMinGridX = safeBoxMinGridX>0 ? safeBoxMinGridX : 0;
-        double  safeBoxMaxGridX = getGridXPos()+widthInGridUnits/2 +  hypotenuse;
+        safeBoxMaxGridX = getGridXPos()+widthInGridUnits/2 +  hypotenuse;
         safeBoxMaxGridX = safeBoxMaxGridX<gridXSize ? safeBoxMaxGridX : gridXSize;
-        double safeBoxMinGridY = getGridYPos()+heightInGridUnits/2 - hypotenuse;
+        safeBoxMinGridY = getGridYPos()+heightInGridUnits/2 - hypotenuse;
         safeBoxMinGridY = safeBoxMinGridY>0 ? safeBoxMinGridY : 0;
-        double safeBoxMaxGridY = getGridYPos()+heightInGridUnits/2 + hypotenuse;
+        safeBoxMaxGridY = getGridYPos()+heightInGridUnits/2 + hypotenuse;
         safeBoxMaxGridY = safeBoxMaxGridY<gridXSize ? safeBoxMaxGridY : gridYSize;
-        return new double[]{safeBoxMinGridX, safeBoxMaxGridX, safeBoxMinGridY, safeBoxMaxGridY};
     }
 
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
@@ -218,6 +228,7 @@ public class MapFeature {
     }
 
     public void setGridPos(int gridXPos, int gridYPos, double direction) {
+        updateSafeBoxBounds();
         removeFromCell();
         if(isOutOfBounds(gridXPos,gridYPos)) {
             displayState = DisplayState.DIED;
@@ -257,6 +268,10 @@ public class MapFeature {
 
     public DisplayState getDisplayState() {
         return displayState;
+    }
+
+    public Set<Cell> getMyCells() {
+        return Collections.unmodifiableSet(myCells);
     }
 
     public void setDisplayState(DisplayState displayState) {
