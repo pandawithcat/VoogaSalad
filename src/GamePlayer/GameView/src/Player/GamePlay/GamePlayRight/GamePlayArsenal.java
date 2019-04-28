@@ -140,9 +140,15 @@ public class GamePlayArsenal extends VBox {
         System.out.println("drag entered");
         System.out.println("Map: " + (event.getGestureSource() != myMap));
         System.out.println("event: " + (event.getDragboard().hasString()));
+        System.out.println("no problem");
+        event.consume();
+    }
 
-        if (event.getGestureSource() != myMap &&
-                event.getDragboard().hasString()) {
+    private void dragOver(DragEvent event){
+        System.out.println("drag over");
+        movingImage.setTranslateX(event.getX());
+        movingImage.setTranslateY(event.getY());
+        if (event.getGestureSource() != myMap ) {
             Lighting lighting = new Lighting();
             lighting.setDiffuseConstant(1.0);
             lighting.setSpecularConstant(0.0);
@@ -158,16 +164,6 @@ public class GamePlayArsenal extends VBox {
                 lighting.setLight(new Light.Distant(45, 45, Color.RED));
             }
             movingImage.setEffect(lighting);
-        }
-        System.out.println("no problem");
-        event.consume();
-    }
-
-    private void dragOver(DragEvent event){
-        System.out.println("drag over");
-        movingImage.setTranslateX(event.getX());
-        movingImage.setTranslateY(event.getY());
-        if (event.getGestureSource() != myMap ) {
             event.acceptTransferModes(TransferMode.COPY);
         }
         event.consume();
