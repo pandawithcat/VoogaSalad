@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class LogInPreloader extends Application {
-    public static final int MILLISECOND_DELAY = 50;
+    public static final int MILLISECOND_DELAY = 10;
     private EventHandler eventHandler;
     private Image characterImage = new Image(this.getClass().getClassLoader().getResourceAsStream("character.png"));
     private Image cloudImage = new Image(this.getClass().getClassLoader().getResourceAsStream("cloud.png"));

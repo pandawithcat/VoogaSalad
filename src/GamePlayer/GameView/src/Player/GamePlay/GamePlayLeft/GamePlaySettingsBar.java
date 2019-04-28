@@ -38,8 +38,8 @@ public class GamePlaySettingsBar extends StackPane {
         this.height = height;
         this.width = width;
         setPrefHeight(height);
-        setId("HUD");
-        setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
+//        setId("HUD");
+//        setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
         setPadding(new Insets(0,0,10,0));
 
         HBox scoreHBox = new HBox();
