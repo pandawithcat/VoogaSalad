@@ -17,7 +17,7 @@ public class GamePlayGUI extends HBox {
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayGUI(Logic logic, ButtonInterface method, ButtonInterface fastFoward, EndLoopInterface endLoop,
+    public GamePlayGUI(Logic logic, ButtonInterface play, ButtonInterface fastFoward, EndLoopInterface endLoop,
                        SelectionInterface home,
                        Group root,
                        MediaPlayer mediaPlayer){
@@ -25,7 +25,8 @@ public class GamePlayGUI extends HBox {
         setPrefHeight(ScreenSize.getHeight());
         myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic, endLoop,
                 home);
-        myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, method, fastFoward,
+        myGameRight = new GamePlayRightSide(ScreenSize.getWidth() * RIGHT_RATIO, ScreenSize.getHeight(), logic, play,
+                fastFoward,
                 myGameLeft.getMap(), root, home, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
