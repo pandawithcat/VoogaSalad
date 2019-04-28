@@ -259,6 +259,8 @@ public class ConfigurableMap {
 //                        }
 //                    }
                     try {
+                        image.setFitHeight(20);
+                        image.setFitWidth(20);
                         if (name.equals("Grass"))
                             image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
                         else if (name.equals("Water"))

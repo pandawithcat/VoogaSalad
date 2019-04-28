@@ -29,10 +29,10 @@ public class TerrainTile extends ImageView {
         tileImString="resources/grass.jpg";
 //        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
 //        Tooltip.install(this,tooltip);
-
-
-
-
+    }
+    public TerrainTile(Image image){
+        super(image);
+        this.imageView=new ImageView(image);
     }
 
     public Image getNewImage(String type){
