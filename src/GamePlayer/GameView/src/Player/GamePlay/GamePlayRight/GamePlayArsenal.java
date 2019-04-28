@@ -1,8 +1,9 @@
-package Player.GamePlay.GamePlayLeft;
+package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
 import BackendExternal.NotEnoughCashException;
 import Configs.Info;
+import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
@@ -42,11 +43,8 @@ public class GamePlayArsenal extends VBox {
     public static final double DISPLAY_SECOND_DELAY = 2;
 
     private Logic myLogic;
-    private boolean isWeapon;
     private ArrayList<Pair<ImageView, String>> viewList;
     private ListView arsenalDisplay;
-    private double myArsenalWidth;
-    private HBox arsenalSelector;
     private ImageView selectedImage;
     private ImageView movingImage;
     private GamePlayMap myMap;
@@ -61,8 +59,6 @@ public class GamePlayArsenal extends VBox {
     private Map<Integer, Info> myArsenal;
 
     public GamePlayArsenal(double arsenalWidth, double arsenalHeight, Logic logic, GamePlayMap map, Group root) throws FileNotFoundException {
-        myArsenalWidth = arsenalWidth;
-        isWeapon = true;
         myLogic = logic;
         myMap = map;
         myRoot = root;
@@ -152,7 +148,7 @@ public class GamePlayArsenal extends VBox {
             lighting.setSurfaceScale(0.0);
             System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
-                myMap.setOpacity(0.5);
+                myMap.setOpacity(1);
                 lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
             }
             else{

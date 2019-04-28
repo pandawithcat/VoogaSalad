@@ -27,8 +27,10 @@ public class GamePlayGUI extends HBox {
                 myGameLeft.getMap(), root, home, mediaPlayer);
         this.getChildren().addAll(myGameLeft,myGameRight);
     }
+
     public void update(double mili){
         myGameLeft.myMap.update(mili);
+        myGameLeft.mySettings.updateVariables();
         myGameRight.update();
     }
 

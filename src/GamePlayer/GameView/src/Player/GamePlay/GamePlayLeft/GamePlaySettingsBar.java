@@ -1,5 +1,6 @@
-package Player.GamePlay.GamePlayRight;
+package Player.GamePlay.GamePlayLeft;
 
+import BackendExternal.Logic;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -9,7 +10,13 @@ import javafx.scene.text.Text;
 
 public class GamePlaySettingsBar extends StackPane {
 
-    public GamePlaySettingsBar(double width, double height){
+    private static final int DEFAULT_SCORE = 0;
+
+    private Text liveScore;
+    private Logic myLogic;
+
+    public GamePlaySettingsBar(double width, double height, Logic logic){
+        myLogic = logic;
         setPrefHeight(height);
         setId("HUD");
         setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -32,15 +39,26 @@ public class GamePlaySettingsBar extends StackPane {
 
         getChildren().addAll(rect1,rect2,rect3,rect4);
 
+
         Text score = new Text("Score: ");
         score.setTranslateX(rect1.getTranslateX());
+        Text liveScore = new Text("" + DEFAULT_SCORE);
+        VBox currScore = new VBox(score,liveScore);
+
         Text lives = new Text("Lives: ");
         lives.setTranslateX(rect2.getTranslateX());
+
         Text money = new Text("Money: ");
         money.setTranslateX(rect3.getTranslateX());
+
         Text level = new Text("Level: ");
         level.setTranslateX(rect4.getTranslateX());
-        getChildren().addAll(score,lives,money, level);
+
+        getChildren().addAll(currScore,lives,money, level);
+    }
+
+    public void updateVariables(){
+        liveScore.setText("" + myLogic.getScore());
     }
 
 }

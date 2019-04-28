@@ -2,6 +2,7 @@ package Player.GamePlay.GamePlayRight;
 
 import Player.GamePlay.SelectionInterface;
 import Player.SetUp.GameSelection;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -27,6 +28,7 @@ public class QuitConfirmation extends Stage{
         no.setOnAction(e -> close());
         HBox buttons = new HBox(no,yes);
         VBox box = new VBox(text,buttons);
+        box.setAlignment(Pos.CENTER);
         root.getChildren().add(box);
         show();
     }
