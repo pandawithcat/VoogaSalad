@@ -16,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 
-import static Configs.GamePackage.GameStatus.LOST;
-
 public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
@@ -61,7 +59,7 @@ public class GamePlayMap extends Pane{
                 displayGameOver("You Won!");
                 break;
             case PLAYING:
-                if (myLogic.checkIfLevelEnd()) {
+                if (gameStatus == GameStatus.LEVELOVER) {
                     myData.updateLevel(myLogic.startNextLevel());
                 }
                 myLogic.update(elapsedTime);
