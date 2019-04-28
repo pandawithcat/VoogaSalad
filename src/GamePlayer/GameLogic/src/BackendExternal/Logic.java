@@ -296,6 +296,7 @@ public class Logic {
             for(int row = y;row<y+height;row++) {
 //                System.out.println(col);
 //                System.out.println(row);
+
                 if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }
         }

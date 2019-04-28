@@ -32,7 +32,7 @@ public class TopMenuBar {
                     gameController = new GameController();
                     gameController.createConfigurable(gameController.getMyGame());
                 } catch (NoSuchFieldException e) {
-                    //TODO Error checking
+                    handle(event);
                 }
             }
         });

@@ -9,6 +9,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import java.awt.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
@@ -57,22 +58,11 @@ public class MapConfig implements Configurable {
     }
 
     public List<Point> getEnemyEnteringGridPosList() {
-        for(int a=0 ; a< enemyEnteringGridPosList.size(); a++){
-             Point b = enemyEnteringGridPosList.get(a);
-             Point newPoint = new Point((int)b.getX() * TERRAIN_SIZE, (int)b.getY() * TERRAIN_SIZE);
-             enemyEnteringGridPosList.set(a,newPoint);
-        }
-        return enemyEnteringGridPosList;
+        return enemyEnteringGridPosList.stream().map(point -> new Point(point.x*TERRAIN_SIZE, point.y*TERRAIN_SIZE)).collect(Collectors.toList());
     }
 
     public List<Point> getEnemyExitGridPosList() {
-        for(int a=0 ; a< enemyExitGridPosList.size(); a++){
-            Point b = enemyExitGridPosList.get(a);
-            Point newPoint = new Point((int)b.getX() * TERRAIN_SIZE, (int)b.getY() * TERRAIN_SIZE);
-            enemyExitGridPosList.set(a,newPoint);
-        }
-
-        return enemyExitGridPosList;
+        return enemyExitGridPosList.stream().map(point -> new Point(point.x*TERRAIN_SIZE, point.y*TERRAIN_SIZE)).collect(Collectors.toList());
     }
 
 

@@ -29,6 +29,7 @@ public class GameController {
     private Game myGame;
     private Map<String, List<Object>> configuredObjects;
     private Properties authoringProps = new Properties();
+    private AlertFactory myAlertFactory = new AlertFactory();
 
     public GameController() {
         myGameController = this;
@@ -38,7 +39,8 @@ public class GameController {
              File propFile = new File("./src/Authoring/AuthoringView/resources/authoringvars.properties");
         authoringProps.load(new FileInputStream(propFile.getPath()));
      }catch (Exception e){
-            e.printStackTrace();
+            System.out.print("No Properties File Found");
+            //Dont need to do anything here--
         }
     }
 
@@ -108,8 +110,8 @@ public class GameController {
         try {
             objectLabel = value.getComponentType().getDeclaredField("DISPLAY_LABEL").get(null).toString();
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            //TODO Error Catching
-            e.printStackTrace();
+            myAlertFactory.createAlert("Incorrect Field Entered! Try making that again");
+            handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
         }
         Label listLabel = new Label("Add new " + objectLabel + " here");
         VBox tempVBOx  = new VBox();
@@ -127,8 +129,8 @@ public class GameController {
                         List<Class> behaviorList = (List<Class>) myField.get(null);
                         ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl, true);
                     } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
-                        //TODO(Hyunjae) Errorchecking
-                        System.out.println(e);
+                        myAlertFactory.createAlert("Behavior configured incorrectly. Try that again.");
+                        handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
                     }
                 }
             }));
@@ -160,7 +162,6 @@ public class GameController {
                 Object[] objects = (Object[]) definedAttributesMap.get(key);
                 for (Object object : objects) {
                     tempList.add(object);
-                    //TODO Check if it is configurable?
                     Configurable temp = (Configurable) object;
                     sourceView.getItems().add(temp.getName());
                 }
@@ -223,7 +224,8 @@ public class GameController {
             }
         }
         catch (ClassNotFoundException e){
-            //TODO(Hyunjae) Errorchecking
+            myAlertFactory.createAlert("This array has illegal classes. Please configure it again.");
+            handleArrayConfirmButton(value, tempList, myAttributesMap, key);
         }
     }
 
@@ -240,7 +242,8 @@ public class GameController {
             }
 
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
-            //TODO(Hyunjae) Errorchecking
+            myAlertFactory.createAlert("Please try again! Something went wrong during your configuration ");
+            handleArraySourceView(value, myConfigurable, myAttributesMap, tempList, sourceView, key);
             System.out.println(e);
 
         }
@@ -257,7 +260,8 @@ public class GameController {
             tempList.add(object);
 
         } catch (Exception  e) {
-            //TODO(Hyunjae) ErrorChecking
+            myAlertFactory.createAlert("This wasn't able to be added. Please try again.");
+            handleArrayAddnewButton(sourceView, value, myConfigurable, tempList);
 
         }
     }
@@ -267,6 +271,7 @@ public class GameController {
         try {
             myButton = new Button("Configure " + value.getDeclaredField("DISPLAY_LABEL").get(null));
         } catch (IllegalAccessException e) {
+            myButton = new Button("Configure <Name not Found>");
             e.printStackTrace();
         }
         //TODO Should refactor
@@ -320,8 +325,12 @@ public class GameController {
                     }
 
                 } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchFieldException e) {
-                    //TODO ErrorChecking
-                    e.printStackTrace();
+                    myAlertFactory.createAlert("Something went wrong! Please try again");
+                    try {
+                        handleSingleObject(myConfigurable, layout, myAttributesMap, key, value, definedAttributesMap);
+                    }catch (NoSuchFieldException ex){
+                        myAlertFactory.createAlert("There is no field like that. Your configuration was not successfully completed.");
+                    }
                 }
 
             }
