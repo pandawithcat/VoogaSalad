@@ -204,12 +204,6 @@ public class ConfigurableMap {
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
             image = new Image(fis);
-        }
-            catch (FileNotFoundException e){
-                myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
-                image = new Image(InputStream.nullInputStream());
-
-            }
             map = new GridPane();
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
@@ -224,6 +218,10 @@ public class ConfigurableMap {
 
             }
             addGridEvent();
+        }
+            catch (FileNotFoundException e){
+                myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
+            }
         }
 
 
