@@ -1,5 +1,6 @@
 package Configs.GamePackage.GameBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
 import Configs.Updatable;
@@ -32,5 +33,11 @@ public class TowerAttack extends GameBehavior{
     @Override
     public String getName() {
         return DISPLAY_LABEL;
+    }
+
+    @Override
+    public Behavior copy() {
+        TowerAttack towerAttack = new TowerAttack(getMyGame());
+        return towerAttack;
     }
 }

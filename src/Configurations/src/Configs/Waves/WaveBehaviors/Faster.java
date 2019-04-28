@@ -1,6 +1,7 @@
 package Configs.Waves.WaveBehaviors;
 
 import ActiveConfigs.ActiveEnemy;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.Updatable;
 import Configs.Waves.Wave;
@@ -35,5 +36,12 @@ public class Faster extends WaveBehavior{
     @Override
     public void update(double ms, Updatable parent) {
         Arrays.asList(((Wave) parent).getEnemies()).stream().forEach(enemy -> enemy.setSpeedModifier(speedAcceleration));
+    }
+
+    @Override
+    public Behavior copy() {
+        Faster faster = new Faster(getMyWave());
+        faster.speedAcceleration = speedAcceleration;
+        return faster;
     }
 }

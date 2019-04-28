@@ -110,7 +110,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             startTime = ms;
         }
 
-        int numMovements = getUnitSpeedPerSecond();
+        double numMovements = getUnitSpeedPerSecond();
 
         for (int i = 0; i < numMovements; i++) {
             MovementDirection movementDirection = determineMovementDirection(AITypes.SHORTEST_PATH);
