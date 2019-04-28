@@ -1,17 +1,14 @@
 package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
+import Player.GamePlay.ButtonInterface;
 import Player.GamePlay.Buttons.FastFowardButton;
 import Player.GamePlay.Buttons.PlayButton;
-import Player.GamePlay.GamePlayRight.SettingsPanel;
-import Player.GamePlay.PlayInterface;
 import Player.GamePlay.SelectionInterface;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 
 public class ButtonPanel extends VBox {
 
@@ -19,7 +16,7 @@ public class ButtonPanel extends VBox {
     private FastFowardButton myFastFowardButton;
     private SettingsPanel mySettingsPanel;
 
-    public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward,
+    public ButtonPanel(double width, double height, ButtonInterface method, ButtonInterface fastFoward,
                        SelectionInterface home, MediaPlayer mediaPlayer, Logic logic){
         setPadding(new Insets(0, 0, 30, 0));
         setId("HUD");
@@ -30,14 +27,14 @@ public class ButtonPanel extends VBox {
         myPlayButton.setOnAction(e-> {
                     try {
                         changeToFastFoward();
-                        method.playButton();
+                        method.actionButton();
                     } catch (Exception error) {
                         error.printStackTrace();
                     }
                 });
         myFastFowardButton.setOnAction(e->{
             changeToPlay();
-            fastFoward.playButton();
+            fastFoward.actionButton();
         });
         mySettingsPanel = new SettingsPanel(width, height/2, home, mediaPlayer, logic);
         getChildren().add(mySettingsPanel);
