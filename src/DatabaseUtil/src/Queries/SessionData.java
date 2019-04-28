@@ -10,19 +10,19 @@ public class SessionData extends DBUtil{
     /**
      * @param level the level achieved
      * @param score the
-     * @param userID The desired username
+     * @param playerID The desired username
      * @return The userID of the new user if successful, -1 if not
      */
-    public int addSession(int level, int score, int gameID, int userID){
+    public int addSession(int level, int score, int gameID, int playerID){
         String insertionQuery =
-                " insert into gameSessions (level, score, gameID, userID)"
+                " insert into gameSessions (level, score, gameID, playerID)"
                         + " values (?, ?, ?, ?);";
         try {
             PreparedStatement statement = getConnection().prepareStatement(insertionQuery, RETURN_GENERATED_KEYS);
             statement.setInt(1, level);
             statement.setInt(2, score);
             statement.setInt(3, gameID);
-            statement.setInt(4, userID);
+            statement.setInt(4, playerID);
             statement.executeUpdate();
             int ID = getGeneratedAutoIndex(statement);
             statement.close();

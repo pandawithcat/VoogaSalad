@@ -1,5 +1,6 @@
 package Queries;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,20 +14,18 @@ import java.util.Arrays;
 public class ImageData extends DBUtil{
 
     /**
-     * @param file The file associated with the image to be uploaded
+     * @param image The file associated with the image to be uploaded
      * @param tag A tag for file that can be queried for later
      * @return the imageID from insertion
      */
-    public int addImage(File file, String tag){
+    public int addImage(byte[] image, String tag){
         String insertionQuery =
-                " insert into images (name, image, tag)"
-                        + " values (?, ?, ?);";
+                " insert into images (image, tag)"
+                        + " values (?, ?);";
         try {
-            FileInputStream fis = new FileInputStream(file);
             PreparedStatement statement = getConnection().prepareStatement(insertionQuery, RETURN_GENERATED_KEYS);
-            statement.setString(1, file.getName());
-            statement.setBinaryStream(2, fis, (int) file.length());
-            statement.setString(3, tag);
+            statement.setBlob(1, new SerialBlob(image));
+            statement.setString(2, tag);
             statement.executeUpdate();
             int ID = getGeneratedAutoIndex(statement);
             statement.close();
@@ -35,9 +34,6 @@ public class ImageData extends DBUtil{
         catch (SQLException e){
             closeConnection();
             throw new ConnectionException(e.toString());
-        }
-        catch (FileNotFoundException e){
-            throw new RuntimeException("File not found\n"+e.toString());
         }
     }
 
