@@ -1,3 +1,5 @@
+package Queries;
+
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
