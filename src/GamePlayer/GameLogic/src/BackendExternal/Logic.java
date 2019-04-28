@@ -45,7 +45,7 @@ public class Logic {
 
     public Logic(double paneWidth, double paneHeight) {
         myGameLibrary = new GameLibrary();
-//        myPlayerData = new PlayerData();
+    //        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
@@ -195,15 +195,20 @@ public class Logic {
                 .getMyMapConfig()
                 .getTerrain()
                 .stream()
-                .map(terrain -> terrain.getImageView(screenWidth, screenHeight, myGame.getActiveLevel().getGridHeight(),myGame.getActiveLevel().getGridWidth()))
+                .map(terrain -> terrain.getImageView(screenWidth, screenHeight, myGame.getActiveLevel().getGridWidth(),myGame.getActiveLevel().getGridHeight()))
                 .collect(Collectors.toList());
 
     }
 
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
-
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
+        return mapFeature.getImageView();
+
+    }
+
+    private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
+        MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
     }
 
@@ -256,8 +261,9 @@ public class Logic {
     // View calls to check the current lives of the game in the game loop
     // No Input
     // Return: integer lives
+
 //    public int getNumLives(){
-//        return myGame.getActiveLevel().ge;
+//        return myGame.getActiveLevel().get;
 //    }
 
 
@@ -282,8 +288,8 @@ public class Logic {
 
 
 
-        int x = (int) (xPixel/(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
-        int y = (int) (yPixel/(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
+        int x = (int) (xPixel*(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
+        int y = (int) (yPixel*(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {

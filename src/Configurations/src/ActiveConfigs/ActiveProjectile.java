@@ -1,6 +1,8 @@
 package ActiveConfigs;
 
 import Configs.*;
+import Configs.Behaviors.Behavior;
+import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ProjectilePackage.ProjectileConfig;
 
 import java.text.AttributedCharacterIterator;
@@ -9,6 +11,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     private MapFeature myMapFeature;
     private double distanceLeft;
     private ActiveLevel myActiveLevel;
+    private double previousMs=0;
 
 
 
@@ -22,8 +25,13 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     @Override
     public void update(double ms, Updatable parent) {
         if(distanceLeft>0) {
-//            myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
+
+            if (getMyBehaviors()!=null) {
+                for (ProjectileBehavior b : getMyBehaviors()) {
+                    b.update(ms, this);
+                }
+            }
             checkforCollisions();
         }
         else {
@@ -42,19 +50,23 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     }
 
     private void handleEnemyCollision(Cell myCell){
-        //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
         myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
 
     }
     private void move(double ms){
         double velocityMs = getVelocityInSeconds()/1000;
-        double distanceToTravel = velocityMs*ms;
+        double distanceToTravel = (velocityMs*(ms-previousMs));
+        if(previousMs==0) {
+            distanceToTravel = distanceLeft%distanceLeft;
+        }
+        previousMs = ms;
         double changeX = distanceToTravel*Math.cos(myMapFeature.getTrigDirection());
         double changeY = distanceToTravel*Math.sin(myMapFeature.getTrigDirection());
         myMapFeature.moveRelatively(changeX,changeY);
         distanceLeft-=distanceToTravel;
     }
+
     @Override
     public MapFeature getMapFeature() {
         return myMapFeature;

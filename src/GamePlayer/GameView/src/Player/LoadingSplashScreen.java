@@ -1,5 +1,6 @@
 package Player;
 
+import BackendExternal.Logic;
 import Player.SetUp.GameSelection;
 import Player.SetUp.LogInPreloader;
 import javafx.animation.*;
@@ -20,6 +21,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,9 +40,13 @@ public class LoadingSplashScreen extends Application{
     private StackPane background;
     private Rectangle rect;
     private VBox accountGrid;
+    private LogInGrid logInGrid;
+    private CreateAccount createAccountGrid;
+    private Logic logic;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
+        logic = new Logic(ScreenSize.getWidth(), ScreenSize.getHeight());
         background = new StackPane();
         root = new StackPane();
         background.getChildren().add(root);
@@ -109,91 +115,54 @@ public class LoadingSplashScreen extends Application{
         }
         rect.setWidth(400);
         rect.setHeight(200);
-        GridPane gridPane = userLogIn();
-        background.getChildren().add(gridPane);
-    }
 
-    private void createAccount(GridPane gridPane){
-        //TODO: ADD ERROR CHECKING TO SEE IF USERNAME ALREADY TAKEN
-        background.getChildren().remove(gridPane);
+        VBox logInScreen = userLogIn();
+        logInScreen.setMaxWidth(rect.getWidth());
+        logInScreen.setMaxHeight(rect.getHeight());
+        logInScreen.setLayoutY(rect.getY());
+        background.getChildren().add(logInScreen);
+    }
+    private VBox userLogIn(){
+        VBox vBox = new VBox();
+        logInGrid = new LogInGrid();
+        HBox hBox = addloginButtonPanel(vBox);
+        vBox.getChildren().addAll(logInGrid, hBox);
+        return vBox;
+    }
+    private HBox addloginButtonPanel(VBox vbox){
+        HBox hBox = new HBox();
+        hBox.setSpacing(10);
+        Button login = new Button("Log In");
+        login.setId("green");
+        login.setOnAction(e-> startGame(vbox));
+        Button newAccount = new Button("Sign Up");
+        newAccount.setId("green");
+        newAccount.setOnAction(e->switchToCreateAccountGrid(vbox));
+        hBox.getChildren().addAll(login,newAccount);
+        hBox.setMaxWidth(rect.getWidth());
+        hBox.setAlignment(Pos.CENTER);
+        return hBox;
+    }
+    private void switchToCreateAccountGrid(VBox vbox){
+        background.getChildren().remove(vbox);
         rect.setWidth(400);
         rect.setHeight(250);
-        GridPane grid = new GridPane();
-        grid.setId("login");
-        grid.setPadding(new Insets(25, 25, 25, 25));
-//        accountGrid.setHgap(10);
-//        accountGrid.setVgap(10);
-
-        final Label userName = new Label("User Name:");
-        grid.add(userName, 1, 1);
-        final TextField userTextField = new TextField();
-        grid.add(userTextField, 2, 1);
-
-        final Label pw = new Label("Password:");
-        grid.add(pw, 1, 2);
-        final TextField pwTextField = new TextField();
-        grid.add(pwTextField, 2, 2);
-
-        final Label pwConfirm = new Label("Confirm Password:");
-        grid.add(pwConfirm, 1, 3);
-        final PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 2, 3);
-
+        createAccountGrid = new CreateAccount();
         Image back = new Image(this.getClass().getClassLoader().getResourceAsStream("back.png"));
         ImageView backToLogIn = new ImageView(back);
         backToLogIn.setFitWidth(30);
         backToLogIn.setFitHeight(30);
         backToLogIn.setOnMousePressed(e->createSignInSettings(true));
-        grid.add(backToLogIn, 0,0);
+        createAccountGrid.add(backToLogIn, 0,0);
+
         Button createAccount = new Button("Create Account");
+        createAccount.setOnAction(e-> createAccount());
         createAccount.setId("createAccount");
-        grid.setAlignment(Pos.CENTER);
-        accountGrid = new VBox(grid, createAccount);
+        createAccountGrid.setAlignment(Pos.CENTER);
+
+        accountGrid = new VBox(createAccountGrid, createAccount);
         accountGrid.setAlignment(Pos.CENTER);
         background.getChildren().add(accountGrid);
-    }
-
-    private GridPane userLogIn(){
-        final GridPane grid = new GridPane();
-        grid.setId("login");
-        grid.setPadding(new Insets(25, 25, 25, 25));
-        grid.setHgap(10);
-        grid.setVgap(10);
-        Label userName = new Label("User Name:");
-        grid.add(userName, 0, 1);
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
-        Label pw = new Label("Password:");
-        grid.add(pw, 0, 2);
-        PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
-        loginButtonPanel(grid);
-        grid.setAlignment(Pos.CENTER);
-        return grid;
-    }
-    private void availableGames(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
-                        new KeyValue(mediaPlayer.volumeProperty(), 0)));
-        timeline.play();
-        this.stage.close();
-        LogInPreloader logInPreloader = new LogInPreloader();
-        logInPreloader.start(new Stage());
-        logInPreloader.setTitle("We're loading your \n available games!!!");
-        logInPreloader.setTransitionEvent(e -> {
-            GameSelection gameSelection = new GameSelection();
-            gameSelection.start(new Stage());
-        });
-    }
-    private void loginButtonPanel(GridPane grid){
-        Button login = new Button("Log In");
-        login.setId("green");
-        login.setOnAction(e-> availableGames());
-        grid.add(login, 0, 4);
-        Button newAccount = new Button("Create New Account");
-        grid.add(newAccount, 1, 4);
-        newAccount.setId("green");
-        newAccount.setOnAction(e->createAccount(grid));
     }
     private Path generatePath(int x, int y, int newY)
     {
@@ -211,6 +180,41 @@ public class LoadingSplashScreen extends Application{
         pathTransition.setCycleCount(1);
         pathTransition.setNode(node);
         return pathTransition;
+    }
+    private void availableGames(){
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(mediaPlayer.volumeProperty(), 0)));
+        timeline.play();
+        this.stage.close();
+        LogInPreloader logInPreloader = new LogInPreloader();
+        logInPreloader.start(new Stage());
+        logInPreloader.setTitle("We're loading your \n available games!!!");
+        logInPreloader.setTransitionEvent(e -> {
+            GameSelection gameSelection = new GameSelection(logic);
+            gameSelection.start(new Stage());
+        });
+    }
+    private void startGame(VBox vBox){
+//        Text text = new Text("*User does not exist");
+//        text.setFill(Color.RED);
+//        vBox.setAlignment(Pos.CENTER);
+//        vBox.getChildren().add(text);
+        //logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword());
+//        logInGrid.getUserName();
+//        logInGrid.getPassword();
+        availableGames();
+    }
+    private void createAccount(){
+        // logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+        createAccountGrid.getUserName();
+        createAccountGrid.getPasswordField();
+        createAccountGrid.getPasswordCheck();
+        if(!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())){
+            Text text = new Text("*Passwords do not match");
+            text.setFill(Color.RED);
+            accountGrid.getChildren().add(text);
+        }
     }
     public static void main(String [] args){
         Application.launch(args);}

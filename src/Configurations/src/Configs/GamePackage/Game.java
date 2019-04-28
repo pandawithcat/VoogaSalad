@@ -51,7 +51,9 @@ public class Game implements Updatable, Configurable {
     @XStreamOmitField
     private transient GameStatus gameStatus;
     private int myScore = 0;
-    private double myCash = 0;
+
+    //TODO:TEST VALUE OF CASH NEED TO MAKE CONFIGURABLE LATER
+    private double myCash = 100000;
 
     public Game(){
         myConfiguration = new Configuration(this);

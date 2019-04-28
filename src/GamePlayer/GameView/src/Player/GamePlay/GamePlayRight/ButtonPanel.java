@@ -1,5 +1,6 @@
-package Player.GamePlay.GamePlayLeft;
+package Player.GamePlay.GamePlayRight;
 
+import BackendExternal.Logic;
 import Player.GamePlay.Buttons.FastFowardButton;
 import Player.GamePlay.Buttons.PlayButton;
 import Player.GamePlay.GamePlayRight.SettingsPanel;
@@ -18,7 +19,8 @@ public class ButtonPanel extends VBox {
     private FastFowardButton myFastFowardButton;
     private SettingsPanel mySettingsPanel;
 
-    public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward, SelectionInterface home, MediaPlayer mediaPlayer){
+    public ButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward,
+                       SelectionInterface home, MediaPlayer mediaPlayer, Logic logic){
         setPadding(new Insets(0, 0, 30, 0));
         setId("HUD");
         setSpacing(1);
@@ -37,7 +39,7 @@ public class ButtonPanel extends VBox {
             changeToPlay();
             fastFoward.playButton();
         });
-        mySettingsPanel = new SettingsPanel(width, height/2, home, mediaPlayer);
+        mySettingsPanel = new SettingsPanel(width, height/2, home, mediaPlayer, logic);
         getChildren().add(mySettingsPanel);
         getChildren().add(myPlayButton);
     }

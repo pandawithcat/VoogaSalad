@@ -6,6 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -27,6 +28,11 @@ public class ConfigureTile {
         popUpWindow.setTitle("Map Editor");
 
         VBox allLayout = new VBox(10);
+
+        Label tileName = new Label("Name of Tile");
+        TextField tf = new TextField();
+        VBox nameBox = new VBox(10);
+        nameBox.getChildren().addAll(tileName,tf);
 
         Label isPathLabel = new Label("Set as Path");
         RadioButton trueButton = new RadioButton("True");
@@ -53,12 +59,16 @@ public class ConfigureTile {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO ADD the new terrain tile to the listview and terraintilelist.
-
+                //TerrainTile newTile = new TerrainTile(new Image());
+                if(tf.getText()!=null)
+                    myListView.getItems().add(tf.getText());
+                    popUpWindow.close();
             }
         });
 
 
-        allLayout.getChildren().addAll(submitButton);
+
+        allLayout.getChildren().addAll(nameBox,pathRadio,imageBox,submitButton);
 
 
         Scene scene= new Scene(allLayout, 500, 500);
