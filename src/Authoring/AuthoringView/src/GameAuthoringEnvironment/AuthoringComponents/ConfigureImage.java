@@ -28,14 +28,12 @@ public class ConfigureImage {
     VBox layout;
     Configurable myConfigurable;
     GameController myGameController;
-    Model model;
     List<Integer> allImages;
     TextField myTextField;
 
     public ConfigureImage(TextField textField){
         myTextField = textField;
         setContent();
-        model = new Model();
 
     }
 
@@ -44,6 +42,7 @@ public class ConfigureImage {
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Behavior Editor");
         layout = new VBox(10.00);
+        Model model = new Model();
 
         Label imageLabel = new Label("Selected Image");
         TextField imageTf = new TextField();

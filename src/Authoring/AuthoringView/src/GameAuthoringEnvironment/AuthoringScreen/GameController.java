@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.*;
+import java.text.Annotation;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 
@@ -111,48 +113,55 @@ public class GameController {
 
     private void handlePrimitives(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap, Configurable myconfigurable){
         Label DISPLAY_LABEL = getLabel(key);
+        var nameAndTfBar = new HBox(10);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL);
 
         Label infoLabel = new Label("-");
-
-        Slider mySlider = new Slider();
-        mySlider.setShowTickMarks(true);
-        mySlider.setShowTickLabels(true);
-        String s = null;
-
-        try {
-            myconfigurable.getClass().getAnnotations();
-            Field f = myconfigurable.getClass().getField(key);
-            s = f.getName();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-        System.out.println(s);
-
-
-        if (definedAttributesMap.keySet().contains(key)) {
-            //TODO Set the slider
-            mySlider.setValue(Double.parseDouble(definedAttributesMap.get(key).toString()));
-        }
-
-
+        Slider mySlider = new Slider();;
         mySlider.valueProperty().addListener(new ChangeListener<Number>() {
 
             @Override
             public void changed(ObservableValue<? extends Number> observable, //
                                 Number oldValue, Number newValue) {
-                infoLabel.setText("New value: " + newValue);
+                DecimalFormat df = new DecimalFormat("#.#");
+
+                String result= df.format(newValue.doubleValue());
+                infoLabel.setText("New value: " + result);
             }
         });
 
+        mySlider.setShowTickMarks(true);
+        mySlider.setShowTickLabels(true);
+
+        TextField myTextField = new TextField();
+
+        Class clazz = myconfigurable.getClass();
+        Field[] aaa = clazz.getDeclaredFields();
+        for (int a = 0; a < aaa.length; a++) {
+
+            if (aaa[a].getName().toLowerCase().contains(key.toLowerCase()) && aaa[a].isAnnotationPresent(Configurable.Slider.class)) {
+                Configurable.Slider annotation = aaa[a].getAnnotation(Configurable.Slider.class);
+                mySlider.setMax(annotation.max());
+                mySlider.setMin(annotation.min());
+                nameAndTfBar.getChildren().addAll(mySlider, infoLabel);
+                }
+            else if(aaa[a].getName().toLowerCase().contains(key.toLowerCase())){
+                nameAndTfBar.getChildren().add(myTextField);
+                }
+            }
+/*
+        if (definedAttributesMap.keySet().contains(key)) {
+            //TODO Set the slider
+            mySlider.setValue(Double.parseDouble(definedAttributesMap.get(key).toString()));
+        }*/
 
         Button confirmButton = new Button("Confirm");
-
-        var nameAndTfBar = new HBox();
-        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, mySlider, infoLabel, confirmButton);
+        nameAndTfBar.getChildren().add(confirmButton);
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             //TODO DO Errorchecking/Refactor
             @Override
             public void handle(MouseEvent event) {
+                if(nameAndTfBar.getChildren().contains(mySlider)){
                 if(value.getName().equals("int")){
                     Integer a = (int)mySlider.getValue();
                     myAttributesMap.put(key, a.intValue());
@@ -161,12 +170,25 @@ public class GameController {
                     Long b = (long)mySlider.getValue();
                     myAttributesMap.put(key, b.longValue());
                 }
-                else if(value.getName().equals("double")){
+                else{
                     Double c = (double)mySlider.getValue();
                     myAttributesMap.put(key, c.doubleValue());
+                    }
                 }
-                else {
-                    System.out.println("ERRRRRRRRRRRORRRRR");
+                else{
+                    if(value.getName().equals("int")){
+                        Integer a = Integer.parseInt(myTextField.getText());
+                        myAttributesMap.put(key, a.intValue());
+                    }
+                    else if(value.getName().equals("long")){
+                        Long b = Long.parseLong(myTextField.getText());
+                        myAttributesMap.put(key, b.longValue());
+                    }
+                    else{
+                        Double c =Double.parseDouble(myTextField.getText());
+                        myAttributesMap.put(key, c.doubleValue());
+                    }
+
                 }
             }
         }));
@@ -395,13 +417,6 @@ public class GameController {
                         myAttributesMap.put(key, object);
                     //Speical case : Behavior is different since drag and drop is required
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
-                        //only one behavior allowed
-                        //if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
-                           /* Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
-                            List<Class> behaviorList = (List<Class>) myField.get(null);
-                            ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-*/
-                        //}
                         //multiple behaviors allowed
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
