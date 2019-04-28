@@ -1,6 +1,5 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+package Queries;
+
 import java.sql.*;
 
 public abstract class DBUtil {
