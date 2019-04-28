@@ -68,8 +68,8 @@ public class Arsenal implements Configurable, Updatable {
         }
         Map<Integer, Info> weaponInfoMap = new HashMap<>();
         for(int i = 0; i< newUnlockedWeapons.size(); i++) {
-            weaponInfoMap.put(unlockedWeapons.size()+1, newUnlockedWeapons.get(i));
-            newUnlockedWeapons.get(i).setWeaponId(unlockedWeapons.size()+1);
+            weaponInfoMap.put(unlockedWeapons.size()+i, newUnlockedWeapons.get(i));
+            newUnlockedWeapons.get(i).setWeaponId(unlockedWeapons.size()+i);
         }
         unlockedWeapons.addAll(newUnlockedWeapons);
         newUnlockedWeapons.clear();

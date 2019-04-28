@@ -7851,6 +7851,10 @@
     <unlockedWeapons/>
     <newUnlockedWeapons/>
   </myArsenal>
+  <gameType class="Configs.GamePackage.GameBehaviors.Lives">
+    <myGame reference="../.."/>
+    <numEnemies>5</numEnemies>
+  </gameType>
   <myScore>0</myScore>
   <myCash>100000.0</myCash>
 </Configs.GamePackage.Game>
