@@ -38,11 +38,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static Configs.MapPackage.MapConfig.GRID_HEIGHT;
+import static Configs.MapPackage.MapConfig.GRID_WIDTH;
+
 public class ConfigurableMap {
 
 
-    public static final int GRID_WIDTH = 64;
-    public static final int GRID_HEIGHT = 40;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -365,7 +366,6 @@ public class ConfigurableMap {
             });
 
         });
-
     }
 
     public void updateCell(DragEvent mouseEvent){
