@@ -9,13 +9,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 public class GamePlayGUI extends HBox {
     public static final double LEFT_RATIO = 0.75;
     public static final double RIGHT_RATIO = 0.25;
     public GamePlayLeftSide myGameLeft;
     public GamePlayRightSide myGameRight;
 
-    public GamePlayGUI(Logic logic, PlayInterface method, PlayInterface fastFoward, EndLoopInterface endLoop,
+    public GamePlayGUI(Logic logic, ButtonInterface method, ButtonInterface fastFoward, EndLoopInterface endLoop,
                        SelectionInterface home,
                        Group root,
                        MediaPlayer mediaPlayer){

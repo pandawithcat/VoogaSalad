@@ -1,8 +1,8 @@
 package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
+import Player.GamePlay.ButtonInterface;
 import Player.GamePlay.GamePlayLeft.GamePlayMap;
-import Player.GamePlay.PlayInterface;
 import Player.GamePlay.SelectionInterface;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
@@ -19,7 +19,7 @@ public class GamePlayRightSide extends VBox {
     private MediaPlayer mediaPlayer;
 
 
-    public GamePlayRightSide(double width, double height, Logic logic, PlayInterface method, PlayInterface fastFoward
+    public GamePlayRightSide(double width, double height, Logic logic, ButtonInterface method, ButtonInterface fastFoward
             , GamePlayMap myMap, Group root, SelectionInterface home, MediaPlayer mediaPlayer){
         this.mediaPlayer = mediaPlayer;
         setPrefWidth(width);
@@ -35,7 +35,7 @@ public class GamePlayRightSide extends VBox {
         myGameArsenal.recreateArsenal();
     }
 
-    private VBox createButtonPanel(double width, double height, PlayInterface method, PlayInterface fastFoward,
+    private VBox createButtonPanel(double width, double height, ButtonInterface method, ButtonInterface fastFoward,
                                    SelectionInterface home, Logic logic){
         myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer, logic);
         return myButtonPanel;
