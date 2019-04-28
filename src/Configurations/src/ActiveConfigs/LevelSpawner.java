@@ -18,7 +18,6 @@ public class LevelSpawner implements Updatable {
     private Game myGame;
     private boolean levelOver;
 
-
     public LevelSpawner(Game game, int levelIndex, Level[] levels) {
         this.myGame = game;
         this.levelIndex = levelIndex;

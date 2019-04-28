@@ -85,7 +85,7 @@ public class ActiveLevel extends Level implements Updatable {
     @Override
     public void update(double ms, Updatable parent) {
         updateActive(ms, activeEnemies);
-        System.out.println(activeProjectiles);
+//        System.out.println(activeProjectiles);
         updateActive(ms, activeProjectiles);
         updateActive(ms, activeWeapons);
         myWaveSpawner.update(ms, this);
@@ -136,8 +136,8 @@ public class ActiveLevel extends Level implements Updatable {
 
 
 
-    public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
-        activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
+    public void addToActiveEnemies(ActiveEnemy activeEnemy) {
+        activeEnemies.add(activeEnemy);
 
     }
 

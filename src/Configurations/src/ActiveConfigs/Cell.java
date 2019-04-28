@@ -9,7 +9,7 @@ import java.util.function.IntSupplier;
 public class Cell implements Comparable{
     private int X;
     private int Y;
-    private ActiveWeapon myWeaponConfig;
+    private ActiveWeapon myWeapon;
     private Terrain myTerrain;
     private List<ActiveEnemy> myEnemies;
     private int shortestDistanceHeuristic;
@@ -37,7 +37,7 @@ public class Cell implements Comparable{
         Y = ypos;
         myTerrain = t;
         myEnemies = new ArrayList<>();
-        myWeaponConfig = null;
+        myWeapon = null;
         shortestDistanceHeuristic = Integer.MAX_VALUE;
         shortestDistanceHeuristicAvoidWeapons = Integer.MAX_VALUE;
         shortestDistanceHeuristicAvoidWeaponsIgnorePath = Integer.MAX_VALUE;
@@ -45,12 +45,17 @@ public class Cell implements Comparable{
     }
 
     public boolean isValidWeaponPlacement(boolean isPathWeapon) {
-        return myWeaponConfig==null&&(isPathWeapon == myTerrain.isPath());
+        return myWeapon==null&&(isPathWeapon == myTerrain.isPath());
     }
 
-    public ActiveWeapon getMyWeaponConfig() {
-        return myWeaponConfig;
+    public int getWeaponCoverage() {
+        return weaponCoverage;
     }
+
+    public void setWeaponCoverage(int weaponCoverage) {
+        this.weaponCoverage = weaponCoverage;
+    }
+
 
     public int getX(){
         return X;
@@ -58,16 +63,9 @@ public class Cell implements Comparable{
     public int getY(){
         return Y;
     }
-    public void setMyWeaponConfig(ActiveWeapon myWeaponConfig) {
-        this.myWeaponConfig = myWeaponConfig;
-    }
 
     public Terrain getMyTerrain() {
         return myTerrain;
-    }
-
-    public void setMyTerrain(Terrain myTerrain) {
-        this.myTerrain = myTerrain;
     }
 
     public List<ActiveEnemy> getMyEnemies() {
@@ -76,6 +74,14 @@ public class Cell implements Comparable{
 
     public void setMyEnemies(List<ActiveEnemy> myEnemies) {
         this.myEnemies = myEnemies;
+    }
+
+    public void addEnemy(ActiveEnemy enemy) {
+        this.myEnemies.add(enemy);
+    }
+
+    public void removeEnemy(ActiveEnemy enemy) {
+        this.myEnemies.remove(enemy);
     }
 
     public void setShortestDistanceHeuristic(int movementHeuristic) {
@@ -102,13 +108,16 @@ public class Cell implements Comparable{
         this.shortestDistanceHeuristicIgnorePath = shortestDistanceHeuristicIgnorePath;
     }
 
-    public int getWeaponCoverage() {
-        return weaponCoverage;
+
+
+    public void setWeapon(ActiveWeapon activeWeapon) {
+        this.myWeapon = activeWeapon;
     }
 
-    public void setWeaponCoverage(int weaponCoverage) {
-        this.weaponCoverage = weaponCoverage;
+    public void removeWeapon() {
+        this.myWeapon = null;
     }
+
 
     public void setShortestDistanceHeuristicAvoidWeaponsIgnorePath(int shortestDistanceHeuristicAvoidWeaponsIgnorePath) {
         this.shortestDistanceHeuristicAvoidWeaponsIgnorePath = shortestDistanceHeuristicAvoidWeaponsIgnorePath;

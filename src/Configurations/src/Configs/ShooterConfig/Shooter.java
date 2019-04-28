@@ -35,7 +35,7 @@ public class Shooter implements Updatable , Configurable {
 
     public void addToProjectilesFired() {
         projectilesFired++;
-        System.out.println("HERE" + projectilesFired);
+//        System.out.println("HERE" + projectilesFired);
     }
 
     public int getProjectilesFired() {
