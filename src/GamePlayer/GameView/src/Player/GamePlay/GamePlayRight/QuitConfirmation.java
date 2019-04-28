@@ -42,6 +42,7 @@ public class QuitConfirmation extends Stage{
     }
 
     private void displayChoices(SelectionInterface quit){
+        close();
         quit.closeStage();
         GameSelection gameSelection = new GameSelection();
         gameSelection.start(new Stage());
