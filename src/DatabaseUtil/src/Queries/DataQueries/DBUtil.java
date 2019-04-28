@@ -10,10 +10,12 @@ public abstract class DBUtil {
     protected final int RETURN_GENERATED_KEYS = Statement.RETURN_GENERATED_KEYS;
 
     public DBUtil(){
-        final String user = "voogaTeam";
+        final String user = "team";
         final String pass = "pass";
         final String db = "VOOGA";
-        String url = String.format("jdbc:mysql://localhost/%s?user=%s&password=%s",db,user,pass);
+        final String host = "10.197.131.76";
+        //final String host = "localhost";
+        String url = String.format("jdbc:mysql://%s/%s?user=%s&password=%s",host,db,user,pass);
         try {
             connection = DriverManager.getConnection(url);
         }
