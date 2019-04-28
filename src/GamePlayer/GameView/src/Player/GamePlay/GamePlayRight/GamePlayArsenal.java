@@ -51,6 +51,7 @@ public class GamePlayArsenal extends VBox {
     private Group myRoot;
     private Map <String, Integer> weaponMap;
     private Effect defaultEffect;
+    private double defaultOpacity;
 
 
 
@@ -68,6 +69,7 @@ public class GamePlayArsenal extends VBox {
         myArsenal = logic.getMyArsenal();
         viewList = new ArrayList<>();
         weaponMap = new HashMap<>();
+        defaultOpacity = myMap.getOpacity();
         setArsenalDisplay(myArsenal);
 
         arsenalDisplay.setPrefHeight(arsenalHeight * ARSENAL_RATIO);
@@ -111,6 +113,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragDropped(DragEvent event){
+        System.out.println("Drag Dropped");
         System.out.println(weaponMap);
         Dragboard db = event.getDragboard();
         boolean success = false;
@@ -132,6 +135,9 @@ public class GamePlayArsenal extends VBox {
 
     private void dragExited(DragEvent event){
         System.out.println("drag exited");
+        myMap.setOpacity(defaultOpacity);
+        System.out.println(getChildren());
+        getChildren().removeAll();
         selectedImage.setEffect(defaultEffect);
         event.consume();
     }
@@ -141,6 +147,10 @@ public class GamePlayArsenal extends VBox {
         System.out.println("Map: " + (event.getGestureSource() != myMap));
         System.out.println("event: " + (event.getDragboard().hasString()));
         System.out.println("no problem");
+        if (event.getGestureSource() != myMap &&
+                event.getDragboard().hasString()) {
+            myMap.setOpacity(0.9);
+        }
         event.consume();
     }
 
