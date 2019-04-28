@@ -16756,7 +16756,7 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>resources/water.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
@@ -17276,7 +17276,7 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>resources/water.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
@@ -17796,7 +17796,7 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>resources/water.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
@@ -18316,7 +18316,7 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>resources/water.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
@@ -18836,7 +18836,7 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>resources/water.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>

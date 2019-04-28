@@ -14,8 +14,8 @@ import static Configs.MapPackage.Terrain.TERRAIN_SIZE;
 
 public class MapConfig implements Configurable {
     public static final String DISPLAY_LABEL = "Map";
-    public static final int GRID_HEIGHT = 40;
-    public static final int GRID_WIDTH = 64;
+    public static final int GRID_HEIGHT = 20;
+    public static final int GRID_WIDTH = 32;
     @Configure
     private String myName;
     @Configure
