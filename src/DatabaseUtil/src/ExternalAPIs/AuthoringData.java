@@ -41,7 +41,7 @@ public class AuthoringData extends Data{
     public void saveGame(String gameXMLString, GameInfo newGame){
         byte[] gameByteArray = gameXMLString.getBytes();
         String title = newGame.getGameTitle();
-        int thumbnail = newGame.getGameThumbnail();
+        int thumbnail = newGame.getGameThumbnailID();
         String description = newGame.getGameDescription();
 
         getGameData().addGame(currentUserID, description, gameByteArray, thumbnail, title);

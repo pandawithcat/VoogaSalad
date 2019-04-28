@@ -132,85 +132,58 @@ public class DatabaseTest extends Application {
 
     // TODO: Test Get Game XML String
 
-//    private static void testGetXMLString(){
-//        System.out.println("Testing Get XML String:");
-//
-//        String title = "My New Game";
-//        String description = "This is my new game";
-//        int thumbnail = 123123123;
-//
-//        // TODO: CHANGE
-//        //GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
-//
-//        String gameString = myAuthoringData.getGameString(newGameInfo);
-//
-//        System.out.println(gameString);
-//
-//    }
+    private static void testGetXMLString(){
+        System.out.println("Testing Get XML String:");
+
+        String title = "My New Game";
+        String description = "This is my new game";
+        int thumbnail = 123123123;
+
+        // TODO: CHANGE
+        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
+
+        String gameString = myAuthoringData.getGameString(newGameInfo);
+
+        System.out.println(gameString);
+
+    }
 
     // TODO: Test get Image
 
     private static void testGetImage(){
 
-//        System.out.println("Testing Get Image:");
-//
-//        int imageID = 1;
-//
-//        Image image = myAuthoringData.getImage(imageID);
-//
-//        ImageView imageView = new ImageView(image);
-//        myRoot.getChildren().add(imageView);
-//
-//        System.out.println("Done Get Image");
         System.out.println("Testing Get Image:");
-/*
+
         int imageID = 1;
 
-//        Image image = myAuthoringData.getImage(imageID);
+        Image image = myAuthoringData.getImage2(imageID);
 
-//        ImageView imageView = new ImageView(image);
-//        myRoot.getChildren().add(imageView);
-        System.out.println("Done Get Image");*/
+        ImageView imageView = new ImageView(image);
+        myRoot.getChildren().add(imageView);
+
+        System.out.println("Done Get Image");
 
     }
 
     // AuthoringData Class
 
-    // TODO: Test store basic game info
+    // TODO: Test save game
 
-//    private static void testStoreBasicInfo(){
-//
-//        System.out.println("Testing Store Basic Info:");
-//
-//        String title = "My New Game";
-//        String description = "This is my new game";
-//        int thumbnail = 123123123;
-//
-//        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
-//
-//        Integer[] imageIDArray = {0, 1, 2, 3, 4, 5};
-//
-//        ArrayList<Integer> imageList = new ArrayList<Integer>(Arrays.asList(imageIDArray));
-//
-//        // TODO: CHANGE
-//
-//        //myAuthoringData.storeBasicInfo(newGameInfo, imageList);
-//
-//        System.out.println("Done Store Basic Info");
-//    }
+    private static void testSaveGame(){
 
-    // TODO: Test store xml String
-
-    private static void testStoreXMLString(){
-
-        System.out.println("Testing Store XML String:");
+        System.out.println("Testing Store Game:");
 
         String gameString = "This is the game XML String";
 
-        // TODO: CHANGE
-        // myAuthoringData.storeXML(gameString);
+        String title = "My New Game";
+        String description = "This is my new game";
+        int thumbnail = 123123123;
 
-        System.out.println("Done Store XML String");
+        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
+
+        myAuthoringData.saveGame(gameString,newGameInfo);
+
+        System.out.println("Done Saving Game");
     }
 
     // TODO: Test Get ImageID list

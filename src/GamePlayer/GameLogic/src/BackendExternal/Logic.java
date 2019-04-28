@@ -165,6 +165,7 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
+    // TODO: Remove this method call
     @Deprecated
     public List<ImmutableImageView> getLevelTerrain(){
         return myGame
@@ -181,6 +182,13 @@ public class Logic {
     // View calls this when the user presses play or level is over
     // No Input
     // Return: List of Viewable instances of static level items
+
+    /**
+     * Returns the list of initial map features to be added to the root in the visualization side
+     * @param screenWidth
+     * @param screenHeight
+     * @return
+     */
     public List<ImmutableImageView> getLevelTerrain(double screenWidth, double screenHeight){
         return myGame
                 .getActiveLevel()
@@ -199,6 +207,7 @@ public class Logic {
 
     }
 
+    @Deprecated
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
@@ -285,7 +294,9 @@ public class Logic {
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-                if (!grid[row][col].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
+                System.out.println(col);
+                System.out.println(row);
+                if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }
         }
         return true;

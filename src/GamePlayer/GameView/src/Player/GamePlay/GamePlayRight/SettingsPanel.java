@@ -20,7 +20,7 @@ public class SettingsPanel extends HBox {
         setPrefHeight(height);
         setPrefWidth(width);
         HomeButton homeButton = new HomeButton(width / 3, height);
-        homeButton.setOnAction(e-> new QuitConfirmation(home));
+        homeButton.setOnAction(e-> new QuitConfirmation(home, mediaPlayer));
         SettingsButton settingsButton = new SettingsButton(width / 3, height, mediaPlayer);
         SaveButton saveButton = new SaveButton(width / 3, height);
 //        saveButton.setOnAction(e -> logic.saveGameState());

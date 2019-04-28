@@ -2,7 +2,10 @@ package ExternalAPIs;
 
 import Queries.ConnectionException;
 import Queries.DataQueries.*;
+import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.List;
@@ -116,6 +119,15 @@ public abstract class Data {
      */
     public byte[] getImage(int imageID){
         return getImage(imageID);
+    }
+
+
+    // For testing purposes only
+    // TODO: Remove method call
+    public Image getImage2(int imageID){
+        byte[] imageBytes = getImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
 }
