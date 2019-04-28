@@ -8,9 +8,11 @@ import Configs.MapFeature;
 import Configs.ShooterConfig.Shooter;
 import Configs.Updatable;
 import Configs.View;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class Linear extends ShooterBehavior {
     public static final String DISPLAY_LABEL = "Linear Shooter";
+    @XStreamOmitField
     private transient Configuration myConfiguration;
     private int startRound;
 

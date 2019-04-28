@@ -6,10 +6,12 @@ import ActiveConfigs.Cell;
 import Configs.Configuration;
 import Configs.MapPackage.Terrain;
 import Configs.Updatable;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.List;
 
 public class SpeedModifier extends TerrainBehavior{
+    @XStreamOmitField
     private transient Configuration myConfiguration;
     private ActiveLevel myActiveLevel;
     private final String DISPLAY_LABEL = "Modify Enemy Speed";
@@ -25,9 +27,6 @@ public class SpeedModifier extends TerrainBehavior{
     }
     @Override
     public void update(double ms, Updatable parent) {
-        for (ActiveEnemy ae : getEnemiesOnMyCell()){
-
-        }
     }
 
     @Override
