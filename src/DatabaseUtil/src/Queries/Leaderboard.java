@@ -1,7 +1,4 @@
-import java.io.InputStream;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package Queries;
 
 public class Leaderboard extends DBUtil{
 
