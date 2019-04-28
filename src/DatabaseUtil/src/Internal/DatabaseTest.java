@@ -132,21 +132,21 @@ public class DatabaseTest extends Application {
 
     // TODO: Test Get Game XML String
 
-//    private static void testGetXMLString(){
-//        System.out.println("Testing Get XML String:");
-//
-//        String title = "My New Game";
-//        String description = "This is my new game";
-//        int thumbnail = 123123123;
-//
-//        // TODO: CHANGE
-//        //GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
-//
-//        String gameString = myAuthoringData.getGameString(newGameInfo);
-//
-//        System.out.println(gameString);
-//
-//    }
+    private static void testGetXMLString(){
+        System.out.println("Testing Get XML String:");
+
+        String title = "My New Game";
+        String description = "This is my new game";
+        int thumbnail = 123123123;
+
+        // TODO: CHANGE
+        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
+
+        String gameString = myAuthoringData.getGameString(newGameInfo);
+
+        System.out.println(gameString);
+
+    }
 
     // TODO: Test get Image
 
