@@ -1,4 +1,4 @@
-package Player.GamePlay.GamePlayLeft;
+package Player.GamePlay.GamePlayRight;
 
 import Player.GamePlay.Buttons.FastFowardButton;
 import Player.GamePlay.Buttons.PlayButton;

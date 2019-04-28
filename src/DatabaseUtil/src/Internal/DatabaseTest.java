@@ -165,6 +165,12 @@ public class DatabaseTest extends Application {
 /*
         int imageID = 1;
 
+<<<<<<< HEAD
+//        Image image = myAuthoringData.getImage(imageID);
+
+//        ImageView imageView = new ImageView(image);
+//        myRoot.getChildren().add(imageView);
+=======
 //        ImageView imageView = new ImageView(image);
 //        myRoot.getChildren().add(imageView);
 

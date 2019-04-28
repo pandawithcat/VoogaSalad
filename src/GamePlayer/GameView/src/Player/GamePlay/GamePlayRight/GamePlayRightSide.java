@@ -1,17 +1,13 @@
 package Player.GamePlay.GamePlayRight;
 
 import BackendExternal.Logic;
-import Player.GamePlay.GamePlayLeft.ButtonPanel;
-import Player.GamePlay.GamePlayLeft.GamePlayArsenal;
 import Player.GamePlay.GamePlayLeft.GamePlayMap;
 import Player.GamePlay.PlayInterface;
 import Player.GamePlay.SelectionInterface;
 import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 
 public class GamePlayRightSide extends VBox {
