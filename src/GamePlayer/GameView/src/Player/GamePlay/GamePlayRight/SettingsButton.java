@@ -53,12 +53,12 @@ public class SettingsButton extends Button {
 
     private void switchSound(Button music){
         if (soundOn){
-            music.setText("Sound Off");
+            music.setText("Sound On");
             mediaPlayer.setVolume(MUSIC_OFF);
             soundOn = false;
         }
         else {
-            music.setText("Sound On");
+            music.setText("Sound Off");
             mediaPlayer.setVolume(savedVolume);
             soundOn = true;
         }

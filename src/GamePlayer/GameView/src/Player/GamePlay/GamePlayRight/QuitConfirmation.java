@@ -8,13 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class QuitConfirmation extends Stage{
 
-    public QuitConfirmation(SelectionInterface quit){
+    public QuitConfirmation(SelectionInterface quit, MediaPlayer media){
         Group root = new Group();
         Scene scene = new Scene(root);
         scene.getStylesheets().add("style.css");
@@ -23,7 +24,7 @@ public class QuitConfirmation extends Stage{
         text.setTextAlignment(TextAlignment.CENTER);
         setScene(scene);
         Button yes = createButton("shiny-yelow","Yes", 0, 100);
-        yes.setOnAction(e -> displayChoices(quit));
+        yes.setOnAction(e -> displayChoices(quit, media));
         Button no = createButton("shiny-yelow", "No", 0, 100);
         no.setOnAction(e -> close());
         HBox buttons = new HBox(no,yes);
@@ -41,7 +42,8 @@ public class QuitConfirmation extends Stage{
         return button;
     }
 
-    private void displayChoices(SelectionInterface quit){
+    private void displayChoices(SelectionInterface quit, MediaPlayer media){
+        media.stop();
         close();
         quit.closeStage();
         GameSelection gameSelection = new GameSelection();
