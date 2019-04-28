@@ -21,7 +21,6 @@ public class Explosive extends ProjectileBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        ((ActiveProjectile) parent).getMyShooter().getShooterRange()
 //TODO: FILL IN
     }
 

@@ -59,6 +59,10 @@ public class Wave implements Updatable, Configurable {
         return timeToReleaseInMs;
     }
 
+    public EnemyConfig[] getEnemies() {
+        return enemies;
+    }
+
     @Override
     public void update(double ms, Updatable parent) {
         if(startTimes == null) {
@@ -76,9 +80,6 @@ public class Wave implements Updatable, Configurable {
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
             ActiveEnemy activeEnemy = new ActiveEnemy(enemyConfig, activeLevel);
-            System.out.println(Arrays.asList(startTimes));
-            System.out.println(enterPositions);
-            System.out.println(point);
             MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth(), activeEnemy);
             activeEnemy.setMyMapFeature(newMapFeature);
             activeLevel.addToActiveEnemies(activeEnemy);

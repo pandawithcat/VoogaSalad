@@ -18,7 +18,7 @@
               <myName>rcd</myName>
               <myBehaviors/>
               <health>1000</health>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
+              <unitSpeedPerSecond>1.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail2.gif</imagePath>
                 <width>50</width>
@@ -31,7 +31,7 @@
               <myName>rcd2</myName>
               <myBehaviors/>
               <health>100</health>
-              <unitSpeedPerSecond>2</unitSpeedPerSecond>
+              <unitSpeedPerSecond>2.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail3.gif</imagePath>
                 <width>40</width>
