@@ -50,6 +50,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     }
 
     private void checkforCollisions(){
+
         int myGridX = myMapFeature.getGridXPos();
         int myGridY = myMapFeature.getGridYPos();
         Cell myCell = myActiveLevel.getGridCell(myGridX, myGridY);

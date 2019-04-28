@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Set;
 
 public class MapFeature {
 
@@ -166,6 +167,19 @@ public class MapFeature {
 
     public int getGridYPos() {
         return gridYPos;
+    }
+
+    public double[] getSafeBoxBounds(){
+        double hypotenuse = Math.sqrt(Math.pow(widthInGridUnits/2, 2) + Math.pow(heightInGridUnits/2, 2));
+        double safeBoxMinGridX = getGridXPos()+widthInGridUnits/2 -  hypotenuse;
+        safeBoxMinGridX = safeBoxMinGridX>0 ? safeBoxMinGridX : 0;
+        double  safeBoxMaxGridX = getGridXPos()+widthInGridUnits/2 +  hypotenuse;
+        safeBoxMaxGridX = safeBoxMaxGridX<gridXSize ? safeBoxMaxGridX : gridXSize;
+        double safeBoxMinGridY = getGridYPos()+heightInGridUnits/2 - hypotenuse;
+        safeBoxMinGridY = safeBoxMinGridY>0 ? safeBoxMinGridY : 0;
+        double safeBoxMaxGridY = getGridYPos()+heightInGridUnits/2 + hypotenuse;
+        safeBoxMaxGridY = safeBoxMaxGridY<gridXSize ? safeBoxMaxGridY : gridYSize;
+        return new double[]{safeBoxMinGridX, safeBoxMaxGridX, safeBoxMinGridY, safeBoxMaxGridY};
     }
 
     public void moveRelatively(double deltaPixelX, double deltaPixelY) {
