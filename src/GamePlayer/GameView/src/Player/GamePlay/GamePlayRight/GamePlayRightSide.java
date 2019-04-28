@@ -19,7 +19,7 @@ public class GamePlayRightSide extends VBox {
     private MediaPlayer mediaPlayer;
 
 
-    public GamePlayRightSide(double width, double height, Logic logic, ButtonInterface method, ButtonInterface fastFoward
+    public GamePlayRightSide(double width, double height, Logic logic, ButtonInterface play, ButtonInterface fastForward
             , GamePlayMap myMap, Group root, SelectionInterface home, MediaPlayer mediaPlayer){
         this.mediaPlayer = mediaPlayer;
         setPrefWidth(width);
@@ -29,15 +29,15 @@ public class GamePlayRightSide extends VBox {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, method, fastFoward, home, logic));
+        this.getChildren().addAll(myGameArsenal, createButtonPanel(width, height, play, fastForward, home, logic));
     }
     public void update(){
         myGameArsenal.recreateArsenal();
     }
 
-    private VBox createButtonPanel(double width, double height, ButtonInterface method, ButtonInterface fastFoward,
+    private VBox createButtonPanel(double width, double height, ButtonInterface play, ButtonInterface fastFoward,
                                    SelectionInterface home, Logic logic){
-        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, method, fastFoward, home, mediaPlayer, logic);
+        myButtonPanel = new ButtonPanel(width, height * BUTTON_RATIO, play, fastFoward, home, mediaPlayer, logic);
         return myButtonPanel;
     }
 
