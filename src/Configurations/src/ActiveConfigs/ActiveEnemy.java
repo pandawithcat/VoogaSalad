@@ -23,7 +23,7 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private double startTime = -Integer.MAX_VALUE;
     private LinkedList<Point> prevLocations = new LinkedList<>();
     private double effectiveSpeed;
-    private List<SpeedModifier> speedModifiers;
+    private List<SpeedModifier> speedModifiers = new ArrayList<>();
 
 
     enum MovementDirection {
