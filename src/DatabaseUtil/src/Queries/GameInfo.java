@@ -38,7 +38,14 @@ public class GameInfo {
         return description;
     }
 
-    public InputStream getBinary(){ return binary; }
+    public byte[] getBinary(){
+        try {
+            return binary.readAllBytes();
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 }
 
 

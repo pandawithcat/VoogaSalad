@@ -9,6 +9,7 @@ module DatabaseUtil {
     requires java.xml;
     requires java.sql;
     requires java.sql.rowset;
+    requires org.junit.jupiter.api;
 
     exports ExternalAPIs;
 }

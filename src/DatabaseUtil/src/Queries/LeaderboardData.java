@@ -1,6 +1,7 @@
 package Queries;
 
-public class Leaderboard extends DBUtil{
+public class LeaderboardData extends DBUtil{
+
 
     //    public GameInfo fetchGame(int gameID){
 //        String selectionQuery =
