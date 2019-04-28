@@ -46,12 +46,11 @@ public class AuthoringVisualization extends Application {
 
 
         //TODO(Hyunjae) Refactor and don't use magic numbers
-        gameOutline = new GameOutline((int) screenHeight, (int) screenWidth);
+        gameOutline = new GameOutline((int) ScreenSize.getHeight(), (int) screenWidth);
         StackPane background = new StackPane();
         background.setId("image_backdrop");
         VBox myGameOutline = gameOutline.getModule();
         background.getChildren().add(myGameOutline);
-
         TopMenuBar topMenuBar = new TopMenuBar(gameOutline);
         StackPane menu = new StackPane();
         StackPane colored = new StackPane();
