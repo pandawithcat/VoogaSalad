@@ -86,7 +86,6 @@ public class GamePlayArsenal extends VBox {
 
     private void setArsenalDisplay(Map<Integer, Info> arsenal) {
         try {
-            //creates internal mapping of weapon and id
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             weaponMap = new HashMap<>();
             for (Integer id: arsenal.keySet()) {
@@ -143,19 +142,17 @@ public class GamePlayArsenal extends VBox {
         event.consume();
     }
 
-    //0 is transparent
     private void dragEntered(DragEvent event){
         if (event.getGestureSource() != myMap &&
                 event.getDragboard().hasString()) {
-
-            myMap.setOpacity(0.5);
             Lighting lighting = new Lighting();
             lighting.setDiffuseConstant(1.0);
             lighting.setSpecularConstant(0.0);
             lighting.setSpecularExponent(0.0);
             lighting.setSurfaceScale(0.0);
-
+            System.out.println(myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0));
             if (myLogic.checkPlacementLocation(weaponMap.get(selectedImage.toString()), event.getX(), event.getY(), 0)) {
+                myMap.setOpacity(0.5);
                 lighting.setLight(new Light.Distant(45, 45, Color.GREEN));
             }
             else{
@@ -179,17 +176,12 @@ public class GamePlayArsenal extends VBox {
         selectedImage = (ImageView)((Pair) arsenalDisplay.getSelectionModel().getSelectedItem()).getKey();
         Dragboard db = selectedImage.startDragAndDrop(TransferMode.ANY);
         defaultEffect = selectedImage.getEffect();
-
-        //creates deepcopy of imageview
         var imageCopy = selectedImage.getImage();
         PixelReader pixelReader = imageCopy.getPixelReader();
-
         int width = (int)imageCopy.getWidth();
         int height = (int)imageCopy.getHeight();
 
-        //Copy from source to destination pixel by pixel
-        WritableImage writableImage
-                = new WritableImage(width, height);
+        WritableImage writableImage = new WritableImage(width, height);
         PixelWriter pixelWriter = writableImage.getPixelWriter();
 
         for (int y = 0; y < height; y++){
@@ -205,10 +197,8 @@ public class GamePlayArsenal extends VBox {
         movingImage.setFitHeight(myMap.getGridSize());
 
         myRoot.getChildren().add(movingImage);
-        /* Put a string on a dragboard */
         ClipboardContent content = new ClipboardContent();
         content.putString(selectedImage.toString());
-//                content.put(DataFormat.IMAGE,selectedImage);
         db.setContent(content);
         mouseEvent.consume();
     }
@@ -234,7 +224,7 @@ public class GamePlayArsenal extends VBox {
             return new Pair<>(image, caption);
         }
         catch(Exception e){
-            e.printStackTrace();
+            //This shouldn't ever happen
         }
         return null;
     }
