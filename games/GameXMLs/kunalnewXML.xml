@@ -5811,8 +5811,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>0</gridYPos>
@@ -5823,8 +5823,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>1</gridYPos>
@@ -5835,8 +5835,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>2</gridYPos>
@@ -5847,8 +5847,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>3</gridYPos>
@@ -5859,8 +5859,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>4</gridYPos>
@@ -5871,8 +5871,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>5</gridYPos>
@@ -5883,8 +5883,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>6</gridYPos>
@@ -5895,8 +5895,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>7</gridYPos>
@@ -5907,8 +5907,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>8</gridYPos>
@@ -5919,8 +5919,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>9</gridYPos>
@@ -5931,8 +5931,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -6171,8 +6171,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -6411,8 +6411,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -6651,8 +6651,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -6807,8 +6807,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>3</gridYPos>
@@ -6891,8 +6891,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -7047,8 +7047,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>3</gridYPos>
@@ -7059,8 +7059,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>4</gridYPos>
@@ -7071,8 +7071,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>5</gridYPos>
@@ -7083,8 +7083,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>6</gridYPos>
@@ -7095,8 +7095,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>7</gridYPos>
@@ -7119,8 +7119,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>9</gridYPos>
@@ -7131,8 +7131,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>10</gridYPos>
@@ -7335,8 +7335,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>7</gridYPos>
@@ -7347,8 +7347,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>8</gridYPos>
@@ -7359,8 +7359,8 @@
           <Configs.MapPackage.Terrain>
             <view>
               <imagePath>water.jpg</imagePath>
-              <width>4</width>
-              <height>4</height>
+              <width>50</width>
+              <height>50</height>
             </view>
             <isPath>true</isPath>
             <gridYPos>9</gridYPos>
