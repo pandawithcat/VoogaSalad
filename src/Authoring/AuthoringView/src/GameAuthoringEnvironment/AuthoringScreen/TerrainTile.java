@@ -15,18 +15,20 @@ public class TerrainTile extends ImageView {
     ImageView imageView;
     boolean isPath;
     String tileImString;
+    String type;
 
     public TerrainTile(int x, int y, Image image, String type){
         super(image);
         this.setX(x);
         this.setY(y);
-        this.setFitWidth(25);
-        this.setFitHeight(30);
+        this.setFitWidth(30);
+        this.setFitHeight(25);
         this.imageView=new ImageView(image);
+        this.type="Grass";
         isPath=false;
-        tileImString="grass.jpg";
-        Tooltip tooltip = new Tooltip(tileImString);
-        Tooltip.install(imageView,tooltip);
+        tileImString="resources/grass.jpg";
+//        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
+//        Tooltip.install(this,tooltip);
 
 
 
@@ -63,6 +65,7 @@ public class TerrainTile extends ImageView {
         }
         tileImString="resources/water.jpg";
         isPath=true;
+        type="Water";
 
     }
     public void changeToDirt(){
@@ -75,6 +78,7 @@ public class TerrainTile extends ImageView {
         }
         tileImString="resources/dirt.jpg";
         isPath=true;
+        type="Dirt";
     }
 
 
@@ -88,6 +92,7 @@ public class TerrainTile extends ImageView {
         }
         tileImString = "resources/grass.jpg";
         isPath=false;
+        type="Grass";
     }
 
     public ImageView getImageView(){
@@ -99,6 +104,20 @@ public class TerrainTile extends ImageView {
     }
     public boolean getIsPath(){
         return isPath;
+    }
+    public void setPath(){
+        isPath=true;
+    }
+    public String getPathString(){
+        if(this.isPath){
+            return "Is a path";
+        }
+        else{
+            return "Is not a path";
+        }
+    }
+    public String getType(){
+        return type;
     }
 
 }

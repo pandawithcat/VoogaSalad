@@ -43,10 +43,10 @@ import java.util.Map;
 public class ConfigurableMap {
 
 
-//    public static final int GRID_WIDTH = 64;
-//    public static final int GRID_HEIGHT = 40;
-public static final int GRID_WIDTH = 32;
-    public static final int GRID_HEIGHT = 20;
+    public static final int GRID_WIDTH = 64;
+    public static final int GRID_HEIGHT = 40;
+//public static final int GRID_WIDTH = 32;
+//    public static final int GRID_HEIGHT = 20;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;
@@ -202,7 +202,9 @@ public static final int GRID_WIDTH = 32;
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
+                    map.setStyle("-fx-background-color: white;");
                     map.add(myTile, r, c);
+                    map.setGridLinesVisible(false);
                     //map.add(tBuild.getTile("Grass",r,c,20,20),r,c);
                 }
 
@@ -295,6 +297,14 @@ public static final int GRID_WIDTH = 32;
     private void addGridEvent(){
 
         map.getChildren().forEach(item-> {
+            item.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    Tooltip toolTip = new Tooltip();
+                    toolTip.setText(((TerrainTile)item).getType()+" "+((TerrainTile)item).getPathString());
+                    Tooltip.install(item,toolTip);
+                }
+            });
             item.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
@@ -313,6 +323,7 @@ public static final int GRID_WIDTH = 32;
                                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                                     public void handle(ActionEvent t) {
                                         TerrainTile terrainTile = (TerrainTile) item;
+                                        terrainTile.setPath();
                                         Point enterPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         enterPosView.getItems().add(enterPoint);
                                         try{
@@ -331,6 +342,8 @@ public static final int GRID_WIDTH = 32;
                                         TerrainTile terrainTile = (TerrainTile) item;
                                         Point exitPoint = new Point((int)terrainTile.getX(), (int)terrainTile.getY());
                                         exitPosView.getItems().add(exitPoint);
+                                        terrainTile.setPath();
+
                                         try{
                                             terrainTile.setImage(new Image(new FileInputStream("resources/exit.jpg")));
                                         }
