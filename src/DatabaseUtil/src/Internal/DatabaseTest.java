@@ -139,6 +139,7 @@ public class DatabaseTest extends Application {
         String description = "This is my new game";
         int thumbnail = 123123123;
 
+        // TODO: CHANGE
         GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
 
         String gameString = myAuthoringData.getGameString(newGameInfo);
@@ -177,24 +178,26 @@ public class DatabaseTest extends Application {
 
     // TODO: Test store basic game info
 
-    private static void testStoreBasicInfo(){
-
-        System.out.println("Testing Store Basic Info:");
-
-        String title = "My New Game";
-        String description = "This is my new game";
-        int thumbnail = 123123123;
-
-        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
-
-        Integer[] imageIDArray = {0, 1, 2, 3, 4, 5};
-
-        ArrayList<Integer> imageList = new ArrayList<Integer>(Arrays.asList(imageIDArray));
-
-        myAuthoringData.storeBasicInfo(newGameInfo, imageList);
-
-        System.out.println("Done Store Basic Info");
-    }
+//    private static void testStoreBasicInfo(){
+//
+//        System.out.println("Testing Store Basic Info:");
+//
+//        String title = "My New Game";
+//        String description = "This is my new game";
+//        int thumbnail = 123123123;
+//
+//        GameInfo newGameInfo = new GameInfo(title, thumbnail, description);
+//
+//        Integer[] imageIDArray = {0, 1, 2, 3, 4, 5};
+//
+//        ArrayList<Integer> imageList = new ArrayList<Integer>(Arrays.asList(imageIDArray));
+//
+//        // TODO: CHANGE
+//
+//        //myAuthoringData.storeBasicInfo(newGameInfo, imageList);
+//
+//        System.out.println("Done Store Basic Info");
+//    }
 
     // TODO: Test store xml String
 
@@ -204,7 +207,8 @@ public class DatabaseTest extends Application {
 
         String gameString = "This is the game XML String";
 
-        myAuthoringData.storeXML(gameString);
+        // TODO: CHANGE
+        // myAuthoringData.storeXML(gameString);
 
         System.out.println("Done Store XML String");
     }

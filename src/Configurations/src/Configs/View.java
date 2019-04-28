@@ -1,5 +1,7 @@
 package Configs;
 
+import ActiveConfigs.Cell;
+
 public class View implements Configurable {
     private transient Configuration myConfiguration;
 
@@ -24,6 +26,8 @@ public class View implements Configurable {
         this.width = width;
         this.height = height;
     }
+
+
 
     @Override
     public String getName() {
