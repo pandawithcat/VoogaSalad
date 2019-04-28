@@ -23,6 +23,8 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     private double startTime = -Integer.MAX_VALUE;
     private LinkedList<Point> prevLocations = new LinkedList<>();
     private double effectiveSpeed;
+    private List<SpeedModifier> speedModifiers;
+
 
     enum MovementDirection {
         DOWN(0, 1, 180),
@@ -104,7 +106,19 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 //        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeapons());
 //        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeaponsIgnorePath());
 //        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).);
-
+        effectiveSpeed = getUnitSpeedPerSecond();
+        List<SpeedModifier> speedModifiersToRemove = new ArrayList<>();
+        for (SpeedModifier speedModifier: speedModifiers){
+            if (ms<speedModifier.getEndTime()){
+                effectiveSpeed*=speedModifier.getSpeedModifier();
+            }
+            else{
+                speedModifiersToRemove.add(speedModifier);
+            }
+        }
+        for (SpeedModifier speedModifier: speedModifiersToRemove){
+            speedModifiers.remove(speedModifier);
+        }
 
         if (startTime == -Integer.MAX_VALUE){
             startTime = ms;
