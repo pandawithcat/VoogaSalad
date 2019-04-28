@@ -27,19 +27,9 @@ public class Tester{
     private String title = "title";
     private byte[] image = this.getClass().getClassLoader().getResource("water.jpg").getFile().getBytes();
 
-
-    public void test(){
-        //DBUtil util = new DBUtil();
-       // System.out.println(new UserData().addUser("stacy2", "barker", "minimouse"));
-        //UserData users = new UserData();
-        //System.out.println(users.login("stacy","barker"));
-//        int id = data.addImage(file, ""+ (int)(Math.random()*10));
-//        System.out.println(data.fetchImage(id));
-
-        //System.out.println(data.fetchImageIDs("2"));
-        //util.addSession("stacy",1,2,3);
-        //util.addTest(file, "tree");
-        //util.addImage(file);
+    @Test
+    public void fetchSalt(){
+        assertEquals(userData.getSalt("stacy"), "minimouse" );
     }
 
     @Test

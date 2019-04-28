@@ -93,18 +93,18 @@ public class UserData extends DBUtil {
         }
     }
 
-    public String getSalt(int userID){
-        String selectionQuery = "select salt from users where authorID = (?)";
+    public String getSalt(String username){
+        String selectionQuery = "select salt from users where username = (?)";
         try {
             PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
-            statement.setInt(1,userID);
+            statement.setString(1, username);
             ResultSet results = statement.executeQuery();
             String salt = null;
             if(results.next()){
                 salt = results.getString("salt");
             }
             else{
-                throw new ConnectionException("User "+userID+" does not have salt");
+                throw new ConnectionException("User "+username+" does not have salt");
             }
             results.close();
             statement.close();
