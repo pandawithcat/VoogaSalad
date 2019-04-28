@@ -25,14 +25,12 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private View view;
 
-
     private transient Configuration myConfiguration;
 
     public EnemyConfig(Wave wave) {
         myWave = wave;
         myConfiguration = new Configuration(this);
     }
-
 
     public EnemyConfig(EnemyConfig enemyConfig){
         List<EnemyBehavior> arrayList= Arrays.stream(enemyConfig.getMyBehaviors())

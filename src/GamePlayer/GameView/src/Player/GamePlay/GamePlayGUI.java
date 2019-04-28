@@ -21,6 +21,7 @@ public class GamePlayGUI extends HBox {
                        SelectionInterface home,
                        Group root,
                        MediaPlayer mediaPlayer){
+        setId("HUD");
         setPrefWidth(ScreenSize.getWidth());
         setPrefHeight(ScreenSize.getHeight());
         myGameLeft = new GamePlayLeftSide(ScreenSize.getWidth() * LEFT_RATIO, ScreenSize.getHeight(), logic, endLoop,
