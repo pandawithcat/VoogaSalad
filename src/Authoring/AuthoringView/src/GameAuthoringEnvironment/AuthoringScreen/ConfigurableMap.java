@@ -180,7 +180,7 @@ public class ConfigurableMap {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage() );
+                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap);
                 map.add(myTile, r, c);
             }
         }
@@ -196,6 +196,10 @@ public class ConfigurableMap {
     }
 
     public void initMap() {
+        typeToImagePathMap = new HashMap<>();
+        typeToImagePathMap.put("Grass","resources/grass.jpg");
+        typeToImagePathMap.put("Water","resources/water.jpg");
+        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
         Image image;
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
@@ -209,7 +213,7 @@ public class ConfigurableMap {
             map = new GridPane();
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile);
+                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -228,10 +232,7 @@ public class ConfigurableMap {
 
 
     public VBox createTileView(){
-        typeToImagePathMap = new HashMap<>();
-        typeToImagePathMap.put("Grass","resources/grass.jpg");
-        typeToImagePathMap.put("Water","resources/water.jpg");
-        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
+
         //tileView.setPrefSize(tileViewWidth, tileViewHeight);
         VBox myBox = new VBox(10);
 
@@ -267,12 +268,17 @@ public class ConfigurableMap {
                     try {
                         image.setFitHeight(20);
                         image.setFitWidth(20);
-                        if (name.equals("Grass"))
-                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
-                        else if (name.equals("Water"))
-                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
-                        else if (name.equals("Dirt"))
-                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+//                        if (name.equals("Grass"))
+//                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
+//                        else if (name.equals("Water"))
+//                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
+//                        else if (name.equals("Dirt"))
+//                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
+                        for(String s : typeToImagePathMap.keySet()){
+                            if(name.equals(s)){
+                                image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+                            }
+                        }
 
                     }
                     catch(FileNotFoundException f){
@@ -297,7 +303,7 @@ public class ConfigurableMap {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList);
+                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList,typeToImagePathMap);
 
             }
         });
