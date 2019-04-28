@@ -7751,37 +7751,46 @@
     <myGame reference="../.."/>
     <defaultWeapons>
       <Configs.ArsenalConfig.WeaponConfig>
-        <myName>louis</myName>
+        <myName>weapon</myName>
         <behaviors>
+          <Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
+            <myWeaponConfig reference="../../.."/>
+            <ammoLimit>36</ammoLimit>
+          </Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
           <Configs.ArsenalConfig.WeaponBehaviors.Shootable>
             <myWeaponConfig reference="../../.."/>
             <myShooter>
               <myShootable reference="../.."/>
-              <myName>ting</myName>
-              <rateOfFire>1.0</rateOfFire>
+              <myName>shooter</myName>
+              <rateOfFire>300.0</rateOfFire>
               <projectileConfig>
                 <myShooter reference="../.."/>
                 <myConfiguration/>
-                <myName>proj</myName>
+                <myName>projectile</myName>
                 <view>
-                  <imagePath>weapon1.gif</imagePath>
-                  <width>50</width>
-                  <height>50</height>
+                  <imagePath>thumbnail1.gif</imagePath>
+                  <width>25</width>
+                  <height>25</height>
                   <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
                 </view>
-                <velocityInSeconds>20.0</velocityInSeconds>
-                <strength>100.0</strength>
+                <velocityInSeconds>10.0</velocityInSeconds>
+                <strength>10.0</strength>
                 <myBehaviors/>
               </projectileConfig>
-              <shooterRange>5.0</shooterRange>
+              <shooterRange>400.0</shooterRange>
+              <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
+                <myShooter reference="../.."/>
+                <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
+                <startRound>0</startRound>
+              </shooterBehavior>
             </myShooter>
             <weaponConfig reference="../../.."/>
           </Configs.ArsenalConfig.WeaponBehaviors.Shootable>
         </behaviors>
         <view>
-          <imagePath>weapon.png</imagePath>
-          <width>3</width>
-          <height>3</height>
+          <imagePath>thumbnail1.gif</imagePath>
+          <width>50</width>
+          <height>100</height>
           <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
         </view>
         <myArsenal reference="../../.."/>
