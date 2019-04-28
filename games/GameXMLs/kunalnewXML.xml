@@ -7762,7 +7762,7 @@
             <myShooter>
               <myShootable reference="../.."/>
               <myName>shooter</myName>
-              <rateOfFire>300.0</rateOfFire>
+              <rateOfFire>0.5</rateOfFire>
               <projectileConfig>
                 <myShooter reference="../.."/>
                 <myConfiguration/>
