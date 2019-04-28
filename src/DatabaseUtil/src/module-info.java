@@ -7,6 +7,9 @@ module DatabaseUtil {
     requires java.desktop;
     requires javafx.web;
     requires java.xml;
+    requires java.sql;
+    requires java.sql.rowset;
+    requires org.junit.jupiter.api;
 
     exports ExternalAPIs;
 }

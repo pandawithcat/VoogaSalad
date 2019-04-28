@@ -1,5 +1,6 @@
 package Configs.Waves;
 
+import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
@@ -83,15 +84,20 @@ public class Wave implements Updatable, Configurable {
             }
         }
 
-        while(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
+        if(ms>=timeToReleaseInMs && currentEnemyIndex<enemies.length && startTimes[currentEnemyIndex]<=ms) {
             ActiveLevel activeLevel = myLevel.getGame().getActiveLevel();
             List<Point> enterPositions = activeLevel.getMyMapConfig().getEnemyEnteringGridPosList();
             Random random = new Random();
             Point point = enterPositions.get(random.nextInt(enterPositions.size()));
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
-            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridHeight());
-            activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
+            ActiveEnemy activeEnemy = new ActiveEnemy(enemyConfig, activeLevel);
+            System.out.println(Arrays.asList(startTimes));
+            System.out.println(enterPositions);
+            System.out.println(point);
+            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridHeight(), activeEnemy);
+            activeEnemy.setMyMapFeature(newMapFeature);
+            activeLevel.addToActiveEnemies(activeEnemy);
             currentEnemyIndex++;
         }
 

@@ -64,11 +64,10 @@ public class WeaponConfig implements  Configurable, Viewable, Info {
     public double getHeight() {return view.getHeight();}
 
     public Shooter getShooter() throws IllegalStateException {
-        return new Shooter(new Shootable(this));
-//        if (Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof Shootable)) {
-//            return ((Shootable) Arrays.asList(getBehaviors()).stream().filter(behavior -> behavior instanceof Shootable).collect(Collectors.toList()).get(0)).getShooter();
-//        }
-//        else throw new IllegalStateException();
+        if (Arrays.asList(getBehaviors()).stream().anyMatch(behavior -> behavior instanceof Shootable)) {
+            return ((Shootable) Arrays.asList(getBehaviors()).stream().filter(behavior -> behavior instanceof Shootable).collect(Collectors.toList()).get(0)).getShooter();
+        }
+        else throw new IllegalStateException();
     }
 
     public void setWeaponId(int weaponId) {

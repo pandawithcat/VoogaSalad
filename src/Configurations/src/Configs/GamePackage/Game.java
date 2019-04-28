@@ -28,8 +28,13 @@ public class Game implements Updatable, Configurable {
     private String myName;
     @Configure
     private String myDescription;
+    // TODO: Remove myThumbnail variable
     @Configure
     private String myThumbnail;
+    // TODO: Uncomment this new variable
+//    @Configure
+//    private int myThumbnailID:
+
     @Configure
     private Level[] levelList = new Level[0];
     @Configure
@@ -70,6 +75,7 @@ public class Game implements Updatable, Configurable {
     public int getScore() {
         return myScore;
     }
+
 
     @Override
     public void update(double ms, Updatable parent) {
@@ -115,8 +121,15 @@ public class Game implements Updatable, Configurable {
         return myDescription;
     }
 
+    // TODO: Get rid of this method
     public String getThumbnail(){
         return myThumbnail;
+    }
+
+    public int getThumbnailID(){
+        // TODO: replace 0 with myThumbnailID
+        return 0;
+//        return myThumbnailID;
     }
 
     public double getPaneWidth() {

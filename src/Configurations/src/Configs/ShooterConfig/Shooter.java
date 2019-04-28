@@ -23,9 +23,9 @@ public class Shooter implements Updatable , Configurable {
     @Configure
     private ShooterBehavior shooterBehavior;
 
-    private transient Configuration myConfiguration;
     @XStreamOmitField
-    private transient int projectilesFired;
+    private transient Configuration myConfiguration;
+    private int projectilesFired;
 
     public Shooter(Shootable shootable){
         myShootable = shootable;
@@ -33,6 +33,7 @@ public class Shooter implements Updatable , Configurable {
         projectilesFired = 0;
     }
 
+<<<<<<< src/Configurations/src/Configs/ShooterConfig/Shooter.java
     public Shooter(Shooter shooter, Shootable shootable){
         shooterRange = shooter.shooterRange;
         myShootable=shootable;
@@ -42,8 +43,10 @@ public class Shooter implements Updatable , Configurable {
         myName = shooter.myName;
     }
 
-    public void addToProjectilesFired(int shots) {
-        projectilesFired+=shots;
+
+    public void addToProjectilesFired() {
+        projectilesFired++;
+//        System.out.println("HERE" + projectilesFired);
     }
 
     public int getProjectilesFired() {

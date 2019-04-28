@@ -18,15 +18,11 @@ public class PlayerData extends Data{
      */
     @Override
     public List<GameInfo> getAuthoredGames() {
-            List<GameInfo> games = new ArrayList<>();
-            // TODO: Change loop to go through all games list
-            for (int i = 0; i < 1; i++){
-                // TODO: Fetch game info - title, thumbnail imageID, description
-                GameInfo nextGame = new GameInfo("Title", 8, "Description");
-                games.add(nextGame);
-            }
-            // TODO: Download Image files with matching IDs to the local machine to display
-            return Collections.unmodifiableList(games);
+            List<GameInfo> gameInfos = new ArrayList<>();
+            getGameData().getAllGameIDs().stream().forEach(
+                    (id) -> {gameInfos.add(getGameData().fetchGame(id));}
+            );
+            return gameInfos;
     }
 
     /**
@@ -34,15 +30,7 @@ public class PlayerData extends Data{
      * @return - User state object corresponding to current user and game
      */
     public UserState getCurrentUserState(){
-        currentUserID = currentUserID;
-        currentGameID = currentGameID;
-        // TODO: Use these to query into user set and games played
-        int currentLevel = 0;
-        int currentScore = 0;
-
-        UserState playerState = new UserState(currentLevel, currentScore);
-
-        return playerState;
+        return getSessionData().getMostRecentSessionForGame(currentUserID, currentGameID).getState();
     }
 
     /**
@@ -50,32 +38,11 @@ public class PlayerData extends Data{
      * @param savingState - User state object corresponding to current user and game
      */
     public void saveUserState(UserState savingState){
-        currentUserID = currentUserID;
-        currentGameID = currentGameID;
-        // TODO: Use these to query into user set and games played
-
         int currentLevel = savingState.getMyCurrentLevel();
         int currentScore = savingState.getMyCurrentScore();
 
-        updateLeaderBoard(currentScore);
+        getSessionData().addSession(currentLevel,currentScore,currentGameID,currentUserID);
 
-        // TODO: Store Data in database
-
-
-    }
-
-    private void updateLeaderBoard(int score){
-        currentUserID = currentUserID;
-        currentGameID = currentGameID;
-        // TODO: Use this info to query into database to update the specified users high score in the leaderboard if it
-        // is greater than the current saved entry
-        // TODO: If the user is not in the leaderboard create an entry for them
-
-        int prevHighScore = 0;
-
-        if (score > prevHighScore){
-            // TODO: Replace saved score with new one
-        }
     }
 
     /**
@@ -85,19 +52,7 @@ public class PlayerData extends Data{
      * @return - unmodifiable list of LeaderBoardEntry objects
      */
     public List<LeaderBoardEntry> compileLeaderboardEntries(int numberOfEntries){
-        currentGameID = currentGameID;
-        // TODO: using current game ID query for the highest "numberOfEntries" leader information
-        ArrayList<LeaderBoardEntry> leaderInfo = new ArrayList<>();
-
-        for (int i = 0; i < numberOfEntries; i++){
-            String userName = new String();
-            int score = 0;
-
-            LeaderBoardEntry newEntry = new LeaderBoardEntry(i + 1, userName, score);
-            leaderInfo.add(newEntry);
-        }
-
-        return Collections.unmodifiableList(leaderInfo);
+        return getSessionData().getHighScoresForGame(currentGameID,numberOfEntries);
     }
 
 

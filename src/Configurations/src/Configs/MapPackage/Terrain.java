@@ -1,5 +1,6 @@
 package Configs.MapPackage;
 
+import ActiveConfigs.ActiveLevel;
 import Configs.*;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.TerrainBehaviors.TerrainBehavior;
@@ -9,8 +10,8 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 
 
-public class Terrain implements Configurable, Viewable{
-    public static final int TERRAIN_SIZE = 4;
+public class Terrain implements Configurable, Viewable, MapFeaturable{
+    public static final int TERRAIN_SIZE = 50;
 
     public static final String DISPLAY_LABEL = "Terrain";
     @Configure
@@ -26,10 +27,12 @@ public class Terrain implements Configurable, Viewable{
     @Configure
     private TerrainBehavior[] terrainBehaviors = new TerrainBehavior[0];
 
-
+    @XStreamOmitField
     private transient Configuration myConfiguration;
     private MapConfig myMapConfig;
     private Game myGame;
+    @XStreamOmitField
+    private MapFeature mapFeature;
 
 
     public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
@@ -40,6 +43,11 @@ public class Terrain implements Configurable, Viewable{
         myConfiguration = new Configuration(this);
         myMapConfig = mapConfig;
         myGame = myMapConfig.getLevel().getGame();
+    }
+
+    @Override
+    public void setMyMapFeature(MapFeature mapFeature) {
+        this.mapFeature = mapFeature;
     }
 
     public int getGridXPos() {
@@ -58,10 +66,19 @@ public class Terrain implements Configurable, Viewable{
     }
 
     public ImmutableImageView getImageView(double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
-        MapFeature mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight);
+        mapFeature = new MapFeature(getGridXPos(), getGridYPos(), 0.0, view, screenWidth, screenHeight, gridWidth, gridHeight, this);
         return mapFeature.getImageView();
     }
 
+    @Override
+    public MapFeature getMapFeature() {
+        return mapFeature;
+    }
+
+    @Override
+    public ActiveLevel getActiveLevel() {
+        return myMapConfig.getLevel().getGame().getActiveLevel();
+    }
 
     @Override
     public Configuration getConfiguration() {

@@ -61,10 +61,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
     }
 
 
-    public ActiveEnemy(EnemyConfig enemyConfig, MapFeature mapFeature, ActiveLevel activeLevel) {
+    public ActiveEnemy(EnemyConfig enemyConfig,ActiveLevel activeLevel) {
         super(enemyConfig);
-        myMapFeature = mapFeature;
         myActiveLevel = activeLevel;
+    }
+
+    public void setMyMapFeature(MapFeature mapFeature) {
+        this.myMapFeature = mapFeature;
     }
 
     @Override
@@ -94,12 +97,12 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //get x, y from myMapFeature and do logic using the map within the activeLevel
 //        if
         //dont forget to update state to PRESENT or DIED in myMapFeature
-
-        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain());
-        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristic());
-        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicIgnorePath());
-        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeapons());
-        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeaponsIgnorePath());
+//
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristic());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicIgnorePath());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeapons());
+//        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getShortestDistanceHeuristicAvoidWeaponsIgnorePath());
 //        System.out.println(myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).);
 
 
@@ -185,5 +188,10 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         //TODO: Make these magic numbers reference the qualities of the enemy
         myActiveLevel.addGameCash(1);
         myActiveLevel.addGameScore(5);
+    }
+
+    @Override
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
     }
 }

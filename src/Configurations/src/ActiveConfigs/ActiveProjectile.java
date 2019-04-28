@@ -11,20 +11,24 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     private MapFeature myMapFeature;
     private double distanceLeft;
     private ActiveLevel myActiveLevel;
+    private double previousMs=0;
 
 
 
-    public ActiveProjectile(ProjectileConfig projectileConfig, MapFeature mapFeature, double distanceLeft, ActiveLevel activeLevel){
+    public ActiveProjectile(ProjectileConfig projectileConfig,double distanceLeft, ActiveLevel activeLevel){
         super(projectileConfig);
         this.distanceLeft =distanceLeft;
-        myMapFeature = mapFeature;
         myActiveLevel = activeLevel;
+    }
+
+    @Override
+    public void setMyMapFeature(MapFeature myMapFeature) {
+        this.myMapFeature = myMapFeature;
     }
 
     @Override
     public void update(double ms, Updatable parent) {
         if(distanceLeft>0) {
-//            myMapFeature.setDisplayState(DisplayState.PRESENT);
             move(ms);
 
             if (getMyBehaviors()!=null) {
@@ -40,6 +44,11 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
 
     }
 
+    @Override
+    public ActiveLevel getActiveLevel() {
+        return myActiveLevel;
+    }
+
     private void checkforCollisions(){
         int myGridX = myMapFeature.getGridXPos();
         int myGridY = myMapFeature.getGridYPos();
@@ -50,20 +59,23 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     }
 
     private void handleEnemyCollision(Cell myCell){
-        //TODO: Incorporate the behaviors (weapon/projectile strength/power/features) into it
-
         myCell.getMyEnemies().forEach(e -> e.killMe());
         myMapFeature.setDisplayState(DisplayState.DIED);
 
     }
     private void move(double ms){
         double velocityMs = getVelocityInSeconds()/1000;
-        double distanceToTravel = velocityMs*ms;
+        double distanceToTravel = (velocityMs*(ms-previousMs));
+        if(previousMs==0) {
+            distanceToTravel = distanceLeft%distanceLeft;
+        }
+        previousMs = ms;
         double changeX = distanceToTravel*Math.cos(myMapFeature.getTrigDirection());
         double changeY = distanceToTravel*Math.sin(myMapFeature.getTrigDirection());
         myMapFeature.moveRelatively(changeX,changeY);
         distanceLeft-=distanceToTravel;
     }
+
     @Override
     public MapFeature getMapFeature() {
         return myMapFeature;

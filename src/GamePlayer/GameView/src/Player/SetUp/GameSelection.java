@@ -39,6 +39,13 @@ public class GameSelection extends Application {
     private Logic logic;
     private StackPane gameStart;
     private StackPane totalBackground;
+    public GameSelection(){
+        super();
+    }
+    public GameSelection(Logic logic){
+        super();
+        this.logic = logic;
+    }
     @Override
     public void start(Stage primaryStage) {
         totalBackground = new StackPane();
@@ -46,7 +53,6 @@ public class GameSelection extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefSize(width/3,height);
         // Changed by Brian
-        logic = new Logic(width, height);
         stage = primaryStage;
         stage.setX(width);
         stage.setY(height);
@@ -156,7 +162,7 @@ public class GameSelection extends Application {
         Text choice = new Text("Would you like to start from your saved progress?");
         Button fromSaved = new Button("Yes");
         fromSaved.setId("smallerButton");
-        fromSaved.setOnAction(e->startGame(gameInfo));
+        fromSaved.setOnAction(e->startFromSaved());
         Button fromStart = new Button("No, start over");
         fromStart.setId("smallerButton");
         fromStart.setOnAction(e->startGame(gameInfo));
@@ -170,6 +176,11 @@ public class GameSelection extends Application {
         totalBackground.getChildren().add(rect);
         totalBackground.getChildren().addAll(choice,hbox);
     }
+
+    private void startFromSaved(){
+        logic.startAtUserState();
+    }
+
     private void startGame(GameInfo gameInfo){
         this.stage.close();
         LogInPreloader logInPreloader = new LogInPreloader();
