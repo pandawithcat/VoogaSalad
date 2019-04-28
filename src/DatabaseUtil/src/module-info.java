@@ -8,6 +8,7 @@ module DatabaseUtil {
     requires javafx.web;
     requires java.xml;
     requires java.sql;
+    requires java.sql.rowset;
 
     exports ExternalAPIs;
 }
