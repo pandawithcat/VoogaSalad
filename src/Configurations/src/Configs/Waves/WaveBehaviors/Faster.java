@@ -35,7 +35,7 @@ public class Faster extends WaveBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        Arrays.asList(((Wave) parent).getEnemies()).stream().forEach(enemy -> enemy.setSpeedModifier(speedAcceleration));
+//        Arrays.asList(((Wave) parent).getEnemies()).stream().forEach(enemy -> enemy.setSpeedModifier(speedAcceleration));
     }
 
     @Override
