@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.DisplayState;
@@ -39,5 +40,12 @@ public class AmmoExpirable extends WeaponBehavior {
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        AmmoExpirable ret = new AmmoExpirable(getMyWeaponConfig());
+        ret.ammoLimit = ammoLimit;
+        return ret;
     }
 }

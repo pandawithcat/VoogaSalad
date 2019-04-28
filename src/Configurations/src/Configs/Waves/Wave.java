@@ -3,6 +3,7 @@ package Configs.Waves;
 import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveLevel;
 import Configs.*;
+import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.LevelPackage.Level;
 import Configs.Waves.WaveBehaviors.WaveBehavior;
@@ -11,6 +12,7 @@ import java.awt.Point;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class Wave implements Updatable, Configurable {
@@ -23,9 +25,9 @@ public class Wave implements Updatable, Configurable {
     @Configure
     private double rateOfReleaseEnemiesPerMs;
     @Configure
-    private EnemyConfig[] enemies;
+    private EnemyConfig[] enemies = new EnemyConfig[0];
     @Configure
-    private WaveBehavior[] myWaveBehaviors;
+    private WaveBehavior[] myWaveBehaviors = new WaveBehavior[0];
 
     private transient Configuration myConfiguration;
 
@@ -37,6 +39,20 @@ public class Wave implements Updatable, Configurable {
     public Wave(Level level) {
         myLevel = level;
         myConfiguration = new Configuration(this);
+    }
+
+    public Wave(Wave wave){
+        myName = wave.myName;
+        timeToReleaseInMs = wave.timeToReleaseInMs;
+        rateOfReleaseEnemiesPerMs = wave.rateOfReleaseEnemiesPerMs;
+        enemies = wave.enemies;
+        List<WaveBehavior> arrayList= Arrays.stream(myWaveBehaviors)
+                .map(behavior->(WaveBehavior) behavior.copy())
+                .collect(Collectors.toList());
+        myWaveBehaviors = new WaveBehavior[arrayList.size()];
+        for (int i=0; i<arrayList.size(); i++){
+            myWaveBehaviors[i] = arrayList.get(i);
+        }
     }
 
 
@@ -59,6 +75,10 @@ public class Wave implements Updatable, Configurable {
         return timeToReleaseInMs;
     }
 
+    public EnemyConfig[] getEnemies() {
+        return enemies;
+    }
+
     @Override
     public void update(double ms, Updatable parent) {
         if(startTimes == null) {
@@ -76,10 +96,7 @@ public class Wave implements Updatable, Configurable {
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
             ActiveEnemy activeEnemy = new ActiveEnemy(enemyConfig, activeLevel);
-            System.out.println(Arrays.asList(startTimes));
-            System.out.println(enterPositions);
-            System.out.println(point);
-            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth(), activeEnemy);
+            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridHeight(), activeEnemy);
             activeEnemy.setMyMapFeature(newMapFeature);
             activeLevel.addToActiveEnemies(activeEnemy);
             currentEnemyIndex++;

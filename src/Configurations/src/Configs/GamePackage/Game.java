@@ -36,7 +36,7 @@ public class Game implements Updatable, Configurable {
 //    private int myThumbnailID:
 
     @Configure
-    private Level[] levelList;
+    private Level[] levelList = new Level[0];
     @Configure
     private Arsenal myArsenal;
     @Configure
@@ -79,6 +79,8 @@ public class Game implements Updatable, Configurable {
 
     @Override
     public void update(double ms, Updatable parent) {
+        gameType.update(ms, this);
+
         myLevelSpawner.update(ms, this);
     }
 
@@ -98,6 +100,10 @@ public class Game implements Updatable, Configurable {
         this.paneWidth = paneWidth;
         this.myLevelSpawner = new LevelSpawner(this, levelNumber, levelList);
         gameStatus = GameStatus.PLAYING;
+    }
+
+    public boolean isLastLevel() {
+        return myLevelSpawner.getLevelIndex()==levelList.length-1;
     }
 
     public LevelSpawner getLevelSpawner() {

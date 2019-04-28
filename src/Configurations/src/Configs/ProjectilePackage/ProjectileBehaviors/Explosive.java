@@ -1,5 +1,6 @@
 package Configs.ProjectilePackage.ProjectileBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.Updatable;
@@ -26,6 +27,12 @@ public class Explosive extends ProjectileBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        return new Explosive(getMyProjectileConfig());
+
     }
 
     @Override

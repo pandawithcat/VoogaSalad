@@ -25,7 +25,7 @@ public class Terrain implements Configurable, Viewable, MapFeaturable{
     @Configure
     private int gridXPos;
     @Configure
-    private TerrainBehavior[] terrainBehaviors;
+    private TerrainBehavior[] terrainBehaviors = new TerrainBehavior[0];
 
     @XStreamOmitField
     private transient Configuration myConfiguration;

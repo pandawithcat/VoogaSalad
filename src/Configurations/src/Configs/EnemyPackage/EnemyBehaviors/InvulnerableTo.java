@@ -2,18 +2,19 @@ package Configs.EnemyPackage.EnemyBehaviors;
 
 
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.Updatable;
 
-public class Stealthy extends EnemyBehavior{
-    public static final String DISPLAY_LABEL = "Stealthy";
+public class InvulnerableTo extends EnemyBehavior{
+    public static final String DISPLAY_LABEL = "InvulnerableTo";
     @Configure
     ProjectileConfig[] projectilesThatCanAttackMe;
     private transient Configuration myConfiguration;
 
-    Stealthy(EnemyConfig enemyConfig){
+    InvulnerableTo(EnemyConfig enemyConfig){
         super(enemyConfig);
         myConfiguration = new Configuration(this);
     }
@@ -30,5 +31,12 @@ public class Stealthy extends EnemyBehavior{
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        InvulnerableTo ret = new InvulnerableTo(getMyEnemyConfig());
+        ret.projectilesThatCanAttackMe = projectilesThatCanAttackMe;
+        return ret;
     }
 }
