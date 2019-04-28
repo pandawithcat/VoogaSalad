@@ -68,6 +68,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myActiveLevel = activeLevel;
     }
 
+    public ActiveEnemy(EnemyConfig enemyConfig,ActiveLevel activeLevel, List<InstantiationModifier> in) {
+        super(enemyConfig);
+        myActiveLevel = activeLevel;
+    }
+
     public void setMyMapFeature(MapFeature mapFeature) {
         this.myMapFeature = mapFeature;
     }

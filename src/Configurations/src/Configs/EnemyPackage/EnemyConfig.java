@@ -25,18 +25,11 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private View view;
 
-    private double speedModifier;
-
     private transient Configuration myConfiguration;
 
     public EnemyConfig(Wave wave) {
         myWave = wave;
         myConfiguration = new Configuration(this);
-        speedModifier = 1;
-    }
-
-    public void setSpeedModifier(double modifier) {
-        speedModifier = modifier;
     }
 
     public EnemyConfig(EnemyConfig enemyConfig){
@@ -67,7 +60,7 @@ public class EnemyConfig implements Configurable, Viewable {
     }
 
     public double getUnitSpeedPerSecond() {
-        return unitSpeedPerSecond*speedModifier;
+        return unitSpeedPerSecond;
     }
 
     @Override
