@@ -73,7 +73,7 @@ public class Wave implements Updatable, Configurable {
             Point point = enterPositions.get(random.nextInt(enterPositions.size()));
             int direction = activeLevel.getMyMapConfig().getEnemyEnteringDirection();
             EnemyConfig enemyConfig = enemies[currentEnemyIndex];
-            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridWidth());
+            MapFeature newMapFeature = new MapFeature( point.x, point.y,direction,enemyConfig.getView(), activeLevel.getPaneWidth(), activeLevel.getPaneHeight(), activeLevel.getGridWidth(), activeLevel.getGridHeight());
             activeLevel.addToActiveEnemies(enemyConfig, newMapFeature);
             currentEnemyIndex++;
         }

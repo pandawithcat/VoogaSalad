@@ -1,50 +1,12 @@
 <Configs.GamePackage.Game>
-  <myName>kunalnew</myName>
-  <myDescription>meepmeep</myDescription>
+  <myName>mee</myName>
+  <myDescription>me</myDescription>
   <myThumbnail>thumbnail1.gif</myThumbnail>
   <levelList>
     <Configs.LevelPackage.Level>
       <myGame reference="../../.."/>
-      <myName>mama</myName>
-      <myWaves>
-        <Configs.Waves.Wave>
-          <myLevel reference="../../.."/>
-          <myName>wavey</myName>
-          <timeToReleaseInMs>10.0</timeToReleaseInMs>
-          <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
-          <enemies>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <myName>rcd</myName>
-              <myBehaviors/>
-              <health>1000</health>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
-              <view>
-                <imagePath>thumbnail2.gif</imagePath>
-                <width>4</width>
-                <height>4</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-            </Configs.EnemyPackage.EnemyConfig>
-            <Configs.EnemyPackage.EnemyConfig>
-              <myWave reference="../../.."/>
-              <myName>rcd2</myName>
-              <myBehaviors/>
-              <health>100</health>
-              <unitSpeedPerSecond>2</unitSpeedPerSecond>
-              <view>
-                <imagePath>thumbnail3.gif</imagePath>
-                <width>3</width>
-                <height>3</height>
-                <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
-              </view>
-            </Configs.EnemyPackage.EnemyConfig>
-          </enemies>
-          <myWaveBehaviors/>
-          <currentEnemyIndex>0</currentEnemyIndex>
-          <isFinished>false</isFinished>
-        </Configs.Waves.Wave>
-      </myWaves>
+      <myName></myName>
+      <myWaves/>
       <myMap>
         <myName></myName>
         <myTerrain>
@@ -7751,51 +7713,6 @@
       <levelBehaviors/>
     </Configs.LevelPackage.Level>
   </levelList>
-  <myArsenal>
-    <myGame reference="../.."/>
-    <defaultWeapons>
-      <Configs.ArsenalConfig.WeaponConfig>
-        <myName>louis</myName>
-        <behaviors>
-          <Configs.ArsenalConfig.WeaponBehaviors.Shootable>
-            <myWeaponConfig reference="../../.."/>
-            <myShooter>
-              <myShootable reference="../.."/>
-              <myName>ting</myName>
-              <rateOfFire>1.0</rateOfFire>
-              <projectileConfig>
-                <myShooter reference="../.."/>
-                <myConfiguration/>
-                <myName>proj</myName>
-                <view>
-                  <imagePath>weapon1.gif</imagePath>
-                  <width>50</width>
-                  <height>50</height>
-                  <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
-                </view>
-                <velocityInSeconds>20.0</velocityInSeconds>
-                <strength>100.0</strength>
-                <myBehaviors/>
-              </projectileConfig>
-              <shooterRange>5.0</shooterRange>
-            </myShooter>
-            <weaponConfig reference="../../.."/>
-          </Configs.ArsenalConfig.WeaponBehaviors.Shootable>
-        </behaviors>
-        <view>
-          <imagePath>weapon.png</imagePath>
-          <width>3</width>
-          <height>3</height>
-          <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
-        </view>
-        <myArsenal reference="../../.."/>
-        <weaponId>0</weaponId>
-      </Configs.ArsenalConfig.WeaponConfig>
-    </defaultWeapons>
-    <unlockableWeapons/>
-    <unlockedWeapons/>
-    <newUnlockedWeapons/>
-  </myArsenal>
   <myScore>0</myScore>
   <myCash>100000.0</myCash>
 </Configs.GamePackage.Game>

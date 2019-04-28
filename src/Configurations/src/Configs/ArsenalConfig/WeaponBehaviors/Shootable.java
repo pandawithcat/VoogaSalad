@@ -2,6 +2,7 @@ package Configs.ArsenalConfig.WeaponBehaviors;
 
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.ShooterConfig.Shooter;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.Configuration;
@@ -49,5 +50,13 @@ public class Shootable extends WeaponBehavior{
 
     public ActiveWeapon getActiveWeapon() {
         return activeWeapon;
+    }
+
+    @Override
+    public Behavior copy(Updatable updatable) {
+            Shootable ret = new Shootable((WeaponConfig) updatable){
+
+        }
+        return null;
     }
 }

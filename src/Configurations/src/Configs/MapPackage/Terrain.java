@@ -10,7 +10,7 @@ import java.io.File;
 
 
 public class Terrain implements Configurable, Viewable{
-    public static final int TERRAIN_SIZE = 50;
+    public static final int TERRAIN_SIZE = 4;
 
     public static final String DISPLAY_LABEL = "Terrain";
     @Configure

@@ -33,6 +33,10 @@ public class Shooter implements Updatable , Configurable {
         projectilesFired = 0;
     }
 
+    public Shooter(Shooter shooter){
+
+    }
+
     public void addToProjectilesFired(int shots) {
         projectilesFired+=shots;
     }
