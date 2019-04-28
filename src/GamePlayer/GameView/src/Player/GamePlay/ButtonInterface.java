@@ -1,8 +1,8 @@
 package Player.GamePlay;
 
 @FunctionalInterface
-public interface PlayInterface {
+public interface ButtonInterface {
 
     //functional interface to pass play button as lambda
-    void playButton();
+    void actionButton();
 }
