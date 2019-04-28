@@ -12,8 +12,8 @@ public abstract class Data {
     private final int MAX_LOGIN_ATTEMPTS = 3;
 
     // TODO: Might store this in backend
-    protected String currentUserID;
-    protected String currentGameID;
+    protected int currentUserID;
+    protected int currentGameID;
     private int numberOfLoginAttempts;
     private Random saltGenerator;
 
