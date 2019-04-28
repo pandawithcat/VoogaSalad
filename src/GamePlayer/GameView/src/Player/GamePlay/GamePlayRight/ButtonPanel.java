@@ -18,7 +18,10 @@ public class ButtonPanel extends VBox {
 
     public ButtonPanel(double width, double height, ButtonInterface method, ButtonInterface fastFoward,
                        SelectionInterface home, MediaPlayer mediaPlayer, Logic logic){
+
+        setStyle("-fx-border-color: blue; -fx-border-width: 10");
         setPadding(new Insets(0, 0, 30, 0));
+        setPrefHeight(height);
         setId("HUD");
         setSpacing(1);
         setAlignment(Pos.CENTER);
