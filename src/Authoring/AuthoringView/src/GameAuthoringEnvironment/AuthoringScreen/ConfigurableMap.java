@@ -58,7 +58,7 @@ public class ConfigurableMap extends Application {
     private List<Point> exitPointsList = new ArrayList<>();
     private List<Point> enterPointsList = new ArrayList<>();
     private ListView<String> tileView = new ListView<>();
-    private ListView<Point> enterPosView, exitPosView;
+    private ListView<String> enterPosView, exitPosView;
     private String currentTile = "Grass";
     private String dirtTileImage = "dirt.jpg";
     private String waterTileImage="water.jpg";
@@ -269,7 +269,10 @@ public class ConfigurableMap extends Application {
         VBox myVbox = new VBox(10);
         Label enterPosLabel = new Label("Enter Positions");
         enterPosView = new ListView();
-        enterPosView.getItems().addAll(enterPointsList);
+        for(Point p : enterPointsList){
+            enterPosView.getItems().add("x:"+p.getX()+" y:"+p.getY());
+        }
+        //enterPosView.getItems().addAll(enterPointsList);
         myVbox.getChildren().addAll(enterPosLabel, enterPosView);
         return myVbox;
     }
@@ -278,7 +281,9 @@ public class ConfigurableMap extends Application {
         VBox myVbox = new VBox(10);
         Label exitPosLabel = new Label("Exit Positions");
         exitPosView = new ListView();
-        exitPosView.getItems().addAll(exitPointsList);
+        for(Point p:exitPointsList){
+            exitPosView.getItems().add("x:"+p.getX()+" "+"y:"+p.getY());
+        }
         myVbox.getChildren().addAll(exitPosLabel, exitPosView);
         return myVbox;
     }
