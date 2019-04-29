@@ -68,8 +68,6 @@ public class CreateAccount extends Application {
     }
 
     private void handleMakeAccountButton(MouseEvent event){
-        //TODO Set up APIs
-        //if(true)
         if(pwTf.getText().equals(confirmPwTf.getText())){
             //TODO USE regex to check the id, pw etc
             myModel.createNewUser(newIDTf.getText(), pwTf.getText(), confirmPwTf.getText());

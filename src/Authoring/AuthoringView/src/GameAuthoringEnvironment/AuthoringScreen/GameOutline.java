@@ -189,6 +189,30 @@ public class GameOutline extends Screen {
 
 
        }
+      /* else if(myConfigurable.getClass().getSimpleName().toLowerCase().contains("behavior")){
+           if (!definedAttributesMap.keySet().equals(null)) {
+
+               MapConfig mapConfig = (MapConfig) myConfigurable;
+               Map<String, Object> levelMap = mapConfig.getLevel().getConfiguration().getDefinedAttributes();
+               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, levelMap, ((MapConfig) myConfigurable).getLevel());
+               configurableMap.resetConfigurations();
+           } else {
+               ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+               configurableMap.setConfigurations();
+           }
+       }
+
+       else if(myConfigurable.getClass().isArray() && myConfigurable.getClass().getComponentType().getSimpleName().toLowerCase().contains("behavior")){
+           if (!definedAttributesMap.keySet().equals(null)) {
+               MapConfig mapConfig = (MapConfig) myConfigurable;
+               Map<String, Object> levelMap = mapConfig.getLevel().getConfiguration().getDefinedAttributes();
+               ConfigurableMap configurableMap = new ConfigurableMap(mapConfig, levelMap, ((MapConfig) myConfigurable).getLevel());
+               configurableMap.resetConfigurations();
+           } else {
+               ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
+               configurableMap.setConfigurations();
+           }
+       }*/
        else {
            GameController gameController = new GameController();
            gameController.createConfigurable(myConfigurable);
