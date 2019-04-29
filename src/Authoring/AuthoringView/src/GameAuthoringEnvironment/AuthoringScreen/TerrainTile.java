@@ -34,9 +34,10 @@ public class TerrainTile extends ImageView {
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
     }
-    public TerrainTile(Image image){
+    public TerrainTile(Image image,Map<String,String> map){
         super(image);
         this.imageView=new ImageView(image);
+        this.typeToImageMap=map;
     }
 
     public Image getNewImage(String type){

@@ -65,7 +65,10 @@ public class ConfigureTile {
                 //TODO ADD the new terrain tile to the listview and terraintilelist.
                 //TerrainTile newTile = new TerrainTile(new Image());
                 if(tf.getText()!=null && imageTextField.getText()!=null) {
-                    TerrainTile newTile = new TerrainTile()
+                    //TODO Until database is integrated using placeholder image
+                    Image image =new Image("Hello");
+                    TerrainTile newTile = new TerrainTile(image,typeToImageMap);
+
                     myListView.getItems().add(tf.getText());
                     typeToImageMap.put(tf.getText(),imageTextField.getText());
                     popUpWindow.close();
