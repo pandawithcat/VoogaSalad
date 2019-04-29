@@ -223,11 +223,11 @@ public class Logic {
     // Return: ImageView corresponding to the weapon
 
     /**
-     *
-     * @param weaponID
-     * @param xPixel
-     * @param yPixel
-     * @param direction
+     * Calls the Game instance to create an Image View for the specified weapon
+     * @param weaponID - int ID for identifying weapon in arsenal
+     * @param xPixel - double x placement position in window
+     * @param yPixel - double y placement position in window
+     * @param direction -
      * @return
      * @throws NotEnoughCashException
      */

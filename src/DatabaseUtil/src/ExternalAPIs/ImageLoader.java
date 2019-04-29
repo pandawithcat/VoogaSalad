@@ -29,6 +29,7 @@ public class ImageLoader extends Application {
     public static final String FILE_BUTTON_TXT = "Select File";
     public static final String SAVE_BUTTON_TXT = "Save Image File";
     public static final String DROPDOWN_TXT = "Type";
+    private final int MAX_FILE_SIZE = 16 * (10 ^ 6);
 
     private static AuthoringData myAuthoringData;
 
@@ -87,6 +88,16 @@ public class ImageLoader extends Application {
             @Override
             public void handle(ActionEvent actionEvent) {
                 myImageFile = myFileChooser.showOpenDialog(myStage);
+                int fileSize = (int) myImageFile.length();
+                try{
+                    checkFileSize(fileSize);
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                    fileTextBox.setText(e.getMessage());
+                    return;
+                }
+
                 String fileName;
                 if (myImageFile.toString().indexOf('/') != -1){
                     fileName = myImageFile.toString().substring(myImageFile.toString().lastIndexOf('/') + 1);
@@ -140,6 +151,11 @@ public class ImageLoader extends Application {
         }
     }
 
+    private void checkFileSize(int size){
+        if (size > MAX_FILE_SIZE){
+            throw new IllegalArgumentException("File too Large > 16MB");
+        }
+    }
     private static Button makeButton(String buttonString, EventHandler<ActionEvent> handler){
         var newButton = new Button(buttonString);
         newButton.setOnAction(handler);

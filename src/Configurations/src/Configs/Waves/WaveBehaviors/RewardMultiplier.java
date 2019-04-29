@@ -8,16 +8,16 @@ import Configs.Updatable;
 import Configs.Waves.Wave;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-public class Stronger extends WaveBehavior{
-    public static final String DISPLAY_LABEL = "Health Multiplier";
+public class RewardMultiplier extends WaveBehavior{
+    public static final String DISPLAY_LABEL = "Reward Multiplier";
     @Configure
-    private double healthMultiplier;
+    private double rewardMultiplier;
 
 
     @XStreamOmitField
     private transient Configuration myConfiguration;
 
-    public Stronger(Wave wave) {
+    public RewardMultiplier(Wave wave) {
         super(wave);
         myConfiguration = new Configuration(this);
     }
@@ -39,13 +39,13 @@ public class Stronger extends WaveBehavior{
 
     @Override
     public void apply(ActiveEnemy enemy) {
-        enemy.multiplyHealth(healthMultiplier);
+        enemy.multiplyRewardForKilling(rewardMultiplier);
     }
 
     @Override
     public Behavior copy() {
-        Stronger ret = new Stronger(getMyWave());
-        ret.healthMultiplier = healthMultiplier;
-        return ret;
+        RewardMultiplier rewardMultiplier = new RewardMultiplier(getMyWave());
+        rewardMultiplier.rewardMultiplier = this.rewardMultiplier;
+        return rewardMultiplier;
     }
 }
