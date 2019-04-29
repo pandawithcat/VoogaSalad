@@ -1,4 +1,4 @@
-package Internal;
+package ExternalAPIs;
 
 import ExternalAPIs.*;
 import javafx.application.Application;
@@ -56,7 +56,7 @@ public class DatabaseTest extends Application {
 //        System.out.println();
 //        testGetXMLString();
 //        System.out.println();
-//        testGetImage();
+        testGetImage();
 //        System.out.println();
 //        testStoreBasicInfo();
 //        System.out.println();
