@@ -180,7 +180,7 @@ public class ConfigurableMap {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap);
+                TerrainTile myTile = new TerrainTile(r, c, image,typeToImagePathMap);
                 map.add(myTile, r, c);
             }
         }
@@ -207,7 +207,7 @@ public class ConfigurableMap {
             map = new GridPane();
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap);
+                    TerrainTile myTile = new TerrainTile(r, c, image, typeToImagePathMap);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -323,7 +323,10 @@ public class ConfigurableMap {
                 }
                 MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),t.getIsPath());
+                    int id;
+                    if(t.getTileImString().equals("grass.jpg")) id = 26;
+                    else id = 27;
+                    Terrain tile = new Terrain(m, id,(int) t.getY(), (int) t.getX(),t.getIsPath());
 
                     tileList.add(tile);
                 }

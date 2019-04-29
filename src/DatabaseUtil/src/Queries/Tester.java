@@ -49,6 +49,12 @@ public class Tester{
     }
 
     @Test
+    public void fetchImage(){
+        int imageID = 28;
+        System.out.println(imageData.fetchImage(imageID));
+    }
+
+    @Test
     @Disabled
     public void AddGame(){
         gameData.addGame(validUserID, description, gameString.getBytes(), validImageID, title);

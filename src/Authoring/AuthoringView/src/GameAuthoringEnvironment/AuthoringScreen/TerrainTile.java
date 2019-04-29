@@ -20,7 +20,7 @@ public class TerrainTile extends ImageView {
     private String tileImString;
     private String type;
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, String> map){
+    public TerrainTile(int x, int y, Image image, Map<String, String> map){
         super(image);
         this.setX(x);
         this.setY(y);

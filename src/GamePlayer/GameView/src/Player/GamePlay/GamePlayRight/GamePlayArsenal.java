@@ -86,12 +86,11 @@ public class GamePlayArsenal extends VBox {
         try {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             for (Integer id: arsenal.keySet()) {
+//                System.out.println(new ImageView(myLogic.getImage(arsenal.get(id).getImage())));
                 System.out.println("ID: " + id);
-
+                System.out.println(arsenalDisplay.getItems());
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
-//                arsenalDisplay.getItems().add(loadImageWithCaption(myLogimyArsenal.get(id).getImage(),
-//                        myArsenal.get(id).getName(), weaponMap, id));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -221,19 +220,26 @@ public class GamePlayArsenal extends VBox {
     }
 
     //TODO: change filename param to INT
-    private Pair<ImageView, String> loadImageWithCaption(String filename, String caption, Map <String,
+    private Pair<ImageView, String> loadImageWithCaption(int fileId, String caption, Map <String,
             Integer> weaponMap, Integer id) {
         try {
-            var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
 
             //TODO: USE BELOW WHEN INFO IS CHANGED
-//            var image2 = new ImageView(myLogic.getImage(filename));
+            System.out.println(fileId);
+            var image = new ImageView(myLogic.getImage(fileId));
+            System.out.println("**********");
+            System.out.println(image);
             weaponMap.put(image.toString(), id);
             image.setFitWidth(100);
             image.setFitHeight(100);
-            return new Pair<>(image, caption);
+            Pair pair = new Pair<>(image, caption);
+            System.out.println("****");
+            System.out.println(pair);
+            return pair;
+//            return new Pair<>(image, caption);
         }
         catch(Exception e){
+            System.out.println(e);
             //This shouldn't ever happen
         }
         return null;

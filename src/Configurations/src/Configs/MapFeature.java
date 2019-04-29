@@ -3,6 +3,7 @@ package Configs;
 import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveWeapon;
 import ActiveConfigs.Cell;
+import Configs.GamePackage.Game;
 import ExternalAPIs.AuthoringData;
 import ExternalAPIs.Data;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
@@ -107,7 +108,13 @@ public class MapFeature {
     }
 
     private void setImage(View view) throws IllegalStateException {
-        myImageView = new TransferImageView(Data.getImageStatic(Integer.parseInt(view.getImage())));
+        Game game = parent.getActiveLevel().getGame();
+        int imageId = view.getImage();
+        Image image;
+        System.out.println("HERE:" + imageId);
+        if (game.hasImage(imageId)) image = game.getImage(imageId);
+        else image = Data.getImageStatic(imageId);
+        myImageView = new TransferImageView(image);
         myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
         myImageView.setFitWidth(paneWidth/gridXSize* widthInGridUnits);
 
