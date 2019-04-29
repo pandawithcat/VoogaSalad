@@ -154,11 +154,13 @@ public class DatabaseTest extends Application {
 
         System.out.println("Testing Get Image:");
 
-        int imageID = 1;
+        int imageID = 36;
 
         Image image = myAuthoringData.getImage2(imageID);
 
         ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(WINDOW_WIDTH);
+        imageView.setFitHeight(WINDOW_HEIGHT);
         myRoot.getChildren().add(imageView);
 
         System.out.println("Done Get Image");
