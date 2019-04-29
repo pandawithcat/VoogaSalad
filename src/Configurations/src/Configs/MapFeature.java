@@ -149,13 +149,7 @@ public class MapFeature {
     private void setInCell(int yPos, int xPos) {
         for(int x = (int)safeBoxMinGridX ;x<safeBoxMaxGridX;x++) {
             for(int y = (int)safeBoxMinGridY; y<safeBoxMaxGridY;y++) {
-                Cell cell;
-                try {
-                    cell = parent.getActiveLevel().getMyGrid()[x][y];
-                }catch (ArrayIndexOutOfBoundsException e){
-                    e.printStackTrace();
-                    cell = parent.getActiveLevel().getMyGrid()[x][y];
-                }
+                Cell cell = parent.getActiveLevel().getMyGrid()[x][y];
                 myCells.add(cell);
                 if(parent instanceof ActiveEnemy) {
                     cell.addEnemy((ActiveEnemy) parent);
