@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
 import Configs.Configurable;
 import Configs.Configuration;
 import Configs.LevelPackage.Level;
@@ -73,6 +74,7 @@ public class ConfigurableMap extends Application {
     private MapConfig myAttributesMapConfig;
     private Scene scene;
     private AlertFactory myAlertFactory = new AlertFactory();
+    private Model model;
 
     @Override
     public void start(Stage stage){
@@ -122,7 +124,7 @@ public class ConfigurableMap extends Application {
 
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap);
+                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap, typeToPath);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -185,6 +187,7 @@ public class ConfigurableMap extends Application {
         tileView.getItems().add(1,"Water");//        this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
         tileView.getItems().add(2,"Dirt");
+        model = new Model();
         tileView.setCellFactory(param->new ListCell<String>(){
             private ImageView image = new ImageView();
             @Override
@@ -205,7 +208,7 @@ public class ConfigurableMap extends Application {
 //                            System.out.println(f);
 //                        }
 //                    }
-                    try {
+
                         image.setFitHeight(20);
                         image.setFitWidth(20);
 //                        if (name.equals("Grass"))
@@ -216,14 +219,12 @@ public class ConfigurableMap extends Application {
 //                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
                         for(String s : typeToImagePathMap.keySet()){
                             if(name.equals(s)){
-                                image.setImage(new Image(new FileInputStream(typeToImagePathMap.get(s))));
+                                image.setImage(model.getImage(typeToImagePathMap.get(s)));
                             }
                         }
 
-                    }
-                    catch(FileNotFoundException f){
-                        System.out.println(f);
-                    }
+
+
                     setText(name);
                     setGraphic(image);
                 }
@@ -296,7 +297,7 @@ public class ConfigurableMap extends Application {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap);
+                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap,typeToPath);
                 map.add(myTile, r, c);
             }
         }

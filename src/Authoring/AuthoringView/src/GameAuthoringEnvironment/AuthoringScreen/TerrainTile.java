@@ -1,7 +1,9 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
 import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,7 @@ public class TerrainTile extends ImageView {
     private boolean isPath;
     private String tileImString;
     private String type;
+    private TextField tf;
 
     public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map, Map<String, Boolean> boolMap){
         super(image);
@@ -36,6 +39,8 @@ public class TerrainTile extends ImageView {
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
         typeToPath=boolMap;
+        tf=new TextField();
+        tf.setText("hello");
 
     }
     public TerrainTile(Image image,Map<String,Integer> map){
@@ -58,13 +63,10 @@ public class TerrainTile extends ImageView {
 //        else if(type.equals("Dirt")){
 //            changeToDirt();
 //        }
-        try {
-            ConfigureImage configureImage = new ConfigureImage()
-            this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-        }
+        Model model = new Model();
+        this.setImage(model.getImage(typeToImageMap.get(myType)));
+
+
 //        if(!type.equals("Grass")){
 //            setPath();
 //        }
