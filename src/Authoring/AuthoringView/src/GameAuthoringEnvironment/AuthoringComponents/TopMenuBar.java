@@ -63,22 +63,7 @@ public class TopMenuBar {
         loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
 
-                //TODO Import XML using filechooser and call a game.d
-               /* FileChooser fileChooser = new FileChooser();
 
-                File selectedFile = fileChooser.showOpenDialog(myStage);
-                if (selectedFile != null) {
-                    //TODO Make Game based on this
-                    String filepath = selectedFile.toString();
-                    // TODO game should be created by reading in the xml
-            *//*Game importedGame = new Game();
-            importedGame = new Model(filepath);*//*
-
-                    if (!filepath.endsWith("XML")) {
-                        //TODO Alert
-                    }
-                }
-                makeGame(new Game());*/
             }
         });
 

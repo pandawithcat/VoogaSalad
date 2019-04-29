@@ -117,20 +117,23 @@ public class StartingScreen {
     }
 
     private void importGame(MouseEvent evemt){
-        FileChooser fileChooser = new FileChooser();
+
+
+
+       /* FileChooser fileChooser = new FileChooser();
 
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile != null) {
 
             String filepath = selectedFile.toString();
             // TODO(Louis) game should be created by reading in the xml
-            /*Game importedGame = new Game();
-            importedGame = new Model(filepath);*/
+            /Game importedGame = new Game();
+            importedGame = new Model(filepath);
 
             if (!filepath.endsWith("XML")) {
                 //TODO(Hyunjae) alert!
             }
-        }
+        }*/
         makeGame(new Game());
     }
 
