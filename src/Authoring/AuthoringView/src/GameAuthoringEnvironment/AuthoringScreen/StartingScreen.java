@@ -2,7 +2,6 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
-import ExternalAPIs.GameInfo;
 import GameAuthoringEnvironment.CloseStage;
 import GameAuthoringEnvironment.ImportGame;
 import javafx.beans.property.BooleanProperty;
