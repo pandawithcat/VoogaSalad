@@ -1,12 +1,15 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
+import Configs.EnemyPackage.EnemyBehaviors.AIOptions;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
 import Configs.View;
+import ExternalAPIs.AuthoringData;
 import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +40,7 @@ public class GameController {
     private Map<String, List<Object>> configuredObjects;
     private Properties authoringProps = new Properties();
     private AlertFactory myAlertFactory = new AlertFactory();
+    private AIOptions myEnumType;
 
     public GameController() {
         myGameController = this;
@@ -87,6 +91,10 @@ public class GameController {
                 handleBooleanField(allButton, layout, myAttributesMap, key, definedAttributesMap);
             }
 
+            //handle Enum
+            if(value.isEnum()){
+                handleEnum(allButton, layout, myAttributesMap, key, value, definedAttributesMap, myConfigurable);
+            }
             //handle special case: require image
             else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
                 handleImageField(popupwindow, allButton, layout, myAttributesMap, key, value, definedAttributesMap, myConfigurable);
@@ -113,6 +121,36 @@ public class GameController {
             }
 
         return myAttributesMap;
+    }
+
+    private void handleEnum(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap, Configurable myconfigurable){
+        Label DISPLAY_LABEL = new Label("Choose the Enemy AI options");
+        Button confirmButton = new Button("Confirm");
+        var nameAndTfBar = new HBox(10);
+        Enum[] allOptions = AIOptions.values();
+        MenuButton menuButton = new MenuButton();
+        for(int a=0 ; a<allOptions.length; a++){
+            MenuItem menuItem = new MenuItem(allOptions[a].toString());
+            menuItem.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    String selectedTypeString = menuItem.getText();
+                    myEnumType = AIOptions.valueOf(selectedTypeString);
+                }
+            });
+            menuButton.getItems().add(menuItem);
+        }
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            //TODO DO Errorchecking/Refactor
+            @Override
+            public void handle(MouseEvent event) {
+                myAttributesMap.put(key, myEnumType);
+            }
+        }));
+        allButton.add(confirmButton);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, menuButton, confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
+
     }
 
     private void handlePrimitives(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap, Configurable myconfigurable){

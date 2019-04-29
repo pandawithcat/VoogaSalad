@@ -107,6 +107,7 @@ public class Logic {
      */
     public int startAtUserState(){
         UserState gameState = myPlayerData.getCurrentUserState();
+        System.out.println(gameState);
         int levelIndex = gameState.getMyCurrentScore();
         myGame.setScore(levelIndex);
         myGame.startGame(levelIndex, PANE_WIDTH, PANE_HEIGHT);
@@ -339,8 +340,14 @@ public class Logic {
 
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-
-                if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
+//                System.out.println(col);
+//                System.out.println(row);
+                if (myGame.getActiveLevel().isCellValid(col, row)) {
+                    if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
+                }
+                else {
+                    return false;
+                }
             }
         }
         return true;
