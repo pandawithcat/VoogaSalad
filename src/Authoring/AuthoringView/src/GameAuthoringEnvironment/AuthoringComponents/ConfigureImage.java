@@ -31,7 +31,8 @@ import java.util.Map;
 
 
 public class ConfigureImage {
-    private Text configuredPrompt;
+    private Label configuredPrompt;
+    private Image selectedImage;
     List<Class> myList;
     Map<String, Object> myMap;
     Stage popUpWindow;
@@ -52,10 +53,17 @@ public class ConfigureImage {
         myTextField.setText(Integer.toString(integer));
         configuredPrompt.setText("Your Image has been Configured!");
     }
+    public Image getSelectedImage(){
+        return selectedImage;
+    }
 
     private void setContent(){
-        configuredPrompt = new Text("");
-        configuredPrompt.setFont(Font.font("Veranda", FontWeight.BOLD, 50));
+        configuredPrompt = new Label("");
+        HBox promptSide = new HBox();
+        promptSide.setPrefWidth(400);
+        promptSide.getChildren().add(configuredPrompt);
+        promptSide.setAlignment(Pos.CENTER);
+        configuredPrompt.setFont(Font.font("Veranda", FontWeight.BOLD, 20));
         popUpWindow = new Stage();
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Image Editor");
@@ -70,8 +78,8 @@ public class ConfigureImage {
             allImagesList.add(model.getImage(allImages.get(a)));
         }
         for(int x = 0; x< allImages.size(); x ++){
-            Image image = allImagesList.get(x);
-            ImageView imageView = new ImageView(image);
+            selectedImage = allImagesList.get(x);
+            ImageView imageView = new ImageView(selectedImage);
             imageView.setFitWidth(ScreenSize.getWidth()/3);
             imageView.setFitHeight(ScreenSize.getHeight()/3);
             layout.getChildren().add(imageView);
@@ -79,10 +87,11 @@ public class ConfigureImage {
             imageView.setOnMousePressed(e->addImageID(id));
         }
         ScrollPane sp = new ScrollPane();
+        sp.setPrefWidth(400);
         sp.setContent(layout);
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(sp, configuredPrompt);
+        hBox.getChildren().addAll(sp, promptSide);
         Scene scene= new Scene(hBox, 800, 800);
         popUpWindow.setScene(scene);
         popUpWindow.show();
