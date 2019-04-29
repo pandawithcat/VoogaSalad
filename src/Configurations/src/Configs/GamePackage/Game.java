@@ -10,9 +10,12 @@ import Configs.Behaviors.Behavior;
 import Configs.GamePackage.GameBehaviors.GameBehavior;
 import Configs.LevelPackage.Level;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import javafx.scene.image.Image;
 import org.w3c.dom.events.Event;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Game implements Updatable, Configurable {
@@ -52,6 +55,8 @@ public class Game implements Updatable, Configurable {
     @XStreamOmitField
     private transient GameStatus gameStatus;
     private int myScore = 0;
+    @XStreamOmitField
+    private transient Map<Integer, Image> imageCache;
 
     //TODO:TEST VALUE OF CASH NEED TO MAKE CONFIGURABLE LATER
     private double myCash = 100000;
@@ -70,6 +75,20 @@ public class Game implements Updatable, Configurable {
 
     public void addToScore(int points) {
         myScore+=points;
+    }
+
+    public boolean hasImage(int imageID) {
+        if(imageCache==null) imageCache = new HashMap<>();
+        return imageCache.containsKey(imageID);
+    }
+
+    public void addImage(int imageID, Image image) {
+        imageCache.put(imageID, image);
+    }
+
+    public Image getImage(int imageID) throws IllegalStateException{
+        if(!hasImage(imageID)) throw new IllegalStateException();
+        return imageCache.get(imageID);
     }
 
     public int getScore() {

@@ -47,7 +47,7 @@ public class ConfigurableMap extends Application {
 
     public static final int GRID_WIDTH = 32;
     public static final int GRID_HEIGHT = 20;
-//public static final int GRID_WIDTH = 32;
+    //public static final int GRID_WIDTH = 32;
 //    public static final int GRID_HEIGHT = 20;
     Map<String,Boolean> typeToPath;
     Map<String,Integer> typeToImagePathMap;
@@ -124,7 +124,7 @@ public class ConfigurableMap extends Application {
 
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap, typeToPath);
+                    TerrainTile myTile = new TerrainTile(r, c, image, typeToImagePathMap, typeToPath);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -209,19 +209,19 @@ public class ConfigurableMap extends Application {
 //                        }
 //                    }
 
-                        image.setFitHeight(20);
-                        image.setFitWidth(20);
+                    image.setFitHeight(20);
+                    image.setFitWidth(20);
 //                        if (name.equals("Grass"))
 //                            image.setImage(new Image(new FileInputStream("resources/grass.jpg")));
 //                        else if (name.equals("Water"))
 //                            image.setImage(new Image(new FileInputStream("resources/water.jpg")));
 //                        else if (name.equals("Dirt"))
 //                            image.setImage(new Image(new FileInputStream("resources/dirt.jpg")));
-                        for(String s : typeToImagePathMap.keySet()){
-                            if(name.equals(s)){
-                                image.setImage(model.getImage(typeToImagePathMap.get(s)));
-                            }
+                    for(String s : typeToImagePathMap.keySet()){
+                        if(name.equals(s)){
+                            image.setImage(model.getImage(typeToImagePathMap.get(s)));
                         }
+                    }
 
 
 
@@ -297,7 +297,7 @@ public class ConfigurableMap extends Application {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap,typeToPath);
+                TerrainTile myTile = new TerrainTile(r, c, image,typeToImagePathMap,typeToPath);
                 map.add(myTile, r, c);
             }
         }
@@ -352,7 +352,7 @@ public class ConfigurableMap extends Application {
                 popUpWindow.close();
             }
         });
-       return subButton;
+        return subButton;
     }
 
 
