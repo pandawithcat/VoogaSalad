@@ -393,7 +393,6 @@ public class GameController {
         try {
             myButton = new Button("Configure " + value.getDeclaredField("DISPLAY_LABEL").get(null));
         } catch (IllegalAccessException e) {
-            myButton = new Button("Configure <Name not Found>");
             e.printStackTrace();
         }
         //TODO Should refactor
