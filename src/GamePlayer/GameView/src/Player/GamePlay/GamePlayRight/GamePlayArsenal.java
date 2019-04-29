@@ -87,11 +87,9 @@ public class GamePlayArsenal extends VBox {
             arsenalDisplay.setCellFactory(viewList -> new ImageCell());
             for (Integer id: arsenal.keySet()) {
                 System.out.println("ID: " + id);
-
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
-//                arsenalDisplay.getItems().add(loadImageWithCaption(myLogimyArsenal.get(id).getImage(),
-//                        myArsenal.get(id).getName(), weaponMap, id));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,6 +212,7 @@ public class GamePlayArsenal extends VBox {
         public void updateItem(Pair<ImageView, String> item, boolean empty) {
             super.updateItem(item, empty);
             if(!empty) {
+//                System.out.println("Item:" + item);
                 setGraphic(item.getKey());
                 Tooltip.install(this, new Tooltip(item.getValue()));
             }
@@ -225,13 +224,16 @@ public class GamePlayArsenal extends VBox {
             Integer> weaponMap, Integer id) {
         try {
             var image = new ImageView(new Image(new FileInputStream("resources/" + filename)));
-
+//            System.out.println("Image: " + image);
             //TODO: USE BELOW WHEN INFO IS CHANGED
 //            var image2 = new ImageView(myLogic.getImage(filename));
             weaponMap.put(image.toString(), id);
             image.setFitWidth(100);
             image.setFitHeight(100);
-            return new Pair<>(image, caption);
+            Pair pair = new Pair<>(image, caption);
+//            System.out.println("Pair" + pair);
+            return pair;
+//            return new Pair<>(image, caption);
         }
         catch(Exception e){
             //This shouldn't ever happen
