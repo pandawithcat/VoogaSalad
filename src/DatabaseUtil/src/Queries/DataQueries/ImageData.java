@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ImageData extends DBUtil {
-
     /**
      * @param image The file associated with the image to be uploaded
      * @param tag A tag for file that can be queried for later
