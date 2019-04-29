@@ -35,8 +35,8 @@ public class Terrain implements Configurable, Viewable, MapFeaturable{
     private MapFeature mapFeature;
 
 
-    public Terrain(MapConfig mapConfig, String fileName, int gridYPos, int gridXPos, boolean isPath){
-        view = new View(fileName,TERRAIN_SIZE,TERRAIN_SIZE);
+    public Terrain(MapConfig mapConfig, int imageId, int gridYPos, int gridXPos, boolean isPath){
+        view = new View(imageId,TERRAIN_SIZE,TERRAIN_SIZE);
         this.isPath = isPath;
         this.gridYPos = gridYPos;
         this.gridXPos = gridXPos;

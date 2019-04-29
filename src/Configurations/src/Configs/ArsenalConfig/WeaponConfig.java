@@ -52,7 +52,7 @@ public class WeaponConfig implements  Configurable, Viewable, Info {
     }
 
     @Override
-    public String getImage() {return view.getImage();}
+    public int getImage() {return view.getImage();}
 
     @Override
     public String getName() {return myName;}
