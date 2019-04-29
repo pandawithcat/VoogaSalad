@@ -213,15 +213,21 @@ public class LoadingSplashScreen extends Application{
         }
     }
     private void createAccount(){
-        createAccountGrid.getUserName();
-        createAccountGrid.getPasswordField();
-        createAccountGrid.getPasswordCheck();
-        if(!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())){
-            Text text = new Text("*Passwords do not match");
+        try {
+            createAccountGrid.getUserName();
+            createAccountGrid.getPasswordField();
+            createAccountGrid.getPasswordCheck();
+            if (!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())) {
+                Text text = new Text("*Passwords do not match");
+                text.setFill(Color.RED);
+                accountGrid.getChildren().add(text);
+            }
+            logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+        } catch (Exception e){
+            Text text = new Text(e.getMessage());
             text.setFill(Color.RED);
             accountGrid.getChildren().add(text);
         }
-        logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
 
     }
     public static void main(String [] args){
