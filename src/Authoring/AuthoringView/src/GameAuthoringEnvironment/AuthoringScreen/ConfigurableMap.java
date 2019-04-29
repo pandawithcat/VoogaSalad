@@ -108,9 +108,9 @@ public class ConfigurableMap extends Application {
         popUpWindow.setTitle("Map Editor");
 
         typeToImagePathMap = new HashMap<>();
-        typeToImagePathMap.put("Grass",27);
-        typeToImagePathMap.put("Water",28);
-        typeToImagePathMap.put("Dirt",26);
+        typeToImagePathMap.put("Grass",26);
+        typeToImagePathMap.put("Water",27);
+        typeToImagePathMap.put("Dirt",23);
 
         typeToPath = new HashMap<>();
         typeToPath.put("Grass",false);
