@@ -1,6 +1,5 @@
 package Configs;
 
-import ActiveConfigs.Cell;
 
 public class View implements Configurable {
     private transient Configuration myConfiguration;
@@ -40,15 +39,6 @@ public class View implements Configurable {
         return myConfiguration;
     }
 
-    //    public View(String imageName, int x, int y, int width, int height){
-//        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream(imageName));//classloader probably has to be set
-//        ImageView myImageView = new TransferImageView(image);
-//        myImageView.setX(x);
-//        myImageView.setY(y);
-//        myImageView.setFitWidth(width);
-//        myImageView.setFitWidth(height);
-//        myImageView.getFitWidth();
-//    }
 
     public int getWidth() {
         return width;

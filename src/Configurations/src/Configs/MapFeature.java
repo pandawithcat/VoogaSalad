@@ -3,11 +3,14 @@ package Configs;
 import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveWeapon;
 import ActiveConfigs.Cell;
+import ExternalAPIs.AuthoringData;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class MapFeature {
 
@@ -103,14 +106,12 @@ public class MapFeature {
     }
 
     private void setImage(View view) throws IllegalStateException {
-        try {
-            myImageView = new TransferImageView(new Image(new FileInputStream("resources/"+view.getImage())));
-            myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
-            myImageView.setFitWidth(paneWidth/gridXSize* widthInGridUnits);
-        }
-        catch (FileNotFoundException e) {
-            throw new IllegalStateException();
-        }
+        byte[] imageBytes = AuthoringData.getImage(Integer.parseInt(view.getImage()));
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        myImageView = new TransferImageView(new Image(byteIS));
+        myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
+        myImageView.setFitWidth(paneWidth/gridXSize* widthInGridUnits);
+
     }
 
     public double getPixelHeight(){
