@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 public class DatabaseTest extends Application {
 
-    public static final int WINDOW_WIDTH = 425;
-    public static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 300;
+    public static final int WINDOW_HEIGHT = 300;
 
     private static AuthoringData myAuthoringData;
     private static PlayerData myPlayerData;
