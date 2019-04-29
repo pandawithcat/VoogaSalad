@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +26,8 @@ public abstract class Data {
     private SessionData sessionData;
     private ImageData imageData;
 
+    public static final ImageData IMAGE_DATA = new ImageData();
+
 
 
     public Data(){
@@ -39,19 +40,19 @@ public abstract class Data {
         imageData = new ImageData();
     }
 
-    protected UserData getUserData() {
+    public UserData getUserData() {
         return userData;
     }
 
-    protected GameData getGameData() {
+    public GameData getGameData() {
         return gameData;
     }
 
-    protected SessionData getSessionData() {
+    public SessionData getSessionData() {
         return sessionData;
     }
     
-    protected ImageData getImageData() {
+    public ImageData getImageData() {
         return imageData;
     }
 
@@ -119,6 +120,12 @@ public abstract class Data {
      */
     public byte[] getImage(int imageID){
         return getImageData().fetchImage(imageID);
+    }
+
+    public static Image getImageStatic(int imageID){
+        byte[] imageBytes = IMAGE_DATA.fetchImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
 
