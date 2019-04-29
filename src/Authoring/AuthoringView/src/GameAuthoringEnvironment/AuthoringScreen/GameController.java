@@ -460,14 +460,23 @@ public class GameController {
 
     private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value,  Map<String, Object> definedAttributesMap, Configurable myConfigurable) {
         System.out.println(myConfigurable);
-        String imageType = "";
+        String imageType;
         if(key.toLowerCase().contains("thumbnail")){
             imageType = "THUMBNAIL";
         }
         else{
             View view = (View) myConfigurable;
             if(view.getMyConfigurableName().toLowerCase().contains("enemy")){
-                imageType = "";
+                imageType = "ENEMY";
+            }
+            else if(view.getMyConfigurableName().toLowerCase().contains("weapon")){
+                imageType = "WEAPON";
+            }
+            else if(view.getMyConfigurableName().toLowerCase().contains("terrain")){
+                imageType = "TERRAIN";
+            }
+            else{
+                imageType = "PROJECTILE";
             }
         }
 
@@ -486,7 +495,7 @@ public class GameController {
             //TODO(Louis) Change this so that image is called in from the server
             @Override
             public void handle(MouseEvent event) {
-                ConfigureImage configureImage = new ConfigureImage(myTextField, "");
+                ConfigureImage configureImage = new ConfigureImage(myTextField, imageType);
             }
         }));
 
