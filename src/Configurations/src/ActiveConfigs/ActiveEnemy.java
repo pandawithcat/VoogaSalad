@@ -204,7 +204,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myMapFeature.setDisplayState(DisplayState.DIED);
         myActiveLevel.addGameCash(1*getRewardForKilling());
         myActiveLevel.addGameScore(5*getRewardForKilling());
-        //TODO: Make these magic numbers reference the qualities of the enemy
 
     }
 
