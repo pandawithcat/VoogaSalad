@@ -154,7 +154,7 @@ public class DatabaseTest extends Application {
 
         System.out.println("Testing Get Image:");
 
-        int imageID = 36;
+        int imageID = 27;
 
         Image image = myAuthoringData.getImage2(imageID);
 

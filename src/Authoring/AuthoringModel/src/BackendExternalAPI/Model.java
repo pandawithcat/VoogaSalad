@@ -36,25 +36,25 @@ public class Model {
      * @param newGame - Game object created in authoring environment
      */
     // TODO: Make this the called method
-    public void saveToXML2(Game newGame){
+    public void saveToXML(Game newGame){
         XStream mySerializer = new XStream(new DomDriver());
         String gameXMLString = mySerializer.toXML(newGame);
         GameInfo savingInfo = new GameInfo(newGame.getTitle(), newGame.getThumbnailID(), newGame.getDescription());
         myAuthoringData.saveGame(gameXMLString, savingInfo);
     }
 
-    // TODO: Remove this method and use one above
-    public void saveToXML(Game newGame) {
-        myGame = newGame;
-        try {
-            updatePropertiesFile();
-            writeToXMLFile();
-
-        } catch (Exception e) {
-            // TODO: For Testing Purposes
-            e.printStackTrace();
-        }
-    }
+//    // TODO: Remove this method and use one above
+//    public void saveToXML(Game newGame) {
+//        myGame = newGame;
+//        try {
+//            updatePropertiesFile();
+//            writeToXMLFile();
+//
+//        } catch (Exception e) {
+//            // TODO: For Testing Purposes
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Takes in user input from the login screen and passes it to database module to check validity
