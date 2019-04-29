@@ -35,8 +35,8 @@ public class Linear extends ShooterBehavior {
 
     @Override
     public void update(double ms, Updatable parent) {
-        if((int)(ms/(1000/getMyShooter().getRateOfFire()))>=startRound) {
-            startRound = (int)(ms/(1000/getMyShooter().getRateOfFire()));
+        if((int)(ms/(1000/((Shooter)parent).getRateOfFire()))>startRound) {
+            startRound = (int)(ms/(1000/((Shooter)parent).getRateOfFire()));
             shoot(parent,((Shooter)parent).getMyShootable().getActiveWeapon().getMapFeature().getDirection());
         }
     }
