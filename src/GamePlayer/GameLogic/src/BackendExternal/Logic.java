@@ -53,7 +53,7 @@ public class Logic {
      * @param password - User input for chosen string to verify user identity
      * @return - boolean indicating if existing user credentials were matched
      */
-    public boolean authenticateUser(String username, String password){
+    public boolean authenticateUser(String username, String password)throws IllegalArgumentException, IllegalAccessError{
         return myPlayerData.authenticateUser(username, password);
     }
 
