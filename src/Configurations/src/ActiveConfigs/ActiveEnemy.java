@@ -68,11 +68,6 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myActiveLevel = activeLevel;
     }
 
-    public ActiveEnemy(EnemyConfig enemyConfig,ActiveLevel activeLevel, List<InstantiationModifier> in) {
-        super(enemyConfig);
-        myActiveLevel = activeLevel;
-    }
-
     public void setMyMapFeature(MapFeature mapFeature) {
         this.myMapFeature = mapFeature;
     }
@@ -87,6 +82,13 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         return myMapFeature;
     }
 
+
+//    public void addInstantiationModifier(InstantiationModifier instantiationModifier){
+//        instantiationModifier.apply(this);
+//    }
+    public void addSpeedModifier(SpeedModifier speedModifier){
+        speedModifiers.add(speedModifier);
+    }
 
     @Override
     public void update(double ms, Updatable parent) {
@@ -213,6 +215,8 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
         myMapFeature.setDisplayState(DisplayState.DIED);
         myActiveLevel.addGameCash(1*getHealth());
         myActiveLevel.addGameScore(5*getHealth());
+        //TODO: Make these magic numbers reference the qualities of the enemy
+
     }
 
     @Override

@@ -23,6 +23,8 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private double unitSpeedPerSecond;
     @Configure
+    private int rewardForKilling;
+    @Configure
     private View view;
 
     private transient Configuration myConfiguration;
@@ -85,4 +87,13 @@ public class EnemyConfig implements Configurable, Viewable {
 //    public Wave getMyWave() {
 //        return myWave;
 //    }
+
+
+    protected int getRewardForKilling() {
+        return rewardForKilling;
+    }
+
+    public void multiplyHealth(double multiplier) {
+        this.health = (int) multiplier*health;
+    }
 }
