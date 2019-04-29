@@ -43,6 +43,7 @@ public class LoadingSplashScreen extends Application{
     private LogInGrid logInGrid;
     private CreateAccount createAccountGrid;
     private Logic logic;
+    private Text errorMessage;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -198,10 +199,13 @@ public class LoadingSplashScreen extends Application{
     private void startGame(VBox vBox){
         if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
             availableGames();
-        }else{ Text text = new Text("*User does not exist");
-            text.setFill(Color.RED);
-            vBox.setAlignment(Pos.CENTER);
-            vBox.getChildren().add(text);
+        }else{
+            if(!vBox.getChildren().contains(errorMessage)){
+                errorMessage = new Text("*User does not exist");
+                errorMessage.setFill(Color.RED);
+                vBox.setAlignment(Pos.CENTER);
+                vBox.getChildren().add(errorMessage);
+            }
         }
     }
     private void createAccount(){
