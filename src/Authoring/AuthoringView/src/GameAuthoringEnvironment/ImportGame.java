@@ -6,7 +6,9 @@ import ExternalAPIs.GameInfo;
 import GameAuthoringEnvironment.AuthoringScreen.AuthoringVisualization;
 import GameAuthoringEnvironment.AuthoringScreen.ScreenSize;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,7 @@ import java.beans.EventHandler;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Stack;
 
 public class ImportGame extends Application {
     private Stage stage;
@@ -31,6 +34,7 @@ public class ImportGame extends Application {
     public static final String RESOURCES_PATH = "resources/";
     private CloseStage eventHandler;
     private HBox gameSelector;
+    private VBox rightSide;
     @Override
     public void start(Stage stage){
         this.stage = stage;
@@ -53,6 +57,7 @@ public class ImportGame extends Application {
     }
     private ScrollPane createScrollPane(){
         scrollPane = new ScrollPane();
+        scrollPane.setPrefWidth(ScreenSize.getWidth()/4);
         VBox vBox = new VBox();
         for(GameInfo gameInfo: gameInfoList){
             StackPane stackPane = new StackPane();
@@ -64,7 +69,7 @@ public class ImportGame extends Application {
             ImageView thumbnailImageView = createImageView(gameInfo);
             thumbnailImageView.setFitWidth(ScreenSize.getWidth()/4);
             thumbnailImageView.setPreserveRatio(true);
-            thumbnailImageView.setOnMousePressed(e-> startSelectedGame(gameInfo));
+            thumbnailImageView.setOnMousePressed(e-> createPrompt(gameInfo, thumbnailImageView));
             thumbnailImageView.setTranslateY(rect.getHeight()/2);
             stackPane.getChildren().add(thumbnailImageView);
             vBox.getChildren().add(stackPane);
@@ -76,6 +81,22 @@ public class ImportGame extends Application {
         Game game = model.loadGameObject(gameInfo);
         makeGame(game);
         eventHandler.close();
+    }
+    private void createPrompt(GameInfo gameInfo, ImageView imageView){
+        StackPane stackPane = new StackPane();
+        Rectangle rect = createRectangle();
+        Text text = new Text(gameInfo.getGameTitle());
+        stackPane.getChildren().addAll(rect, text, imageView);
+        imageView.setTranslateY(rect.getHeight()/2);
+        if(rightSide != null){
+            gameSelector.getChildren().remove(rightSide);
+        }
+        Button importButton = new Button("Import");
+        importButton.setOnAction(e->startSelectedGame(gameInfo));
+        rightSide = new VBox();
+        rightSide.getChildren().addAll(stackPane, importButton);
+        rightSide.setAlignment(Pos.CENTER);
+        gameSelector.getChildren().add(rightSide);
     }
     private ImageView createImageView(GameInfo gameInfo){
         ImageView imageView = new ImageView();
