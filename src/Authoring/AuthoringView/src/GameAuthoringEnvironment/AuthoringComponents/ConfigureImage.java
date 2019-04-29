@@ -33,6 +33,7 @@ import java.util.Map;
 public class ConfigureImage {
     private Label configuredPrompt;
     private Image selectedImage;
+    private Integer selectedInteger;
     List<Class> myList;
     Map<String, Object> myMap;
     Stage popUpWindow;
@@ -49,23 +50,30 @@ public class ConfigureImage {
         setContent();
 
     }
-    private void addImageID(Integer integer){
+    private void addImageID(Integer integer, ImageView imageView, VBox promptSide){
+        if(promptSide.getChildren().size() > 1){
+            promptSide.getChildren().remove(1);
+        }
+        promptSide.getChildren().add(imageView);
+        selectedInteger = integer;
         myTextField.setText(Integer.toString(integer));
         configuredPrompt.setText("Your Image has been Configured!");
     }
     public Image getSelectedImage(){
         return selectedImage;
     }
+    public Integer getSelectedInteger(){
+        return selectedInteger;
+    }
 
     private void setContent(){
         configuredPrompt = new Label("");
-        HBox promptSide = new HBox();
+        VBox promptSide = new VBox();
         promptSide.setPrefWidth(400);
         promptSide.getChildren().add(configuredPrompt);
         promptSide.setAlignment(Pos.CENTER);
         configuredPrompt.setFont(Font.font("Veranda", FontWeight.BOLD, 20));
         popUpWindow = new Stage();
-        //popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Image Editor");
         layout = new VBox(10.00);
         Model model = new Model();
@@ -80,11 +88,13 @@ public class ConfigureImage {
         for(int x = 0; x< allImages.size(); x ++){
             selectedImage = allImagesList.get(x);
             ImageView imageView = new ImageView(selectedImage);
-            imageView.setFitWidth(ScreenSize.getWidth()/3);
-            imageView.setFitHeight(ScreenSize.getHeight()/3);
+            ImageView imageView1 = new ImageView(selectedImage);
+            imageView1.setFitWidth(ScreenSize.getWidth()/4);
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(ScreenSize.getWidth()/6);
             layout.getChildren().add(imageView);
             Integer id = allImages.get(x);
-            imageView.setOnMousePressed(e->addImageID(id));
+            imageView.setOnMousePressed(e->addImageID(id, imageView1, promptSide));
         }
         ScrollPane sp = new ScrollPane();
         sp.setPrefWidth(400);
