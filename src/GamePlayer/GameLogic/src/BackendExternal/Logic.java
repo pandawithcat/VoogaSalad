@@ -7,10 +7,7 @@ import Configs.GamePackage.Game;
 import Configs.GamePackage.GameStatus;
 import Configs.MapPackage.Terrain;
 import Data.GameLibrary;
-import ExternalAPIs.GameInfo;
-import ExternalAPIs.LeaderBoardEntry;
-import ExternalAPIs.PlayerData;
-import ExternalAPIs.UserState;
+import ExternalAPIs.*;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import javafx.scene.image.Image;
@@ -135,6 +132,8 @@ public class Logic {
         return new Image(byteIS);
     }
 
+
+
     /**
      * Gets current user game session level index and score to pass to the database to store
      */
@@ -165,7 +164,6 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
-    // TODO: Remove this method call
     @Deprecated
     public List<ImmutableImageView> getLevelTerrain(){
         return myGame
@@ -178,16 +176,11 @@ public class Logic {
 
     }
 
-
-    // View calls this when the user presses play or level is over
-    // No Input
-    // Return: List of Viewable instances of static level items
-
     /**
      * Returns the list of initial map features to be added to the root in the visualization side
-     * @param screenWidth
-     * @param screenHeight
-     * @return
+     * @param screenWidth - double width of Game window
+     * @param screenHeight - double width of Game window
+     * @return - List of Immutable Image View instances to add to add to visualization
      */
     public List<ImmutableImageView> getLevelTerrain(double screenWidth, double screenHeight){
         return myGame
@@ -200,7 +193,6 @@ public class Logic {
 
     }
 
-    // TODO: Remove this method call
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
@@ -208,7 +200,7 @@ public class Logic {
 
     }
 
-    // TODO: Remove this method call, Nothing is using it
+    @Deprecated
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();
@@ -217,6 +209,11 @@ public class Logic {
     // View call this when the user presses play or a level is over
     // Return: ID and image file of available weapons
     // TODO: Change Info to return an integer rather than a string file path
+
+    /**
+     * Fetches a Map of weapon ID to the weapons basic info
+     * @return - map of int weapon ID and Info instance
+     */
     public Map<Integer, Info> getMyArsenal(){
         return myGame.getArsenal().getAllNewWeaponConfigOptions();
     }
@@ -224,6 +221,16 @@ public class Logic {
     // View calls this when a weapon is placed onto the map
     // Input: WeaponInfo Object
     // Return: ImageView corresponding to the weapon
+
+    /**
+     *
+     * @param weaponID
+     * @param xPixel
+     * @param yPixel
+     * @param direction
+     * @return
+     * @throws NotEnoughCashException
+     */
     public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
         if (myGame.getCash()>0){//TODO: Check for price of weapon
         return myGame.getArsenal().generateNewWeapon(weaponID, xPixel, yPixel, direction);
@@ -234,6 +241,11 @@ public class Logic {
     // View calls to update the state of the Dynamic parts of the level in the game loop
     // Input: Time the method is called
     // No Return
+
+    /**
+     *
+     * @param currentTime
+     */
     public void update(double currentTime){
         myGame.update(currentTime, null);
     }
@@ -241,6 +253,11 @@ public class Logic {
     // View calls to get objects to add to the view
     // No Input
     // Return: List of Viewable instances
+
+    /**
+     *
+     * @return
+     */
     public List<ImmutableImageView> getObjectsToAdd(){
         return myGame.getActiveLevel().getViewsToBeAdded();
     }
@@ -248,6 +265,11 @@ public class Logic {
     // View calls to get objects to remove from the view
     // No Input
     // Return: List of Viewable instances
+
+    /**
+     *
+     * @return
+     */
     public List<ImmutableImageView> getObjectsToRemove(){
         return myGame.getActiveLevel().getViewsToBeRemoved();
     }
@@ -255,11 +277,21 @@ public class Logic {
     // View calls to check the current score of the game in the game loop
     // No Input
     // Return: integer score
+
+    /**
+     *
+     * @return
+     */
     public int getScore(){
         return myGame.getScore();
     }
 
     //view calls to check the current amount of cash
+
+    /**
+     *
+     * @return
+     */
     public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
     // No Input
@@ -274,6 +306,15 @@ public class Logic {
     // View calls to check if a location is valid to place a weapon
     // Input: WeaponInfo object, x and y coordinate
     // Return: boolean
+
+    /**
+     *
+     * @param weaponId
+     * @param xPixel
+     * @param yPixel
+     * @param direction
+     * @return
+     */
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
         WeaponConfig weapon = myGame.getArsenal().getWeapon(weaponId);
         View weaponView = weapon.getView();
@@ -305,6 +346,10 @@ public class Logic {
         return true;
     }
 
+    /**
+     *
+     * @return
+     */
     public GameStatus getGameStatus(){
         return myGame.getGameStatus();
     }
@@ -314,6 +359,7 @@ public class Logic {
     // Input: WeaponInfo object, x and y coordinate
     // No return
     // TODO: Second Sprint move objects mid level
+    // TODO: Remove method call
 //    public void placeMovingObject(WeaponInfo placedWeapon, double x, double y){
 //
 //    }
@@ -321,10 +367,12 @@ public class Logic {
     // View calls this in game Loop to check if the level has ended
     // No input
     // Return: Boolean value indicating the status of the running level
+    // TODO: Remove method call
     public boolean checkIfLevelEnd(){
         return myGame.getLevelSpawner().isLevelOver();
     }
 
+    // TODO: Remove Method call
     //TODO: i changed the status of the game into an enum so this should get the actual enum value instead of just if its over
     // for example, the time expirable game mode is only based on if the game is over or not, but everything else has a lost or won status
     public boolean checkIfGameEnd(){

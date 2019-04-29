@@ -101,20 +101,23 @@ public class MapFeature {
         }
 
 
-    public MapFeature( double pixelXPos, double pixelYPos, double direction, View view,double paneWidth, double paneHeight, int gridXSize, int gridYSize, MapFeaturable parent){
-            this.heightInGridUnits = view.getHeight();
-            this.widthInGridUnits = view.getWidth();
-            displayState = DisplayState.NEW;
-            this.paneWidth = paneWidth;
-            this.paneHeight = paneHeight;
-            this.gridXSize = gridXSize;
-            this.gridYSize = gridYSize;
-            this.gridXPos = (int) (pixelXPos * (widthInGridUnits / paneWidth));
-            this.gridYPos = (int) (pixelYPos * (heightInGridUnits / paneHeight));
-            this.parent = parent;
-            setImage(view);
-            setPixelPos(pixelXPos, pixelYPos, direction);
-        }
+
+
+    public MapFeature(double pixelXPos, double pixelYPos, double direction, View view, double paneWidth, double paneHeight,int gridXSize, int gridYSize, MapFeaturable parent) {
+        this.heightInGridUnits = view.getHeight();
+        this.widthInGridUnits = view.getWidth();
+        displayState = DisplayState.NEW;
+        this.paneWidth = paneWidth;
+        this.paneHeight = paneHeight;
+        this.gridXSize = gridXSize;
+        this.gridYSize = gridYSize;
+        this.gridXPos = (int) (pixelXPos*(gridXSize/paneWidth));
+        this.gridYPos = (int) (pixelYPos*(gridYSize/paneHeight));
+        this.parent = parent;
+        setImage(view);
+        setPixelPos(pixelXPos,pixelYPos,direction);
+        hypotenuse = Math.sqrt(Math.pow(widthInGridUnits/2, 2) + Math.pow(heightInGridUnits/2, 2));
+    }
 
     private void setImage(View view) throws IllegalStateException {
         try {
@@ -227,8 +230,8 @@ public class MapFeature {
             this.pixelYPos = pixelYPos;
             this.pixelXPos = pixelXPos;
             this.displayDirection = direction;
-            this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
-            this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
+            this.gridXPos = (int) (pixelXPos*(gridXSize/paneWidth));
+            this.gridYPos = (int) (pixelYPos*(gridYSize/paneHeight));
             setImageView(pixelXPos,pixelYPos,direction);
             setInCell(gridYPos, gridXPos);
         }

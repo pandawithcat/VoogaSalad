@@ -25,7 +25,9 @@ public class AmmoExpirable extends WeaponBehavior {
     public void update(double ms, Updatable parent) {
         try {
 //            System.out.println(((ActiveWeapon)parent).getShooter().getProjectilesFired());
-            if (((ActiveWeapon)parent).getShooter().getProjectilesFired()>=ammoLimit) ((ActiveWeapon)parent).getMapFeature().setDisplayState(DisplayState.DIED);
+            if (((ActiveWeapon)parent).getShooter().getProjectilesFired()>=ammoLimit) {
+                ((ActiveWeapon)parent).getMapFeature().setDisplayState(DisplayState.DIED);
+            }
         }
         catch (IllegalStateException e) {
             //Do nothing if there is no shooter

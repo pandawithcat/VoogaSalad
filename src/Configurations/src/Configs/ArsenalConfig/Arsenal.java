@@ -62,7 +62,10 @@ public class Arsenal implements Configurable, Updatable {
 
     //note: ID is the index of the weapon+1
     public Map<Integer, Info> getAllNewWeaponConfigOptions() {
+
         //System.out.println(Arrays.asList(unlockedWeapons));
+
+
         if(unlockedWeapons.isEmpty()) {
             newUnlockedWeapons.addAll(Arrays.asList(defaultWeapons));
         }
