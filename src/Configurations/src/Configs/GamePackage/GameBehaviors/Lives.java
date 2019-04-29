@@ -1,15 +1,11 @@
 package Configs.GamePackage.GameBehaviors;
 
 import Configs.Behaviors.Behavior;
-import Configs.Configurable;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
 import Configs.GamePackage.GameStatus;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
-import java.awt.*;
-import java.util.function.Predicate;
 
 public class Lives extends GameBehavior{
     public static final String DISPLAY_LABEL = "Lives";
@@ -26,13 +22,12 @@ public class Lives extends GameBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        Game game = (Game) parent;
-        if (game.getActiveLevel().getEscapedEnemies()>=numEnemies) {
-            game.setGameStatus(GameStatus.LOST);
+        if (getMyGame().getActiveLevel().getEscapedEnemies()>=numEnemies) {
+            getMyGame().setGameStatus(GameStatus.GAMELOST);
         }
-        else if (game.getActiveLevel().noMoreEnemiesLeft()) {
-            if(game.isLastLevel()) getMyGame().setGameStatus(GameStatus.WON);
-            else game.setGameStatus(GameStatus.LEVELOVER);
+        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
+            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.GAMEWON);
+            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
 
         }
     }
