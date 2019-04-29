@@ -26,12 +26,13 @@ public class Lives extends GameBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-        if (getMyGame().getActiveLevel().getEscapedEnemies()>=numEnemies) {
-            getMyGame().setGameStatus(GameStatus.LOST);
+        Game game = (Game) parent;
+        if (game.getActiveLevel().getEscapedEnemies()>=numEnemies) {
+            game.setGameStatus(GameStatus.LOST);
         }
-        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
-            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.WON);
-            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
+        else if (game.getActiveLevel().noMoreEnemiesLeft()) {
+            if(game.isLastLevel()) getMyGame().setGameStatus(GameStatus.WON);
+            else game.setGameStatus(GameStatus.LEVELOVER);
 
         }
     }

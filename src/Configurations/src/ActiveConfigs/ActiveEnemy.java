@@ -204,9 +204,8 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     public void killMe(){
         myMapFeature.setDisplayState(DisplayState.DIED);
-        //TODO: Make these magic numbers reference the qualities of the enemy
-        myActiveLevel.addGameCash(1);
-        myActiveLevel.addGameScore(5);
+        myActiveLevel.addGameCash(1*getHealth());
+        myActiveLevel.addGameScore(5*getHealth());
     }
 
     @Override

@@ -34,7 +34,7 @@ public class Radial extends ShooterBehavior {
 
     @Override
     public void update(double ms, Updatable parent) {
-        if(ms>=startRound * ((1000/getMyShooter().getRateOfFire()))) {
+        if(ms>=startRound * ((1000/((Shooter) parent).getRateOfFire()))) {
             startRound++;
             shoot(parent, 0,60,120,180,240,300);
         }
