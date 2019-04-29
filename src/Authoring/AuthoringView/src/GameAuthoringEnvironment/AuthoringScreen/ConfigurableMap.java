@@ -124,7 +124,7 @@ public class ConfigurableMap extends Application {
 
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
-                    TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap, typeToPath);
+                    TerrainTile myTile = new TerrainTile(r, c, image, typeToImagePathMap, typeToPath);
 //                    Tooltip tooltip = new Tooltip(myTile.getTileImString());
 //                    Tooltip.install(myTile,tooltip);
                     map.setStyle("-fx-background-color: white;");
@@ -297,7 +297,7 @@ public class ConfigurableMap extends Application {
                     e.printStackTrace();
                 }
                 Image image = new Image(fis);
-                TerrainTile myTile = new TerrainTile(r, c, image,myTerrain.getView().getImage(),typeToImagePathMap,typeToPath);
+                TerrainTile myTile = new TerrainTile(r, c, image,typeToImagePathMap,typeToPath);
                 map.add(myTile, r, c);
             }
         }

@@ -27,7 +27,7 @@ public class TerrainTile extends ImageView {
     private int imageId;
 
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map, Map<String, Boolean> boolMap){
+    public TerrainTile(int x, int y, Image image, Map<String, Integer> map, Map<String, Boolean> boolMap){
         super(image);
         this.setX(x);
         this.setY(y);
