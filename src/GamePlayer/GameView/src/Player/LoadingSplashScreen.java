@@ -196,17 +196,15 @@ public class LoadingSplashScreen extends Application{
         });
     }
     private void startGame(VBox vBox){
-//        Text text = new Text("*User does not exist");
-//        text.setFill(Color.RED);
-//        vBox.setAlignment(Pos.CENTER);
-//        vBox.getChildren().add(text);
-        //logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword());
-//        logInGrid.getUserName();
-//        logInGrid.getPassword();
-        availableGames();
+        if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
+            availableGames();
+        }else{ Text text = new Text("*User does not exist");
+            text.setFill(Color.RED);
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().add(text);
+        }
     }
     private void createAccount(){
-        // logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
         createAccountGrid.getUserName();
         createAccountGrid.getPasswordField();
         createAccountGrid.getPasswordCheck();
@@ -215,6 +213,8 @@ public class LoadingSplashScreen extends Application{
             text.setFill(Color.RED);
             accountGrid.getChildren().add(text);
         }
+        logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+
     }
     public static void main(String [] args){
         Application.launch(args);}

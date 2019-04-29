@@ -68,16 +68,15 @@ public abstract class Data {
         if (numberOfLoginAttempts > MAX_LOGIN_ATTEMPTS){
             throw new IllegalAccessError("You have used up all of your login attempts");
         }
-
-        byte[] salt = userData.getSalt(username).getBytes();
-        String hashedPass =  new String(hashPassword(password, salt));
-
         try {
+            byte[] salt = userData.getSalt(username).getBytes();
+            String hashedPass =  new String(hashPassword(password, salt));
             currentUserID = userData.login(username, hashedPass);
             numberOfLoginAttempts = 0;
             return true;
         }
         catch (ConnectionException e){
+            System.out.println("Did not authenticate");
             return false;
         }
     }
