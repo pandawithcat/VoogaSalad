@@ -149,6 +149,9 @@ public class MapFeature {
     private void setInCell(int yPos, int xPos) {
         for(int x = (int)safeBoxMinGridX ;x<safeBoxMaxGridX;x++) {
             for(int y = (int)safeBoxMinGridY; y<safeBoxMaxGridY;y++) {
+                if (x > parent.getActiveLevel().getMyGrid().length || y > parent.getActiveLevel().getMyGrid()[0].length){
+                    this.setDisplayState(DisplayState.DIED);
+                }
                 Cell cell = parent.getActiveLevel().getMyGrid()[x][y];
                 myCells.add(cell);
                 if(parent instanceof ActiveEnemy) {

@@ -9,6 +9,7 @@ import Configs.LevelPackage.LevelBehaviors.Deflation;
 import Configs.MapPackage.Terrain;
 
 import java.awt.*;
+import java.io.CharArrayReader;
 import java.security.PublicKey;
 import java.util.*;
 import java.util.List;
@@ -29,11 +30,10 @@ public class ActiveLevel extends Level implements Updatable {
     private final int gridWidth;
     private final int gridHeight;
     private WaveSpawner myWaveSpawner;
+    private List<ActiveEnemy> enemiesToDie = new ArrayList<>();
     private List<Point> goalPositions = new ArrayList<>();
     private int escapedEnemies;
     private int myScore = 0;
-    private Game myGame;
-
 
     public ActiveLevel(Level level, Game myGame){//, MapFeature mapFeature) {
         super(level);
@@ -50,8 +50,6 @@ public class ActiveLevel extends Level implements Updatable {
         this.paneHeight = myGame.getPaneHeight();
         this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
-        this.myGame = myGame;
-
     }
 
     private Cell[][] createMyGrid(){
@@ -96,6 +94,10 @@ public class ActiveLevel extends Level implements Updatable {
         return gridHeight;
     }
 
+    public void addToEnemiesKilled(Collection<ActiveEnemy> aes){
+        enemiesToDie.addAll(aes);
+    }
+
     @Override
     public void update(double ms, Updatable parent) {
         updateActive(ms, activeEnemies);
@@ -103,15 +105,17 @@ public class ActiveLevel extends Level implements Updatable {
         updateActive(ms, activeProjectiles);
         updateActive(ms, activeWeapons);
         myWaveSpawner.update(ms, this);
+
     }
 
     private void updateActive(double ms, List<MapFeaturable> activeList) {
         List<MapFeaturable> activeToRemove = new ArrayList<>();
+        enemiesToDie.stream().forEach(e->e.killMe());
         activeList.stream().forEach(active -> {
             ((Updatable)active).update(ms, this);
             if(active.getMapFeature().getDisplayState()==DisplayState.DIED) {
-                if(active instanceof ActiveEnemy) escapedEnemies++;
                 activeToRemove.add(active);
+            if(active instanceof ActiveEnemy) escapedEnemies++;
             }
         });
         activeToRemove.stream().forEach(active -> imagesToBeRemoved.add(active.getMapFeature().getImageView()));

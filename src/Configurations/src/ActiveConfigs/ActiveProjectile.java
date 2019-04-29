@@ -4,9 +4,7 @@ import Configs.*;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ProjectilePackage.ProjectileConfig;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ActiveProjectile extends ProjectileConfig implements Updatable, MapFeaturable {
     private MapFeature myMapFeature;
@@ -29,7 +27,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
 
     @Override
     public void update(double ms, Updatable parent) {
-        if(distanceLeft>0) {
+        if(distanceLeft>0 && myMapFeature.getGridXPos() < myActiveLevel.getGridWidth() && myMapFeature.getGridYPos() < myActiveLevel.getGridHeight()) {
             move(ms);
 
             if (getMyBehaviors()!=null) {
@@ -55,23 +53,31 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
      */
     private void checkForCollisions() {
        // System.out.println("HERE" + myMapFeature.getMyCells().size());
-        System.out.println("PROJECTILE YMIN: " + (int)myMapFeature.returnBounds()[0] +
-                "YMAX: " + (int)myMapFeature.returnBounds()[1] +
-                "XMIN: " + (int)myMapFeature.returnBounds()[2] +
-                "XMAX: " + (int)myMapFeature.returnBounds()[3]);
+//        System.out.println("PROJECTILE YMIN: " + (int)myMapFeature.returnBounds()[0] +
+//                "YMAX: " + (int)myMapFeature.returnBounds()[1] +
+//                "XMIN: " + (int)myMapFeature.returnBounds()[2] +
+//                "XMAX: " + (int)myMapFeature.returnBounds()[3]);
         for (Cell c : myMapFeature.getMyCells()) {
             //System.out.println(c.getMyEnemies().size());
             if (c.getMyEnemies().size() > 0) {
                 //System.out.println(c.getMyEnemies().size());
-                handleEnemyCollision(c);
+                handleEnemyCollision(c.getMyEnemies());
             }
         }
     }
 
 
 
-    private void handleEnemyCollision(Cell myCell){
-        myCell.getMyEnemies().forEach(e -> e.killMe());
+    private void handleEnemyCollision(List<ActiveEnemy> aes){
+        myActiveLevel.addToEnemiesKilled(aes);
+//        Iterator<ActiveEnemy> enemyIterator;
+//        for(enemyIterator = myCell.getMyEnemies().iterator(); enemyIterator.hasNext();)
+//        {
+//            ActiveEnemy e = enemyIterator.next();
+//                e.killMe();  //This removes student from the collection safely
+//        }
+        //List<ActiveEnemy> enemiesToKill = new ArrayList<>(myCell.getMyEnemies());
+
         myMapFeature.setDisplayState(DisplayState.DIED);
 
     }
