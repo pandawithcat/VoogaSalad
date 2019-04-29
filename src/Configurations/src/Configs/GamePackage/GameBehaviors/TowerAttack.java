@@ -25,10 +25,10 @@ public class TowerAttack extends GameBehavior{
 //        if (getMyGame().getActiveLevel().getGoalPositions()){
 //
 //        }
-        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
-            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.GAMEWON);
-            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
-        }
+//        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
+//            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.GAMEWON);
+//            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
+//        }
     }
 
 
