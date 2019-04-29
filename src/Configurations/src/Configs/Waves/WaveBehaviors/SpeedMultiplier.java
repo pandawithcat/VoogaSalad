@@ -8,10 +8,8 @@ import Configs.Updatable;
 import Configs.Waves.Wave;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import java.util.Arrays;
-
-public class Faster extends WaveBehavior{
-    public static final String DISPLAY_LABEL = "Accelerating";
+public class SpeedMultiplier extends WaveBehavior{
+    public static final String DISPLAY_LABEL = "Speed Multiplier";
     @Configure
     private double speedAcceleration;
 
@@ -19,7 +17,7 @@ public class Faster extends WaveBehavior{
     @XStreamOmitField
     private transient Configuration myConfiguration;
 
-    public Faster(Wave wave) {
+    public SpeedMultiplier(Wave wave) {
         super(wave);
         myConfiguration = new Configuration(this);
     }
@@ -41,13 +39,14 @@ public class Faster extends WaveBehavior{
 
     @Override
     public void apply(ActiveEnemy enemy) {
-        enemy.addSpeedModifier(new SpeedModifier(speedAcceleration));
+//        enemy.addSpeedModifier(new SpeedModifier(speedAcceleration));
+        enemy.multiplyUnitSpeedPerSecond(speedAcceleration);
     }
 
     @Override
     public Behavior copy() {
-        Faster faster = new Faster(getMyWave());
-        faster.speedAcceleration = speedAcceleration;
-        return faster;
+        SpeedMultiplier speedMultiplier = new SpeedMultiplier(getMyWave());
+        speedMultiplier.speedAcceleration = speedAcceleration;
+        return speedMultiplier;
     }
 }

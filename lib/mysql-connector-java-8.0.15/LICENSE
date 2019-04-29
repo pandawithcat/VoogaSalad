@@ -1500,7 +1500,7 @@ developers of non-free programs to use free libraries, while preserving your
 freedom as a user of such programs to change the free libraries that are
 incorporated in them. (We have not seen how to achieve this as regards
 changes in header files, but we have achieved it as regards changes in the
-actual functions of the Library.) The hope is that this will lead to faster
+actual functions of the Library.) The hope is that this will lead to speedMultiplier
 development of free libraries.
 
 The precise terms and conditions for copying, distribution and modification
