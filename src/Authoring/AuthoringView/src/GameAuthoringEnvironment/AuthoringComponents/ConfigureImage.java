@@ -41,6 +41,9 @@ public class ConfigureImage {
         myImageType = AuthoringData.ImageType.valueOf(s.toUpperCase());
 
     }
+    private void addImageID(Integer integer){
+        myTextField.setText(Integer.toString(integer));
+    }
 
     private void setContent(){
         popUpWindow = new Stage();
@@ -48,7 +51,6 @@ public class ConfigureImage {
         popUpWindow.setTitle("Image Editor");
         layout = new VBox(10.00);
         Model model = new Model();
-
 
         Label imageLabel = new Label("Selected Image");
         TextField imageTf = new TextField();
@@ -63,11 +65,14 @@ public class ConfigureImage {
         //List<Integer> allImagess = model.getImageOptions(myImageType);
         List<Image> allImagesList = new ArrayList<>();
         for(int a=0; a< allImages.size(); a++) {
-
             allImagesList.add(model.getImage(allImages.get(a)));
-
         }
-
+        for(int x = 0; x< allImages.size(); x ++){
+            ImageView imageView = new ImageView(allImagesList.get(x));
+            layout.getChildren().add(imageView);
+            Integer id = allImages.get(x);
+            imageView.setOnMousePressed(e->addImageID(id));
+        }
 
         for(int a=0; a< allImages.size(); a++) {
 
