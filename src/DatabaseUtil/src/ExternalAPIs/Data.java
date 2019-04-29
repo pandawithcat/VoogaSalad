@@ -68,16 +68,15 @@ public abstract class Data {
         if (numberOfLoginAttempts > MAX_LOGIN_ATTEMPTS){
             throw new IllegalAccessError("You have used up all of your login attempts");
         }
-
-        byte[] salt = userData.getSalt(username).getBytes();
-        String hashedPass =  new String(hashPassword(password, salt));
-
         try {
+            byte[] salt = userData.getSalt(username).getBytes();
+            String hashedPass =  new String(hashPassword(password, salt));
             currentUserID = userData.login(username, hashedPass);
             numberOfLoginAttempts = 0;
             return true;
         }
         catch (ConnectionException e){
+            System.out.println("Did not authenticate");
             return false;
         }
     }
@@ -88,7 +87,7 @@ public abstract class Data {
      * @param password - chosen string to verify user identity
      * @param passwordRepeated - repeated chosen string
      */
-    public void createNewUser(String username, String password, String passwordRepeated){
+    public void createNewUser(String username, String password, String passwordRepeated)throws RuntimeException{
         checkArgumentLengths(username, password, passwordRepeated);
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];

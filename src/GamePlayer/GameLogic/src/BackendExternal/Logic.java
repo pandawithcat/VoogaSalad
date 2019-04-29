@@ -53,7 +53,7 @@ public class Logic {
      * @param password - User input for chosen string to verify user identity
      * @return - boolean indicating if existing user credentials were matched
      */
-    public boolean authenticateUser(String username, String password){
+    public boolean authenticateUser(String username, String password)throws IllegalArgumentException, IllegalAccessError{
         return myPlayerData.authenticateUser(username, password);
     }
 
@@ -63,7 +63,7 @@ public class Logic {
      * @param password - User input for chosen string to verify user identity
      * @param passwordRepeated - User input for chosen string repeated to verify user identity
      */
-    public void createNewUser(String username, String password, String passwordRepeated){
+    public void createNewUser(String username, String password, String passwordRepeated)throws IllegalArgumentException{
         myPlayerData.createNewUser(username, password, passwordRepeated);
     }
 
@@ -223,11 +223,11 @@ public class Logic {
     // Return: ImageView corresponding to the weapon
 
     /**
-     *
-     * @param weaponID
-     * @param xPixel
-     * @param yPixel
-     * @param direction
+     * Calls the Game instance to create an Image View for the specified weapon
+     * @param weaponID - int ID for identifying weapon in arsenal
+     * @param xPixel - double x placement position in window
+     * @param yPixel - double y placement position in window
+     * @param direction -
      * @return
      * @throws NotEnoughCashException
      */
@@ -335,10 +335,10 @@ public class Logic {
         int x = (int) (xPixel*(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
         int y = (int) (yPixel*(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
 
+        if(x>=myGame.getActiveLevel().getGridWidth()||x<0||y>=myGame.getActiveLevel().getGridHeight()||y<0) return false;
+
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-//                System.out.println(col);
-//                System.out.println(row);
 
                 if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }

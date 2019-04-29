@@ -43,6 +43,7 @@ public class LoadingSplashScreen extends Application{
     private LogInGrid logInGrid;
     private CreateAccount createAccountGrid;
     private Logic logic;
+    private Text errorMessage;
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -196,25 +197,41 @@ public class LoadingSplashScreen extends Application{
         });
     }
     private void startGame(VBox vBox){
-//        Text text = new Text("*User does not exist");
-//        text.setFill(Color.RED);
-//        vBox.setAlignment(Pos.CENTER);
-//        vBox.getChildren().add(text);
-        //logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword());
-//        logInGrid.getUserName();
-//        logInGrid.getPassword();
-        availableGames();
+
+        try {
+            if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
+                availableGames();
+            } else {
+                Text text = new Text("*User does not exist");
+                text.setFill(Color.RED);
+                vBox.setAlignment(Pos.CENTER);
+                vBox.getChildren().add(text);
+            }
+        } catch (Exception e){
+            Text text = new Text(e.getMessage());
+            text.setFill(Color.RED);
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().add(text);
+        }
     }
     private void createAccount(){
-        // logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
-        createAccountGrid.getUserName();
-        createAccountGrid.getPasswordField();
-        createAccountGrid.getPasswordCheck();
-        if(!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())){
-            Text text = new Text("*Passwords do not match");
+        try {
+            createAccountGrid.getUserName();
+            createAccountGrid.getPasswordField();
+            createAccountGrid.getPasswordCheck();
+            if (!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())) {
+                Text text = new Text("*Passwords do not match");
+                text.setFill(Color.RED);
+                accountGrid.getChildren().add(text);
+            }
+            logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+            availableGames();
+        } catch (Exception e){
+            Text text = new Text(e.getMessage());
             text.setFill(Color.RED);
             accountGrid.getChildren().add(text);
         }
+
     }
     public static void main(String [] args){
         Application.launch(args);}

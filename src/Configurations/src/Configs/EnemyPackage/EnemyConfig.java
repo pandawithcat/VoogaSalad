@@ -2,6 +2,7 @@ package Configs.EnemyPackage;
 
 import Configs.*;
 import Configs.ArsenalConfig.WeaponBehaviors.WeaponBehavior;
+import Configs.EnemyPackage.EnemyBehaviors.AIOptions;
 import Configs.EnemyPackage.EnemyBehaviors.EnemyBehavior;
 import Configs.Waves.Wave;
 
@@ -23,7 +24,11 @@ public class EnemyConfig implements Configurable, Viewable {
     @Configure
     private double unitSpeedPerSecond;
     @Configure
+    private int rewardForKilling;
+    @Configure
     private View view;
+    @Configure
+    private AIOptions aiType;
 
     private transient Configuration myConfiguration;
 
@@ -85,4 +90,25 @@ public class EnemyConfig implements Configurable, Viewable {
 //    public Wave getMyWave() {
 //        return myWave;
 //    }
+
+
+    protected int getRewardForKilling() {
+        return rewardForKilling;
+    }
+
+    public void multiplyHealth(double multiplier) {
+        this.health = (int) multiplier*health;
+    }
+
+    public void multiplyRewardForKilling(double multiplier) {
+        this.rewardForKilling = (int) multiplier * rewardForKilling;
+    }
+
+    public void multiplyUnitSpeedPerSecond(double multiplier) {
+        this.unitSpeedPerSecond = (int) multiplier * unitSpeedPerSecond;
+    }
+
+    public AIOptions getAiType() {
+        return aiType;
+    }
 }

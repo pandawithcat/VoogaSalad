@@ -253,7 +253,9 @@ public class MapFeature {
     }
 
     public void setDisplayState(DisplayState displayState) {
-        if(displayState == DisplayState.DIED) removeFromCell();
+        if(displayState == DisplayState.DIED) {
+            removeFromCell();
+        }
         this.displayState = displayState;
     }
 }

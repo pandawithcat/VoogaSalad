@@ -46,7 +46,7 @@ public class ConfigurableMap {
 
     public static final int GRID_WIDTH = 32;
     public static final int GRID_HEIGHT = 20;
-//public static final int GRID_WIDTH = 32;
+    //public static final int GRID_WIDTH = 32;
 //    public static final int GRID_HEIGHT = 20;
     Map<String,String> typeToImagePathMap;
     Map<String, Object> passedMap;
@@ -219,14 +219,14 @@ public class ConfigurableMap {
             }
             addGridEvent();
         }
-            catch (FileNotFoundException e){
-                myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
-            }
+        catch (FileNotFoundException e){
+            myAlertFactory.createAlert("Could not find Image File for Default Terrain. Setting to null.");
         }
+    }
 
 
-        //map.setLayoutX();
-        //map.setLayoutY();
+    //map.setLayoutX();
+    //map.setLayoutY();
 
 
     public VBox createTileView(){
@@ -352,7 +352,7 @@ public class ConfigurableMap {
                 popUpWindow.close();
             }
         });
-       return subButton;
+        return subButton;
     }
 
 

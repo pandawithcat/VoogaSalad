@@ -2,6 +2,7 @@ package ActiveConfigs;
 
 import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.GamePackage.Game;
 import Configs.GamePackage.GameBehaviors.TowerAttack;
 import Configs.LevelPackage.Level;
 import Configs.LevelPackage.LevelBehaviors.Deflation;
@@ -30,10 +31,11 @@ public class ActiveLevel extends Level implements Updatable {
     private WaveSpawner myWaveSpawner;
     private List<Point> goalPositions = new ArrayList<>();
     private int escapedEnemies;
-    int myScore = 0;
+    private int myScore = 0;
+    private Game myGame;
 
 
-    public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
+    public ActiveLevel(Level level, Game myGame){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
@@ -45,10 +47,10 @@ public class ActiveLevel extends Level implements Updatable {
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
-        this.paneHeight = paneHeight;
-        this.paneWidth = paneWidth;
+        this.paneHeight = myGame.getPaneHeight();
+        this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
-
+        this.myGame = myGame;
     }
 
     private Cell[][] createMyGrid(){
@@ -170,15 +172,15 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void removeWeapon(ActiveWeapon activeWeapon){
         activeWeapon.getMapFeature().setDisplayState(DisplayState.DIED);
-        Point check = new Point(activeWeapon.getMapFeature().getGridXPos(),activeWeapon.getMapFeature().getGridYPos());
-        Point toRemove = new Point(-100,-100);
+        if (getGame().getGameType() instanceof TowerAttack) {
+            Point check = new Point(activeWeapon.getMapFeature().getGridXPos(), activeWeapon.getMapFeature().getGridYPos());
+            Point toRemove = new Point(-100, -100);
 
-        for(Point p:goalPositions){
-            if (p.equals(check)){
-                toRemove = p;
+            for (Point p : goalPositions) {
+                if (p.equals(check)) {
+                    toRemove = p;
+                }
             }
-        }
-        if (toRemove.x!=-100){
             goalPositions.remove(toRemove);
         }
     }

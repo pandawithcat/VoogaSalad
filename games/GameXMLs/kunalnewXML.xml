@@ -20,7 +20,7 @@
               <health>1000</health>
               <unitSpeedPerSecond>1.0</unitSpeedPerSecond>
               <view>
-                <imageId>25</imageId>
+                <imageId>29</imageId>
                 <width>50</width>
                 <height>50</height>
                 <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
@@ -33,7 +33,7 @@
               <health>100</health>
               <unitSpeedPerSecond>2.0</unitSpeedPerSecond>
               <view>
-                <imageId>25</imageId>
+                <imageId>29</imageId>
                 <width>40</width>
                 <height>40</height>
                 <myConfigurable class="Configs.EnemyPackage.EnemyConfig" reference="../.."/>
@@ -7772,7 +7772,7 @@
                 <myConfiguration/>
                 <myName>projectile</myName>
                 <view>
-                  <imageId>34</imageId>
+                  <imageId>28</imageId>
                   <width>25</width>
                   <height>25</height>
                   <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
@@ -7818,7 +7818,7 @@
                 <myConfiguration/>
                 <myName>projectile</myName>
                 <view>
-                  <imageId>33</imageId>
+                  <imageId>28</imageId>
                   <width>25</width>
                   <height>25</height>
                   <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
@@ -7838,7 +7838,7 @@
           </Configs.ArsenalConfig.WeaponBehaviors.Shootable>
         </behaviors>
         <view>
-          <imageId>28</imageId>
+          <imageId>29</imageId>
           <width>50</width>
           <height>50</height>
           <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>

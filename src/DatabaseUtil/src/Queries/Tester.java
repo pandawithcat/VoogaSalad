@@ -67,9 +67,8 @@ public class Tester{
     }
 
     @Test
-    @Disabled
     public void addImage(){
-        imageData.addImage(image, "308");
+        imageData.addImage(image, "TERRAIN");
     }
 
     @Test

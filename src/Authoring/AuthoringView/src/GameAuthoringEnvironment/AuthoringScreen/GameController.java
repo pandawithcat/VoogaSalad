@@ -3,6 +3,10 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
+import Configs.View;
+import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +24,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.*;
+import java.text.Annotation;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.List;
 
@@ -38,10 +44,9 @@ public class GameController {
         configuredObjects = new HashMap<>();
         try{
              File propFile = new File("./src/Authoring/AuthoringView/resources/authoringvars.properties");
-        authoringProps.load(new FileInputStream(propFile.getPath()));
+            authoringProps.load(new FileInputStream(propFile.getPath()));
      }catch (Exception e){
             System.out.print("No Properties File Found");
-            //Dont need to do anything here--
         }
     }
 
@@ -84,12 +89,16 @@ public class GameController {
 
             //handle special case: require image
             else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
-                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, definedAttributesMap);
+                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, value, definedAttributesMap, myConfigurable);
 
             }
             //handle string and primitives except boolean
-            else if(value.equals(String.class) || value.isPrimitive()){
-                handlePrimitivesAndString(allButton, layout, myAttributesMap, key, value, definedAttributesMap);
+            else if(value.equals(String.class)){
+                handleString(allButton, layout, myAttributesMap, key, value, definedAttributesMap);
+            }
+
+            else if(value.isPrimitive()){
+                handlePrimitives(allButton, layout, myAttributesMap, key, value, definedAttributesMap, myConfigurable);
             }
 
             //handle single object
@@ -104,6 +113,115 @@ public class GameController {
             }
 
         return myAttributesMap;
+    }
+
+    private void handlePrimitives(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap, Configurable myconfigurable){
+        Label DISPLAY_LABEL = getLabel(key);
+        var nameAndTfBar = new HBox(10);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL);
+
+        Label infoLabel = new Label("-");
+        Slider mySlider = new Slider();;
+        mySlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, //
+                                Number oldValue, Number newValue) {
+                DecimalFormat df = new DecimalFormat("#.#");
+
+                String result= df.format(newValue.doubleValue());
+                infoLabel.setText("New value: " + result);
+            }
+        });
+
+        mySlider.setShowTickMarks(true);
+        mySlider.setShowTickLabels(true);
+
+        TextField myTextField = new TextField();
+
+        Class clazz = myconfigurable.getClass();
+        Field[] aaa = clazz.getDeclaredFields();
+        for (int a = 0; a < aaa.length; a++) {
+
+            if (aaa[a].getName().toLowerCase().contains(key.toLowerCase()) && aaa[a].isAnnotationPresent(Configurable.Slider.class)) {
+                Configurable.Slider annotation = aaa[a].getAnnotation(Configurable.Slider.class);
+                mySlider.setMax(annotation.max());
+                mySlider.setMin(annotation.min());
+                nameAndTfBar.getChildren().addAll(mySlider, infoLabel);
+                }
+            else if(aaa[a].getName().toLowerCase().contains(key.toLowerCase())){
+                nameAndTfBar.getChildren().add(myTextField);
+                }
+            }
+/*
+        if (definedAttributesMap.keySet().contains(key)) {
+            //TODO Set the slider
+            mySlider.setValue(Double.parseDouble(definedAttributesMap.get(key).toString()));
+        }*/
+
+        Button confirmButton = new Button("Confirm");
+        nameAndTfBar.getChildren().add(confirmButton);
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            //TODO DO Errorchecking/Refactor
+            @Override
+            public void handle(MouseEvent event) {
+                if(nameAndTfBar.getChildren().contains(mySlider)){
+                if(value.getName().equals("int")){
+                    Integer a = (int)mySlider.getValue();
+                    myAttributesMap.put(key, a.intValue());
+                }
+                else if(value.getName().equals("long")){
+                    Long b = (long)mySlider.getValue();
+                    myAttributesMap.put(key, b.longValue());
+                }
+                else{
+                    Double c = (double)mySlider.getValue();
+                    myAttributesMap.put(key, c.doubleValue());
+                    }
+                }
+                else{
+                    if(value.getName().equals("int")){
+                        Integer a = Integer.parseInt(myTextField.getText());
+                        myAttributesMap.put(key, a.intValue());
+                    }
+                    else if(value.getName().equals("long")){
+                        Long b = Long.parseLong(myTextField.getText());
+                        myAttributesMap.put(key, b.longValue());
+                    }
+                    else{
+                        Double c =Double.parseDouble(myTextField.getText());
+                        myAttributesMap.put(key, c.doubleValue());
+                    }
+
+                }
+            }
+        }));
+        allButton.add(confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
+    }
+
+
+
+    private void handleString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
+        //TODO get the label string from the properties file
+        Label DISPLAY_LABEL = getLabel(key);
+        TextField myTextField = new TextField();
+        if (definedAttributesMap.keySet().contains(key)) {
+            myTextField.setText(definedAttributesMap.get(key).toString());
+        }
+        Button confirmButton = new Button("Confirm");
+
+        var nameAndTfBar = new HBox();
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, myTextField, confirmButton);
+        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            //TODO DO Errorchecking/Refactor
+            @Override
+            public void handle(MouseEvent event) {
+                    myAttributesMap.put(key, myTextField.getText());
+            }
+        }));
+        allButton.add(confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
     }
 
     private void handleConfigurableArray(Configurable myConfigurable, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
@@ -276,7 +394,6 @@ public class GameController {
         try {
             myButton = new Button("Configure " + value.getDeclaredField("DISPLAY_LABEL").get(null));
         } catch (IllegalAccessException e) {
-            myButton = new Button("Configure <Name not Found>");
             e.printStackTrace();
         }
         //TODO Should refactor
@@ -286,10 +403,6 @@ public class GameController {
 
                 try {
                     Class<?> clazz = Class.forName(value.getName());
-
-                    if(definedAttributesMap.keySet().contains(key)){
-
-                    }
                     //Special Case: Map
                     if (clazz.getSimpleName().equals("MapConfig")) {
                         if (definedAttributesMap.keySet().contains(key)) {
@@ -309,13 +422,6 @@ public class GameController {
                         myAttributesMap.put(key, object);
                     //Speical case : Behavior is different since drag and drop is required
                     } else if(clazz.getSimpleName().toLowerCase().contains("behavior")){
-                        //only one behavior allowed
-                        //if(clazz.getSimpleName().toLowerCase().contains("gamebehavior")){
-                           /* Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
-                            List<Class> behaviorList = (List<Class>) myField.get(null);
-                            ConfigureGameBehavior configureGameBehavior = new ConfigureGameBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList);
-*/
-                        //}
                         //multiple behaviors allowed
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
@@ -345,42 +451,6 @@ public class GameController {
     }
 
 
-    private void handlePrimitivesAndString(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap) {
-        //TODO get the label string from the properties file
-        Label DISPLAY_LABEL = getLabel(key);
-        TextField myTextField = new TextField();
-        if (definedAttributesMap.keySet().contains(key)) {
-            myTextField.setText(definedAttributesMap.get(key).toString());
-        }
-        Button confirmButton = new Button("Confirm");
-
-        var nameAndTfBar = new HBox();
-        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, myTextField, confirmButton);
-        confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
-            //TODO DO Errorchecking/Refactor
-            @Override
-            public void handle(MouseEvent event) {
-                if(value.getName().equals("int")){
-                    Integer a = Integer.parseInt(myTextField.getText());
-                    myAttributesMap.put(key, a.intValue());
-                }
-                else if(value.getName().equals("long")){
-                    Long b = Long.parseLong(myTextField.getText());
-                    myAttributesMap.put(key, b.longValue());
-                }
-                else if(value.getName().equals("double")){
-                    Double c =Double.parseDouble(myTextField.getText());
-                    myAttributesMap.put(key, c.doubleValue());
-                }
-                else{
-                    myAttributesMap.put(key, myTextField.getText());
-                }
-            }
-        }));
-        allButton.add(confirmButton);
-        layout.getChildren().addAll(nameAndTfBar);
-    }
-
     private Label getLabel(String key) {
         if (authoringProps.getProperty(key)==null){
             System.out.println("LABEL NOT DEFINED: "+key);
@@ -388,7 +458,28 @@ public class GameController {
         return new Label(authoringProps.getProperty(key));
     }
 
-    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
+    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value,  Map<String, Object> definedAttributesMap, Configurable myConfigurable) {
+        System.out.println(myConfigurable);
+        String imageType;
+        if(key.toLowerCase().contains("thumbnail")){
+            imageType = "THUMBNAIL";
+        }
+        else{
+            View view = (View) myConfigurable;
+            if(view.getMyConfigurableName().toLowerCase().contains("enemy")){
+                imageType = "ENEMY";
+            }
+            else if(view.getMyConfigurableName().toLowerCase().contains("weapon")){
+                imageType = "WEAPON";
+            }
+            else if(view.getMyConfigurableName().toLowerCase().contains("terrain")){
+                imageType = "TERRAIN";
+            }
+            else{
+                imageType = "PROJECTILE";
+            }
+        }
+
         Label DISPLAY_LABEL = getLabel(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
@@ -404,17 +495,14 @@ public class GameController {
             //TODO(Louis) Change this so that image is called in from the server
             @Override
             public void handle(MouseEvent event) {
-                FileChooser fileChooser = new FileChooser();
-                File selectedFile = fileChooser.showOpenDialog(popupwindow);
-                String filepath = selectedFile.toString();
-                myTextField.setText(filepath);
+                ConfigureImage configureImage = new ConfigureImage(myTextField, imageType);
             }
         }));
 
         confirmButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                myAttributesMap.put(key, myTextField.getText());
+                myAttributesMap.put(key, Integer.parseInt(myTextField.getText()));
             }
         }));
 
