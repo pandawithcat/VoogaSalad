@@ -4,6 +4,7 @@ import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveWeapon;
 import ActiveConfigs.Cell;
 import ExternalAPIs.AuthoringData;
+import ExternalAPIs.Data;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
@@ -106,9 +107,7 @@ public class MapFeature {
     }
 
     private void setImage(View view) throws IllegalStateException {
-        byte[] imageBytes = AuthoringData.getImage(Integer.parseInt(view.getImage()));
-        InputStream byteIS = new ByteArrayInputStream(imageBytes);
-        myImageView = new TransferImageView(new Image(byteIS));
+        myImageView = new TransferImageView(Data.getImage(Integer.parseInt(view.getImage())));
         myImageView.setFitHeight(paneHeight/gridYSize*heightInGridUnits);
         myImageView.setFitWidth(paneWidth/gridXSize* widthInGridUnits);
 
