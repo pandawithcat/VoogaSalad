@@ -1054,7 +1054,7 @@ Version 6.0.6
 
   - Fix for Bug#41752, Can't connect mysqld which character_set_server=ucs2.
 
-  - Fix for Bug#65508, getCharsetNameForIndex() should be faster.
+  - Fix for Bug#65508, getCharsetNameForIndex() should be speedMultiplier.
 
   - Fix for Bug#14563127, Load-balanced connection fails to select valid host, closes connection
     on re-balance.
@@ -2724,7 +2724,7 @@ nn-nn-07 - Version 5.0.9
 	- Fixed cases where ServerPreparedStatements weren't using cached metadata
 	  when "cacheResultSetMetadata=true" was configured.
 
-	- Use faster datetime parsing for ResultSets that come from plain or
+	- Use speedMultiplier datetime parsing for ResultSets that come from plain or
 	  non-server-side prepared statements. (Enable old implementation with
 	  "useFastDateParsing=false" as a configuration parameter).
 
@@ -4553,7 +4553,7 @@ nn-nn-07 - Version 3.1.15
 	  'utf-8' via the 'characterEncoding' property. Previously, only the
 	  Java-style encoding name of 'utf-8' would trigger this.
 
-	- AutoReconnect time was growing faster than exponentially (BUG#2447).
+	- AutoReconnect time was growing speedMultiplier than exponentially (BUG#2447).
 
 	- Fixed failover always going to last host in list (BUG#2578)
 
@@ -4931,7 +4931,7 @@ nn-nn-07 - Version 3.1.15
 
     - Added 'strictUpdates' property to allow control of amount
       of checking for 'correctness' of updatable result sets. Set this
-      to 'false' if you want faster updatable result sets and you know
+      to 'false' if you want speedMultiplier updatable result sets and you know
       that you create them from SELECTs on tables with primary keys and
       that you have selected all primary keys in your query.
 
@@ -5121,7 +5121,7 @@ nn-nn-07 - Version 3.1.15
       Statement/PreparedStatement.getGeneratedKeys() and
       ResultSet.getURL()
 
-    - Performance enchancements - driver is now 50-100% faster
+    - Performance enchancements - driver is now 50-100% speedMultiplier
       in most situations, and creates fewer temporary objects
 
     - Repackaging...new driver name is "com.mysql.jdbc.Driver",
@@ -5799,7 +5799,7 @@ Fixed PreparedStatement parameter checking
        Richard Swift <Richard.Swift@kanatek.ca> in
        MysqlIO.java and ResultSet.java
 
-     - We're now 15% faster than gwe's driver.
+     - We're now 15% speedMultiplier than gwe's driver.
 
      - Started working on DatabaseMetaData.
 

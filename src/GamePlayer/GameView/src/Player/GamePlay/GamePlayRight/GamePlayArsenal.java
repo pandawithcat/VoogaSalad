@@ -152,7 +152,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragOver(DragEvent event){
-        System.out.println("drag over");
+        //System.out.println("drag over");
         movingImage.setTranslateX(event.getX());
         movingImage.setTranslateY(event.getY());
         if (event.getGestureSource() != myMap ) {
