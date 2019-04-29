@@ -73,6 +73,9 @@ public class EnemyConfig implements Configurable, Viewable {
         return view;
     }
 
+    public int getHealth() {
+        return health;
+    }
 
     @Override
     public String getName() {

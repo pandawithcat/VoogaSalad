@@ -45,9 +45,10 @@ public class Level implements Configurable{
             levelBehaviors[i] = arrayList.get(i);
         }
         myName = level.myName;
+        myGame = level.myGame;
     }
 
-    private LevelBehavior[] getLevelBehaviors() {
+    public LevelBehavior[] getLevelBehaviors() {
         return levelBehaviors;
     }
 
@@ -70,6 +71,9 @@ public class Level implements Configurable{
 
     public Game getGame(){
         return myGame;
+    }
+    public void setMyGame(Game g){
+        myGame = g;
     }
 
 
