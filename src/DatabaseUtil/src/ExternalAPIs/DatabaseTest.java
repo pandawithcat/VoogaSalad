@@ -1,4 +1,4 @@
-package Internal;
+package ExternalAPIs;
 
 import ExternalAPIs.*;
 import javafx.application.Application;
@@ -19,8 +19,8 @@ import java.util.Arrays;
 
 public class DatabaseTest extends Application {
 
-    public static final int WINDOW_WIDTH = 425;
-    public static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 300;
+    public static final int WINDOW_HEIGHT = 300;
 
     private static AuthoringData myAuthoringData;
     private static PlayerData myPlayerData;
@@ -56,7 +56,7 @@ public class DatabaseTest extends Application {
 //        System.out.println();
 //        testGetXMLString();
 //        System.out.println();
-//        testGetImage();
+        testGetImage();
 //        System.out.println();
 //        testStoreBasicInfo();
 //        System.out.println();
@@ -154,11 +154,13 @@ public class DatabaseTest extends Application {
 
         System.out.println("Testing Get Image:");
 
-        int imageID = 1;
+        int imageID = 36;
 
         Image image = myAuthoringData.getImage2(imageID);
 
         ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(WINDOW_WIDTH);
+        imageView.setFitHeight(WINDOW_HEIGHT);
         myRoot.getChildren().add(imageView);
 
         System.out.println("Done Get Image");

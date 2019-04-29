@@ -1,5 +1,6 @@
 package Configs.Waves.WaveBehaviors;
 
+import ActiveConfigs.ActiveEnemy;
 import Configs.Behaviors.Behavior;
 import Configs.Waves.Wave;
 
@@ -22,6 +23,8 @@ public abstract class WaveBehavior implements Behavior<Wave> {
     public void setMyWave(Wave myWave) {
         this.myWave = myWave;
     }
+
+    public abstract void apply(ActiveEnemy enemy);
 
     @Override
     public List<Class> getBehaviorOptions() {

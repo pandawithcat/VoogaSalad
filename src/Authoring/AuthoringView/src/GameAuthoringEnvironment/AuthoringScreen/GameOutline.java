@@ -182,8 +182,6 @@ public class GameOutline extends Screen {
                ConfigurableMap configurableMap = new ConfigurableMap(myAttributesMap, myConfigurable);
                configurableMap.setConfigurations();
            }
-
-
        }
       /* else if(myConfigurable.getClass().getSimpleName().toLowerCase().contains("behavior")){
            if (!definedAttributesMap.keySet().equals(null)) {
