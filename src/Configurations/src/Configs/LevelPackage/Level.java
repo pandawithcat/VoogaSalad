@@ -72,6 +72,9 @@ public class Level implements Configurable{
     public Game getGame(){
         return myGame;
     }
+    public void setMyGame(Game g){
+        myGame = g;
+    }
 
 
 }

@@ -138,7 +138,11 @@ public class GameOutline extends Screen {
         }
 
         Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
-//        System.out.println(myMap);
+
+        //System.out.println(myMap);
+
+
+
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
             //base case

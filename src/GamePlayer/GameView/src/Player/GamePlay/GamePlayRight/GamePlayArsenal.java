@@ -88,9 +88,9 @@ public class GamePlayArsenal extends VBox {
             for (Integer id: arsenal.keySet()) {
 //                System.out.println(new ImageView(myLogic.getImage(arsenal.get(id).getImage())));
                 System.out.println("ID: " + id);
-                System.out.println(arsenalDisplay.getItems());
                 arsenalDisplay.getItems().add(loadImageWithCaption(myArsenal.get(id).getImage(),
                         myArsenal.get(id).getName(), weaponMap, id));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,7 +153,7 @@ public class GamePlayArsenal extends VBox {
     }
 
     private void dragOver(DragEvent event){
-        System.out.println("drag over");
+        //System.out.println("drag over");
         movingImage.setTranslateX(event.getX());
         movingImage.setTranslateY(event.getY());
         if (event.getGestureSource() != myMap ) {
@@ -213,6 +213,7 @@ public class GamePlayArsenal extends VBox {
         public void updateItem(Pair<ImageView, String> item, boolean empty) {
             super.updateItem(item, empty);
             if(!empty) {
+//                System.out.println("Item:" + item);
                 setGraphic(item.getKey());
                 Tooltip.install(this, new Tooltip(item.getValue()));
             }
@@ -223,7 +224,6 @@ public class GamePlayArsenal extends VBox {
     private Pair<ImageView, String> loadImageWithCaption(int fileId, String caption, Map <String,
             Integer> weaponMap, Integer id) {
         try {
-
             //TODO: USE BELOW WHEN INFO IS CHANGED
             System.out.println(fileId);
             var image = new ImageView(myLogic.getImage(fileId));
@@ -233,8 +233,6 @@ public class GamePlayArsenal extends VBox {
             image.setFitWidth(100);
             image.setFitHeight(100);
             Pair pair = new Pair<>(image, caption);
-            System.out.println("****");
-            System.out.println(pair);
             return pair;
 //            return new Pair<>(image, caption);
         }
