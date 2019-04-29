@@ -86,7 +86,7 @@ public class GamePlayMap extends Pane{
         Button goHome = new Button("Return to Home");
         goHome.setOnAction(e -> {
             closeStages(gameOver,homeStage);
-            GameSelection gameSelection = new GameSelection();
+            GameSelection gameSelection = new GameSelection(myLogic);
             gameSelection.start(new Stage());
         });
         VBox display = new VBox(text,quit,goHome);
