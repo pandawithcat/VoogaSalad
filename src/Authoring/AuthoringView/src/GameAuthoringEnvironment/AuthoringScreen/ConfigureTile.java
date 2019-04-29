@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import Configs.Configurable;
 import GameAuthoringEnvironment.AuthoringComponents.AlertScreen;
+import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -51,6 +52,7 @@ public class ConfigureTile {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Connect to the data server
+                ConfigureImage configureImage = new ConfigureImage(imageTextField, "TERRAIN");
             }
         });
 

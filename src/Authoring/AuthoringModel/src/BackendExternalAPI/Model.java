@@ -21,7 +21,6 @@ public class Model {
     private final String XML_FILE_PATH = "games/GameXMLs/";
     private final String REGEX = "~";
     private final String XML_TAG = "XML.xml";
-    private final int MAX_FILE_SIZE = 16 * (10 ^ 6);
 
     private Game myGame;
     private String myXMLFileName;
@@ -37,25 +36,25 @@ public class Model {
      * @param newGame - Game object created in authoring environment
      */
     // TODO: Make this the called method
-    public void saveToXML2(Game newGame){
+    public void saveToXML(Game newGame){
         XStream mySerializer = new XStream(new DomDriver());
         String gameXMLString = mySerializer.toXML(newGame);
         GameInfo savingInfo = new GameInfo(newGame.getTitle(), newGame.getThumbnailID(), newGame.getDescription());
         myAuthoringData.saveGame(gameXMLString, savingInfo);
     }
 
-    // TODO: Remove this method and use one above
-    public void saveToXML(Game newGame) {
-        myGame = newGame;
-        try {
-            updatePropertiesFile();
-            writeToXMLFile();
-
-        } catch (Exception e) {
-            // TODO: For Testing Purposes
-            e.printStackTrace();
-        }
-    }
+//    // TODO: Remove this method and use one above
+//    public void saveToXML(Game newGame) {
+//        myGame = newGame;
+//        try {
+//            updatePropertiesFile();
+//            writeToXMLFile();
+//
+//        } catch (Exception e) {
+//            // TODO: For Testing Purposes
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * Takes in user input from the login screen and passes it to database module to check validity
@@ -112,7 +111,7 @@ public class Model {
     public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
         // TODO: Check length of image file and throw exception if too large
         int fileSize = (int) newImageFile.length();
-        checkFileSize(fileSize);
+//        checkFileSize(fileSize);
         byte[] fileBytes = new byte[fileSize];
         InputStream imageIS = new FileInputStream(newImageFile);
         imageIS.read(fileBytes);
@@ -120,11 +119,7 @@ public class Model {
     }
 
 
-    private void checkFileSize(int size){
-        if (size > MAX_FILE_SIZE){
-            throw new IllegalArgumentException("Image file size exceeds 16 MB.  Please choose a smaller file");
-        }
-    }
+
 
     /**
      *
