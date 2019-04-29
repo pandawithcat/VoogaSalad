@@ -3,6 +3,7 @@ package Configs.GamePackage.GameBehaviors;
 import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
+import Configs.GamePackage.GameStatus;
 import Configs.Updatable;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -20,7 +21,13 @@ public class TowerAttack extends GameBehavior{
 
     @Override
     public void update(double ms, Updatable parent) {
-
+        if (getMyGame().getActiveLevel().getGoalPositions().isEmpty()){
+            getMyGame().setGameStatus(GameStatus.GAMELOST);
+        }
+        else if (getMyGame().getActiveLevel().noMoreEnemiesLeft()) {
+            if(getMyGame().isLastLevel()) getMyGame().setGameStatus(GameStatus.GAMEWON);
+            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
+        }
     }
 
 

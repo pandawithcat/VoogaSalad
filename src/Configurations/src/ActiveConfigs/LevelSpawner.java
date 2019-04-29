@@ -22,7 +22,7 @@ public class LevelSpawner implements Updatable {
         this.myGame = game;
         this.levelIndex = levelIndex;
         myLevels = new ArrayList<>(Arrays.asList(levels));
-        currLevel = new ActiveLevel(levels[levelIndex], game.getPaneWidth(), game.getPaneHeight());
+        currLevel = new ActiveLevel(levels[levelIndex], game);
         levelOver = false;
         gameOver = false;
     }
@@ -41,7 +41,7 @@ public class LevelSpawner implements Updatable {
     public int startNextLevel() throws IllegalStateException{
         if(gameOver) throw new IllegalStateException();
         levelIndex++;
-        currLevel = new ActiveLevel(myLevels.get(levelIndex), myGame.getPaneWidth(), myGame.getPaneHeight());
+        currLevel = new ActiveLevel(myLevels.get(levelIndex), myGame);
         return levelIndex;
     }
 

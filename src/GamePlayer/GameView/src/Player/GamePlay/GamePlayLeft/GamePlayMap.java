@@ -16,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 
-import static Configs.GamePackage.GameStatus.LOST;
-
 public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
@@ -54,14 +52,14 @@ public class GamePlayMap extends Pane{
             case OVER:
                 displayGameOver("Game Over! ");
                 break;
-            case LOST:
+            case GAMELOST:
                 displayGameOver("You Lost!");
                 break;
-            case WON:
+            case GAMEWON:
                 displayGameOver("You Won!");
                 break;
             case PLAYING:
-                if (myLogic.checkIfLevelEnd()) {
+                if (gameStatus == GameStatus.LEVELOVER) {
                     myData.updateLevel(myLogic.startNextLevel());
                 }
                 myLogic.update(elapsedTime);
@@ -88,7 +86,7 @@ public class GamePlayMap extends Pane{
         Button goHome = new Button("Return to Home");
         goHome.setOnAction(e -> {
             closeStages(gameOver,homeStage);
-            GameSelection gameSelection = new GameSelection();
+            GameSelection gameSelection = new GameSelection(myLogic);
             gameSelection.start(new Stage());
         });
         VBox display = new VBox(text,quit,goHome);

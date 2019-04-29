@@ -2,10 +2,13 @@ package ActiveConfigs;
 
 import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.GamePackage.Game;
+import Configs.GamePackage.GameBehaviors.TowerAttack;
 import Configs.LevelPackage.Level;
 import Configs.MapPackage.Terrain;
 
 import java.awt.*;
+import java.security.PublicKey;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,10 +30,11 @@ public class ActiveLevel extends Level implements Updatable {
     private WaveSpawner myWaveSpawner;
     private List<Point> goalPositions = new ArrayList<>();
     private int escapedEnemies;
-    int myScore = 0;
+    private int myScore = 0;
+    private Game myGame;
 
 
-    public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
+    public ActiveLevel(Level level, Game myGame){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
@@ -42,9 +46,10 @@ public class ActiveLevel extends Level implements Updatable {
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
-        this.paneHeight = paneHeight;
-        this.paneWidth = paneWidth;
+        this.paneHeight = myGame.getPaneHeight();
+        this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
+        this.myGame = myGame;
 
     }
 
@@ -76,6 +81,14 @@ public class ActiveLevel extends Level implements Updatable {
 
     public int getGridWidth() {
         return gridWidth;
+    }
+
+    public void setGoalPositions(List<Point> goalPositions) {
+        this.goalPositions = goalPositions;
+    }
+
+    public List<Point> getGoalPositions() {
+        return goalPositions;
     }
 
     public int getGridHeight() {
@@ -150,8 +163,26 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void addToActiveWeapons(ActiveWeapon activeWeapon) {
         activeWeapons.add(activeWeapon);
-        recalculateMovementHeuristic();
+//        recalculateMovementHeuristic();
+        if (getGame().getGameType() instanceof TowerAttack){
+            MapFeature weaponMapFeature = activeWeapon.getMapFeature();
+            goalPositions.add(new Point(weaponMapFeature.getGridXPos(), weaponMapFeature.getGridYPos()));
+        }
+    }
 
+    public void removeWeapon(ActiveWeapon activeWeapon){
+        activeWeapon.getMapFeature().setDisplayState(DisplayState.DIED);
+        Point check = new Point(activeWeapon.getMapFeature().getGridXPos(),activeWeapon.getMapFeature().getGridYPos());
+        Point toRemove = new Point(-100,-100);
+
+        for(Point p:goalPositions){
+            if (p.equals(check)){
+                toRemove = p;
+            }
+        }
+        if (toRemove.x!=-100){
+            goalPositions.remove(toRemove);
+        }
     }
 
 
@@ -200,9 +231,6 @@ public class ActiveLevel extends Level implements Updatable {
             int x = expandedCell.getX() + xAdditions[i];
             int y = expandedCell.getY() + yAdditions[i];
             if(isCellValid(x,y)){
-                if (x == 116|x==117|x == 118|x==119){
-                    System.out.println();
-                }
                 if (heuristicType.equals("short")) {
                     calculateShortestDistanceHeuristic(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC);
                 }

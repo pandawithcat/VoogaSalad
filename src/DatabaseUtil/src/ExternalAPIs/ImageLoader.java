@@ -3,6 +3,7 @@ package ExternalAPIs;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,16 +15,20 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
 public class ImageLoader extends Application {
 
-    public static final int WINDOW_WIDTH = 500;
-    public static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 400;
+    public static final int WINDOW_HEIGHT = 300;
     public static final String TITLE = "Image Uploader";
     public static final String DEFAULT_FILE_TEXT = "Select a File to Upload";
     public static final String DEFAULT_TYPE_TEXT = "Select an Image Type";
+    public static final String FILE_BUTTON_TXT = "Select File";
+    public static final String SAVE_BUTTON_TXT = "Save Image File";
+    public static final String DROPDOWN_TXT = "Type";
 
     private static AuthoringData myAuthoringData;
 
@@ -38,11 +43,16 @@ public class ImageLoader extends Application {
     private File myImageFile;
     private AuthoringData.ImageType myImageType;
 
-    public static void main (String[] args){launch(args);}
+    private static int imageID;
+
+    public static int main (String[] args){
+        launch(args);
+        return imageID;
+    }
 
     @Override
     public void start(Stage stage){
-      //  myAuthoringData = new AuthoringData();
+        myAuthoringData = new AuthoringData();
         myFileChooser = new FileChooser();
 
         myStage = stage;
@@ -73,7 +83,7 @@ public class ImageLoader extends Application {
 
     private void startFileChooser(){
         TextField fileTextBox = new TextField(DEFAULT_FILE_TEXT);
-        Button fileButton = makeButton(new EventHandler<ActionEvent>() {
+        Button fileButton = makeButton(FILE_BUTTON_TXT, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 myImageFile = myFileChooser.showOpenDialog(myStage);
@@ -93,7 +103,7 @@ public class ImageLoader extends Application {
 
     private void createImageTypeMenu(){
         TextField typeTextBox = new TextField(DEFAULT_TYPE_TEXT);
-        MenuButton menuButton = new MenuButton();
+        MenuButton menuButton = new MenuButton(DROPDOWN_TXT);
 
         for (int i = 0; i < AuthoringData.ImageType.values().length; i++){
             MenuItem mi = new MenuItem(AuthoringData.ImageType.values()[i].name());
@@ -113,7 +123,7 @@ public class ImageLoader extends Application {
     }
 
     private void createSaveButton(){
-        Button saveButton = makeButton(new EventHandler<ActionEvent>() {
+        Button saveButton = makeButton(SAVE_BUTTON_TXT, new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 testStoreImage();
@@ -124,16 +134,14 @@ public class ImageLoader extends Application {
 
     private void testStoreImage(){
         try {
-            myAuthoringData.uploadImage(myImageFile,myImageType);
+            imageID = myAuthoringData.uploadImage(myImageFile,myImageType);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Done storing image file");
     }
 
-    private static Button makeButton(EventHandler<ActionEvent> handler){
-        var newButton = new Button("Select Image File");
+    private static Button makeButton(String buttonString, EventHandler<ActionEvent> handler){
+        var newButton = new Button(buttonString);
         newButton.setOnAction(handler);
         return newButton;
     }

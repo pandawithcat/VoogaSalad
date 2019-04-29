@@ -95,8 +95,8 @@ public class MapFeature {
         this.paneHeight = paneHeight;
         this.gridXSize = gridXSize;
         this.gridYSize = gridYSize;
-        this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
-        this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
+        this.gridXPos = (int) (pixelXPos*(gridXSize/paneWidth));
+        this.gridYPos = (int) (pixelYPos*(gridYSize/paneHeight));
         this.parent = parent;
         setImage(view);
         setPixelPos(pixelXPos,pixelYPos,direction);
@@ -190,8 +190,8 @@ public class MapFeature {
             this.pixelYPos = pixelYPos;
             this.pixelXPos = pixelXPos;
             this.displayDirection = direction;
-            this.gridXPos = (int) (pixelXPos*(widthInGridUnits/paneWidth));
-            this.gridYPos = (int) (pixelYPos*(heightInGridUnits/paneHeight));
+            this.gridXPos = (int) (pixelXPos*(gridXSize/paneWidth));
+            this.gridYPos = (int) (pixelYPos*(gridYSize/paneHeight));
             setImageView(pixelXPos,pixelYPos,direction);
             setInCell(gridYPos, gridXPos);
         }

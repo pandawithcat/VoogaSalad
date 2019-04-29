@@ -12,8 +12,8 @@ import java.io.FileNotFoundException;
 
 public class GamePlayRightSide extends VBox {
 
-    public static final double ARSENAL_RATIO = 0.75;
-    public static final double BUTTON_RATIO = 0.25;
+    public static final double ARSENAL_RATIO = 0.8;
+    public static final double BUTTON_RATIO = 0.2;
     private GamePlayArsenal myGameArsenal;
     private ButtonPanel myButtonPanel;
     private MediaPlayer mediaPlayer;

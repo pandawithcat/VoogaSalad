@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +14,7 @@ import static Internal.Authentication.*;
 
 public abstract class Data {
 
-    private final int MAX_LOGIN_ATTEMPTS = 3;
+    private final int MAX_LOGIN_ATTEMPTS = 4;
 
     protected int currentUserID;
     protected int currentGameID;
@@ -26,6 +25,8 @@ public abstract class Data {
     private GameData gameData;
     private SessionData sessionData;
     private ImageData imageData;
+
+    public static final ImageData IMAGE_DATA = new ImageData();
 
 
 
@@ -39,19 +40,19 @@ public abstract class Data {
         imageData = new ImageData();
     }
 
-    protected UserData getUserData() {
+    public UserData getUserData() {
         return userData;
     }
 
-    protected GameData getGameData() {
+    public GameData getGameData() {
         return gameData;
     }
 
-    protected SessionData getSessionData() {
+    public SessionData getSessionData() {
         return sessionData;
     }
     
-    protected ImageData getImageData() {
+    public ImageData getImageData() {
         return imageData;
     }
 
@@ -67,16 +68,15 @@ public abstract class Data {
         if (numberOfLoginAttempts > MAX_LOGIN_ATTEMPTS){
             throw new IllegalAccessError("You have used up all of your login attempts");
         }
-
-        byte[] salt = userData.getSalt(username).getBytes();
-        String hashedPass =  new String(hashPassword(password, salt));
-
         try {
+            byte[] salt = userData.getSalt(username).getBytes();
+            String hashedPass =  new String(hashPassword(password, salt));
             currentUserID = userData.login(username, hashedPass);
             numberOfLoginAttempts = 0;
             return true;
         }
         catch (ConnectionException e){
+            System.out.println("Did not authenticate");
             return false;
         }
     }
@@ -87,7 +87,7 @@ public abstract class Data {
      * @param password - chosen string to verify user identity
      * @param passwordRepeated - repeated chosen string
      */
-    public void createNewUser(String username, String password, String passwordRepeated){
+    public void createNewUser(String username, String password, String passwordRepeated)throws RuntimeException{
         checkArgumentLengths(username, password, passwordRepeated);
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];
@@ -118,7 +118,13 @@ public abstract class Data {
      * @return - byte array of requested image
      */
     public byte[] getImage(int imageID){
-        return getImage(imageID);
+        return getImageData().fetchImage(imageID);
+    }
+
+    public static Image getImageStatic(int imageID){
+        byte[] imageBytes = IMAGE_DATA.fetchImage(imageID);
+        InputStream byteIS = new ByteArrayInputStream(imageBytes);
+        return new Image(byteIS);
     }
 
 
