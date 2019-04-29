@@ -21,7 +21,6 @@ public class Model {
     private final String XML_FILE_PATH = "games/GameXMLs/";
     private final String REGEX = "~";
     private final String XML_TAG = "XML.xml";
-    private final int MAX_FILE_SIZE = 16 * (10 ^ 6);
 
     private Game myGame;
     private String myXMLFileName;
@@ -112,7 +111,7 @@ public class Model {
     public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
         // TODO: Check length of image file and throw exception if too large
         int fileSize = (int) newImageFile.length();
-        checkFileSize(fileSize);
+//        checkFileSize(fileSize);
         byte[] fileBytes = new byte[fileSize];
         InputStream imageIS = new FileInputStream(newImageFile);
         imageIS.read(fileBytes);
@@ -120,11 +119,7 @@ public class Model {
     }
 
 
-    private void checkFileSize(int size){
-        if (size > MAX_FILE_SIZE){
-            throw new IllegalArgumentException("Image file size exceeds 16 MB.  Please choose a smaller file");
-        }
-    }
+
 
     /**
      *
