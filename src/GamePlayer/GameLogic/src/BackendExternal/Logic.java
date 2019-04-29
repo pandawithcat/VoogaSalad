@@ -165,7 +165,6 @@ public class Logic {
         return myGame.getLevelSpawner().startNextLevel();
     }
 
-    // TODO: Remove this method call
     @Deprecated
     public List<ImmutableImageView> getLevelTerrain(){
         return myGame
@@ -200,7 +199,6 @@ public class Logic {
 
     }
 
-    // TODO: Remove this method call
     @Deprecated
     private ImmutableImageView getImageView(Terrain t) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView());//should eventually be able to get the grid size from the game directly
@@ -208,7 +206,7 @@ public class Logic {
 
     }
 
-    // TODO: Remove this method call, Nothing is using it
+    @Deprecated
     private ImmutableImageView getImageView(Terrain t, double screenWidth, double screenHeight, int gridWidth, int gridHeight) {
         MapFeature mapFeature = new MapFeature(t.getGridXPos(), t.getGridYPos(), 0.0, t.getView(), screenWidth, screenHeight, gridWidth, gridHeight);//should eventually be able to get the grid size from the game directly
         return mapFeature.getImageView();

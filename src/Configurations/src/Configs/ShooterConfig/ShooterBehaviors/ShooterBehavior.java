@@ -33,6 +33,7 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
     }
 
     protected void shoot(Updatable parent, double... direction){
+        Shooter shooter = (Shooter) parent;
         ActiveWeapon activeWeapon = ((Shooter) parent).getMyShootable().getActiveWeapon();
         ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
         MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
@@ -40,15 +41,15 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
         double weaponY = myShooterMapFeature.getPixelYPos();
         double width = myShooterMapFeature.getPixelWidth();
         double height = myShooterMapFeature.getPixelHeight();
-        ProjectileConfig projectileConfig = myShooter.getProjectileConfig();
+        ProjectileConfig projectileConfig = shooter.getProjectileConfig();
         double projectileStartXPos = weaponX + width/2 - projectileConfig.getView().getWidth()/2;
         double projectileStartYPos = weaponY + height/2 - projectileConfig.getView().getHeight()/2;
         for(Double dir:direction) {
-            ActiveProjectile activeProjectile = new ActiveProjectile(projectileConfig, myShooter.getShooterRange(), myActiveLevel);
-            MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,dir, myShooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth(),activeProjectile);
+            ActiveProjectile activeProjectile = new ActiveProjectile(projectileConfig, shooter.getShooterRange(), myActiveLevel);
+            MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,dir, shooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth(),activeProjectile);
             activeProjectile.setMyMapFeature(projectileMapFeature);
             myActiveLevel.addToActiveProjectiles(activeProjectile);
-            myShooter.addToProjectilesFired();
+            shooter.addToProjectilesFired();
         }
     }
 
