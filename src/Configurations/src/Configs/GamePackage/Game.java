@@ -84,6 +84,10 @@ public class Game implements Updatable, Configurable {
         myLevelSpawner.update(ms, this);
     }
 
+    public GameBehavior getGameType() {
+        return gameType;
+    }
+
     public void setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
     }
