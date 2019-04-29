@@ -3,6 +3,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 import Configs.Configurable;
 import Configs.GamePackage.Game;
 import Configs.MapPackage.MapConfig;
+import Configs.View;
 import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -88,7 +89,7 @@ public class GameController {
 
             //handle special case: require image
             else if(key.toLowerCase().contains("thumbnail") || key.toLowerCase().contains("imagepath")){
-                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, definedAttributesMap);
+                handleImageField(popupwindow, allButton, layout, myAttributesMap, key, value, definedAttributesMap, myConfigurable);
 
             }
             //handle string and primitives except boolean
@@ -457,7 +458,19 @@ public class GameController {
         return new Label(authoringProps.getProperty(key));
     }
 
-    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Map<String, Object> definedAttributesMap) {
+    private void handleImageField(Stage popupwindow, List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value,  Map<String, Object> definedAttributesMap, Configurable myConfigurable) {
+        System.out.println(myConfigurable);
+        String imageType = "";
+        if(key.toLowerCase().contains("thumbnail")){
+            imageType = "THUMBNAIL";
+        }
+        else{
+            View view = (View) myConfigurable;
+            if(view.getMyConfigurableName().toLowerCase().contains("enemy")){
+                imageType = "";
+            }
+        }
+
         Label DISPLAY_LABEL = getLabel(key);
         TextField myTextField = new TextField();
         if (definedAttributesMap.keySet().contains(key)) {
@@ -473,7 +486,7 @@ public class GameController {
             //TODO(Louis) Change this so that image is called in from the server
             @Override
             public void handle(MouseEvent event) {
-                ConfigureImage configureImage = new ConfigureImage(myTextField);
+                ConfigureImage configureImage = new ConfigureImage(myTextField, "");
             }
         }));
 
