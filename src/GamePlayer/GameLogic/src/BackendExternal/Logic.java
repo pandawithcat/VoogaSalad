@@ -335,10 +335,10 @@ public class Logic {
         int x = (int) (xPixel*(myGame.getActiveLevel().getGridWidth()/myGame.getActiveLevel().getPaneWidth()));
         int y = (int) (yPixel*(myGame.getActiveLevel().getGridHeight()/myGame.getActiveLevel().getPaneHeight()));
 
+        if(x>=myGame.getActiveLevel().getGridWidth()||x<0||y>=myGame.getActiveLevel().getGridHeight()||y<0) return false;
+
         for(int col = x;col<x+width;col++) {
             for(int row = y;row<y+height;row++) {
-//                System.out.println(col);
-//                System.out.println(row);
 
                 if (!grid[col][row].isValidWeaponPlacement(weapon.isPathWeapon())) return false;
             }

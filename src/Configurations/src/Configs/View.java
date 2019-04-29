@@ -6,7 +6,7 @@ public class View implements Configurable {
 
     public static final String DISPLAY_LABEL = "Image";
     @Configure
-    private String imagePath;
+    private int imageId;
     @Configure
     private int width;
     @Configure
@@ -20,8 +20,8 @@ public class View implements Configurable {
     }
 
     //this constructor is for the special case for the terrain blocks in the map
-    public View(String file, int width, int height) {
-        imagePath = file;
+    public View(int image, int width, int height) {
+        imageId = image;
         this.width = width;
         this.height = height;
     }
@@ -46,8 +46,8 @@ public class View implements Configurable {
     public int getHeight() {
         return height;
     }
-    public String getImage() {
-        return imagePath;
+    public int getImage() {
+        return imageId;
     }
     public String getMyConfigurableName(){
         return myConfigurable.getClass().getSimpleName();

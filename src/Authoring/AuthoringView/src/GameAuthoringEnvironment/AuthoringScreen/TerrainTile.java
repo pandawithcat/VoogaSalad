@@ -24,8 +24,10 @@ public class TerrainTile extends ImageView {
     private String tileImString;
     private String type;
     private TextField tf;
+    private int imageId;
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map, Map<String, Boolean> boolMap){
+
+    public TerrainTile(int x, int y, Image image, Map<String, Integer> map, Map<String, Boolean> boolMap){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -34,7 +36,8 @@ public class TerrainTile extends ImageView {
         this.imageView=new ImageView(image);
         this.type="Grass";
         isPath=false;
-        tileImString="resources/grass.jpg";
+        imageId=26;
+        //tileImString="resources/grass.jpg";
 //        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
@@ -72,6 +75,7 @@ public class TerrainTile extends ImageView {
 //        }
         setAsPath(typeToPath.get(myType));
         type=myType;
+        imageId=typeToImageMap.get(myType);
         //tileImString=typeToImageMap.get(myType);
 
 
@@ -116,6 +120,10 @@ public class TerrainTile extends ImageView {
         tileImString = "grass.jpg";
         isPath=false;
         type="Grass";
+    }
+
+    public int getImageId(){
+        return imageId;
     }
 
     public ImageView getImageView(){
