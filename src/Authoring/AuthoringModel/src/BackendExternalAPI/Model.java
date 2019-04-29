@@ -57,10 +57,10 @@ public class Model {
 //    }
 
     /**
-     * Takes in user input from the login screen and passes it to database module to check validity
-     * @param username -
-     * @param password
-     * @return
+     * Receives user login input from the front-end and passes it to the database module to check against server data
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @return - boolean indicating if existing user credentials were matched
      */
     public boolean authenticateUser(String username, String password){
         return myAuthoringData.authenticateUser(username, password);
@@ -68,27 +68,27 @@ public class Model {
 
 
     /**
-     *
-     * @param username
-     * @param password
-     * @param passwordRepeated
+     * Receives user create account input from the front-end and passes it to save in the database
+     * @param username - User input for unique string to identify user
+     * @param password - User input for chosen string to verify user identity
+     * @param passwordRepeated - User input for chosen string repeated to verify user identity
      */
     public void createNewUser(String username, String password, String passwordRepeated){
         myAuthoringData.createNewUser(username, password, passwordRepeated);
     }
 
     /**
-     *
-     * @return
+     * Polls the database to return the basic information about the Games the current user has created
+     * @return - List of GameInfo objects containing basic info about each Game
      */
     public List<GameInfo> getAuthoredGameLibrary(){
         return myAuthoringData.getAuthoredGames();
     }
 
     /**
-     *
-     * @param selectedGame
-     * @return
+     * Polls the database for the specified XML string and converts it into a Game instance
+     * @param selectedGame - GameInfo object of user selected Game
+     * @return - Game object of specified Game selection
      */
     public Game loadGameObject(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
@@ -97,9 +97,9 @@ public class Model {
     }
 
     /**
-     *
-     * @param type
-     * @return
+     * Polls the database to return the image IDs corresponding to the specified image type
+     * @param type - ImageType enum instance
+     * @return - List of integers denoting image IDs
      */
     public List<Integer> getImageOptions(AuthoringData.ImageType type){
         return myAuthoringData.getImages(type);
@@ -122,9 +122,9 @@ public class Model {
 
 
     /**
-     *
-     * @param imageID
-     * @return
+     * Polls the database for the byte array associated with the specific imageID and converts it to a JavaFX Image object
+     * @param imageID - integer value corresponding to the specific image in the database
+     * @return - Java image object requested
      */
     public Image getImage(int imageID){
         byte[] imageBytes = myAuthoringData.getImage(imageID);
