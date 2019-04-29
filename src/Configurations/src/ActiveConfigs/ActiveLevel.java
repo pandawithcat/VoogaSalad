@@ -30,7 +30,8 @@ public class ActiveLevel extends Level implements Updatable {
     private WaveSpawner myWaveSpawner;
     private List<Point> goalPositions = new ArrayList<>();
     private int escapedEnemies;
-    int myScore = 0;
+    private int myScore = 0;
+    private Game myGame;
 
 
     public ActiveLevel(Level level, Game myGame){//, MapFeature mapFeature) {
@@ -48,6 +49,7 @@ public class ActiveLevel extends Level implements Updatable {
         this.paneHeight = myGame.getPaneHeight();
         this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
+        this.myGame = myGame;
 
     }
 
