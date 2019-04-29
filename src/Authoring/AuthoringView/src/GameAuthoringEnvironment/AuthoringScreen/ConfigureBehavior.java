@@ -5,6 +5,7 @@ import Configs.Configurable;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,10 +22,8 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class ConfigureBehavior extends Application {
 
@@ -45,6 +44,7 @@ public class ConfigureBehavior extends Application {
     GameOutline myGameOutline;
     String myKey;
     Class myType;
+    List<Class> myList2;
     Object[] selectedBehavior;
     List<Object> tempList;
     boolean myBoolean;
@@ -76,6 +76,7 @@ public class ConfigureBehavior extends Application {
         myGameController = gameController;
         myConfigurable = configurable;
         myList = behaviorList;
+        myList2 = Collections.unmodifiableList(myList);
         myMap = attributesMap;
         myBoolean = isArray;
         setContent();
@@ -95,7 +96,7 @@ public class ConfigureBehavior extends Application {
         targetView.setPrefSize(sourceViewWidth, sourceViewHeight);
 
 
-        sourceView.getItems().addAll(myList);
+        sourceView.getItems().addAll(myList2);
         sourceView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         targetView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -120,7 +121,7 @@ public class ConfigureBehavior extends Application {
                             }
 
                         } catch (Exception e) {
-                            e.printStackTrace();
+
                         }
                     }
                 }}
@@ -133,9 +134,25 @@ public class ConfigureBehavior extends Application {
         pane.setHgap(viewGap);
         pane.setVgap(viewGap);
 
+
+        Button removeButton = new Button("Remove Behavior");
+        removeButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int index = targetView.getSelectionModel().getSelectedIndex();
+                if(!(targetView.getItems().size() == tempList.size())){
+                    targetView.getItems().remove(index);
+                }
+                else{
+                targetView.getItems().remove(index);
+                tempList.remove(index);}
+            }
+        }));
         pane.addRow(0, messageLbl);
         pane.addRow(1, sourceListLbl, targetListLbl);
         pane.addRow(2, sourceView, targetView);
+        pane.addRow(3, removeButton);
+
         pane.setAlignment(Pos.CENTER);
         VBox root = new VBox();
         root.setAlignment(Pos.CENTER);
@@ -170,6 +187,7 @@ public class ConfigureBehavior extends Application {
 
         setDragAndDrop(sourceView);
         setDragAndDrop(targetView);
+
         layout.getChildren().addAll(root, setButton);
     }
 

@@ -113,6 +113,7 @@ public class ConfigurableMap extends Application {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
             image = new Image(fis);
             map = new GridPane();
+
             for (int r = 0; r < GRID_WIDTH; r++) {
                 for (int c = 0; c < GRID_HEIGHT; c++) {
                     TerrainTile myTile = new TerrainTile(r, c, image, currentTile, typeToImagePathMap);

@@ -23,6 +23,8 @@ module Configurations {
     exports Configs.ProjectilePackage;
     exports Configs.Waves.WaveBehaviors;
     exports Configs.Waves;
+    exports Configs.ShooterConfig;
+    exports Configs.ShooterConfig.ShooterBehaviors;
     exports ActiveConfigs;
 
 }

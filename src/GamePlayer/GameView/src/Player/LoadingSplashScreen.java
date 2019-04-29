@@ -197,6 +197,7 @@ public class LoadingSplashScreen extends Application{
         });
     }
     private void startGame(VBox vBox){
+<<<<<<< HEAD
         if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
             availableGames();
         }else{
@@ -206,18 +207,40 @@ public class LoadingSplashScreen extends Application{
                 vBox.setAlignment(Pos.CENTER);
                 vBox.getChildren().add(errorMessage);
             }
+=======
+        try {
+            if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
+                availableGames();
+            } else {
+                Text text = new Text("*User does not exist");
+                text.setFill(Color.RED);
+                vBox.setAlignment(Pos.CENTER);
+                vBox.getChildren().add(text);
+            }
+        } catch (Exception e){
+            Text text = new Text(e.getMessage());
+            text.setFill(Color.RED);
+            vBox.setAlignment(Pos.CENTER);
+            vBox.getChildren().add(text);
+>>>>>>> 5fed2b6bd0ef4c6b080156698ef8a75e6b4b6cb5
         }
     }
     private void createAccount(){
-        createAccountGrid.getUserName();
-        createAccountGrid.getPasswordField();
-        createAccountGrid.getPasswordCheck();
-        if(!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())){
-            Text text = new Text("*Passwords do not match");
+        try {
+            createAccountGrid.getUserName();
+            createAccountGrid.getPasswordField();
+            createAccountGrid.getPasswordCheck();
+            if (!createAccountGrid.getPasswordField().equals(createAccountGrid.getPasswordCheck())) {
+                Text text = new Text("*Passwords do not match");
+                text.setFill(Color.RED);
+                accountGrid.getChildren().add(text);
+            }
+            logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+        } catch (Exception e){
+            Text text = new Text(e.getMessage());
             text.setFill(Color.RED);
             accountGrid.getChildren().add(text);
         }
-        logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
 
     }
     public static void main(String [] args){

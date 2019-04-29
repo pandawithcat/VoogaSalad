@@ -52,10 +52,10 @@ public class GamePlayMap extends Pane{
             case OVER:
                 displayGameOver("Game Over! ");
                 break;
-            case LOST:
+            case GAMELOST:
                 displayGameOver("You Lost!");
                 break;
-            case WON:
+            case GAMEWON:
                 displayGameOver("You Won!");
                 break;
             case PLAYING:
