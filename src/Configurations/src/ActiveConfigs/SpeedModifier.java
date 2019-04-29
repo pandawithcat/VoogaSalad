@@ -3,7 +3,13 @@ package ActiveConfigs;
 public class SpeedModifier {
     private double endTime;
     private double speedModifier;
-    SpeedModifier(double ms, double timeDuration, double speedModifier){
+
+    public SpeedModifier(double speedModifier){
+        endTime = Integer.MAX_VALUE;
+        this.speedModifier = speedModifier;
+    }
+
+    public SpeedModifier(double ms, double timeDuration, double speedModifier){
         endTime = ms+timeDuration;
         this.speedModifier = speedModifier;
     }

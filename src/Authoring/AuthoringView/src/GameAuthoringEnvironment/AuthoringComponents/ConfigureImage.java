@@ -37,8 +37,8 @@ public class ConfigureImage {
 
     public ConfigureImage(TextField textField, String s){
         myTextField = textField;
-        setContent();
         myImageType = AuthoringData.ImageType.valueOf(s.toUpperCase());
+        setContent();
 
     }
     private void addImageID(Integer integer){
@@ -61,8 +61,8 @@ public class ConfigureImage {
         VBox imageVbox = new VBox(10);
 
         //TODO CHANGE This
-        List<Integer> allImages = model.getImageOptions(AuthoringData.ImageType.TERRAIN);
-        //List<Integer> allImagess = model.getImageOptions(myImageType);
+        //List<Integer> allImages = model.getImageOptions(AuthoringData.ImageType.TERRAIN);
+        List<Integer> allImages = model.getImageOptions(myImageType);
         List<Image> allImagesList = new ArrayList<>();
         for(int a=0; a< allImages.size(); a++) {
             allImagesList.add(model.getImage(allImages.get(a)));
