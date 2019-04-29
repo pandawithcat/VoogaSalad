@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +33,12 @@ public class ConfigureImage {
     GameController myGameController;
     List<Integer> allImages;
     TextField myTextField;
+    AuthoringData.ImageType myImageType;
 
-    public ConfigureImage(TextField textField){
+    public ConfigureImage(TextField textField, String s){
         myTextField = textField;
         setContent();
+        myImageType = AuthoringData.ImageType.valueOf(s.toUpperCase());
 
     }
 
@@ -45,6 +49,7 @@ public class ConfigureImage {
         layout = new VBox(10.00);
         Model model = new Model();
 
+
         Label imageLabel = new Label("Selected Image");
         TextField imageTf = new TextField();
 
@@ -52,27 +57,40 @@ public class ConfigureImage {
         nameVbox.getChildren().addAll(imageLabel, imageTf);
 
         VBox imageVbox = new VBox(10);
-        List<Integer> allImages = model.getImageOptions(AuthoringData.ImageType.ENEMY);
-        System.out.println(allImages.size());
+
+        //TODO CHANGE This
+        List<Integer> allImages = model.getImageOptions(AuthoringData.ImageType.TERRAIN);
+        //List<Integer> allImagess = model.getImageOptions(myImageType);
+        List<Image> allImagesList = new ArrayList<>();
         for(int a=0; a< allImages.size(); a++) {
 
-            ImageBox imageBox = new ImageBox(model.getImage(allImages.get(a)), allImages.get(a));
-            //ImageView newImage = new ImageView(imageBox.getMyImage());
-            imageBox.setOnMouseClicked((new EventHandler<MouseEvent>() {
+            allImagesList.add(model.getImage(allImages.get(a)));
+
+        }
+
+
+        for(int a=0; a< allImages.size(); a++) {
+
+            ImageView imageView = new ImageView(allImagesList.get(a));
+            imageView.setFitWidth(20);
+            imageView.setFitHeight(20);
+            imageVbox.getChildren().add(imageView);
+            imageView.setOnMouseClicked((new EventHandler<MouseEvent>() {
 
                 @Override
                 public void handle(MouseEvent event) {
                     if (event.getButton().equals(MouseButton.PRIMARY)) {
                         if (event.getClickCount() == 2) {
-                            imageTf.setText(""+imageBox.getMyNumber());
-                            myTextField.setText(""+imageBox.getMyNumber());
+
+                            imageTf.setText("");
+                            myTextField.setText("");
                             }
 
                         }
 
                 }
             }));
-            imageVbox.getChildren().add(imageBox);
+            imageVbox.getChildren().add(imageView);
         }
 
 

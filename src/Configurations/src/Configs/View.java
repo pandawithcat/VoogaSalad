@@ -49,6 +49,9 @@ public class View implements Configurable {
     public String getImage() {
         return imagePath;
     }
+    public String getMyConfigurableName(){
+        return myConfigurable.getClass().getSimpleName();
+    }
 
 
 
