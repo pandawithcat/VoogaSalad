@@ -120,7 +120,7 @@ public class Model {
         myGameDetails.load(propertiesIS);
         myXMLFileName = myGame.getTitle() + XML_TAG;
         String propertyValue = myGame.getThumbnail() + REGEX + myGame.getDescription() + REGEX + myXMLFileName;
-        System.out.println(propertyValue);
+        //System.out.println(propertyValue);
         myGameDetails.setProperty(myGame.getTitle(),propertyValue);
         FileOutputStream propertiesOS = new FileOutputStream(PROPERTIES_FILE_PATH);
         myGameDetails.store(propertiesOS, null);

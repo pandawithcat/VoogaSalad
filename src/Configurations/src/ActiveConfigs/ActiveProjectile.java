@@ -1,11 +1,11 @@
 package ActiveConfigs;
 
 import Configs.*;
-import Configs.Behaviors.Behavior;
 import Configs.ProjectilePackage.ProjectileBehaviors.ProjectileBehavior;
 import Configs.ProjectilePackage.ProjectileConfig;
 
-import java.text.AttributedCharacterIterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class ActiveProjectile extends ProjectileConfig implements Updatable, MapFeaturable {
@@ -37,7 +37,7 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
                     b.update(ms, this);
                 }
             }
-            checkforCollisions();
+            checkForCollisions();
         }
         else {
             myMapFeature.setDisplayState(DisplayState.DIED);
@@ -53,12 +53,20 @@ public class ActiveProjectile extends ProjectileConfig implements Updatable, Map
     /**
      * check each cell that the projectile is on for enemies
      */
-    private void checkforCollisions(){
-        for (Cell c:myMapFeature.getMyCells())
-        if (c.getMyEnemies().size()>0){
-            handleEnemyCollision(c);
+    private void checkForCollisions() {
+       // System.out.println("HERE" + myMapFeature.getMyCells().size());
+        System.out.println("PROJECTILE YMIN: " + (int)myMapFeature.returnBounds()[0] +
+                "YMAX: " + (int)myMapFeature.returnBounds()[1] +
+                "XMIN: " + (int)myMapFeature.returnBounds()[2] +
+                "XMAX: " + (int)myMapFeature.returnBounds()[3]);
+        for (Cell c : myMapFeature.getMyCells()) {
+            //System.out.println(c.getMyEnemies().size());
+            if (c.getMyEnemies().size() > 0) {
+                //System.out.println(c.getMyEnemies().size());
+                handleEnemyCollision(c);
             }
         }
+    }
 
 
 

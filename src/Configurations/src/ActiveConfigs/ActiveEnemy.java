@@ -90,6 +90,8 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
 
     @Override
     public void update(double ms, Updatable parent) {
+//        System.out.println("HERE");
+//        System.out.println(myMapFeature.getMyCells().size());
 //        TerrainBehavior[] tbs = myActiveLevel.getGridCell(myMapFeature.getGridXPos(), myMapFeature.getGridYPos()).getMyTerrain().getTerrainBehaviors() ;
 //        if (tbs!=null) {
 //            ArrayList<TerrainBehavior> behaviorsList = new ArrayList<TerrainBehavior>(Arrays.asList(tbs));
@@ -141,6 +143,11 @@ public class ActiveEnemy extends EnemyConfig implements Updatable, MapFeaturable
             }
             myMapFeature.setGridPos(newX, newY,movementDirection.getDirection());
         }
+        System.out.println("YMIN: " + (int)myMapFeature.returnBounds()[0] +
+                            "YMAX: " + (int)myMapFeature.returnBounds()[1] +
+                            "XMIN: " + (int)myMapFeature.returnBounds()[2] +
+                            "XMAX: " + (int)myMapFeature.returnBounds()[3]);
+
     }
 
 
