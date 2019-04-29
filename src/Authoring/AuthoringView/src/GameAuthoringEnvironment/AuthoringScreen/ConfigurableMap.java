@@ -48,6 +48,7 @@ public class ConfigurableMap extends Application {
     public static final int GRID_HEIGHT = 20;
 //public static final int GRID_WIDTH = 32;
 //    public static final int GRID_HEIGHT = 20;
+    Map<String,Boolean> typeToPath;
     Map<String,Integer> typeToImagePathMap;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
@@ -105,9 +106,14 @@ public class ConfigurableMap extends Application {
         popUpWindow.setTitle("Map Editor");
 
         typeToImagePathMap = new HashMap<>();
-        typeToImagePathMap.put("Grass","resources/grass.jpg");
-        typeToImagePathMap.put("Water","resources/water.jpg");
-        typeToImagePathMap.put("Dirt","resources/dirt.jpg");
+        typeToImagePathMap.put("Grass",27);
+        typeToImagePathMap.put("Water",28);
+        typeToImagePathMap.put("Dirt",26);
+
+        typeToPath = new HashMap<>();
+        typeToPath.put("Grass",false);
+        typeToPath.put("Water",true);
+        typeToPath.put("Dirt",true);
         Image image;
         try {
             java.io.FileInputStream fis = new FileInputStream("resources/" + grassTileImage);
@@ -237,7 +243,7 @@ public class ConfigurableMap extends Application {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Create Pop up screen that can configure Tile and add that tile to the list of tiles
-                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList,typeToImagePathMap);
+                ConfigureTile configureTile = new ConfigureTile(tileView,terrainTileList,typeToImagePathMap,typeToPath);
 
             }
         });

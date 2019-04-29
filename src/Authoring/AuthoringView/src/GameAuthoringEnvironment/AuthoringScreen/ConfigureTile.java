@@ -19,15 +19,18 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigureTile {
+    ConfigureImage configureImage;
 
     private ListView myListView;
     private List<TerrainTile> myTerrainTileList;
-    private Map<String, String> typeToImageMap;
+    private Map<String, Integer> typeToImageMap;
+    private Map<String, Boolean> typeToPath;
 
-    public ConfigureTile(ListView<String> listview, List<TerrainTile> terrainTileList, Map<String, String> map){
+    public ConfigureTile(ListView<String> listview, List<TerrainTile> terrainTileList, Map<String, Integer> map,Map<String, Boolean> boolMap){
         myTerrainTileList = terrainTileList;
         myListView = listview;
         typeToImageMap=map;
+        typeToPath=boolMap;
         Stage popUpWindow = new Stage();
         popUpWindow.initModality(Modality.APPLICATION_MODAL);
         popUpWindow.setTitle("Map Editor");
@@ -52,7 +55,7 @@ public class ConfigureTile {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 //TODO Connect to the data server
-                ConfigureImage configureImage = new ConfigureImage(imageTextField, "TERRAIN");
+                configureImage = new ConfigureImage(imageTextField, "TERRAIN");
             }
         });
 
@@ -68,16 +71,18 @@ public class ConfigureTile {
                 //TerrainTile newTile = new TerrainTile(new Image());
                 if(tf.getText()!=null && imageTextField.getText()!=null) {
                     //TODO Until database is integrated using placeholder image
-                    Image image =new Image("Hello");
-                    TerrainTile newTile = new TerrainTile(image,typeToImageMap);
+
+                    TerrainTile newTile = new TerrainTile(configureImage.getSelectedImage(),typeToImageMap);
                     if(trueButton.isSelected()){
+                        typeToPath.put(tf.getText(),true);
                         newTile.setPath();
                     }
                     else{
+                        typeToPath.put(tf.getText(),false);
                         newTile.setPathFalse();
                     }
                     myListView.getItems().add(tf.getText());
-                    typeToImageMap.put(tf.getText(),imageTextField.getText());
+                    typeToImageMap.put(tf.getText(),configureImage.getSelectedInteger());
                     popUpWindow.close();
                 }
             }

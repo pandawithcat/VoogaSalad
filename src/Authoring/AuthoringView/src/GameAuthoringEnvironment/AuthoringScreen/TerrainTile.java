@@ -1,5 +1,6 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.event.EventHandler;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -15,12 +16,13 @@ import java.util.Map;
 
 public class TerrainTile extends ImageView {
     private Map<String, Integer> typeToImageMap;
+    private Map<String, Boolean> typeToPath;
     private ImageView imageView;
     private boolean isPath;
     private String tileImString;
     private String type;
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map){
+    public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map, Map<String, Boolean> boolMap){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -33,6 +35,8 @@ public class TerrainTile extends ImageView {
 //        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
+        typeToPath=boolMap;
+
     }
     public TerrainTile(Image image,Map<String,Integer> map){
         super(image);
@@ -40,9 +44,7 @@ public class TerrainTile extends ImageView {
         this.typeToImageMap=map;
     }
 
-    public Image getNewImage(String type){
-        return new Image(this.getClass().getClassLoader().getResourceAsStream(type.toLowerCase() + ".jpg"));
-    }
+
 
 
 
@@ -57,16 +59,18 @@ public class TerrainTile extends ImageView {
 //            changeToDirt();
 //        }
         try {
+            ConfigureImage configureImage = new ConfigureImage()
             this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
         }
         catch(FileNotFoundException f){
             System.out.println(f);
         }
-        if(!type.equals("Grass")){
-            setPath();
-        }
+//        if(!type.equals("Grass")){
+//            setPath();
+//        }
+        setAsPath(typeToPath.get(myType));
         type=myType;
-        tileImString=typeToImageMap.get(myType);
+        //tileImString=typeToImageMap.get(myType);
 
 
 
@@ -127,6 +131,9 @@ public class TerrainTile extends ImageView {
     }
     public void setPathFalse(){
         isPath=false;
+    }
+    public void setAsPath(boolean b){
+        isPath=b;
     }
     public String getPathString(){
         if(this.isPath){
