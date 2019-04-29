@@ -21,8 +21,8 @@ import java.io.IOException;
 
 public class ImageLoader extends Application {
 
-    public static final int WINDOW_WIDTH = 500;
-    public static final int WINDOW_HEIGHT = 500;
+    public static final int WINDOW_WIDTH = 400;
+    public static final int WINDOW_HEIGHT = 300;
     public static final String TITLE = "Image Uploader";
     public static final String DEFAULT_FILE_TEXT = "Select a File to Upload";
     public static final String DEFAULT_TYPE_TEXT = "Select an Image Type";
