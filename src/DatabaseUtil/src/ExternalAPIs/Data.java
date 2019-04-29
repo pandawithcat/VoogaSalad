@@ -87,7 +87,7 @@ public abstract class Data {
      * @param password - chosen string to verify user identity
      * @param passwordRepeated - repeated chosen string
      */
-    public void createNewUser(String username, String password, String passwordRepeated)throws IllegalArgumentException{
+    public void createNewUser(String username, String password, String passwordRepeated)throws RuntimeException{
         checkArgumentLengths(username, password, passwordRepeated);
         passwordErrorChecking(password, passwordRepeated);
         byte[] salt = new byte[16];
