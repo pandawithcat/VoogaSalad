@@ -17,7 +17,7 @@ public class UserData extends DBUtil {
      * @param salt The salt used to generate the hashed password
      * @return The userID of the new user if successful, -1 if not
      */
-    public int addUser(String username, String hashedPass, String salt){
+    public int addUser(String username, String hashedPass, String salt)throws RuntimeException{
         String insertionQuery =
                 " insert into users (username, password, salt)"
                         + " values (?, ?, ?);";
