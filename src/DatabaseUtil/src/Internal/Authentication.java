@@ -15,7 +15,7 @@ public class Authentication {
      * @param username - Unique string to identify user
      * @param password - chosen string to verify user identity
      */
-    public static void checkArgumentLengths(String username, String password){
+    public static void checkArgumentLengths(String username, String password)throws IllegalArgumentException{
         if (username.length() == 0){
             throw new IllegalArgumentException("You must enter a username in the field provided");
         }
@@ -30,7 +30,7 @@ public class Authentication {
      * @param password - chosen string to verify user identity
      * @param passwordRepeated passwordRepeated - repeated chosen string
      */
-    public static void checkArgumentLengths(String username, String password, String passwordRepeated){
+    public static void checkArgumentLengths(String username, String password, String passwordRepeated)throws IllegalArgumentException{
         checkArgumentLengths(username, password);
         if (passwordRepeated.length() == 0){
             throw new IllegalArgumentException("You must re-enter a password in the field provided");
@@ -53,7 +53,7 @@ public class Authentication {
             passwordDigest.update(plainTextBytes);
             return passwordDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            System.out.println("Incorrect Algorithm String");
         }
         return null;
     }
@@ -63,7 +63,7 @@ public class Authentication {
      * @param password - chosen string to verify user identity
      * @param passwordRepeated - repeated chosen string
      */
-    public static void passwordErrorChecking(String password, String passwordRepeated){
+    public static void passwordErrorChecking(String password, String passwordRepeated)throws IllegalArgumentException{
         if (password.length() < MINIMUM_PASSWORD_LENGTH || !Pattern.compile(NUMBER_CHECKER).matcher(password).find()){
             throw new IllegalArgumentException("Password must be at least 6 characters and contain a number");
         }
