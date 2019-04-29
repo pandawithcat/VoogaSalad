@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
+import ExternalAPIs.GameInfo;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -23,6 +24,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
 public class StartingScreen {
 
@@ -117,8 +119,6 @@ public class StartingScreen {
     }
 
     private void importGame(MouseEvent evemt){
-
-
 
        /* FileChooser fileChooser = new FileChooser();
 

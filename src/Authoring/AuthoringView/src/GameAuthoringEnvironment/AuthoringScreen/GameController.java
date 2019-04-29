@@ -124,10 +124,9 @@ public class GameController {
     }
 
     private void handleEnum(List<Button> allButton, VBox layout, Map<String, Object> myAttributesMap, String key, Class value, Map<String, Object> definedAttributesMap, Configurable myconfigurable){
-        Label DISPLAY_LABEL = getLabel(key);
+        Label DISPLAY_LABEL = new Label("Choose the Enemy AI options");
         Button confirmButton = new Button("Confirm");
         var nameAndTfBar = new HBox(10);
-        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL);
         Enum[] allOptions = AIOptions.values();
         MenuButton menuButton = new MenuButton();
         for(int a=0 ; a<allOptions.length; a++){
@@ -149,7 +148,8 @@ public class GameController {
             }
         }));
         allButton.add(confirmButton);
-        layout.getChildren().addAll(nameAndTfBar, menuButton, confirmButton);
+        nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, menuButton, confirmButton);
+        layout.getChildren().addAll(nameAndTfBar);
 
     }
 
