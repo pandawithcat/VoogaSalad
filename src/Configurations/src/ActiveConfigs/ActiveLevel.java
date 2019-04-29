@@ -4,6 +4,7 @@ import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.GamePackage.GameBehaviors.TowerAttack;
 import Configs.LevelPackage.Level;
+import Configs.LevelPackage.LevelBehaviors.Deflation;
 import Configs.MapPackage.Terrain;
 
 import java.awt.*;
@@ -201,7 +202,7 @@ public class ActiveLevel extends Level implements Updatable {
         }
     }
     public void addGameCash(double amt){
-        getGame().addToCash(amt);
+        if (Arrays.asList(getLevelBehaviors()).stream().anyMatch(behavior -> behavior instanceof Deflation)) getGame().addToCash(amt);
     }
     public void addGameScore(int amt){
         getGame().addToScore(amt);

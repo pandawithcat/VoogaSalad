@@ -4,12 +4,19 @@ import ActiveConfigs.ActiveEnemy;
 import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
 import ActiveConfigs.Cell;
+//import ExternalAPIs.AuthoringData;
+//import ExternalAPIs.Data;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
 import java.util.*;
+
+import java.io.InputStream;
+
 
 public class MapFeature {
 
@@ -129,6 +136,7 @@ public class MapFeature {
             throw new IllegalStateException();
         }
     }
+
 
     public double getPixelHeight(){
         return myImageView.getFitHeight();

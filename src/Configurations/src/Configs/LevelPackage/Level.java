@@ -47,7 +47,7 @@ public class Level implements Configurable{
         myName = level.myName;
     }
 
-    private LevelBehavior[] getLevelBehaviors() {
+    public LevelBehavior[] getLevelBehaviors() {
         return levelBehaviors;
     }
 
