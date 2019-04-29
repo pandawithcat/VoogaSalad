@@ -93,7 +93,7 @@ public class UserData extends DBUtil {
         }
     }
 
-    public String getSalt(String username){
+    public String getSalt(String username) throws ConnectionException{
         String selectionQuery = "select salt from users where username = (?)";
         try {
             PreparedStatement statement = getConnection().prepareStatement(selectionQuery);
