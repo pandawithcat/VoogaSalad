@@ -197,17 +197,7 @@ public class LoadingSplashScreen extends Application{
         });
     }
     private void startGame(VBox vBox){
-<<<<<<< HEAD
-        if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
-            availableGames();
-        }else{
-            if(!vBox.getChildren().contains(errorMessage)){
-                errorMessage = new Text("*User does not exist");
-                errorMessage.setFill(Color.RED);
-                vBox.setAlignment(Pos.CENTER);
-                vBox.getChildren().add(errorMessage);
-            }
-=======
+
         try {
             if (logic.authenticateUser(logInGrid.getUserName(), logInGrid.getPassword())) {
                 availableGames();
@@ -222,7 +212,6 @@ public class LoadingSplashScreen extends Application{
             text.setFill(Color.RED);
             vBox.setAlignment(Pos.CENTER);
             vBox.getChildren().add(text);
->>>>>>> 5fed2b6bd0ef4c6b080156698ef8a75e6b4b6cb5
         }
     }
     private void createAccount(){
