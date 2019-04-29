@@ -227,9 +227,9 @@ public class Logic {
      * @param weaponID - int ID for identifying weapon in arsenal
      * @param xPixel - double x placement position in window
      * @param yPixel - double y placement position in window
-     * @param direction -
-     * @return
-     * @throws NotEnoughCashException
+     * @param direction - int direction top of the imagview should point
+     * @return - ImmutableImageView instance to add to the visualization window
+     * @throws NotEnoughCashException - Exception denoting user has run out of cash
      */
     public ImmutableImageView instantiateWeapon(int weaponID, double xPixel, double yPixel, int direction) throws NotEnoughCashException {
         if (myGame.getCash()>0){//TODO: Check for price of weapon
@@ -243,8 +243,8 @@ public class Logic {
     // No Return
 
     /**
-     *
-     * @param currentTime
+     * Calls update on the Game object which propagates update down to each part of the game
+     * @param currentTime - double current machine time in milliseconds
      */
     public void update(double currentTime){
         myGame.update(currentTime, null);
@@ -255,8 +255,8 @@ public class Logic {
     // Return: List of Viewable instances
 
     /**
-     *
-     * @return
+     * Calls the Game object to return any objects that have been created since last time method was called
+     * @return - List of ImmutableImageView instances of objects to add to display
      */
     public List<ImmutableImageView> getObjectsToAdd(){
         return myGame.getActiveLevel().getViewsToBeAdded();
@@ -267,8 +267,8 @@ public class Logic {
     // Return: List of Viewable instances
 
     /**
-     *
-     * @return
+     * Polls the Game object to return any objects that should be removed from the visualization
+     * @return - List of ImmutableImageView instances of objects to remove from display
      */
     public List<ImmutableImageView> getObjectsToRemove(){
         return myGame.getActiveLevel().getViewsToBeRemoved();
@@ -279,8 +279,8 @@ public class Logic {
     // Return: integer score
 
     /**
-     *
-     * @return
+     * Returns current score of the user from the Game object
+     * @return - integer current score
      */
     public int getScore(){
         return myGame.getScore();
@@ -289,8 +289,8 @@ public class Logic {
     //view calls to check the current amount of cash
 
     /**
-     *
-     * @return
+     * Returns current Cash amount of the user from the Game object
+     * @return - double cash amount remaining
      */
     public double getCash(){return myGame.getCash();}
     // View calls to check the current lives of the game in the game loop
@@ -308,12 +308,12 @@ public class Logic {
     // Return: boolean
 
     /**
-     *
-     * @param weaponId
-     * @param xPixel
-     * @param yPixel
-     * @param direction
-     * @return
+     * Checks the validity of the placement location of the weapon object on the map
+     * @param weaponId - int ID of weapon being placed
+     * @param xPixel - double x position in window
+     * @param yPixel - double y position in window
+     * @param direction - int direction top of weapon is pointing
+     * @return - boolean indicating validity of placement location
      */
     public boolean checkPlacementLocation(int weaponId, double xPixel, double yPixel, int direction){
         WeaponConfig weapon = myGame.getArsenal().getWeapon(weaponId);
@@ -347,8 +347,8 @@ public class Logic {
     }
 
     /**
-     *
-     * @return
+     * Polls the Game object for the current state of the game
+     * @return - GameStatus enum instance
      */
     public GameStatus getGameStatus(){
         return myGame.getGameStatus();
