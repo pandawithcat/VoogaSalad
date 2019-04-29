@@ -65,13 +65,10 @@ public class ConfigureTile {
                 //TODO ADD the new terrain tile to the listview and terraintilelist.
                 //TerrainTile newTile = new TerrainTile(new Image());
                 if(tf.getText()!=null && imageTextField.getText()!=null) {
+                    TerrainTile newTile = new TerrainTile()
                     myListView.getItems().add(tf.getText());
                     typeToImageMap.put(tf.getText(),imageTextField.getText());
                     popUpWindow.close();
-                }
-                else{
-                    System.out.println("HELLO I AM ALERTING IN CONFIGURE TILE");
-                    AlertScreen alert = new AlertScreen();
                 }
             }
         });
