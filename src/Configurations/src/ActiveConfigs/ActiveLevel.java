@@ -136,8 +136,8 @@ public class ActiveLevel extends Level implements Updatable {
 
 
 
-    public void addToActiveEnemies(EnemyConfig enemy, MapFeature mapFeature) {
-        activeEnemies.add(new ActiveEnemy(enemy, mapFeature,this));
+    public void addToActiveEnemies(ActiveEnemy activeEnemy) {
+        activeEnemies.add(activeEnemy);
 
     }
 
@@ -167,9 +167,9 @@ public class ActiveLevel extends Level implements Updatable {
     private void recalculateMovementHeuristic(){
         for (Point goal:goalPositions) {
             astar(myGrid,goal.x,goal.y, "short");
-            astar(myGrid,goal.x,goal.y, "shortIgnorePath");
-            astar(myGrid,goal.x,goal.y, "shortAvoidWeapons");
-            astar(myGrid,goal.x,goal.y, "shortAvoidWeaponsIgnorePath");
+//            astar(myGrid,goal.x,goal.y, "shortIgnorePath");
+//            astar(myGrid,goal.x,goal.y, "shortAvoidWeapons");
+//            astar(myGrid,goal.x,goal.y, "shortAvoidWeaponsIgnorePath");
         }
     }
     public void addGameCash(double amt){
@@ -196,27 +196,30 @@ public class ActiveLevel extends Level implements Updatable {
         Cell expandedCell = pq.remove();
         int[]xAdditions = new int[]{0,0,-1,1};
         int[]yAdditions = new int[]{1,-1,0,0};
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             int x = expandedCell.getX() + xAdditions[i];
             int y = expandedCell.getY() + yAdditions[i];
             if(isCellValid(x,y)){
+                if (x == 116|x==117|x == 118|x==119){
+                    System.out.println();
+                }
                 if (heuristicType.equals("short")) {
-                    calculateShortestDistanceHeuristic(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC);
+                    calculateShortestDistanceHeuristic(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC);
                 }
                 else if (heuristicType.equals("shortIgnorePath")){
                     calculateShortestDistanceHeuristicIgnorePath(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristicIgnorePath() + DISTANCE_HEURISTIC);
                 }
                 else if (heuristicType.equals("shortAvoidWeapons")){
-                    calculateShortestDistanceHeuristicWeapons(pq, expandedCell, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
+                    calculateShortestDistanceHeuristicWeapons(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristicAvoidWeapons() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
                 }
                 else if (heuristicType.equals("shortAvoidWeaponsIgnorePath")){
-                    calculateShortestDistanceHeuristicIgnorePathWeapons(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristicIgnorePath() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
+                    calculateShortestDistanceHeuristicIgnorePathWeapons(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristicAvoidWeaponsIgnorePath() + DISTANCE_HEURISTIC + myGrid[x][y].getWeaponCoverage());
                 }
             }
         }
     }
 
-    private void calculateShortestDistanceHeuristic(PriorityQueue<Cell> pq, Cell expandedCell, Cell inspectedCell, int newHeuristic) {
+    private void calculateShortestDistanceHeuristic(PriorityQueue<Cell> pq, Cell inspectedCell, int newHeuristic) {
         if (!inspectedCell.getMyTerrain().getIfPath()){
             inspectedCell.setShortestDistanceHeuristic(Integer.MAX_VALUE);
             return;
@@ -224,7 +227,7 @@ public class ActiveLevel extends Level implements Updatable {
         setShortestDistanceHeuristic(pq, inspectedCell, newHeuristic);
     }
 
-    private void calculateShortestDistanceHeuristicWeapons(PriorityQueue<Cell> pq, Cell expandedCell, Cell inspectedCell, int newHeuristic) {
+    private void calculateShortestDistanceHeuristicWeapons(PriorityQueue<Cell> pq, Cell inspectedCell, int newHeuristic) {
         if (!inspectedCell.getMyTerrain().getIfPath()){
             inspectedCell.setShortestDistanceHeuristicAvoidWeapons(Integer.MAX_VALUE);
             return;

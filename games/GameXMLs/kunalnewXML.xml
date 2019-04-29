@@ -11,14 +11,14 @@
           <myLevel reference="../../.."/>
           <myName>wavey</myName>
           <timeToReleaseInMs>10.0</timeToReleaseInMs>
-          <rateOfReleaseEnemiesPerMs>1000.0</rateOfReleaseEnemiesPerMs>
+          <rateOfReleaseEnemiesPerMs>4000.0</rateOfReleaseEnemiesPerMs>
           <enemies>
             <Configs.EnemyPackage.EnemyConfig>
               <myWave reference="../../.."/>
               <myName>rcd</myName>
               <myBehaviors/>
               <health>1000</health>
-              <unitSpeedPerSecond>1</unitSpeedPerSecond>
+              <unitSpeedPerSecond>1.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail2.gif</imagePath>
                 <width>50</width>
@@ -31,7 +31,7 @@
               <myName>rcd2</myName>
               <myBehaviors/>
               <health>100</health>
-              <unitSpeedPerSecond>2</unitSpeedPerSecond>
+              <unitSpeedPerSecond>2.0</unitSpeedPerSecond>
               <view>
                 <imagePath>thumbnail3.gif</imagePath>
                 <width>40</width>
@@ -5918,11 +5918,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>9</gridYPos>
             <gridXPos>24</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -5930,11 +5930,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>24</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6146,11 +6146,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>25</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6170,11 +6170,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>25</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6386,11 +6386,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>26</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6410,11 +6410,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>26</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6566,11 +6566,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>3</gridYPos>
             <gridXPos>27</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6626,11 +6626,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>27</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6650,11 +6650,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>27</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6866,11 +6866,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>28</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -6890,11 +6890,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>28</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7106,11 +7106,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>water.jpg</imagePath>
+              <imagePath>grass.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>true</isPath>
+            <isPath>false</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>29</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7118,11 +7118,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>9</gridYPos>
             <gridXPos>29</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7130,11 +7130,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>10</gridYPos>
             <gridXPos>29</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7334,11 +7334,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>7</gridYPos>
             <gridXPos>30</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7346,11 +7346,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>8</gridYPos>
             <gridXPos>30</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7358,11 +7358,11 @@
           </Configs.MapPackage.Terrain>
           <Configs.MapPackage.Terrain>
             <view>
-              <imagePath>grass.jpg</imagePath>
+              <imagePath>water.jpg</imagePath>
               <width>50</width>
               <height>50</height>
             </view>
-            <isPath>false</isPath>
+            <isPath>true</isPath>
             <gridYPos>9</gridYPos>
             <gridXPos>30</gridXPos>
             <myMapConfig reference="../../.."/>
@@ -7738,7 +7738,11 @@
         <enemyEnteringDirection>90</enemyEnteringDirection>
         <enemyExitGridPosList>
           <java.awt.Point>
-            <x>27</x>
+            <x>28</x>
+            <y>3</y>
+          </java.awt.Point>
+          <java.awt.Point>
+            <x>28</x>
             <y>3</y>
           </java.awt.Point>
         </enemyExitGridPosList>
@@ -7781,7 +7785,6 @@
               <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
                 <myShooter reference="../.."/>
                 <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
-                <startRound>0</startRound>
               </shooterBehavior>
               <projectilesFired>0</projectilesFired>
             </myShooter>
@@ -7791,7 +7794,53 @@
         <view>
           <imagePath>thumbnail1.gif</imagePath>
           <width>50</width>
-          <height>100</height>
+          <height>50</height>
+          <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
+        </view>
+        <myArsenal reference="../../.."/>
+        <weaponId>0</weaponId>
+      </Configs.ArsenalConfig.WeaponConfig>
+      <Configs.ArsenalConfig.WeaponConfig>
+        <myName>weapon1</myName>
+        <behaviors>
+          <Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
+            <myWeaponConfig reference="../../.."/>
+            <ammoLimit>72</ammoLimit>
+          </Configs.ArsenalConfig.WeaponBehaviors.AmmoExpirable>
+          <Configs.ArsenalConfig.WeaponBehaviors.Shootable>
+            <myWeaponConfig reference="../../.."/>
+            <myShooter>
+              <myShootable reference="../.."/>
+              <myName>shooter</myName>
+              <rateOfFire>1</rateOfFire>
+              <projectileConfig>
+                <myShooter reference="../.."/>
+                <myConfiguration/>
+                <myName>projectile</myName>
+                <view>
+                  <imagePath>thumbnail3.gif</imagePath>
+                  <width>25</width>
+                  <height>25</height>
+                  <myConfigurable class="Configs.ProjectilePackage.ProjectileConfig" reference="../.."/>
+                </view>
+                <velocityInSeconds>200.0</velocityInSeconds>
+                <strength>10.0</strength>
+                <myBehaviors/>
+              </projectileConfig>
+              <shooterRange>300.0</shooterRange>
+              <shooterBehavior class="Configs.ShooterConfig.ShooterBehaviors.Radial">
+                <myShooter reference="../.."/>
+                <startRound defined-in="Configs.ShooterConfig.ShooterBehaviors.ShooterBehavior">0</startRound>
+              </shooterBehavior>
+              <projectilesFired>0</projectilesFired>
+            </myShooter>
+            <weaponConfig reference="../../.."/>
+          </Configs.ArsenalConfig.WeaponBehaviors.Shootable>
+        </behaviors>
+        <view>
+          <imagePath>thumbnail2.gif</imagePath>
+          <width>50</width>
+          <height>50</height>
           <myConfigurable class="Configs.ArsenalConfig.WeaponConfig" reference="../.."/>
         </view>
         <myArsenal reference="../../.."/>
@@ -7802,6 +7851,10 @@
     <unlockedWeapons/>
     <newUnlockedWeapons/>
   </myArsenal>
+  <gameType class="Configs.GamePackage.GameBehaviors.Lives">
+    <myGame reference="../.."/>
+    <numEnemies>5</numEnemies>
+  </gameType>
   <myScore>0</myScore>
   <myCash>100000.0</myCash>
 </Configs.GamePackage.Game>

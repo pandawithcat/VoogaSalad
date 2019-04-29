@@ -16,8 +16,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.List;
 
-import static Configs.GamePackage.GameStatus.LOST;
-
 public class GamePlayMap extends Pane{
     private Logic myLogic;
     private List<ImmutableImageView> terrainList;
@@ -25,9 +23,12 @@ public class GamePlayMap extends Pane{
     private EndLoopInterface endGame;
     private SelectionInterface homeStage;
     private GameStatus gameStatus;
+    private GamePlaySettingsBar myData;
+
 
     public GamePlayMap(double width, double height, Logic logic, EndLoopInterface endLoop,
-                       SelectionInterface stage) {
+                       SelectionInterface stage, GamePlaySettingsBar data) {
+        myData = data;
         homeStage = stage;
         endGame = endLoop;
         myLogic = logic;
@@ -47,27 +48,27 @@ public class GamePlayMap extends Pane{
 
     public void update(double elapsedTime){
         gameStatus = myLogic.getGameStatus();
-//        switch (gameStatus){
-//            case OVER:
-//                displayGameOver("Game Over! ");
-//                break;
-//            case LOST:
-//                displayGameOver("You Lost!");
-//                break;
-//            case WON:
-//                displayGameOver("You Won!");
-//                break;
-//            case PLAYING:
-                if (myLogic.checkIfLevelEnd()) {
-                    myLogic.startNextLevel();
+        switch (gameStatus){
+            case OVER:
+                displayGameOver("Game Over! ");
+                break;
+            case LOST:
+                displayGameOver("You Lost!");
+                break;
+            case WON:
+                displayGameOver("You Won!");
+                break;
+            case PLAYING:
+                if (gameStatus == GameStatus.LEVELOVER) {
+                    myData.updateLevel(myLogic.startNextLevel());
                 }
                 myLogic.update(elapsedTime);
                 List<ImmutableImageView> imageToAdd = myLogic.getObjectsToAdd();
                 List<ImmutableImageView> imageToRemove = myLogic.getObjectsToRemove();
                 imageToRemove.stream().forEach(img -> getChildren().remove(img.getAsNode()));
                 imageToAdd.stream().forEach(img -> getChildren().add(img.getAsNode()));
-//                break;
-//        }
+                break;
+        }
     }
 
     public double getGridSize(){
