@@ -48,7 +48,7 @@ public class ConfigurableMap extends Application {
     public static final int GRID_HEIGHT = 20;
 //public static final int GRID_WIDTH = 32;
 //    public static final int GRID_HEIGHT = 20;
-    Map<String,String> typeToImagePathMap;
+    Map<String,Integer> typeToImagePathMap;
     Map<String, Object> passedMap;
     List<TerrainTile> terrainTileList;
     GridPane map;

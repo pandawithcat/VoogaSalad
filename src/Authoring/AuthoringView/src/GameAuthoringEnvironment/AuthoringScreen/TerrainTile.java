@@ -14,13 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TerrainTile extends ImageView {
-    private Map<String, String> typeToImageMap;
+    private Map<String, Integer> typeToImageMap;
     private ImageView imageView;
     private boolean isPath;
     private String tileImString;
     private String type;
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, String> map){
+    public TerrainTile(int x, int y, Image image, String type, Map<String, Integer> map){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -34,7 +34,7 @@ public class TerrainTile extends ImageView {
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
     }
-    public TerrainTile(Image image,Map<String,String> map){
+    public TerrainTile(Image image,Map<String,Integer> map){
         super(image);
         this.imageView=new ImageView(image);
         this.typeToImageMap=map;
@@ -124,6 +124,9 @@ public class TerrainTile extends ImageView {
     }
     public void setPath(){
         isPath=true;
+    }
+    public void setPathFalse(){
+        isPath=false;
     }
     public String getPathString(){
         if(this.isPath){

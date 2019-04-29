@@ -70,7 +70,12 @@ public class ConfigureTile {
                     //TODO Until database is integrated using placeholder image
                     Image image =new Image("Hello");
                     TerrainTile newTile = new TerrainTile(image,typeToImageMap);
-
+                    if(trueButton.isSelected()){
+                        newTile.setPath();
+                    }
+                    else{
+                        newTile.setPathFalse();
+                    }
                     myListView.getItems().add(tf.getText());
                     typeToImageMap.put(tf.getText(),imageTextField.getText());
                     popUpWindow.close();
