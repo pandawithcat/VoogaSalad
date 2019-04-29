@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringComponents;
 
 import BackendExternalAPI.Model;
 import Configs.Configurable;
+import ExternalAPIs.AuthoringData;
 import GameAuthoringEnvironment.AuthoringScreen.GameController;
 import GameAuthoringEnvironment.AuthoringScreen.ImageBox;
 import javafx.event.EventHandler;
@@ -40,7 +41,7 @@ public class ConfigureImage {
     private void setContent(){
         popUpWindow = new Stage();
         //popUpWindow.initModality(Modality.APPLICATION_MODAL);
-        popUpWindow.setTitle("Behavior Editor");
+        popUpWindow.setTitle("Image Editor");
         layout = new VBox(10.00);
         Model model = new Model();
 
@@ -51,7 +52,8 @@ public class ConfigureImage {
         nameVbox.getChildren().addAll(imageLabel, imageTf);
 
         VBox imageVbox = new VBox(10);
-        List<Integer> allImages = model.getImageOptions(ExternalAPIs.AuthoringData.ImageType.TERRAIN);
+        List<Integer> allImages = model.getImageOptions(AuthoringData.ImageType.ENEMY);
+        System.out.println(allImages.size());
         for(int a=0; a< allImages.size(); a++) {
 
             ImageBox imageBox = new ImageBox(model.getImage(allImages.get(a)), allImages.get(a));
