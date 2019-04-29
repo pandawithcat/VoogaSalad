@@ -42,7 +42,7 @@ public class Logic {
 
     public Logic(double paneWidth, double paneHeight) {
         myGameLibrary = new GameLibrary();
-    //        myPlayerData = new PlayerData();
+        myPlayerData = new PlayerData();
         PANE_WIDTH = paneWidth;
         PANE_HEIGHT = paneHeight;
     }
@@ -53,7 +53,7 @@ public class Logic {
      * @param password - User input for chosen string to verify user identity
      * @return - boolean indicating if existing user credentials were matched
      */
-    public boolean authenticateUser(String username, String password){
+    public boolean authenticateUser(String username, String password)throws IllegalArgumentException, IllegalAccessError{
         return myPlayerData.authenticateUser(username, password);
     }
 
@@ -63,7 +63,7 @@ public class Logic {
      * @param password - User input for chosen string to verify user identity
      * @param passwordRepeated - User input for chosen string repeated to verify user identity
      */
-    public void createNewUser(String username, String password, String passwordRepeated){
+    public void createNewUser(String username, String password, String passwordRepeated)throws IllegalArgumentException{
         myPlayerData.createNewUser(username, password, passwordRepeated);
     }
 

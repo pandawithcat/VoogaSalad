@@ -2,6 +2,7 @@ package ActiveConfigs;
 
 import Configs.*;
 import Configs.EnemyPackage.EnemyConfig;
+import Configs.GamePackage.Game;
 import Configs.GamePackage.GameBehaviors.TowerAttack;
 import Configs.LevelPackage.Level;
 import Configs.LevelPackage.LevelBehaviors.Deflation;
@@ -33,7 +34,7 @@ public class ActiveLevel extends Level implements Updatable {
     int myScore = 0;
 
 
-    public ActiveLevel(Level level, double paneWidth, double paneHeight){//, MapFeature mapFeature) {
+    public ActiveLevel(Level level, Game myGame){//, MapFeature mapFeature) {
         super(level);
         activeEnemies = new ArrayList<>();
         activeProjectiles = new ArrayList<>();
@@ -45,8 +46,8 @@ public class ActiveLevel extends Level implements Updatable {
         gridHeight = getMyMapConfig().getGridHeight();
         gridWidth = getMyMapConfig().getGridWidth();
         recalculateMovementHeuristic();
-        this.paneHeight = paneHeight;
-        this.paneWidth = paneWidth;
+        this.paneHeight = myGame.getPaneHeight();
+        this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
 
     }
