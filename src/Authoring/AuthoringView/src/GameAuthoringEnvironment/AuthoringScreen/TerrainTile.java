@@ -1,6 +1,9 @@
 package GameAuthoringEnvironment.AuthoringScreen;
 
+import BackendExternalAPI.Model;
+import GameAuthoringEnvironment.AuthoringComponents.ConfigureImage;
 import javafx.event.EventHandler;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,13 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TerrainTile extends ImageView {
-    private Map<String, String> typeToImageMap;
+    private Map<String, Integer> typeToImageMap;
+    private Map<String, Boolean> typeToPath;
     private ImageView imageView;
     private boolean isPath;
     private String tileImString;
     private String type;
+    private TextField tf;
+    private int imageId;
 
-    public TerrainTile(int x, int y, Image image, String type, Map<String, String> map){
+
+    public TerrainTile(int x, int y, Image image, Map<String, Integer> map, Map<String, Boolean> boolMap){
         super(image);
         this.setX(x);
         this.setY(y);
@@ -29,19 +36,23 @@ public class TerrainTile extends ImageView {
         this.imageView=new ImageView(image);
         this.type="Grass";
         isPath=false;
-        tileImString="resources/grass.jpg";
+        imageId=26;
+        //tileImString="resources/grass.jpg";
 //        Tooltip tooltip = new Tooltip(tileImString+""+getPathString());
 //        Tooltip.install(this,tooltip);
         typeToImageMap=map;
+        typeToPath=boolMap;
+        tf=new TextField();
+        tf.setText("hello");
+
     }
-    public TerrainTile(Image image){
+    public TerrainTile(Image image,Map<String,Integer> map){
         super(image);
         this.imageView=new ImageView(image);
+        this.typeToImageMap=map;
     }
 
-    public Image getNewImage(String type){
-        return new Image(this.getClass().getClassLoader().getResourceAsStream(type.toLowerCase() + ".jpg"));
-    }
+
 
 
 
@@ -55,17 +66,17 @@ public class TerrainTile extends ImageView {
 //        else if(type.equals("Dirt")){
 //            changeToDirt();
 //        }
-        try {
-            this.setImage(new Image(new FileInputStream(typeToImageMap.get(myType))));
-        }
-        catch(FileNotFoundException f){
-            System.out.println(f);
-        }
-        if(!type.equals("Grass")){
-            setPath();
-        }
+        Model model = new Model();
+        this.setImage(model.getImage(typeToImageMap.get(myType)));
+
+
+//        if(!type.equals("Grass")){
+//            setPath();
+//        }
+        setAsPath(typeToPath.get(myType));
         type=myType;
-        tileImString=typeToImageMap.get(myType);
+        imageId=typeToImageMap.get(myType);
+        //tileImString=typeToImageMap.get(myType);
 
 
 
@@ -111,6 +122,10 @@ public class TerrainTile extends ImageView {
         type="Grass";
     }
 
+    public int getImageId(){
+        return imageId;
+    }
+
     public ImageView getImageView(){
         return imageView;
     }
@@ -123,6 +138,12 @@ public class TerrainTile extends ImageView {
     }
     public void setPath(){
         isPath=true;
+    }
+    public void setPathFalse(){
+        isPath=false;
+    }
+    public void setAsPath(boolean b){
+        isPath=b;
     }
     public String getPathString(){
         if(this.isPath){

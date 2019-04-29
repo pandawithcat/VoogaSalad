@@ -2,7 +2,7 @@ package Configs;
 
 public interface Info {
 
-    String getImage();
+    int getImage();
 
     String getName();
 
