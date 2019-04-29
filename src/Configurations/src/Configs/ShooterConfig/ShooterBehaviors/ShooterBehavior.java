@@ -5,7 +5,9 @@ import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
 import Configs.Behaviors.Behavior;
 import Configs.MapFeature;
+import Configs.ProjectilePackage.ProjectileConfig;
 import Configs.ShooterConfig.Shooter;
+import Configs.Updatable;
 import Configs.View;
 
 import java.util.Arrays;
@@ -30,24 +32,25 @@ public abstract class ShooterBehavior implements Behavior<Shooter> {
         return IMPLEMENTING_BEHAVIORS;
     }
 
-    protected void shoot(double... direction){
-            ActiveWeapon activeWeapon = myShooter.getMyShootable().getActiveWeapon();
-            ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
-            MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
-            double weaponX = myShooterMapFeature.getPixelXPos();
-            double weaponY = myShooterMapFeature.getPixelYPos();
-            double width = myShooterMapFeature.getPixelWidth();
-            double height = myShooterMapFeature.getPixelHeight();
-            double projectileStartXPos = weaponX + width/2;
-            double projectileStartYPos = weaponY + height/2;
-            for(Double dir:direction) {
-                ActiveProjectile activeProjectile = new ActiveProjectile(myShooter.getProjectileConfig(), myShooter.getShooterRange(), myActiveLevel);
-                MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,dir, myShooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth(),activeProjectile);
-                activeProjectile.setMyMapFeature(projectileMapFeature);
-                myActiveLevel.addToActiveProjectiles(activeProjectile);
-                myShooter.addToProjectilesFired();
-            }
-
+    protected void shoot(Updatable parent, double... direction){
+        Shooter shooter = (Shooter) parent;
+        ActiveWeapon activeWeapon = ((Shooter) parent).getMyShootable().getActiveWeapon();
+        ActiveLevel myActiveLevel =  activeWeapon.getActiveLevel();
+        MapFeature myShooterMapFeature = activeWeapon.getMapFeature();
+        double weaponX = myShooterMapFeature.getPixelXPos();
+        double weaponY = myShooterMapFeature.getPixelYPos();
+        double width = myShooterMapFeature.getPixelWidth();
+        double height = myShooterMapFeature.getPixelHeight();
+        ProjectileConfig projectileConfig = shooter.getProjectileConfig();
+        double projectileStartXPos = weaponX + width/2 - projectileConfig.getView().getWidth()/2;
+        double projectileStartYPos = weaponY + height/2 - projectileConfig.getView().getHeight()/2;
+        for(Double dir:direction) {
+            ActiveProjectile activeProjectile = new ActiveProjectile(projectileConfig, shooter.getShooterRange(), myActiveLevel);
+            MapFeature projectileMapFeature = new MapFeature(projectileStartXPos, projectileStartYPos,dir, shooter.getProjectileConfig().getView(), myActiveLevel.getPaneWidth(), myActiveLevel.getPaneHeight(), myActiveLevel.getGridWidth(), myActiveLevel.getGridWidth(),activeProjectile);
+            activeProjectile.setMyMapFeature(projectileMapFeature);
+            myActiveLevel.addToActiveProjectiles(activeProjectile);
+            shooter.addToProjectilesFired();
+        }
     }
 
 

@@ -16,8 +16,9 @@ public class GamePlayLeftSide extends VBox {
                             SelectionInterface home){
         setPrefWidth(width);
         setPrefHeight(height);
-        mySettings = new GamePlaySettingsBar(width,height * BOTTOM_RATIO, logic);
         myMap = new GamePlayMap(width,height * TOP_RATIO, logic, endLoop, home, mySettings);
+
+        mySettings = new GamePlaySettingsBar(width,height * BOTTOM_RATIO, logic);
         getChildren().addAll(myMap, mySettings);
     }
 

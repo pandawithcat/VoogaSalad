@@ -1,5 +1,6 @@
 package Configs.EnemyPackage.EnemyBehaviors;
 
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.EnemyPackage.EnemyConfig;
 import Configs.Updatable;
@@ -31,5 +32,10 @@ public class AI extends EnemyBehavior {
 
     }
 
-
+    @Override
+    public Behavior copy() {
+        AI ret = new AI(getMyEnemyConfig());
+        ret.speed = speed;
+        return ret;
+    }
 }

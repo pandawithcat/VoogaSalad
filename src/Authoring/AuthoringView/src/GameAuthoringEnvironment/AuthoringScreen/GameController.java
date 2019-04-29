@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -58,6 +59,7 @@ public class GameController {
         List<Button> allButton = new ArrayList<>();
         popupwindow.setTitle(myConfigurable.getClass().getSimpleName() + " Property Settings");
         VBox layout = new VBox(10.00);
+        layout.setAlignment(Pos.CENTER);
         VBox.setMargin(layout, new Insets(20, 20, 20, 20));
         //recursion
         Map<String, Object> myAttributesMap = displayScreens(myConfigurable, popupwindow, allButton, layout);
@@ -245,6 +247,7 @@ public class GameController {
                         Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                         List<Class> behaviorList = (List<Class>) myField.get(null);
                         ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl, true);
+                        configureBehavior.start(new Stage());
                     } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
                         myAlertFactory.createAlert("Behavior configured incorrectly. Try that again.");
                         handleConfigurableArray(myConfigurable, allButton, layout, myAttributesMap, key, value, definedAttributesMap);
@@ -259,6 +262,7 @@ public class GameController {
             ListView sourceView = new ListView<>();
 
             var buttonBar = new HBox();
+            buttonBar.setAlignment(Pos.CENTER);
             buttonBar.setSpacing(10);
             Button addNew = new Button("Add new " + objectLabel);
             Button confirmButton = new Button("Confirm");
@@ -353,6 +357,7 @@ public class GameController {
                 Field myField = cl.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                 List<Class> behaviorList = (List<Class>) myField.get(null);
                 ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, cl, true);
+                configureBehavior.start(new Stage());
             }
             else{
                 createConfigurable((Configurable) tempList.get(sourceView.getSelectionModel().getSelectedIndex()));
@@ -398,10 +403,6 @@ public class GameController {
 
                 try {
                     Class<?> clazz = Class.forName(value.getName());
-
-                    if(definedAttributesMap.keySet().contains(key)){
-
-                    }
                     //Special Case: Map
                     if (clazz.getSimpleName().equals("MapConfig")) {
                         if (definedAttributesMap.keySet().contains(key)) {
@@ -425,6 +426,7 @@ public class GameController {
                             Field myField = clazz.getDeclaredField("IMPLEMENTING_BEHAVIORS");
                             List<Class> behaviorList = (List<Class>) myField.get(null);
                             ConfigureBehavior configureBehavior = new ConfigureBehavior(myGameController, myConfigurable, myAttributesMap, behaviorList, key, clazz, false);
+                            configureBehavior.start(new Stage());
                     }
                     //rest should follow this
                     else {
@@ -466,6 +468,7 @@ public class GameController {
         Button confirmButton = new Button("Confirm");
 
         var nameAndTfBar = new HBox();
+        nameAndTfBar.setAlignment(Pos.CENTER);
         nameAndTfBar.getChildren().addAll(DISPLAY_LABEL, myTextField, chooseImageButton, confirmButton);
         chooseImageButton.setOnMouseClicked((new EventHandler<MouseEvent>() {
             //TODO(Louis) Change this so that image is called in from the server

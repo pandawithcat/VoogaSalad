@@ -1,6 +1,7 @@
 package Configs.ArsenalConfig.WeaponBehaviors;
 
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.ArsenalConfig.WeaponConfig;
 import Configs.DisplayState;
@@ -24,7 +25,9 @@ public class AmmoExpirable extends WeaponBehavior {
     public void update(double ms, Updatable parent) {
         try {
 //            System.out.println(((ActiveWeapon)parent).getShooter().getProjectilesFired());
-            if (((ActiveWeapon)parent).getShooter().getProjectilesFired()>=ammoLimit) ((ActiveWeapon)parent).getMapFeature().setDisplayState(DisplayState.DIED);
+            if (((ActiveWeapon)parent).getShooter().getProjectilesFired()>=ammoLimit) {
+                ((ActiveWeapon)parent).getMapFeature().setDisplayState(DisplayState.DIED);
+            }
         }
         catch (IllegalStateException e) {
             //Do nothing if there is no shooter
@@ -39,5 +42,12 @@ public class AmmoExpirable extends WeaponBehavior {
     @Override
     public Configuration getConfiguration() {
         return myConfiguration;
+    }
+
+    @Override
+    public Behavior copy() {
+        AmmoExpirable ret = new AmmoExpirable(getMyWeaponConfig());
+        ret.ammoLimit = ammoLimit;
+        return ret;
     }
 }

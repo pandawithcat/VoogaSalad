@@ -34,6 +34,7 @@ public class GameOutline extends Screen {
 
     public GameOutline(int width, int height) {
         super(width, height);
+        myTreeView.setPrefHeight(ScreenSize.getHeight());
         gameOutline = this;
         myHeight = height;
         myWidth = width;
@@ -53,8 +54,6 @@ public class GameOutline extends Screen {
 
     //recursively creates a treeview - only creates something that has been defined
     private void createTreeView(TreeItem<Configurable> myConfigurable) {
-
-
         Map<String, Object> myMap = myConfigurable.getValue().getConfiguration().getDefinedAttributes();
 
         for (String key : myMap.keySet()) {
@@ -139,7 +138,7 @@ public class GameOutline extends Screen {
         }
 
         Map<String, Object> myMap = configurable.getConfiguration().getDefinedAttributes();
-        System.out.println(myMap);
+//        System.out.println(myMap);
         for (String key : myMap.keySet()) {
             var value = myMap.get(key);
             //base case

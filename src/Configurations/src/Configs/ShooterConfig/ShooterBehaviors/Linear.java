@@ -3,6 +3,7 @@ package Configs.ShooterConfig.ShooterBehaviors;
 import ActiveConfigs.ActiveLevel;
 import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.MapFeature;
 import Configs.ShooterConfig.Shooter;
@@ -14,7 +15,9 @@ public class Linear extends ShooterBehavior {
     public static final String DISPLAY_LABEL = "Linear Shooter";
     @XStreamOmitField
     private transient Configuration myConfiguration;
-    private int startRound;
+
+    @Configure
+    private int direction;
 
     public Linear(Shooter shooter){
        super(shooter);
@@ -32,9 +35,14 @@ public class Linear extends ShooterBehavior {
 
     @Override
     public void update(double ms, Updatable parent) {
-        if((int)(ms/(1000/getMyShooter().getRateOfFire()))>=startRound) {
-            startRound = (int)(ms/(1000/getMyShooter().getRateOfFire()));
-            shoot(((Shooter)parent).getMyShootable().getActiveWeapon().getMapFeature().getDirection());
+        if((int)(ms/(1000/((Shooter)parent).getRateOfFire()))>startRound) {
+            startRound = (int)(ms/(1000/((Shooter)parent).getRateOfFire()));
+            shoot(parent,((Shooter)parent).getMyShootable().getActiveWeapon().getMapFeature().getDirection());
         }
+    }
+
+    @Override
+    public Behavior copy() {
+        return new Linear(getMyShooter());
     }
 }

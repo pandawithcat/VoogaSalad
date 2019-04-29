@@ -2,6 +2,8 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -43,7 +45,9 @@ public class StartingScreen {
         setStage();
     }
     private void setScene(){
+
         myModel = new Model();
+        final BooleanProperty firstTime = new SimpleBooleanProperty(true);
         myContatiner = new VBox();
         myContatiner.setSpacing(padding);
         myContatiner.setId("backdrop");
@@ -52,6 +56,12 @@ public class StartingScreen {
         ImageView imageView = new ImageView(test);
         idTf = new TextField();
         idTf.setPromptText("Enter ID");
+        idTf.focusedProperty().addListener((observable,  oldValue,  newValue) -> {
+            if(newValue && firstTime.get()){
+                myContatiner.requestFocus(); // Delegate the focus to container
+                firstTime.setValue(false); // Variable value changed for future references
+            }
+        });
         idTf.setPrefColumnCount(10);
         idTf.setMaxWidth(width/2);
         pwTf = new PasswordField();
@@ -79,6 +89,7 @@ public class StartingScreen {
     private void handleCreateAccount(MouseEvent event){
         //TODO Complete this part
         CreateAccount createAccount = new CreateAccount(this, myModel);
+        createAccount.start(new Stage());
     }
 
     private void handleLogin(MouseEvent event){
@@ -96,6 +107,7 @@ public class StartingScreen {
 
     private void makeGame(Game game){
         AuthoringVisualization authoringVisualization = new AuthoringVisualization(game);
+        authoringVisualization.start(new Stage());
         myStage.close();
     }
 

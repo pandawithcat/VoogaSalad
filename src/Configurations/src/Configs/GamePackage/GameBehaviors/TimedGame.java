@@ -1,6 +1,7 @@
 package Configs.GamePackage.GameBehaviors;
 
 import ActiveConfigs.ActiveLevel;
+import Configs.Behaviors.Behavior;
 import Configs.Configuration;
 import Configs.GamePackage.Game;
 import Configs.GamePackage.GameStatus;
@@ -9,7 +10,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.function.Predicate;
 
-public class TimeExpirable extends GameBehavior{
+public class TimedGame extends GameBehavior{
     public static final String DISPLAY_LABEL = "Beat the Timer";
     @Configure
     private int totalTimeInSec;
@@ -18,7 +19,7 @@ public class TimeExpirable extends GameBehavior{
     private transient Configuration myConfiguration;
 
 
-    public TimeExpirable(Game game) {
+    public TimedGame(Game game) {
         super(game);
         myConfiguration = new Configuration(this);
     }
@@ -26,10 +27,20 @@ public class TimeExpirable extends GameBehavior{
     @Override
     public void update(double ms, Updatable parent) {
         if(ms>=totalTimeInSec*1000) {
-            getMyGame().setGameStatus(GameStatus.OVER);
+            if(getMyGame().isLastLevel()) {
+                getMyGame().setGameStatus(GameStatus.OVER);
+            }
+            else getMyGame().setGameStatus(GameStatus.LEVELOVER);
         }
+
     }
 
+    @Override
+    public Behavior copy() {
+        TimedGame ret = new TimedGame(getMyGame());
+        ret.totalTimeInSec = totalTimeInSec;
+        return ret;
+    }
 
     @Override
     public Configuration getConfiguration() {

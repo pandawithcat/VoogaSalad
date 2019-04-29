@@ -4,6 +4,7 @@ import ActiveConfigs.ActiveLevel;
 import ActiveConfigs.ActiveProjectile;
 import ActiveConfigs.ActiveWeapon;
 import Configs.*;
+import Configs.Behaviors.Behavior;
 import Configs.ShooterConfig.Shooter;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -14,7 +15,6 @@ public class Radial extends ShooterBehavior {
     public static final String DISPLAY_LABEL = "Radial Shooting";
     @XStreamOmitField
     private transient Configuration myConfiguration;
-    private double startRound;
 
 
     public Radial(Shooter shooter){
@@ -34,9 +34,10 @@ public class Radial extends ShooterBehavior {
 
     @Override
     public void update(double ms, Updatable parent) {
-        if(ms>=startRound * ((1000/getMyShooter().getRateOfFire()))) {
-            startRound++;
-            shoot(0,60,120,180,240,300);
+
+        if((int)(ms/(1000/((Shooter)parent).getRateOfFire()))>startRound) {
+            startRound = (int)(ms/(1000/((Shooter)parent).getRateOfFire()));
+            shoot(parent, 0,60,120,180,240,300);
         }
         //NOTE: parent is the Shooter
 //        Shooter shooter = (Shooter) parent;
@@ -61,5 +62,10 @@ public class Radial extends ShooterBehavior {
 //                ((Shooter) parent).addToProjectilesFired(1);
 //            }
         }
+
+    @Override
+    public Behavior copy() {
+        return new Radial(getMyShooter());
     }
+}
 
