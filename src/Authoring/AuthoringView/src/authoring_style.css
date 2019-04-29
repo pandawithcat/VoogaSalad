@@ -67,6 +67,14 @@
     -fx-text-fill: #242d35;
     -fx-font-size: 14px;
 }
+.my-rect{
+    -fx-fill:
+            linear-gradient(#a0ff4f, #98e699);
+    -fx-stroke: #167bd6;
+    -fx-stroke-width: 5;
+    -fx-opacity: 1;
+    -fx-border-radius: 10;
+}
 
 .text-field {
     -fx-border-color: grey;
