@@ -32,6 +32,7 @@ public class PlayerData extends Data{
     public UserState getCurrentUserState(){
         System.out.println(currentUserID);
         System.out.println(currentGameID);
+        System.out.println(getSessionData().getMostRecentSessionForGame(currentUserID,currentGameID));
         return getSessionData().getMostRecentSessionForGame(currentUserID, currentGameID).getState();
     }
 

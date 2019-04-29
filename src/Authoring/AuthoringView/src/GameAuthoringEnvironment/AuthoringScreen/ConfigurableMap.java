@@ -326,7 +326,7 @@ public class ConfigurableMap extends Application {
                 }
                 MapConfig m = new MapConfig((Level) myLevel);
                 for(TerrainTile t : terrainTileList){
-                    Terrain tile = new Terrain(m, t.getTileImString(),(int) t.getY(), (int) t.getX(),t.getIsPath());
+                    Terrain tile = new Terrain(m, t.getImageId(),(int) t.getY(), (int) t.getX(),t.getIsPath());
 
                     tileList.add(tile);
                 }
