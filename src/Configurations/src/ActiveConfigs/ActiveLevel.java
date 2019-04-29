@@ -50,7 +50,6 @@ public class ActiveLevel extends Level implements Updatable {
         this.paneWidth = myGame.getPaneWidth();
         imagesToBeRemoved = new ArrayList<>();
         this.myGame = myGame;
-
     }
 
     private Cell[][] createMyGrid(){
@@ -172,15 +171,15 @@ public class ActiveLevel extends Level implements Updatable {
 
     public void removeWeapon(ActiveWeapon activeWeapon){
         activeWeapon.getMapFeature().setDisplayState(DisplayState.DIED);
-        Point check = new Point(activeWeapon.getMapFeature().getGridXPos(),activeWeapon.getMapFeature().getGridYPos());
-        Point toRemove = new Point(-100,-100);
+        if (getGame().getGameType() instanceof TowerAttack) {
+            Point check = new Point(activeWeapon.getMapFeature().getGridXPos(), activeWeapon.getMapFeature().getGridYPos());
+            Point toRemove = new Point(-100, -100);
 
-        for(Point p:goalPositions){
-            if (p.equals(check)){
-                toRemove = p;
+            for (Point p : goalPositions) {
+                if (p.equals(check)) {
+                    toRemove = p;
+                }
             }
-        }
-        if (toRemove.x!=-100){
             goalPositions.remove(toRemove);
         }
     }
