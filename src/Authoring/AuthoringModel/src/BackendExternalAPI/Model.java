@@ -67,30 +67,48 @@ public class Model {
         return myAuthoringData.authenticateUser(username, password);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+
+    /**
+     *
+     * @param username
+     * @param password
+     * @param passwordRepeated
+     */
     public void createNewUser(String username, String password, String passwordRepeated){
         myAuthoringData.createNewUser(username, password, passwordRepeated);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     *
+     * @return
+     */
     public List<GameInfo> getAuthoredGameLibrary(){
         return myAuthoringData.getAuthoredGames();
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     *
+     * @param selectedGame
+     * @return
+     */
     public Game loadGameObject(GameInfo selectedGame){
         XStream serializer = new XStream(new DomDriver());
         String gameXMLString = myAuthoringData.getGameString(selectedGame);
         return (Game)serializer.fromXML(gameXMLString);
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!
+    /**
+     *
+     * @param type
+     * @return
+     */
     public List<Integer> getImageOptions(AuthoringData.ImageType type){
         return myAuthoringData.getImages(type);
     }
 
     // Do Not Call Yet !!!!!!!!!!!!!!!
     // Use file chooser and pass selected File object into this method
+    // TODO: Do not think we are going to use this method anymore
     public int uploadImage(File newImageFile, AuthoringData.ImageType imageType) throws java.io.IOException{
         // TODO: Check length of image file and throw exception if too large
         int fileSize = (int) newImageFile.length();
@@ -101,31 +119,38 @@ public class Model {
         return myAuthoringData.storeImage(fileBytes, imageType);
     }
 
+
     private void checkFileSize(int size){
         if (size > MAX_FILE_SIZE){
             throw new IllegalArgumentException("Image file size exceeds 16 MB.  Please choose a smaller file");
         }
     }
 
-    // Do Not Call Yet !!!!!!!!!!!!!!!!
+    /**
+     *
+     * @param imageID
+     * @return
+     */
     public Image getImage(int imageID){
         byte[] imageBytes = myAuthoringData.getImage(imageID);
         InputStream byteIS = new ByteArrayInputStream(imageBytes);
         return new Image(byteIS);
     }
 
+    // TODO: Remove Method call
     private void updatePropertiesFile() throws IOException{
         FileInputStream propertiesIS = new FileInputStream(PROPERTIES_FILE_PATH);
         Properties myGameDetails = new Properties();
         myGameDetails.load(propertiesIS);
         myXMLFileName = myGame.getTitle() + XML_TAG;
         String propertyValue = myGame.getThumbnail() + REGEX + myGame.getDescription() + REGEX + myXMLFileName;
-        System.out.println(propertyValue);
+//        System.out.println(propertyValue);
         myGameDetails.setProperty(myGame.getTitle(),propertyValue);
         FileOutputStream propertiesOS = new FileOutputStream(PROPERTIES_FILE_PATH);
         myGameDetails.store(propertiesOS, null);
     }
 
+    // TODO: Remove method call
     private void writeToXMLFile() throws IOException {
         XStream mySerializer = new XStream(new DomDriver());
         String gameString = mySerializer.toXML(myGame);

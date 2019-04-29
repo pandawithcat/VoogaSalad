@@ -15,7 +15,7 @@ import static Internal.Authentication.*;
 
 public abstract class Data {
 
-    private final int MAX_LOGIN_ATTEMPTS = 3;
+    private final int MAX_LOGIN_ATTEMPTS = 4;
 
     protected int currentUserID;
     protected int currentGameID;
@@ -118,7 +118,7 @@ public abstract class Data {
      * @return - byte array of requested image
      */
     public byte[] getImage(int imageID){
-        return getImage(imageID);
+        return getImageData().fetchImage(imageID);
     }
 
 
