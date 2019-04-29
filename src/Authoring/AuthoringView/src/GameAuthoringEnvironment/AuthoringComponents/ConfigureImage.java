@@ -9,6 +9,7 @@ import GameAuthoringEnvironment.AuthoringScreen.ScreenSize;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -76,6 +77,9 @@ public class ConfigureImage {
         popUpWindow = new Stage();
         popUpWindow.setTitle("Image Editor");
         layout = new VBox(10.00);
+        layout.setAlignment(Pos.CENTER);
+        Label databaseLabel = new Label("Images from our Database");
+        databaseLabel.setFont(Font.font("Veranda", FontWeight.BOLD, 10));
         Model model = new Model();
 
         //TODO CHANGE This
@@ -96,6 +100,9 @@ public class ConfigureImage {
             Integer id = allImages.get(x);
             imageView.setOnMousePressed(e->addImageID(id, imageView1, promptSide));
         }
+        Button finished = new Button("Finish");
+        finished.setOnAction(e->finish());
+        layout.getChildren().add(finished);
         ScrollPane sp = new ScrollPane();
         sp.setPrefWidth(400);
         sp.setContent(layout);
@@ -105,6 +112,9 @@ public class ConfigureImage {
         Scene scene= new Scene(hBox, 800, 800);
         popUpWindow.setScene(scene);
         popUpWindow.show();
+    }
+    private void finish(){
+        this.popUpWindow.close();
     }
 
 }
