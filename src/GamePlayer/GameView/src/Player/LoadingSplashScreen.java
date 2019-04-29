@@ -223,6 +223,7 @@ public class LoadingSplashScreen extends Application{
                 accountGrid.getChildren().add(text);
             }
             logic.createNewUser(createAccountGrid.getUserName(), createAccountGrid.getPasswordField(), createAccountGrid.getPasswordCheck());
+            availableGames();
         } catch (Exception e){
             Text text = new Text(e.getMessage());
             text.setFill(Color.RED);
