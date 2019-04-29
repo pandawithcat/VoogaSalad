@@ -202,7 +202,7 @@ public class ActiveLevel extends Level implements Updatable {
             int y = expandedCell.getY() + yAdditions[i];
             if(isCellValid(x,y)){
                 if (x == 116|x==117|x == 118|x==119){
-                    System.out.println();
+//                    System.out.println();
                 }
                 if (heuristicType.equals("short")) {
                     calculateShortestDistanceHeuristic(pq, myGrid[x][y], expandedCell.getShortestDistanceHeuristic() + DISTANCE_HEURISTIC);
