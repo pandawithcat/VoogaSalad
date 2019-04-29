@@ -2,6 +2,7 @@ package GameAuthoringEnvironment.AuthoringScreen;
 
 import BackendExternalAPI.Model;
 import Configs.GamePackage.Game;
+import ExternalAPIs.GameInfo;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
@@ -23,6 +24,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.List;
 
 public class StartingScreen {
 
@@ -117,20 +119,21 @@ public class StartingScreen {
     }
 
     private void importGame(MouseEvent evemt){
-        FileChooser fileChooser = new FileChooser();
+
+       /* FileChooser fileChooser = new FileChooser();
 
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile != null) {
 
             String filepath = selectedFile.toString();
             // TODO(Louis) game should be created by reading in the xml
-            /*Game importedGame = new Game();
-            importedGame = new Model(filepath);*/
+            /Game importedGame = new Game();
+            importedGame = new Model(filepath);
 
             if (!filepath.endsWith("XML")) {
                 //TODO(Hyunjae) alert!
             }
-        }
+        }*/
         makeGame(new Game());
     }
 

@@ -32,12 +32,10 @@ public class Game implements Updatable, Configurable {
     @Configure
     private String myDescription;
     // TODO: Remove myThumbnail variable
+    /*@Configure
+    private String myThumbnail;*/
     @Configure
-    private String myThumbnail;
-    // TODO: Uncomment this new variable
-//    @Configure
-//    private int myThumbnailID:
-
+    private int myThumbnailID;
     @Configure
     private Level[] levelList = new Level[0];
     @Configure
@@ -151,8 +149,8 @@ public class Game implements Updatable, Configurable {
     }
 
     // TODO: Get rid of this method
-    public String getThumbnail(){
-        return myThumbnail;
+    public int getThumbnail(){
+        return myThumbnailID;
     }
 
     public int getThumbnailID(){
